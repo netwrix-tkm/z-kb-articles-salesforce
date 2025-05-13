@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: Hub connection failed. 403 Server message: Ip Address Blocked: LoginFailures
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JXgCAM" />
+    <meta name="Id" content="ka04u000000QmjNAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-02T11:47:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:44:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8171" />
+    <meta name="ArticleNumber" content="000008171" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <p>
+          This problem can occur when the Agent password being sent to the Hub Server is incorrect.
+        </p>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:													  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2017-09-06 14:22:43,230 [10] INFO Message - Hub connection failed (403 Server message: Ip Address Blocked: LoginFailures)
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="Rolling-LogFix:">Resolution</h2>
+
+        <ol>
+          <li>Stop the NNT Agent Service</li>
+          <li>
+            Navigate to your Agent Directory Which contains the Rolling-Log Files. Read more
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JPDCA2.html"
+              target="_blank"
+              >here</a
+            >
+            .
+          </li>
+          <li>Right Click and Edit the Hubdetails.xml file.</li>
+          <li>
+            Remove the <code>&lt;E1&gt;&lt;/E1&gt;</code> tags as they are the agent password which
+            has been encrypted
+          </li>
+          <li>
+            In the place of <code>&lt;E1&gt;&lt;/E1&gt;</code>, enter the
+            <code>&lt;Password&gt;&lt;/Password&gt;</code> tags. See an example of
+            <strong>HubDetails.xml</strong> below. The default password is used as an example.
+          </li>
+          <li>
+            In between the password entries, enter your Agent Account password as defined on your
+            NNT Hub Server
+          </li>
+          <li>Save the file out, replacing the old one</li>
+          <li>Restart the Agent service</li>
+        </ol>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <p class="title">
+            <span><strong>NOTE</strong></span
+            >: When you start the service, the agent will automatically re-encrypt your password,
+            and the <strong>E1</strong> tags will replace the password tags. Also, There is a ten
+            minute cool off when this happens. Now that the username and password has been corrected
+            the agent should register after the ten minutes has elapsed. This cool off period is
+            counted at the NNT Hub Server, and does not take effect at the agent level. If you have
+            stopped the service, you do not have to wait 10 minutes after restarting it.
+          </p>
+        </div>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <h3 class="title" id="hubdetailsxml_example">HubDetails.xml Example</h3>
+
+          <div class="confluence-information-macro-body">
+            <pre class="ckeditor_codeblock">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;HubDetails xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+
+       &lt;Url&gt;https://myserver.mydomain.local/api&lt;/Url&gt;
+
+       &lt;Username&gt;agent&lt;/Username&gt;
+
+       &lt;Password&gt;passWord121&lt;/Password&gt;
+
+       &lt;Proxy /&gt;
+
+       &lt;ProxyDomain /&gt;
+
+       &lt;ProxyUsername /&gt;
+
+       &lt;ProxyPassword /&gt;
+
+       &lt;UseDefaultProxy&gt;false&lt;/UseDefaultProxy&gt;
+
+       &lt;NamePrefix&gt;&lt;/NamePrefix&gt;
+
+       &lt;NameSuffix&gt;&lt;/NameSuffix&gt;
+
+       &lt;Thumbprint&gt;&lt;/Thumbprint&gt;
+
+&lt;/HubDetails&gt;
+</pre
+            >
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

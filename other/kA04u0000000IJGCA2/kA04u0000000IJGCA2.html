@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Remote Registry Auditing: Without admin permissions</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IJGCA2" />
+    <meta name="Id" content="ka04u000000Hck3AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:41:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:41:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7312" />
+    <meta name="ArticleNumber" content="000007312" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> This shows you how
+          to audit a remote registry without being an administrator on the target host.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Can't audit a remote
+          registry without being an administrator on the target host.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong
+          ><span class="wysiwyg-font-size-large">  </span
+          ><font size="3" face="Calibri"
+            >It is possible to audit a remote registry on a target host (even a domain controller)
+            without being an administrator of the target.</font
+          >
+        </p>
+        <p><font size="3" face="Calibri">There are two things that will need to be set:</font></p>
+        <p>Step 1:  Remote registry needs to be enabled on the target host</p>
+        <p>
+          <img
+            src="kA04u0000000IJGCA2_d32d4b3c-5457-41af-b454-672c2f3c76bb.png"
+            alt="rtaImage__1_.png"
+          />
+        </p>
+        <p>Step 2: One of two security parameters need to be set</p>
+        <ol>
+          <li>
+            <ol>
+              <li>
+                <p>
+                  The account being leveraged needs to be a member of the Backup Operators group on
+                  the target host, or, in the case of a domain controller, the ID would need to be
+                  added the built-in\backup operators group for the domain.<br /><img
+                    src="kA04u0000000IJGCA2_6d94d35f-5a90-4209-8751-18032e9af9f0.png"
+                    alt="rtaImage__2_.png"
+                  />
+                </p>
+              </li>
+              <li>
+                <p>
+                  If the client does not want to elevate the ID to backup operators, the ID would
+                  have to be given read access to this target host registry hive location directly: 
+                  HKLM\SYSTEM\CurrentControlSet\Control\SecurePipeServers\ winreg<br /><img
+                    src="kA04u0000000IJGCA2_ed6d0e35-efd5-4b49-8954-2336074cfb99.png"
+                    alt="rtaImage.png"
+                  />
+                </p>
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          <font size="3" face="Calibri"> </font
+          ><font size="3" face="Calibri"
+            >Once these two requirements are met, StealthAUDIT can audit any registry hive that is
+            open to Authenticated Users.</font
+          >
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - Registry<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          SA 6.3+<br /><br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to remove Enrollment Wizard from startup</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VzCAK" />
+    <meta name="Id" content="ka04u00000116Q2AAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:21.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-29T10:54:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="771" />
+    <meta name="ArticleNumber" content="000003190" />
+    <meta name="description" content="Disable Enrollment Wizard locally" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How can I remove Enrollment Wizard from startup after deployment of the client?
+        <hr />
+        Please see <a href="https://kb.netwrix.com/2014" target="_blank">KB2014</a> if you are
+        looking for a way to disable the client from adding itself to startup. During deployment the
+        client adds a Reg_SZ value called <strong>Netwrix Password Manager</strong> to the startup
+        registry key.<br /><img
+          alt="User-added image"
+          height="201"
+          src="kA00g000000H9VzCAK_ade3d66d-2217-4e62-bb90-48a44b4b0294.png"
+          width="500"
+        /><br />In 32-bit OS the key is HKEY_LOCAL_MACHINESOFTWAREMicrosoftWindowsCurrentVersionRun
+        In 64bit OS the key is
+        HKEY_LOCAL_MACHINESOFTWAREWow6432NodeMicrosoftWindowsCurrentVersionRun To prevent the
+        Enrollment wizard from running on startup you need to remove the value, or alternatively
+        change its value to point to a non-existing executable. The value can be removed or changed
+        on several machines by means of Group Policy.
+      </div>
+    </article>
+  </body>
+</html>

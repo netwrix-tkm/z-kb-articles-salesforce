@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Least Privilege Model for SQL Server Backend</title><meta name="label" content="skb"/><meta name="label" content="privilege_secure"/><meta name="KnowledgeArticleId" content="kA04u000000wnnrCAA"/><meta name="Id" content="ka0Qk000000D0yHIAS"/><meta name="LastPublishedDate" content="2024-03-25T13:51:30.000+0000"/><meta name="LastModifiedDate" content="2025-03-27T18:59:57.000+0000"/><meta name="FirstPublishedDate" content="2023-11-10T13:34:19.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8896"/><meta name="ArticleNumber" content="000008896"/><meta name="description" content="Least Privilege Model for SQL Server Backend"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<div>
+<p>This article provides the least privilege model for the MS SQL Server service accounts used by Netwrix Privilege Secure. This model applies exclusively to Privilege Secure for Access Management version 4.1 and higher, and only in environments where a SQL Server backend is being used. Further, you must use a SQL user, as Windows (Active Directory) authentication is not supported at this time.</p>
+</div>
+<h2 id="instructions">Instructions</h2>
+<div>
+<p>The service account used by Netwrix Privilege Secure requires the following privileges:</p>
+<h4 id="during_regular_usage">During regular usage</h4>
+<p>The service account requires the following roles on the PAM database:</p>
+<ol><li>
+<p><code>db_datareader</code></p>
+</li><li>
+<p><code>db_datawriter</code></p>
+</li><li>
+<p>EXECUTE permission: <code>GRANT EXECUTE TO [serviceaccount]</code></p>
+</li><li>
+<p>ALTER permission on the dbo schema</p>
+</li><li>
+<p>CREATE TABLE</p>
+</li></ol>
+<blockquote>
+<p><span class="Note"><strong>NOTE:</strong></span> As an alternate privilege, instead of 4. and 5. in the above list, the <code>db_ddladmin</code> role may be granted. The purpose of the ALTER/CREATE permissions, whether granted directly or through <code>ddladmin</code>, is to allow for non-temporary tables to be created and dropped inside of the NPS database during regular operation of the software.</p>
+</blockquote>
+<h4 id="during_installations_and_upgrades">During installations and upgrades</h4>
+<p>The service account must be granted the following additional permissions:</p>
+<ul><li>
+<p>CREATE TABLE permission: <code>GRANT CREATE TABLE TO [serviceaccount]</code></p>
+</li><li>
+<p>CREATE VIEW permission: <code>GRANT CREATE VIEW TO [serviceaccount]</code></p>
+</li><li>
+<p>REFERENCES permission ON <code>activity_configuration</code>: <code>GRANT REFERENCES ON activity_configuration TO [serviceaccount]</code></p>
+</li><li>
+<p>REFERENCES permission ON <code>scheduled_change_policy</code>: <code>GRANT REFERENCES ON scheduled_change_policy TO [serviceaccount]</code></p>
+</li><li>
+<p>REFERENCES permission ON <code>email_settings</code>: <code>GRANT REFERENCES ON email_settings TO [serviceaccount]</code></p>
+</li></ul>
+<p>These permissions can then be revoked after installation and upgrade:</p>
+<ul><li>
+<p>CREATE TABLE permission: <code>REVOKE CREATE TABLE TO [serviceaccount]</code></p>
+</li><li>
+<p>CREATE VIEW permission: <code>REVOKE CREATE VIEW TO [serviceaccount]</code></p>
+</li><li>
+<p>REFERENCES permission ON <code>activity_configuration</code>: <code>REVOKE REFERENCES ON activity_configuration TO [serviceaccount]</code></p>
+</li><li>
+<p>REFERENCES permission ON <code>scheduled_change_policy</code>: <code>REVOKE REFERENCES ON scheduled_change_policy TO [serviceaccount]</code></p>
+</li><li>
+<p>REFERENCES permission ON <code>email_settings</code>: <code>REVOKE REFERENCES ON email_settings TO [serviceaccount]</code></p>
+</li></ul>
+<blockquote>
+<p><span class="Note"><strong>IMPORTANT:</strong></span> It is critical that these permissions be granted to the service account during all installations and upgrades.</p>
+</blockquote>
+</div></div>
+</article></body></html>

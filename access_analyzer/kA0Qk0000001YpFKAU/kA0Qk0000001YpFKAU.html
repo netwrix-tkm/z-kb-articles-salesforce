@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SEEK System Scan Error: Could Not Load File or Assembly</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001YpFKAU" />
+    <meta name="Id" content="ka0Qk000000BTzZIAW" />
+    <meta name="LastPublishedDate" content="2024-12-05T21:52:32.000+0000" />
+    <meta name="LastModifiedDate" content="2024-12-09T17:24:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-05T21:52:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9304" />
+    <meta name="ArticleNumber" content="000009304" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>This is a work-in-progress article. The product
+            R&amp;D team has yet to review some or all of the information below.
+          </p>
+        </blockquote>
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            When running a File System SEEK scan in Enterprise Auditor, the system generates the
+            following error message:
+          </p>
+          <pre
+            class="has-inner-focus"
+          >Error during processing: Could not load file or assembly 'System.Data.SQLite, <br/>Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139' or one of its dependencies. <br/>The located assembly's manifest definition does not match the assembly reference. <br/>(Exception from HRESULT: 0x80131040)</pre>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>The System.Data.SQLite.dll versions may be outdated or mismatched.</p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>To resolve this error, please refer to the following steps:</p>
+          <ol>
+            <li>
+              <p>
+                Within the PowerShell prompt, navigate to the <code
+                  ><strong>%sainstalldir%</strong></code
+                >
+                folder path by running the PowerShell script below:
+              </p>
+              <pre><span><span dir="ltr">      Get-ChildItem -Recurse -Filter "system.data.sqlite.dll" | Format-List -property *version*</span></span> </pre>
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The default install path is
+                  <code>\Program Files (x86)\StealthAudit</code>.
+                </p>
+              </blockquote>
+              <img
+                src="kA0Qk0000001YpFKAU_b97803f9-1458-4dc6-a5d8-ea9bd6c26c63.png"
+                alt="image (5).png"
+                width="728"
+                height="420"
+              />
+            </li>
+            <li>
+              <p>
+                Once the proper .dll file has been identified, replace the outdated or mismatched
+                .dll file with the <strong>updated 1.0.117.0 version</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

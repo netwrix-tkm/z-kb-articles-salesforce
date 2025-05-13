@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthAUDIT History Retention in Solution Sets</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HsDCAU" />
+    <meta name="Id" content="ka04u000000HcaVAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:51:25.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:57:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:51:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5976" />
+    <meta name="ArticleNumber" content="000005976" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>
+          StealthAUDIT History Retention is enabled by default in the File System solution set but
+          no other solution sets or collection jobs. This is due to the way the solution sets write
+          their collected data back to the StealthAUDIT database.
+        </p>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Kevin Joyce</p>
+        <p><strong> </strong></p>
+        <p><strong>Product(s):</strong></p>
+        <p>
+          <strong><em>StealthAUDIT</em></strong>
+        </p>
+        <p>
+          <strong><em> </em></strong>
+        </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>N/A</p>
+        <p> </p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA - Solution Set - ADInventory</p>
+        <p>SA - Solution Set - File System</p>
+        <p>SA - Solution Set - SharePoint</p>
+        <p> </p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>N/A</p>
+        <p> </p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>N/A</p>
+        <p> </p>
+        <p><strong>Issue:</strong></p>
+        <p>
+          At the global level, StealthAUDIT History retention is disabled and should not be enabled
+          in almost all implementations. Individual solution sets or custom solutions can have their
+          history enabled at the solution level; however, you must understand how StealthAUDIT
+          History works to understand if you can or should enable it. History works by retaining
+          data within data collector result tables based on its configuration. Most solution sets,
+          besides a few, rely on the data collector results table to do their analysis and
+          reporting. Preserving more than just the most recent set of data in these tables can
+          result in inflated or duplicated data in reports.
+        </p>
+        <p><img src="kA04u0000000HsDCAU_1a3a0ae9-638d-420a-a13f-8c0c57cd5865.png" alt="" /></p>
+        <p>
+          History can be enabled to preserve data for a specific time period or set number of times
+          the job runs.
+        </p>
+        <p>
+          For example, StealthAUDIT History Retention is enabled by default in the File System
+          solution set, this is because the collection jobs in the solution set write to a managed
+          schema (e.g., SA_FSAA_* tables) as well as the data collector results table (e.g.,
+          SA_1-FSAA_System_Scans_Access).
+        </p>
+        <p><img src="kA04u0000000HsDCAU_4acfa414-c977-4ef4-95eb-7e7d4b9a04cf.png" alt="" /></p>
+        <p>
+          History can be enabled for the collection jobs in this solution set because the out of the
+          box reporting within the File System solution leverages the managed schema tables and not
+          the data collector results table. History is enabled here so you can identify how the job
+          has performed over the last 5 runs, as the data collector results table contains
+          summarized information around runtime, types and amount of data collected, etc. Being able
+          to report and analyze on trends of your collection jobs is possible through StealthAUDIT
+          History.
+        </p>
+        <p>
+          Two other solution sets that can support history at the collection level are .Active
+          Directory Inventory and SharePoint. That is because these two solution sets also write to
+          a managed schema, (e.g., SA_ADInventory_* and SA_SPAA_*) which the out of the box reports
+          rely on.
+        </p>
+        <p>
+          Two examples of solution sets that should never have their history enabled would be the
+          Active Directory Permissions Analyzer and Windows solutions. These solutions leverage data
+          collectors that write their collected data directly to the data collector results tables.
+          If you were to enable history, the out of the box reports would contain duplicated data.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

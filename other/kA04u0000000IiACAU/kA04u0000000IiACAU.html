@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SD_1.1_006</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IiACAU" />
+    <meta name="Id" content="ka04u000000HctzAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:28:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:28:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6991" />
+    <meta name="ArticleNumber" content="000006991" />
+    <meta name="description" content="360012019592" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> StealthDEFEND not
+          processing High Risk Permissions
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <b
+            >Instructions to resolve issue: 27086 - Stealth Defend not processing High Risk
+            Permissions</b
+          ><br />Attached is a ZIP file containing a python file "open_access.py" This is a
+          "patched" version of the python job that evaluates events for Dangerous Permissions.<br /><br />The
+          issue you have encountered was resolved in our 1.2 Version (releasing in August 2018) so
+          we have simply delivered this patched file to resolve the issue.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <b>Installing the Patch</b>
+        </p>
+        <ol>
+          <li>
+            Extract the "open_access.py" file in the attached ZIP file into "C:\Program
+            files\STEALTHbits\StealthDEFEND\JobService\Python\Jobs" directory and overwrite the
+            existing python file. This will "install" the new patched version of High Risk
+            Permissions.
+          </li>
+        </ol>
+         
+        <ol>
+          <li>
+            Next you should restart the Windows Service named "StealthDEFEND Job Manager" - this
+            will ensure the updated job is running.
+          </li>
+        </ol>
+         <br />At this point your backlogged High Risk Permission events should be evaluated and new
+        threats will be created for any threats found in the backlogged events. It may take a few
+        minutes for the backlogged high risk permission queue to start decreasing.<br /><br /> 
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="38">
+                <td colspan="1" rowspan="1" height="38" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SDHotfixes/SD_1.1_006.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SDHotfixes/SD_1.1_006.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthDEFEND<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          StealthDEFEND - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          1.1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SDFS-4140<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          1.1 HF 006 (Not included in CU builds)<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2037<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

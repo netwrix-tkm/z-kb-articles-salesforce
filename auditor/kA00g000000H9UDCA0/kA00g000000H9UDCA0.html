@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>What is "tombstoneLifetime" attribute and what is it used for?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9UDCA0" />
+    <meta name="Id" content="ka04u000000HcNyAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:33:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:33:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="670" />
+    <meta name="ArticleNumber" content="000003085" />
+    <meta name="description" content="tombstoneLifetime attribute" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+         
+
+        <span
+          ><span
+            >You can restore deleted Active Directory objects and their attributes using the
+            <strong>Netwrix Auditor Object Restore for Active Directory </strong>tool integrated
+            with Netwrix Auditor. The tool finds the information on deleted objects in the product
+            snapshots (this data is stored in the <strong>Long-Term Archive</strong>, local
+            file-based storage of audit data), and in <strong>AD tombstones.</strong>
+          </span></span
+        >
+
+        <span
+          ><span
+            >To be able to restore deleted AD objects, you must adjust the AD tombstone lifetime
+            property (set by default to<em> 60</em> days in Windows 2003 and to <em>180</em> in
+            Windows 2008 and above). Netwrix recommends setting it to 2 years (730 days). For
+            example, if you change both values to 365 days, you will only be able to restore objects
+            that were deleted within this period. You can specify any number of days, but a selected
+            value should not exceed the
+            <span class="MyVariablesLong-Term Archive">Long-Term Archive</span> retention period.
+            Take into consideration that increasing
+            <span class="SearchHighlight SearchHighlight1">tombstone</span> lifetime may affect
+            Active Directory performance and operability.</span
+          ></span
+        >
+        <div>
+          <span
+            ><span
+              >To adjust the <strong>tombstone lifetime </strong>attribute, perform the following
+              steps:</span
+            ></span
+          >
+
+          <b>NOTE:</b
+          ><span>
+            To perform this procedure, you will need the ADSI Edit utility. In Windows 2003 systems,
+            this utility is a component of Windows Server Support Tools. If it has not been
+            installed, download Windows Server Support Tools from the official website. On Windows
+            2008 systems and above, this component is installed together with the AD DS role.</span
+          >
+        </div>
+        <div>
+          <ol>
+            <li>
+              <span
+                ><span
+                  >Navigate to <b>Start</b> --&gt; <b>Programs</b> --&gt;
+                  <b>Administrative Tools</b> --&gt; <b>ADSI Edit</b>.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span
+                ><span
+                  >Right-click the <b>ADSI Edit</b> node and select the <b>Connect To</b> option. In
+                  the <b>Connection Settings</b> dialog, enable the
+                  <b>Select a well-known Naming Context </b>option and select
+                  <b>Configuration</b> from the drop-down list.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span
+                ><span
+                  >In the left pane, navigate to
+                  <b>Configuration &lt;You_Root_Domain_Name&gt;</b> --&gt;
+                  <b>CN=Configuration</b> --&gt; <b>CN=Services</b> --&gt;<b> CN=Windows NT -</b
+                  >-&gt; <b>CN=Directory Service </b>node. Right-click it and select
+                  <strong>Properties</strong>.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span
+                ><span
+                  >In the <b>CN=Directory Service Properties</b> dialog, in the
+                  <b>Attribute Editor</b> tab, locate the "<em>tombstoneLifetime</em>"
+                  attribute.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span
+                ><span>Select this attribute and click the <b>Edit</b> button.</span></span
+              >
+            </li>
+            <li>
+              <span><span>Set this attribute to any desired value (in days).</span></span>
+            </li>
+          </ol>
+          <div>
+            <span
+              ><span
+                >To modify the<strong> Long-Term Archive retention</strong> setting, perform the
+                following steps:</span
+              ></span
+            >
+          </div>
+        </div>
+        <div>
+          <ol>
+            <li>
+              <span
+                ><span
+                  >In Netwrix Auditor, navigate to the <b>Settings</b> node and select
+                  <strong>Long-Term </strong><b>Archive</b>.</span
+                ></span
+              >
+            </li>
+            <li>
+              <span
+                ><span
+                  >Under <b>Keep audit data for: </b>enter the value (in months) that corresponds to
+                  your tombstone lifetime attribute setting.</span
+                ></span
+              >
+            </li>
+          </ol>
+        </div>
+        <blockquote class="webkit-indent-blockquote">
+          <div>
+            <div>
+              <span
+                ><span
+                  ><b>NOTE: </b>All data older than the specified value will be deleted
+                  automatically on next data collection.</span
+                ></span
+              >
+            </div>
+          </div>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

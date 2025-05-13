@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>SQL Licensing in 9.0+</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IppCAE"/><meta name="Id" content="ka04u000000HcwgAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:36:54.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:11:49.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:36:54.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7255"/><meta name="ArticleNumber" content="000007255"/><meta name="description" content="360008408371"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> The SQL DC licensing has changed with the 9.0 release to support the addition of new database platforms</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <span><span><span><span class="MsoSubtleEmphasis"><span>Once the SQL Solution Set was re-released with StealthAUDIT 8.1, the SQL data collector was only laid down with a SQL specific license.</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>In 9.0, with the release of the Oracle Solution, the SQL DC must now be included as a Core DC due to the fact that both the Oracle and SQL License requires these dlls. This is because the same DC is used by both solutions, with additional DLLs used to distinguish what aspects of the data collector will be available based on licensing. This was done to accommodate allowing end users to scan both SQL and Oracle systems for Permissions, Activity, and/or Sensitive data with a single scan job (if they have both features properly licensed)</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>While the data collector component itself is laid down with core, functionality within that data collector will not work unless you have one or both of the following licenses</span></span></span></span></span> 
+</p><ul><li>
+<span><span><span><span class="MsoSubtleEmphasis"><span>SQL</span></span></span></span></span>
+</li><li><span><span><span><span class="MsoSubtleEmphasis"><span>Oracle</span></span></span></span></span></li></ul><span><span><span><i><span>The list below describes what dlls are laid down with each relevant licensable feature. </span></i></span></span></span>
+<ul><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>Core License now lays down</span></span></span></span> 
+<ul><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>DC/DCSQL.dll</span></span></span></span>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.dll</span></span></span></span>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll</span></span></span></span>
+</li><li class="MsoNoSpacing"><span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll</span></span></span></span></li></ul>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>      SQL License now only lays down</span></span></span></span> 
+<ul><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll</span></span></span></span>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SqlServer.dll</span></span></span></span>
+</li><li class="MsoNoSpacing"><span><span><span class="MsoSubtleEmphasis"><span>InstantSolutions/GROUP_SQL</span></span></span></span></li></ul>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>       Oracle License (NEW) lays down</span></span></span></span> 
+<ul><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Oracle.ManagedDataAccess.dll</span></span></span></span>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.Oracle.dll</span></span></span></span>
+</li><li class="MsoNoSpacing">
+<span><span><span class="MsoSubtleEmphasis"><span>PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Oracle.dll</span></span></span></span>
+</li><li class="MsoNoSpacing"><span><span><span class="MsoSubtleEmphasis"><span>InstantSolutions/GROUP_Oracle</span></span></span></span></li></ul>
+</li></ul><br/> <p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> </p><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - DC - SQL<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 9.0+<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 2408<br/></p></div>
+</article></body></html>

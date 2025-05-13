@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Index Was Outside the Bounds of Array Error</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110w7CAA"/><meta name="Id" content="ka0Qk0000002ijJIAQ"/><meta name="LastPublishedDate" content="2024-03-28T08:24:06.000+0000"/><meta name="LastModifiedDate" content="2024-03-28T08:24:56.000+0000"/><meta name="FirstPublishedDate" content="2023-07-25T11:20:11.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8687"/><meta name="ArticleNumber" content="000008687"/><meta name="description" content="Index Was Outside the Bounds of the Array Error in Netwrix Privilege Secure"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>Netwrix Privilege Secure generates the following error on each launch of the High Availability (HA) Configuration tool (NPS.HAMgr):</p>
+
+<pre class="has-inner-focus">Index was outside the bounds of the array.</pre>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The HA Configuration tool expects a port value at the end of the NPS Rest URL. In case you configured your NPS Rest URL to have no port, the HA Configuration tool prompts an error because it expects a port.</p>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>To verify how your NPS Rest URL is set up, refer to the following steps:</p>
+
+<ol><li>
+	<p>On the main Privilege Secure screen, click the <strong>Configuration</strong> tab.</p>
+	</li><li>
+	<p>In the left pane, select <strong>Services</strong>. The page will include the <strong>NPS Rest URL</strong> field. To learn more about the <strong>Services</strong> page in Netwrix Privilege Secure, refer to the following article: <a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.0/page/Content/PrivilegeSecure/Admin/Configuration/Page/Services.htm" target="_self">System Settings Pages − Services Page · v4.0 </a>.</p>
+
+	<div><img height="400" src="kA04u00000110w7CAA_51cbd41a-9f35-4dc2-840b-77cb3b307e43.png" width="650"/></div>
+	</li></ol>
+</blockquote>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Specify the 443 port in the NPS Rest URL. Refer to the following codeblock for the Rest URL syntax and example:</p>
+
+<pre class="has-inner-focus">FQDN:port
+https://pam.netwrix.com:443</pre>
+</div></div>
+</article></body></html>

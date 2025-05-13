@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_11.0_016</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I4ZCAU" />
+    <meta name="Id" content="ka04u000000HceyAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:00:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:02:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:00:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6175" />
+    <meta name="ArticleNumber" content="000006175" />
+    <meta name="description" content="360012217892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>
+          ORA-0942 Error when trying to scan an Oracle 12c or later database where Unified Auditing
+          is not enabled
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Justin Giemza and Bert Scalzo</p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>None</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>11.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA - Databases</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>SMPDB-1589</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>
+          V11.0.245.0<br />DC:<br />DCSQL.dll<br /><br />V11.0.245.0<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.SQLServer<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.Azure.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Azure.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.Oracle.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Oracle.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.MySQL.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.MySQL.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.PostgreSql.dll<br />Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.PostgreSql.dll<br /><br />V11.0.031.0<br />Stealthbits.StealthAUDIT.DataCollectors.Databases.Shared<br />Stealthbits.StealthAUDIT.DataCollectors.Databases.Shared.UI
+        </p>
+        <p><strong> </strong></p>
+        <p><strong> </strong></p>
+        <p><strong> </strong></p>
+        <p><strong>KB Type: </strong>Bug</p>
+        <p><strong>Issue:</strong></p>
+        <p>
+          When the Oracle_ActivityScan job is run against an Oracle 12c or later database, where the
+          Unified Auditing is not enabled the product logs and exception as follows:
+        </p>
+        <p>
+          Error in script 'Unified Activity' exception:
+          'Oracle.ManagedDataAccess.Client.OracleException (0x80004005) due to the ORA-00942 table
+          or view does not exist. The reason for the ORA-00942 is the query that we execute: SELECT
+          * FROM CONTAINER(UNIFIED_AUDIT_TRAIL) which will not work as the UNIFIED_AUDIT_TRAIL does
+          not exist as it is not even enabled. The fix for this issue is to first determine if the
+          Unified Auditing is enabled or not. If it is enabled then execute the above mentioned
+          query and if not revert to querying the data from traditional auditing views. The
+          following query will return a value of TRUE if unified auditing is enabled and a value of
+          FALSE if it is disabled: SELECT VALUE FROM V$OPTION WHERE PARAMETER='Unified Auditing';
+        </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog if an unblock button exists
+            there.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Exit StealthAUDIT console</li>
+          <li>
+            Copy and replace files from the folders in this hotfix to the corresponding folders in
+            SA Install dir.
+          </li>
+        </ol>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_016.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_016.zip</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

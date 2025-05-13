@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWinConsole_SIEntManager_7.2.0.236</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I3MCAU" />
+    <meta name="Id" content="ka04u000000HcecAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:04:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:02:02.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:04:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6252" />
+    <meta name="ArticleNumber" content="000006252" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>
+          Custom action to add groups to collections based on group creation policy all groups
+          containing YDN0
+        </p>
+        <p><strong>Behavior before Fix: </strong></p>
+        <p>
+          No ability to maintain a collection ensuring that all needed groups are included without
+          need of manual policy update
+        </p>
+        <p><strong>Behavior after Fix: </strong></p>
+        <p>Added Methods to Script Helper class</p>
+        <p> </p>
+        <p>
+          //tableName = name of dynamic collection table. Only letters, digits and '_' symbol
+          allowed
+        </p>
+        <p>//fieldName = name of field to populate. Only letters, digits and '_' symbol allowed</p>
+        <p>//returns - Reason of error or empty</p>
+        <p>public string InsertDynamicTableValue(string tableName, string fieldName)</p>
+        <p> </p>
+        <p>
+          //tableName = name of dynamic collection table. Only letters, digits and '_' symbol
+          allowed
+        </p>
+        <p>//fieldName = name of field to populate. Only letters, digits and '_' symbol allowed</p>
+        <p>//returns - Reason of error or empty</p>
+        <p>public string RemoveDynamicTableValue(string tableName, string fieldName)</p>
+        <p> </p>
+        <p>//collName = name of collection</p>
+        <p>//returns - Reason of error or empty</p>
+        <p>public string InsertLockObject(string collName)</p>
+        <p> </p>
+        <p>//collName = name of collection</p>
+        <p>//returns - Reason of error or empty</p>
+        <p>public string RemoveLockObject(string collName)</p>
+        <p> </p>
+        <p>
+          Also EM will check the following property to force non dynamic collections to be
+          refreshened both em and winconsole side:
+        </p>
+        <p> </p>
+        <p>public static int ForceUpdateNonDynamicCollection { get; set; }</p>
+        <p> </p>
+        <p><strong>Changes since Last Hotfix:</strong></p>
+        <p>I-7128 Implement Custom Action</p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Maxim Sidarau  </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>7.2.0.235 and older</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SI - Enterprise Manager</p>
+        <p>SI - Windows Console</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>I-7128</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>7.2.0.236</p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>Modules Included: </strong></p>
+        <p>SI - Enterprise Manager</p>
+        <p>SI - Windows Console</p>
+        <p><strong>YouTrack/Escalations: </strong>SI-4331 / 56913</p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p><strong>Instructions:</strong></p>
+        <p>The following SI modules should be upgrade to 7.2.0.236 or newer:</p>
+        <p>* SI Enterprise Manager</p>
+        <p>* SI Windows Console</p>
+        <p> </p>
+        <ol>
+          <li>Uninstall previous version of SI Console and EM</li>
+          <li>Install new version of SI Console and EM using SI Server installer</li>
+          <li>Upgrade SI Agents to 7.2.0.236 or newer</li>
+        </ol>
+        <p> </p>
+        <p>
+          7.2 Signed Agent:
+          <a
+            href="https://downloads.stealthbits.com/access/files/StealthINTERCEPT/7.2.0/Agents/SI%20Agent%28signed%29.exe"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/StealthINTERCEPT/7.2.0/Agents/SI%20Agent%28signed%29.exe</a
+          >
+        </p>
+        <p>
+          7.2 Unsigned Agent:
+          <a
+            href="https://downloads.stealthbits.com/access/files/StealthINTERCEPT/7.2.0/Agents/SI%20Agent.exe"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/StealthINTERCEPT/7.2.0/Agents/SI%20Agent.exe</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

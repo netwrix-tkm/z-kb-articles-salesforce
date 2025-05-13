@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Using the &lt;MAINTAINVIEWS&gt; Tag to Automatically Create Views Between Native Data Tables and a Specified Control Table</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IoECAU"/><meta name="Id" content="ka04u000000HcwDAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:39:50.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:11:29.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:39:50.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7291"/><meta name="ArticleNumber" content="000007291"/><meta name="description" content="360008408371"/></head><body><article class=" kb-articles"><div class="Content__c"><p> </p>
+<p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> How can I combine a custom table with standard SA data tables?</p>
+<p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> The <strong><span><span> </span></span></strong>tag is an optional tag that when added to GlobalOptions.XML, creates a view joining native data tables to a table specified.  If no table is specified, it joins to the SA_HostMasterTBL.  This feature was originally implemented specifically for use with Business Rules -where it can be sometimes necessary to qualify the rules condition based on information stored in a control table (such as OS Version or server role for example). <br/> <br/>To implement the tag, perform the following: </p>
+<ol><li>Close all open instances of StealthAUDIT </li><li>Open the file <strong><span><span>GlobalOptions.XML </span></span></strong><span><span>located in the root of the StealthAUDIT installation directory</span></span>
+<ol><li>
+<span><span>For default installations, the global options file is located:  C:\Program Files (x86)\STEALTHbits\StealthAUDIT\GlobalOptions.xml</span></span> </li></ol>
+</li><li>Navigate to bottom of the file.  Add the following before the closing  tag: </li></ol>
+<p><strong><span><span>            </span></span></strong><br/><strong><span><span>                        AUTO</span></span></strong><br/><strong><span><span>                        </span></span></strong><br/><strong><span><span>            </span></span></strong> </p>
+<ol><li>
+<span><span>Add the name of the table StealthAUDIT will use to join to source data tables within the <strong> </strong>tag</span></span> </li></ol>
+<p><strong><span><span>Note</span></span></strong><span><span>:  The join condition matches the value of <strong>[HOST]</strong> from the source data table to the value of <strong>[Name]</strong> in the specified control table</span></span><br/><br/><strong><span><span>**</span></span></strong><span><span>If no table is specified, the table used for the right side of the join will be <strong>SA_HostMasterTBL</strong></span></span> </p>
+<ol><li>
+<span><span>Save and close the file</span></span> </li><li>
+<span><span>Open StealthAUDIT, run a job containing a query.  Open SQL Management Studio, find the newly created view under the Views node within your StealthAUDIT database</span></span> </li></ol>
+<p><span><span>Considerations and items of note:</span></span> </p>
+<ul><li>
+<span><span>Implementing this tag will create a view for every native data table produced via the running of a query/table for each StealthAUDIT job executed</span></span>
+<ul><li>
+<span><span>A native data table is one produced via job &amp; query execution -not via SQL Scripting / Summary analysis</span></span> </li></ul>
+</li><li>
+<span><span>The name of the SQL view created will reflect the name of the source data table with an additional "_View" appended to the end of the table name ; i.e., <strong><em>SA_[JobName]_[TableName]_View</em></strong></span></span> </li><li>
+<span><span>When <strong>AUTO</strong> is specified for <strong/>, the feature is ON and views will be created through job execution.  When another value is specified, the feature is OFF</span></span> </li></ul>
+<p><span><span>When the <strong/> tag is empty, SA will produce an inner join with source tables and <strong>SA_HostMasterTBL</strong>.</span></span></p>
+<p> </p>
+<p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> Database/SQL;SA - Core<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> V6.x, V7.x<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 1496</p></div>
+</article></body></html>

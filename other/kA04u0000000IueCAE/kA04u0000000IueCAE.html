@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Exclude Trustees from Entitlement Reviews</title><meta name="label" content="access_info_center"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IueCAE"/><meta name="Id" content="ka0Qk0000002pZVIAY"/><meta name="LastPublishedDate" content="2024-04-05T16:02:07.000+0000"/><meta name="LastModifiedDate" content="2024-04-05T16:02:07.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:41:04.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7313"/><meta name="ArticleNumber" content="000007313"/><meta name="description" content="360008944451"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>Customers may want to exclude admins, other user accounts or groups, from appearing in Access Information Center (AIC) Entitlement Reviews.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>In certain cases, customers may want to exclude certain admins, other users, or groups from appearing in Access Information Center (AIC) Entitlement Reviews. This may be useful, so that end users don’t see what access admins and other users have over various resources.</p>
+</div>
+
+<h2 id="instructions">Instructions:</h2>
+
+<div>
+<p>To exclude a user or group from Entitlement Reviews, the object's SID and Trustee Type need to be added to the following database table:</p>
+
+<p class="wysiwyg-indent3"><strong>[SA_AIC_ResourceReviewIgnoredTrustees]</strong></p>
+
+<p>A Netwrix Enterprise Auditor job has been created that automates this process, which can be downloaded here:</p>
+
+<p><a href="https://downloads.stealthbits.com/access/files/Utilities/Jobs/AICExclusions.zip" target="_blank">https://downloads.stealthbits.com/access/files/Utilities/Jobs/AICExclusions.zip</a></p>
+
+<ul><li>Unzip “GROUP_Exclusions” from “AICExclusions.zip” to: %sainstallerdir%Jobs</li><li>Refresh the Enterprise Auditor Job tree, or restart Enterprise AUditor, to see the new “Exclusions” job group.</li></ul>
+
+<p>Before running the job, edit the following CSV with trustees (including the trustee type) that should be excluded from appearing in AIC Entitlement Reviews:</p>
+
+<p><strong>%sainstalldir%Jobs\GROUP_Exclusions\JOB_0.Import\Exclusions.csv</strong></p>
+
+<p>Each trustee should go on their own line, in the following format including the trustee type (a full list of trustee type values can be found below):</p>
+
+<p><strong>MYDOMAIN\MyUser,4</strong></p>
+
+<blockquote>
+<p><span><strong>NOTE:</strong></span> This Enterprise Auditor job will only work for trustee types 4 and 5 (AD user and AD group, respectively). Other trustee types can be manually added with SQL scripts (examples below.</p>
+</blockquote>
+
+<blockquote>
+<p><span><strong>NOTE:</strong></span> There cannot be a space after the comma, otherwise the user/group will not be properly added to the exclusions table.</p>
+</blockquote>
+
+<p>Specifying a trustee type supports the ability to specify any account type (e.g. not just groups and their members).</p>
+
+<div class="table-wrap"><table count-columns="2"><tbody><tr><td colspan="1" rowspan="1">
+			<p><strong><u>Trustee Type</u></strong></p>
+			</td><td colspan="1" rowspan="1">
+			<p><strong><u>​Description</u></strong></p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​0</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Unknown / Unresolved SID</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​1</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Security Principle</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​2</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Local User</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​3</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Local Group</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​4</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Global User</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​5</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Global Group</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​6</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​SharePoint User</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​7</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​SharePoint Group</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​8</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Unsupported / Possible Collection Issue</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​9</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Service Account</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>​10</p>
+			</td><td colspan="1" rowspan="1">
+			<p>​Computer</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>11</p>
+			</td><td colspan="1" rowspan="1">
+			<p>Unresolved Domain Principal</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>20</p>
+			</td><td colspan="1" rowspan="1">
+			<p>Unix User</p>
+			</td></tr><tr><td colspan="1" rowspan="1">
+			<p>21</p>
+			</td><td colspan="1" rowspan="1">
+			<p>Unix Group</p>
+			</td></tr></tbody></table></div>
+
+<p>Trustees can also be excluded via manual SQL scripts, rather than using the provided Enterprise Auditor job. </p>
+
+<blockquote>
+<p><span><strong>NOTE:</strong></span> To be added to the exclusion list, users must already exist in [SA_ADInventory_UsersView], and groups must already in exist in [SA_ADInventory_GroupsView] (from Enterprise Auditor scans).</p>
+</blockquote>
+
+<p><strong>Example SQL to add multiple Domain Users (trustee type 4) to the exclusion list:</strong></p>
+
+<p>INSERT INTO [SA_AIC_ResourceReviewIgnoredTrustees]</p>
+
+<p>SELECT ObjectSid,4 FROM SA_ADInventory_UsersView WHERE SamAccountName IN ('DomainUserA','DomainUserB')</p>
+
+<p><strong>Example SQL to add a Domain Group (trustee type 5) to the exclusion list:</strong></p>
+
+<p>INSERT INTO [SA_AIC_ResourceReviewIgnoredTrustees]</p>
+
+<p>SELECT ObjectSid,5 FROM SA_ADInventory_GroupsView WHERE SamAccountName IN ('Administrators') AND domainname = 'MYDOMAIN'</p>
+
+<p><strong>Example SQL to display excluded trustees:</strong></p>
+
+<p>SELECT * FROM [SA_AIC_ResourceReviewIgnoredTrustees]</p>
+
+<blockquote>
+<p><span><strong>NOTE:</strong></span> In older versions of the AIC this table ([SA_AIC_ResourceReviewIgnoredTrustees]) will need to be manually created.  In all newer versions the table is created automatically.</p>
+</blockquote>
+
+<p><strong>SQL table creation ([SA_AIC_ResourceReviewIgnoredTrustees]), if needed:</strong></p>
+
+<p>IF object_id('[SA_AIC_ResourceReviewIgnoredTrustees]','table') IS NOT NULL</p>
+
+<p>DROP TABLE [SA_AIC_ResourceReviewIgnoredTrustees]</p>
+
+<p>CREATE TABLE [dbo].[SA_AIC_ResourceReviewIgnoredTrustees](</p>
+
+<p>      [ObjectSid] [varchar](184) NOT NULL,</p>
+
+<p>      [TrusteeType] [smallint] NOT NULL,</p>
+
+<p>CONSTRAINT [PK_SA_AIC_ResourceReviewIgnoredTrustees] PRIMARY KEY CLUSTERED(</p>
+
+<p>      [ObjectSid] ASC)</p>
+
+<p>WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS  = ON)</p>
+
+<p>ON [PRIMARY]) ON [PRIMARY]</p>
+</div></div>
+</article></body></html>

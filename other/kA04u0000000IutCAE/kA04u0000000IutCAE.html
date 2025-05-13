@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Role Based Access (RBA) Error</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IutCAE"/><meta name="Id" content="ka04u000000HcyQAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:41:30.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:12:33.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:41:30.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7318"/><meta name="ArticleNumber" content="000007318"/><meta name="description" content="360008408371"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> StealthAUDIT opens one instance, but never starts up the application. <br/>Upon starting a second instance, it will throw an error 'Role Based Access configuration was broken.'</p>
+<p><strong><span class="wysiwyg-font-size-large">Instructions:  </span></strong>Removing or modifying the configuration of RBA will remove all the existing Roles created.</p>
+<p>All roles would need to be recreated after the below steps are followed.</p>
+<p>In some instances; StealthAUDIT opens one instance, but never starts up the application (no splash page).<br/>Upon starting a second instance, it will throw an error 'Role Based Access configuration was broken (The process cannot access the file 'path to PrivateAssemblies\rba-roles.conf' because it is being used by another process).<br/>The issue is caused by an incorrect registry key for the StealthAUDIT event log. <br/>Navigate to and delete the registry folder hkeylocal and all subkeys if it exists:</p>
+<p>machine/system/currentcontrolset/services/eventlog/application/StealthAUDIT <br/><br/></p>
+<p>1. On the occasion that there is a message:</p>
+<p>'Role Based Access configuration was broken"</p>
+<p>The REG_DWORD "RbaConfigured" can be deleted from the following Regkey:</p>
+<p>HKEY_LOCAL_MACHINE\Software\Wow6432Node\Stealthbits\</p>
+<p><br/>2. In this instance the following file also needs to be deleted:</p>
+<p>"rba.conf" file from the root of SA folder.</p>
+<p>Do not remove the rba.config from the private assemblies folder!</p>
+<p> </p>
+<p><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - Core;SA - RBA<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> All<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 1024</p></div>
+</article></body></html>

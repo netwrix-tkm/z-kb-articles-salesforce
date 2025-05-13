@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_6.0.0.400_7.0.0.283</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IjCCAU" />
+    <meta name="Id" content="ka04u000000HcuVAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:29:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:29:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7003" />
+    <meta name="ArticleNumber" content="000007003" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Problems with
+          Exchange on SB environment
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong><br />Problems with Exchange on SB environment<br /><strong
+            ><span>Behavior before Fix: </span></strong
+          >
+        </p>
+        <ul>
+          <li>Query delegate info on storage open. This causes significant delay.</li>
+          <li>
+            Some hooks perform more activity even if it is not needed according to active rules
+          </li>
+        </ul>
+        <strong><span>Behavior after Fix: </span></strong>
+        <ul>
+          <li>
+            Stop query delegate info during storage open. Query moved to set and delete operations
+            and only if folder permission blocking is enabled.
+          </li>
+          <li>
+            Don't check if message can be really opened. This can cause some message events with
+            unknown attributes.
+          </li>
+          <li>
+            Make several hooks lighter in case when some operations are not needed for active
+            policies.
+          </li>
+        </ul>
+        <b>Changes since Last Hotfix:</b><br />I-4927 Problems with Exchange on SB environment<br /><strong
+          ><span>Submitted by: </span></strong
+        ><br />Maxim Sidarau  <br /><strong><span>Affected Versions:</span></strong
+        ><br />6.0.0      SIWindowsAgent_6.0.0.400_I-4927<br />7.0.0     
+        SIWindowsAgent_7.0.0.283_I-4927<br /><strong><span>Affected Module:</span></strong
+        ><br />SI - Windows Agent<br /><strong><span>Dev Ticket:</span></strong
+        ><br />I-4927<br /><strong><span>Resolved in Version:</span></strong
+        ><br />6.0.0.400<br />7.0.0.283<br /><strong><span>KB Type: </span></strong
+        ><br />Hotfix<br /> <br /><b>Modules Included: </b>SI - Windows Agent<br /><b
+          >YouTrack/Escalations: </b
+        >I-4927<br /><b>Customers:  </b><br /><b
+          >Cumulative List of fixes included since Service Pack:</b
+        ><br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Applying patch
+          for SI Windows Agent:
+        </p>
+        <ol>
+          <li>Stop SIWindowsAgent service</li>
+          <li>Extract attached files:</li>
+        </ol>
+        <ul>
+          <li>
+            SI 6.0 -  to the " C:\Program Files (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent"
+            folder
+          </li>
+          <li>
+            SI 7.0 - to the "C:\Program Files\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder
+          </li>
+        </ul>
+        3. Start SIWindowsAgent service<br /><br /> 
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWindowsAgent_6.0.0.400_I-4927.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWindowsAgent_6.0.0.400_I-4927.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWindowsAgent_7.0.0.283_I-4927.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWindowsAgent_7.0.0.283_I-4927.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          6.0.0, 7.0.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          I-4927<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          6.0.0.400 7.0.0.283<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2352<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

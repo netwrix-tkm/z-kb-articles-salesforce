@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why are Events Missing in the Netwrix Auditor Health Log?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PEXKA2" />
+    <meta name="Id" content="ka0Qk0000001gzhIAA" />
+    <meta name="LastPublishedDate" content="2024-02-05T16:25:03.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-05T16:25:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-22T15:08:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9016" />
+    <meta name="ArticleNumber" content="000009016" />
+    <meta name="description" content="Why are Events Missing in the Netwrix Auditor Health Log?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>Why I do not see any events in the Netwrix Auditor Health Log?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>The issue occurs due to Windows Registry misconfiguration.</p>
+
+          <p>To resolve the issue, follow the steps below:</p>
+
+          <ol>
+            <li>
+              <p>On the <b>Auditor Server</b>, open the <b>Registry Editor</b>.</p>
+            </li>
+            <li>
+              <p>
+                In the <b>Registry Editor</b>, navigate to the following path:
+                HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\EventLog\Application\Windows Server
+                Audit Service.
+              </p>
+            </li>
+            <li>
+              <p>Backup the keys and then remove them completely.</p>
+            </li>
+            <li>
+              <p>Restart the computer that hosts the <b>Auditor Server</b>.</p>
+            </li>
+          </ol>
+
+          <p>
+            In Netwrix Auditor, navigate to <b>Health Status</b> dashboard and click the
+            <b>Health log</b> tile to make sure the events have been uploaded.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

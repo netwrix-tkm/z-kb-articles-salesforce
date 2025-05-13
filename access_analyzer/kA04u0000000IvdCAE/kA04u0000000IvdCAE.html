@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>What Does "Licensed Host Count Exceeded" Mean in the StealthAUDIT Banner?</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IvdCAE" />
+    <meta name="Id" content="ka04u000000HcydAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:38:17.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:12:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:42:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7342" />
+    <meta name="ArticleNumber" content="000007342" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> The StealthAUDIT
+          license mechanism is based on the number of rows in host inventory for legacy reasons.
+          Because the product is now typically licensed based on count of Active Directory users,
+          the banner indicating a problem with licensing can cause concern.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            >User opens the StealthAUDIT Console and the application banner contains the message
+            Licensed Host Count Exceeded</span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              >This message is generated when someone has added more hosts to their database than
+              they have been licensed for. To find out how many hosts an environment is licensed
+              for, go to the menu bar and select <strong>Help</strong> &gt;
+              <strong>About</strong> in the StealthAUDIT console. This displays  a window that shows
+              all licensed modules and a licensed hosts section. This number is controlled by the
+              license file.
+            </span></span
+          >
+        </p>
+
+        <p>
+          <span
+            ><span
+              >To increase the host count, contact your account manager or email
+              <a href="mailto:sales@stealthbits.com" target="_blank">sales@stealthbits.com</a>.
+            </span></span
+          ><span
+            ><span
+              >In most cases, there is no associated cost because the product is licensed on a per
+              user basis rather than on a per host basis. StealthAUDIT for Windows and StealthAUDIT
+              for Systems Governance are notable rare exceptions where licensing may be server-based
+              instead of user-based. The error has no impact on functionality of the product, and
+              reports will still be generated for all hosts scanned. The only other noticeable
+              result of exceeding a host count is that there is a watermark on the published
+              report.</span
+            ></span
+          ><br /><br /><span
+            ><span
+              >Most often, the reason that there are too many hosts is that there is a host
+              discovery task that is looking at too broad of a scope such as an IP Sweep or an
+              active directory query that looks at every OU instead of a single OU. If this is what
+              happened in your environment, you can reach out to
+              <a href="mailto:support@stealthbits.com" target="_blank">support@stealthbits.com</a>
+              and an engineer can assist you in removing the excess hosts and properly scoping the
+              discovery query.
+            </span></span
+          ><br /><br /><span
+            ><span
+              ><strong>Internal Note:</strong> Even though they may just need a new license file
+              with a higher host limit, the number of hosts can be considered a proxy for the size
+              of an organization. As such, the "Licensed host count exceeded: message may be an
+              indication that a true-up is in order. Perform a health check on the ADInventory job
+              group and verify the number of AD Users in production.</span
+            ></span
+          ><br /> 
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Core<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          All<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2423
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

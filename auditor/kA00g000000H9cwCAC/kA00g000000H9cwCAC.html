@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1216, 1217, 1218, 1219 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cwCAC" />
+    <meta name="Id" content="ka0Qk0000003cn7IAA" />
+    <meta name="LastPublishedDate" content="2024-05-07T10:13:54.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-07T10:14:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2465" />
+    <meta name="ArticleNumber" content="000003616" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues with failing to obtain data on users and groups."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Your SharePoint monitoring plan prompts one of the following error messages under Event
+            ID 1216, 1217, 1218, and 1219 in Health Log:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID 1216: The following error occurred when trying to launch the component
+responsible for collecting AD group membership from forest %forestName%: %errormsg%.</pre
+          >
+
+          <pre class="has-inner-focus">
+Event ID 1217: The following error occurred when trying to delete temporary data on AD group membership from the local storage: %errormsg%.</pre
+          >
+
+          <pre class="has-inner-focus">
+Event ID 1218: The following unexpected error occurred when trying to collect AD group membership: %errormsg%.</pre
+          >
+
+          <pre class="has-inner-focus">
+Event ID 1219: AD group membership was resolved with the following error: %errormsg%.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor is unable to collect data on group membership of users who made changes.
+            This does not affect audit data integrity and only affects the possibility to filter
+            data by groups in audit reports. Most likely, this is due to access issues to the AD
+            domain that users belong to, or the membership database.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Refer to the following default path to the
+              membership database:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">%ProgramData%\Netwrix Auditor\ShortTerm\Netwrix Auditor for SharePoint\&lt;GUID&gt;\Temp\AuditArchive\Membership\Memberships.db</code></pre>
+          </blockquote>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                In case the error message contains a file name, verify the file is accessible and is
+                not used by another process.
+              </p>
+            </li>
+            <li>
+              <p>
+                Alternatively, omit these events from the Netwrix Auditor System Health event log.
+                The <code>omiteventloglist.txt</code> list includes a list of omitted events. Refer
+                to the following default path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%Working_Folder%Netwrix Auditor for SharePoint\Configuration\&lt;GUID\&gt;</code></pre>
+
+              <p>
+                Refer to the following article for additional information on syntax:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/SharePoint/Scope.htm"
+                  target="_self"
+                  >SharePoint − SharePoint Monitoring Scope · v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/SharePoint/Overview.htm"
+                  target="_self"
+                  >Monitoring Plans − SharePoint · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

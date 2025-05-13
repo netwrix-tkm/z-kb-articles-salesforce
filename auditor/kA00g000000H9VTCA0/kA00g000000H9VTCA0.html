@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Why Netwrix executable files and dynamic-link library (DLL) files are trying to connect to
+      external IP addresses
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VTCA0" />
+    <meta name="Id" content="ka04u000000HcOkAAK" />
+    <meta name="LastPublishedDate" content="2020-06-04T10:29:13.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="738" />
+    <meta name="ArticleNumber" content="000003158" />
+    <meta
+      name="description"
+      content="cloudflare, external ip, certificate, 108.162.232.207, 108.162.232.206, code signing, DigiCert"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        If access to the Internet on Netwrix server is denied you may see some Netwrix files are
+        trying to connect to IP addresses outside of your organization using HTTP protocol.<br /> <br />This
+        is caused by Code signing verification.
+        <a href="https://en.wikipedia.org/wiki/Code_signing" target="_blank">Code signing</a> is the
+        process of digitally signing executables and scripts to confirm the software author and
+        guarantee that the code has not been altered or corrupted since it was signed. The process
+        employs the use of a cryptographic hash to validate authenticity and integrity. Code signing
+        is used on Windows and Mac OS X to authenticate software on first run, ensuring that the
+        software has not been maliciously tampered with by a third-party distributor or download
+        site.<br />The public key used to authenticate the code signature should be traceable back
+        to a trusted root authority CA, preferably using a secure public key infrastructure
+        (PKI).<br /> <br />Netwrix files are signed using a certificate that was issued by Symantec
+        Class 3 SHA256 Code Signing CA. Symantec has sold their Certificates Authority business to
+        <a href="https://www.digicert.com/code-signing/" target="_blank">DigiCert</a>. DigiCert root
+        certificates are usually added to Trusted Root Certification Authorities certificate store
+        in latest versions of Windows Server and Windows Desktop operating systems.<br /> <br />Being
+        that it’s not the executable itself connects to eternal IP to verify the signature, it’s
+        operating system doing that on behalf of an EXE.<br /> <br />Since different companies are
+        using different ISPs the route to the trusted CA can be different. Thus the IP addresses an
+        EXE is trying to access to verify signature can also differ.<br /> <br />If you want
+        attempts to connect to external IPs to stop you may need to temporary allow internet access
+        on the Netwrix Server so the certificates will be verified and added to trusted CA store on
+        the server. Disabling the Code signing verification is a huge security risk, we do not
+        recommend to do that.<br /> <br />Unless you have policy that restricts executing of
+        unverified files enabled, inability to verify files certificates does not cause any problems
+        with collecting the data by Netwrix Auditor
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Configure Website Accessibility Using Server Hostname Only?</title><meta name="label" content="employees_v"/><meta name="label" content="password_reset_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000YZZKA2"/><meta name="Id" content="ka0Qk0000002jDxIAI"/><meta name="LastPublishedDate" content="2024-03-28T15:55:44.000+0000"/><meta name="LastModifiedDate" content="2024-03-28T15:55:44.000+0000"/><meta name="FirstPublishedDate" content="2024-03-28T15:55:44.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9102"/><meta name="ArticleNumber" content="000009102"/><meta name="description" content="How to Configure Website Accessibility Using Server Hostname Only"/></head><body><article class=" kb-articles"><div class="Content__c"><blockquote>
+<div><span><strong>!</strong></span> This article is currently under review. Some of the information below may not be up to date.</div>
+</blockquote>
+
+<h2 id="question">Question</h2>
+
+<div>
+<p>How to get Netwrix Password Reset to redirect a site to its hostname?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<p>Follow the steps below to configure Netwrix Password Reset to redirect a site to its hostname:</p>
+
+<ol><li>
+	<p>Open <b>IIS Manager</b>.</p>
+	</li><li>
+	<p>Select <b>Default web site</b> and click <b>Advanced Settings...</b> in the right pane.</p>
+
+	<p>NPR1</p>
+	</li><li>
+	<p>Change the <b>Application Pool</b> from <b>DefaultAppPool</b> to <b>Netwrix Password Reset</b>.</p>
+
+	<p>NPR2</p>
+	</li><li>
+	<p>Change <b>Physical Path</b> from <b>%SystemDrive%\inetpub\wwwroot</b> to <b>%SystemDrive%\inetpub\wwwroot\pwreset</b>.</p>
+
+	<p>NPR3</p>
+	</li><li>
+	<p>Click <b>OK</b>, then double-click the <b>Default Document</b> icon in the middle pane.</p>
+
+	<p>NPR4</p>
+	</li><li>
+	<p>Click <b>Add...</b> in the right pane, then enter <b>en_default.htm</b> and press <b>Enter</b>.</p>
+
+	<p>NPR5</p>
+	</li><li>
+	<p>Double-click <b>Handler Mappings</b> and select <b>ISAPI-dll</b>.</p>
+	</li><li>
+	<p>click <b>Edit Feature Permissions...</b> in the right pane.</p>
+
+	<p>NPR7</p>
+	</li><li>
+	<p>Check <b>Execute</b>, then <b>OK</b>.</p>
+	</li></ol>
+
+<p>Your default page when inputting Hostname or IP address should now be your Netwrix Password Reset site</p>
+
+<p>NPR8</p>
+</div></div>
+</article></body></html>

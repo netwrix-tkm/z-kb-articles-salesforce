@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_7.0.1.658_SI-4116</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Hw3CAE" />
+    <meta name="Id" content="ka04u000000HcbmAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:16:33.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:59:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:16:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6451" />
+    <meta name="ArticleNumber" content="000006451" />
+    <meta name="description" content="360012021532" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>High File Monitor CPU utilization</p>
+        <p><strong>Behavior before Fix: </strong></p>
+        <p>Rule Engine Path evaluation is slow in case of big number of monitored GPO</p>
+        <p><strong>Behavior after Fix: </strong></p>
+        <p>
+          There is new configuration parameter in the SIWindowsAgent.exe.config file:
+          ‘gpoFoldersSearchLimit’
+        </p>
+        <p>Default value is "30"</p>
+        <p>
+          If we will see more than 30 folders there then instead if listing individual folders we
+          will put higher level folder.
+        </p>
+        <p><strong>Changes since Last Hotfix:</strong></p>
+        <p>I-6535 [LINK - OCC] SI-4116 51413 - High File Monitor CPU utilization</p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Maxim Sidarau  </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>7.0.1      SIWindowsAgent_7.0.1.658_I-6535</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SI - Windows Agent</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>I-6535</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>7.0.1.658</p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>Modules Included: </strong>SI - Windows Agent</p>
+        <p><strong>YouTrack/Escalations: </strong>I-6535</p>
+        <p><strong>Customers:  </strong></p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p><strong>Instructions:</strong></p>
+        <p>Upgrade SI Agent to 7.0.1.658 or newer</p>
+      </div>
+    </article>
+  </body>
+</html>

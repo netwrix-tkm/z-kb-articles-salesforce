@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Confidential Client Is Not Supported in Cross Cloud Request</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111K0CAI" />
+    <meta name="Id" content="ka0Qk0000001FMnIAM" />
+    <meta name="LastPublishedDate" content="2024-01-05T13:31:39.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-05T13:31:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-09T15:13:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8846" />
+    <meta name="ArticleNumber" content="000008846" />
+    <meta
+      name="description"
+      content="Confidential Client Is Not Supported in Cross Cloud Request"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error is prompted in any Azure-based MP:</p>
+
+          <pre class="has-inner-focus">
+SharePoint Online: Cannot add the item for auditing due to the following error:
+AADSTS900382: Confidential Client is not supported in Cross Cloud request.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            The bug that has been fixed in Netwrix Auditor 10.6 build 12299. <br />OR<br />The
+            <strong>NationalClouds.xml</strong> files are misconfigured for GCC\GCCH MPs.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Check you Auditor version. If it is older than <strong>10.6.12299</strong>, upgrade to
+            the lates version. <br />Adjust the <strong>EndpointType</strong> value in corresponding
+            <strong>NationalClouds.xml</strong> files. Refer to the GCC\GCCH article for additional
+            information on templates:
+            <a
+              href="https://nwxcorp.sharepoint.com/sites/SupportWiki2/SitePages/Azure-and-EXOnline--GCC-and-GCC-High.aspx"
+              target="_blank"
+              >Azure and EXOnline: GCC and GCC High</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

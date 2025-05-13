@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Windows Server TLS 1.0/1.1 Deprecation</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IIkCAM" />
+    <meta name="Id" content="ka04u00000117cYAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-06T11:47:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-06T11:47:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:14:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6403" />
+    <meta name="ArticleNumber" content="000006403" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            In response to numerous vulnerabilities associated with deprecated cryptographic
+            protocols, customers frequently express the need to disable SSL or TLS 1.0/1.1 for
+            StealthAUDIT Reporting or Access Information Center. It is important to note that our
+            products are constructed atop the Microsoft IIS/SChannel technology stack to power these
+            server components.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>
+            For the configuration of the SChannel registry keys, follow the recommendations in this
+            article:
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/restrict-cryptographic-algorithms-protocols-schannel"
+              target="_blank"
+              >Restrict the use of certain cryptographic algorithms and protocols in Schannel.dll ⸱
+              Microsoft 🡥</a
+            >
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <strong>TIP:</strong> We recommend customers to review the list of ciphers and
+            cryptographic algorithms with their internal security teams to understand what
+            combination both meets the needs of their security best practices as well as the
+            platforms that are required to access our product. Stealthbits recommends disabling SSL
+            and TLS 1.0, and 1.1 whenever possible.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            As an alternative to manually manipulating the registry there is a tool called IISCrypt.
+            It helps to provide an easy to configure experience for these settings. While the name
+            implies that it is targeted at IIS, it also works for our internal webserver. You can
+            download the tool here:
+            <a href="https://www.nartac.com/Products/IISCrypto/" target="_blank"
+              >IIS Crypto – ⸱ Nartac Software 🡥</a
+            >
+          </p>
+
+          <p>A screenshot is shown below for convenience:</p>
+        </div>
+
+        <p>
+          <img
+            alt="iiscrypto.png"
+            src="kA04u0000000IIkCAM_9fbdc373-e357-4beb-b097-eeb235acce2b.png"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

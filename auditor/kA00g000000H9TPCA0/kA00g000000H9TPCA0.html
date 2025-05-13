@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to omit certain object changes from being reported?</title>
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TPCA0" />
+    <meta name="Id" content="ka04u000000HcNBAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="618" />
+    <meta name="ArticleNumber" content="000003035" />
+    <meta name="description" content="How to omit certain object changes from being reported?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to omit certain object changes from being reported?
+
+        <hr />
+
+        The Server Configuration Change Reporter software provides the option to exclude certain
+        data from the reports. In the product installation folder, you can find a number of files
+        named "omit***.txt". For example, the file called omitregkeys.txt contains a list of
+        registry keys that are not stored in the Server Configuration Change Reporter snapshot. Each
+        one of these omit files contains examples of the file’s use (special symbols used: * - any
+        symbol, # - comment, this line will not be processed). <br /><br />Examples from the
+        omitpathlist.txt: <br />
+        <div>
+          1.
+          <a href="file://server1/root/cimv2" target="_blank">Server1rootcimv2</a>:Win32_BaseBoard*
+          <br />
+          Specifies that data related to the Win32_BaseBoard class from the rootcimv2 namespace on
+          the Server1 server will not be included; <br /><br />2.
+          <a href="file://server1/root/cimv2" target="_blank">Server1rootcimv2</a>* <br />
+          Specifies that data from the rootcimv2 namespace on the Server1 server will not be
+          included; <br /><br />3.
+          <a href="file://server1/" target="_blank">Server1</a>*Win32_Keyboard* <br />
+          Specifies that data related to the Win32_Keyboard class on the Server1 server will not be
+          included; <br /><br />4. *Win32_CacheMemory* <br />
+          Specifies that data related to the Win32_CacheMemory class on all the servers will not be
+          included; <br /><br />5. *rootaspnet* <br />
+          Specifies that data from the rootaspnet namespace on all the servers will not be included;
+          <br /><br />6.
+          <a href="file://server1/root/cimv2" target="_blank">Server1rootcimv2</a
+          >:Win32_UsbHub.deviceid="usb<a href="file://root_hub//4&amp;630cc7&amp;0" target="_blank">
+            oot_hub4&amp;630cc7&amp;0</a
+          >
+          <br />
+          Specifies that data related to the deviceid="usb<a
+            href="file://root_hub//4&amp;630cc7&amp;0"
+            target="_blank"
+          >
+            oot_hub4&amp;630cc7&amp;0</a
+          >" object of the Win32_UsbHub class from the namespace rootcimv2 on the Server1 server
+          will not be included; <br /><br />7.
+          <a href="file://server1/" target="_blank">Server1</a>*.deviceid="usb<a
+            href="file://root_hub//4&amp;630cc7&amp;0"
+            target="_blank"
+          >
+            oot_hub4&amp;630cc7&amp;0</a
+          >" <br />
+          Specifies that data related to the deviceid="usb<a
+            href="file://root_hub//4&amp;630cc7&amp;0"
+            target="_blank"
+          >
+            oot_hub4&amp;630cc7&amp;0</a
+          >" object on the Server1 server will not be included <br /><br />8. *.deviceid="usb<a
+            href="file://root_hub//4&amp;630cc7&amp;0"
+            target="_blank"
+          >
+            oot_hub4&amp;630cc7&amp;0</a
+          >" <br />
+          Specifies that data related to the deviceid="usb<a
+            href="file://root_hub//4&amp;630cc7&amp;0"
+            target="_blank"
+          >
+            oot_hub4&amp;630cc7&amp;0</a
+          >" object on all the servers will not be included. <br /><br />9.
+          *ScheduledTasksClass*.*MicrosoftWindowsCustomer Experience Improvement ProgramServer*
+          <br />
+          Specifies that data related to the Windows Customer Experience Improvement Program
+          scheduled tasks will not be included
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

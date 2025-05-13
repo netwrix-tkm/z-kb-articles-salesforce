@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Empty Password Expiration Notifier Emails</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000011109CAA" />
+    <meta name="Id" content="ka0Qk0000004ptZIAQ" />
+    <meta name="LastPublishedDate" content="2024-07-30T09:07:48.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-30T09:07:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-07T09:56:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8714" />
+    <meta name="ArticleNumber" content="000008714" />
+    <meta name="description" content="Empty Password Expiration Notifier Emails" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Netwrix Auditor Password Expiration Notifier (PEN) sends empty notification emails.</p>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>One of the following issues is present in your environment:</p>
+
+          <ol>
+            <li>
+              <p>TLS 1.2 is not configured on the Auditor server.</p>
+            </li>
+            <li>
+              <p>The implicit SSL connection mode is not supported by your SMTP server.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Refer to the respective resolution for the cause in your environment:</p>
+
+          <ol>
+            <li>
+              <p>
+                Verify that TLS 1.2 is correctly configured in your Auditor server. Refer to the
+                following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                  target="_blank"
+                  >Сonnection Issue when TLS 1.2 Is Required</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Disable the implicit SSL connection mode in PEN.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Run PEN. Select the affected monitoring plan and click <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Notifications</strong> tab, uncheck the
+                    <strong>Use the Implicit SSL Connection Mode</strong> checkbox. Click
+                    <strong>Save</strong> to save changes.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                  target="_blank"
+                  >Сonnection Issue when TLS 1.2 Is Required</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Account Lockout Examiner generates excessive traffic in the network</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cACAS" />
+    <meta name="Id" content="ka04u000000HcUvAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1406" />
+    <meta name="ArticleNumber" content="000003568" />
+    <meta name="description" content="The KB explains how to reduce traffic loading." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        NetWrix Account Lockout Examiner generates excessive traffic in the network
+
+        <hr />
+
+        NetWrix Account Lockout Examiner gets information from Windows security logs. The product
+        connects to domain controllers (DCs) to find lockout events. Then it connects to
+        workstations to find detailed information about the invalid logon attempts, which caused the
+        lockouts. When the product is configured to monitor all DCs in your domain, it establishes
+        connections with all DCs as well as their subject workstations.
+
+        <hr />
+
+        To reduce the bandwidth usage, do the following:
+        <ol>
+          <li>Run Registry Editor: navigate to Start &gt; Run, type in regedit and click OK.</li>
+          <li>
+            Navigate to HKLMSoftware[Wow6432Node]NetWrixAccount Lockout Examiner (Wow6432Node only
+            for x64 OS).
+          </li>
+          <li>Set 'readlog' to 0.</li>
+          <li>Create a new DWORD value 'UseWatcher' and set its value to 1.</li>
+          <li>Set 'UseWMI_Workstations' to 1</li>
+          <li>Restart Netwrix Account Lockout Examiner Service via the Services snap-in.</li>
+        </ol>
+        This will change method of event collection and should reduce bandwidth utilization. There
+        is also an option to disable examination of workstations. In this case name of the process
+        that cause invalid logon will never be shown.. To disable examination of workstations, do
+        the following:
+        <ol>
+          <li>Run Registry Editor: navigate to Start &gt; Run, type in regedit and click OK.</li>
+          <li>
+            Navigate to HKLMSoftware[Wow6432Node]NetWrixAccount Lockout Examiner (Wow6432Node only
+            for x64 OS).
+          </li>
+          <li>Create a new DWORD value 'PF_Enabled' and set its value to 0.</li>
+          <li>Restart NetWrix Account Lockout Examiner Service via the Services snap-in.</li>
+        </ol>
+        <img
+          src="kA00g000000H9cACAS_5fc5a785-957b-46dc-85b4-7eb99c07c936.png"
+          alt="User-added image"
+          width="500"
+          height="181"
+        />
+      </div>
+    </article>
+  </body>
+</html>

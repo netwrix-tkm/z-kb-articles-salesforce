@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>File Systems Events Not Appearing in Netwrix Threat Manager From the Netwrix Activity Monitor Agent(s)</title><meta name="label" content="threat_manager"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001qUPKAY"/><meta name="Id" content="ka0Qk000000CpYDIA0"/><meta name="LastPublishedDate" content="2025-03-14T16:19:15.000+0000"/><meta name="LastModifiedDate" content="2025-03-17T13:43:21.000+0000"/><meta name="FirstPublishedDate" content="2025-03-14T16:19:15.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9360"/><meta name="ArticleNumber" content="000009360"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+<div>
+<p>Netwrix Threat Manager (NTM) is not receiving events from Netwrix Activity Monitor (NAM) file system event collection.</p>
+</div>
+<h2 id="cause">Cause</h2>
+<div>
+<p>The incorrect <strong>Syslog</strong> message template of <strong>LEEF</strong> was selected.</p>
+<img src="kA0Qk0000001qUPKAY_63f145e2-23c4-4d8c-8881-abae71263374.png" alt="" width="560" height="480"/> </div>
+<h2 id="resolution">Resolution</h2>
+<div>
+<p>To resolve this issue, change the <a href="https://helpcenter.netwrix.com/bundle/ActivityMonitor_7.0/page/Content/ActivityMonitor/Admin/Outputs/Syslog.htm#for_windows_file_server_hosts" target="_self">Syslog message template</a> from <strong>LEEF</strong> to <strong>Netwrix Threat Manager (StealthDEFEND)</strong> as per the steps below:</p>
+<ol><li>
+<p>Within the NAM console, click <strong>Monitored Hosts</strong> to select the needed host output for the <strong>Syslog</strong> item and Select <strong>Edit</strong>.<br/><img src="kA0Qk0000001qUPKAY_bb76d220-4bfb-4a12-b866-f6e1eb542ae6.png" alt="" width="416" height="189"/> <br/><br/></p>
+</li><li>
+<p>Confirm the server and port needed for NTM.</p>
+</li><li>
+<p>Click the ellipsis to open the Message Template window, select the <strong>Netwrix Threat Manager (StealthDEFEND)</strong> Template, and click <strong>OK</strong>.</p>
+<img src="kA0Qk0000001qUPKAY_2b4b66a2-4b5f-44c2-9b74-7b8d47cfbce6.png" alt="" width="560" height="551"/> <br/><br/></li><li>
+<p>Click <strong>Test</strong> to verify the template setting and click <strong>OK</strong>.</p>
+<blockquote>
+<p><span class="Note"><strong>NOTE: </strong></span>This is UDP, so there is no true confirmation that a connection is/was made.</p>
+</blockquote>
+<img src="kA0Qk0000001qUPKAY_0563d14e-85ca-4d2f-9097-59519148adcb.png" alt="" width="560" height="540"/> <br/><br/></li><li>
+<p>Return to the NTM Web console and check for new events once posted.</p>
+<blockquote>
+<p><span class="Note"><strong>NOTE:</strong></span> This could take several minutes for the agent to update and for new events to occur.</p>
+</blockquote>
+</li></ol>
+</div>
+<h2 id="related_article">Related Article</h2>
+<div>
+<ul><li><a href="https://helpcenter.netwrix.com/bundle/ActivityMonitor_7.0/page/Content/ActivityMonitor/Admin/Outputs/Syslog.htm#for_windows_file_server_hosts" target="_self">Syslog Tab</a></li></ul>
+</div></div>
+</article></body></html>

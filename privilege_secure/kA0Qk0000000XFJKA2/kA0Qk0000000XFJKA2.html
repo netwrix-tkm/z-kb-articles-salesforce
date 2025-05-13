@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Domain Could Not Be Reached Error</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000XFJKA2"/><meta name="Id" content="ka0Qk0000002irNIAQ"/><meta name="LastPublishedDate" content="2024-03-28T09:28:02.000+0000"/><meta name="LastModifiedDate" content="2024-03-28T10:47:08.000+0000"/><meta name="FirstPublishedDate" content="2024-03-28T09:28:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9088"/><meta name="ArticleNumber" content="000009088"/><meta name="description" content="Domain Could Not Be Reached Error"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>Netwrix Privilege Secure generates the following error when running an Active Directory (AD) sync with the <strong>Use TLS</strong> option enabled:</p>
+
+<pre class="has-inner-focus">AD Sync [ERR] 'Unable to connect to %domain% with credential %affected_account% with SSL:
+'Domain could not be reached. Check logs for details.'</pre>
+
+<p>If the <strong>Use TLS</strong> option is disabled, the AD sync completes with no errors.</p>
+</div>
+
+<h2 id="causes">Causes</h2>
+
+<div>
+<ol><li>
+	<p>Firewall exclusions for LDAP/LDAPS ports are misconfigured in your environment.</p>
+	</li><li>
+	<p>The domain name cannot be resolved to any DC in your environment.</p>
+	</li></ol>
+</div>
+
+<h2 id="resolutions">Resolutions</h2>
+
+<div>
+<ul><li>
+	<p>Verify the LDAP/LDAPS ports are open in your environment. Refer to the following article for additional information on ports required for Netwrix Privilege Secure: <a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.1/page/Content/PrivilegeSecure/AccessManagement/Requirements/Ports.htm" target="_self">Requirements − Ports Requirements · v4.1</a>.</p>
+	</li><li>
+	<p>Issue Kerberos authentication certificates to domain controllers in your environment.</p>
+
+	<blockquote>
+	<p><strong>TIP: </strong>The <strong>Use TLS</strong> feature is optional—it is not required to perform AD syncs. When the feature is enabled, the LDAPS protocol is used. It requires the ability to resolve both domain names and FQDNs.</p>
+
+	<p>When the <strong>Use TLS</strong> feature is disabled, only the ability to resolve domain names in your environment is required.</p>
+	</blockquote>
+	</li></ul>
+</div>
+
+<h2 id="related_articles">Related articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.1/page/Content/PrivilegeSecure/AccessManagement/Requirements/Ports.htm" target="_self">Requirements − Ports Requirements · v4.1</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

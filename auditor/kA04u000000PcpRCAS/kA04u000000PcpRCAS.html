@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to specify Dell EMC Unity server as a monitored item</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PcpRCAS" />
+    <meta name="Id" content="ka04u000000HdETAA0" />
+    <meta name="LastPublishedDate" content="2020-07-17T14:04:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-07-17T14:04:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5806" />
+    <meta name="ArticleNumber" content="000005806" />
+    <meta name="description" content="How-to-specify-a-EMC-Unity-server-as-monitored-item" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            ><span
+              >To audit Dell EMC Unity storage system, Netwrix Auditor needs to access its registry
+              data. For that, FQDN of the Unity storage system is required. Enter it when adding a
+              Dell EMC Unity storage as a monitored item in the Netwrix Auditor monitoring plan.<br /><br />Alternatively,
+              you can enter the IP address. In this case, consider that if your Netwrix Auditor
+              server is located in another domain (untrusted domain or workgroup), then you should
+              ensure any of the following:</span
+            ></span
+          >
+        </p>
+
+        <ul>
+          <li>
+            <span
+              ><span
+                >A reverse lookup zone is configured on the DNS server for the Unity system - to
+                resolve its IP address into FQDN.</span
+              ></span
+            >
+          </li>
+        </ul>
+
+        <p>
+          <span><span>-OR-</span></span>
+        </p>
+
+        <ul>
+          <li>
+            <span
+              ><span
+                > Netwrix Auditor data collecting account has <i>Read</i> permissions for the
+                <b>OU=EMC NAS servers</b> node in Active Directory.  </span
+              ></span
+            >
+          </li>
+        </ul>
+
+        <p>
+          <br /><span
+            ><span
+              >Otherwise, data collection will fail, reporting an error caused by network path not
+              found.</span
+            ></span
+          ><br /> 
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

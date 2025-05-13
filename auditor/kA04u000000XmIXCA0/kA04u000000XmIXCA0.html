@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Data Matcher Timeout</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA04u000000XmIXCA0" />
+    <meta name="Id" content="ka0Qk0000001m5pIAA" />
+    <meta name="LastPublishedDate" content="2024-02-12T11:48:09.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-12T11:48:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-02-01T17:12:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5852" />
+    <meta name="ArticleNumber" content="000005852" />
+    <meta name="description" content="Data Matcher Timeout" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario">Scenario</h3>
+        Netwrix Data Classification reports are showing No Data Found<br /><br />The following error
+        may be present in your instance:
+        <div>
+          <br />DataMatchingWorker: Data matching has been terminated by the following error:
+          System.Data.SqlClient.SqlException (0x80131904): Execution Timeout Expired.  The timeout
+          period elapsed prior to completion of the operation or the server is not responding.
+          ---&gt; System.ComponentModel.Win32Exception (0x80004005): The wait operation timed out
+        </div>
+
+        <div>
+          <br />This error will be found in the <b>DDC Provider log</b>, by default located here:
+          (<b
+            >C:\ProgramData\Netwrix Auditor\Logs\Data Discovery and
+            Classification\Tracing\Netwrix.DDC.Service_FileServers.log</b
+          >). <br /> 
+          <h3 id="solution">Solution</h3>
+          To resolve the issue:
+
+          <ol>
+            <li>
+              Open <b>DDCCoreSettings.xml</b> with a text editor (C:\ProgramData\Netwrix
+              Auditor\Data Discovery and Classification\DDCCoreSettings.xml)
+            </li>
+            <li>Increase the SQLCommandTimeout from 1200 to 12000.</li>
+            <li>Save the file</li>
+            <li>Restart the Netwrix Auditor DDC Provider service</li>
+            <li>Wait up to 24 hours for the matching process to run</li>
+            <li>Check Netwrix Data Classification reports</li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

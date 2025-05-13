@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Information About Foreign Group Members (Foreign Security Principals) Missing in Active
+      Directory State-in-time Reports
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110xZCAQ" />
+    <meta name="Id" content="ka04u000001179bAAA" />
+    <meta name="LastPublishedDate" content="2023-08-14T14:03:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-14T14:03:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-28T11:56:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8697" />
+    <meta name="ArticleNumber" content="000008697" />
+    <meta
+      name="description"
+      content="This article explains why information about foreign group members (Foreign security principals) is missing in the Active Directory state-in-time reports based on historical snapshots."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The Active Directory state-in-time reports based on historical snapshots do not contain
+            data for foreign group members (Foreign security principals).
+          </p>
+        </div>
+
+        <div>
+          <h2 id="cause">Cause</h2>
+
+          <div>
+            <p>
+              An Active Directory domain contains the information about the objects and their
+              attributes belonging to this domain. The <b>Group Members</b> report uses a
+              cross-domain membership feature, it means that data collected in different monitoring
+              plans then aggregated to show the final membership. Thus, the product cannot work with
+              historical snapshots, because there is no guarantee that historical snapshots for
+              other domains are also uploaded and all of them were taken at the same time, i.e., the
+              data from other monitoring plans that could be collected at different time cannot be
+              shown in the reports.
+            </p>
+          </div>
+
+          <h2 id="resolution">Resolution</h2>
+
+          <div>
+            <p>
+              Information about foreign group members (Foreign security principals) available only
+              in the state-in-time reports based on a current session. This is expected behavior of
+              the product.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

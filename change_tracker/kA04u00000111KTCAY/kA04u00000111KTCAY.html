@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 413 Request Entity Too Large</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111KTCAY" />
+    <meta name="Id" content="ka04u00000118AVAAY" />
+    <meta name="LastPublishedDate" content="2023-10-13T10:26:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-13T10:26:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-11T15:21:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8852" />
+    <meta name="ArticleNumber" content="000008852" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the Error 413 Request Entity Too Large."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A windows Server where Netwrix Change Tracker Agent is installed is online for a few
+            hours and goes down. And the agent's rolling-log contains the following erroe:
+          </p>
+
+          <pre class="has-inner-focus">
+The remote server returned an error: (413) Request Entity Too Large.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The <code>maxAllowedContentLength</code> setting is configured incorrectly in the
+            configuration file.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Edit the web.config file according the instructions below.</p>
+
+          <ol>
+            <li>
+              <p>
+                On the problematic server, navigate to
+                <em>C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub</em> and locate the
+                <b>web.config file</b>.
+              </p>
+            </li>
+            <li>
+              <p>Take a backup of the web.config file:</p>
+
+              <ul>
+                <li>
+                  Before making any changes to the web.config file, it is recommended to take a
+                  backup for safety.
+                </li>
+                <li>
+                  Copy the web.config file and save it to a different location on your system.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Open the <b>web.config</b> file using a text editor.</p>
+            </li>
+            <li>
+              <p>
+                Modify the <code>maxAllowedContentLength</code> setting: Locate the
+                <code>system.webServer</code> section and add or modify the following line:
+              </p>
+
+              <div>
+                <pre class="has-inner-focus">&lt;security&gt;
+&lt;requestFiltering&gt;
+&lt;requestLimits maxAllowedContentLength="214748364" /&gt;
+&lt;/requestFiltering&gt;
+&lt;/security&gt;<code class="lang-Registry">security
+</code></pre>
+              </div>
+
+              <p>
+                Set the <code>maxAllowedContentLength</code> value to <code>214748364</code>. The
+                default value should be <code>67108864</code>. For reference, 1MB is 1048576 bytes.
+              </p>
+            </li>
+            <li>
+              <p>Save your edits in the web.config file.</p>
+            </li>
+            <li>Restart the IIS service.</li>
+          </ol>
+
+          <p>
+            By following these steps, you should be able to resolve the issue. Remember to take a
+            backup of the web.config file before making any changes to ensure you can revert back if
+            needed.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

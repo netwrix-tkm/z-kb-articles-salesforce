@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Could Not Open Registry Key for Reading</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000b1BKAQ" />
+    <meta name="Id" content="ka0Qk0000004p8nIAA" />
+    <meta name="LastPublishedDate" content="2024-07-29T11:12:15.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-29T11:12:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-11T17:11:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9131" />
+    <meta name="ArticleNumber" content="000009131" />
+    <meta
+      name="description"
+      content="Unable to Generate Reports on Who Performed What Actions, When, and Where in Netwrix Enterprise Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>This is an unvalidated article. The product
+            R&amp;D team has yet to review some or all of information below.
+          </p>
+        </blockquote>
+
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>The following symptoms are present in your Netwrix Enterprise Auditor environment:</p>
+
+          <ul>
+            <li>
+              <p>
+                A File System Activity Scan (FSAC) job in your Netwrix Enterprise Auditor prompts
+                the following error:
+              </p>
+
+              <pre class="has-inner-focus">
+Error during processing:  
+Could not open registry key SYSTEM\CurrentControlSet\Services\SBTLogging\Parameters for reading: 
+The system cannot find the file specified (2); local: False</pre
+              >
+            </li>
+            <li>
+              <p>
+                Enterprise Auditor does not generate new reports or fails to add new data to
+                reports.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The Netwrix Activity Monitor agents are not installed in the affected hosts.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                Manually install the Activity Monitor agents on the affected hosts. Refer to the
+                following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/ActivityMonitor_7.1/page/Content/ActivityMonitor/Install/Agent/Manual.htm"
+                  target="_self"
+                  >Manually Install the Activity Agent · v7.1</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Configure Activity Monitor to monitor respective hosts.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>The used server names for the monitored
+                  servers should match the server names in the
+                  <strong>Host Management</strong> list. Refer to the following steps to edit the
+                  host name:
+                </p>
+
+                <ul>
+                  <li>
+                    <p>
+                      In the <strong>Host Management</strong> menu of Enterprise Auditor, select the
+                      host and click <strong>View/Edit Host</strong> in the right pane. Click
+                      <strong>Edit</strong> to introduce changes to the details.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Alternatively, you can use the <strong>Report Hostname as</strong> feature in
+                      AIC. Refer to the following article for additional information:
+                      <a
+                        href="https://helpcenter.netwrix.com/bundle/ActivityMonitor_7.1/page/Content/ActivityMonitor/Admin/Outputs/AdditionalProperties.htm"
+                        target="_self"
+                        >Output Types — Additional Properties Tab · v7.1</a
+                      >.
+                    </p>
+                  </li>
+                </ul>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Run the 1-FSAC system scans. Verify that all hosts can be successfully scanned
+                without the missing registry key error.
+              </p>
+            </li>
+            <li>
+              <p>Review the relevant reports.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/ActivityMonitor_7.1/page/Content/ActivityMonitor/Install/Agent/Manual.htm"
+                  target="_self"
+                  >Manually Install the Activity Agent · v7.1</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/ActivityMonitor_7.1/page/Content/ActivityMonitor/Admin/Outputs/AdditionalProperties.htm"
+                  target="_self"
+                  >Output Types — Additional Properties Tab · v7.1</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

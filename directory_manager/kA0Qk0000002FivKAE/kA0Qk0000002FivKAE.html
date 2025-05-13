@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Display Moderators for Exchange Distribution Lists in the Portal</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002FivKAE" />
+    <meta name="Id" content="ka0Qk000000DRdWIAW" />
+    <meta name="LastPublishedDate" content="2025-04-15T20:31:34.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:22:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-28T23:00:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10116" />
+    <meta name="ArticleNumber" content="000010116" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 11 or above</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article outlines the process of modifying the Netwrix Directory Manager (formerly
+          Netwrix GroupID) portal to show moderator settings for distribution lists configured in
+          Microsoft Exchange, using specific Active Directory attributes.
+        </p>
+        <div> </div>
+        <p>
+          The following attributes are associated with message moderation for on-premise Microsoft
+          Exchange:
+        </p>
+        <ul>
+          <li>
+            <strong>msExchEnableModeration</strong>: Enables or disables message moderation for a
+            distribution group. When enabled, messages sent to the group require moderator approval
+            before delivery.
+          </li>
+          <li>
+            <strong>msExchModeratedByLink</strong>: Associates a moderated recipient with a
+            distribution list or security group whose members serve as moderators.
+          </li>
+          <li>
+            <strong>msExchBypassModerationLink</strong>: Associates a moderated recipient with a
+            distribution list or security group whose members are allowed to bypass message
+            moderation.
+          </li>
+        </ul>
+        <p>
+          By utilizing these attributes, you can create a customized view in the Directory Manager
+          Portal to display the appropriate message approvers for distribution lists. This
+          customization helps manage message moderation effectively within your organization's
+          Exchange environment.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>Follow the instructions below to configure the Directory Manager Portal:</p>
+        <ol>
+          <li>
+            <p>
+              Open the <strong>Identity Stores</strong> tab in
+              <strong>Directory Manager Admin Center</strong> and click <strong>Edit</strong> under
+              the ellipses menu on the appropriate Identity Store card.
+            </p>
+          </li>
+          <li>
+            <p>
+              On the <strong>Replication</strong> tab, click
+              <strong>Add Replication Attributes</strong> and add the required attributes.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_3174e2f0-7625-456c-974d-b4b5c17e309e.png"
+                alt="Replication attribute screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Click <strong>Settings</strong>. A new page will appear.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_a7173941-015f-4872-998b-36fc6aef9a2e.png"
+                alt="Portal settings screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Select the appropriate <strong>Identity Store</strong>.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_88891e1e-75af-485d-b7c0-05d8725d2302.png"
+                alt="Identity Store selection screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Under the <strong>Properties</strong> tab, select <strong>Group</strong> from the
+              <strong>Select Directory Object</strong> list.
+            </p>
+          </li>
+          <li>
+            <p>
+              Select <strong>Advanced</strong> in the <strong>Name</strong> list and click the
+              <strong>Pencil</strong> icon.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_d478a5e8-6b74-4f4e-9ce8-7496c674e251.png"
+                alt="Advanced group design"
+              />
+            </div>
+          </li>
+          <li>
+            <p>On the Edit Design Category dialog box, click <strong>Add Field</strong>.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_09669eb8-113b-4060-998a-64f957c89533.png"
+                alt="Add Field screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Select <strong>mxExchEnableModeration</strong> from the <strong>Field</strong> list,
+              enter the display name as <strong>Is Moderation Enabled</strong> and set the display
+              type to <strong>Check</strong>.
+            </p>
+          </li>
+          <li>
+            <p>Click <strong>OK</strong> and then click <strong>Add Fields</strong> again.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_e152ae2a-9ea1-4a92-acfe-193a0604f099.png"
+                alt="ModeratedByLink field screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Select <strong>mxExchModeratedByLink</strong>, enter the display name as
+              <strong>Moderators</strong>, and set the display type to <strong>DNs</strong>.
+            </p>
+          </li>
+          <li>
+            <p>Click <strong>OK</strong> and then click <strong>Add Fields</strong> again.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_1a4d04c0-0dfc-40ed-98cd-76d123f3bac6.png"
+                alt="A screenshot of adding attribute."
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Select <strong>mxExchBypassModerationLink</strong>, enter the display name as
+              <strong>Bypass Moderation</strong>, and set the display type to <strong>DNs</strong>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Click <strong>OK</strong> and then click the <strong>Save</strong> icon at the top of
+              the page.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_ca5e4391-d5a9-4ae5-a79c-b50b6ce3e40f.png"
+                alt="Bypass moderators field screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Launch the <strong>Directory Manager Portal</strong>. The new attributes should appear
+              under the <strong>Groups</strong> tab under <strong>Advanced</strong>.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000002FivKAE_6cd902bf-24ef-411d-b097-6a916fae629d.png"
+                alt="Final portal attributes screenshot"
+              />
+            </div>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

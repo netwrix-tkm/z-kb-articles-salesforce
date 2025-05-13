@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_062</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I8WCAU" />
+    <meta name="Id" content="ka04u000000HcgPAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:10:54.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:10:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6328" />
+    <meta name="ArticleNumber" content="000006328" />
+    <meta name="description" content="360012326391" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary: </strong> This hotfix has improvement to alleviate and help troubleshoot
+          AIC import issues.
+        </p>
+        <p>
+          <strong
+            >Before Fix:  Merge errors prevent AIC import from completing.  Example below:</strong
+          >
+        </p>
+        <p>
+          <strong
+            >The MERGE statement attempted to UPDATE or DELETE the same row more than once. This
+            happens when a target row matches more than one source row. A MERGE statement cannot
+            UPDATE/DELETE the same row of the target table multiple times. Refine the ON clause to
+            ensure a target row matches at most one source row, or use the GROUP BY clause to group
+            the source rows.</strong
+          >
+        </p>
+        <p>
+          <strong
+            >After fix:  The AIC import only adds resources that have relevant permissions, SDD, and
+            event data.  The analysis is now divided up into 9 different scripts to assist in
+            troubleshooting.  Cleanup script was added the hotfix troubleshooting
+            assistance.</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>Changes Since Last Service Pack</strong></p>
+        <p>
+          SMPDB-1126/SMPDB-1141  Fixes for handling oracle pluggable databases better for SDD scans.
+        </p>
+        <p>
+          SMPDB-1163  fix for oracle SDD data being overwritten when PDBs are scanned after root
+        </p>
+        <p>
+          SMPDB-1123  fix for
+          <strong
+            >“Expecting '@proxyOverride', which was not supplied” exception thrown when doing
+            instance discovery against azure SQL environment</strong
+          >
+        </p>
+        <p>
+          SMPDB-1044  Oracle SDD scan trying to get info from wrong container from schemas on
+          pluggable databases
+        </p>
+        <p>
+          SMPDB-970  Fix for SQL Server scans where a SQL user is renamed to match a previously
+          deleted user
+        </p>
+        <p>SMPDB-940  SQL Flexible imports group overwriting any other imported AIC jobs</p>
+        <p>SMPDB-951 Fix for invalid column name error after upgrading.</p>
+        <p>SMPDB-887 Oracle fix for reading XML from nested tables, reduce filter logging</p>
+        <p>SMPDB-702  Fix merge statement error when importing of permissions to AIC</p>
+        <p>SMPDB-918  Databases AIC permissions do not handle GRANT with grant state permissions</p>
+        <p>
+          SMPDB-887  Oracle Fix Reading XML Data From Nested Tables, Reduce Filter Logging And
+          Exclude Column Headers From Column Data SDD Scans
+        </p>
+        <p>
+          SMPDB-588  Client IP Address and Application Name information in SQL Server 2017 and above
+        </p>
+        <p>
+          SMPDB-522  50758 – fix for UNIQUE KEY constraint during some situations where users are
+          removed and created with the same principal_id.
+        </p>
+        <p>SMPDB-510  50712 – SDD job fails with ‘System.OutOfMemoryException’.</p>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Rob Evert</p>
+        <p>
+          <strong><em> </em></strong>
+        </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p> 10.0</p>
+        <p><strong> </strong></p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – SQL – DC</p>
+        <p> </p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>
+          SMPDB-1200  56038 - MSSQL permissions job: The MERGE statement attempted to UPDATE or
+          DELETE the same row more than once
+        </p>
+        <p>SMPDB-1269  56332 - Cannot connect to Microsoft SQL server</p>
+        <p><strong> </strong></p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>SQL DC 10.0.189</p>
+        <p> </p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p> </p>
+        <p><em> </em></p>
+        <p><strong>Files:</strong></p>
+        <p><strong> \DC\DCSQL.dll  10.0.189</strong></p>
+        <p><strong> \PrivateAssemblies\Oracle.ManagedDataAccess.dll  4.122.19.1</strong></p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Oracle.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Oracle.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.SQLServer.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Azure.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Azure.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.MySQL.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.MySQL.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.PostgreSql.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.PostgreSql.dll 
+            10.0.189</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_SQL\GROUP_0.Collection\JOB_1-SQL_PermissionsScan\DataAnalysisTasks.XML
+          </strong>
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_SQL\GROUP_0.Collection\JOB_2-SQL_SensitiveDataScan\DataAnalysisTasks.XML</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_SQL\GROUP_0.Collection\JOB_3-SQL_ActivityScan\DataAnalysisTasks.XML</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_ORACLE\GROUP_0.Collection\GROUP_2.Collection\JOB_2-Oracle_SensitiveDataScan\DataAnalysisTasks.XML</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>Prior Hotfixes</strong></p>
+        <p>
+          <strong>SA_10.0_052  </strong>SMPDB-1126  54763  Improvements for SDD scans against Oracle
+          servers using primarily PDBs
+        </p>
+        <p>
+          <strong>SA_10.0_050  </strong>SMPDB-1123  55579  Fix for azure sql exception during
+          instance discovery
+        </p>
+        <p>
+          <strong>SA_10.0_046  SMPDB-1044  </strong>54763 - SA10 Oracle: trying to get info from
+          wrong container
+        </p>
+        <p>
+          <strong>SA_10.0_040  SMPDB-970  54284 - SQL Permission Scan Primary Key Error</strong>
+        </p>
+        <p>
+          <strong
+            >SA_10.0_034  SMPDB-940  53981 - SQL Flexible imports group overwriting any other
+            imported AIC jobs</strong
+          >
+        </p>
+        <p>
+          SA_10.0_030 
+          <strong>SMPDB-702  52195 – Fix for MERGE error for AIC permissions imports</strong>
+        </p>
+        <p>SA_10.0_015  SMPDB-510  50712 – SDD job fails with ‘System.OutOfMemoryException’.</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>SMPDB-1269/56332</strong></p>
+        <p><strong>SMPDB-1200/56038</strong></p>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog if an unblock button exists
+            there.
+          </li>
+          <li>
+            Check the customer's licensed features (help --&gt; about) and determine if the customer
+            is licensed for SQL or Oracle and SQL.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>
+            Copy and replace files from correct folder, depending on the licensing, to the
+            corresponding folders in SA Install dir.
+          </li>
+          <li>
+            <strong>
+              If troubleshooting AIC import errors, run the DropSQLServerAICTables.sql (in root
+              directory of hotfix) against the SA database before attempting to use AIC import
+              improvements.</strong
+            >
+          </li>
+        </ol>
+        <p>
+          <strong
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_062.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_062.zip</a
+            ></strong
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

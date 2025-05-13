@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Deploying the Report Server Database</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eUCAS" />
+    <meta name="Id" content="ka04u000000wvtYAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-25T14:25:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-25T14:25:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4060" />
+    <meta name="ArticleNumber" content="000003712" />
+    <meta name="description" content="Deploying the Report Server Database" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to set up SQL Server Reporting Services for the first time or during the Netwrix
+            Auditor migration?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            In case you are configuring SQL Server Reporting Services for the first time, grant the
+            appropriate role permissions to the user. Refer to the following link for additional
+            info:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+              target="_blank"
+              >Requirements – SQL Server Reporting Services · v10.6</a
+            >. Launch the Report Server Configuration Manager and connect to the Report Server.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>In most cases, there is only one Report Server to
+              be hosted locally on the same server as SQL.
+            </p>
+          </blockquote>
+        </div>
+
+        <h4 id="set_up_web_service_url_and_web_portal_url">
+          Set Up Web Service URL and Web Portal URL
+        </h4>
+
+        <div>
+          <p>
+            In your SQL server, run <strong>Report Server Configuration Manager</strong>. Select the
+            SQL Server to connect to, and click <strong>Connect</strong>. Refer to the folowing
+            steps to configure your Report Server instance:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                In the left pane, select <strong>Web Service URL</strong>. Click
+                <strong>Apply</strong> − this will initialize the Report Server URL.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>This action is required only during the
+                  initial setup.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>Web Portal URL</strong>. Click
+                <strong>Apply</strong> − this will initialize the Report Manager URL.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>This action is required only during the
+                  initial setup.
+                </p>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="set_up_report_server_database">Set Up Report Server Database</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In the left pane of Report Server Configuration Manager, select
+                <strong>Database</strong>. Click <strong>Change Database</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the <strong>Create a new report server database</strong> check and click
+                <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Database Server</strong> tab, confirm the SQL Server instance and
+                click <strong>Next</strong>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>In case you are unable to proceed with the
+                  authentication type specified, make sure the user has the appropriate role
+                  permissions. If you need to review the SQL permissions, refer to the following
+                  link:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Reports/Types/StateInTime/SQLServerOverview.htm"
+                    target="_blank"
+                    >SQL Server State-In-Time Reports · v10.6</a
+                  >.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                In the <strong>Database</strong> tab, you can use the default database name or
+                change it. Click <strong>Next</strong> to proceed to the next setup stage.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Credentials</strong> tab, provide the credentials for the service
+                account to connect to the Report Server database. You can also input credentials for
+                any account with <strong>db_owner</strong> and <strong>db_creator</strong> roles.
+                Click <strong>Next</strong> to proceed.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the summary and confirm the configuration by clicking <strong>Next</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="set_up_audit_database_in_netwrix_auditor">
+          Set Up Audit Database in Netwrix Auditor
+        </h4>
+
+        <div>
+          <p>
+            Once the database has been successfully deployed, provide the Report Server URL and
+            Report Manager URL in Netwrix Auditor settings.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In the main Netwrix Auditor screen, click <strong>Settings</strong>. In the left
+                pane, select the <strong>Audit Database</strong> tab and click
+                <strong>Modify</strong> under the <strong>Audit Database</strong> section.
+              </p>
+
+              <div>
+                <img
+                  height="503"
+                  src="kA00g000000H9eUCAS_fe165f8a-7f5a-405c-9743-42b7f350e794.png"
+                  width="700"
+                />
+              </div>
+            </li>
+            <li>
+              <p>Input the credentials and click <strong>Next</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Input the Web Service URL in the <strong>Report Server URL</strong> field. Input the
+                Web Portal URL in the <strong>Report Manager URL</strong> field. Click
+                <strong>Finish</strong> to save changes.
+              </p>
+            </li>
+          </ol>
+
+          <p>Netwrix Auditor should now be able to process and generate reports.</p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+              target="_blank"
+              >Requirements – SQL Server Reporting Services · v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Reports/Types/StateInTime/SQLServerOverview.htm"
+              target="_blank"
+              >SQL Server State-In-Time Reports · v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

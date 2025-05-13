@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Auto-archiving Windows Security log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000Pcx6CAC" />
+    <meta name="Id" content="ka04u000000HdEZAA0" />
+    <meta name="LastPublishedDate" content="2021-03-03T18:09:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-03-03T18:07:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5856" />
+    <meta name="ArticleNumber" content="000005856" />
+    <meta
+      name="description"
+      content="This article describes how to apply auto-archiving settings for Windows Security log."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        To prevent data overwrites, you can increase the maximum size of the Security event log and
+        set the retention method for this log to <b>Overwrite events as needed</b>. However, if the
+        <b>Overwrite </b>option is not enough to meet your data retention requirements, you can use
+        the <i>auto-archiving</i> option for Security event log. This will allow you to preserve
+        historical event data in the archive files. This option can be enabled centrally for all
+        domain controllers, using the procedure described below. In such a scenario, the logs will
+        be automatically archived when necessary (no events will be overwritten).
+        <h2 id="to_enable_security_log_auto-archiving_centrally_for_all_domain_controllers">
+          To enable Security log auto-archiving centrally for all domain controllers
+        </h2>
+
+        <ol>
+          <li>
+            Open the Group Policy Management console on any domain controller in the target domain:
+            navigate to <b>Start→Windows Administrative Tools</b> (Windows Server 2016 and higher)
+            or <b>Administrative Tools</b> (Windows 2012)→ <b>Group Policy Management</b>.
+          </li>
+          <li>
+            In the left pane, navigate to Forest:
+            <b>&lt;forest_name&gt; → Domains → &lt;domain_name&gt; → Domain Controllers</b>.
+          </li>
+          <li>
+            Right-click the effective domain controllers policy (by default, it is the
+            <b>Default Domain Controllers Policy</b>), and select <b>Edit </b>from the pop-up menu.
+          </li>
+          <li>Navigate to <b>Computer Configuration → Policies</b>.</li>
+          <li>
+            Right-click <b>Administrative Templates: Policy definition</b>s and select
+            <b>Add / Remove templates</b>.
+          </li>
+          <li>Click <b>Add</b> in the dialog that opens.</li>
+          <li>
+            In the <b>Policy Templates</b> dialog, navigate to  <i
+              >%Netwrix Auditor Server installation folder%/Active Directory Auditing</i
+            >, select the <i>Log Autobackup.adm</i> file (if the product is installed on a different
+            computer, copy this file to the domain controller), and click <b>Open</b> to add the
+            template.
+          </li>
+          <li>
+            Navigate to
+            <b
+              >Computer Configuration → Policies → Administrative Templates: Policy Definitions →
+              Windows Component → Event Log Service → Security</b
+            >.
+          </li>
+          <li>
+            Check the following:
+            <ul>
+              <li>
+                For Windows server 2012 and later, the following options must be enabled:
+                <ul>
+                  <li><b>Back up log automatically when full</b></li>
+                  <li>
+                    <b>Control Event Log behavior when the log file reaches its maximum size</b>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                For Windows server 2008 / 2008 R2, the following options must be enabled:
+                <ul>
+                  <li><b>Back up log automatically when full</b></li>
+                  <li><b>Retain old events</b></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Open the command prompt, type <span>gpupdate /force</span> and press Enter. The group
+            policy will be updated. 
+          </li>
+        </ol>
+        With the automatic log backup enabled, you may want to adjust the retention settings for log
+        archives (backups). The default retention period for these files is <b>50 hours</b>; when it
+        expires, log archives are deleted. To adjust this setting, follow the procedure described
+        below.
+
+        <h2 id="to_adjust_retention_settings_for_log_archives">
+          To adjust retention settings for log archives
+        </h2>
+
+        <ol>
+          <li>On the computer where Netwrix Auditor is installed, open Registry Editor.</li>
+          <li>
+            Navigate to
+            <b>HKEY_LOCAL_MACHINE → SOFTWARE → Wow6432Node → Netwrix Auditor → AD Change Reporter</b
+            >.
+          </li>
+          <li>In the right-pane, right-click and select <b>New → DWORD (32-bit Value)</b>. </li>
+          <li>
+            For the backup logs retention functionality to work properly, you need to specify the
+            <b>CleanAutoBackupLogs</b> name for the newly created registry value. 
+          </li>
+          <li>
+            Double-click <b>CleanAutoBackupLogs</b>. The <b>Edit DWORD Value</b> dialog will open. 
+          </li>
+          <li>
+            This value defines the time period (in hours) after which security event logs archives
+            will be automatically deleted from the domain controllers. By default, it is set to "50"
+            (decimal). Modify this value, if necessary, and click <b>OK</b> to save the changes.
+          </li>
+        </ol>
+        <b>NOTE:</b> If the <b>CleanAutoBackupLogs</b> registry value is set to "0", you will have
+        to remove the old automatic backups manually, otherwise you may run out of space on your
+        hard drive.
+      </div>
+    </article>
+  </body>
+</html>

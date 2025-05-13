@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Log Tracker - How To Revert Language Settings</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JbsCAE" />
+    <meta name="Id" content="ka04u000000HdAFAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:51:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8238" />
+    <meta name="ArticleNumber" content="000008238" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          There are several techniques available to switch language within the Log Tracker Server.
+          The technique described below is not bad, but if you want to just revert essential
+          information (tabs, alerts, etc.) you can execute the procedure below, which may be simpler
+          in a lot of cases and situations.
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <p>To switch menu and tab languages, use the following procedure.</p>
+        <ol>
+          <li>
+            Stop the "Log Tracker Framework Service" using the Windows Service Manager.<br /><br />
+          </li>
+          <li>
+            Execute the "C:\Program Files (x86)\NNT Log Tracker Suite\system\CO-install.exe" program
+            as "Administrator".<span /><br /><br /><em
+              >Note - This is the setup wizard for the program, which can be executed at any time to
+              re-install the Apache server, or make other changes to the basic program defaults
+              without affecting the configuration or log data.</em
+            ><br /><br />
+          </li>
+          <li>
+            On the third screen of the CO-install.exe Wizard, select a language as the "Menu and Tab
+            Language".<br /><br />
+          </li>
+          <li>Run the Wizard to completion.</li>
+        </ol>
+        <p>
+          The CO-install.exe program will load the language specific files, and restart the Log
+          Tracker Framework Service when finished (you don't have to restart the service you stopped
+          in step #1 above -- the Wizard will restart the service.)
+        </p>
+        <p>
+          This will not affect the text of any existing Alerts or Tickets that were previously
+          created -- but any new Alerts (created using the "Suggest" button on the "Alerts" screens)
+          will be in the language you selected. in step #3 above.
+        </p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to delete a device in Log Tracker</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker - Types of Authentication</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker Tags Facility</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to use CloseTicket.exe to Immediately Close Log Tracker Tickets</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to Monitor Devices with Ping Adapter (Log Tracker)</a>
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

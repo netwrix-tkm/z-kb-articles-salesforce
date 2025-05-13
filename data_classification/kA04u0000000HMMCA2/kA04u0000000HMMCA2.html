@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Migrate Netwrix Data Classification to Another Server</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HMMCA2" />
+    <meta name="Id" content="ka0Qk0000007H0vIAE" />
+    <meta name="LastPublishedDate" content="2024-10-25T21:32:39.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-25T21:32:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-09-02T23:45:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5904" />
+    <meta name="ArticleNumber" content="000005904" />
+    <meta
+      name="description"
+      content="How to Migrate Netwrix Data Classification to Another Server"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <div>
+          <p>
+            This article describes how to change or replace the server on which Netwrix Data
+            Classification (NDC) is running.
+          </p>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <div>
+          <ol>
+            <li>
+              <p>
+                Stop/disable <strong>all NDC services</strong> on the application server (<strong
+                  >conceptClassifier, conceptIndexer, conceptCollector</strong
+                >).
+              </p>
+              <p>
+                <img
+                  alt="User-added image"
+                  height="61"
+                  src="kA04u0000000HMMCA2_3738573e-59de-4cd9-8f90-e1c0dd4125df.jpg"
+                  width="500"
+                />
+              </p>
+              <blockquote>
+                <p>
+                  <span><strong>NOTE:</strong></span> You can also disable the NDC services using
+                  the <strong>Service Viewer</strong> located at:
+                  <code>C:\Program Files\ConceptSearching\ServiceViewer</code> (by default).
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Back up the <strong>NDC database</strong> and the files in the
+                <strong>NDC Index</strong> at
+                <code>C:\Program Files\ConceptSearching\ConceptDB</code> (by default).
+              </p>
+            </li>
+            <li>
+              <p>
+                Prior to installation, ensure that the necessary software
+                <a
+                  href="https://helpcenter.netwrix.com/NDC/NDC/Deployment/Software_Requirements.html"
+                  target="_blank"
+                  >pre-requisites</a
+                >
+                are in place.
+              </p>
+            </li>
+            <li>
+              <p>
+                Install the same version of NDC on the new server, pointing to the original database
+                location with the same service account. The installer should detect an existing NDC
+                schema. (You may refer to
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Install/Overview.htm"
+                  target="_self"
+                  >Install Netwrix Data Classification</a
+                >
+                for instructions on NDC installation.)
+              </p>
+              <blockquote>
+                <p>
+                  <span><strong>NOTE:</strong></span> The account being used for the installation of
+                  NDC should ideally be the same service account used to connect with the SQL
+                  database, and this account will need local admin rights on the new server.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                During the install, ensure that the box to stop services on application start is
+                <strong>checked</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Copy the <strong>backed-up Index files</strong> from the old server to the new
+                server's index location (<code>C:\Program Files\ConceptSearching\ConceptDB</code> by
+                default).
+              </p>
+            </li>
+            <li>
+              <p>
+                Start <strong>all services</strong> on the new server, and collection should resume
+                as normal. The <strong>conceptCollector/Indexer/Classifier</strong> services should
+                stay disabled on the <strong>old server</strong> to prevent re-connecting to the
+                database. NDC can be uninstalled once the migration is successful.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Install/Overview.htm"
+                target="_self"
+                >Install Netwrix Data Classification</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System.Exception − New-ExoPSSession PowerShell Error in Netwrix StealthAUDIT</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111IrCAI" />
+    <meta name="Id" content="ka04u000001185BAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-06T07:49:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-06T07:53:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-06T07:49:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8841" />
+    <meta name="ArticleNumber" content="000008841" />
+    <meta
+      name="description"
+      content="System.Exception − New-ExoPSSession PowerShell Error in Netwrix StealthAUDIT"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted when running an Exchange Online job in Netwrix
+            StealthAUDIT:
+          </p>
+
+          <pre class="has-inner-focus">
+PowerShell error: System.Exception: New-ExoPSSession:
+Connection to the remote server %server% failed with the following error message: 
+For more information, see the about_Remote_Troubleshooting Help topic.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>The ExchangeOnlineManagement PowerShell module is outdated.</p>
+            </li>
+            <li>
+              <p>The PowerShellGet PowerShell module is outdated.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Run the following command in elevated PowerShell to update the
+                ExchangeOnlineManagement module:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Update-Module -Name "ExchangeOnlineManagement"</code></pre>
+
+              <p>
+                If the error
+                <code
+                  >Update-Module : Module 'ExchangeOnlineManagement' was not installed by using
+                  Install-Module</code
+                >
+                is prompted, refer to the following command to install the module:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Install-Module -Name ExchangeOnlineManagement -RequiredVersion 3.3.0 -Force</code></pre>
+
+              <p>Follow the instructions to complete the update.</p>
+            </li>
+            <li>
+              <p>
+                Run the following command in elevated PowerShell to update the
+                ExchangeOnlineManagement module:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Update-Module -Name "PowerShellGet"</code></pre>
+
+              <p>
+                If the error
+                <code
+                  >Update-Module : Module 'PowerShellGet' was not installed by using
+                  Install-Module</code
+                >
+                is prompted, refer to the following command to install the module:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Install-Module -Name PowerShellGet -RequiredVersion 2.2.5 -Force</code></pre>
+
+              <p>Follow the instructions to complete the update.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="related_links">Related links</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://www.powershellgallery.com/packages/ExchangeOnlineManagement/3.3.0"
+              target="_blank"
+              >ExchangeOnlineManagement 3.3.0 ⸱ PowerShell Gallery 🡥</a
+            >
+          </p>
+
+          <p>
+            <a href="https://www.powershellgallery.com/packages/PowerShellGet/2.2.5" target="_blank"
+              >PowerShellGet 2.2.5 ⸱ PowerShell Gallery 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

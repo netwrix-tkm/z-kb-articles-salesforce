@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Collecting Raw Event Data</title><meta name="label" content="threat_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000LLooCAG"/><meta name="Id" content="ka04u000001166qAAA"/><meta name="LastPublishedDate" content="2023-03-20T21:46:14.000+0000"/><meta name="LastModifiedDate" content="2023-06-13T17:31:16.000+0000"/><meta name="FirstPublishedDate" content="2023-03-20T21:08:55.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8554"/><meta name="ArticleNumber" content="000008554"/><meta name="description" content="Raw data is very helpful for dev to reproduce certain issues.Raw data is very helpful for dev to reproduce certain issues."/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="user-content-intro">Intro</h2>
+
+<p>Raw data is very helpful for dev to reproduce certain issues.</p>
+
+<blockquote>
+<div><span><strong>NOTE</strong></span>. Event data may contain sensitive information. Use caution when storing info collected from customer sites.</div>
+</blockquote>
+
+<h2 id="user-content-collection">Collection</h2>
+
+<p>It can be collected using the following steps:</p>
+
+<ol><li>Visit the swagger API page: <a href="http://localhost:8080/swagger" target="_blank">http://localhost:8080/swagger</a> </li><li>Enter your authorization token:</li></ol>
+
+<p><img alt="User-added image" height="104" src="kA04u000000LLooCAG_d47b0a44-f9fa-4ddb-afce-22c46dc2b0c8.png" width="500"/></p>
+
+<ul><li>Format is (do not include quotes) 'Bearer &lt;APP Token&gt;'</li><li>Be aware that app tokens created in SD 2.6 or below may no longer be valid</li></ul>
+
+<p><img alt="User-added image" height="279" src="kA04u000000LLooCAG_9100be45-9098-49b1-9ad5-9f638f2c333f.png" width="500"/><br/>3. Find the 'Journal' endpoints.</p>
+
+<ul><li>There are 2 different endpoints.
+	<ul><li>One collects by Event Id</li><li>One collects all events associated to a threat</li><li>Ignore the normalized version<br/>		<img alt="User-added image" height="61" src="kA04u000000LLooCAG_fa726d42-c49f-4f03-a898-d213e5327062.png" width="500"/></li></ul>
+	</li></ul>
+
+<ol start="4"><li>Enter your event id or threat id in the appropriate endpoint</li></ol>
+
+<ul><li>Ids can be gathered
+	<ul><li>For a single event<br/>		<img alt="User-added image" height="461" src="kA04u000000LLooCAG_9c7fb035-097d-40cf-847b-23a4820c8814.png" width="500"/></li><li>For a threat<br/>		<img alt="User-added image" height="146" src="kA04u000000LLooCAG_ae169541-acec-4f03-a424-52a02bc54239.png" width="500"/></li></ul>
+	</li></ul>
+
+<ol start="5"><li>Copy/Paste the raw JSON into a file. This JSON can be used directly with the message generator tool.<br/>	<img alt="User-added image" height="430" src="kA04u000000LLooCAG_69e42f60-d4e9-4d0c-a1fc-290b3857c5b1.png" width="500"/></li></ol>
+
+<h2 id="user-content-alternative-app-token-collection-method">Alternative app token collection method</h2>
+
+<ul><li>Open the F12 dev tools on your browser</li><li>Navigate to the network tab</li><li>Visit an StealthDEFEND page</li><li>Copy the app token from the header of any api call
+	<ul><li>This token is only valid for 5 minutes</li><li>It will already have the Bearer added<br/>		<img alt="User-added image" height="149" src="kA04u000000LLooCAG_a7629c0b-df6b-49c4-b54c-018946d7cfec.png" width="500"/></li></ul>
+	</li></ul></div>
+</article></body></html>

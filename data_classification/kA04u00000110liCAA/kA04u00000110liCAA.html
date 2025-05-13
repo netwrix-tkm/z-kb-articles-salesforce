@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Unable to Decrypt Encryption Key</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110liCAA" />
+    <meta name="Id" content="ka0Qk0000004q4rIAA" />
+    <meta name="LastPublishedDate" content="2024-07-30T10:09:19.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-30T10:09:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-27T15:22:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8625" />
+    <meta name="ArticleNumber" content="000008625" />
+    <meta name="description" content="Error: “Unable to Decrypt Encryption Key”" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Data Classification (NDC) prompts the following error in the browser and NDC
+            Service Viewer:
+          </p>
+
+          <pre class="has-inner-focus">Unable to decrypt encryption key</pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>One of the following causes is present in your environment:</p>
+
+          <ol>
+            <li>
+              <p>
+                In a DQS environment, different service accounts run the NDC services in different
+                DQS servers.
+              </p>
+            </li>
+            <li>
+              <p>
+                In an NDC v5.7.0.58 environment, the Data Protection Application Programming
+                Interface (DPAPI) used to share encryption keys between the application servers is
+                misconfigured. Learn more about DPAPI in
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection"
+                  target="_blank"
+                  >How to: Use Data Protection · Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Refer to the corresponding resolution steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                In a DQS environment, verify that the same service account runs the NDC services on
+                all DQS servers.
+              </p>
+            </li>
+            <li>
+              <p>
+                NDC v5.7.1.20 and later versions introduced a check to verify the correct setup of
+                the DPAPI-related registry key. Upgrade your NDC instance to v5.7.1.20 or later to
+                resolve the issue. Download the new NDC version in
+                <a href="https://www.netwrix.com/my_products.html" target="_blank"
+                  >My Products · Netwrix</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection"
+                  target="_blank"
+                  >How to: Use Data Protection · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://www.netwrix.com/my_products.html" target="_blank"
+                  >My Products · Netwrix</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

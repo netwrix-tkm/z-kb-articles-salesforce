@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor Health Log Contains EventID 3230</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111ELCAY" />
+    <meta name="Id" content="ka0Qk000000B3YrIAK" />
+    <meta name="LastPublishedDate" content="2023-10-02T16:37:04.000+0000" />
+    <meta name="LastModifiedDate" content="2024-11-12T20:12:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-20T14:17:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8812" />
+    <meta name="ArticleNumber" content="000008812" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the Event ID 3230."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            Netwrix Auditor (NA) System Health Log contains EventID 3230 for a SharePoint Online
+            monitoring plan:
+          </p>
+          <pre class="has-inner-focus">
+3230: Failed to collect state‑in‑time snapshot data: site collection has 'No access' lock status.</pre
+          >
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            The lock status for a site collection means that this is a personal site collection that
+            has been locked. Personal site collections are not intended to be collected, and the
+            error with <b>No access</b> lock status can be fixed by unlocking the site. NA for
+            SharePoint is intended as an enterprise solution and would be best to be configured for
+            public documents only.
+          </p>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> Please consider that this event does not
+              affect data collection.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            As a workaround, you can exclude personal site collections from being audited by editing
+            the <b>OmitSitScStoreList.txt</b> file located in the following default path:
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">%Working Folder%\Netwrix Auditor for SharePoint Online\Configuration\%GUID%\OmitSitScStoreList.txt</code></pre>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To determine your Working Folder location, you can
+              run the following PowerShell command.
+            </p>
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride" -Name "(Default)”</code></pre>
+            <p>
+              If this script does not return a value, then your Working Folder is our default
+              location of <code>C:\ProgramData\Netwrix Auditor\</code>.
+            </p>
+          </blockquote>
+          <p>
+            For additional information on how to configure your SharePoint Online monitoring scope,
+            refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/SharePointOnline/Scope.htm"
+              target="_blank"
+              >SharePoint Online Monitoring Plans — Monitoring Scope — v10.6</a
+            >.
+          </p>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/SharePointOnline/Scope.htm"
+                target="_blank"
+                >SharePoint Online Monitoring Plans — Monitoring Scope — v10.6</a
+              >.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

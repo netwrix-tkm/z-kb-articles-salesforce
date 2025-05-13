@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Launching the StealthAudit console fails with "Cannot Create a file when that file already
+      exists"
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IARCA2" />
+    <meta name="Id" content="ka04u000000HcgvAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:05:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:05:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6267" />
+    <meta name="ArticleNumber" content="000006267" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span>Summary:</span> Post upgrade (known in SA11), launching the console fails with
+          "Cannot Create a file when that file already exists"
+        </p>
+        <p> </p>
+        <p><span>Issue:</span> "Cannot Create a file when that file already exists"</p>
+        <p>
+          <img
+            src="kA04u0000000IARCA2_4b3dce03-b69b-42e3-849a-41627e0dca10.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p> </p>
+        <p><span>Instructions:</span> </p>
+        <p>1. Click OK on the error to close StealthAudit</p>
+        <p>2. Open File Explorer and browse to the install path or type %sainstalldir%</p>
+        <p>3. Locate the following file GlobalOptions.XML</p>
+        <p>4. Rename GlobalOptions.XML to GlobalOptions.XML.old</p>
+        <p>
+          5. Browse to %sainstalldir%Reports\v3\SERVERNAME\Tags\Data (Where SERVER = The
+          StealthAudit node name)
+        </p>
+        <p>6. Confirm the following files are missing:</p>
+        <p>
+          <img
+            src="kA04u0000000IARCA2_ee3636ab-528a-4634-990a-1c2780cdd3b2.png"
+            alt="mceclip1.png"
+          />
+        </p>
+        <p>7. Log into a lab or other resources of the same version</p>
+        <p>8. Zip these and extract them into the problem server.</p>
+        <p>9. Launch StealthAudit to ensure it functions</p>
+        <p>
+          10.  If an issue is seen with the SQL connection profile is seen upon launch, create a new
+          profile pointing to the old database
+        </p>
+        <p> </p>
+        <p><span>Channel: </span>Internal</p>
+        <p><span>Submitted by:</span> Doug Seaborn / William Lavary</p>
+        <p><span>Product:</span> SA,</p>
+        <p><span>Affected Versions:</span> 11.x (Possibly 10.x)</p>
+        <p><span>Affected Module:</span> Core Functionality</p>
+        <p><span>KB Type:</span> Bug / Known Issue</p>
+      </div>
+    </article>
+  </body>
+</html>

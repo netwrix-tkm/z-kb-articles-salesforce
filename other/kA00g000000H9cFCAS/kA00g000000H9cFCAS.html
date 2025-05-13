@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Customization of Logon Prompt Extension</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cFCAS" />
+    <meta name="Id" content="ka04u00000116NmAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T14:15:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2056" />
+    <meta name="ArticleNumber" content="000003573" />
+    <meta
+      name="description"
+      content="The KB explains how to customize Logon Prompt Extension of Netwrix Password Manager."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          Customization of Netwrix Logon Prompt Extension for Password Manager is done via registry
+          values in the following keys:
+        </div>
+        <ul>
+          <li>
+            HKEY_LOCAL_MACHINESOFTWARE[Wow6432Node]NetwrixPassword Manager Self-service Client
+          </li>
+          <li>HKEY_LOCAL_MACHINESoftware[Wow6432Node]PoliciesNetwrixPasswordManager</li>
+        </ul>
+        <div>
+          Most of these values are not created by default installation. Values can be set manually
+          or by means of any deployment software, which can apply .reg files (SCCM, self-written
+          scripts, etc.) Policies key can also be set up via Group policy by means of Netwrixprm.adm
+          administrative template, which is located in Password manager installation directory - it
+          is described in the Administrator's guide.
+        </div>
+        <div />
+        <div>The full list of values:</div>
+        <div />
+        <div>
+          At HKEY_LOCAL_MACHINESOFTWARE[Wow6432Node]NetwrixPassword Manager Self-service Client
+        </div>
+        <div>All values are string values (REG_SZ):</div>
+        <ul>
+          <li>CompanyBrand " this value replaces Netwrix in all text of Logon Prompt Extension</li>
+          <li>
+            HelpDeskPhone " this value is added at the end of all message boxes in Logon Prompt
+            Extension and Enrollment wizard
+          </li>
+          <li>
+            LogonCaption " this value replaces the header of the Logon Prompt Extension password
+            reset wizard
+          </li>
+          <li>MainCaption - this value replaces the header of the Enrollment wizard.</li>
+        </ul>
+        <a
+          href="https://Netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KS4&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xhy"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cFCAS_613a9215-5ac2-4c73-b44f-3c3961ea0dad.png"
+            alt="User-added image"
+            width="500"
+            height="391" /></a
+        ><a
+          href="https://Netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KS4&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xi3"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cFCAS_d7bfa71b-3298-4022-aa45-3d6147f73db8.png"
+            alt="User-added image"
+            width="500"
+            height="343"
+        /></a>
+        <div>At HKEY_LOCAL_MACHINESoftware[Wow6432Node]PoliciesNetwrixPasswordManager</div>
+        <div>String values (REG_SZ):</div>
+        <ul>
+          <li>PRM_Server - URL to your Password Manager web site</li>
+          <li>PRM_LogonWindowText " replaces text of LPE invite on WinXP/2003 logon screen</li>
+          <li>
+            PRM_LogonWindowButtonText " replaces text which is shown up, when you point to the
+            button of Logon Prompt Extension on WinXP/2003 logon screen
+          </li>
+          <li>
+            PRM_LogonWindowIconPath " contain path to an .ico file, with which default icon of Logon
+            Prompt Extension will be replaced
+          </li>
+          <li>
+            PRM_CredProvLogonWindowText " replaces text of Logon Prompt Extension invite on
+            WinVista/7/2008 logon screen
+          </li>
+          <li>
+            PRM_CurrentUserLanguage " this value toggles language of Logon Prompt Exrension and
+            Enrollment wizard. Possible values specified in the table below.
+          </li>
+          <li>
+            PRM_CredentialDialogText - replaces the text in the credential prompt window of
+            Enrollment wizard
+          </li>
+          <li>
+            PRM_CredentialDialogCaption - replaces the header in the credential prompt window of
+            Enrollment wizard
+          </li>
+          <li>
+            LPE_AccountRemark - replaces example text under the field used to enter account name
+          </li>
+          <li>Predefine_Domain " this value sets predefined domain name that will be used</li>
+        </ul>
+        <a
+          href="https://Netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KS4&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xiD"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cFCAS_402a11e6-7460-4b3a-a856-9d265d2fac8e.png"
+            alt="User-added image"
+        /></a>
+        <a
+          href="https://Netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KS4&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xiI"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cFCAS_b0c01692-307e-44d8-b0b2-4ab1c85d5f48.png"
+            alt="User-added image"
+        /></a>
+
+        DWORD values - can be turned on (1) or off (0)
+        <ul>
+          <li>
+            PRM_ResetCredentialsCache - allows the client to reset password in the local cache in
+            disconnected mode.
+          </li>
+          <li>PRM_SuppressEnrollmentErrors " this option disables error messages</li>
+          <li>
+            PRM_SuppressLaterEnrollment " this option make user unavailable to close the Enrollment
+            wizard without passing through enroll procedure
+          </li>
+        </ul>
+        <div>
+          Language values:
+          <div class="table-wrap">
+            <table count-columns="2" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Value</th>
+                  <th colspan="1" rowspan="1">Language</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">cn</td>
+                  <td colspan="1" rowspan="1">Chinese</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">de</td>
+                  <td colspan="1" rowspan="1">German</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">en</td>
+                  <td colspan="1" rowspan="1">English</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">es</td>
+                  <td colspan="1" rowspan="1">Spanish</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">fr</td>
+                  <td colspan="1" rowspan="1">French</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">he</td>
+                  <td colspan="1" rowspan="1">Hebrew</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">it</td>
+                  <td colspan="1" rowspan="1">Italian</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">jp</td>
+                  <td colspan="1" rowspan="1">Japanese</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">ko</td>
+                  <td colspan="1" rowspan="1">Korean</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">pt</td>
+                  <td colspan="1" rowspan="1">Portuguese</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">ru</td>
+                  <td colspan="1" rowspan="1">Russian</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">sk</td>
+                  <td colspan="1" rowspan="1">Slovak</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">zh</td>
+                  <td colspan="1" rowspan="1">Traditional Chinese</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a
+            href="https://Netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KS4&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xhe"
+            target="_blank"
+            ><img
+              src="kA00g000000H9cFCAS_b16f1015-ea6c-40b5-bedf-8e7b4f07e611.png"
+              alt="User-added image"
+              width="500"
+              height="355"
+          /></a>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

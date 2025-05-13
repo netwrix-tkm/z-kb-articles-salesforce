@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Run Reports — System Cannot Find the File Specified</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110zpCAA" />
+    <meta name="Id" content="ka04u0000011734AAA" />
+    <meta name="LastPublishedDate" content="2023-08-04T09:22:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-07T06:54:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-04T09:22:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8713" />
+    <meta name="ArticleNumber" content="000008713" />
+    <meta
+      name="description"
+      content="Unable to Run Reports — System Cannot Find the File Specified"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                When trying to run a report via Netwrix Auditor, you encounter the following error:
+              </p>
+
+              <pre class="has-inner-focus">
+An internal error occurred on the report server. See the error log for more details. (rsInternalError)
+The system cannot find the file specified. (Exception from HRESULT: 0x80070002)</pre
+              >
+            </li>
+            <li>
+              <p>
+                When trying to access the Report Manager via URL (specified in Netwrix Auditor
+                <strong>Setting</strong>s &gt; <strong>Audit Database</strong>), you encounter the
+                following error:
+              </p>
+
+              <pre class="has-inner-focus">
+The service is not available.
+The report server can't connect to its database. Make sure the database is running and accessible.</pre
+              >
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>A report server database is missing.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                In your Netwrix Auditor server, disable
+                <strong>Netwrix Auditor Archive Service</strong> and
+                <strong>Netwrix Auditor Management Service</strong> via Services.
+              </p>
+            </li>
+            <li>
+              <p>
+                Deploy the report server database — refer to the following article for in-depth
+                instructions:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eUCAS.html"
+                  target="_self"
+                  >Deploying the Report Server Database</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once you've configured the report server database, grant the roles to the SSRS
+                service account the roles required. Refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/SSRSAccount/Overview.htm"
+                  target="_self"
+                  >Configure SSRS Account</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Restart <strong>Netwrix Auditor Archive Service</strong> and
+                <strong>Netwrix Auditor Management Service</strong> in your Netwrix Auditor server
+                via Services.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Send Netwrix Auditor Logs</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9efCAC" />
+    <meta name="Id" content="ka0Qk00000077b3IAA" />
+    <meta name="LastPublishedDate" content="2024-10-23T16:27:14.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-23T16:27:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4645" />
+    <meta name="ArticleNumber" content="000003723" />
+    <meta name="description" content="How to Send Netwrix Auditor Logs" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <ul>
+            <li>
+              <p>What logs might be requested by Netwrix Technical Support?</p>
+            </li>
+            <li>
+              <p>How can you upload Netwrix Auditor logs to a support ticket?</p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <h4 id="technical_support_checklist">Technical Support checklist</h4>
+        <div>
+          <p>
+            Netwrix Technical Support might request a collection of your Netwrix Auditor logs for
+            troubleshooting purposes. Make sure you gather the following items to help your
+            Technical Support Engineer resolve your issue.
+          </p>
+          <ul>
+            <li>
+              <p>
+                <strong>Netwrix Auditor System Health event log</strong>. Refer to the following
+                article for additional information on exporting the System Health event log:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9VXCA0.html"
+                  target="_self"
+                  >How to Save and Zip Netwrix Auditor System Health Event Log</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>Netwrix Auditor configuration files</strong>. Navigate to
+                <code>%Working Folder%\AuditCore\ConfigServer</code> and copy the
+                <strong>ConfigServer</strong> folder. The default location of the
+                <strong>ConfigServer</strong> folder is
+                <code>C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>Trace logs</strong>. If requested, navigate to
+                <code>%Working Folder%\Netwrix Auditor\Logs</code>, and copy the required folder(s).
+              </p>
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Your Technical Support Engineer will request a
+                  specific subdirectory of the <strong>Logs</strong> folder. Please do not send the
+                  entire <strong>Logs</strong> folder unless requested.
+                </p>
+              </blockquote>
+            </li>
+          </ul>
+           
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>If you are unable to locate Working Folder, refer
+              to the following options to perform in your Auditor server to establish the folder
+              location:
+            </p>
+            <ul>
+              <li>
+                <p>
+                  Run the following line in Command Prompt in your Auditor server to get the value
+                  of the <code>DataPathOverride</code> subkey entry. The output will contain the
+                  location of Working Folder in your Auditor server:
+                </p>
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">reg query "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride"</code></pre>
+              </li>
+              <li>
+                <p>
+                  Run the following line in PowerShell in your Auditor server to get the value of
+                  the <code>DataPathOverride</code> subkey entry. The output will contain the
+                  location of Working Folder in your Netwrix Auditor server:
+                </p>
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride" -Name "(Default)"</code></pre>
+              </li>
+              <li>
+                <p>
+                  Review the string entry under the following registry subnode in your Netwrix
+                  Auditor server. The <strong>Value Data</strong> field contains the location of
+                  Working Folder:
+                </p>
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride</code></pre>
+              </li>
+            </ul>
+          </blockquote>
+        </div>
+        <h4 id="uploading_the_logs">Uploading the logs</h4>
+        <div>
+          <ol>
+            <li>
+              <p>
+                Once you have located all the required logs, copy them to a single folder and
+                compress it by right-clicking the folder and selecting <strong>Send to</strong> &gt;
+                <strong>Compressed (zipped) folder</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Log in to the Customer Portal and attach the archived logs to the opened ticket. Use
+                the following link to open the <strong>Open tickets</strong> page:
+                <a href="https://www.netwrix.com/tickets.html#/tickets/open" target="_blank"
+                  >My Tickets — Open Tickets</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Once you have opened the
+            <strong>Open Tickets</strong> page and identified the corresponding ticket (with a
+            matching ticket #), you can attach the logs via one of the following ways:
+          </p>
+          <ul>
+            <li>
+              <p>
+                Click the <strong>Add attachments</strong> button located under the
+                <strong>Actions</strong> column of the ticket.<br /><img
+                  src="kA00g000000H9efCAC_f89e78e8-1430-4128-9821-305791ddef0c.png"
+                  alt="Customer Portal Attachments 1.png"
+                  width="729"
+                  height="327"
+                /> 
+              </p>
+            </li>
+            <li>
+              <p>
+                Expand the ticket details by clicking the <strong>down carat (▼)</strong> button and
+                click the <strong>plus (+)</strong> button next to
+                <strong>Attachments</strong>.<br /><img
+                  src="kA00g000000H9efCAC_49144ece-78eb-465f-bd6f-c3aecefbb625.png"
+                  alt="Customer Portal Attachments 2.png"
+                  width="729"
+                  height="479"
+                /> 
+              </p>
+            </li>
+          </ul>
+        </blockquote>
+        <h2 id="related_links">Related links</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9VXCA0.html"
+                  target="_self"
+                  >How to Save and Zip Netwrix Auditor System Health Event Log</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://www.netwrix.com/tickets.html#/tickets/open" target="_blank"
+                  >My Tickets — Open Tickets</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

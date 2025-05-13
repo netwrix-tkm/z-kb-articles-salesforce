@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthAUDIT EX_Mailflow Failures</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I9JCAU" />
+    <meta name="Id" content="ka04u000000HcgjAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:04:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:04:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6247" />
+    <meta name="ArticleNumber" content="000006247" />
+    <meta name="description" content="360010581231" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Issue:</strong> If StealthAUDIT's EX_Mailflow is failing to collect anything from
+          Exchange Online and you have everything configured perfectly you may be running into a
+          throttling issue. Look for this INFO-level message in the AUDIT .tsv log:
+          <em
+            >"Fail to create a runspace because you have exceeded the number of connections
+            allowed"</em
+          >.
+        </p>
+        <p>
+          The EX_Mailflow job uses the PowerShell DC and creates a remote runspace on the Exchange
+          Online target. The INFO message mentioned in the previous paragraph should also contain
+          something that looks like this: <em>"ActiveRunspaces: 4/3". </em> The second number
+          indicates the number of remote runspaces the target will allow concurrently. 
+        </p>
+        <p>
+          <strong>Instructions:</strong> You can work around this issue by dropping the thread count
+          on the EX_Mailflow job below the number of remote runspaces. 
+        </p>
+        <p>
+          To increase the amount of connections the customer will have to open a support ticket with
+          Microsoft. They can increase the number of runspaces per user based on the number of users
+          in your tenant. Have the customer open a case with the Exchange Online team using the
+          title "Increase Throttle Policy".
+        </p>
+        <p> </p>
+        <p><strong>Channel:  </strong>Internal</p>
+        <p>
+          <strong>Submitted by:</strong><span class="diff-removed-string"> </span
+          ><span class="diff-added-string"> Mike Olig</span>
+        </p>
+        <p><strong>Product:</strong> SA</p>
+        <p><strong>Affected Versions:</strong> All</p>
+        <p><strong>KB Type:</strong> Solution</p>
+      </div>
+    </article>
+  </body>
+</html>

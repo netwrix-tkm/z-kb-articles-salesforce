@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Set Expiration Policy for Groups in Bulk Using Management Shell</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002FkXKAU" />
+    <meta name="Id" content="ka0Qk000000DST7IAO" />
+    <meta name="LastPublishedDate" content="2025-04-15T20:32:14.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:23:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-28T23:00:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10117" />
+    <meta name="ArticleNumber" content="000010117" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 11</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to use the Netwrix Directory Manager (formerly Netwrix GroupID)
+          Management Shell to set the expiration policy for groups in bulk. Follow the steps below
+          to complete this task.
+        </p>
+        <blockquote>
+          <span class="Note"><strong>NOTE:</strong></span> Before making any changes to your
+          environment, create a backup or snapshot of the Netwrix Directory Manager server.
+          Additionally, test the provided method on a small number of groups first. Once confirmed
+          successful, apply it to the remaining groups in bulk.
+        </blockquote>
+        <h2 id="instructions">Instructions</h2>
+        <ol>
+          <li>Launch the <strong>Directory Manager Management Shell</strong>.</li>
+          <li>
+            Use the following cmdlet to export the Common Names of all groups for which you want to
+            apply the bulk expiration policy into a CSV file.
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Get-group | Select CN | Export-csv "PATH TO EXPORT FILE" -NoTypeInformation</code></pre>
+          </li>
+          <li>
+            To limit the export to a specific organizational unit (OU), use the following cmdlet
+            instead.
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Get-group -SearchContainer "DISTINGUISH_NAME OF THE OU" | Select CN | Export-CSV "PATH TO EXPORT FILE" -NoTypeInformation</code></pre>
+          </li>
+          <li>
+            Import the data from the exported CSV file and apply the expiration policy using the
+            following cmdlet.
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">$Data = Import-CSV "PATH OF THE EXPORTED FILE"
+Foreach($d in $data) {Set-Group -Identity $d.Cn -ExpirationPolicy "120" -ExtendGroupLife}</code></pre>
+            The value <strong>120</strong> represents the number of days before expiration and can
+            be adjusted as needed.
+          </li>
+        </ol>
+        <blockquote>
+          <span class="Note"><strong>NOTE:</strong></span> For additional assistance, contact
+          Netwrix Technical Support.
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

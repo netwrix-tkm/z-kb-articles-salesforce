@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Client and Server Cannot Communicate, Because They Do Not Possess a Common Algorithm
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoK4CAK" />
+    <meta name="Id" content="ka04u000001164kAAA" />
+    <meta name="LastPublishedDate" content="2023-05-24T07:31:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-12T13:51:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-24T07:31:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8591" />
+    <meta name="ArticleNumber" content="000008591" />
+    <meta
+      name="description"
+      content="Client and Server Cannot Communicate, Because They Do Not Possess a Common Algorithm"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          Error: The client and server cannot communicate, because they do not possess a common
+          algorithm.
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          Windows Server Auditing host and compression service cannot operate due to different TLS
+          protocol versions. The Windows Server Auditing collector requires the same TLS version
+          running for both host and compression service. Refer to the following link for additional
+          information on TLS protocol versions:
+          <a
+            href="https://learn.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-"
+            target="_blank"
+            >https://learn.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-</a
+          >.
+        </div>
+
+        <div>
+          While usually Windows is able to set the TLS version automatically, the error arises in
+          case changes to the TLS registry settings for either host or compression service were
+          introduced.
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          In case TLS registry settings were changed to ensure the system operability, it is
+          required to set the following registry keys to allow the operating system to select the
+          protocol for incoming and outgoing communication:
+          <pre class="ckeditor_codeblock">
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001</pre
+          >
+        </div>
+
+        <div>
+          In case initial changes do not affect the system operability, they can be reverted to
+          solve the issue. A reboot of either your host or compression service is required.
+        </div>
+         
+
+        <div>
+          Refer to the following Microsoft article for additional information on best TLS practices:
+          <a
+            href="https://learn.microsoft.com/en-us/dotnet/framework/network-programming/tls"
+            target="_blank"
+            >TLS Best Practices</a
+          >.
+        </div>
+
+        <div>
+          For additional information on mismatched TLS versions and limited ciphers, refer to the
+          following article:
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+            target="_self"
+            >Сonnection Issue when TLS 1.2 Is Required</a
+          >.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

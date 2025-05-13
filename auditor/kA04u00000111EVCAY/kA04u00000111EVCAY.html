@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Logon Request Contained Invalid Logon Type Value in Netwrix Auditor Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111EVCAY" />
+    <meta name="Id" content="ka04u00000117xqAAA" />
+    <meta name="LastPublishedDate" content="2023-09-21T11:27:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-28T08:25:02.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-21T11:27:56.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8813" />
+    <meta name="ArticleNumber" content="000008813" />
+    <meta
+      name="description"
+      content="Logon Request Contained Invalid Logon Type Value in Netwrix Auditor Health Log"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>The following errors are prompted in your Health Log:</p>
+
+              <pre class="has-inner-focus">
+Monitoring plan: %affected_monitoring_plan_name%
+Item: %affected_item%
+The following error has occurred:
+Failed to get a list of audited computers in %affected_item% due to the following error:
+A logon request contained an invalid logon type value</pre
+              >
+
+              <pre class="has-inner-focus">
+Monitoring plan: %affected_monitoring_plan_name%
+Your monitoring plan does not contain items of this data source type.</pre
+              >
+            </li>
+            <li>
+              <p>No data is collected in the affected monitoring plan.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>The data collecting account credentials were specified incorrectly.</p>
+            </li>
+            <li>
+              <p>The data collecting account permissions are misconfigured.</p>
+            </li>
+            <li>
+              <p>The gMSA account was not assigned a Local Administrator role.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            To verify the data collection account credentials were specified correctly, refer to the
+            following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select the affected monitoring plan, and click
+                <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane, click <strong>Edit settings</strong> under the
+                <strong>Monitoring Plan</strong> section.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select the <strong>Data Collection</strong> tab, and review the
+                data collecting account credentials.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Make sure the data collecting account is
+                  specified in the domain\account name format.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Save changes and allow the monitoring plan some time to collect data.</p>
+            </li>
+          </ol>
+
+          <p>
+            Alternatively, you might have a particular data collecting account set up for a specific
+            item. You can review the corresponding data collecting account credentials by clicking
+            <strong>Edit Item</strong> under the <strong>Item</strong> section.
+          </p>
+        </div>
+
+        <div>
+          <p>
+            For additional information on configuring your data collecting account, refer to the
+            following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+              target="_self"
+              >Monitoring Plans — Data Collecting Account ⸱ v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+              target="_self"
+              >Monitoring Plans — Data Collecting Account ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

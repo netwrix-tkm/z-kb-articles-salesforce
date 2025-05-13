@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Partially Rebuild the DQS Index</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wniXCAQ" />
+    <meta name="Id" content="ka0Qk0000002cdtIAA" />
+    <meta name="LastPublishedDate" content="2024-03-15T11:29:28.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-15T11:29:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-24T15:19:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8872" />
+    <meta name="ArticleNumber" content="000008872" />
+    <meta name="description" content="DQS Index Maintenance: Partial Index Rebuild" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article describes how to rebuild corrupted indexes on a single server. This process
+            is designed to avoid the effort-intensive method of rebuilding indexes on multiple
+            servers.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Stop services on the Distributed Query Server (DQS).</p>
+            </li>
+            <li>
+              <p>Download a blank copy of the CSE files (ConceptDB.zip).</p>
+            </li>
+            <li>
+              <p>Replace the CSE files on the DQS Server with the downloaded blank CSE files.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE:</strong></span> <code>Text.CSE</code> is not in this download
+                  and should be left unchanged.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Delete the following files and folders:</p>
+
+              <ul>
+                <li>
+                  <p>Lexicon shards folder</p>
+                </li>
+                <li>
+                  <p>Indexer.CSE</p>
+                </li>
+                <li>
+                  <p>LexiconCache.CSE</p>
+                </li>
+                <li>
+                  <p>LexiconCacheQS.CSE</p>
+                </li>
+                <li>
+                  <p>LexiconSizeDistribution.CSE</p>
+                </li>
+                <li>
+                  <p>PostingsDistribution.CSE</p>
+                </li>
+                <li>
+                  <p>IndexerChecksum.CSE</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>To reindex the affected content, run the following SQL statement:</p>
+
+              <pre>UPDATE Pages Set Status = 200 WHERE DQSID = X AND Status &gt; 200</pre>
+
+              <p>where <code>X</code> is the value of your DQSID.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT:</strong></span> Find the correct DQSID from the NDC
+                  configuration.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Start services on the DQS Server.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="attachments">Attachments</h2>
+
+        <div>
+          <p>
+            Use
+            <a href="https://dl.netwrix.com/products/utilities/ConceptDB.zip" target="_blank"
+              >ConceptDB.zip</a
+            >
+            to replace active NDC files (.CSE).
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

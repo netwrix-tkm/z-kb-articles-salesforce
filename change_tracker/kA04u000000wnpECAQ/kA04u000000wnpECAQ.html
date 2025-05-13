@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Implement HTTPS for Netwrix Change Tracker Web User Interface?</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnpECAQ" />
+    <meta name="Id" content="ka04u000000wwBIAAY" />
+    <meta name="LastPublishedDate" content="2023-11-21T10:56:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-21T10:56:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-16T16:05:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8906" />
+    <meta name="ArticleNumber" content="000008906" />
+    <meta
+      name="description"
+      content="How to Implement HTTPS for Netwrix Change Tracker Web User Interface?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to implement HTTPS for Netwrix Change Tracker web user interface? What impact would
+            installing a certificate have on the agents checking in?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            HTTPS should already be configured for your Change Tracker server, this can be confirmed
+            by the following steps below:
+          </p>
+
+          <ol>
+            <li>
+              <p>RDP into the Change Tracker Server.</p>
+            </li>
+            <li>
+              <p>Open <b>Internet Information Services (IIS) Manager</b>.</p>
+            </li>
+            <li>
+              <p>Locate <b>Server Name</b> and expand the <b>Sites</b> dropdown.</p>
+            </li>
+            <li>
+              <p>
+                Click <b>Change Tracker Generation 7n</b>. On this page, click <em>Bindings</em> and
+                you should be able to see the HTTPS binding.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            This is also the location where a new certificate can be selected. It's worth noting
+            that the Certificate needs to be signed by a CA which is trusted by all of the agents
+            connecting to Change Tracker. If the agents do not have the CA trusted in it's store,
+            adding the certificate's Thumbprint to the agent config would be required and the agents
+            would all be disconnected until the thumbprint is added.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

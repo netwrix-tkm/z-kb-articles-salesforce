@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Can't Find a File Share in a Report</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000NmDKAU" />
+    <meta name="Id" content="ka0Qk0000001PArIAM" />
+    <meta name="LastPublishedDate" content="2024-01-18T19:10:12.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-18T19:10:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-16T19:24:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9006" />
+    <meta name="ArticleNumber" content="000009006" />
+    <meta name="description" content="Can't Find a File Share in a Report" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Two file shares have been added to a monitoring plan. However, When I run a report, I
+            can't see them. Both file shares have a space in their names:
+            <code>\\fileserver\&lt;share name&gt;$</code>. I'm wondering if the space is the issue.
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>Spaces in item names don't affect their visibility in reports.</p>
+
+          <p>
+            When adding a hidden share to the monitoring plan, don't forget to add the
+            <code>$</code> sign at the end of the share's name.
+          </p>
+
+          <p>Another way to monitor hidden shares is as follows:</p>
+
+          <ol>
+            <li>
+              <p>
+                Go to the <strong>Monitoring Plans</strong> section and select a monitoring plan.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Add item</strong>, select the<strong> Computer </strong>item type and
+                enter a target server name<strong> </strong>where your hidden shares are located.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Scope</strong> section, select the
+                <strong>Monitor user-defined hidden shares</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            Note that if a share has no activity during a reporting period it will not be in an
+            activity report. Feel free to perform a test action,<strong> </strong>wait for the data
+            collection to complete, and check the report again.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot Generate SSPI Context Error in SQL Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HefCAE" />
+    <meta name="Id" content="ka0Qk0000001JrpIAE" />
+    <meta name="LastPublishedDate" content="2024-01-08T12:01:56.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-12T07:32:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-12-10T13:15:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5928" />
+    <meta name="ArticleNumber" content="000005928" />
+    <meta name="description" content="Troubleshooting-SQL-Server-Connection-Errors" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error is prompted in Health Log for your SQL Server monitoring plan:</p>
+
+          <pre class="has-inner-focus">
+Source: SQL Server Audit Service
+Computer: %affected_Auditor_server%
+Description: Unable to retrieve a SQL Server instance name for the item %item_name%.
+The instance was unreachable and the item was skipped from processing:
+The target principal name is incorrect.
+Cannot generate SSPI context.</pre
+          >
+
+          <p>This error may also affect the state-in-time snapshot collection.</p>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                The firewall settings either in your SQL server or Auditor server are misconfigured.
+              </p>
+            </li>
+            <li>
+              <p>
+                The service account used for SQL Server services has no service principle name
+                registered.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Auditor server and SQL server cannot communicate due to different TLS protocol
+                versions.
+              </p>
+            </li>
+            <li>
+              <p>The SQL Server and the Auditor server have a significant time difference.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>To refresh the monitoring plan once you have
+            introduced the changes, proceed to the main Netwrix Auditor menu &gt;
+            <strong>Monitoring Plans</strong> &gt; select your SQL Server monitoring plan and click
+            <strong>Edit</strong> &gt; click the <strong>Update</strong> button in the right pane.
+          </p>
+        </blockquote>
+
+        <h4 id="cause_1_−_firewall_settings">Cause #1 − Firewall Settings</h4>
+
+        <div>
+          <p>
+            Verify the firewall settings in your environment − refer to the following articles for
+            additional information on ports required for SQL Server monitoring:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SQLServer/Ports.htm"
+              target="_self"
+              >SQL Server − SQL Server Ports · v10.6 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="cause_2_−_sql_server_service_accounts">Cause #2 − SQL Server Service Accounts</h4>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To troubleshoot possible issues with service
+              principle names (SPNs), refer to the following options:
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  You can use Kerberos Configuration Manager both in your Auditor and SQL servers to
+                  establish and locate the possible issues related to the used service account in
+                  SQL Server − learn more in
+                  <a
+                    href="https://learn.microsoft.com/en-US/troubleshoot/sql/database-engine/connect/cannot-generate-sspi-context-error#fix-the-error-with-kerberos-configuration-manager-recommended"
+                    target="_blank"
+                    >Cannot Generate SSPI Context − Fix the error with Kerberos Configuration
+                    Manager · Microsoft 🡥</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>You can create a <code>.udl</code> file to test the SQL Server connectivity:</p>
+
+                <ol>
+                  <li>
+                    <p>
+                      Either in the Auditor server or SQL server, open File Explorer &gt; the
+                      <strong>View</strong> tab &gt; check the
+                      <strong>File name extensions</strong> checkbox.
+                    </p>
+                  </li>
+                  <li>
+                    <p>Create a <code>.txt</code> file.</p>
+                  </li>
+                  <li>
+                    <p>Change the new file extension to <code>.udl</code>, and open the file.</p>
+                  </li>
+                  <li>
+                    <p>
+                      In the <strong>Connection</strong> tab, specify the SQL server name and the
+                      service account credentials, and click <strong>Test Connection</strong>.
+                    </p>
+                  </li>
+                </ol>
+              </li>
+            </ul>
+          </blockquote>
+
+          <p>
+            SPNs for service accounts can be registered both automatically and manually. Learn more
+            about setting up automatic SPN registration in
+            <a
+              href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/register-a-service-principal-name-for-kerberos-connections?view=sql-server-ver16#Auto"
+              target="_blank"
+              >Register Service Principal Name for Kerberos Connections − Automatic SPN Registration
+              · Microsoft 🡥</a
+            >. To register an SPN for a domain account, refer to the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>Launch elevated Command Prompt in any server in the SQL Server forest.</p>
+            </li>
+            <li>
+              <p>
+                When using a domain user account as a service account, run the following line to
+                register an SPN for the server and verify there are no duplicates:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">setspn -S http/testlab-sql domain\user</code></pre>
+            </li>
+            <li>
+              <p>
+                When using the Network Service account as a service account, run the following line
+                to register an SPN for the server and verify there are no duplicates:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">setspn -s MSSQLSvc/testlab-sql testlab-sql</code></pre>
+
+              <p>
+                To register an SPN for a specific instance (using the 1433 port or other), run the
+                following line:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">setspn -s MSSQLSvc/testlab-sql:1433 testlab-sql</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Make sure to replace placeholders with
+                  actual SQL Server name, specific domain service account, and port. In lines
+                  provided above, <code>testlab-sql</code> stands for the server name.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="cause_3_−_different_tls_protocol_versions">
+          Cause #3 − Different TLS Protocol Versions
+        </h4>
+
+        <div>
+          <p>
+            Allow the operating systems to select the protocol for incoming and outgoing
+            communication in both your Auditor and SQL servers. For additional information on the
+            resolution, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+              target="_self"
+              >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+              Algorithm</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="cause_4_−_sql_and_auditor_servers_time_difference">
+          Cause #4 − SQL and Auditor Servers Time Difference
+        </h4>
+
+        <div>
+          <p>
+            Sync the time in both SQL and Auditor servers to eliminate the clock skew. Refer to the
+            following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000LdxKAE.html"
+              target="_self"
+              >Clock Skew Is Too Great</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SQLServer/Ports.htm"
+                  target="_self"
+                  >SQL Server − SQL Server Ports · v10.6 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-US/troubleshoot/sql/database-engine/connect/cannot-generate-sspi-context-error#fix-the-error-with-kerberos-configuration-manager-recommended"
+                  target="_blank"
+                  >Cannot Generate SSPI Context − Fix the Error with Kerberos Configuration Manager
+                  · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/register-a-service-principal-name-for-kerberos-connections?view=sql-server-ver16#Auto"
+                  target="_blank"
+                  >Register Service Principal Name for Kerberos Connections − Automatic SPN
+                  Registration · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+                  target="_self"
+                  >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+                  Algorithm</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000LdxKAE.html"
+                  target="_self"
+                  >Clock Skew Is Too Great</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

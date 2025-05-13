@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Password Never Expires Report Shows Incorrect Data</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000YkrKAE" />
+    <meta name="Id" content="ka0Qk0000002zyfIAA" />
+    <meta name="LastPublishedDate" content="2024-04-23T07:48:44.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-23T07:48:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-23T07:48:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9106" />
+    <meta name="ArticleNumber" content="000009106" />
+    <meta name="description" content="Password Never Expires Report Shows Incorrect Data" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            In 1Secure, the <strong>Password never expires</strong> setting is incorrectly reported
+            as enabled for particular accounts. When you review
+            <strong>Active Directory Users and Computers</strong> settings, the setting is disabled
+            for affected accounts.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            A GPO with the <code>maxPasswordAge=0</code> parameter is applied to the affected
+            accounts. The parameter causes 1Secure to report the
+            <strong>Password never expires</strong> setting as enabled.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            In the corresponding GPO, set the <code>maxPasswordAge</code> parameter to any non-zero
+            value. This will allow 1Secure to correctly report the affected accounts.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>33 Sample Scripts for Agentless FIM</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JTUCA2" />
+    <meta name="Id" content="ka04u000000Hd89AAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:34:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8106" />
+    <meta name="ArticleNumber" content="000008106" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong
+            ><em
+              >Note: For script debugging and advanced scripting requirements, you may find it
+              easier to use the ‘Script Console’ packaged with any Proxy Agent installation. You can
+              run the Script Console from C:\Program Files\NNT Change Tracker
+              Suite\AgentProxy\ScriptConsole, program name NNT.Script.Console.exe</em
+            ></strong
+          >
+        </p>
+        <p>
+          The sample scripts provided in this section all include a Main Script and a Logon Script
+          dialogue, however, for Production Agentless trackers, the Logon script only is used within
+          the Credentials key with the Main Script commands being configured with the relevant
+          Configuration Template.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JTUCA2_10f7e79f-f62f-4344-8ae1-32b46b5f9869.png"
+          /></span>
+        </p>
+        <p />
+        <h2 id="id-33SampleScriptsforAgentlessFIM-1.NortelSwitchTelnetLogin(MenupresentedattheCLI)">
+          <span>1. Nortel Switch Telnet Login (Menu presented at the CLI)</span>
+        </h2>
+        <p class="MsoNormal">
+          <span
+            >Leave all settings at default then set Username and Password and adjust other settings
+            where specified below:</span
+          >
+        </p>
+        <p class="MsoNormal"><span>Term Type: </span><span>TTY</span></p>
+        <p class="MsoNormal"><span>Number of Columns</span><span>: 1024</span></p>
+        <p class="MsoNormal"><span>Protocol: </span><span>Telnet</span><span> </span></p>
+        <p class="MsoNormal">
+          <span>New Line: <span> </span></span
+          ><span>CRLF</span>
+        </p>
+        <p class="MsoNormal">
+          <span>Un-check ‘</span><span>Send credentials with connect</span
+          ><span>’ (because password is sent after CTRL-Y menu stage)</span>
+        </p>
+        <p class="MsoNormal">
+          <span><br /></span>
+        </p>
+        <p>
+          <em
+            ><span
+              >Notes - uses CTRL-Y (\x19) to initiate login. Password is sent explicitly using a
+              ‘Send’ command. Menu control characters are removed from the return data using the
+              StripCtrl command.</span
+            ></em
+          >
+        </p>
+        <h3 class="MsoNormal" id="id-33SampleScriptsforAgentlessFIM-LoginScript:">
+          <span>Login Script: </span>
+        </h3>
+        <p class="MsoNormal"><span>StripCtrl,ON</span></p>
+        <p class="MsoNormal"><span>Sleep,2</span></p>
+        <p class="MsoNormal"><span># Send CTRL-Y</span></p>
+        <p class="MsoNormal"><span>Send,\\x19</span></p>
+        <p class="MsoNormal"><span>Sleep,2</span></p>
+        <p class="MsoNormal"><span>Send,\r\n</span></p>
+        <p class="MsoNormal"><span>Sleep,2</span></p>
+        <p class="MsoNormal"><span>Send,$$PASSWORD$$\r\n</span></p>
+        <p class="MsoNormal"><span>Sleep,2</span></p>
+        <p class="MsoNormal">
+          <span>To pick a menu item from the menu that follows and capture the result into </span
+          ><span>$$RESULT$$:</span>
+        </p>
+        <p class="MsoNormal">
+          <span><br /></span>
+        </p>
+        <h3 id="id-33SampleScriptsforAgentlessFIM-MainScript:"><span>Main Script:</span></h3>
+        <p class="MsoNormal"><span>SendCapture,$$RESULT$$,M\r\n</span></p>
+        <p class="MsoNormal"><span> </span></p>
+        <p>
+          <span><br /> </span>
+        </p>
+        <p class="MsoNormal"><span> </span></p>
+        <h2 id="id-33SampleScriptsforAgentlessFIM-2.Appliance/LegacyUnixSSHLogin">
+          <span>2. Appliance/Legacy Unix SSH Login</span>
+        </h2>
+        <p class="MsoNormal">
+          <span
+            >Leave all settings at default then set Username and Password and adjust other settings
+            where specified below:</span
+          >
+        </p>
+        <p class="MsoNormal"><span>Term Type: </span><span>TTY</span></p>
+        <p class="MsoNormal"><span>Number of Columns</span><span>: 1024</span></p>
+        <p class="MsoNormal"><span>Protocol: </span><span>SSH2</span><span> </span></p>
+        <p class="MsoNormal">
+          <span>New Line: <span> </span></span
+          ><span>CRLF</span>
+        </p>
+        <p class="MsoNormal">
+          <span>Check ‘</span><span>Send credentials with connect</span
+          ><span>’ (standard SSH setting)</span>
+        </p>
+        <p class="MsoNormal">
+          <span>Set prompt (e.g. </span><span>[root@localhost ~]#</span><span> )</span>
+        </p>
+        <p class="MsoNormal"><span> </span></p>
+        <h3 class="MsoNormal" id="id-33SampleScriptsforAgentlessFIM-LoginScript:.1">
+          <span>Login Script:</span>
+        </h3>
+        <p class="MsoNormal"><span>WaitForPrompt</span></p>
+        <p class="MsoNormal"><span> </span></p>
+        <p>
+          <span
+            >To execute a command and capture the result immediately after receiving the prompt,
+            add:</span
+          >
+        </p>
+        <h3 class="MsoNormal" id="id-33SampleScriptsforAgentlessFIM-MainScript:.1">
+          <span>Main Script:</span>
+        </h3>
+        <p class="MsoNormal"><span>ExecuteAndCapture,$$RESULT$$,ls -l /etc</span></p>
+        <h2 id="id-33SampleScriptsforAgentlessFIM-2.a.LegacyUnixAgentlessFIM">
+          <span>2.a. Legacy Unix Agentless FIM</span>
+        </h2>
+        <p class="MsoNormal">
+          <span
+            >Leave all settings as above and set Username and Password and adjust other settings
+            where specified below:</span
+          >
+        </p>
+        <h3 class="MsoNormal" id="id-33SampleScriptsforAgentlessFIM-LoginScript:.2">
+          <span>Login Script:</span>
+        </h3>
+        <p class="MsoNormal"><span>WaitForPrompt</span></p>
+        <p class="MsoNormal"><span>FileHashPath,/usr/bin/</span></p>
+        <p class="MsoNormal"><span> </span></p>
+        <p>
+          <span
+            >To execute a command and capture the result immediately after receiving the prompt,
+            add:</span
+          ><span> </span>
+        </p>
+        <h3 class="MsoNormal" id="id-33SampleScriptsforAgentlessFIM-MainScript:.2">
+          <span>Main Script:</span>
+        </h3>
+        <p class="MsoNormal"><span>FileHashPath,/usr/bin/NNT_FILEHASH_LINUX_X64</span></p>
+        <p class="MsoNormal"><span>WaitForPrompt</span></p>
+        <p>
+          <em
+            ><span><br /> </span
+          ></em>
+        </p>
+        <p class="MsoNormal">
+          <em><span> </span></em>
+        </p>
+        <h2
+          id="id-33SampleScriptsforAgentlessFIM-2.a.LegacyUnixAgentlessFIM**Bewaresimple,singlecharacterpromptssuchas#or$**"
+        >
+          <span
+            >2.a. Legacy Unix Agentless FIM ** Beware simple, single character prompts such as </span
+          ><span>#</span><span> or </span><span>$</span><span> **</span>
+        </h2>
+        <p class="MsoNormal">
+          <strong
+            ><em
+              ><span
+                >Note: On legacy systems such as AIX or Solaris, the prompt may be just a simple
+                ‘#’. This is a ‘risky’ prompt to use as the # is often used for formatting welcome
+                banners etc. and therefore may provide the tracker with a false prompt, terminating
+                the capture prematurely.</span
+              ></em
+            ></strong
+          >
+        </p>
+        <p class="MsoNormal">
+          <strong
+            ><em
+              ><span
+                >In this instance use an alternative shell with a stronger prompt, for example,
+                bash. This means you would set your prompt in the credential settings as ‘bash-n#’
+                requiring the switch to the bash shell to be driven by the login script – see
+                example below</span
+              ></em
+            ><span> </span
+          ></strong>
+        </p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal">
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JTUCA2_67768d1a-4c3e-4e8e-9749-d09b2c0dafa4.png"
+          /></span>
+        </p>
+        <p class="MsoNormal"><br /></p>
+        <h2 id="id-33SampleScriptsforAgentlessFIM-3.CiscoTelnetLogin">3. Cisco Telnet Login</h2>
+        <p>
+          Leave all settings at default then set Username and Password and adjust other settings
+          where specified below:
+        </p>
+        <p>Term Type: TTY</p>
+        <p>Number of Columns: 1024</p>
+        <p>Protocol: Telnet</p>
+        <p>New Line:  CRLF</p>
+        <p>Un-check ‘Send credentials with connect’ (standard Telnet setting)</p>
+        <p>Prompts: e.g.       PCI-Network-1600&gt;</p>
+        <p>            PCI-Network-1600#</p>
+        <h3 id="id-33SampleScriptsforAgentlessFIM-LoginScript:.3">Login Script:</h3>
+        <p>Send,$$USERNAME$$\n</p>
+        <p>Send,$$PASSWORD$$\n</p>
+        <p>Sleep,2</p>
+        <p>
+          # This is the Privilege mode, accessed via the en command and the password needed (Note:
+          It is possible to configure the Cisco to require a username and password for the Privilege
+          mode in case you need to allow for this)
+        </p>
+        <p>Send,en\n</p>
+        <p>Sleep,2</p>
+        <p>Send,$$PASSWORD2$$\n</p>
+        <p>Sleep,2</p>
+        <p>Execute,terminal len 0</p>
+        <p>Sleep,2</p>
+        <h3 id="id-33SampleScriptsforAgentlessFIM-MainScript:.3">Main Script:</h3>
+        <p># Hash sensitive lines in output</p>
+        <p>HashMatchesWithComment,*** password hashed *** ,password</p>
+        <p>HashMatchesWithComment,*** enable secret hashed *** ,enable secret</p>
+        <p># Get running config</p>
+        <p class="MsoNormal">ExecuteAndCapture,$$RESULTS$$,sh run</p>
+        <p class="MsoNormal"><br /></p>
+        <h2 id="id-33SampleScriptsforAgentlessFIM-4.WindowsAgentlessLogin">
+          4. Windows Agentless Login
+        </h2>
+        <p>
+          Leave all settings at default then set Username and Password and adjust other settings
+          where specified below:
+        </p>
+        <p>Term Type: Unused/Default</p>
+        <p>Number of Columns: 1024</p>
+        <p>Protocol: Windows Logon</p>
+        <p>New Line:  CRLF</p>
+        <p>Check ‘Send credentials with connect’</p>
+        <p>Prompts: e.g.       C:\Windows\System32&gt;</p>
+        <p>       </p>
+        <h3 id="id-33SampleScriptsforAgentlessFIM-LoginScript:.4">Login Script:</h3>
+        <p>WaitForPrompt</p>
+        <p>Main Script – Example:</p>
+        <p>ExecuteAndCapture,$$RESULT$$,ipconfig</p>
+        <h2 id="id-33SampleScriptsforAgentlessFIM-4.aAgentlessWindowsFIM">
+          4.a Agentless Windows FIM
+        </h2>
+        <p>
+          For Windows Agentless FIM, there are some additional requirements to enable connectivity
+          and operation of the Agentless FIM scan, both for the NNT ProxyAgent service and the
+          target server(s).
+        </p>
+        <p>
+          In order for Change Tracker to perform Agentless FIM on a remote Windows host the NNT
+          ProxyAgent Windows Service will be required to be assigned appropriate credentials for
+          access. There are two different scenarios to consider – using Domain accounts and Local
+          Accounts.
+        </p>
+        <p>
+          In either case, the assignment of credentials is done the same way, using the Microsoft
+          Windows Services console to enter the account username and password for the NNT Windows
+          Service (Note: The default Network Service account uses the Computer Identity and its
+          rights are too limited to provide the Agentless Windows function).
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JTUCA2_fec2045c-0a89-4bb4-be8a-2bbb7f40b338.png"
+          /></span>
+        </p>
+        <p>
+          Regardless of whether Domain or Local accounts are used, the account used will require
+          Local Administrator rights for the monitored target server(s). In this example we have
+          created a special User Account called ‘AgentlessFIM’ and assigned it to the NNT Proxy
+          Agent service being used to monitor a remote server.
+        </p>
+        <p>
+          The NNT.Filehash.exe binary will need to be deployed to the host, best practice is to
+          create a Program Files folder “C:\Program Files\NNT Change Tracker Suite\Filehash” and
+          place the Windows NNT.Filehash.exe within it.
+        </p>
+        <p>
+          The path for the NNT_FILEHASH binary needs to be specified within the Credentials Key
+          Login Script used for the host using the attribute ‘FileHashPath’
+        </p>
+        <p>e.g. Login Script:</p>
+        <p>WaitForPrompt</p>
+        <p>FileHashPath,“C:\Program Files\NNT Change Tracker Suite\Filehash\ NNT.Filehash.exe”</p>
+        <h2 id="id-33SampleScriptsforAgentlessFIM-4.aAgentlessWindowsFIMAdditionalNotes:">
+          4.a Agentless Windows FIM Additional Notes:<strong><em> </em></strong>
+        </h2>
+        <p>
+          The Agentless Windows FIM connection uses netbios operations for remote service control
+          and windows named pipes for remote command execution, so can only be run from a
+          Windows-based NNT ProxyAgent to a Windows server.
+        </p>
+        <p>If connection problems are encountered, check that you are able to:</p>
+        <p>
+          a)      establish a file share connection to the server from the host using the
+          credentials e.g.
+        </p>
+        <p class="MsoNormal">
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JTUCA2_8bbf37ca-5895-4250-91fe-9c827ec8356f.png"
+          /></span>
+        </p>
+        <p>a)      copy a file to the ADMIN$ share using File Explorer</p>
+        <p>
+          b)      control service state remotely using sc.exe from the command prompt (e.g.
+          successfully querying remote service state proves the point: sc \\servername query)
+        </p>
+        <h2
+          id="id-33SampleScriptsforAgentlessFIM-4.aAgentlessWindowsFIMSecurityPolicy/GroupPolicyandFirewallRules"
+        >
+          4.a Agentless Windows FIM Security Policy/Group Policy and Firewall Rules
+        </h2>
+        <p>When using Local Accounts, the Local Security Policy entry</p>
+        <pre>
+Computer Configuration\Windows Settings\Security Settings\Local Policies\Security Options\</pre
+        >
+        <pre>‘Network access: Sharing and security model for local accounts’ should be configured to ‘Classic: Local users authenticate as themselves’<br/><br/>See <a class="external-link" href="http://technet.microsoft.com/en-us/library/cc786449%28v=ws.10%29.aspx" target="_blank">http://technet.microsoft.com/en-us/library/cc786449%28v=ws.10%29.aspx</a> <br/><br/></pre>
+        <p><br /></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JTUCA2_674b3c17-c7a5-4d09-9a7f-6706ecc55f4c.png"
+          /></span>
+        </p>
+        <pre><br/><br/></pre>
+        <p>
+          Firewall rules require TCP Port 139 ‘NetBIOS over TCP/IP’ which is the classic file and
+          printer sharing port used by Microsoft.
+        </p>
+        <p class="MsoNormal">
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JTUCA2_e66cd149-cec9-4601-9375-29a9033adb2f.png"
+          /></span>
+        </p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

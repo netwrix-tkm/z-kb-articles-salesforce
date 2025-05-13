@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Active Directory Changes Duplicated in Reports with System and Unknown in WHO and WHERE Fields
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9RyCAK" />
+    <meta name="Id" content="ka0Qk0000004BzOIAU" />
+    <meta name="LastPublishedDate" content="2024-06-12T10:20:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-12T10:21:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="142" />
+    <meta name="ArticleNumber" content="000002946" />
+    <meta name="description" content="duplicate system unknown" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why were some Active Directory changes duplicated with System and Unknown in
+            <strong>WHO</strong> and <strong>WHERE</strong> fields correspondingly?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Active Directory reports may contain a change and its duplicate with System in the
+            <strong>WHO</strong> field and Unknown in the <strong>WHERE</strong> field. This
+            behavior is expected due to the DirSync control design.<br />During data collection,
+            Netwrix Auditor collects changes via DirSync control through the same domain controller
+            each time. If the domain controller is unavailable at the time of data collection,
+            Netwrix Auditor switches to another domain controller. Data collected from the new
+            domain controller may include changes reported by the previous domain controller.<br /><br />You
+            can verify this behavior — follow the
+            <code>%Working Folder%\AD Change Reporter\Omitlists\%YOUR_DOMAIN%</code> path to open
+            dirsyncdclist.txt in any text editor. If this file contains more than one domain
+            controller, the DCs listed in the file were not always available for data collection.<br />You
+            can delete the dirsyncdclist.txt file. During the next data collection Netwrix Auditor
+            will connect to the first available comain controller and recreate the dirsyncdclist.txt
+            file to contain the new domain controller.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Write to Specified Folder Error</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I9OCAU" />
+    <meta name="Id" content="ka0Qk0000002iplIAA" />
+    <meta name="LastPublishedDate" content="2024-03-28T09:18:01.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-28T10:45:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:04:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6248" />
+    <meta name="ArticleNumber" content="000006248" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted when installing or uninstalling the FSAA Proxy Scanner
+            or the Sensitive Data Discovery Add-on in Netwrix Enterprise Auditor:
+          </p>
+
+          <pre class="has-inner-focus">Unable to write to the specified folder: %Folder_path%</pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The FSAA permissions module must have write permissions for its installation folder. The
+            write permissions are required to update the Tier 2 data after it is received from the
+            target file server. Once updated, the Tier 2 data is transferred to the SQL backend for
+            reporting.
+          </p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Confirm that the account running the installer/uninstaller has permissions to write
+                to the <code>%SAINSTALLDIR%/FSAA</code> folder.
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Right-click the FSAA folder, navigate to <strong>Properties</strong> &gt;
+                    <strong>Security</strong>, and ensure the account has "write" permissions for
+                    the folder.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    To verify the new write permissions, create a new <code>.txt</code> file in the
+                    FSAA folder and save it.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Confirm the drive containing the FSAA folder is not full.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

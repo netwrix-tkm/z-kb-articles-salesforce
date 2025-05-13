@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SbPAM 1.3 HF 002</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IlhCAE" />
+    <meta name="Id" content="ka04u000000HcvMAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:30:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:30:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7078" />
+    <meta name="ArticleNumber" content="000007078" />
+    <meta name="description" content="360012123911" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary:</strong> 1. ManagedAccount is not enabled when CreateAccount is FALSE
+          Managed accounts are not getting enabled when the activity starts if the "Create Account"
+          flag for the Activity is set to false. This causes logins to fail for managed accounts if
+          users attempt to logon to the target resource. The fix will enable the account during the
+          pre-session stage regardless if SbPAM will create the managed account. 2. Disconnected
+          users don't get logged off at end of session When users connect to a target resource
+          during an activity they are not logged off automatically by SbPAM at the end of their
+          activity session if they disconnect from the RDP session by closing the RDP client. Users
+          that keep their RDP sessions open until the end of the session will be logged off. The fix
+          will force a logoff for RDP sessions in the disconnected state as well as active state
+          when the activity session ends. The "Logoff User" step is also added to all default
+          activities.
+        </p>
+        <p>
+          <strong>Issue:</strong> Summary:<br />SbPAM-2153 ManagedAccount is not enabled when
+          CreateAccount is FALSE<br />Managed accounts are not getting enabled when the activity
+          starts if the "Create Account" flag for the Activity is set to false. This causes logins
+          to fail for managed accounts if users attempt to logon to the target resource.<br />The
+          fix will enable the account during the pre-session stage regardless if SbPAM will create
+          the managed account.<br />SbPAM-2175 Disconnected users don't get logged off at end of
+          session<br />When users connect to a target resource during an activity they are not
+          logged off automatically by SbPAM at the end of their activity session if they
+          <strong>disconnect</strong> from the RDP session by closing the RDP client. Users that
+          keep their RDP sessions open until the end of the session will be logged off.<br />The fix
+          will force a logoff for RDP sessions in the <strong>disconnected </strong>state as well as
+          <strong>active </strong>state when the activity session ends. The "Logoff User" step is
+          also added to all default activities.<br />Submitted by:<br />Kevin Horvatin<br /><br />Affected
+          Versions:<br />Versions before 1.3.242.0<br /><br />Affected Module:<br />SbPAM<br />Dev
+          Ticket:<br />SbPAM-2153<br />SbPAM-2175<br /><br />Resolved in Version:<br />1.3.242.0<br /><br />KB
+          Type:<br />Hotfix<br /><br />Issue:<br /><br /><strong>Modules Included</strong
+          ><br /><br /><strong>YouTrack/Escalations</strong><br /><strong>Customers</strong
+          ><br />NFWF 41531 / SBPAM-2175<br />NFWF ????? / SBPAM-2153<br /><br /><strong
+            >Cumulative List of fixes included since Service Pack:</strong
+          ><br />SbPAM-1815 Development for Install complains about permissions when trying to start
+          the action service during install<br />SbPAM-1986 Add Resources Host scan "Status" Column
+          not updated when scan is completed on host.<br />SbPAM-2005 DB Changes report: Moving from
+          page to page loses filter criteria at top<br />SbPAM-2083 Domain sync fails due to
+          duplicate object<br />Instructions:<br />Run SbPAM.exe installer.<br /> 
+        </p>
+        <p>
+          <strong>Instructions:</strong> <strong>Instructions:</strong><br /><strong
+            >Run SbPAM.exe installer.</strong
+          ><br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/SbPAMHotfixes/1.3/SbPAM.1.3.242.zip"
+            target="_self"
+            >https://downloads.stealthbits.com/access/files/SbPAMHotfixes/1.3/SbPAM.1.3.242.zip</a
+          >
+        </p>
+        <p>
+          <strong>Versions:</strong> Versions before 1.3.242.0<br /><strong>Dev Ticket:</strong>
+          SbPAM-2153 SbPAM-2175<br /><strong>Resolved In:</strong> 1.3.242.0<br /><strong
+            >Salesforce Article ID:</strong
+          >
+          2605
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

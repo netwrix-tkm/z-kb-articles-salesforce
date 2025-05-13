@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Troubleshoot Missing Microsoft 365 Emails Using SMTP Relay</title><meta name="label" content="public_v"/><meta name="label" content="password_reset_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000LAvKAM"/><meta name="Id" content="ka0Qk00000014XpIAI"/><meta name="LastPublishedDate" content="2023-12-20T09:48:21.000+0000"/><meta name="LastModifiedDate" content="2023-12-20T14:30:31.000+0000"/><meta name="FirstPublishedDate" content="2023-12-20T09:48:21.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8976"/><meta name="ArticleNumber" content="000008976"/><meta name="description" content="Troubleshoot Missing Microsoft 365 Emails Using SMTP Relay"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>When settings up verification emails via Microsoft 365 SMTP relay, emails still do not reach the users. How to troubleshoot the SMTP relay?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Learn more about setting up a connector in <a href="https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365#option-3-configure-a-connector-to-send-emails-using-microsoft-365-or-office-365-smtp-relay" target="_blank">Set Up Multifunction Device or Application to Send Emails Using Microsoft 365 or Office 365 − Configure Connector to Send Emails Using Microsoft 365 or Office 365 (SMTP Relay) · Microsoft 🡥</a>.</p>
+</blockquote>
+
+<p>Refer to the following steps to troubleshoot the setup:</p>
+
+<ol><li>
+	<p>In your Netwrix Password Reset server, run the following line in elevated PowerShell to log in Microsoft 365:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">$msolcred = get-credential</code></pre>
+
+	<p>Enter the Microsoft 365 credentials to use them when troubleshooting the relay.</p>
+	</li><li>
+	<p>Once you've logged in, use the following line in the same PowerShell window to send a test email from your server to the relay:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Send-MailMessage –From %From_email% –To %To_email% –Subject “Test” –Body “TESTING RELAY” -SmtpServer %Relay_Servername% -Credential $msolcred -UseSsl -Port %port_used%</code></pre>
+
+	<p>Refer to the following example of the line using the default Microsoft 365 SMTP server and port:</p>
+
+	<pre class="has-inner-focus">Send-MailMessage –From testlab@testdom.com –To testlab@testdom.com –Subject “Test” –Body “TESTING RELAY” -SmtpServer smtp.office365.com -Credential $msolcred -UseSsl -Port 587</pre>
+	</li><li>
+	<p>Review the console output for possible errors.</p>
+	</li></ol>
+</div>
+
+<h2 id="related_articles">Related articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365#option-3-configure-a-connector-to-send-emails-using-microsoft-365-or-office-365-smtp-relay" target="_blank">Set Up Multifunction Device or Application to Send Emails Using Microsoft 365 or Office 365 − Configure Connector to Send Emails Using Microsoft 365 or Office 365 (SMTP Relay) · Microsoft 🡥</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

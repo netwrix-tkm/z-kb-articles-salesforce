@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Sharepoint Online Activity Scan Warning: Unknown Item Type</title>
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000020K5KAI" />
+    <meta name="Id" content="ka0Qk000000CnwDIAS" />
+    <meta name="LastPublishedDate" content="2025-03-04T22:20:54.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-13T20:38:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-04T22:20:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9401" />
+    <meta name="ArticleNumber" content="000009401" />
+    <meta name="description" content="Sharepoint Online Activity Scan Error" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            When running SPAC System Scans for SharePoint Online in
+            <strong>Netwrix Enterprise Auditor</strong> (NEA), the system generates the following
+            error message:
+          </p>
+          <pre class="has-inner-focus">
+[8] Unknown item type 
+  </pre
+          >
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            This issue occurs because these are newer event types being collected by
+            <strong>Netwrix Activity Monitor</strong> for which NEA do not have mappings.
+          </p>
+        </div>
+        <h2 id="resolutions">Resolutions</h2>
+        <div>
+          <p>To address this issue, it is recommended to do one of the following:</p>
+          <ul>
+            <li>
+              <p>Ignore the warnings, as they do not inhibit data collection.</p>
+            </li>
+            <li>
+              <p>
+                Upgrade to the latest version of NEA, which should include all SharePoint Online
+                activity types known up until the most recent release date.
+              </p>
+              <blockquote>
+                <p>
+                  <span class="Note"><strong>NOTE: </strong></span>If you are on the latest released
+                  version of NEA and are still encountering this issue, please submit an escalation
+                  to have new event types added to a future release.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Disable the collection of <strong>Other event types</strong> in Netwrix Activity
+                Monitor:
+              </p>
+              <ol>
+                <li>
+                  <p>
+                    Open <strong>Netwrix Activity Monitor</strong> and navigate to the SharePoint
+                    Online file output in the <strong>Monitored Hosts</strong> tab.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    On the <strong>Other</strong> tab, uncheck the
+                    <strong>Other events</strong> option:
+                  </p>
+                  <img
+                    src="kA0Qk00000020K5KAI_642bf4f5-5c4a-4f9d-9eeb-86122d7412e0.png"
+                    alt=""
+                    width="753"
+                    height="263"
+                  />
+                    
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

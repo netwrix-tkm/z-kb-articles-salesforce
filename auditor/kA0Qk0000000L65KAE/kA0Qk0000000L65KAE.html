@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Launch Netwrix Auditor User Activity Core Service</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000L65KAE" />
+    <meta name="Id" content="ka0Qk0000001S2HIAU" />
+    <meta name="LastPublishedDate" content="2023-12-21T07:58:05.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-23T12:13:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-19T15:16:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8973" />
+    <meta name="ArticleNumber" content="000008973" />
+    <meta
+      name="description"
+      content="Error: Unable to Launch the Netwrix Auditor User Activity Core Service"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When trying to deploy the Netwrix Auditor User Activity Core Service, the following
+            error appears:
+          </p>
+
+          <pre class="has-inner-focus">
+Unable to launch the Netwrix Auditor User Activity Core Service.
+See the Netwrix Auditor System Health event log for more information.
+Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The Remote procedure call failed error can have a number of root causes such as a closed
+            port, Antivirus or EDR software, resource availability on the target system, etc.
+          </p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>
+            When, for some reasons, Netwrix Auditor cannot not install or upgrade the Netwrix
+            Auditor User Activity Core Service automatically, you should install the service
+            manually via CLI or from the .MSI file directly.
+          </p>
+
+          <p>To install the service via CLI:</p>
+
+          <ol>
+            <li>
+              <p>Run command prompt on the computer that hosts your Auditor Server.</p>
+            </li>
+            <li>
+              <p>Execute the following commands:</p>
+
+              <div>
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">cd C:\Program Files (x86)\Netwrix Auditor\User Activity Video Recording</code></pre>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">msiexec.exe /i "UACoreSvcSetup.msi" ALLUSERS=1 /qn /norestart /log output.log UAVR_SERVERNAME=yourservername UAVR_SERVERPORT=9004</code></pre>
+              </div>
+
+              <p>
+                where <code>yourservername</code> is the name of your SMTP server in the FQDN format
+                and <code>9004</code> is the required port number.
+              </p>
+            </li>
+          </ol>
+
+          <p>To run the service via the .MSI file:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts your Auditor Server, navigate to
+                <em>C:\Program Files (x86)\Netwrix Auditor\User Activity Video Recording</em>.
+              </p>
+            </li>
+            <li>
+              <p>Run the <b>UACoreSvcSetup.msi</b> file.</p>
+            </li>
+            <li>
+              <p>
+                Follow the installation prompts up to the
+                <b>Specify User Activity Video Reporter server and TCP port</b> step.
+              </p>
+            </li>
+            <li>
+              <p>
+                On this step, provide your SMTP server name in the FQDN format in the
+                <b>Host server</b> field and provide the port number <b>9004</b>.
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="358"
+                  src="kA0Qk0000000L65KAE_cf3394d0-ea71-4c4f-8ee9-670ebd8f3bec.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Complete the installation.</p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>In case User Activity Core Service is installed in
+              target servers, make sure to check the Core Service version in
+              <strong>Apps &amp; Features</strong>. In case of version mismatch, refer to the
+              following article for additional information:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000PJNKA2.html"
+                target="_self"
+                >Manually Update User Activity Core Service</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h3 id="related_articles">Related articles</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/UserActivity/Ports.htm"
+                  target="_blank"
+                  >Configuration — User Activity — User Activity Ports — v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000PJNKA2.html"
+                  target="_self"
+                  >Manually Update User Activity Core Service</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

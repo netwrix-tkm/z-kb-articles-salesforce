@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_11.0_079</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000TstjCAC" />
+    <meta name="Id" content="ka04u000000HdFXAA0" />
+    <meta name="LastPublishedDate" content="2022-06-09T19:36:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:20:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-06-09T19:29:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8448" />
+    <meta name="ArticleNumber" content="000008448" />
+    <meta name="description" content="Improvement to Group membership permissions job" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>Improvement to Group membership permissions job</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Justin Giemza </span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span>Cumulative List of fixes included since Service Pack:</span></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>None </span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>11.0</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SA - Solution Set - DC</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>104682/103745 </span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Escalation:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>347062/346143</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >GROUP_Databases\ GROUP_1.Users and
+                  Roles\JOB_SQL_RoleMembers\DataAnalysisTasks.XML</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong
+              ><span class="MsoSubtleEmphasis"><span>Bug</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Issue:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >Changed the stale user temp table JOIN (which caused the job to run and consume
+                  resources) to a JOIN against ADI with an update if Azure ADI exists.</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >1. Remove read-only from the hotfix zip file in the windows property dialog if
+                  read only exists there.
+                </span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >2. Close all instances of StealthAUDIT (check task manager under processes for
+                  all users)</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>3. Exit StealthAUDIT console</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >4. Copy and replace files from the folders in this hotfix to the corresponding
+                  folders in SA Install dir.</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><br />https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_079.zip<br /> 
+      </div>
+    </article>
+  </body>
+</html>

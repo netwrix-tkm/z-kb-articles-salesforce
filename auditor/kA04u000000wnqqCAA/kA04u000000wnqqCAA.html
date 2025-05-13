@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LCM_Snapshots Folder Occupies Too Much Disk Space</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnqqCAA" />
+    <meta name="Id" content="ka0Qk0000004l1xIAA" />
+    <meta name="LastPublishedDate" content="2023-12-19T09:25:40.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-23T06:30:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-23T14:55:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8919" />
+    <meta name="ArticleNumber" content="000008919" />
+    <meta name="description" content="LCM_Snapshots Folder Occupies Too Much Disk Space" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            The LCM_Snapshots folder is growing too large in size (in NA v10 and newer). Why is this
+            happening?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            If Working Folder was not excluded from the monitoring scope of the antivirus suite, the
+            LCM_Snapshots folder might grow large in size. Review the AV exclusions in the
+            environment − refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+              target="_self"
+              >Antivirus Exclusions for Netwrix Auditor</a
+            >.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The LCM_Snapshots folder is a duplicate of the FSA
+              collector snapshot and is intended exclusively for calculating the license metrics for
+              each source (items+omits). Metrics are recalculated once every 7 days − the file
+              deletion should occur automatically 20 minutes after each source is calculated − a
+              copy of the snapshot is unloaded from memory.<br /><br />In case no AV exclusions are
+              introduced, and the antivirus suite blocks the LCM_Snapshots folder files, the
+              antivirus suite also blocks the working snapshot files for AR and SIT.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Enterprise Auditor Upgrade Workflow—Upgrade</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_installupgrade" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001SwjKAE" />
+    <meta name="Id" content="ka0Qk0000005lmHIAQ" />
+    <meta name="LastPublishedDate" content="2024-09-26T08:46:38.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-26T08:46:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-26T08:46:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9288" />
+    <meta name="ArticleNumber" content="000009288" />
+    <meta name="description" content="Enterprise Auditor Upgrade Workflow—Upgrade" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span> Return to the main workflow page via
+            this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001T1ZKAU.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow</a
+            >.
+          </p>
+
+          <p>
+            Return to the previous section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001Sv7KAE.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow—Preparations</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001SyLKAU.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow—Post-Upgrade</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="ovrvw">Overview</h2>
+
+        <div>
+          <p>This article lists the steps to perform the Enterprise Auditor upgrade.</p>
+        </div>
+
+        <h2 id="neaCUpg">Upgrading Enterprise Auditor Console</h2>
+
+        <div>
+          <p>Refer to the following steps to upgrade the NEA Console:</p>
+
+          <ol>
+            <li>
+              <p>
+                Download the latest version of Netwrix Enterprise Auditor Management Platform from
+                the Netwrix Customer Portal in
+                <a href="https://www.netwrix.com/my_products_int.html" target="_blank"
+                  >My Products · Netwrix</a
+                >.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>Unblock the installer—in
+                  <strong>Properties</strong>, select the <strong>Unblock</strong> checkbox and save
+                  the changes.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Verify no NEA jobs are running. Review <strong>Task Manager</strong> &gt;
+                <strong>Details</strong> to verify.
+              </p>
+            </li>
+            <li>
+              <p>
+                Uninstall the NEA Console either via <strong>Control Panel</strong> or
+                <strong>Apps &amp; Features</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Hold <kbd>Shift</kbd>, right-click the Console installer, and select
+                <strong>Copy as path</strong>. In an elevated Command Prompt instance, paste the
+                path and run it to start the installation.
+              </p>
+            </li>
+            <li>
+              <p>
+                Complete the installation and launch the Console instance—this should start the
+                upgrade wizard.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>If the upgrade wizard
+                  does not start, run the following lines in a PowerShell instance to launch the
+                  upgrade wizard:
+                </p>
+
+                <pre class="has-inner-focus"><code class="lang-Registry">cd $Env:SAINSTALLDIR
+.\StealthAUDIT.EXE /Upgrade</code></pre>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Review the upgrade conflicts—click <strong>View Conflicts</strong> to review the
+                conflicts. Select one from the <strong>Changes</strong> window list and click
+                <strong>Undo</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Solution Set Files</strong> tab, click <strong>Advanced</strong> to
+                verify the Active Directory solution, File System solution, and any other solution
+                group with a custom structure in the job tree are set to
+                <strong>Upgrade in Place</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Proceed with the upgrade wizard to complete the setup.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="SDDUpg">Upgrading Sensitive Data Discovery</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT: </strong></span>If licensed and used in the
+              environment, Upgrade the Add-on after you upgraded the NEA Console.
+            </p>
+          </blockquote>
+
+          <p>Refer to the following steps to upgrade the Sensitive Data Discovery Add-on (SDD):</p>
+
+          <ol>
+            <li>
+              <p>
+                Download the latest SDD version from the Netwrix Customer Portal in
+                <a href="https://www.netwrix.com/my_products_int.html" target="_blank"
+                  >My Products · Netwrix</a
+                >. Transfer the installer to the NEA Console server.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>Unblock the installer—in
+                  <strong>Properties</strong>, select the <strong>Unblock</strong> checkbox and save
+                  the changes.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Uninstall the older SDD version.</p>
+            </li>
+            <li>
+              <p>
+                Hold <kbd>Shift</kbd>, right-click the SDD installer, and select
+                <strong>Copy as path</strong>. In an elevated Command Prompt instance, paste the
+                path and run it to start the installation. Complete the installation.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="FSAAUpg">Upgrading File System Proxy</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT: </strong></span>If used in the environment,
+              upgrade the FSSA Proxy after you upgraded the NEA Console.
+            </p>
+
+            <p>
+              If used for the Sensitive Data discovery and audit, upgrade the FSAA Proxy after
+              upgrading the SDD Add-on.
+            </p>
+          </blockquote>
+
+          <p>Refer to the following steps to upgrade the File System Proxy Service (FSAA Proxy):</p>
+
+          <ol>
+            <li>
+              <p>
+                Download the latest FSAA Proxy version from the Netwrix Customer Portal in
+                <a href="https://www.netwrix.com/my_products_int.html" target="_blank"
+                  >My Products · Netwrix</a
+                >. Transfer the installer to the target Proxy servers.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>Unblock the installer—in
+                  <strong>Properties</strong>, select the <strong>Unblock</strong> checkbox and save
+                  the changes.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                In the target Proxy server, open <strong>Services</strong> and review the account
+                used to run the <code>StealthAUDITFSAA</code> service.
+              </p>
+            </li>
+            <li>
+              <p>Uninstall the older FSAA Proxy version.</p>
+            </li>
+            <li>
+              <p>
+                Hold <kbd>Shift</kbd>, right-click the up-to-date Proxy installer, and select
+                <strong>Copy as path</strong>. In an elevated Command Prompt instance, paste the
+                path and run it to start the installation. Complete the installation.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 503 − Reports and Subscriptions Not Working</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoK9CAK" />
+    <meta name="Id" content="ka0Qk0000005VnxIAE" />
+    <meta name="LastPublishedDate" content="2024-02-09T10:20:53.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-13T08:16:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-24T15:33:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8592" />
+    <meta name="ArticleNumber" content="000008592" />
+    <meta name="description" content="reports missing, subscription not working" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul />
+
+          <ul>
+            <li>
+              <p>Regular reports are missing.</p>
+            </li>
+            <li>
+              <p>Attempts to run reports via Netwrix Auditor UI return the following error:</p>
+
+              <pre class="has-inner-focus">Can't reach this page</pre>
+            </li>
+            <li>
+              <p>Attempts to connect to SSRS return the following error:</p>
+
+              <pre class="has-inner-focus">
+Invalid Report Server URL
+Update your settings if necessary or proceed with current settings.</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <ul>
+          <li>
+            <p>
+              The <b>Subscriptions</b> menu in Netwrix Auditor shows at least a single
+              <b>Report</b> type subscription with the <b>Failed</b> status.
+            </p>
+          </li>
+          <li>
+            <p>The <b>History</b> tab of the failed report contains entries on failed reports.</p>
+          </li>
+          <li>
+            <p>
+              Check the SSRS availability via Netwrix Auditor, SSRS or SQL Server to try create a
+              report. In case of a related issue the following error should be present:
+            </p>
+
+            <pre class="has-inner-focus">
+Service Unavailable
+HTTP Error 503. The service is unavailable.</pre
+            >
+          </li>
+        </ul>
+
+        <h2 id="causes">Causes</h2>
+
+        <ul>
+          <li>
+            <p>Incorrectly set Web Service and Web Portal URLs.</p>
+          </li>
+          <li>
+            <p>SQL Server Reporting Services has been stopped and is not running.</p>
+          </li>
+          <li>
+            <p>The SSRS account is included in the Protected Users security group.</p>
+          </li>
+          <li>
+            <p>Expired SSRS Evaluation license.</p>
+          </li>
+        </ul>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review Web Service and Web Portal URLs − refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eUCAS.html"
+                  target="_self"
+                  >Deploying the Report Server Database</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the <code>SQL Server Reporting Services</code> service in your SSRS server is
+                running. You can also run <strong>Report Server Configuration Manager</strong> &gt;
+                the <strong>Report Server Status</strong> tab to verify the report server status.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span> Refer to the following
+                  article if you're unable to start the
+                  <code>SQL Server Reporting Services</code> service:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001PE5KAM.html"
+                    target="_self"
+                    >Error: Service Did Not Respond to Start or Control Request in SSRS</a
+                  >.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Remove the SSRS account from the Protected Users security group. Learn more about
+                Protected Users in
+                <a
+                  href="https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group"
+                  target="_blank"
+                  >Protected Users Security Group ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the SSRS Evaluation license used in your environment. If it has expired,
+                refer to the following steps:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Follow <b>Control Panel</b> &gt; <b>Uninstall a program</b> &gt;
+                    <b>Microsoft SQL Server Reporting Services</b> &gt; <b>Uninstall/Change</b>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Once the SSRS window opens, select <b>Upgrade Edition</b> &gt; Enter the product
+                    key to license your SSRS instance.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="troubleshooting_the_expired_evaluation_license">
+          Troubleshooting the expired evaluation license
+        </h4>
+
+        <div>
+          <p>
+            To establish whether your SSRS instance has an evaluation license, open
+            <b>Start</b> &gt; <b>Microsoft SQL Server Reporting Services</b> folder &gt;
+            <b>Report Server Configuration Manager</b>. Once you've connected to the server, check
+            the <b>Edition</b> line in the server window.
+          </p>
+
+          <p>
+            In case your SSRS instance edition is <strong>Evaluation</strong>, check the install
+            date for the SSRS via <b>Start</b> &gt; <b>Settings</b> &gt;
+            <b>Apps &amp; features</b> menu or <b>Control Panel</b> &gt; <b>Uninstall a program</b>.
+            If the period since the installation date exceeds 6 months, your SSRS Evaluation license
+            has expired.
+          </p>
+
+          <p>
+            Review the SSRS logs in
+            <code>C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\LogFiles:</code>
+          </p>
+
+          <pre class="has-inner-focus">
+The report server has encountered a configuration error.  
+Microsoft.ReportingServices.Diagnostics.EvaluationCopyExpiredException:
+The evaluation period for this instance of Microsoft SQL Server Reporting Services has expired.  
+A license is now required.</pre
+          >
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eUCAS.html"
+                  target="_self"
+                  >Deploying the Report Server Database</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001PE5KAM.html"
+                  target="_self"
+                  >Error: Service Did Not Respond to Start or Control Request in SSRS</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

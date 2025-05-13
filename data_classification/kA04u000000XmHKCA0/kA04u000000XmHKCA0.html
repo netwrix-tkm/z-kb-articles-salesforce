@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Service Account Password Reset for Netwrix Data Classification</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="KnowledgeArticleId" content="kA04u000000XmHKCA0" />
+    <meta name="Id" content="ka0Qk000000455xIAA" />
+    <meta name="LastPublishedDate" content="2024-06-06T12:54:07.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-06T12:54:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-01-28T21:19:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5850" />
+    <meta name="ArticleNumber" content="000005850" />
+    <meta
+      name="description"
+      content="Service Account Password Reset for Netwrix Data Classification"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          After resetting the service account password for NDC there are several locations within
+          NDC and IIS that will need to be updated to reflect this change. This article will show
+          you where the new password will need to be supplied.
+        </p>
+
+        <h2 id="services">Services</h2>
+
+        <p>
+          <img
+            alt="User-added image"
+            height="40"
+            src="kA04u000000XmHKCA0_6c42063f-af98-4891-b3c3-4dd482813c90.png"
+            width="500"
+          />
+        </p>
+
+        <p>
+          Update the “<b>Logon As</b>” value for each of the services listed above to reflect the
+          password change.
+        </p>
+
+        <h2 id="conceptconfig">ConceptConfig</h2>
+
+        <p>
+          Navigate to each of the locations below. These locations control the SQL database
+          connection and the account use to make that connection. Update the account credentials for
+          all three locations.
+        </p>
+
+        <ol>
+          <li>
+            <b
+              >"C:\Program
+              Files\ConceptSearching\Services\ConceptCollectorService\conceptConfig.exe"</b
+            >
+          </li>
+          <li><b>"C:\inetpub\wwwroot\conceptQS\bin\conceptConfig.exe"</b></li>
+          <li>
+            <b>"C:\Program Files\ConceptSearching\Services\conceptIndexer\conceptConfig.exe"</b>
+          </li>
+        </ol>
+
+        <h2 id="iis">IIS</h2>
+
+        <p>
+          Open IIS and click <b>Application Pools</b> on the left hand pane. Right click on the
+          <b>conceptQSAppPool</b> and click <b>Advanced Settings</b>.
+        </p>
+
+        <p>
+          Find the <b>Identity</b> and update the password to match the new password for the
+          account, then restart the application pool.
+        </p>
+
+        <p>
+          <img
+            alt="User-added image"
+            height="272"
+            src="kA04u000000XmHKCA0_5102a2f8-f590-4333-9cd8-9ab6fe308390.png"
+            width="500"
+          />
+        </p>
+
+        <h2 id="taxonomy_global_settings">Taxonomy Global Settings</h2>
+
+        <p>
+          Navigate to <b>http://hostname/conceptQS/Taxonomies/GlobalSettings</b> and confirm the
+          status of each taxonomy. Find the faulting termsets and update the credentials for each.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

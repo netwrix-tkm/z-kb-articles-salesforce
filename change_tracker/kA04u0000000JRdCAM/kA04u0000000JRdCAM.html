@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      1. Gen 7 Settings Page - Configuration Templates - FIM: Agentless File Integrity for Legacy
+      Platforms
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JRdCAM" />
+    <meta name="Id" content="ka04u000000Hd7eAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:31:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8080" />
+    <meta name="ArticleNumber" content="000008080" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3
+          id="id-1.Gen7SettingsPage-ConfigurationTemplates-FIM:AgentlessFileIntegrityforLegacyPlatforms-_Toc484003726ConfigurationTemplates:FIMFileIntegrityforLegacyPlatforms/AgentlessOperation"
+        >
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-1.Gen7SettingsPage-ConfigurationTemplates-FIM:AgentlessFileIntegrityforLegacyPlatforms-_Toc484003726"
+            ><span class="confluence-anchor-link" id="_Toc484003726"> </span></span
+          ><span
+            >Configuration Templates: FIM File Integrity for Legacy Platforms/Agentless
+            Operation</span
+          >
+        </h3>
+        <p>
+          Where it is desirable to not use an NNT Agent, or where the platform to be monitored does
+          not currently have an NNT Agent available for it e.g. HP Non-Stop, NNT provide various
+          Agentless FIM options. <br />
+          All Agentless monitoring is performed via a Master Proxy Agent – the Proxy function is
+          supported by any NNT Gen 7 Agent and the dedicated NNT Agent App Proxy Agent. <br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="344"
+              width="602"
+              src="kA04u0000000JRdCAM_2ca44471-2318-4c6c-b94f-35fe41510ca3.png" /></span
+          ><br />
+          The architecture of the solution is based around Proxy Agent instances as in the diagram
+          above. The solution components are as follows:<br />
+          <strong><em>Proxy Agent:</em></strong> By default, every Gen 7 Hub server installation
+          includes an NNT Proxy Agent App or in later deployments, an NNT Gen 7 Agent.<br />
+          Additional Proxy Agent elements can be deployed to other devices to provide a distributed
+          monitoring capability, useful in both reducing monitoring-traffic network loads and
+          simplifying firewall rules where the devices being monitored are remote to the NNT Gen 7
+          Hub. Any single Proxy Agent instance can monitor hundreds of devices.<br />
+          <strong><em>Proxied Device:</em></strong> Once a Proxy Agent element has been established,
+          the devices to be monitored can be configured. <br class="atl-forced-newline" />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="159"
+              width="625"
+              src="kA04u0000000JRdCAM_2e482e21-1015-4b95-a4ef-52f4a4fd2148.png" /></span
+          ><br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="219"
+              width="564"
+              src="kA04u0000000JRdCAM_72aafbe9-f475-4f58-98ec-7f9149175121.png" /></span
+          ><br />
+          Adding a new Proxied Device requires the details opposite to be provided. Once the
+          Names/Alias, IP Address/DNS Name of the device have been provided, the key element is the
+          Credentials to be used. This defines aspects such as the protocol/terminal type to be
+          used, username/password, and any login script/shell navigation.<br />
+          <strong><em>Credentials:</em></strong> Note: For most scenarios, use the built-in
+          Credentials Scripts accessible via the drop-down menu at the top of the 'Add Shell
+          Credential'<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="255"
+              width="559"
+              src="kA04u0000000JRdCAM_25a7bf9b-6d91-44b6-b2b8-2a8ea61ff187.png" /></span
+          ><br />
+          The fields highlighted must always be filled – hit 'Update' in the bottom right-hand
+          corner of the window when finished. In the Advanced Options there will be a definition of
+          the path and name of the NNT File Hash binary being used. For high-security situations
+          where it is desirable to maintain a 100% guarantee of a file's integrity, the Change
+          Tracker NNT File hash binary is used. This is an extra command for the system that
+          generates a hash value for all files serving as an infallible verification of file makeup.
+          In addition, all file attributes will be tracked too.<br />
+          <strong><em>NNT Filehash:</em></strong> You can select the required NNT Filehash binary
+          for the platform to be monitored from Settings -&gt; System Settings -&gt; Advanced
+          Options. The file should be placed on the host with appropriate execute permissions.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="136"
+              width="596"
+              src="kA04u0000000JRdCAM_74cff232-0c1b-4125-a738-53ef35cfbbba.png" /></span
+          ><br />
+          <strong><em>Completion:</em></strong> At this stage, the Proxied Device has been added to
+          your Gen 7 system with the correct Credentials and a Logon Script assigned to it. The NNT
+          Filehash has been copied to the host to be monitored and has been tested working.<br />
+          At this point you can then treat the Proxied Device in exactly the same way as an
+          Agent-Based Device. <br />
+          Assigning the Proxied Device to a Group will apply a Configuration Template to the device
+          together with any Compliance Reports for the Group, and any events and alerts will be
+          displayed and handled in the same way as for any Agent-Based Device.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="244"
+              width="625"
+              src="kA04u0000000JRdCAM_3d588d9a-b342-4610-a86c-357d617443ff.png"
+          /></span>
+        </p>
+        <h4
+          id="id-1.Gen7SettingsPage-ConfigurationTemplates-FIM:AgentlessFileIntegrityforLegacyPlatforms-AdditionalTroubleshootingNotesonUsingNNTFilehash"
+        >
+          <span>Additional Troubleshooting Notes on Using NNT Filehash</span>
+        </h4>
+        <p>
+          You can verify if the NNT Filehash is operational by logging onto the system to be
+          monitored and entering the command NNT_Filehash_xxxx (where xxxx is the suffix for your
+          chosen NNT Filehash binary e.g. NNT_FILEHASH_LINUX_x64. Here the NNT_Filehash has been
+          correctly copied to a valid executable path for the host, and has been provided with the
+          correct execute attributes for the user account being used.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="231"
+              width="625"
+              src="kA04u0000000JRdCAM_b2d50c12-7894-4d75-985c-ff75153fe5f3.png" /></span
+          ><br />
+          <span>Common Agentless FIM Troubleshooting Tips:</span><br />
+          <strong><em>'Permission denied'</em></strong> Check file permissions, especially execute
+          permissions for the user account to be used by the Change Tracker Proxy Agent<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="63"
+              width="596"
+              src="kA04u0000000JRdCAM_62c958a5-d278-488f-996e-47ece8386f1e.png" /></span
+          ><br />
+          <strong><em>'No such file or directory'</em></strong> Check that the NNT_Filehash has been
+          placed on a path for the user account being used. Use $PATH to show the path variable
+          settings for the user account. You can modify the user path by creating a custom.sh shell
+          script in /etc/profile.d/ or by modifying /etc/bashrc or /etc/profile but reference the
+          appropriate guidance for your platform OS.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="59"
+              width="593"
+              src="kA04u0000000JRdCAM_092aa58a-274e-463e-9c2c-8ce392ab5f89.png" /></span
+          ><br />
+          <strong><em>'error while loading shared libraries'</em></strong> Suggests there may be
+          missing dependencies or required libs are not on an executable path for the user account
+          being used.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="109"
+              width="572"
+              src="kA04u0000000JRdCAM_54c8ce2b-f2f3-46ff-92e3-2eec53c18228.png" /></span
+          ><br />
+          Check dependencies of NNT Filehash using an ldd NNT_FILEHASH_LINUX_X64<br />
+          Here the libstdc++.so.6 file is reported as 'not found', while all other dependencies have
+          been located OK.<br />
+          Check if libstdc+<span
+            >.* is present on the platform to be monitored using command find / -name libstdc</span
+          >+.* <br />
+          If the file is located then it will be necessary to either copy the file to the standard
+          default path, e.g. /usr/bin, or at least create a link from the path to the file <br />
+          If the libstdc file is not located on this host, please run the find command on any other
+          similar servers, especially any with compiler capabilities. If located, please take a copy
+          of the file, move it to all other servers and place it on the /usr/bin path <br />
+          if libstdc++ does not exist anywhere within your server estate, then it will be necessary
+          to get the binary from the Manufacturer repo or contact support@nntws.com
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

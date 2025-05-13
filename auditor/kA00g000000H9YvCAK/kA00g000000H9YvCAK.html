@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: The remote server returned an error: (407) Proxy authentication required.</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YvCAK" />
+    <meta name="Id" content="ka04u000000HcRwAAK" />
+    <meta name="LastPublishedDate" content="2022-03-30T20:33:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1219" />
+    <meta name="ArticleNumber" content="000003369" />
+    <meta
+      name="description"
+      content="1. Configure the internet connection to not use the Proxy server 2. Disable authentication on the proxy server 3. Check updates on the customer portal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You are getting the following warning message when checking Netwrix Auditor for product
+        updates: "Error: The remote server returned an error: (407) Proxy authentication required. "
+        <hr />
+        The "Check for Updates" feature uses a direct internet connection and unfortunately is
+        unable to connect to the Netwrix website since a proxy server is in use.
+        <hr />
+        In order to resolve the issue we can recommend the following options:<br /><strong
+          >1. Configure the internet connection to not use the Proxy server.</strong
+        ><br />In the Internet Explorer, open the Internet Options dialog box, click Connections,
+        click LAN Settings, and disable "Use a Proxy Server...".
+        <img
+          alt="User-added image"
+          height="331"
+          src="kA00g000000H9YvCAK_e7da49d8-c0dd-460d-8162-b622ee5229cd.png"
+          width="500"
+        /><br /><strong
+          >2. Disable authentication on the proxy server to allow anonymous connections. In order to
+          do that please perform the following steps:</strong
+        ><br /><strong>2.1 For ISS version 6.0</strong>
+
+        <div id="section-2">
+          - Click the Windows "Start" button on your proxy server. Click "Administrative Tools" and
+          then click "Internet Information Services Manager." The IIS utility loads and all of your
+          websites and proxy server settings are shown.
+        </div>
+
+        <div id="section-3">
+          - Right-click the proxy server name on the left and click "Properties" in the popup menu.
+          Click the "Directory Security" tab to display several security settings.
+        </div>
+
+        <div id="section-4">
+          - Click the "Edit" button in the section labeled "Authentication and Access Control." A
+          new window appears that lists several options for access to the proxy server.
+        </div>
+
+        <div id="section-5">
+          - Check the box labeled "Enable Anonymous Access." Click "OK" in the opened window and
+          then click "OK" again in the main properties window. Anonymous access is set up and no
+          user name or password is required when connecting to the server.<br /><strong
+            >2.2 For ISS 7.X and above</strong
+          ><br />-Click the Windows "Start" button on your proxy server.<br />-Click "Administrative
+          Tools" and then click "Internet Information Services Manager." The IIS utility loads and
+          all of your websites and proxy server settings are shown.<br />-Select the proxy server
+          name on the left, in the main window double-click "Authentication" under the IIS
+          section<br />-On the next screen enable "Anonymous Authentication". Anonymous access is
+          set up and no user name or password is required when connecting to the server.<br /><strong
+            >3. Check updates on the customer portal, in "My product" section:</strong
+          ><br />- Open and Netwrix website - www.netwrix.com;<br />- Click Sign in at the top right
+          corner and type your login information;<br />- Then navigate to "My Products" section.
+        </div>
+         
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>StealthINTERCEPT Upgrade Procedure Fails When Windows Authentication Enabled</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000wnmoCAA"/><meta name="Id" content="ka04u000000ww3OAAQ"/><meta name="LastPublishedDate" content="2023-11-06T15:08:04.000+0000"/><meta name="LastModifiedDate" content="2023-11-06T15:08:04.000+0000"/><meta name="FirstPublishedDate" content="2023-11-03T12:22:01.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8891"/><meta name="ArticleNumber" content="000008891"/><meta name="description" content="StealthINTERCEPT Upgrade Procedure Fails When Windows Authentication Enabled"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>When running StealthINTERCEPT upgrade procedure (7.3.5.x – 7.3.9.x) and Windows Authentication is used to connect to existing StealthINTERCEPT databases, the installation completes without errors and warnings, however, no applications were installed.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The issue occurs when the User Account Control (UAC) is enabled on the StealthINTERCEPT console host.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>There are two options to resolve the issue:</p>
+
+<ol><li>
+	<p>Disable UAC on the StealthINTERCEPT Console Host.</p>
+
+	<p>Learn more about how to disable UAC in <a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/disable-user-account-control" target="_blank">How to disable User Account Control (UAC) on Windows Server ⸱ Microsoft 🡥</a>. Follow the instructions below:</p>
+
+	<ul><li>
+		<p>On the StealthINTERCEPT console host, open <b>Registry Editor</b> – <b>Start</b> -&gt; <b>Run</b> -&gt; <b>Regedit</b>.</p>
+		</li><li>
+		<p>In the <b>Registry Editor</b>, navigate to HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System.</p>
+		</li><li>
+		<p>Double-click the <b>EnableLUA</b>, and verify if the value is set to <em>0</em>; if not, change it to <em>0</em>.</p>
+		</li><li>
+		<p>Close <b>Registry Editor</b> and restart the computer.</p>
+		</li></ul>
+	</li><li>
+	<p>If your company policy restricts disabling UAC then run the StealthINTERCEPT installer .MSI file from admin PowerShell console and follow the normal installation procedure.</p>
+	</li></ol>
+</div></div>
+</article></body></html>

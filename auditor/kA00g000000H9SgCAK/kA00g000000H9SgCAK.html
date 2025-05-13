@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Changed Object Path after Account Name Change</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SgCAK" />
+    <meta name="Id" content="ka04u00000116T1AAI" />
+    <meta name="LastPublishedDate" content="2023-07-03T07:35:24.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-03T07:54:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="257" />
+    <meta name="ArticleNumber" content="000002990" />
+    <meta
+      name="description"
+      content="Active Directory audit object path change reporting “System”"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why did System stated in the WHO field change Object Path after the account name change?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            This behavior is expected. When an account name is modified, the Active Directory
+            Activity Summary contains 2 changes:
+          </p>
+
+          <ul>
+            <li>
+              <p>The change indicating the name modification.</p>
+            </li>
+            <li>
+              <p>The change indicating the modifications to the Object Path of the same account.</p>
+            </li>
+          </ul>
+
+          <p>
+            When an account name is modified, Active Directory represented by System automatically
+            changes the account attribute named Canonical-Name. Netwrix Auditor interprets changes
+            to this attribute as object path changes as Canonical-Name attribute reflects the full
+            path to the object in Active Directory. In addition to the name change, Netwrix Auditor
+            creates a change entry with System in the WHO column to reflect the Object Path change
+            details. For additional information on the attribute, refer to the following Microsoft
+            article:
+            <a
+              href="https://learn.microsoft.com/en-us/windows/win32/adschema/a-canonicalname?redirectedfrom=MSDN"
+              target="_blank"
+              >Canonical-Name Attribute</a
+            >.
+          </p>
+
+          <p>
+            Netwrix Auditor reports the second change as Active Directory represented by System
+            changes Object Path in the Canonical-Name attribute. The actual object path wasn't
+            changed as the account is still in the OU. If you move an account to another OU, WHO
+            field will contain the corresponding account name.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

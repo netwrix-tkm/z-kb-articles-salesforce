@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      SCMLib.DataCollecting.DNSDataProviderException2 Error in Windows Server Monitoring Plan
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000KDFKA2" />
+    <meta name="Id" content="ka0Qk00000011JpIAI" />
+    <meta name="LastPublishedDate" content="2023-12-15T11:42:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-15T11:42:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-14T11:28:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8965" />
+    <meta name="ArticleNumber" content="000008965" />
+    <meta
+      name="description"
+      content="SCMLib.DataCollecting.DNSDataProviderException2 Error in Windows Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for your Windows Server monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Monitoring plan: %monitoring_plan_name%
+The following error has occurred while processing '%FQDN%': 
+The DNS data provider failed to process data from \\%FQDN%\Root\MicrosoftDNS:MicrosoftDNS_Server.Path="%FQDN%" due to the following error:
+Exception of type 'SCMLib.DataCollecting.DNSDataProviderException2' was thrown.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Advanced audit settings for Windows Server are misconfigured.</p>
+            </li>
+            <li>
+              <p>
+                TLS protocols in your environment are mismatched causing the inability to
+                communicate.
+              </p>
+            </li>
+            <li>
+              <p>The path stated in the error message is incorrect or cannot be resolved.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <h4 id="step_1_−_configure_advanced_audit_settings">
+          Step 1 − Configure advanced audit settings
+        </h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select the affected monitoring Windows Server plan, and click
+                <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the right pane, select <strong>Edit data source</strong> &gt; uncheck the
+                <strong>Adjust audit settings automatically</strong> checkbox under the
+                <strong>Configure audit settings</strong> section.
+              </p>
+            </li>
+            <li>
+              <p>
+                Configure advanced audit settings for your Windows Server plan − refer to the
+                following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/AdvancedPolicy.htm"
+                  target="_self"
+                  >Windows Server − Configure Advanced Audit Policies · v10.6</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="step_2_−_configure_auditor_and_monitored_servers_to_support_a_common_protocol">
+          Step 2 − Configure Auditor and monitored servers to support a common protocol
+        </h4>
+
+        <div>
+          <p>
+            Review your environment to verify a common TLS protocol can be selected for incoming and
+            outgoing communication. Refer to the following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+              target="_self"
+              >Сonnection Issue when TLS 1.2 Is Required</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="step_3_−_review_the_path">Step 3 − Review the path</h4>
+
+        <div>
+          <p>
+            Review the path stated in the error message to verify it can be resolved and is
+            specified correctly.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/AdvancedPolicy.htm"
+                  target="_self"
+                  >Windows Server − Configure Advanced Audit Policies · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                  target="_self"
+                  >Сonnection Issue when TLS 1.2 Is Required</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

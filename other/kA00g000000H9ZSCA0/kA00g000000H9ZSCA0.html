@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Minimum password age violation.</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZSCA0" />
+    <meta name="Id" content="ka04u00000116QRAAY" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-29T12:49:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1257" />
+    <meta name="ArticleNumber" content="000003402" />
+    <meta
+      name="description"
+      content="A user receives the Minimum password age violation error when trying to reset his password via Password Manager."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        A user receives the <strong>Minimum password age violation</strong> error when trying to
+        reset his password via Password Manager.<br /><img
+          alt="User-added image"
+          height="172"
+          src="kA00g000000H9ZSCA0_3f4e7a05-d658-4f2c-bc77-0a8850c8db1e.png"
+          width="500"
+        />
+        <hr />
+        The error indicates that their password cannot be reset due to the Domain Password Policy
+        limiting Minimum password age. With the current product architecture, a users password is
+        not reset directly, but it is actually a two-step procedure The password is first reset to a
+        random value, and then a regular password change on behalf of a user is performed. This is
+        done to apply a password policy to the new password, otherwise, it could be possible to set
+        any password. By design, a user cannot reset their password more often than they are allowed
+        to change it by the policy. However, it is possible to bypass this by making Password
+        Manager ignore Minimum length, Minimum password age and Password history policies. To do
+        this go to the Password Manager Administrative portal, Navigate to
+        <strong>Domains - Edit</strong> corresponding domain<br /><img
+          alt="User-added image"
+          height="115"
+          src="kA00g000000H9ZSCA0_ef199d97-23ef-4b2a-92ab-17d56961da97.png"
+          width="500"
+        /><br />and clear the <strong>Use AD password policy settings</strong> checkbox<br /><img
+          alt="User-added image"
+          height="365"
+          src="kA00g000000H9ZSCA0_44d6299c-3ab7-4331-8310-1f6596f69cc1.png"
+          width="500"
+        /><br />Please note that complexity requirements will still be applied.
+      </div>
+    </article>
+  </body>
+</html>

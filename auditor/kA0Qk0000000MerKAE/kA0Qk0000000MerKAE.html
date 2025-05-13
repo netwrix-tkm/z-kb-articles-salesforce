@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error While Transaction 'DB Import' Operation</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000MerKAE" />
+    <meta name="Id" content="ka0Qk0000001JztIAE" />
+    <meta name="LastPublishedDate" content="2024-01-12T08:42:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-12T08:42:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-05T14:03:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8992" />
+    <meta name="ArticleNumber" content="000008992" />
+    <meta name="description" content="Error While Transaction 'DB Import' Operation" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When auditing MS Teams with gMSA, the following error appears in the Netwrix Auditor
+            System Health log:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+            Event ID:2107
+            Error while Transaction 'DB Import' operation. Access to the path is denied. 
+        </pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The <b>tenants.config</b> file was corrupted.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            First of all, Netwrix recommends checking your current Auditor version and upgrading to
+            the latest one.
+          </p>
+
+          <p>Follow the steps below to resolve the error:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the Auditor Server host, navigate to
+                <b>Working Folder\Netwrix Auditor for SharePoint Online</b> and copy the
+                <b>Configuration</b> folder to any other location.
+              </p>
+            </li>
+            <li>
+              <p>Delete the <b>SharePoint Online</b> data source from the Monitoring Plan:</p>
+
+              <ul>
+                <li>
+                  <p>Open the problematic monitoring plan.</p>
+                </li>
+                <li>
+                  <p>Select <b>SharePoint Online</b> data source.</p>
+                </li>
+                <li>
+                  <p>Click <b>Remove Data Source</b> in the right panel.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Add <b>SharePoint Online</b> data source and item with the tenant account back to
+                the monitoring plan.
+              </p>
+            </li>
+            <li>
+              <p>Create a new client secret for your SharePoint Online app.</p>
+            </li>
+            <li>
+              <p>Update the monitoring plan and check if the removed file was recreated.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

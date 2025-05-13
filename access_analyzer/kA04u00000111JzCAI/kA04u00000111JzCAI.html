@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Missing Icons and Graphical Elements in StealthAUDIT Web Console</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111JzCAI" />
+    <meta name="Id" content="ka04u0000011893AAA" />
+    <meta name="LastPublishedDate" content="2023-10-09T14:31:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-10T13:40:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-09T14:31:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8845" />
+    <meta name="ArticleNumber" content="000008845" />
+    <meta name="description" content="Missing Icons and Graphical Elements in StealthAUDIT" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Icons are missing in StealthAUDIT Web Console.</p>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Local browser extensions are conflicting with StealthAUDIT Web Console and are
+                blocking the console elements.
+              </p>
+            </li>
+            <li>
+              <p>A GPO to block untrusted fonts is enforced.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Review the browser extensions blocking web fonts or JavaScript to disable them.</p>
+            </li>
+            <li>
+              <p>Exclude StealthAUDIT from the GPO blocking untrusted fonts:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the StealthAUDIT server, open Registry Editor, and follow the key provided
+                    below:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Right-click the <strong>Image File Execution Options</strong> node and select
+                    <strong>New</strong> &gt; <strong>Key</strong>. Name the new key
+                    <strong>StealthAUDIT.EXE</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Right-click the <strong>StealthAUDIT.EXE</strong> key and select New &gt; QWORD
+                    (64-bit). Name the new value <strong>MitigationOptions</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Right-click the <strong>MitigationOptions</strong> value and select
+                    <strong>Modify</strong>. Verify the <strong>Value data</strong> field states
+                    Hexadecimal <strong>2000000000000</strong>. Click <strong>OK</strong> to save
+                    changes.
+                  </p>
+
+                  <div>
+                    <img
+                      height="479"
+                      src="kA04u00000111JzCAI_426698e2-3fe3-460a-a0e8-790f8637e8d9.png"
+                      width="600"
+                    />
+                  </div>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/windows/security/threat-protection/block-untrusted-fonts-in-enterprise#fix-apps-having-problems-because-of-blocked-fonts"
+              target="_blank"
+              >Block untrusted fonts in an enterprise ⸱ Microsoft🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

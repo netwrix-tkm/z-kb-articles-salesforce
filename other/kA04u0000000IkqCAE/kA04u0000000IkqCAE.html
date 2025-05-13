@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Host LIsts in SQL Analysis Tasks</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IkqCAE" />
+    <meta name="Id" content="ka04u000000Hcv5AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:37:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:37:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7270" />
+    <meta name="ArticleNumber" content="000007270" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to leverage
+          host lIsts in SQL analysis tasks.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> You can leverage host
+          lists in SQL analysis tasks in StealthAUDIT.  <br /><br />KNOWN ISSUE: <br />does not work
+          with "directly" added hosts<br />only with host lists<br /><a
+            href="https://na16.salesforce.com/500j000000JXuCH"
+            target="_blank"
+            >https://na16.salesforce.com/500j000000JXuCH</a
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> <br />When a
+          StealthAUDIT job is executied, during runtime only, a table named #sa_job_hosts is
+          created, and populated with a list of all of the hosts selected from the host lists node.
+           <br /><br />The table definition is:<br />CREATE TABLE [dbo].[#sa_job_hosts](<br />  
+           [HostName] [VARCHAR](256) NOT NULL<br />) ON [PRIMARY]<br /><br />For testing a SQL
+          script prior to executing in SA, the easiest way is probably to add the following code to
+          the top of the script:  <br />Obviously, you would could replace the host names, and all
+          you need is the first two lines to add a single host.  <br />Since temp tables are per
+          session, this shouldn't interfere with SA at all.  <br /><br />SELECT 'sbnjeng30' AS
+          [HostName] <br />INTO #sa_job_hosts<br />UNION ALL SELECT 'sbslppsa01'<br />UNION ALL
+          SELECT 'sbslamsa01'<br />UNION ALL SELECT 'sbslkdsa01'
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Analysis Module - SQLScripting<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          all<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          1442
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

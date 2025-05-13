@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error about a "specified logon session doesn't exist" when attempting to create a scheduled
+      task in StealthAUDIT
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IICCA2" />
+    <meta name="Id" content="ka04u000000HcjaAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:50:13.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:17:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6475" />
+    <meta name="ArticleNumber" content="000006475" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          <p>
+            <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> User is unable to
+            create scheduled tasks in the StealthAUDIT Console. Modifying a local security policy on
+            the StealthAUDIT Console application server will resolve.
+          </p>
+
+          <p>
+            <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Local security
+            policy prevents the creation of scheduled tasks not running as Local System.
+          </p>
+
+          <p>
+            <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong
+            > If you receive an error about a "specified logon session doesn't exist" when
+            attempting to create scheduled tasks within StealthAUDIT, there's likely a local
+            security policy enabled that needs to be disabled on the application server. 
+          </p>
+
+          <div>
+            <div> </div>
+
+            <div>
+              <img
+                alt="blobid0.jpg"
+                src="kA04u0000000IICCA2_8609bff2-819f-4e1a-bf8c-86196271cefb.jpg"
+              />
+            </div>
+
+            <div> </div>
+
+            <div>
+              You can verify this by attempting to create a scheduled task from the native Windows
+              Task Scheduler and you should receive the same error response.  
+            </div>
+
+            <div> </div>
+
+            <div>
+              If the <strong
+                >Network access: Do not allow storage of passwords and credentials for
+                network</strong
+              >
+              authentication policy is enabled and applied, Credential Manager cannot store the
+              credentials locally, thus this error message appears.
+            </div>
+
+            <div> </div>
+
+            <div>
+              Simply disable
+              <strong
+                >Network access: Do not allow storage of passwords and credentials for network
+                authentication </strong
+              >under
+              <strong>SECPOL.MSC | Security Settings | Local Policies | Security Options.</strong>
+            </div>
+
+            <div> </div>
+
+            <div>
+              You should now be able to create scheduled tasks within the StealthAUDIT console. 
+            </div>
+          </div>
+
+          <div>
+            <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+            StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+            Core (Scheduled tasks settings within the StealthAUDIT console.)<br /><strong
+              ><span class="wysiwyg-font-size-large">Versions:</span></strong
+            >
+            N/A
+          </div>
+        </div>
+
+        <div> </div>
+
+        <div> </div>
+      </div>
+    </article>
+  </body>
+</html>

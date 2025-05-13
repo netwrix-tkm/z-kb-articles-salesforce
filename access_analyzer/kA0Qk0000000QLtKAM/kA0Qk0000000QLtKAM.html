@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to View Stored Sensitive Data Discovery (SDD) Matches</title>
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000QLtKAM" />
+    <meta name="Id" content="ka0Qk0000002xX3IAI" />
+    <meta name="LastPublishedDate" content="2024-04-19T12:54:06.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-19T12:54:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-31T09:04:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9034" />
+    <meta name="ArticleNumber" content="000009034" />
+    <meta name="description" content="How to View Stored Sensitive Data Discovery (SDD) Matches" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How can you view stored Sensitive Data Discovery (SDD) matches in FileSystem Sensitive
+            Data (SEEK)?
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To be able to view populated
+              <strong>Sensitive Content Details</strong> reports, enable the
+              <strong>Store discovered sensitive data</strong> option for the corresponding
+              collector in <strong>Sensitive Data Settings</strong>. For additional information on
+              the initial SDD setup in specific collectors, refer to the following documentation
+              section:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/Overview.htm"
+                target="_self"
+                >Administration − Data Collectors · v11.6</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The Sensitive Data Discovery criteria searches in
+              Access Information Center can be run exclusively by users with either the
+              <strong>Security Team</strong> or <strong>Console Administrator</strong> role. Users
+              with the <strong>Reader</strong> role will receive blank reports.
+            </p>
+          </blockquote>
+
+          <ul>
+            <li>
+              <p>Access Information Center − Sensitive Content Reports</p>
+
+              <ol>
+                <li>
+                  <p>Select the server.</p>
+                </li>
+                <li>
+                  <p>
+                    In the right <strong>Reports</strong> pane, select
+                    <strong>Sensitive Content Details</strong>.
+                  </p>
+
+                  <div>
+                    <img
+                      alt="rtaImage.png"
+                      height="358"
+                      src="kA0Qk0000000QLtKAM_5e9f83f0-2f10-4cd6-b2b6-76c41d2f5d4c.png"
+                      width="800"
+                    />
+                  </div>
+                </li>
+              </ol>
+
+              <p>
+                For additional information, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/Resource_Audit_Guide/17.Sensitive_Content_Report/Sensitive_Content_Report.htm"
+                  target="_self"
+                  >Resource Audit Overview − Sensitive Content Reports · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Access Information Center − Resource Review</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Assign Resource Owners. Refer to the following article for additional
+                    information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/ResourceOwners/Overview.htm"
+                      target="_self"
+                      >Resource Owners Overview · v11.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Create a Sensitive Data Resource review. Refer to the following article for
+                    additional information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/ResourceReviews/Review/SensitiveData.htm"
+                      target="_self"
+                      >Resource Ownership with the Access Information Center − Perform a Sensitive
+                      Data Review · v11.6</a
+                    >.
+                  </p>
+                </li>
+              </ol>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Check the
+                  <strong>Reviewers are able to see the sensitive data match if available</strong>
+                  checkbox for the review to contain sensitive data matches.
+                </p>
+
+                <div>
+                  <img
+                    alt="rtaImage1.png"
+                    height="310"
+                    src="kA0Qk0000000QLtKAM_e14bca00-8765-4fb4-b239-85e19a121287.png"
+                    width="551"
+                  />
+                </div>
+              </blockquote>
+            </li>
+            <li>
+              <p>Enterprise Auditor − Custom report</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Create a new report under the <strong>FileSystem</strong> &gt;
+                    <strong>7.Sensitive Data</strong> &gt; <strong>FS_DLPResults</strong> Job.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>For additional information on custom
+                      reports, refer to the following article:
+                      <a
+                        href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/Overview.htm"
+                        target="_self"
+                        >Reporting − Report Configuration Wizard · v11.6</a
+                      >.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Authoring</strong> page of the Report Configuration Wizard,
+                    specify the report name and title.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In <strong>E-mail</strong> and <strong>Publish Security</strong> pages, specify
+                    the recipients and intended audience for the report − refer to the following
+                    articles for additional information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/Email.htm"
+                      target="_self"
+                      >Report Configuration Wizard − E-mail Page · v11.6</a
+                    >
+                    and
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/PublishSecurity.htm"
+                      target="_self"
+                      >Report Configuration Wizard − Publish Security Page · v11.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Layout</strong> page, select the single block option and set the
+                    <strong>Select the number of rows</strong> counter to <strong>1 row</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Widgets</strong> page, configure the report layout − refer to the
+                    following article for additional information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/Widgets.htm"
+                      target="_self"
+                      >Report Configuration Wizard − Widgets Page · v11.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>DataSource Options</strong> window, uncheck the
+                    <strong>Current Job Only</strong> checkbox and select the
+                    <strong>SA_FSDLP_MatchHitsView</strong> table.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>You can omit the data columns included in
+                      the report via <strong>Column Chooser</strong>.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    After saving the report, you can generate it either by clicking the three-dot
+                    icon (the <strong>More</strong> button) &gt; <strong>Generate</strong>, or by
+                    running the <strong>FS_DLPResults</strong> Job.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/Overview.htm"
+                  target="_self"
+                  >Administration − Data Collectors · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/Resource_Audit_Guide/17.Sensitive_Content_Report/Sensitive_Content_Report.htm"
+                  target="_self"
+                  >Resource Audit Overview − Sensitive Content Reports · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/ResourceOwners/Overview.htm"
+                  target="_self"
+                  >Resource Owners Overview · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/ResourceReviews/Review/SensitiveData.htm"
+                  target="_self"
+                  >Resource Ownership with the Access Information Center − Perform a Sensitive Data
+                  Review · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/FileSystem/FS_DLPResults.htm"
+                  target="_self"
+                  >File System Solution − 7.Sensitive Data &gt; FS_DLPResults Job · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/Overview.htm"
+                  target="_self"
+                  >Reporting − Report Configuration Wizard · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/Email.htm"
+                  target="_self"
+                  >Report Configuration Wizard − E-mail Page · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/PublishSecurity.htm"
+                  target="_self"
+                  >Report Configuration Wizard − Publish Security Page · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Report/Wizard/Widgets.htm"
+                  target="_self"
+                  >Report Configuration Wizard − Widgets Page · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

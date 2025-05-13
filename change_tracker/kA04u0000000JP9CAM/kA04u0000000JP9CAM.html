@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Determine Your .NET Framework Version</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JP9CAM" />
+    <meta name="Id" content="ka0Qk000000DOPVIA4" />
+    <meta name="LastPublishedDate" content="2025-04-23T21:41:59.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-23T21:41:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:49:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8198" />
+    <meta name="ArticleNumber" content="000008198" />
+    <meta name="description" content="How to Determine Your .NET Framework Version" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>How can I determine the version of .NET Framework installed on my system?</p>
+        <h2 id="answer">Answer</h2>
+        <p>
+          Netwrix Change Tracker Gen 7 Hub and Agent require a specific version of .NET Framework.
+          This article provides instructions to help you determine which version of .NET Framework
+          is installed on your system.
+        </p>
+        <h4 id="option_1_check_in_the_windows_registry">Option 1: Check in the Windows Registry</h4>
+        <ol>
+          <li>Press <strong>Windows Key+R</strong> to open the Run command box.</li>
+          <li>Type <strong>regedit</strong> and click <strong>OK</strong>.</li>
+          <li>
+            Navigate to the following registry key:
+            <code class="lang-Registry"
+              >HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</code
+            >.
+          </li>
+          <li>
+            Locate the <strong>Release</strong> DWORD value. Refer to the screenshot below for
+            guidance:<br /><img
+              alt="Registry Editor showing the .NET Framework Release DWORD"
+              src="kA04u0000000JP9CAM_197740f4-0c1a-41cd-9594-fe811def5c0a.png"
+            />
+          </li>
+        </ol>
+        <h4 id="option_2_use_windows_powershell_ise">Option 2: Use Windows PowerShell ISE</h4>
+        <ol>
+          <li>Open <strong>Windows PowerShell ISE</strong>.</li>
+          <li>
+            Enter the following command:
+            <pre class="has-inner-focus">
+(Get-ItemProperty "HKLM:Software\Microsoft\NET Framework Setup\NDP\v4\Full").Release</pre
+            >
+          </li>
+          <li>
+            The output will display the <strong>Release</strong> number of the installed .NET
+            Framework version. Refer to the screenshot below for an example:<br /><img
+              alt="PowerShell output showing the .NET Framework Release number"
+              src="kA04u0000000JP9CAM_65714bca-7699-4396-8786-27587426423d.png"
+            />
+          </li>
+          <li>
+            To determine the corresponding .NET Framework version, refer to the official Microsoft
+            documentation:
+            <a
+              href="https://learn.microsoft.com/en-us/dotnet/framework/migration-guide/versions-and-dependencies#version-information"
+              target="_blank"
+              >.NET Framework Versions and Dependencies: Version Information ⸱ Microsoft 🡥</a
+            >
+          </li>
+        </ol>
+        <h2 id="related_articles">Related Articles</h2>
+        <ul>
+          <li>
+            <a href="https://kb.netwrix.com/8150" target="_self"
+              >How to Backup / Restore / Move Your MongoDB Database</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8282" target="_self"
+              >Monitoring Oracle Databases Using Change Tracker</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8295" target="_self"
+              >How to Configure the FAST Cloud Integration with Proxy Internet Settings</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8283" target="_self"
+              >How to Move Your Linux Server MongoDB Database to a Windows Server</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8164" target="_self"
+              >How to Add a Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+              Gen 7</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

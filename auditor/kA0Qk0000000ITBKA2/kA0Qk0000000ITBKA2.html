@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Security Groups are Not Fully Displayed in the Azure AD Accounts – Attributes Report
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000ITBKA2" />
+    <meta name="Id" content="ka0Qk00000010KXIAY" />
+    <meta name="LastPublishedDate" content="2023-12-14T14:27:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-14T14:27:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-07T13:05:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8948" />
+    <meta name="ArticleNumber" content="000008948" />
+    <meta
+      name="description"
+      content="Security Groups are Not Fully Displayed in the Azure AD Accounts – Attributes Report"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why does the <b>Azure AD Accounts — Attributes</b> report show security groups
+            membership (the <b>Member of</b> attribute) for an account in the format
+            <strong>XXX and more</strong> instead of the full groups list?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            In short, the answer is lack of space on the report page. Since there are a lot of
+            groups those users are members of, the report does not have enough space to show all of
+            them.
+          </p>
+
+          <p>
+            However, as an alternative, you can use the
+            <b>Azure AD Accounts - Effective Group Membership</b> report along with the
+            <b>Azure AD Accounts – Attributes</b> reports.
+          </p>
+
+          <p>
+            The thing is that when you click the <strong>Expand Group Membership</strong> link in
+            the <b>Azure AD Accounts - Attributes</b> report, it basically redirects you to the
+            information from the <b>Azure AD Accounts - Effective Group Membership</b> report.
+          </p>
+
+          <p>
+            Therefore, by using both reports simultaneously, we will be able to check the effective
+            group membership information from the other report (<strong
+              >Azure AD Accounts - Effective Group Membership</strong
+            >) which would have the full list of the groups an account is a member of.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> If you run Netwrix from a
+              <b>remote server (client)</b>, please verify it has the same version and build as your
+              Auditor Server. They must be exactly the same.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

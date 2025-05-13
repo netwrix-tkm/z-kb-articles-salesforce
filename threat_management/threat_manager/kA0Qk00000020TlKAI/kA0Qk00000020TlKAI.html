@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Netwrix Threat Manager Licensing Error: License Activation Error 2</title><meta name="label" content="threat_manager"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk00000020TlKAI"/><meta name="Id" content="ka0Qk000000CDMTIA4"/><meta name="LastPublishedDate" content="2025-02-21T22:29:13.000+0000"/><meta name="LastModifiedDate" content="2025-02-21T22:29:13.000+0000"/><meta name="FirstPublishedDate" content="2025-02-21T22:29:13.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9403"/><meta name="ArticleNumber" content="000009403"/><meta name="description" content="Netwrix Threat Manager Licensing Error: &#34;License activation error 2&#34;"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+<div>
+<p>After navigating to the <strong>Licensing</strong> page when attempting to update the license in Netwrix Threat Manager, you receive the following error:</p>
+<pre class="has-inner-focus">License activation error 2.</pre>
+<p><img src="kA0Qk00000020TlKAI_d6c58df3-c09f-47c0-a78f-8117c932d401.png" alt="" width="1304" height="383"/></p>
+</div>
+<h2 id="cause">Cause</h2>
+<div>
+<p>There is a corruption in the existing license file.</p>
+</div>
+<h2 id="resolution">Resolution</h2>
+<div>
+<ol><li>
+<p>Stop all <strong>Netwrix Threat Manager</strong> services.</p>
+<ul><li>
+<p>You can stop each one individually.</p>
+</li><li>
+<p>Alternatively, you can use the below PowerShell command to simultaneously stop them all:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Threat Manager*" -verbose</code></pre>
+</li></ul>
+</li><li>
+<p>Delete the <strong>StealthDEFEND.lic</strong> file from Netwrix Threat Manager's data directory.</p>
+<ul><li>
+<p>Depending on your deployment, it could be located in either of the following file paths:</p>
+<ul><li>
+<p><code>C:\ProgramData\STEALTHbits\StealthDEFEND\LicenseService</code></p>
+</li><li>
+<p><code>C:\ProgramData\Netwrix\Netwrix Threat Manager\LicenseService</code></p>
+</li></ul>
+</li></ul>
+</li><li>
+<p>Restart all <strong>Netwrix Threat Manager</strong> services.</p>
+<ul><li>
+<p>You can restart each one individually.</p>
+</li><li>
+<p>Otherwise, you can use the following PowerShell command to simultaneously restart them all:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">Start-Service -DisplayName "Netwrix Threat Manager*" -verbose</code></pre>
+</li></ul>
+</li><li>
+<p>If you now see an error or red message that the license is not uploaded, navigate to the <strong>Netwrix Threat Manager Web Console</strong> and add the license again.</p>
+<ul><li>
+<p>For assistance with applying the license, please refer to the Configuration Guide: <a href="https://helpcenter.netwrix.com/bundle/ThreatManager_3.0/page/Content/ThreatManager/Administration/Configuration/SystemSettings/Licensing.htm" target="_self">Licensing Page</a>.</p>
+</li></ul>
+</li></ol>
+</div>
+<h2 id="related_article">Related Article</h2>
+<div>
+<ul><li><a href="https://helpcenter.netwrix.com/bundle/ThreatManager_3.0/page/Content/ThreatManager/Administration/Configuration/SystemSettings/Licensing.htm" target="_self">Licensing Page</a></li></ul>
+</div></div>
+</article></body></html>

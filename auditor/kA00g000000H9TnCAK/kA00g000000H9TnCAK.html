@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Include Change Password Events by Users via Ctrl+Alt+Del Combination in Netwrix Auditor
+      Reports
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TnCAK" />
+    <meta name="Id" content="ka04u00000118AzAAI" />
+    <meta name="LastPublishedDate" content="2023-08-02T08:29:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-13T13:58:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="632" />
+    <meta name="ArticleNumber" content="000003059" />
+    <meta name="description" content="password changes in summary report ctr+alt+del" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Is it possible to include change password events performed by users through the
+            ctrl+alt+del key combination into product reports?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Yes, it is possible. Such events are omitted by default. To include them in product
+            reports, follow the steps below:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Navigate to the <b> Auditor for Active Directory</b> installation folder:
+                <em>C:\Program Files (x86)\Netwrix Auditor\Active Directory Auditing</em> by
+                default.
+              </p>
+            </li>
+            <li>
+              <p>Locate the <b>omitproplist.txt</b> file and open it with a text editor.</p>
+            </li>
+            <li>
+              <p>
+                Locate the <code>*.PasswordChanged</code> line and add a <code>"#"</code> sign at
+                the beginning so it looks like <code>#*.PasswordChanged</code>.
+              </p>
+            </li>
+            <li>
+              <p>Save your edits.</p>
+            </li>
+          </ol>
+
+          <p>
+            Once these changes have been applied, password resets performed by users will be shown
+            in the product change reports.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Edit Schedules in Netwrix Auditor Event Log Manager</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000S2jKAE" />
+    <meta name="Id" content="ka0Qk0000002kTNIAY" />
+    <meta name="LastPublishedDate" content="2024-03-29T16:29:47.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-29T16:29:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-02-14T11:49:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9052" />
+    <meta name="ArticleNumber" content="000009052" />
+    <meta name="description" content="How to Edit Schedules in Netwrix Auditor Event Log Manager" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor Event Log Manager implements two schedules for data collection and
+            reporting. Depending on your business needs, these schedules can be altered to fit your
+            environment. This article describes how to edit schedules in the Event Log Manager.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>Refer to the following steps to edit the data collection schedule:</p>
+
+          <ol>
+            <li>
+              <p>Open <strong>Task Scheduler</strong> on your Auditor server.</p>
+            </li>
+            <li>
+              <p>
+                Select <strong>Task Scheduler Library</strong> and locate the Event Log Manager task
+                − the correct task is named <code>Netwrix Auditor − {%GUID%} − {%GUID%}</code> and
+                should contain the line
+                <code
+                  >Starts Netwrix Auditor data collection on Event Log for
+                  %monitoring_plan_name%</code
+                >
+                in the <strong>Description</strong> field of the scheduled task.
+              </p>
+            </li>
+            <li>
+              <p>Right-click the task and click <strong>Properties</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Triggers</strong> tab, select the <strong>Daily</strong> trigger and
+                click <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Define the new schedule and click <strong>OK</strong> &gt; <strong>OK</strong> to
+                save changes.
+              </p>
+            </li>
+          </ol>
+
+          <p>Refer to the following steps to edit the reporting schedule:</p>
+
+          <ol>
+            <li>
+              <p>
+                Launch Event Log Manager, select the monitoring plan, and click
+                <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Switch to the <strong>Advanced</strong> tab and edit the
+                <strong>Specify notification delivery time</strong> value.
+              </p>
+            </li>
+            <li>
+              <p>Click <strong>Save</strong> to save your changes.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

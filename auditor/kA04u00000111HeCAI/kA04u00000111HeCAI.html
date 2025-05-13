@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Cannot Find the Application Error in SharePoint Online and MS Teams Monitoring Plan
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111HeCAI" />
+    <meta name="Id" content="ka0Qk0000001L8rIAE" />
+    <meta name="LastPublishedDate" content="2024-01-15T11:10:23.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T11:10:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-02T13:43:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8835" />
+    <meta name="ArticleNumber" content="000008835" />
+    <meta
+      name="description"
+      content="Cannot Find the Application Error in SharePoint Online and MS Teams Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The following error is prompted in Health Log for your SharePoint Online or
+                Microsoft Teams monitoring plan:
+              </p>
+
+              <pre class="has-inner-focus">
+Source:SharePoint Online Audit Service
+Event ID:3205
+Description:Monitoring plan: %monitoring_plan_name% 
+Item: %name% 
+The following unexpected error occurred: 
+Cannot find the application.</pre
+              >
+            </li>
+            <li>
+              <p>The State-in-Time data is not collected.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Incorrect Application ID provided for the affected item in the monitoring plan.</p>
+            </li>
+            <li>
+              <p>Misconfigured API permissions for the corresponding Azure app.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review the Application ID provided. You can find the Application ID of your app in
+                the <strong>Overview</strong> page once you select the app in the
+                <strong>App registrations</strong> section. Refer to the following article for
+                additional information on the initial Azure app setup:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm#creating_and_registering_a_new_app_in_microsoft_entra_id"
+                  target="_blank"
+                  >Permissions for SharePoint Online Auditing − Creating and registering a new app
+                  in Microsoft Entra ID ⸱ v10.6</a
+                >. For additional information on creating an app for Teams auditing, refer to the
+                following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm#create_and_register_a_new_app_in_microsoft_entra_id"
+                  target="_blank"
+                  >Permissions for Teams Auditing − Create and Register a New App in Microsoft Entra
+                  ID ⸱ v10.6</a
+                >.
+              </p>
+
+              <div>
+                <img
+                  alt="SPOAppID"
+                  height="638"
+                  src="kA04u00000111HeCAI_35efb866-c474-4608-a98e-e61e9cff523f.png"
+                  width="700"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Review the app API permissions granted. You can either specify API permissions
+                manually or use a manifest. Refer to the following article for additional
+                information on granting permissions:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm#granting_required_permissions"
+                  target="_self"
+                  >Permissions for SharePoint Online Auditing − Granting required permissions ⸱
+                  v10.6</a
+                >. For additional information on permissions for Teams auditing, refer to the
+                following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm#grant_required_permissions"
+                  target="_self"
+                  >Permissions for Teams Auditing − Grant Required Permissions ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm#creating_and_registering_a_new_app_in_microsoft_entra_id"
+              target="_blank"
+              >Permissions for SharePoint Online Auditing − Creating and registering a new app in
+              Microsoft Entra ID ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm#create_and_register_a_new_app_in_microsoft_entra_id"
+              target="_blank"
+              >Permissions for Teams Auditing − Create and Register a New App in Microsoft Entra ID
+              ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm#granting_required_permissions"
+              target="_self"
+              >Permissions for SharePoint Online Auditing − Granting Required Permissions ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm#grant_required_permissions"
+              target="_self"
+              >Permissions for Teams Auditing − Grant Required Permissions ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

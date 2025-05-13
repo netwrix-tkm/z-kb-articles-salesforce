@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>This schema for this assembly has not been registered with WMI." NDC Error</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbcwCAC" />
+    <meta name="Id" content="ka04u000000HcXjAAK" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5701" />
+    <meta name="ArticleNumber" content="000003755" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario">Scenario</h3>
+
+        <p>
+          <strong>
+            You are receiving the following warning in the conceptsearching event log:
+          </strong>
+        </p>
+
+        <p>
+          <em
+            >Component: conceptClassifier<br />
+            Level: Warning<br />
+            conceptEngine.ServiceFramework.ServiceViewerController.UpdateStatus<br />
+            Error: System.Exception: This schema for this assembly has not been registered with
+            WMI.<br />
+            at System.Management.Instrumentation.Instrumentation.Initialize(Assembly assembly)<br />
+            at System.Management.Instrumentation.Instrumentation.GetInstrumentedAssembly(Assembly
+            assembly)<br />
+            at System.Management.Instrumentation.Instrumentation.GetFireFunction(Type type)<br />
+            at System.Management.Instrumentation.BaseEvent.get_FireFunction()<br />
+            at System.Management.Instrumentation.BaseEvent.Fire()<br />
+            at conceptEngine.ServiceFramework.ServiceViewerController.UpdateStatus(String status,
+            Boolean force)</em
+          >
+        </p>
+
+        <p>
+          This error is repeating multiple times per second and preventing the data crawl from
+          starting.
+        </p>
+
+        <h3 id="cause">Cause</h3>
+
+        <p>
+          The account running the conceptcollector, conceptindexer, and conceptclassifier is not a
+          local admin. This is the permission level needed to register the schema with WMI. The
+          services will be able to stay in the running state but the schema will continuously fail
+          to register. Due to the constant attempts to register, you may potentially see memory
+          consumed on the NDC server.
+        </p>
+
+        <h3 id="solution">Solution</h3>
+
+        <p>
+          Grant the account running the conceptcollector, conceptindexer, and conceptclassifier
+          services local admin rights and restart the services. The warnings should immediately stop
+          being recorded in the conceptsearching log.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

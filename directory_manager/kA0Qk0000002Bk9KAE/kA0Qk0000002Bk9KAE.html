@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Change the User Session Timeout for Portals</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002Bk9KAE" />
+    <meta name="Id" content="ka0Qk000000CsUTIA0" />
+    <meta name="LastPublishedDate" content="2025-04-28T18:45:16.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T18:45:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-28T18:45:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10085" />
+    <meta name="ArticleNumber" content="000010085" />
+    <meta name="description" content="Change portal session timeout value" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 10 – Self-Service and Password Center portals</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          By default, a session in the Self-Service or Password Center portal ends after 20 minutes
+          of inactivity. When this occurs, users are redirected to the <strong>Login</strong> page
+          and must re-enter their credentials to continue. You can adjust the session timeout value
+          to balance convenience and security. Increasing the timeout makes it easier for users to
+          stay logged in, but may reduce security. Decreasing the timeout enhances security, but may
+          require users to log in more frequently.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>
+          You can change the <strong>sessiontimeout</strong> value key in the
+          <strong>web.config</strong> file of a portal. If you have multiple portals, remember to
+          change the value in each portal's respective <strong>web.config</strong> file.
+        </p>
+        <p>The file is available at the following locations for the respective portals:</p>
+        <h4 id="self-service_portal">Self-Service Portal</h4>
+        <div class="table-wrap">
+          <table count-columns="1">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <code class="lang-Registry"
+                    >C:\Program Files\Imanami\&lt;Directory Manager
+                    10.0&gt;\SelfService\Inetpub\&lt;portal_name&gt;\Web</code
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h4 id="password_center_user_portal">Password Center User Portal</h4>
+        <div class="table-wrap">
+          <table count-columns="1">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <code class="lang-Registry"
+                    >C:\Program Files\Imanami\&lt;Directory Manager
+                    10.0&gt;\PasswordCenter\Inetpub\&lt;portal_name&gt;\Web</code
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h4 id="password_center_helpdesk_portal">Password Center HelpDesk Portal</h4>
+        <div class="table-wrap">
+          <table count-columns="1">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <code class="lang-Registry"
+                    >C:\Program Files\Imanami\&lt;Directory Manager
+                    10.0&gt;\PasswordCenter\HelpDesk\Inetpub\&lt;portal_name&gt;\Web</code
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ol>
+          <li>Open the <strong>web.config</strong> file with a text editor.</li>
+          <li>
+            Search for <code class="lang-Registry">&lt;appSettings&gt;</code> and look for the
+            following line: <br /><code class="lang-Registry"
+              >&lt;add key="sessiontimeout" value="20" /&gt;</code
+            >
+          </li>
+          <li>
+            Set the value in minutes as needed. If the key does not exist, add the line and save the
+            changes.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk0000002Bk9KAE_96487aed-3950-4585-beb8-6f233a19f677.png"
+            alt="web.config file showing sessiontimeout key under appSettings section"
+            width="559"
+            height="195"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

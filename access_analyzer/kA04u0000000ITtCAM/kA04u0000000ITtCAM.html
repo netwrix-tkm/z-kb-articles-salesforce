@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Add a new certificate for the StealthAUDIT web reports port when one is already in place
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ITtCAM" />
+    <meta name="Id" content="ka04u000000HcoBAAS" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:35:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:07:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:37:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7261" />
+    <meta name="ArticleNumber" content="000007261" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> You have a need to
+          add a new certificate for StealthAUDIT web reports (to utilize HTTPS) but you already have
+          one in place. When you try to add a new cert you get an error that the certificate add
+          failed.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              >When creating or issued a new certificate to use with StealthAUDIT web reports you
+              may show errors when trying to bind it to the web reports port with the error:
+            </span></span
+          ><br /><span><span> </span></span
+          ><br /><span
+            ><span>"<span>SSL Certificate add failed, error: 183</span></span></span
+          ><br /><span
+            ><span><span>Cannot create a file when that file already exists.</span>"</span></span
+          ><br /><br /><img
+            alt="User-added image"
+            height="194"
+            src="kA04u0000000ITtCAM_12c607b9-4e88-47a5-9ab9-5a290d873116.jpg"
+            width="500"
+          />
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              >The way to resolve this issue is to clear out the current certificate from the port
+              before you add the new one. Use this powershell command to clear it out:</span
+            ></span
+          ><br /><span><span> </span></span
+          ><br /><span
+            ><span
+              ><span><span>netsh</span></span> <span><span>http</span></span>
+              <span><span>delete</span></span> <span><span>sslcert</span></span>
+              <span><span>ipport=0.0.0.0:8082 </span></span></span
+            ></span
+          ><br /><span><span> </span></span
+          ><br /><span
+            ><span
+              >*Please note that this command assumes that you are using the port 8082 for your
+              StealthAUDIT web reports. In your environment it may be different.</span
+            ></span
+          ><br /><span><span> </span></span
+          ><br /><span
+            ><span
+              ><span
+                >Once this is done, you can use the new cert hash from the new cert and put it into
+                below powershell commands to bind it to the port. Use the thumbprint value from the
+                desired cert - use the PowerShell command:</span
+              >
+              <span><span>dir</span></span> <span><span>cert:\localmachine\my </span></span></span
+            ></span
+          ><br /><span
+            ><span
+              > to list it, then put the value into the $certHash variable below. Make sure not to
+              use the <span><span>$guid</span></span> variable by accident.</span
+            ></span
+          ><br /><span><span> </span></span
+          ><br /><span
+            ><span
+              ><span><span>$guid</span></span> <span><span>=</span></span>
+              <span><span>"bdd5710f-7cbe-4f85-b8c1-da4bddf485a8"</span></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><span>$certHash</span></span> <span><span>=</span></span>
+              <span><span>"80F78FD2566793D2F39E748CDF6DED09B6F57A82"</span></span>
+              <span><span># the 'Thumbprint' value</span></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><span>$ip</span></span> <span><span>=</span></span>
+              <span><span>"0.0.0.0"</span></span>
+              <span><span># this means all IP addresses</span></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><span>$port</span></span> <span><span>=</span></span>
+              <span><span>"8082"</span></span>
+              <span><span># the default HTTPS port</span></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><span>#build command and pipe to the netsh command </span></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><span>"http add sslcert ipport=</span></span
+              ><span><span>$(</span></span
+              ><span><span>$ip</span></span
+              ><span><span>)</span></span
+              ><span><span>:</span></span
+              ><span><span>$port</span></span
+              ><span><span> certhash=</span></span
+              ><span><span>$certHash</span></span
+              ><span><span> appid={</span></span
+              ><span><span>$guid</span></span
+              ><span><span>}"</span></span> <span><span>|</span></span>
+              <span><span>netsh </span></span></span
+            ></span
+          ><br /><span><span> </span></span
+          ><br /><span
+            ><span
+              >You should now get a successful output message and your web reports port is now ready
+              for use with HTTPS.</span
+            ></span
+          ><br /> 
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Reporting<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          All<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2417
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Administrator Audit Logging (AAL) configuration details</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SDCA0" />
+    <meta name="Id" content="ka0Qk000000DRtdIAG" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:54:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="173" />
+    <meta name="ArticleNumber" content="000002961" />
+    <meta name="description" content="Administrator Audit Logging AAL cmdlet, configuration" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <strong>Q:</strong> Why do you need to enable AAL (Administrator audit logging) on your
+        Exchange servers?<br /><strong>A:</strong> AAL is one of the necessary components which must
+        be enabled for successful auditing by Netwrix Auditor for Exchange. Netwrix Auditor for
+        Exchange uses AAL data to identify an account which made a change in Exchange 2010+ server
+        configuration. When AAL is not configured, Netwrix Auditor for Exchange detects changes
+        (which were made on Exchange servers) but includes “System” as WHO CHANGED instead of the
+        real account name.<br /><br /><strong>Q:</strong> How does administrator audit logging
+        work?<br /><strong>A: </strong>Please refer to the following Microsoft KB article:<a
+          href="https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging"
+          target="_blank"
+          >https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging</a
+        ><br /><br /><strong>Q:</strong> How does Netwrix Auditor for Exchange deal with Exchange
+        servers after the AAL is configured?<br /><strong>A:</strong> Netwrix Auditor for Exchange
+        reads the AAL mailbox on specified Exchange servers. Considering the fact AAL data is being
+        replicated within its exchange organization, Netwrix Auditor for Exchange needs to connect
+        to just one Exchange server. The server which will be used to read AAL data can be specified
+        manually.<br /><br /><strong>Q:</strong> What is the command we need to run to enable and
+        configure AAL consist of? What does it do?<br /><strong>A:</strong> To enable and configure
+        AAL you need to run 2 commands:
+        <ol>
+          <li>
+            Exchange 2010:
+            <strong
+              >Set-AdminAuditLogConfig -AdminAuditLogEnabled $true -AdminAuditLogAgeLimit 30
+              -AdminAuditLogCmdlets *
+            </strong>
+          </li>
+        </ol>
+
+        <div>
+          Exchange 2013+:<strong> </strong
+          ><b
+            >Set-AdminAuditLogConfig -AdminAuditLogEnabled $true -AdminAuditLogAgeLimit 30
+            -AdminAuditLogCmdlets * -LogLevel Verbose</b
+          >
+        </div>
+
+        <ul>
+          <li>
+            <strong>Set-AdminAuditLogConfig</strong> cmdlet is being used to configure the
+            administrator audit logging configuration settings
+          </li>
+          <li>
+            <strong>AdminAuditLogEnabled</strong> cmdlet with <strong>$true</strong> parameter
+            enables the administrator audit logging
+          </li>
+          <li>
+            <strong>AdminAuditLogAgeLimit </strong>cmdlet with <strong>30</strong> parameter
+            specifies how long audit log entries will be retained (30 days in our case)
+          </li>
+          <li>
+            <strong>AdminAuditLogCmdlets </strong>cmdlet determines which cmdlets will be audited.
+            Running this cmdlet with <strong>* </strong>parameter we configuring administrator audit
+            logging to audit all cmdlets
+          </li>
+          <li>
+            <b>LogLevel</b> cmdled determines the level of detalization for generated logs. With
+            <b>Verbose</b> Exchange also logs previous values of any changed attributes.
+          </li>
+        </ul>
+        <br />For more details regarding these cmdlets please refer to the same article: <a
+          href="https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging"
+          target="_blank"
+          >https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging</a
+        >
+
+        <ol start="2">
+          <li>
+            <strong>&lt;Path_To_SetAALExcludedCmdlets_File&gt;SetAALExcludedCmdlets.ps1 </strong>
+          </li>
+        </ol>
+        This command runs <strong>SetAALExcludedCmdlets.ps1 </strong>cmdlet which is located in the
+        Active Directory Auditing subfolder of the Netwrix Auditor installation directory.
+        <strong>SetAALExcludedCmdlets.ps1 </strong>cmdlet excludes the following cmdlets from being
+        audited (these cmdlets are being used very often and are not important for auditing):<br /><br /><strong
+          >*-InboxRule</strong
+        ><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd335170%28v=exchg.150%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd335170%28v=exchg.150%29.aspx</a
+        ><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd351272%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd351272%28v=exchg.141%29.aspx</a
+        ><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd351062%28v=exchg.150%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd351062%28v=exchg.150%29.aspx</a
+        ><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd351089%28v=exchg.150%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd351089%28v=exchg.150%29.aspx</a
+        ><br /><strong>*-MailboxAutoReplyConfiguration</strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd638217%28v=exchg.150%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd638217%28v=exchg.150%29.aspx</a
+        ><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd638081%28v=exchg.150%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd638081%28v=exchg.150%29.aspx</a
+        ><br /><strong>Set</strong><strong>-MailboxAuditBypassAssociation</strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/ff696758%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/ff696758%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxAutoReplyConfiguration </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd638217%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd638217%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxCalendarConfiguration </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd335075%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd335075%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxCalendarFolder</strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd298124%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd298124%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set</strong><strong>-MailboxFolderPermission </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/ff522363%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/ff522363%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxJunkEmailConfiguration </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd979780%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd979780%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxMessageConfiguration </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd638117%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd638117%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxRegionalConfiguration </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd351103%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd351103%28v=exchg.141%29.aspx</a
+        ><br /><strong>Set-MailboxSpellingConfiguration </strong><br /><a
+          href="http://technet.microsoft.com/en-us/library/dd298020%28v=exchg.141%29.aspx"
+          target="_blank"
+          >http://technet.microsoft.com/en-us/library/dd298020%28v=exchg.141%29.aspx</a
+        ><br /><br /><br /><strong>Q: </strong> Can we enable administrator audit logging on just
+        one Exchange server?<br /><strong>A: </strong>Administrator audit logging is being enabled
+        against all Exchange servers (because Exchange configuration is being shared between all
+        Exchange servers in the Exchange organization) in the managed Exchange organizations. To
+        collect the administrator audit logging data, Netwrix Auditor needs to access just one
+        dedicated Exchange server.<br /><br /><br /><strong>Q:</strong> How will enabling
+        administrator audit logging affect Exchange servers performance?<br /><strong>A: </strong>By
+        default, the admin audit log is enabled in Exchange Server 2010 and newer. The log results
+        are stored in the arbitration mailbox in the AdminAuditLogs folder. If cmdlets are executed
+        in the Exchange Management Shell frequently, multiple log entries are generated, and may
+        cause the size of the database to grow quickly. For more details please refer to the
+        following Microsoft KB article: <a
+          href="https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging"
+          target="_blank"
+          >https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging</a
+        ><br /><br />Please note: while configuring administrator audit logging we exclude several
+        particular cmdlets by running <strong> SetAALExcludedCmdlets.ps1 </strong>command (see above
+        command # 2) which decreases the number of auditing records and helps to hold the database
+        size under control.<br /><br /><strong>Q:</strong> Can we review the administrator audit
+        logging content?<br /><strong>A:</strong> Yes. Please please refer to the following
+        Microsoft KB article: <a
+          href="https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging"
+          target="_blank"
+          >https://learn.microsoft.com/en-us/exchange/policy-and-compliance/admin-audit-logging/admin-audit-logging</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

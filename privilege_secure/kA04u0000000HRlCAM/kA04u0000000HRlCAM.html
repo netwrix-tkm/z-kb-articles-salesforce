@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Resolving ERRCONNECT_SECURITY_NEGO_CONNECT_FAILED for Windows RDP Sessions</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HRlCAM"/><meta name="Id" content="ka04u000000HcZuAAK"/><meta name="LastPublishedDate" content="2021-10-12T13:42:25.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T09:57:40.000+0000"/><meta name="FirstPublishedDate" content="2021-10-12T13:42:25.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5917"/><meta name="ArticleNumber" content="000005917"/><meta name="description" content="Resolving ERRCONNECT_SECURITY_NEGO_CONNECT_FAILED for Windows RDP Sessions"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>When connecting via RDP to a Windows resource, the following error may occur depending on the RDP security settings configured on the target resource:</p>
+
+<pre class="ckeditor_codeblock">ERRCONNECT_SECURITY_NEGO_CONNECT_FAILED
+Failed to connect to target server
+The connection failed at negotiating security settings</pre>
+
+<p><img alt="User-added image" src="kA04u0000000HRlCAM_79884c72-4833-4851-a94c-df8d9b3fc025.png"/></p>
+
+<h2 id="instructions">Instructions</h2>
+
+<p>This error is caused by the following combination of RDP settings on the target Windows resource:</p>
+<b>1.</b> The RDP <strong>SecurityLayer</strong> setting is set to <strong>0</strong> (RDP is used by server and client for authentication). This can be verified by running the following in PowerShell and checking the resulting <strong>SecurityLayer </strong>on the target Windows resource:<br/> 
+<pre class="ckeditor_codeblock">Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "SecurityLayer"</pre>
+<br/>If the output for <strong>SecurityLayer</strong> is <strong>0</strong>, then this condition has been met.<br/><br/><img alt="User-added image" height="42" src="kA04u0000000HRlCAM_ad7be3d3-fd12-469b-b1e6-28774b02367f.png" width="500"/><br/><br/><strong><b>2. </b>Network Level Authentication (NLA)</strong> has been disabled for RDP.<br/><br/>To check this setting on the target Windows resource, press Windows+R to open a Run menu or open Command Prompt. In either Run or Command Prompt, execute the following:<br/> 
+<pre class="ckeditor_codeblock">sysdm.cpl</pre>
+<br/>In the menu that opens, navigate to the Remote tab. <strong>Allow connections only from computers running Remote Desktop with Network Level Authentication</strong> is the correct control.<br/><br/>If this control is disabled, then this condition has been met.<br/><br/><img alt="User-added image" height="419" src="kA04u0000000HRlCAM_1f7c03ad-dcdb-43ae-917b-476418549129.png" width="500"/><br/> 
+<p>There are two ways to resolve the error, depending on the desired security settings for your environment:</p>
+<b>1.</b> Change the RDP <strong>SecurityLayer</strong> value to <strong>1</strong> (server and the client negotiate the method for authentication) or <strong>2</strong> (Transport Layer Security (TLS) protocol is used by the server and the client for authentication), while leaving <strong>Network Level Authentication (NLA)</strong> disabled:<br/> 
+<pre class="ckeditor_codeblock">Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "SecurityLayer" -Value 2</pre>
+ <br/><b>2.</b> Enable <strong>Network Level Authentication (NLA)</strong> while leaving RDP's <strong>SecurityLayer</strong> value at <strong>0</strong>:<br/><br/><img alt="User-added image" height="424" src="kA04u0000000HRlCAM_688f9ddc-4423-463a-b9e7-b1d1c90914ef.png" width="500"/><br/> 
+<p><span><em><span class="wysiwyg-color-red"><strong>IMPORTANT:</strong></span> For optimal security, it's recommended to have RDP's <strong>SecurityLayer</strong> value set to <strong>2</strong> while enabling <strong>Network Level Authentication (NLA)</strong>.</em></span><br/><br/>The following links provide additional information about <strong>SecurityLayer</strong> and <strong>Network Level Authentication (NLA) </strong>from Microsoft:</p>
+
+<ul><li><a href="https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-terminalservices-rdp-winstationextensions-securitylayer" target="_blank">SecurityLayer</a></li><li><a href="https://docs.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/remote-desktop-allow-access#why-allow-connections-only-with-network-level-authentication" target="_blank">Why allow connections only with Network Level Authentication?</a></li></ul>
+
+<h2 id="additional_troubleshooting">Additional Troubleshooting</h2>
+If the above configuration on the remote computer does not resolve the issue, apply the following configuration change to SbPAM.<br/>    1. Open the sbpam_rdp.json proxy configuration file in a text editor: C:\ProgramData\Stealthbits\PAM\ProxyService\sbpam_rdp.json<br/>    2. Edit the file to ensure that the following setting is configured. <em>Note: if the file already exists, ensure that all lines in the file are properly comma-separated after editing the file.</em>
+
+<pre class="ckeditor_codeblock">{
+   "ClientSettings": [{"key":"RdpSecurity", "Value":true}]
+}</pre>
+    3. If the sbpam_rdp.json file does not exist, you can create the default file by executing this command from the Proxy Service installation directory (by default C:\Program Files\Stealthbits\PAM\ProxyService):
+
+<pre class="ckeditor_codeblock">sbpam-proxy.exe cfg -c sbpam_rdp</pre></div>
+</article></body></html>

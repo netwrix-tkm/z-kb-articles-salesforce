@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Group Policy shows SID instead of settings</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bnCAC" />
+    <meta name="Id" content="ka04u000000HcUYAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1386" />
+    <meta name="ArticleNumber" content="000003545" />
+    <meta
+      name="description"
+      content="You received Group Policy Change Report showing some changes you do not believe you made. The changes of Group Policy settings look as if they were renamed from human readable text to a computer specific."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You received Group Policy Change Report showing some changes you do not believe you made.
+        The changes of Group Policy settings look as if they were renamed from human readable text
+        to a computer specific SID.
+
+        <hr />
+
+        By default the product uses a domain controller for the data collection which is most
+        available. Some of the domain controllers may not resolve the Security Identifiers (SID)
+        correctly. The product may connect to the domain controller that does not resolve SIDs,
+        hence it gathers the SIDs of the settings instead of their names. The SID of the group
+        policy setting will be considered as a change when comparing to the previous snapshot.
+
+        <hr />
+
+        To prevent this from happening we recommend using the same domain controller for collecting
+        Group Policy changes. In order to determine the domain controller that should be used,
+        please submit a ticket to Netwrix Technical Support and provide the following information:
+        1. The problematic Group Policy Change report (it should contain the date and time the
+        report was received). 2. The Group Policy Change Reporter tracing logs (the entire content
+        of the tracing folder) - the default location is C:Program Files (x86)NetWrixAD Change
+        Reporter Full VersionGPOExecTracing 3. The tracing of the Active Directory Change Report
+        module - the entire content of the Tracing subfolder located in the installation folder of
+        the product.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_4.1.0.681</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IfVCAU" />
+    <meta name="Id" content="ka04u000000HcstAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:29:33.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:29:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7030" />
+    <meta name="ArticleNumber" content="000007030" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> sINTERCEPT
+          unprintable data in payload / StealthIntercept monitoring policy
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong><br /><i
+            ><span>SI-3423: sINTERCEPT unprintable data in payload</span></i
+          ><br /><i><span>SI-3427: StealthIntercept monitoring policy</span></i
+          ><br /><b><i>Before fix: </i></b><br /><i>SI-3423</i><br />Unprintable data in LDAP
+          events<br />SI-3427<br />Charles Schwab wants to set up a monitoring policy for specified
+          service accounts. Observed after setting up a monitoring policy that group changes were
+          not captured by the policy.<br /><strong
+            ><i><span>After fix: </span></i></strong
+          ><br /><i>SI-3423</i><br />Fix details:<br />Previously there was already implemented the
+          logic how to better convert 'DomainGuid', 'schemaIdGuid', and 'NtVer' attributes in LDAP
+          filter to string value. Now this list extended and includes also 'objectGuid' and
+          'msExchMailboxGuid' attributes.<br />SI-3427<br />Fix Details:<br />In addition to
+          existing logic of evaluating filter conditions for AD event in AD Changes event type added
+          following rules:<br />1. If 'AD Objects' filter didn't match using old logic but event has
+          'member' attribute then in addition to the current logic 'AD Object' filter will also be
+          evaluated for each value in the member attribute.<br />2. If 'AD Context' filter didn't
+          match using old logic but event has 'member' attribute then in addition to the current
+          logic 'AD Context' filter will also be evaluated for each value in the member
+          attribute.<br />Logic of other filters wasn't modified and will work as before.<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Maxim Sidarau<br /><strong><span>Affected Versions:</span></strong
+          ><br />3.4.0      No Patch created at this time<br />3.4.1      No Patch created at this
+          time<br />3.4.2      No Patch created at this time<br />4.0.0      No Patch created at
+          this time<br />4.1.0      SIWindowsAgent_4.1.0.681_SI-3423_SI-3427<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Windows Agent<br /> <br /><strong><span>Dev Ticket:</span></strong
+          ><br />I-3122, I-3139<br /><strong><span>Resolved in Version:</span></strong
+          ><br />SI 4.1.0.681<br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><b>Escalations: </b>22155, 21834<br /><b>Customers:  </b
+          ><br />Charles Schwab &amp; Co., Inc.<br />Herb G<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Stop
+          SIWindowsAgent service<br />2. Extract attached archive to the "C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Start SIWindowsAgent
+          service<br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="20">
+                <td colspan="1" rowspan="1" height="20" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI4.1.0/SIWindowsAgent_4.1.0.681_SI-3423_SI-3427.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI4.1.0/SIWindowsAgent_4.1.0.681_SI-3423_SI-3427.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          4.1.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3423, SI-3427<br /><strong
+            ><span class="wysiwyg-font-size-large">Resolved In:</span></strong
+          >
+          4.1.0.681<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1757<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

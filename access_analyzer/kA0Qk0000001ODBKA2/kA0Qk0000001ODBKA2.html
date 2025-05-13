@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Restoring a Host List in FSAA</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001ODBKA2" />
+    <meta name="Id" content="ka0Qk000000ClmLIAS" />
+    <meta name="LastPublishedDate" content="2024-09-05T09:06:49.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-12T18:02:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-05T09:06:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9258" />
+    <meta name="ArticleNumber" content="000009258" />
+    <meta name="description" content="Restoring a Host List in FSAA" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            Is it possible to restore a File System host list upon an accidental deletion in Netwrix
+            Enterprise Auditor?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>Refer to the following options to restore a host list in your environment:</p>
+          <ul>
+            <li>
+              <p>
+                The 1-FSAA System Scans job creates a <code>ConnectStatus.csv</code> file upon
+                completion to log the audited hosts. Navigate to the following path to locate the
+                file:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAINSTALLDIR%Jobs\GROUP_FileSystem\GROUP_0.Collection\JOB_1-FSAA System Scans\OUTPUT</code></pre>
+              <p>
+                Import a list of audited hosts via <strong>Add Hosts</strong>. Refer to the
+                following articles for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/HostManagement/Actions/Add.htm"
+                  target="_self"
+                  >Host Management Activities — Add Hosts · v11.6</a
+                >;
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/HostManagement/Actions/ImportHost.htm"
+                  target="_self"
+                  >Import Hosts Option</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the <strong>Task Stats</strong> of the affected job to collect the list of
+                servers and import the list via <strong>Add Hosts</strong>.
+              </p>
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Once you recreate the host list, reapply it
+              in the job settings.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/HostManagement/Actions/Add.htm"
+                target="_self"
+                >Host Management Activities — Add Hosts · v11.6</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/HostManagement/Actions/ImportHost.htm"
+                target="_self"
+                >Import Hosts Option</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

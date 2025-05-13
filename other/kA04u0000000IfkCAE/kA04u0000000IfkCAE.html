@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Detect Overlapping File System Jobs</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IfkCAE" />
+    <meta name="Id" content="ka04u000000HcsxAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:36:45.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:36:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7249" />
+    <meta name="ArticleNumber" content="000007249" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Overlapping scans
+          and/or imports of the same type for the same host can cause issues with data integrity.
+          This script identifies instances where a scan is running against a host and another scan
+          starts against the same host before the initial one has completed.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            >If an error or data integrity issue indicates there may have been an overlapping scan
+            or scan and import, it can be difficult to find evidence of this, especially in a large,
+            complex job tree.</span
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> The following
+          SQL may be run in SQL Server Management Studio to search through the SA_JobTaskStatsTbl
+          table to find instances where an improper overlap has likely occurred. See Info Request
+          Escalation (6613 / SAFS-598) for details on what kinds of overlap are permissible.<br /><br />if
+          object_ID('tempdb..#tmp','u') IS NOT NULL<br />DROP TABLE #tmp<br /><br />select  *, CASE
+          WHEN T.JobName like '%fsaa%' then 'FSAA' when T.JobName like '%FSAC%' then 'FSAC' when
+          T.JobName like '%seek%' then 'SEEK' else 'N/A' end as CollectionType<br />into #tmp from
+          SA_JobTaskStatsTbl T with(nolock)<br />where ((T.JobName like '%scan%' or T.JobName  like
+          '%import%')) and (T.JobName like '%FSAA%' or T.JobName like '%FSAC%' or T.JobName like
+          '%seek%')<br /><br />if object_ID('tempdb..#Overlaps','u') IS NOT NULL<br />DROP TABLE
+          #Overlaps<br /><br />select<br />       T2.SA_HOST as RunningSA_Host<br />,      T2.JobRunTimeKey
+          as RunningJobRunTimeKey<br />,      T2.JobName as RunningJobName<br />,      T2.TaskType
+          as RunningTaskType<br />,      T2.TaskName as RunningTaskName<br />,      T2.HostName as
+          RunningHostName<br />,      T2.TableName as RunningTableName<br />,      T2.StartTime as
+          RunningStartTime<br />,      T2.EndTime as RunningEndTime<br />,      T2.DurationTime as
+          RunningDurationTime<br />,      T2.Status as RunningStatus<br />,      T2.CollectionType
+          as RunningCollectionType<br />,      T.SA_HOST as InterruptingSA_Host<br />,      T.JobRunTimeKey
+          as InterruptingJobRunTimeKey<br />,      T.JobName as InterruptingJobName<br />,      T.TaskType
+          as InterruptingTaskType<br />,      T.TaskName as InterruptingTaskName<br />,      T.HostName
+          as InterruptingHostName<br />,      T.TableName as InterruptingTableName<br />,      T.StartTime
+          as InterruptingStartTime<br />,      T.EndTime as InterruptingEndTime<br />,      T.DurationTime
+          as InterruptingDurationTime<br />,      T.Status as InterruptingStatus<br />,      T.CollectionType
+          as InterruptingCollectionType<br />into #Overlaps<br />from #tmp T with(nolock)<br />inner
+          join #tmp T2 with(nolock)<br />on T.StartTime &gt;=T2.StartTime AND
+          T.StartTimeT2.JobRunTimeKey and T.CollectionType=T2.CollectionType<br />where ((T.JobName
+          like '%scan%' or T.JobName  like '%import%') and (T2.JobName like '%scan%' or
+          T2.JobName  like '%import%'))<br /><br />drop table #tmp<br />select * from #Overlaps
+          order by RunningStartTime
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA - Permissions;SA - DC - FSAA -
+          Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.1+<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-1123<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          Planned for 10.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2471
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

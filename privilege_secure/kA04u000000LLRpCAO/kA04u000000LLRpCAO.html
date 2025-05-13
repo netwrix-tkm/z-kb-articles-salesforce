@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Netwrix Privilege Secure: Performing an In-Place Postgres Upgrade</title><meta name="label" content="skb"/><meta name="label" content="privilege_secure"/><meta name="KnowledgeArticleId" content="kA04u000000LLRpCAO"/><meta name="Id" content="ka0Qk000000CGIjIAO"/><meta name="LastPublishedDate" content="2025-02-14T21:04:20.000+0000"/><meta name="LastModifiedDate" content="2025-02-14T21:04:20.000+0000"/><meta name="FirstPublishedDate" content="2022-12-15T20:51:10.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8528"/><meta name="ArticleNumber" content="000008528"/><meta name="description" content="SbPAM: Performing an In-Place Postgres Upgrade"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<div>
+<p>This article provides guidance on how to perform an in-place upgrade for the NPS server's Postgres backend.</p>
+<blockquote><span class="Note"><strong>NOTE:</strong></span> This article applies exclusively to build updates for Postgres 12. As the upgrade may take considerable time and require a server reboot, it is recommended to schedule this process outside of regular operational hours.</blockquote>
+</div>
+<h2 id="instructions">Instructions</h2>
+<ol><li>
+<p>Determine your current Postgres version by launching a PowerShell terminal and running the following commands:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">cd 'C:\Program Files\Stealthbits\Postgres12\bin\'
+.\psql.exe -V</code></pre>
+<blockquote><span class="Note"><strong>NOTE:</strong></span> You may need to modify the path to the Postgres12 directory depending on your installation.</blockquote>
+</li><li>
+<p>This command should return your Postgres version number. For example, if your current version is 12.8, upgrade to the latest 12.X release.</p>
+</li><li>
+<p>Visit the <a href="https://www.postgresql.org/download/windows/" target="_blank">Postgres download page</a>. Click the "Download the Installer" link at the top of the page, and download an executable installer from the EnterpriseDB website. Ensure the version matches the one determined in Step 2.</p>
+</li><li>
+<p>Run the <strong>postgresql-[versionnumber]-windows-x64.exe</strong> file on your NPS server. This will launch the Postgres Setup Wizard. Click <strong>Next</strong> on the initial splash page.</p>
+</li><li>
+<p>On the <strong>Select Components</strong> page, select only <strong>PostgreSQL Server</strong> and <strong>Command Line Tools</strong> to install/upgrade:</p>
+<img alt="Postgres Select Components" src="kA04u000000LLRpCAO_b71b1fc2-d54a-4f82-a8d9-44148002d4e8.png"/></li><li>
+<p>Proceed through the prompts until you see the <strong>Pre-Installation Summary</strong> window and confirm that it matches your server's settings:</p>
+<img alt="Postgres Pre-Installation Summary" src="kA04u000000LLRpCAO_07261ee0-5088-4c3a-8ed1-db81be4e7c87.png"/></li><li>
+<p>Once satisfied with the <strong>Pre-Installation Summary</strong> window, click <strong>Next</strong> two more times to proceed with the installation.</p>
+</li><li>
+<p>Once the installation is finished, you will be prompted to restart your server. Restart your server.</p>
+</li><li>
+<p>To confirm the success of your installation, use the PowerShell commands from Step 1 to verify that your version number matches the installer.</p>
+</li></ol></div>
+</article></body></html>

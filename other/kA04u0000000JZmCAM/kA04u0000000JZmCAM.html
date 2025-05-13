@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>AIX Agentless Setup (OS Side)</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000JZmCAM"/><meta name="Id" content="ka04u000000Hd9kAAC"/><meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:17:41.000+0000"/><meta name="FirstPublishedDate" content="2022-02-07T00:49:47.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8202"/><meta name="ArticleNumber" content="000008202"/><meta name="description" content="HELPDESK"/></head><body><article class=" kb-articles"><div class="Content__c"><p>This will help you get your AIX serve ready for change tracker to connect agentlessly.</p><h2 id="AIXAgentlessSetup(OSSide)-RequiredDependencies(OlderVersionofNNT_FILEHASH_AIX)">Required Dependencies (Older Version of NNT_FILEHASH_AIX)</h2><p>Note that in a new release of the NNT_FILEHASH_AIX binary, these dependencies will be built in. In an older version, these where required to be installed and moved manually, below is the processes to do so if needed. Click the "Expand Source" button on the right side of the code block to view the notes.</p><div class="code panel pdl conf-macro output-block">
+ <div class="codeHeader panelHeader pdl hide-border-bottom">
+  <b class="code-title">Required Dependencies &amp; Steps for Old NNT_FILEHASH_AIX Binary</b><span class="collapse-source expand-control"><span class="expand-control-icon icon"/><span class="expand-control-text">Expand source</span></span><span class="collapse-spinner-wrapper"> </span>
+ </div>
+ <div class="codeContent panelContent pdl hide-toolbar"> 
+  <pre class="syntaxhighlighter-pre"># To view the dependencies, run an ldd command on the NNT Filehash
+
+		ldd /usr/bin/NNT_FILEHASH_AIX
+				 /usr/bin/NNT_FILEHASH_AIX needs:
+					 /usr/lib/libc.a(shr.o)
+       		 		 /usr/lib/libstdc++.a(libstdc++.so.6)
+       				 /usr/lib/libgcc_s.a(shr.o)
+        			 /unix
+       				 /usr/lib/libcrypt.a(shr.o)
+
+# If you are using a version of the filehash that does not have these dependencies built in, they can be downloaded from the IBM website as RPM files. 
+
+# By Default, if you are manually installing them, these Dependencies are installed in a directory similar to the the following (The PowerPC folder may change due to version numbers, as well as the folder that follows that):
+ 		
+		/opt/freeware/lib/gcc/powerpc-ibm-aix6.1.0.0/4.8.5/
+
+# If you have to use the old NNT Filehash which does not pre-bake the dependencies, and it does not work after installing the dependencies in the location above, this means that the NNT Filehash is looking for the files 
+# in the following directory. It may be worthwhile to do this step anyways if you are using the old Filehash. 
+
+# First, you will need to change directories to the folder above:
+
+		cd /opt/freeware/lib/gcc/powerpc-ibm-aix6.1.0.0/4.8.5/
+
+# Use the LS command to grep for lib files to see which files are available so that they can be copied.
+
+		ls ‚Äì ltr /opt/freeware/lib/gcc/powerpc-ibm-aix6.1.0.0/4.8.5/ | grep lib
+
+# Copy the required lib files as shown above (Make sure you run this in the /opt/freeware/lib/gcc/powerpc-ibm-aix6.1.0.0/4.8.5/ directory). 
+
+		cp libc.a libstdc++.a libgcc_s.a libcrypt.a /usr/lib
+
+</pre> 
+ </div>
+</div><p><br/></p><h2 id="AIXAgentlessSetup(OSSide)-AIXPre-StagingforAgentlessSetup">AIX Pre-Staging for Agentless Setup</h2><p>The below are the steps that are needed in order to then use change tracker to agentlessly connect to the AIX device.</p><ol><li><p class="auto-cursor-target">Check to see if the NNT_FILEHASH_AIX file already exists. If it does not, you will have to move it to the directory specified below in order for the agent to connect. You can do this using WinSCP.</p><div class="code panel pdl conf-macro output-block"><div class="codeHeader panelHeader pdl"><b>Locating NNT_FILEHASH_AIX </b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre"># To see if the file exists, run the command below
+	
+	ls -ltr /usr/bin | grep NNT_FILEHASH_AIX
+
+# If the file exists you should receive an output similar to the output below:
+
+	-rwxrwxrwx    1 root     system       191614 Mar 30 2017  NNT_FILEHASH_AIX
+
+# If the file does not exist, you will not receive an output, you will simply be returned to the command prompt with no result.
+# If this is the case, you will need to copy the NNT_FILEHASH_AIX to the proper directory</pre>
+</div></div></li><li><p class="auto-cursor-target">Does the NNT_FILEHASH_AIX file have the correct permissions? The file hash binary needs to be able to execute and have access to various folder structures.</p><div class="code panel pdl conf-macro output-block"><div class="codeHeader panelHeader pdl"><b>Required Permissions and User Rights</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">######################################################################################################################################################################################
+# Keep in mind that the account that change tracker will use to SSH to the AIX server should have permissions to read and execute as well. Preferably, this account is a root user.  #
+######################################################################################################################################################################################
+
+# To see the permissions assigned to the file, run the command below
+	
+	ls -ltr /usr/bin | grep NNT_FILEHASH_AIX
+
+# You will see an output similar to the below. The permissions are listed at the very beginning, below, it is "-rwxrwxrwx":
+# This means that the User (root) has Read, Write, and Execute Privileges, the Group (system) has Read, Write, and Execute Privileges, and everyone else has Read, Write, and Execute Privileges.
+# This is the ideal scenario, however, being security conscious does not guarantee that you will be able to do this, as it can pose a security hazard. 
+
+	-rwxrwxrwx    1 root     system       191614 Mar 30 2017  NNT_FILEHASH_AIX
+
+# To assign the privileges above, use the command below:
+
+	chmod 777 /usr/bin/NNT_FILEHASH_AIX
+
+# As stated above, this may pose a security hazard. You could assign "rwx" permissions to the user and group, but have everyone else only have "rx" privileges if this makes the customer more comfortable:
+
+	chmod 775 /usr/bin/NNT_FILEHASH_AIX
+	# ls -ltr will return: -rwxrwxr-x    1 root     system       191614 Mar 30 2017  NNT_FILEHASH_AIX
+
+
+# If you are dealing with a very security conscious customer who refuses to give write privileges to the file, you could try the below permissions, however, these are untested and should only be used as a last resort:
+
+	chmod 555 /usr/bin/NNT_FILEHASH_AIX
+	# ls -ltr will return: -r-xr-xr-x    1 root     system       191614 Mar 30 2017  NNT_FILEHASH_AIX
+
+	# OR
+
+	chmod 755 /usr/bin/NNT_FILEHASH_AIX 
+	# ls -ltr will return: -rwxr-xr-x    1 root     system       191614 Mar 30 2017  NNT_FILEHASH_AIX
+
+# If the file does not exist, you will not receive an output, you will simply be returned to the command prompt with no result.
+# If this is the case, you will need to copy the NNT_FILEHASH_AIX to the proper directory</pre>
+</div></div></li><li><p class="auto-cursor-target">You can test the NNT File hash by simply calling it as shown below:</p><div class="code panel pdl conf-macro output-block"><div class="codeHeader panelHeader pdl"><b>Verifying Functioning FILEHASH</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre"># To test the filehash, run the command below
+	
+	/usr/bin/NNT_FILEHASH_AIX
+
+# You should see the following output if it works correctly
+
+	NNT_FILEHASH. Version 5.3.0.6 for UNIX (32 bit)
+
+	you must put the full path to the file(s) in the command line with a space between paths - file search characters are allowed
+	eg: /usr/bin/a* /user/bin/bash
+
+	Command line switches:
+	-h to perform SHA filehash (note this generates a lot of data and is processor intensive)
+	-e to perform SHA filehash with hex output (note this generates a lot of data and is processor intensive)
+	-r to recurse through directories
+	-v for verbose response (only compatible with CT version 5.8 onwards)
+	-s to STOP the software following Symbolic Links
+	-xpath, exclude files (i.e., -x/etc/*.conf)</pre>
+</div></div></li><li><p class="auto-cursor-target">To test if the file hash can hash a set of files correctly (this will fail if proper permissions are not set), log into the account that change tracker will be using to run the filehash, and run the command below:</p><div class="code panel pdl conf-macro output-block"><div class="codeHeader panelHeader pdl"><b>Verifying Hashing Capabilities</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre"># To test if the hashing function of the filehash works correctly, run the command below. This will hash all files in "/etc" recursively. 
+	
+	./usr/bin/NNT_FILEHASH_AIX -hr /etc/*
+
+# You should see a large volume of outputs similar to the one below:
+
+	***********************************************************************
+
+	-f/etc/xxyyzz.conf
+	-m100640
+	-orw-
+	-gr--
+	-x---
+	-i0
+	-nroot
+	-y0
+	-zsystem
+	-s93
+	-rTue Apr 17 04:58:27 2018
+	-q1523959107
+	-cTue Apr 17 04:58:27 2018
+	-d1523959107
+	-h: 910000534 4030151691 2588572857 1704512530 478692749
+	***********************************************************************
+
+# The "	-h: 910000534 4030151691 2588572857 1704512530 478692749 " is the hash of the file. If you do not recieve this output, there may be problems with the permissions of the user account / filehash.
+# Go back to the permissions section and work with the customer to configure the correct permissions for a working solution. </pre>
+</div></div></li></ol><h2 id="AIXAgentlessSetup(OSSide)-Thatsit!">Thats it!</h2><p>At this point, if everything worked correctly, you can go into Change Tracker and create the necessary credentials necessary to connect to the AIX device agentlessly.</p><p><br/></p><h2 id="AIXAgentlessSetup(OSSide)-Relatedarticles">Related articles</h2><p/><p>
+
+
+
+
+
+
+
+
+
+
+
+</p><ul class="content-by-label conf-macro output-block"><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8282" target="_blank">Monitoring Oracle Databases using Change Tracker</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8306" target="_blank">Rolling-Log Fix: "Couldn't get credentials for remote platform discovery on"</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8300" target="_blank">HTTP Error 500.19 - Internal Server Error - Error Code 0x8007007e</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8270" target="_blank">How to Exclude/Edit Information from Process Output Tracking (Agentless)</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8253" target="_blank">Rolling-Log Fix: "Script error executing line 6: ExecuteAndCaptureChunked - /NNT_FILEHASH_LINUX_X64: Permission denied‚Äù (AGENTLESS LINUX)</a>
+                        
+                        
+                    </div>
+    </li></ul>
+<p><br/></p><p><br/></p></div>
+</article></body></html>

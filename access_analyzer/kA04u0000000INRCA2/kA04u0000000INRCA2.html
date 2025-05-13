@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Common Applet-Related Errors in StealthAUDIT</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000INRCA2" />
+    <meta name="Id" content="ka04u000000HcljAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:33:06.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:06:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:23:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6601" />
+    <meta name="ArticleNumber" content="000006601" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Common applet
+          errors in Exchange Metrics, SMARTLog, and FSAA.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+        </p>
+
+        <p>
+          1. The applet is already started on host. Process ID =<br />2. Out of memory<br />3.
+          "CreateLogProcessorRemote failed - Structured exception -&gt; 0x000006D9<br />4. Error in
+          TRemoteHelper.GetStageCode: (0x000006BA) The RPC server is unav
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>      
+        </p>
+
+        <p>
+          1. <strong>The applet is already started on host.  Process ID = </strong><br /> <br />In
+          most cases, only one instance of an applet can be running on a host at any one time.  This
+          error is commonly received if a job running an applet based task is in the process of
+          executing when another job using a similar query routine attempts to execute.  In this
+          case, the second task will fail as it will not be able to launch the applet.  This error
+          can also be received if the applet is 'hung' open for whatever reason.  In hung scenarios,
+          the applet process will need to be killed prior to a successful execution of the
+          applet-based query.  This can be done manually or through a job designed specifically to
+          terminate the process.
+        </p>
+
+        <p>
+          2. <strong>Out of memory</strong><br /> <br />Host side out of memory errors, where the
+          applet process does not have sufficient memory to perform the processing task, was most
+          common when running Exchange Metrics queries against Exchange servers on Windows Server
+          2003 operating systems.  This is due to a small amount of memory allowed for WMI-based
+          processes.  By default, WMI processes are configured to use up to 128 Mb; however, a
+          setting of 512 Mb is recommended.  In these scenarios, it is necessary to modify WMI to
+          allow more memory to be used.  Warning: this operation requires a server reboot<br /><a
+            href="http://blogs.technet.com/b/askperf/archive/2008/09/16/memory-and-handle-quotas-in-the-wmi-provider-service.aspx"
+            target="_blank"
+            ><u
+              >http://blogs.technet.com/b/askperf/archive/2008/09/16/memory-and-handle-quotas-in-the-wmi-provider-service.aspx</u
+            ></a
+          ><br /><br />3.
+          <strong>"CreateLogProcessorRemote failed - Structured exception -&gt; 0x000006D9</strong
+          ><br /> <br />This error was commonly viewed when attempting to run Exchange Metrics and
+          SmartLog queries against hosts where the Windows Firewall was enabled.  To overcome, it
+          would be necessary to disable the firewall or whitelist the applet executable as to not
+          get caught by the firewall rule.<br /><br />4.
+          <strong
+            >Error in TRemoteHelper.GetStageCode: (0x000006BA) The RPC server is unavailable</strong
+          ><br /> <br />This error has been observed when run with Exchange Metrics, SmartLog, and
+          FSAA applet query routines and represents a condition where the port attempting to be used
+          is already in use by another application.  The resolve would be to either free up the port
+          or select another port for query purposes.  For versions of SmartLOG and Exchange Metrics
+          from later versions of 6.1 forward, port specifications cannot be modified.  For FSAA
+          queries, a secondary port could be selected within the configuration of each FSAA
+          applet-based query
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - DC -
+          ExchangeMetrics;SA - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA -
+          Permissions;SA - DC - FSAA - Sensitive Data;SA - DC - Smartlog EventLog;SA - DC - Smartlog
+          IIS;SA - DC - SPAA - Activity;SA - DC - SPAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          6.3+<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000001046
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

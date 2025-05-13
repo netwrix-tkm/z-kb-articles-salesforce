@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: "The following group policies could not be compared due to a snapshot reading error".
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YFCA0" />
+    <meta name="Id" content="ka04u000000HcRKAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1178" />
+    <meta name="ArticleNumber" content="000003330" />
+    <meta
+      name="description"
+      content="The Change Summary emails contain the following error message: &amp;quot;The following group policies could not be compared due to a snapshot reading error&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The Change Summary emails contain the following error message: "The following group policies
+        could not be compared due to a snapshot reading error"
+
+        <hr />
+
+        <strong>Netwrix Auditor</strong> uses native Windows tools like
+        <strong>Microsoft Group Policy Management </strong>console during the data collection. When
+        an issue appears in there it automatically shows up in Netwrix Auditor reports too. For
+        example, some Group Policy objects can have an incorrect structure and can not be processed.
+        To make sure that this issue relates to Group Policy objects themselves perform following
+        steps:
+        <ol>
+          <li>
+            Click <strong>Start -&gt; Run </strong>and type <strong><em>gpmc.msc </em></strong>on
+            the computer where Netwrix Auditor is installed.
+          </li>
+          <li>Find there any problematic GPO that displayed in report.</li>
+          <li>
+            Switch to <strong>Settings</strong> tab, right-click and select
+            <strong>Save Report</strong>.
+          </li>
+          <li>The error should occur during this process.</li>
+        </ol>
+
+        <hr />
+
+        To troubleshoot this issue, please open problematic GPOs in
+        <strong>Microsoft Group Policy Management </strong>console, review settings and fix the
+        errors. In some cases, it is not possible to fix these incorrect GPOs and it is recommended
+        to recreate them.
+      </div>
+    </article>
+  </body>
+</html>

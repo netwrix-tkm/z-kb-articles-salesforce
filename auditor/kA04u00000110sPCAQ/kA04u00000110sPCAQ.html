@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor Upgrade Process Taking Too Long</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="customers_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110sPCAQ" />
+    <meta name="Id" content="ka04u00000116ikAAA" />
+    <meta name="LastPublishedDate" content="2023-07-17T09:56:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-17T14:32:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-17T09:56:56.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8668" />
+    <meta name="ArticleNumber" content="000008668" />
+    <meta name="description" content="Unable to upgrade Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            The Netwrix Auditor upgrade process is stuck, should I interrupt it and run it again?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Depending on the version you're upgrading from and to, there could be major changes
+            implemented in the new Netwrix Auditor build. During the upgrade process Netwrix Auditor
+            may configure new permissions and settings directly related to new features introduced.
+            It is also recommended to upgrade your Netwrix Auditor instance during non-working hours
+            to allow it run for a longer period of time. In some cases, an upgrade may take over 10
+            hours to complete.
+          </p>
+
+          <p>
+            Refer to the following steps in case your upgrade process takes over 20 hours to
+            complete:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                Add corresponding exclusions to the monitoring scope of your antivirus suite — refer
+                to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_blank"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Clear the temporary folder:</p>
+
+              <ol>
+                <li>
+                  <p>Make sure no one else is logged into the Netwrix Server.</p>
+                </li>
+                <li>
+                  <p>Clear up the temporary folder on your Netwrix Auditor server:</p>
+
+                  <pre class="has-inner-focus">C:\Users\YOURUSER\AppData\Local\Temp</pre>
+                </li>
+                <li>
+                  <p>
+                    Perform a reboot before beginning the installation process again, if possible.
+                  </p>
+                </li>
+                <li>
+                  <p>Let the upgrade run overnight.</p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

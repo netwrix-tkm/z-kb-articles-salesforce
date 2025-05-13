@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Changed Directory Objects for Foreign Security Principals</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SoCAK" />
+    <meta name="Id" content="ka04u00000116TkAAI" />
+    <meta name="LastPublishedDate" content="2023-07-03T09:31:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-03T09:31:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="264" />
+    <meta name="ArticleNumber" content="000002998" />
+    <meta
+      name="description"
+      content="Active Directory Foreign Security Principals made by system"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why were changes to the directory objects for Foreign Security Principals reported as
+            made by System?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            This behavior is expected. The Foreign Security Principals container in Active Directory
+            represent security principals from trusted domains external to the forest. It allows
+            foreign security principals to become members of groups within the domain. The Foreign
+            Security Principals objects are created automatically by Active Directory represented by
+            System. Changes of foreignSecurityPrincipal objects reported as made by System are
+            reported as intended.<br /><br />For additional information on the Foreign Security
+            Principals container and the Foreign Security Principals objects, refer to the following
+            Microsoft articles:
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc755427(v=ws.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >When to Create an External Trust</a
+            >
+            and
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc779144(v=ws.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >How Security Principals Work</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

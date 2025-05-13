@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_047</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IGoCAM" />
+    <meta name="Id" content="ka04u000000Hcj1AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:12:15.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:12:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6368" />
+    <meta name="ArticleNumber" content="000006368" />
+    <meta name="description" content="360012326391" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>AD Azure Inventory Manager Field not reporting correctly</p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Justin Giemza</p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>10.0_022 - Azure ADI: Failure to scan when TLS 1.0 and 1.1 disabled</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>10.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – Azure ADI</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>SAT-8336</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>Stealthbits.StealthAUDIT.DataCollectors.AzureADInventory.dll v. 10.0.36</p>
+        <p>Stealthbits.StealthAUDIT.DataCollectors.AzureADInventory.UI.dll v. 10.0.36</p>
+        <p>DCAzureADInventory.dll v. 10.0.36</p>
+        <p><strong>KB Type: </strong>Bug</p>
+        <p><strong>Issue:</strong></p>
+        <p>Here is how the issue manifests itself outside of SA environment:</p>
+        <p>Development User 1 has a manager on this page</p>
+        <p><img src="kA04u0000000IGoCAM_85bad454-5442-4882-82e2-e5e5a2edcff8.png" alt="1.png" /></p>
+        <p>Development User1 does not have a manager on the following page</p>
+        <p><img src="kA04u0000000IGoCAM_f4b21a1a-b7d5-4fa9-b1e9-208a14f4cf27.png" alt="2.png" /></p>
+        <p>
+          Thus, SA overrides the manager id value with null when encountering the second duplicate
+          instance of the same user within the same result set.
+        </p>
+        <p>
+          This problem is documented by Microsoft as of January 30th 2020 per
+          <a href="https://github.com/microsoftgraph/microsoft-graph-docs/pull/6957" target="_blank"
+            >https://github.com/microsoftgraph/microsoft-graph-docs/pull/6957</a
+          >
+        </p>
+        <p><img src="kA04u0000000IGoCAM_9b4fba93-1f91-4430-bf9c-d6909c8e7b9b.png" alt="3.png" /></p>
+        <p> </p>
+        <p>
+          Microsoft calls this phenomenon replays per
+          <a
+            href="https://docs.microsoft.com/en-us/graph/delta-query-overview#feedback"
+            target="_blank"
+            >https://docs.microsoft.com/en-us/graph/delta-query-overview#feedback</a
+          >:
+        </p>
+        <p><img src="kA04u0000000IGoCAM_c8d09b9c-0545-432c-99f5-0287a90115e2.png" alt="4.png" /></p>
+        <p>
+          Other Microsoft Graph users have brought this issue to Microsoft as well per <a
+            href="https://github.com/microsoftgraph/microsoft-graph-docs/issues/5363"
+            target="_blank"
+            >https://github.com/microsoftgraph/microsoft-graph-docs/issues/5363</a
+          >
+        </p>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog if an unblock button exists
+            there.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Exit StealthAUDIT console</li>
+          <li>
+            Copy and replace files from the folders in this hotfix to the corresponding folders in
+            SA Install dir.
+          </li>
+        </ol>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_047.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_047.zip</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

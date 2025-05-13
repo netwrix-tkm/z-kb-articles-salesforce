@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to manually remove the Help-Desk Portal</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TWCA0" />
+    <meta name="Id" content="ka04u000000HcNIAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:57.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="619" />
+    <meta name="ArticleNumber" content="000003042" />
+    <meta
+      name="description"
+      content="Is it possible to remove the Help-Desk Portal manually? AUtimatic uninstallation of HelpDesk portal via Programs list failed."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          >I failed to uninstall NetWrix Account Lockout Examiner Help-Desk Portal via Programs and
+          Features. Is it possible to remove the portal manually?</span
+        >
+
+        <hr />
+
+        Yes, for manual uninstallation, do the following.
+        <ol>
+          <li>
+            Delete the <strong>Web </strong>folder from the NetWrix Account Lockout Examiner
+            installation directory.
+          </li>
+          <li>
+            Delete all files from <strong>C:WindowsInstaller </strong>(it contains temp files only)
+          </li>
+          <li>
+            Delete the <strong>NetWrix</strong> folder from the <strong>Temp</strong> folder of the
+            user under whose credentials the Help-Desk Portal was installed.
+          </li>
+          <li>
+            Remove the corresponding node from
+            <strong>HKLMSoftware{Wow3264Node}MicrosoftWindowsCurrentVersionUninstall </strong
+            >(Wow6432Node only for x64 OS).
+          </li>
+          <li>Delete the <strong>ALE</strong> virtual directory from the IIS manager.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

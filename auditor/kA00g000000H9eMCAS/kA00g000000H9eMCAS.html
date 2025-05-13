@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor Data Collection Account: Failed Logons | Account Lockouts</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eMCAS" />
+    <meta name="Id" content="ka04u00000117frAAA" />
+    <meta name="LastPublishedDate" content="2023-09-07T13:24:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T13:24:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3793" />
+    <meta name="ArticleNumber" content="000003704" />
+    <meta
+      name="description"
+      content="Netwrix Auditor Data Collection Account: Failed Logons | Account Lockouts"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>
+          Logon Activity reports show that the Data Collection Account is producing failed logons
+          and/or getting locked out.
+        </p>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>One of the locations seen below has expired credentials.</p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <h4 id="monitoring_plans">Monitoring Plans</h4>
+
+        <p>
+          Credentials entered for a monitoring plan are found by navigated from the Netwrix Auditor
+          Home Page &gt; Monitoring Plans &gt; Double-click a selected Monitoring Plan &gt; Edit
+          Settings (Top right).
+        </p>
+        <br /><b>Enter good and current credentials under the Data Collection Tab</b>
+
+        <hr class="wp-block-separator" />
+        <h4 id="custom_data_collection_account">Custom Data Collection Account</h4>
+
+        <p>
+          There may be times when a custom account is needed for the auditing of a specific data
+          source. The input field for custom Data Collection Accounts is found by navigating from
+          the Netwrix Auditor Home Page &gt; Monitoring Plans &gt; Double Click a selected
+          Monitoring Plan &gt; Double Click a selected <em>Item</em>.
+        </p>
+        <img
+          class="wp-image-3795"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/09/Custom-DCA.png"
+        /><br /><br /><b
+          >Enter good and current credentials into the Custom Account fields. If you are using the
+          Default Data Collection Account, leave the custom fields blank.</b
+        >
+
+        <hr class="wp-block-separator" />
+        <h4 id="sql_ssrs_settings">SQL &amp; SSRS Settings</h4>
+
+        <p>
+          Found by navigating from the Netwrix Auditor Home Page &gt; Settings &gt; Audit Database
+          Tab
+        </p>
+        <img
+          class="wp-image-3802 hoverZoomLink"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/09/Settings-1024x558.png"
+        /><br /><br /><b
+          >Enter good and current credentials by clicking "Modify" for both SQL and SSRS
+          settings.</b
+        >
+
+        <hr class="wp-block-separator" />
+        <h4 id="services">Services</h4>
+
+        <p>
+          Some Netwrix Auditor services may be ran by the Netwrix Auditor Data Collection Account.
+          Identify such services
+        </p>
+        <img
+          class="wp-image-3796"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/09/Services.png"
+        />
+        <p><b>Right-click the service and select "Properties"</b></p>
+        <img
+          class="wp-image-3801"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/09/Change-Service-creds.png"
+        /><br /><br /><b>Enter good and current credentials and click "OK".</b>
+
+        <hr class="wp-block-separator" />
+        <h4 id="password_expiration_notifier_event_log_manager_and_inactive_user_tracker">
+          Password Expiration Notifier, Event Log Manager, and Inactive User Tracker
+        </h4>
+
+        <p>
+          Netwrix Auditor comes installed with three additional programs that provide additional
+          avenues of auditing. Navigating to the Data Collection Account credentials will be the
+          same for all three. Find the programs via the Start Menu &gt; Select a Monitoring Plan
+          &gt; Click "Edit".
+        </p>
+
+        <p>
+          <b>Note:</b> If you do not have any monitoring plans for these programs, you may skip this
+          step.
+        </p>
+        <img
+          class="wp-image-3803 hoverZoomLink"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/09/Pen_IUT_ELM-1024x548.png"
+        /><br /><br /><b
+          >Enter good and current credentials for these collectors and click "Save".</b
+        >
+
+        <hr class="wp-block-separator" />
+        <h4 id="the_issue_has_not_been_resolved">The issue has not been resolved...</h4>
+
+        <p>
+          If you are still receiving failed logons and/or lockouts for your Netwrix Auditor Data
+          Collection Account, please consider the following:
+        </p>
+
+        <ul>
+          <li>
+            Confirm that no other applications are using the same account as a service account (i.e.
+            Back up software, Virus Scanners, etc.)
+          </li>
+          <li>
+            Stop Netwrix Services for a frame of time. Take note of the window of which the services
+            are stopped. Once services are running again, allow some time for data to upload to SQL.
+            After waiting, run a search like the one below:
+          </li>
+        </ul>
+        <img
+          class="wp-image-3808 hoverZoomLink"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/09/Search-for-DCA-1024x409.png"
+        />
+        <ul>
+          <li>
+            If any failed logons and/or lockouts are reported for the Data Collection Account,
+            Netwrix is certainly not the root cause.
+          </li>
+          <li>
+            Lastly, Technical Support is equipped to assist in cases where the proposed solutions
+            above do not resolve the issue.
+          </li>
+        </ul>
+
+        <div id="hzImg"> </div>
+
+        <div id="hzImg"> </div>
+      </div>
+    </article>
+  </body>
+</html>

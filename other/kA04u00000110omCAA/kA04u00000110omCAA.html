@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Managing Password Expired</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110omCAA"/><meta name="Id" content="ka04u00000116XhAAI"/><meta name="LastPublishedDate" content="2023-07-07T09:21:18.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T09:21:18.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T09:21:18.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8639"/><meta name="ArticleNumber" content="000008639"/><meta name="description" content="Managing Password Expired"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+Upon attempting to utilize the web UI or the API, the following message is displayed:
+
+<pre>Password Expired</pre>
+
+<h2 id="cause">Cause</h2>
+When this error message is displayed, SecureONE has received a response from the Active Directory server indicating that the password has expired. Specifically, the Active Directory account that Netwrix Privilege Secure for Discovery uses to bind to the Active Directory server has a password that has expired, according to the directory server.
+
+<ul><li>It is a recommended best practice that the account SecureONE uses to bind to the Active Directory server be set not to have an expiring the password.</li><li>If there are multiple domains configured, each domain may utilize a different account to bind to that domain's domain controller.</li></ul>
+
+<h2 id="resolution">Resolution</h2>
+
+<blockquote>
+<div><span><strong>IMPORTANT</strong>.</span> In order to perform these troubleshooting steps, you must be an administrator of Netwrix Privilege Secure for Discovery</div>
+</blockquote>
+
+<ol><li>Confirm that the account used to bind to the Domain Controller has not expired. Open a command prompt and type:
+	<pre>net user %USERNAME% /domain</pre>
+	</li><li>In the output, look for a line that begins "Password Expires". If this date is in the past, the password has expired.</li><li>Change the account's password and update the account's password on the <strong>Config-</strong>&gt;<strong>Domains page</strong>.</li></ol></div>
+</article></body></html>

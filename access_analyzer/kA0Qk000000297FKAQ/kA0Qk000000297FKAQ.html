@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Request for Downloading Published Reports Failed</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk000000297FKAQ" />
+    <meta name="Id" content="ka0Qk000000DSGDIA4" />
+    <meta name="LastPublishedDate" content="2025-04-22T14:30:28.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:25:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-22T14:30:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9433" />
+    <meta name="ArticleNumber" content="000009433" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <p>Either of the following symptoms is present in your environment:</p>
+        <ul>
+          <li>
+            Upon opening the Reporting web page, you receive the following error:
+            <pre class="has-inner-focus">
+! Request for downloading published reports failed: Internal Server Error</pre
+            >
+            <img
+              src="kA0Qk000000297FKAQ_6364f67f-10bb-4af1-8097-e18dd686d131.png"
+              alt="Error message indicating 'Request for downloading published reports failed: Internal Server Error'"
+              width="689"
+              height="211"
+            /> <br /><br />
+          </li>
+          <li>
+            If the file is corrupted, the following error could appear when opening the Netwrix
+            Access Analyzer (formerly Netwrix Enterprise Auditor) console.<br /><img
+              src="kA0Qk000000297FKAQ_79edcce3-2a70-4500-bae2-237f52d34e70.png"
+              alt="Console pop-up showing the error message 'Hexadecimal value 0x00, is an invalid character.'"
+              width="325"
+              height="138"
+            /> <br /><br />
+            <ul>
+              <li>
+                Log entry example:
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">DEBUG Netwrix Enterprise Auditor IsGroupPublished "Data at the root level is invalid. Line 1, position 1."
+<br/>%sainstalldir%\SADatabase\Logs\Application\SADebug-20250306124900-10776.TSV</code></pre>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h2 id="cause">Cause</h2>
+        <p>The issue is caused by a corrupted<strong> </strong>Reports.xml. </p>
+        <h2 id="resolution">Resolution</h2>
+        <p>To resolve these errors, follow the steps below.</p>
+        <ol>
+          <li>
+            Rebuild the Reports folder under the install path. If you want to back up the folder,
+            you should archive it prior to deleting the original.
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span>To find the install path, enter the
+                following environmental variable into the application server's Windows File
+                Explorer: <code>%sainstalldir%</code>. Then, right-click the
+                <strong>Reports</strong> folder to archive and/or delete it. 
+              </p>
+            </blockquote>
+          </li>
+          <li>Close and reopen the Access Analyzer Console to rebuild the folder.</li>
+          <li>
+            To publish the report(s) again, right-click a needed Job Group (e.g.,
+            <strong>Jobs</strong>), and select <strong>Publish</strong> to publish the reports from
+            the selected job group or job without regenerating the report. <br /><br /><img
+              src="kA0Qk000000297FKAQ_79c861c0-9b65-49a5-bc6f-a3e1ba3f662c.png"
+              alt=""
+              width="234"
+              height="455"
+            /> <br /><br />
+          </li>
+          <li>
+            Select <strong>Publish Reports</strong> and click <strong>Next</strong>. <br /><img
+              src="kA0Qk000000297FKAQ_9f467ddf-77fd-4ea2-9a09-57809738320c.png"
+              alt="Navigation and publishing actions in Access Analyzer"
+              width="531"
+              height="339"
+            /><br /><br />
+          </li>
+          <li>
+            Select objects as needed. Then, click <strong>Next</strong> to run the report.<br /><img
+              src="kA0Qk000000297FKAQ_48044c94-3971-4fd3-b61b-2e926393ed9c.png"
+              alt=""
+              width="531"
+              height="406"
+            /> <br /><br />
+          </li>
+          <li>
+            Once the report has run successfully, click <strong>Finish</strong> to close out of the
+            Reporting web page.<br /><img
+              src="kA0Qk000000297FKAQ_9efcb0e5-3d24-40c4-b31a-188ab6c0c3a3.png"
+              alt=""
+              width="531"
+              height="416"
+            /> 
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>Additionally, reports will be rebuilt
+            when the related job completes its next run.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

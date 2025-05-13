@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Policy settings for PCI Compliance</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SHCA0" />
+    <meta name="Id" content="ka0Qk000000DRvFIAW" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:40.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:54:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="221" />
+    <meta name="ArticleNumber" content="000002965" />
+    <meta name="description" content="Audit Policy configuration required for PCI Compliance" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        This article describes the audit policiy required for <strong>PCI Compiance.</strong
+        ><br /><br />The following <strong>Audit Policy</strong> is required for
+        <strong>PCI Compliance</strong>:
+        <ul>
+          <li>
+            <strong>Account Logon Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Account Management Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li><strong>Directory Service Access Events</strong> – <strong>Failure</strong></li>
+          <li>
+            <strong>Logon Events</strong> – <strong>Success</strong> and <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Object Access Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Policy Change Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li><strong>Privilege Use Events</strong> - <strong>Failure</strong></li>
+          <li><strong>Process Tracking</strong> – <strong>No Auditing</strong></li>
+          <li>System Events – <strong>Success</strong> and <strong>Failure</strong></li>
+        </ul>
+        <br /><strong>Directory Service Access Events</strong> available on a
+        <strong>Domain Controller</strong> only.<br /><strong>Object Access</strong> – Used in
+        conjunction with <strong>Folder and File Auditing</strong>. Auditing Failures reveals
+        attempted access to forbidden secure objects which may be an attempted security breach.
+        Auditing Success is used to provide an Audit Trail of all access to secured data, for
+        example, card data in a settlement/transaction file/folder.<br /><br />We recommend to use
+        <strong>Netwrix File Server Change Reporter</strong> to monitor the files changes, do not
+        enable this audit policy for <strong>Event Log Manager</strong>.<br /><strong>NOTE:</strong>
+        when using <strong>Windows Server 2008 / Windows 7</strong> or later, there is an ‘<strong
+          >Advanced Audit Policy Configuration</strong
+        >’ option available which allows more precise application of auditing of
+        <strong>Object Access</strong> events and is useful in eliminating unwanted events. If
+        available, enable the ‘<strong>Audit File System</strong>’ option only for
+        <strong>Success</strong>, and optionally <strong>Failure</strong>, but leave other settings
+        as ‘<strong>Not Configured</strong>’<br /><br /><strong>Process Tracking</strong> – not
+        recommended as this will generate a large number of events.<br /><br />We recommend to
+        configure the following policies and to leave the other policies as is:
+        <ul>
+          <li>
+            <strong>System Events</strong> – <strong>Success</strong> and <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Policy Change Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Account Management Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Account Logon Events</strong> – <strong>Success</strong> and
+            <strong>Failure</strong>
+          </li>
+          <li>
+            <strong>Logon Events</strong> – <strong>Success</strong> and <strong>Failure</strong>
+          </li>
+          <li><strong>Privilege Use</strong> – <strong>No auditing</strong></li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

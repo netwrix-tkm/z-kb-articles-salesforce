@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to localize Password Manager</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9W7CAK" />
+    <meta name="Id" content="ka04u00000116S9AAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-30T11:16:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="781" />
+    <meta name="ArticleNumber" content="000003198" />
+    <meta
+      name="description"
+      content="How to add a custom language to Password Manager Self-Service portal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        There is an option to select the language of the Self-Service portal, but there is no
+        language I need in the list. How can I add the language I need to the list?
+
+        <hr />
+
+        Each language has a separate localization file. Localization files are stored in the<strong>
+          Web_SSLocals</strong
+        >
+        folder in the program installation directory (by default - C:Program Files (x86)Netwrix
+        Password ManagerWeb_SSLocals)
+
+        <img
+          src="kA00g000000H9W7CAK_ed16d78f-3597-4b30-8901-9b8fc45fc0ad.png"
+          alt="User-added image"
+          width="500"
+          height="269"
+        /><br /><span
+          >To add a language, create a copy of en.asp, then rename it to %language code%.asp and
+          edit.</span
+        >
+
+        First of all set :
+        <strong>strLangID=</strong>%language code% (<strong>NOTE</strong>. Must correspond with the
+        asp file name) <strong>strLangDispName=</strong>%language name%
+
+        <img
+          src="kA00g000000H9W7CAK_7d45c03c-dff3-4ae5-9588-3b05bcaaf6fa.png"
+          alt="User-added image"
+          width="500"
+          height="269"
+        />
+
+        Then substitute all English phrases with their equivalents in the desired language. After
+        you finish, save changes and execute <em><strong>iisreset </strong></em>from<em
+          ><strong> </strong></em
+        >command line. The language will be added to the list automatically Also take a look at
+        <a href="https://kb.netwrix.com/659" target="_blank">KB659</a> for more details about
+        localization files.
+      </div>
+    </article>
+  </body>
+</html>

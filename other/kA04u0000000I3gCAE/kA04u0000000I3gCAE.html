@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Identify and Delete Duplicates</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I3gCAE" />
+    <meta name="Id" content="ka04u000000HcejAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:19:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:02:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:19:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6530" />
+    <meta name="ArticleNumber" content="000006530" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to Identify and
+          Delete Duplicates
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span> </strong>Duplicate entries
+          need to be removed from the database for reasons.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <p>
+          <span class="wysiwyg-color-black">If this is critical data, </span
+          ><span class="wysiwyg-color-red">BACKUP THE TABLE FIRST BEFORE DELETING ANY DATA!!!</span>
+        </p>
+        <p>The following syntax will give you a count of rows per unique value(s) specified</p>
+        <pre>SELECT COUNT(*), [value] <br/>FROM [table] <br/>GROUP BY [value] <br/>ORDER BY COUNT(*) DESC</pre>
+        <p> </p>
+        <p>
+          To put some context into the above query, here is an example with output in SSMS. A table
+          was created with intentional duplicate entries for files. In the output we see there are 6
+          duplicated entries.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I3gCAE_e9ddf799-a155-4fe6-84c0-7dffe5a74a70.png"
+            alt="mceclip1.png"
+          />
+        </p>
+        <p> </p>
+        <p>
+          Now we will leverage the Transact-SQL 'common table expression', or CTE to more
+          efficiently root out and delete the duplicates. 
+        </p>
+        <pre><code>;WITH cte AS (SELECT col2, ROW_NUMBER() OVER (PARTITION BY Col1, Col3 ORDER BY ( SELECT 0)) RN FROM #MyTable) DELETE FROM cte WHERE RN &gt; 1</code></pre>
+        <p>
+          I am using <code>ORDER BY (SELECT 0)</code> above as it is arbitrary which row to preserve
+          in the event of a tie.
+        </p>
+        <p>
+          To preserve the latest one in <code>RowID</code> order for example you could use <code
+            >ORDER BY RowID DESC</code
+          >.
+        </p>
+        <p class="wysiwyg-text-align-left">
+          Here is an example to provide some context. Rather than completing with
+          <code>DELETE FROM CTE WHERE RN &gt; 1</code>, we will use
+          <code>SELECT * FROM CTE WHERE RN &gt; 1</code> as this will display which duplicate rows
+          are to be deleted. It is highly recommended to verify what data is to be deleted
+          beforehand to ensure accuracy.
+        </p>
+        <p class="wysiwyg-text-align-left">
+          <img
+            src="kA04u0000000I3gCAE_aca11f7b-9406-43ff-87a2-5eb9395375a4.png"
+            alt="mceclip3.png"
+          />
+        </p>
+        <p class="wysiwyg-text-align-left">
+          A more detailed discussion is available from this thread:
+        </p>
+        <p class="wysiwyg-text-align-left">
+          <a
+            href="http://stackoverflow.com/questions/18932/how-can-i-remove-duplicate-rows/3822833#3822833"
+            target="_self"
+            >http://stackoverflow.com/questions/18932/how-can-i-remove-duplicate-rows/3822833#3822833</a
+          >
+           
+        </p>
+        <p> </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          Database/SQL;SA - Core<br /><br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

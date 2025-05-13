@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Certificate With Identifier Is Not Registered on Application</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001113hCAA" />
+    <meta name="Id" content="ka0Qk0000004bH7IAI" />
+    <meta name="LastPublishedDate" content="2024-07-12T08:24:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-12T08:24:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-18T09:08:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8745" />
+    <meta name="ArticleNumber" content="000008745" />
+    <meta
+      name="description"
+      content="Client Assertion Failed Signature Validation in SharePoint Online Health Log"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error appears in the Health Log for your Microsoft 365-based monitoring
+            plan:
+          </p>
+
+          <pre class="has-inner-focus">
+AADSTS700027: The certificate with identifier used to sign the client assertion is not registered on application. 
+Reason - The key was not found. Thumbprint of key used by client: '%thumbprint%'</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            Multiple Microsoft 365-based items use the same Entra ID application instead of
+            dedicated applications causing the certificate thumbprint overwrites.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Set up a separate Entra ID application for every Microsoft 365-based item monitored in
+            your environment. Refer to the related articles for additional information on Microsoft
+            365-based sources.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+                  target="_blank"
+                  >Microsoft 365 — Permissions for Entra ID Auditing ⸱ v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+                  target="_self"
+                  >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+                  target="_self"
+                  >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+                  target="_self"
+                  >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

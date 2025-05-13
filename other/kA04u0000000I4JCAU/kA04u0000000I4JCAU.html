@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SA_11.0_021</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I4JCAU" />
+    <meta name="Id" content="ka04u000000HcesAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:00:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:02:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:00:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6162" />
+    <meta name="ArticleNumber" content="000006162" />
+    <meta name="description" content="360012217892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong>  Arithmetic overflow Running FS Forensic Jobs</p>
+        <p>
+          <strong>Before Fix: </strong>SQL analysis was casting folderID values to varchar (4) which
+          would cause an Arithmetic overflow error for any FolderID with a value of 10000 or
+          greater.
+        </p>
+        <p>
+          <strong>After Fix: </strong>SQL analysis updated to cast folderID values to varchar (max)
+          to avoid any Arithmetic overflow issues.
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Michael Burrofato</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p> 11.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>Solution Set- File System</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ul>
+          <li>SAFS-20157</li>
+        </ul>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p>-              SAFS-20157/Escalation 54665, 59061</p>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>-              SAFS-20157 54665 - Arithmetic overflow Running FS Forensic Jobs</p>
+        <p><strong> </strong></p>
+        <p><strong>Comments:</strong></p>
+        <p>
+          This job is a rip and replace of the old job. Any custom settings configured in the old
+          job will have to be re-configured after the hotfix is applied.
+        </p>
+        <p><strong>Hotfix Instructions:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog, if an unblock button exists
+            there. 
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Update all provided files in your %SAInstallDir%InstantSolutions folder</li>
+          <li>Update all provided files in your %SAInstallDir%Jobs folder.</li>
+        </ol>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_021.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_021.zip</a
+          >
+        </p>
+        <p> </p>
+        <p><strong> </strong></p>
+        <p><strong> </strong></p>
+      </div>
+    </article>
+  </body>
+</html>

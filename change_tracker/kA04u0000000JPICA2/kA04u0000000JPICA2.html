@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>VMWare ESXi Host Compliance Reporting</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JPICA2" />
+    <meta name="Id" content="ka04u000000Hd74AAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:27:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8049" />
+    <meta name="ArticleNumber" content="000008049" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          For background please read the previous section regarding Agentless Compliance Reporting
+          and the Proxy Agent and Credentials Key concepts as ESXi Compliance reports are all run on
+          an Agentless-basis, however there are some critical pre-requisites, see later.
+        </p>
+        <p>
+          Use ‘Add Credentials’ to create/add a new Credential Key for ESXi Compliance Reporting –
+          please follow the notes below to construct your Connection String.
+        </p>
+        <p>
+          <strong><em>Important</em></strong
+          >: Note that the Connection String defines PowerCLI access to the ESXi Server – the
+          specific ESXi Host details are defined in the step following creation of the ESXi
+          Credential key.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JPICA2_6b5a8d06-1fab-4fd2-9c7d-36221ca49907.png"
+          /></span>
+        </p>
+        <p>
+          The specific named-ESXi Host instance to be reported on is then defined as a Device
+          related to a chosen Proxy Agent in a similar way to any other Agentless device is
+          configured.
+        </p>
+        <p>Pre-Requisites for ESXi Agentless Compliance Reporting</p>
+        <p>
+          The NNT ESXi Compliance Reports utilize the VMWare PowerCLI cmdlets for Powershell. In
+          order to run an NNT ESXi Compliance Report the following pre-requisites are mandatory
+        </p>
+        <ul>
+          <li>
+            NNT Windows Proxy Agent (or Windows Gen 7 Agent with Proxy capabilities) must be used
+          </li>
+          <li>
+            Proxy Agent Windows platform must have PowerShell V5.0 or later installed (installed
+            using the
+            <a
+              class="external-link"
+              href="https://www.microsoft.com/en-us/download/details.aspx?id=50395"
+              target="_blank"
+              >Windows Management Framework 5.0</a
+            >)
+          </li>
+          <li>
+            VMWare PowerCLI V6.3 or later (installed using the
+            <a
+              class="external-link"
+              href="https://my.vmware.com/web/vmware/details?downloadGroup=PCLI600R3&amp;productId=491"
+              target="_blank"
+              >VMWare.com download</a
+            >) and In the VMware vSphere PowerCLI console window, run Set-ExecutionPolicy
+            RemoteSigned See
+            <a
+              class="external-link"
+              href="https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.powercli.ug.doc_50%2FGUID-97ED8CFB-AA71-405C-A540-CFF15B28ED11.html"
+              target="_blank"
+              >https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.powercli.ug.doc_50%2FGUID-97ED8CFB-AA71-405C-A540-CFF15B28ED11.html</a
+            >
+          </li>
+          <li>
+            If the NNT Proxy Agent-hosting platform is a Domain Member and subject to Group Policy
+            Computer Configuration settings, you will also need to set the Windows Powershell Script
+            Execution policy setting to ‘Allow local scripts and remote signed scripts’
+          </li>
+        </ul>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JPICA2_8ee56b6f-cc0d-406c-b376-8c909fd1c139.png"
+          /></span>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

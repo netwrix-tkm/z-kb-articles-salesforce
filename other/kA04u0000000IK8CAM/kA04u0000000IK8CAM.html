@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Override DFS targets</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IK8CAM" />
+    <meta name="Id" content="ka04u000000HckVAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:34:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:34:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7219" />
+    <meta name="ArticleNumber" content="000007219" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Client wanted to
+          force DFS scanning to target servers in a specific geographic location, however
+          StealthAUDIT often just grabs any available target path. This workflow allows SA to query
+          customer environment for available target paths for a DFS share, and then overwrite our
+          standard query's targets.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> DFS Folder targets
+          are picked indiscriminately, with no recourse for a user to override those targets. 
+          Examples include a target preference or a geographic preference by client.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Out of the
+          box, SA will query a DC for name spaces, folder targets, and paths for any given DFS
+          setup.  It will then pick one target indiscriminately amongst available target paths for a
+          folder.  However, there may be situations where a customer may wish to use a specific
+          path, one that SA did not choose.  (Similar to the way a customer may elect for a
+          different DC than what the Dynamic Host List 'Default Domain Controller' chose.)
+        </p>
+        <p>
+          <br />We'll use a single Namespace here, with two folders:<br /><img
+            src="kA04u0000000IK8CAM_c0ad08a2-d945-486b-be23-ae30f987e4dc.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p>
+          The two folders have multiple targets with full replication set up between them.  (This PS
+          query will be turned into a job later.)<br /><img
+            src="kA04u0000000IK8CAM_a82d84c7-b5c6-4d23-93dd-595e2d475dab.png"
+            alt="mceclip1.png"
+          /><br /> <br />Without modification, here is the result within SA after running the
+          "0-FSDFS System Scans" job:<br />Two of the three hosts made it to the DFS Host List:<br /><img
+            src="kA04u0000000IK8CAM_6ed56225-b966-4d29-b0b5-874d44c2015e.png"
+            alt="mceclip2.png"
+          /><br /> <br />If we query the
+          <span
+            ><span><span>[SA_FSDFS_Links]</span></span></span
+          ><span
+            ><span
+              ><span>
+                table we can see some details of which paths were picked (some columns omitted for
+                space):</span
+              ></span
+            ></span
+          ><br /><img
+            src="kA04u0000000IK8CAM_b84b1ed1-3d61-4422-bfff-cb52fd7bc190.png"
+            alt="mceclip3.png"
+          /><br /> <br />But take a look at the results of the PS query again.  Notice in the
+          <em>ReferralPriorityClass</em> column that one of the targets for \DFSFolder has a value
+          of <em>global-high</em>.  This is due to a DFS configuration option available to admins
+          that is not considered in our current target selection:<br /><img
+            src="kA04u0000000IK8CAM_b5ff79ad-6770-4bef-ad52-01467d630823.png"
+            alt="mceclip4.png"
+          />
+        </p>
+        <p>
+          The host TATOOINE is not set to be scanned at all, as evident by its absence in our DFS
+          host list.<br /> <br /><strong
+            >In order to override these targets, we will use PS to query all DFS folder target paths
+            into a table, and then insert them into the appropriate SA tables before the host lists
+            are created.</strong
+          ><br /> <br />The first step is to create a job that will query and create our table of
+          possible targets.  1 query, No analysis or actions.  Name something sensible, as you will
+          reference the _DEFAULT table later.   Create a new query with the POWERSHELL data
+          collector, default settings for all config pages should be fine.  Use the following for
+          the query:<br /><span>$roots=Get-DfsnRoot | Select-Object -ExpandProperty path</span
+          ><br /><span>foreach ($root in $roots){</span><br /><span
+            >Get-DfsnFolder -Path ($root+"\*") | Get-DfsnFolderTarget</span
+          ><br /><span>}</span><br /> <br />Be sure to set a host, in most cases local host will
+          work fine.  The results should be the same as above:<br /><img
+            src="kA04u0000000IK8CAM_d174bec0-4888-4125-a9d6-3473e72f1dc0.png"
+            alt="mceclip5.png"
+          />
+        </p>
+        <p>
+          Next, create a new analysis inside of the "0-DFS System Scan" job.  Name it something that
+          will catch the eye of future engineers as being custom work in an out-of-the-box solution
+          if possible.  You must bring the new analysis to the top of the list; it
+          <strong>must</strong> run before the other two:<br /><img
+            src="kA04u0000000IK8CAM_ba759c43-3ac9-492e-97c2-12a0b88c1212.png"
+            alt="mceclip6.png"
+          />
+        </p>
+        <p>
+          The analysis should be a simple update statement to the DF<br /><span
+            >UPDATE [dbo].[SA_FSDFS_Links]</span
+          ><br /><span>SET [TargetPath] = o.[TargetPath]</span><br /><span
+            >FROM [dbo].[SA_FSDFS_Links] d</span
+          ><br /><span>LEFT JOIN [dbo].[SA_DFS_Override_DEFAULT] o</span><br /><span
+            >ON LOWER(d.[DfsPath]) = LOWER(o.[Path])</span
+          ><br /><span>AND/WHERE . . . </span><br /> <br /><strong
+            ><em
+              ><span
+                >Here is where you must consider your customer's needs to complete the query.  Maybe
+                the want to target the priority targets, maybe they want to avoid them.  Maybe they
+                do not have priorities set at all but still want all scans on a specific Geographic
+                location.  This, as well as the path names themselves will shape the rest of the
+                query.</span
+              ></em
+            ></strong
+          ><br />You will also need to update the [TargetHostId] column with the correct ID for
+          changes made.  These IDS can be found on the
+          <span
+            ><span><span>[SA_FSAA_Hosts]</span></span></span
+          >
+          table.  (If you are looking to include a host that is not currently there, it will need to
+          be added.  A quick zero-level scan will add it as well as test connection/permissions.) 
+          The following query should update any changes, but always double check:<br /><span
+            >UPDATE [dbo].[SA_FSDFS_Links]</span
+          ><br /><span>SET [TargetHostID] = h.[ID]</span><br /><span
+            >FROM [dbo].[SA_FSDFS_Links] d</span
+          ><br /><span>LEFT JOIN [dbo].[SA_FSAA_Hosts] h</span><br /><span
+            >ON h.[HOST] = SUBSTRING(d.[TargetPath],3,CHARINDEX('\',d.[TargetPath],3)-3)</span
+          ><br /><span
+            >WHERE [TargetHostID] <br /> <br />In our example, I am looking for a single change
+            where I have a global preference set.  I have also chosen to surface the
+            [SA_FSDFS_Links] table here so that I can more easily reference the results:<br /><img
+              src="kA04u0000000IK8CAM_f6bff4e7-e80c-442c-bd12-0fd711ba030c.png"
+              alt="mceclip7.png"
+          /></span>
+        </p>
+        <p>
+          Running the "0-DFS System Scan" job again, we can then see our results:<br /><img
+            src="kA04u0000000IK8CAM_d5f00028-38ad-4964-a711-e5a1db860401.png"
+            alt="mceclip8.png"
+          />
+        </p>
+        <p>
+          The 'DFSFolder' target now reflects the change, as does the host ID.  Our DFS Host list
+          now contains 3 hosts, and when a scan is initiated against the host list it will scan
+          TATOOINE instead of CORUSCANT as it would have previously:<br /><img
+            src="kA04u0000000IK8CAM_5b91b68f-ec86-4b89-8d6b-a35133425876.png"
+            alt="mceclip9.png"
+          /><br /> <br />As an alternate example, HOTH is a geographic location known for ice storms
+          that lead to poor network connectivity.  If the customer wished to avoid scanning HOTH,
+          and it is known that all DFS targets on HOTH are always replicated to TATOOINE, we may
+          craft our SQL statement differently:<br /><img
+            src="kA04u0000000IK8CAM_8f6a9fe6-c5bf-4ce1-b7d4-a1806a4562ea.png"
+            alt="mceclip10.png"
+          /><br /> <br />This will lead to a result as such:<br /><img
+            src="kA04u0000000IK8CAM_2573e326-167e-4724-9a66-484e55192f33.png"
+            alt="mceclip11.png"
+          />
+        </p>
+        <p>And HOTH will be ignored for any DFS scoped scans.<br /><br /></p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - DFS<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> Not
+          directly related, however DFS scoping must be fixed as per
+          https://na55.salesforce.com/500f100000jWiqE and subsequent article
+          https://na55.salesforce.com/kA0f1000000oNWT . Article should remain relevant after those
+          fixes are released.<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2152
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

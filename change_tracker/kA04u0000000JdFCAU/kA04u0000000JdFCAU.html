@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Authenticate to Log Tracker with Active Directory Login</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdFCAU" />
+    <meta name="Id" content="ka0Qk0000000x9lIAA" />
+    <meta name="LastPublishedDate" content="2023-12-12T11:02:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T11:02:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8260" />
+    <meta name="ArticleNumber" content="000008260" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Log Tracker allows you to login to the system using Active Directory authentication by
+          configuring the "System &gt; Logins &gt; Security" screen. This lets you use your active
+          directory password when logging into Log Tracker, and provides a few other benefits
+          also.<br /><br />To use this function, the Log Tracker Server needs to be part of the
+          Active Directory domain. (The Log Tracker Server authenticates the login user to the host
+          platform, and if the platform is part of the domain, you can then use your Active
+          Directory password, or a local password configured for the host platform.)<br /><br />Here
+          is a configuration procedure.<br /><br />First, verify that Log Tracker Server is part of
+          the domain. You can find out if this is true by successfully logging into the platform
+          (not the web interface, but the actual platform running Log Tracker) with your active
+          directory user name and password.<br /><br />After verifying the above, login to the Log
+          Tracker Server web interface with an "admin" type login and execute the following steps.
+        </p>
+
+        <h2 id="">Step-by-step guide</h2>
+
+        <ol>
+          <li>
+            Navigate to the "System &gt; Logins &gt; Users" screen, and add an "admin" type user to
+            the system.<br />
+            <br />
+            <em
+              >The user name should be your precise "Active Directory" logon name without any slash
+              or @ characters. For example, if your fully qualified logon domain, which you used to
+              access the host platform, is "LOGTRACKER\Joe.Smith", then you will enter "joe.smith"
+              as the user name. Note that you can enter a local password, but that password will
+              generally be ignored. (It can be used as a backup password to permit you access should
+              Active Directory not be available during the logon process.)</em
+            ><br />
+             
+          </li>
+          <li>
+            Navigate to the "System &gt; Logins &gt; Security" screen, and click edit. On the
+            "Security" edit screen, set the following parameters: (1) Set "Security Enhanced
+            Functions" to be "Enabled"; (2) Set "Login Authentication Method" to be "Web Screen";
+            (3) Set "Authenticate Using AD / SSPI" to be "True"; (4) Set "NetBIOS Logon Domain" to
+            be the name of the NetBIOS domain. When finished, click "Commit".<br />
+            <br />
+            <em
+              >Similar to the above: Note that the "NetBIOS Logon Domain is the domain used to
+              access the platform without any slash or @ characters. For example, if your fully
+              qualified logon domain, which you use to access the host platform, is
+              "LOGTRACKER\Joe.Smith", then the "NetBIOS Logon Domain" is "LOGTRACKER".</em
+            ><br />
+             
+          </li>
+          <li>
+            When you save the security settings, the system will generally log you out when you
+            change these settings, returning you to the login screen. (This depends on your current
+            user name.) If you are not automatically logged out, click the "Logout" link in the
+            upper right of the display.<br />
+             
+          </li>
+          <li>
+            After logout, you will be presented with a login screen. Enter the username configured
+            in step 1 above, and your active directory password. Note that, on the login screen, a
+            drop-down menu appears that will let you login to the system using your Active Directory
+            login name and password, or the password configured for you on the local platform (if
+            any), or using the internal password configured in step 1 above.
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p>
+          You can now add additional users by following step 1 above. Note that, to have access to
+          the Log Tracker Server, the active directory user name MUST be configured in the "System
+          &gt; Logins &gt; Users", and the permission to the Log Tracker server must be set on that
+          screen.
+        </p>
+
+        <p>
+          For example, an average Active Directory user can be assigned "admin" rights at the Log
+          Tracker Server (or an Active Directory administrator may only have "guest" access to the
+          Log Tracker Server.)
+        </p>
+
+        <p>
+          Generally, the above steps are all that is necessary to configure the active directory
+          interface. Various other options also exist, such as the ability to authenticate a user
+          based upon an Active Directory group name, and the ability to disable any local logins
+          using a password configured within Log Tracker.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

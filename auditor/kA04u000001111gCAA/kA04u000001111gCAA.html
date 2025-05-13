@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Some Accounts Were Not Moved or Deleted in Inactive User Tracker Report</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA04u000001111gCAA" />
+    <meta name="Id" content="ka04u000001179HAAQ" />
+    <meta name="LastPublishedDate" content="2023-08-14T11:33:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-14T11:33:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-14T11:33:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8727" />
+    <meta name="ArticleNumber" content="000008727" />
+    <meta
+      name="description"
+      content="Some Accounts Were Not Moved or Deleted in Inactive User Tracker Report"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Your report states some accounts were not moved or deleted. Why were they not affected?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Since IUT has the ability to make actual changes within your Active Directory, it has
+            requirements to meet to introduce these changes. IUT requires all DCs to be operating,
+            otherwise it cannot verify that a user is truly inactive. In case there are non-operable
+            or decommissioned domain controllers in your network, you can omit them — refer to the
+            following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9TQCA0.html"
+              target="_self"
+              >Exclude Non-operable Domain Controllers from Monitoring</a
+            >.
+          </p>
+        </div>
+
+        <div>
+          <p>
+            If you still encounter reports showing the <code>Cannot delete the account</code> status
+            for accounts after omitting the inoperable DCs, refer to the following steps:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                This error might appear if the targeted computer account is not an end object but a
+                container for other objects. IUT won't be able to remove those accounts unless the
+                <strong>Delete account with all its subnodes</strong> checkbox is checked.
+              </p>
+
+              <div>
+                <br />
+                <img
+                  height="471"
+                  src="kA04u000001111gCAA_db3bb567-183b-417f-92a4-880ea83b16da.png"
+                  width="549"
+                />
+              </div>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>This will lead to the deletion of the
+                  entire container considered as inactive by IUT.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                The data collection account used by IUT does not have sufficient rights and
+                permissions. Refer to the following article for additional information on roles,
+                rights, and permissions required for Inactive User Tracker data collection account:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+                  target="_self"
+                  >Monitoring Plans — Data Collecting Account</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                The account has the
+                <strong>Protect object from accidental deletion</strong> checkbox checked in
+                <strong>Properties</strong> &gt; <strong>Object</strong>. This is a Windows Active
+                Directory feature to prevent the deletion and moving of flagged objects without
+                admin intervention. IUT cannot override this feature, it is required to manually
+                edit the flag.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_041</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IHcCAM" />
+    <meta name="Id" content="ka04u000000HcjLAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:13:17.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:13:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6383" />
+    <meta name="ArticleNumber" content="000006383" />
+    <meta name="description" content="360012326391" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong> Excluded objects being marked as deleted in SPAA</p>
+        <p>
+          <strong>Before Fix: </strong>When applying a filter to an SPAA perms scan, any resource
+          picked up previously that fell outside the scope of the filter were marked as deleted.
+        </p>
+        <p>
+          <strong>After Fix: </strong>Objects are no longer marked as deleted if not in scope of
+          SPAA filter. Any effected object that was marked as deleted will be un-marked as deleted
+          on the next scan.
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Michael Burrofato</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>10.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – DC – SPAA</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ul>
+          <li>SAFS-20263</li>
+        </ul>
+        <p><strong>Resolved in Version:</strong></p>
+        <ul>
+          <li>SPAA build 0.0.889</li>
+        </ul>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>-              SAFS-20263/52756</strong></p>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>-              SAFS-18532 SPAA scans are marking web applications as deleted</p>
+        <p>-              SAFS-18637 SPAA: Add debug logging around SSL connection code</p>
+        <p>
+          <strong>-              </strong>SAFS-18788 SPAA: Add more logging around SSL connection
+        </p>
+        <p>-              SAFS-18672 50188 - Unable to perform SP Bulk Import</p>
+        <p>
+          <strong>-              </strong>SAFS-18517 135 - Add option to enable or disable
+          differential scans to the SPAA DC UI
+        </p>
+        <p>
+          -              SAFS-18716 SPAA: Duplicate key issues<br />-              SAFS-18942 51083
+          - SPAA SDD scans have hard-coded timeout of 60 minutes
+        </p>
+        <p>
+          -              SAFS-17418 SPAA DC Should be able to check service account access based on
+          scan configuration<br />-              SAFS-18943 51078 - SPO scan errors: "Unable to
+          establish connection for resource... ...ThreadID:XX"
+        </p>
+        <p>-              SAFS-19027 51375 - SP Activity BI errors</p>
+        <p>
+          -              SAFS-18594 SPAC is rewriting resource types for document libraries to lists
+        </p>
+        <p>
+          -              SAFS-19223 51977 - SharePoint Tier 2 DB bulk imports performance decrease
+          importing SA_SPDLP_Matches
+        </p>
+        <p>
+          -              SAFS-19207 51915 - SPSEEK bulk import fails with PK constraint: Cannot
+          insert duplicate key in object 'dbo.SA_SPDLP_MatchHits'
+        </p>
+        <p>-              SAFS-17585 SPAA - Add SharePoint Server Health Monitoring to log files</p>
+        <p>
+          -              SAFS-19346 Update SP Health Monitoring to gracefully stop checking if an
+          error occurs.
+        </p>
+        <p>-              SAFS-18685 SPAA: Improve server side logging for SPO scans</p>
+        <p>
+          -              SAFS-19224 52036 - SPAA system scan "The object specified does not belong
+          to a list”
+        </p>
+        <p>
+          -              SAFS-19806 52698 - FOREIGN KEY constraint "FK_SA_SPAA_RolesProxy_RoleId"
+        </p>
+        <p>
+          -              SAFS-19142 51683 - SPAA Scans Evaluating Resources Outside the Set Scope
+        </p>
+        <p>
+          -              SAFS-19795 SPSEEK DLP Criteria box doesn't expand with the rest of the page
+        </p>
+        <p>-              SAFS-19847 SPAA Fix UnDelete of Resources</p>
+        <p>-              SAFS-19418 52756 - SPAA: infinite loop in retry logic</p>
+        <p> </p>
+        <p><strong>List of changes since last Hotfix</strong></p>
+        <p>-              SAFS-20263 Excluded objects being marked as deleted in SPAA</p>
+        <p> </p>
+        <p><strong>Comments:</strong></p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            <strong
+              >Unblock the hotfix zip file in the windows property dialog, if an unblock button
+              exists there. </strong
+            >
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li><strong>Update all DC files in your %SAInstallDir%DC folder</strong></li>
+          <li>
+            <strong
+              >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder.</strong
+            >
+          </li>
+          <li><strong>Update all Agent files in your %SAInstallDir%Agent folder</strong></li>
+          <li>
+            <strong
+              >If using Agent mode, please install SPAA Agent version 10.0.0.47 or later</strong
+            >
+          </li>
+        </ol>
+        <p>
+          <strong
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_041.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_041.zip</a
+            ></strong
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

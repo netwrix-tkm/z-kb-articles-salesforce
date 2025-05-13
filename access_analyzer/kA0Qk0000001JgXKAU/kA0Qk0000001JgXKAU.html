@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FSAA Proxy Scans in Non-trusted Domains</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001JgXKAU" />
+    <meta name="Id" content="ka0Qk0000004rs9IAA" />
+    <meta name="LastPublishedDate" content="2024-08-01T12:30:24.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-01T12:30:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-08-01T12:30:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9235" />
+    <meta name="ArticleNumber" content="000009235" />
+    <meta name="description" content="FSAA Proxy Scans in Non-trusted Domains" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            In Netwrix Enterprise Auditor v11.6, the communication between the FSAA Data Collector
+            and the FSAA Applet is secured via the HTTPS protocol. This article covers the steps to
+            correctly set up the FSAA Proxy service in your environment to scan the non-trusted
+            domain resources.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Allocate a separate service account with
+              local Administrator rights to implement the FSAA Proxy scans in your non-trusted
+              domain.
+            </p>
+          </blockquote>
+
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Manually create and set up certificates for the FSAA Proxy using the allocated
+                service account. Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/FSAA/ManualCertificate.htm"
+                  target="_self"
+                  >FSAA Applet Certificate Management Overview — FSAA Manual Certificate
+                  Configuration · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the target server, run <strong>Services</strong> &gt; select the
+                <code>StealthAUDITFSAA</code> service &gt; switch the
+                <strong>Log On</strong> account to the service account.
+              </p>
+            </li>
+            <li>
+              <p>
+                Add a connection profile with the corresponding credentials of the service account
+                to use for the FSAA Proxy scans. Refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Settings/Connection/Profile/Create.htm"
+                  target="_self"
+                  >Connection — Create a Connection Profile · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Run the FSAA Proxy scan job.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/FSAA/ManualCertificate.htm"
+                  target="_self"
+                  >FSAA Applet Certificate Management Overview — FSAA Manual Certificate
+                  Configuration · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Settings/Connection/Profile/Create.htm"
+                  target="_self"
+                  >Connection — Create a Connection Profile · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>EntraID Application Proxy Configuration</title>
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015gnKAA" />
+    <meta name="Id" content="ka0Qk000000DUWXIA4" />
+    <meta name="LastPublishedDate" content="2025-04-28T14:44:20.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-29T20:14:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:03:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9165" />
+    <meta name="ArticleNumber" content="000009165" />
+    <meta name="description" content="EntraID Application Proxy Configuration" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article provides step-by-step instructions for configuring Entra Tenant Application
+          Proxy for use with Netwrix Directory Manager (formerly GroupID). The process includes
+          installing the outbound connector, configuring the application proxy, updating URLs, and
+          managing SSL certificates.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="configure_entra_tenant_application_proxy">
+          Configure Entra Tenant Application Proxy
+        </h4>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_3fd3c40a-008b-4dab-8dc5-3570115212f2.png"
+            alt="Entra Tenant Application Proxy configuration screen with key fields visible"
+          />
+        </p>
+        <h4 id="install_outbound_connector_on_directory_manager_machine">
+          Install Outbound Connector on Directory Manager Machine
+        </h4>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_cecf991e-9168-4d9d-8f33-13ee7253209d.png"
+            alt="Outbound connector installation window on Directory Manager machine"
+          />
+        </p>
+        <h4 id="configure_outbound_proxy">Configure Outbound Proxy</h4>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_90650108-4b45-4ba7-9881-0abdf9880eaf.png"
+            alt="Outbound proxy configuration screen"
+          />
+        </p>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_d48be27f-ee1a-46d0-b544-eea4cd35abe0.png"
+            alt="Additional outbound proxy configuration options"
+          />
+        </p>
+        <h4 id="configure_the_application">Configure the Application</h4>
+        <ol>
+          <li>Click <strong>Configure an App</strong>.</li>
+          <li>Provide a suitable name for the application.</li>
+          <li>
+            Copy the external application URL: <br /><a
+              href="https://GroupID10SSP-5l607h.msappproxy.net/Directory Manager/"
+              target="_blank"
+              >https://GroupID10SSP-5l607h.msappproxy.net/GroupID/</a
+            >
+          </li>
+          <li>
+            Add the internal URL in the Application Proxy configuration: <br /><a
+              href="https://onenexx2:4443/"
+              target="_blank"
+              >https://onenexx2:4443/</a
+            >
+            <div>
+              <img
+                src="kA0Qk00000015gnKAA_d7a8e2a7-15d2-40cb-b408-2cf03f7ab16e.png"
+                alt="Application proxy configuration with internal and external URLs"
+              />
+            </div>
+          </li>
+        </ol>
+        <h4 id="register_the_application_and_assign_users">
+          Register the Application and Assign Users
+        </h4>
+        <ol>
+          <li>
+            Go to <strong>App Registration</strong> and open <strong>All Applications</strong>.
+            <div>
+              <img
+                src="kA0Qk00000015gnKAA_2be3f33a-9650-427f-a228-eb46bc8746cd.png"
+                alt="App Registration screen showing all applications"
+              />
+            </div>
+            Assign users to this application.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_c3de4c72-1b04-4f10-8c8a-680996f39814.png"
+            alt="Assigning users to the application in App Registration"
+          />
+        </p>
+        <h4 id="create_and_upload_an_ssl_certificate">Create and Upload an SSL Certificate</h4>
+        <ol>
+          <li>
+            Create an SSL certificate.
+            <div>
+              <img
+                src="kA0Qk00000015gnKAA_626e8fe2-5df3-4321-b13c-8d8ba059bbc5.png"
+                alt="SSL certificate creation window"
+              />
+            </div>
+            <div>
+              <img
+                src="kA0Qk00000015gnKAA_3fbeaa69-bd56-4dd5-8c36-5f91c6bbd44b.png"
+                alt="SSL certificate details screen"
+              />
+            </div>
+            <div>
+              <img
+                src="kA0Qk00000015gnKAA_c71bde59-1d08-49a4-9d0c-5412385862ec.png"
+                alt="SSL certificate management interface"
+              />
+            </div>
+          </li>
+          <li>
+            Upload the certificate.
+            <div>
+              <img
+                src="kA0Qk00000015gnKAA_e5c492cb-707a-43c6-bf8c-e7dbb3bb2014.png"
+                alt="Upload certificate screen"
+              />
+            </div>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>Self-signed certificates will not work.
+            Add a public certificate instead. You can turn off SSL in the application proxy to test
+            the configuration.
+          </p>
+        </blockquote>
+        <h4 id="update_portal_urls_with_external_urls_application_proxy">
+          Update Portal URLs with External URLs (Application Proxy)
+        </h4>
+        <ol>
+          <li>
+            Change the portal URLs to use the external URLs provided by the application proxy.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_f1618c2d-e4b4-49b3-8f64-579509e13b49.png"
+            alt="Portal URL configuration screen"
+          />
+        </p>
+        <ol start="2">
+          <li>
+            Verify that the changes are reflected in the <strong>svc.client</strong> table and
+            <strong>web.config</strong> file.
+          </li>
+        </ol>
+        <p>The following Web.config changes are required:</p>
+        <p>
+          External URL:
+          <a href="https://GroupID10SSP-5l607h.msappproxy.net/Directory Manager/" target="_blank"
+            >https://GroupID10SSP-5l607h.msappproxy.net/GroupID/</a
+          >
+        </p>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_e5fc8136-aabe-40a8-9bd9-9d35033ef44f.png"
+            alt="web.config file showing updated external URL"
+          />
+        </p>
+        <ol start="3">
+          <li>Edit the <strong>Issuer</strong> and <strong>Realm</strong> URLs as needed:</li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_4a52a84d-21e5-47cb-b9dd-736377a00587.png"
+            alt="Issuer and Realm URL configuration screen"
+          />
+        </p>
+        <ol start="4">
+          <li>
+            Update the <strong>svc.client</strong> table in the database with the return, error, and
+            realm URLs.
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>Paste all URLs with a forward slash at
+            the end. For example:
+            <a href="https://groupid10ssp-5l607h.msappproxy.net/Directory Manager/" target="_blank"
+              >https://groupid10ssp-5l607h.msappproxy.net/GroupID/</a
+            >
+          </p>
+        </blockquote>
+        <p>
+          <img
+            src="kA0Qk00000015gnKAA_dd81ae7e-7952-4da0-add8-e0f82f3a1ab8.png"
+            alt="svc.client table showing updated URLs"
+          />
+        </p>
+        <h2 id="related_links">Related Links</h2>
+        <ul>
+          <li>
+            <a href="https://GroupID10SSP-5l607h.msappproxy.net/GroupID/" target="_blank"
+              >External Application URL for Directory Manager</a
+            >
+          </li>
+          <li>
+            <a href="https://onenexx2:4443/" target="_blank">Internal URL for Application Proxy</a>
+          </li>
+          <li>
+            <a href="https://groupid10ssp-5l607h.msappproxy.net/GroupID/" target="_blank"
+              >Issuer and Realm URL Example</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Auditing Distributed File Systems with Replication in Netwrix Auditor</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SyCAK" />
+    <meta name="Id" content="ka04u00000117d7AAA" />
+    <meta name="LastPublishedDate" content="2023-09-06T15:12:15.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-06T15:22:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="590" />
+    <meta name="ArticleNumber" content="000003008" />
+    <meta
+      name="description"
+      content="Auditing Distributed File Systems with Replication in Netwrix Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to configure File Servers audit settings for Distributed File Systems with
+            replication?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <h4 id="prerequisites">Prerequisites</h4>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>It is recommended to either check the
+              <strong>Adjust audit settings automatically</strong> checkbox when setting up a new
+              monitoring plan, or to keep the checkbox checked when adding a DFSR file share to the
+              existing monitoring plan.
+            </p>
+          </blockquote>
+
+          <div>
+            <p>
+              Refer to the following steps to ensure the DFSR audit is configured correctly in your
+              environment:
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  The corresponding data collection account should meet requirements for the file
+                  server audit. For additional information on the account setup, refer to the
+                  following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/Permissions.htm"
+                    target="_self"
+                    >Windows File Servers — Permissions for Windows File Server Auditing</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Object access audit should be enabled for DFS file shares or every cluster node.
+                  For additional information on object access audit, refer to the following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/ObjectLevel.htm"
+                    target="_self"
+                    >Windows File Servers — Configure Object-Level Access Auditing</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>
+                  When adding a DFS file share for auditing, specify a Windows file share item and
+                  provide the UNC path of the whole namespace or UNC path of the DFS link (folder).
+                </p>
+
+                <ul>
+                  <li>
+                    <p>"\\domain\dfsnamespace\" (domain-based namespace)</p>
+                  </li>
+                  <li>
+                    <p>"\\server\dfsnamespace\" (in case of stand-alone namespace)</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <p>
+              Refer to the following article for additional information on the initial setup:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/Overview.htm"
+                target="_self"
+                >Configuration — Windows File Servers</a
+              >.
+            </p>
+          </div>
+
+          <h4 id="sacl_replication">SACL replication</h4>
+
+          <div>
+            <blockquote>
+              <p>
+                <span><strong>NOTE: </strong></span>During the initial SACL replication, the
+                <strong>Who</strong> field in corresponding Activity Records will state
+                <strong>System</strong>.
+              </p>
+            </blockquote>
+
+            <p>Refer to the following steps to optimize the initial SACL replication:</p>
+
+            <ul>
+              <li>
+                <p>
+                  To approximate the time (in hours) to be spent on the SACL replication, use the
+                  following formula:
+                </p>
+
+                <pre class="has-inner-focus">Number of audited objects / 180000</pre>
+
+                <p>
+                  In larger environments, a monitoring plan containing DFSR shares can be created on
+                  Friday to allow it to replicate SACL for DFSR during the non-working hours.
+                </p>
+              </li>
+              <li>
+                <p>
+                  In case you're experiencing performance issues, you can increase the staging area.
+                  The default setting for the replication staging area size is 4 GB to be increased
+                  based on the environment needs. Refer to the following steps for additional
+                  information:
+                </p>
+
+                <ol>
+                  <li>
+                    <p>
+                      If your staging area is configured to be too small, DFS Replication might
+                      consume additional CPU and disk resources to regenerate the staged files.
+                      Replication might also slow down, or even stop. Learn more about staging area
+                      in
+                      <a
+                        href="https://learn.microsoft.com/en-us/windows-server/troubleshoot/how-to-determine-the-minimum-staging-area-dfsr-needs-for-a-replicated-folder"
+                        target="_blank"
+                        >How to determine if you have a staging area problem ⸱ Microsoft 🡥</a
+                      >.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Microsoft recommends expanding your staging area to the size of the 32 largest
+                      files present in the replicated folder. Run the following lines in elevated
+                      PowerShell to calculate the total size of 32 largest files located in your
+                      replicated folder:
+                    </p>
+
+                    <pre
+                      class="has-inner-focus"
+                    ><code class="lang-Registry">$big32 = Get-ChildItem “path_to_the_replicated_folder” -recurse | Sort-Object length -descending | select-object -first 32 | measure-object -property length –sum
+$big32.sum /1gb</code></pre>
+                  </li>
+                  <li>
+                    <p>Refer to the following steps to set the staging area size:</p>
+
+                    <ol>
+                      <li>
+                        <p>
+                          Open the <strong>DFS Management</strong> tool in
+                          <strong>Server Management</strong> app.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          In the left pane, select <strong>Replication</strong> &gt; corresponding
+                          replication group.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Right-click the replicated folder and click <strong>Properties</strong>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Select the <strong>Staging</strong> tab, and edit the
+                          <strong>Quota</strong> window. Specify the folder size you've previously
+                          calculated, and save changes.
+                        </p>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ul>
+          </div>
+
+          <h4 id="related_articles">Related articles</h4>
+
+          <div>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/Permissions.htm"
+                target="_self"
+                >Windows File Servers — Permissions for Windows File Server Auditing ⸱ v10.6</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/ObjectLevel.htm"
+                target="_self"
+                >Windows File Servers — Configure Object-Level Access Auditing ⸱ v10.6</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/Overview.htm"
+                target="_self"
+                >Configuration — Windows File Servers ⸱ v10.6</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://learn.microsoft.com/en-us/windows-server/troubleshoot/how-to-determine-the-minimum-staging-area-dfsr-needs-for-a-replicated-folder"
+                target="_blank"
+                >How to determine the minimum staging area DFSR needs for a replicated folder ⸱
+                Microsoft 🡥</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

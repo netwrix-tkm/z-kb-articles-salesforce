@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Set 'Semi-Private' as the Default Security Type in v11</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002BiXKAU" />
+    <meta name="Id" content="ka0Qk000000CsSrIAK" />
+    <meta name="LastPublishedDate" content="2025-04-30T18:00:33.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-30T18:00:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-30T18:00:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10084" />
+    <meta name="ArticleNumber" content="000010084" />
+    <meta name="description" content="Set group type to semi-private" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 11</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          By default, users can choose from several security types when creating a group in the
+          Netwrix Directory Manager (formerly GroupID) 11 user portal. You can configure the portal
+          to set <em>semi-private</em> as the default security type in the
+          <strong>Create Group</strong> wizard. You also have the option to allow users to select a
+          different security type or to enforce the default for all users.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <ol>
+          <li>
+            Open the Directory Manager Admin Portal at
+            <code class="lang-Registry">https://servername/AdminCenter/</code>. Navigate to
+            <strong>Applications</strong>, select your desired portal, and click the three dots
+            (<strong>...</strong>) to edit it. <br /><img
+              src="kA0Qk0000002BiXKAU_1fcadbd6-301b-42ad-a6c9-9b7a12eb8d08.png"
+              alt="Applications page in Directory Manager Admin Portal with edit option highlighted"
+              width="624"
+              height="281"
+            />
+          </li>
+          <li>
+            Click <strong>Settings</strong>. <br /><img
+              src="kA0Qk0000002BiXKAU_8f6830f7-24ae-48b8-8b76-8ad33035aee2.png"
+              alt="Settings option in Directory Manager Admin Portal"
+              width="624"
+              height="271"
+            />
+          </li>
+          <li>
+            Under <strong>Design Settings</strong>, click your identity store’s name. <br /><img
+              src="kA0Qk0000002BiXKAU_545c3029-a7fd-46c9-958b-71e2392187ad.png"
+              alt="Design Settings section in Directory Manager Admin Portal"
+              width="624"
+              height="299"
+            />
+          </li>
+          <li>
+            On the <strong>Create Object</strong> tab, select <strong>Group</strong> from the
+            <strong>Select Directory Object</strong> drop-down list. <br /><img
+              src="kA0Qk0000002BiXKAU_57710675-553f-4d95-8d86-6e806a373f71.png"
+              alt="Create Object tab with Group selected"
+              width="624"
+              height="296"
+            />
+          </li>
+          <li>
+            In the <strong>Name</strong> list, select <em>General</em> and click
+            <strong>Edit</strong>.
+          </li>
+          <li>
+            In the <strong>Edit Design Category</strong> dialog box, select
+            <strong>Security</strong> and click <strong>Edit</strong>. <br /><img
+              src="kA0Qk0000002BiXKAU_86a845b7-e87d-4364-b200-d6fd9f007d95.png"
+              alt="Edit Design Category dialog box with Security field selected"
+              width="624"
+              height="506"
+            />
+          </li>
+          <li>
+            In the <strong>Edit Field</strong> dialog box, click the
+            <strong>Advanced options</strong> link. <br /><img
+              src="kA0Qk0000002BiXKAU_0c04b78f-dc33-4798-a7e0-4e3758fe1184.png"
+              alt="Edit Field dialog box with Advanced options link"
+              width="624"
+              height="362"
+            />
+          </li>
+          <li>
+            Select <em>Semi_Private</em> from the <strong>Default Value</strong> drop-down list.
+            <br /><img
+              src="kA0Qk0000002BiXKAU_3016aeb0-2d21-4df1-8340-c1d65f2a3130.png"
+              alt="Default Value drop-down list with Semi_Private selected"
+              width="624"
+              height="337"
+            />
+          </li>
+          <li>
+            Optional: To enforce the semi-private security type, select the <strong
+              >Is Read-Only</strong
+            >
+            check box. This action disables the <strong>Security</strong> drop-down list in the
+            <strong>Create Group</strong> wizard and displays only the default value. <br /><img
+              src="kA0Qk0000002BiXKAU_f8e13c4a-8df7-4a86-9bfa-25cfaa484bc0.png"
+              alt="Is Read-Only check box selected in Edit Field dialog box"
+              width="486"
+              height="426"
+            />
+            <br /><img
+              src="kA0Qk0000002BiXKAU_84fccb2d-ea5a-4248-bc74-e4c5593be5cb.png"
+              alt="Create Group wizard with Security drop-down list disabled"
+              width="624"
+              height="298"
+            />
+          </li>
+          <li>
+            Optional: To hide the <strong>Security</strong> drop-down list from a specific role,
+            select the desired role (such as <strong>Administrator</strong> or
+            <strong>Helpdesk</strong>) from the <strong>Visibility Role</strong> drop-down list. The
+            <strong>Security</strong> drop-down list is visible to users of the selected role and to
+            roles with a higher priority value, but hidden from all roles with a lower priority
+            value. <br /><img
+              src="kA0Qk0000002BiXKAU_89afaf67-031d-40f8-a3e9-cb1615822767.png"
+              alt="Visibility Role drop-down list in Edit Field dialog box"
+              width="624"
+              height="304"
+            />
+          </li>
+          <li>Click <strong>OK</strong> to close the dialog boxes then save your changes.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

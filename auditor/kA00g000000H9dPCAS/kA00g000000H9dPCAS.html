@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Workstation Name Is not Shown</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dPCAS" />
+    <meta name="Id" content="ka04u00000118ESAAY" />
+    <meta name="LastPublishedDate" content="2023-10-17T13:43:54.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-17T15:52:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2744" />
+    <meta name="ArticleNumber" content="000003645" />
+    <meta
+      name="description"
+      content="Netwrix Account Lockout Examiner - &amp;quot;Workstation&amp;quot; field is empty."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Netwrix Account Lockout Examiner shows no data in the
+            <strong>Workstation</strong> field, while the fields
+            <strong>Domain Controller</strong> and <strong>Lockout Time</strong> are populated
+            correctly. Why is it happening?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            As Netwrix Account Lockout Examiner processes Windows security logs, it gets data
+            present in these logs only. The issue means that the Account locked out event (ID 644
+            for Windows XP/2003, ID 4740 for the later versions of Windows) contains the empty
+            <strong>Caller Machine Name</strong> field. Here is an example of the Account locked out
+            event 644 with the empty <strong>Caller Machine Name</strong> field:
+          </p>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KSJ&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004udP"
+            target="_blank"
+            ><img
+              alt="User-added image"
+              height="385"
+              src="kA00g000000H9dPCAS_fd004a27-337d-4339-9d27-47c4b41506e0.png"
+              width="500"
+          /></a>
+
+          <p>
+            The field can be empty for the events where some local computer account has been locked
+            out due to a local policy or as a result of computer synchronization with some mobile
+            device.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

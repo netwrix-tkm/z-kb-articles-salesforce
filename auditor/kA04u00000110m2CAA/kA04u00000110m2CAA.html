@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Failed Logon Attempts after Recent Service Account Password Change</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110m2CAA" />
+    <meta name="Id" content="ka04u00000117VmAAI" />
+    <meta name="LastPublishedDate" content="2023-08-31T12:44:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-31T12:44:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-28T12:10:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8628" />
+    <meta name="ArticleNumber" content="000008628" />
+    <meta name="description" content="service account password reset leading to logon failure" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A Netwrix Auditor service account is generating failed logon events after the recent
+            password change.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The service account password was not updated for separate collectors (Password
+            Expiration Notifier, Event Log Manager and Inactive User Tracker) with monitoring plans
+            set up.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            A service account password is not propagated automatically in Password Expiration
+            Notifier, Event Log Manager and Inactive User Tracker collectors.
+          </p>
+        </div>
+
+        <div>
+          <p>For Event Log Manager, Inactive User Tracker and Password Expiration Notifier:</p>
+
+          <ol>
+            <li>
+              <p>
+                Open the corresponding application, select your monitoring plan and click
+                <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>General</strong> tab, specify new credentials for your service
+                account.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            Refer to the following screenshots for reference on service accounts credentials to be
+            changed in case you've reset a password in Netwrix Auditor:
+          </p>
+        </div>
+
+        <div>
+          <img
+            height="333"
+            src="kA04u00000110m2CAA_c74f780d-c9c6-493d-98c9-143da741f1f3.png"
+            width="999"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

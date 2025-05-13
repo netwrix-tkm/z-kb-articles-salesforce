@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to troubleshoot overwrites in change reports for VMWare</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cTCAS" />
+    <meta name="Id" content="ka04u000000HcVEAA0" />
+    <meta name="LastPublishedDate" content="2020-10-08T14:56:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2236" />
+    <meta name="ArticleNumber" content="000003587" />
+    <meta
+      name="description"
+      content="The KB provides how to troubleshoot the issue when a changes are reported as &amp;quot;system&amp;quot;."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Refer to the <a href="https://kb.netwrix.com/258" target="_blank">KB258</a> for details
+        about how Netwrix Auditor for VMware works. Overwrites warnings occur because there is some
+        gap between the last collected and the oldest of newly received events. Try running
+        collections more frequently by changing the notifications frequency under Monitoring Plan
+        settings. If this doesn't help please perform the following steps to troubleshot this and
+        localize the problematic place: After receiving a change report for VMware with event
+        overwrites warning and changes, which as a results of event overwrites were reported as made
+        by system, retrieve audit events using VMware PowerCLI cmdlets by connecting to vCenter and
+        ESX hosts:<br /><br />1. Download and install VMware PowerCLI, this package contains set of
+        Powershell cmdlets which can be used to retrieve audit events from ESX server vCenter.<br />2.
+        Install-Module -Name VMware.PowerCLI -Scope CurrentUser<br />3. Import-Module
+        VMware.PowerCLI<br />4. Set-PowerCLIConfiguration -InvalidCertificateAction Ignore<br />5.
+        Run the Connect-VIServer cmdlet and connect to the VMware host (<a
+          href="https://www.vmware.com/support/developer/windowstoolkit/wintk40u1/html/Connect-VIServer.html"
+          target="_blank"
+          >https://www.vmware.com/support/developer/windowstoolkit/wintk40u1/html/Connect-VIServer.html</a
+        >) by running this command: Connect-VIServer "ESX hostname"
+        <ul>
+          <li>
+            A credentials window will appear. Enter the account that will read data from the
+            vCenter.
+          </li>
+        </ul>
+        6. Run Get-VIEvent cmdlet (<a
+          href="https://www.vmware.com/support/developer/windowstoolkit/wintk40u1/html/Get-VIEvent.html"
+          target="_blank"
+          >https://www.vmware.com/support/developer/windowstoolkit/wintk40u1/html/Get-VIEvent.html</a
+        >) and get all events for last 24 hours by running the command:<br /><br />Get-VIEvent
+        -Entity * -Start (Get-Date).AddDays(-1) &gt;&gt; C:%ESX_host_name%.txt If the cmdlet returns
+        timeout error, you might try to reduce the timeframe of requested events: Get-VIEvent
+        -Entity * -Start (Get-Date).AddHours(-1) &gt;&gt; C:%ESX_host_name%.txt
+        <div>
+          Get-VIEvent -Entity * -Start (Get-Date).AddMinutes(-10) &gt;&gt; C:%ESX_host_name%.txt
+        </div>
+        Perform these steps for every ESX host which is managed with vCenter specified in Netwrix
+        Auditor for VMware<br /><br />7.
+        <a href="https://www.netwrix.com/support.html?source=sitemenu" target="_blank"
+          >Submit a ticket</a
+        >
+        and provide us the following information:
+
+        <ul>
+          <li>
+            Events retrieved with VMware PowerCLI cmdlets from vCenter and ESX hosts (files created
+            during the steps described in the section 6 above)
+          </li>
+          <li>
+            Received the change report of VMware (after that receiving which the event files were
+            generated) and inventory report
+          </li>
+          <li>
+            Events (file with .events extension) from the following directory "C:ProgramDataNetwrix
+            AuditorShortTermVMAGUID" after receiving the change report of Netwrix Auditor for VMware
+          </li>
+        </ul>
+        Archive these files and provide them within the support ticket with our Technical Support
+        team.
+      </div>
+    </article>
+  </body>
+</html>

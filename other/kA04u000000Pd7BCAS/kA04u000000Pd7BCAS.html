@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>PPE: Connecting to a Configuration</title><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000Pd7BCAS"/><meta name="Id" content="ka04u000000HdEkAAK"/><meta name="LastPublishedDate" content="2021-05-07T13:09:56.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:43.000+0000"/><meta name="FirstPublishedDate" content="2021-05-04T13:12:10.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5865"/><meta name="ArticleNumber" content="000005865"/><meta name="description" content="Password Policy Enforcer PPE: Connecting to a Configuration"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="connecting_to_a_configuration">Connecting to a Configuration</h2>
+
+<p>Password Policy Enforcer (PPE)'s configuration settings are stored in Active Directory or the registry. An <u>Active Directory configuration </u>is called a <i>domain configuration</i>, and it defines the password policies for domain user accounts. A <u>registry configuration </u>is called a <i>local configuration</i>, and it defines the password policies for local user accounts.</p>
+
+<h2 id="connecting_to_a_domain_configuration">Connecting to a Domain Configuration</h2>
+
+<p>A domain configuration exists on every domain controller. Changes to the configuration replicate to all the domain controllers in the domain, so you only need to configure one domain controller in each domain. If you are using PPE in more than one domain, then you will need to configure each domain separately. To connect to a domain configuration:</p>
+
+<ol><li><span>Click the </span><span>Password Policy Enforcer </span>item to display the <span>PPE view</span>.</li><li><span>Click </span><span>Connect To </span>in the right pane of the management console.</li><li><span>Select the </span><span>Domain </span>option.</li><li><span>Type the name or IP address of a domain controller, and then click </span><span>OK</span>.</li></ol>
+
+<p>You cannot make changes to the PPE configuration while the management console is connected to a read-only domain controller.</p>
+
+<h2 id="connecting_to_a_local_configuration">Connecting to a Local Configuration</h2>
+
+<p>A local configuration is used by only one computer, so it does not replicate to any other computers. You can copy a local configuration to another computer by exporting the configuration from the registry, and then importing it into the registry of the other computer. You can also use Group Policy to <span>distribute</span> a local configuration to many computers. To connect to a computer's local configuration:</p>
+
+<ol><li><span>Click the </span><span>Password Policy Enforcer </span>item to display the <span>PPE view</span>.</li><li><span>Click </span><span>Connect To </span>in the right pane of the management console.</li><li><span>Select the </span><span>Local </span>option, and then click <span>OK</span>.</li></ol>
+
+<p>Domain configurations are stored in the <em>CN=Password Policy Enforcer 9.0,CN=System</em> object.<br/>Local configurations are stored in the <em>HKLM\SOFTWARE\ANIXIS\Password Policy Enforcer 9.0\ </em>registry key.<br/>Users with write permission to these objects can configure PPE.</p>
+
+<p> </p></div>
+</article></body></html>

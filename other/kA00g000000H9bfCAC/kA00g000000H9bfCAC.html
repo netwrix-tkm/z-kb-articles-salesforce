@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Can't resolve username in the local secret questions cache</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bfCAC" />
+    <meta name="Id" content="ka04u00000116bhAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:15:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1375" />
+    <meta name="ArticleNumber" content="000003537" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when Logon Prompt Extension returns the error message after entering username: Can&amp;#039;t resolve username in the local secret questions cache"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        In the client (logon prompt extension) I get the following error after entering username and
+        clicking Next
+        <img
+          src="kA00g000000H9bfCAC_c457b64b-50e1-40da-be93-156274b985f6.png"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        When a user enrolls from his machine with help of Password Manager Enrollment, a local copy
+        of secret questions-answers pairs is created on the machine. This local questions cache is
+        used to reset password in Windows local cache when Password Manager server is not available.
+        The error occurs when Logon Prompt Extension is not able to connect to the Password manager
+        server and cannot find locally saved questions.
+
+        <hr />
+
+        First of all make sure that client is pointed to the correct Password manager Self-Service
+        portal URL. It is determined by the PRM_server registry value located in the following
+        registry keys (by priority)
+        <ol>
+          <li>HKLMSoftware[Wow6432Node]PoliciesNetWrixPassword Manager</li>
+          <li>
+            HKLMSoftware[Wow6432Node]NetWrixPassword Manager Self-Service client (is used if there
+            is no value in the 1st key)
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9bfCAC_bf577b19-e8e4-41e2-99e8-67b33c55dc53.png"
+          alt="User-added image"
+          width="500"
+          height="304"
+        />
+
+        If the server URL value is correct, but the server is temporary unavailable, the error is
+        expected for users who enrolled via web. If you need an option to reset password in
+        disconnected mode, you need to enroll through the Enrollment wizard locally from the
+        machine.
+      </div>
+    </article>
+  </body>
+</html>

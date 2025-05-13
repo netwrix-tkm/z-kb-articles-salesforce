@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>User Not Logged-On Warning During HIBP Updates</title><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000ZaTKAU"/><meta name="Id" content="ka0Qk000000300HIAQ"/><meta name="LastPublishedDate" content="2024-04-23T07:54:24.000+0000"/><meta name="LastModifiedDate" content="2024-04-23T07:54:34.000+0000"/><meta name="FirstPublishedDate" content="2024-04-23T07:54:24.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9112"/><meta name="ArticleNumber" content="000009112"/><meta name="description" content="User Not Logged-On Warning During HIBP Updates"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+
+<div>
+<ul><li>
+	<p>The weekly HaveIBeenPwned (HIBP) database update fails.</p>
+	</li><li>
+	<p>Netwrix Password Policy Enforcer prompts the following warning in the schedule history:</p>
+
+	<pre class="has-inner-focus">Launch condition not met, user not logged-on</pre>
+
+	<p>The warning includes the following description:</p>
+
+	<pre class="has-inner-focus">Task Scheduler did not launch task "\Netwrix\%task_name%"
+because user "%user_account%" was not logged on when the launching conditions were met.
+User Action: Ensure user is logged on or change the task definition to allow launching when user is logged off.</pre>
+	</li></ul>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Refer to the following steps to review the schedule history:</p>
+
+<ol><li>
+	<p>In the Password Policy Enforcer window, select <strong>Action</strong> and click the <strong>Run HIBP Updater</strong> button.</p>
+	</li><li>
+	<p>Click the <strong>Scheduler</strong> button.</p>
+	</li><li>
+	<p>Select a schedule from the list and click <strong>Edit schedule</strong>.</p>
+	</li><li>
+	<p>In the right pane, click the <strong>History</strong> button.</p>
+	</li></ol>
+</blockquote>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The <strong>Run only when user is logged in</strong> feature is enabled in the scheduled task to update the HIBP database. The corresponding user is not logged in during the weekly HIBP database update attempt.</p>
+
+<div><img height="380" src="kA0Qk0000000ZaTKAU_b9da7655-0bf1-42e2-989c-d12d0facf59e.png" width="500"/></div>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Switch the radio button to the <strong>Run whether user is logged on or not</strong> option in the Task Scheduler task.</p>
+
+<ol><li>
+	<p>On the Password Policy Enforcer server, launch Task Scheduler.</p>
+	</li><li>
+	<p>In the left pane, extend the <strong>Task Scheduler Library</strong> folder and select the <strong>Netwrix</strong> folder.</p>
+	</li><li>
+	<p>In the central view, select the Password Policy Enforcer task, right-click it, and select <strong>Properties</strong>.</p>
+	</li><li>
+	<p>In the Properties window, switch the security option to the <strong>Run whether user is logged on or not</strong> option.</p>
+	</li></ol>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Alternatively, you can change the designated user to keep the <strong>Run only when user is logged in</strong> feature on. To change the user, click the <strong>Change User of Group...</strong> button in the <strong>Properties</strong> window. Specify the new user.</p>
+</blockquote>
+</div></div>
+</article></body></html>

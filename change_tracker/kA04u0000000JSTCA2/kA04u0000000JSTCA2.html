@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>GEN 7 Agent Deployment Options</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JSTCA2" />
+    <meta name="Id" content="ka04u000000Hd7sAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:42:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8165" />
+    <meta name="ArticleNumber" content="000008165" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="GEN7AgentDeploymentOptions-InstallingGen7AgentforWindows">
+          <span>Installing Gen 7 Agent for Windows</span>
+        </h2>
+        <p>
+          <strong
+            ><em
+              >Note: Microsoft .NET Framework 4.5 is required – Enable this using ‘Roles/Features’ –
+              ‘Add Features’ or<span> download the </span></em
+            ></strong
+          ><strong><em>official Microsoft installer from  </em></strong
+          ><span
+            ><a
+              class="external-link"
+              href="https://www.microsoft.com/en-gb/download/details.aspx?id=30653"
+              target="_blank"
+              ><strong
+                ><em>https://www.microsoft.com/en-gb/download/details.aspx?id=30653</em></strong
+              ></a
+            ></span
+          >
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-">
+          <span
+            > <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JSTCA2_719a3928-631e-4226-ab42-64236b8e261d.png" /></span
+          ></span>
+        </h2>
+        <h2 id="GEN7AgentDeploymentOptions-.1"><span> </span></h2>
+        <h2 id="GEN7AgentDeploymentOptions-User-AttendedGen7Agent.exeinstaller">
+          <span>User-Attended Gen 7 Agent .exe installer</span>
+        </h2>
+        <p><span>The Hub API page must be entered together with Access Credentials</span></p>
+        <p>
+          <span
+            >By default the Agent username is ‘agent’ with password ‘passWord121’ but these can be
+            changed via <a target="_blank">User Settings</a>
+          </span>
+        </p>
+        <p>
+          <span
+            > <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JSTCA2_7334c129-07d1-48d1-9d9b-2cb09b9aeaf1.png" /></span
+          ></span>
+        </p>
+        <p>
+          <span
+            >By default the Agent will register using the Name of the server but there is an
+            opportunity to customize this during installation (or post-installation via an edit of
+            the <a href="#_Check_Agent_Operation">Hub Details file</a> – see more here)</span
+          >
+        </p>
+        <p>
+          <br />
+          <span
+            >During installation this can also be performed using the Advanced Configuration stage
+            of the exe installation, and there is also an option to test agent connectivity
+            (strongly recommended)</span
+          >
+        </p>
+        <p>
+          <strong
+            ><span
+              > <span class="confluence-embedded-file-wrapper"
+                ><img
+                  class="confluence-embedded-image"
+                  src="kA04u0000000JSTCA2_d0bba43f-4840-4f50-8701-4ba406075793.png" /></span></span
+          ></strong>
+        </p>
+        <p>
+          <strong><span>*IMPORTANT* </span></strong
+          ><span
+            >In order to maximize performance, Gen 7 Agent operational files are located in
+            %PROGRAMDATA%\NNT\gen7agent.service, so if you need to
+            <a target="_blank">edit the HubDetails.xml file</a> for the Agent this is where the file
+            can be found, similarly if you are ever required to provide a rolling-log.txt file to
+            NNT Support this is where it is located.</span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_53e4a471-8779-4780-82f2-0bd034af1206.png" /></span
+          ></span>
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-Gen7AgentUI"><span>Gen 7 Agent UI</span></h2>
+        <p>
+          <span
+            >A local UI for the Gen 7 Agent provides visibility of operation for troubleshooting
+            purposes. It is available from the hosting platform e.g.
+            <a class="external-link" href="http://localhost:8096/" target="_blank"
+              >http://localhost:8096</a
+            >
+            and requires credentials of username ‘admin’ and password ‘password’</span
+          >
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-.2">
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JSTCA2_dbd96668-5057-4d5a-bfac-d15ea7292766.png"
+          /></span>
+        </h2>
+        <h2 id="GEN7AgentDeploymentOptions-Scripted/CommandLineuseofGen7Agent.exeinstaller">
+          <span>Scripted/Command Line use of Gen 7 Agent .exe installer</span>
+        </h2>
+        <p>
+          <span
+            >By co-locating a pre-configured HubDetails.xml file in the same folder as the Gen 7
+            Agent installer these details will be used by the installer for the installed
+            agent</span
+          >
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" class="wrapped confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><strong> </strong></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <span
+            >Use of the /SP- /VERYSILENT /SUPPRESSMSGBOXES switches will ensure the installation is
+            silent and operates unattended.</span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_82599079-78f5-4515-93bb-aec52dc8ae6a.png" /></span
+            ><br
+          /></span>
+        </p>
+        <p>
+          <span
+            >Alternatively, a full command line installation can be used, with individual arguments
+            used to specify HubDetails settings.</span
+          >
+        </p>
+        <p><br /> <span>For example –</span></p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_1223121e-7e18-4ad1-86b2-fbd57e39160e.png" /></span
+          ></span>
+        </p>
+        <p><br /></p>
+        <p>
+          <span
+            ><a target="_blank"
+              >Full details of HubDetails.xml nodes and their settings can be found here</a
+            ></span
+          >
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-InstallingGen7AgentforLinux">
+          <span>Installing Gen 7 Agent </span><span>for Linux</span>
+        </h2>
+        <h2 id="GEN7AgentDeploymentOptions-UsinglocalRPMfiles">
+          <span>Using local RPM files</span>
+        </h2>
+        <p>
+          <span
+            >NNT Gen 7 Agent can also be installed on Linux and Unix platforms. In a similar way to
+            the Windows Agent, the Agent requires a runtime and an Agent executable. For Linux, the
+            runtime is Mono, the open source parallel to Microsoft .NET.</span
+          >
+        </p>
+        <p>
+          <span
+            >Installation simply requires the NNT-Mono and NNT-Gen7 Agent RPMs to be installed as
+            follows</span
+          >
+        </p>
+        <p>
+          <span
+            > <span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_3b1088fc-22c9-4d3e-9865-2b9cc5a61a0e.png" /></span
+          ></span>
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" class="wrapped confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><br /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <span
+            >Once installed, the HubDetails.xml file must be configured – this can be done directly
+            by editing a HubDetails.xml on the /var/nnt/gen7agent.service path or by using the
+            /opt/nnt/gen7agent//configure-gen7agent.sh script.</span
+          >
+        </p>
+        <p>
+          <span
+            > <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JSTCA2_9df68309-3dbf-4bd4-a8c0-6b61b7930254.png" /></span
+          ></span>
+        </p>
+        <p> <span>The Agent service can then be started using</span></p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_d5be7e11-fa3a-4826-9666-440240c3bf7d.png" /></span
+          ></span>
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-ScriptedinstallationofGen7AgentRPMinstaller">
+          <span>Scripted installation of Gen 7 Agent RPM installer</span>
+        </h2>
+        <p>
+          <span
+            ><span> </span> <span
+              >The entire process outlined above can be completed using a single command as
+              follows</span
+            ></span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_c472e4be-a190-4cfb-80d8-d6597f15759b.png" /></span
+          ></span>
+        </p>
+        <p><br /></p>
+        <p>
+          <span
+            >(<strong><em>Note:</em></strong> Removal
+            <strong
+              >rpm -evv nnt-mono-4.6.1-5.x86_64
+              nnt-changetracker-gen7agent-7.0.0.15-7.noarch)</strong
+            ></span
+          >
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-ForDebianLinux"><span>For Debian Linux</span></h2>
+        <p>
+          <span
+            >NNT provide packages for Debian distributions so please download the relevant Gen 7
+            Agent package then install using:</span
+          >
+        </p>
+        <p>
+           <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JSTCA2_6b9ec6d7-0d00-4046-a34b-a49421b8140e.png"
+          /></span>
+        </p>
+        <p>
+          <span
+            >You can then use the same steps for
+            <a href="#_Using_local_RPM"
+              >configuring your HubDetails.xml file as in the previous section</a
+            >.</span
+          >
+        </p>
+        <p><span>Note: To uninstall the Gen 7 Agent on Debian, use</span></p>
+        <p>
+          <strong
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_e49dd373-c046-4181-a0bd-cd3226325c5f.png" /></span
+          ></strong>
+        </p>
+        <p>
+          <span>You’ll then want to remove the NNT Gen 7 Agent files which will be found at</span>
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JSTCA2_0670ca0b-eb0f-4f48-8dbe-cc3947558721.png" /></span
+          ></span>
+        </p>
+        <p><br /></p>
+        <p><br /></p>
+        <h2 id="GEN7AgentDeploymentOptions-Gen7AgentUI.1"><span>Gen 7 Agent UI</span></h2>
+        <p>
+          <span
+            >A local UI for the Gen 7 Agent provides visibility of operation for troubleshooting
+            purposes. It is available from the hosting platform e.g.
+            <a class="external-link" href="http://localhost:8096/" target="_blank"
+              >http://localhost:8096</a
+            >
+            and requires credentials of username ‘admin’ and password ‘password’</span
+          >
+        </p>
+        <h1 id="GEN7AgentDeploymentOptions-.3">
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JSTCA2_ea833b7a-f4e4-4a76-a4c4-b209bd86c332.png"
+          /></span>
+        </h1>
+        <h2 id="GEN7AgentDeploymentOptions-TroubleshootingConnectivity">
+          <span>Troubleshooting Connectivity</span><span>  </span>
+        </h2>
+        <h2 id="GEN7AgentDeploymentOptions-CheckAgentOperation">
+          <span>Check Agent Operation</span><span>  </span>
+        </h2>
+        <p>
+          <span
+            >For any agent on any platform there is a local agent status interface which can be
+            viewed via the local web browser at
+            <a class="external-link" href="http://localhost:8096" target="_blank"
+              >http://localhost:8096</a
+            ></span
+          >
+        </p>
+        <p><span> </span></p>
+        <p>
+          <span
+            >If the Agent UI is not available, then it is likely that the agent service is
+            stopped/has failed.</span
+          >
+        </p>
+        <p><span>Windows – Check Task Manager and Services Console</span></p>
+        <p><span>Linux – </span>service nntGen7agent status</p>
+        <p><span> </span></p>
+        <p>
+          <span
+            >The below shows that the agent service is running correctly but it has been unable to
+            register with the
+          </span>
+        </p>
+        <p><span>Change Tracker Hub. </span></p>
+        <p><br /></p>
+        <p>
+           <span
+            >The Agent should report the URL for the Hub it is registered as in the green pop-out
+            boxes</span
+          >
+        </p>
+        <p>
+          <span
+            ><span
+              ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+                ><img
+                  class="confluence-embedded-image"
+                  height="250"
+                  src="kA04u0000000JSTCA2_6c800f95-1903-467b-af6e-978f075a4237.png" /></span></span
+          ></span>
+        </p>
+        <p>
+          <span
+            >If the Hub URL referenced is not correct, you can edit the HubDetails.xml file and
+            correct this. Likewise, the Agent username and password settings can be reset by editing
+            this file.</span
+          >
+        </p>
+        <p><span>Windows - C:\ProgramData\NNT\gen7agent.service\HubDetails.xml</span></p>
+        <p><span>Linux - /var/nnt/gen7agent.service/HubDetails.xml</span><span> </span></p>
+        <h2 id="GEN7AgentDeploymentOptions-TheHubDetails.xmlFile">
+          <span>The HubDetails.xml File</span>
+        </h2>
+        <p>
+          <span
+            >The Agent configuration settings are controlled by the Hub during operations but the
+            initial registration necessitates a basic config file for registration with the
+            Hub.</span
+          >
+        </p>
+        <p>
+          The HubDetails.xml file includes some details unique to your deployment of Change Tracker
+          Gen 7, hence it requiring your intervention to make sure settings are as needed.
+        </p>
+        <p>The key tags within the file are as follows:</p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JSTCA2_0315a3d3-6e10-4f0d-a4c7-661dbc81ea66.png"
+          /></span>
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" class="wrapped confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><span> </span></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" class="wrapped confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><br /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><br /></p>
+        <p>
+          <strong
+            ><em><span>Note</span></em></strong
+          ><span
+            >: An unencrypted password means the Agent didn’t initialize and suggests a bad
+            installation or .NET Framework issue – remember the Agent on Windows requires .NET
+            Framework V3.5, Linux/Solaris requires the latest NNT Mono runtime.</span
+          >
+        </p>
+        <p>
+          <strong><em>Note</em></strong
+          >: NNT’s Gen 7 Agent also supports additional nodes – NamePrefix, NameSuffix
+        </p>
+        <p> </p>
+        <p>
+          *The Thumbprint uniquely identifies the Web Server certificate, see more here
+          <span
+            ><a
+              class="external-link"
+              href="https://msdn.microsoft.com/en-us/library/ms734695(v=vs.110).aspx"
+              target="_blank"
+              >https://msdn.microsoft.com/en-us/library/ms734695(v=vs.110).aspx</a
+            ></span
+          >.
+        </p>
+        <p>-               Open IIS</p>
+        <p>-               Select the server from the list on the left hand side</p>
+        <p>-               Select Server Certificates</p>
+        <p>
+          -               Double click your certificate in the list to open the certificates
+          permissions
+        </p>
+        <p>-               Open the Details tab</p>
+        <p>-               Scroll to the bottom of the list and highlight the Thumbprint field</p>
+        <p>
+          -               The thumbprint value will then be displayed – transpose this to your
+          HubDetails.xml file
+        </p>
+        <p><span> </span></p>
+        <p>
+          <span
+            >The next step is to check that there is network connectivity to the Hub URL from the
+            Agent’s host</span
+          >
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" class="wrapped confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p>
+                    <strong
+                      ><em
+                        ><span
+                          >NOTE: Where the Change Tracker Hub has been installed on a Windows/IIS
+                          platform then the Hub URL will be
+                          <u
+                            ><a class="external-link" href="https://192.168.1.36" target="_blank"
+                              >https://192.168.1.36</a
+                            ></u
+                          ></span
+                        ></em
+                      ></strong
+                    >
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2
+          id="GEN7AgentDeploymentOptions-Finally,theAgentwillmaintainarolling-logofitsactivityGen7Agent–RollingLogFile"
+        >
+          Finally, the Agent will maintain a rolling-log of its activity<span
+            >Gen 7 Agent – Rolling Log File</span
+          >
+        </h2>
+        <p><span>Windows - C:\ProgramData\NNT\gen7agent.service\rolling-log.txt</span></p>
+        <p><span>Linux - /var/nnt/gen7agent.service/rolling-log.txt</span></p>
+        <p>
+          <span
+            >This will also provide diagnostic information if the agent is not functioning
+            correctly.</span
+          >
+        </p>
+        <h2 id="GEN7AgentDeploymentOptions-Finally–PleasecontactNNTSupportifyouneedhelpatanystage">
+          <span>Finally – Please contact support if you need help at any stage</span>
+        </h2>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

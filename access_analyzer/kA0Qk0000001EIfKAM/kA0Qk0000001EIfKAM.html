@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Stealthaudit-hotfix-11.6.0.037 </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001EIfKAM" />
+    <meta name="Id" content="ka0Qk0000004Js5IAE" />
+    <meta name="LastPublishedDate" content="2024-06-24T18:56:06.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-24T18:56:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-06-24T18:56:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9203" />
+    <meta name="ArticleNumber" content="000009203" />
+    <meta name="description" content="Stealthaudit-hotfix-11.6.0.037 " />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>Stealthaudit-hotfix-11.6.0.037 </p>
+
+        <p>
+          Summary:   NFS scans fail when scanning multiple exports after fix for threading issues 
+        </p>
+
+        <p>Submitted by:  Michael Burrofato </p>
+
+        <p>Affected Versions: 11.6 </p>
+
+        <p>Affected Module: </p>
+
+        <p>SA – DC – FSAA </p>
+
+        <p> </p>
+
+        <p>Dev Ticket: </p>
+
+        <ul>
+          <li>
+            <p>ADO Bug 341727 </p>
+          </li>
+        </ul>
+
+        <p>Resolved in Version: </p>
+
+        <p>FSAA version 11.6.0.311 </p>
+
+        <p>KB Type:  </p>
+
+        <p>Hotfix </p>
+
+        <p> </p>
+
+        <p>YouTrack/Escalations </p>
+
+        <p> </p>
+
+        <p>- ADO Bug 341727/Escalation 398352 </p>
+
+        <p> </p>
+
+        <p>Customers: </p>
+
+        <p>Retail Finance International Holdings, Inc. </p>
+
+        <p> </p>
+
+        <p>Cumulative List of fixes included since Service Pack: </p>
+
+        <p>
+          - Bug 298582: 379261 - SEEK LATS Preservation Skip Processes File Anyway (Misleading Log
+          Message) 
+        </p>
+
+        <p>
+          - Bug 301131: FSAA: Bug when sending large amounts of data to the applet while also trying
+          to get status info from the applet 
+        </p>
+
+        <p>
+          - Bug 302206: FSAA SDD fails to retrieve DLPEX files from remote server when using
+          multiple SDD scan processes 
+        </p>
+
+        <p>- Bug 302347: FSAA scans running out of memory while retrieving databases </p>
+
+        <p>- User Story 305300: Add configuration option to follow DFS links </p>
+
+        <p>
+          - User Story 304856: Update FSAA database sending/retrieval to be executed in stages to
+          avoid timeouts 
+        </p>
+
+        <p>- Bug 301689: FSAA not properly handling the case where the proxy is busy </p>
+
+        <p>
+          - Bug 310516: Race condition during FSAA certificate creation (Single Proxy targeting
+          multiple hosts) 
+        </p>
+
+        <p>
+          - Bug 302034: FSAA Applet Shuts Down Inappropriately for all sessions when one scan
+          session throws an exception 
+        </p>
+
+        <p>
+          - User Story 302484: Update FSAA code around async calls to avoid aggregate exceptions 
+        </p>
+
+        <p>- Bug 318214: Update FSAA Certificate Validation to Deny Self-Signed Certificates </p>
+
+        <p>
+          - User Story 310546: Add ability to convert PFX to CER file in FSAACertificateManager 
+        </p>
+
+        <p>
+          - Bug 307457: FS SDD Differential Scans: 'Files modified since last scan' not working 
+        </p>
+
+        <p>
+          - Bug 340059: NFS scans (incorrectly) attempt to follow symbolic links when getting file
+          metadata 
+        </p>
+
+        <p>
+          - Bug 340286: Threading issues in FSAA NFS scans cause AVs/hangs in large environments 
+        </p>
+
+        <p>
+          - Bug 307493: FSAC Retention Settings not being respected when changed in subsequent
+          scans. 
+        </p>
+
+        <p>
+          - Bug 342133: FSAC DC: Error when SDDL parser would fail if no owner SID is present when
+          using the Windows API 
+        </p>
+
+        <p> </p>
+
+        <p>Cumulative List of fixes included since last Hotfix for this module: </p>
+
+        <p>- Bug 341376: FSAA: Fix async/await to service message pump and finalizer queue </p>
+
+        <p>- Bug 340385: FSAA: Progress not reported for NFS scans </p>
+
+        <p>- Bug 344468: FSAA scans throwing Access Violation </p>
+
+        <p>
+          - Bug 341727: NFS scans fail when scanning multiple exports after fix for threading
+          issues 
+        </p>
+
+        <p> </p>
+
+        <p>Comments: </p>
+
+        <p>Instructions: </p>
+
+        <ol start="1">
+          <li>
+            <p>
+              Unblock the hotfix zip file in the windows property dialog, if an unblock button
+              exists there.  
+            </p>
+          </li>
+        </ol>
+
+        <ol start="2">
+          <li>
+            <p>
+              Close all instances of StealthAUDIT (check task manager under processes for all
+              users) 
+            </p>
+          </li>
+        </ol>
+
+        <ol start="3">
+          <li>
+            <p>Update all DC files in your %SAInstallDir%DC folder </p>
+          </li>
+        </ol>
+
+        <ol start="4">
+          <li>
+            <p>Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder. </p>
+          </li>
+        </ol>
+
+        <ol start="5">
+          <li>
+            <p>
+              Run the ‘Update Proxy Service’ query under the Maintenance tab in the FSAA data
+              collector against your proxy servers (if running proxy service). 
+            </p>
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p> </p>
+
+        <p> </p>
+        <span
+          ><span
+            ><span
+              ><a
+                href="https://releases.netwrix.com/products/stealthaudit/11.6/stealthaudit-hotfix-11.6.0.037.zip"
+                target="_blank"
+                >https://releases.netwrix.com/products/stealthaudit/11.6/stealthaudit-hotfix-11.6.0.037.zip</a
+              ></span
+            ></span
+          ></span
+        ><br /> 
+      </div>
+    </article>
+  </body>
+</html>

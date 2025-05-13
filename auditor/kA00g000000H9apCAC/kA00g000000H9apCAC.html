@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DB_Owner has been removed from Databases</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9apCAC" />
+    <meta name="Id" content="ka04u000000HcTbAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1324" />
+    <meta name="ArticleNumber" content="000003485" />
+    <meta
+      name="description"
+      content="DB_Owner has been removed from Databases DB_Owner has been removed from Database"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You have configured Database Content Audit in Netwrix Auditor for SQL Servers and ran a
+        collection and DB_OWNER has been removed from your databases.
+        <hr />
+        <div>
+          When the Database Content Audit option is selected, on each data collection the program
+          checks if the TRUSTWORTHY property is enabled on the monitored databases, and enables the
+          property when it is disabled. Sometimes this process can corrupt the database owner
+          record.
+        </div>
+
+        <hr />
+        <div>
+          In Microsoft SQL Server Management Studio, run the following command: "ALTER AUTHORIZATION
+          ON DATABASE::db_name TO user_name" where "db_name" is a name of the corrupted database and
+          "user_name" is the db owner account name.
+        </div>
+
+        <div> </div>
+      </div>
+    </article>
+  </body>
+</html>

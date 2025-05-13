@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Failed to check for event log existence</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9c6CAC" />
+    <meta name="Id" content="ka04u000000HcUrAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1404" />
+    <meta name="ArticleNumber" content="000003564" />
+    <meta
+      name="description"
+      content="error summary email Failed to check for event log existence"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The following error is displayed in the session results/ daily change summary email: "Failed
+        to check for event log existence".
+
+        <hr />
+
+        This problem occurs because the loopback check functionality is active on the problematic
+        server.
+
+        <hr />
+
+        To solve the problem, perform the following test:
+        <ol>
+          <li>Launch Event Viewer on the machine where Netwrix product is installed.</li>
+          <li>
+            From the Action menu, select the Connect to another computer option and specify the name
+            of the problematic computer.
+          </li>
+          <li>
+            Select the Connect as another user option, click the Set user button and specify the
+            account which is used to run the Event Log Manager scheduled task (the default data
+            processing account).
+          </li>
+        </ol>
+        If you can connect successfully, the issue can be resolved by turning off the Network
+        Traffic Compression option in the Event Log Manager settings, or by performing the procedure
+        described in the following Microsoft Knowledge Base article:
+        <a href="http://support.microsoft.com/kb/926642" target="_blank"
+          >http://support.microsoft.com/kb/926642</a
+        >.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>PPE doesn´t doesnt comply with set password policies</title><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000Pd7QCAS"/><meta name="Id" content="ka04u000000HdEnAAK"/><meta name="LastPublishedDate" content="2021-05-07T13:10:29.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:44.000+0000"/><meta name="FirstPublishedDate" content="2021-05-04T15:21:14.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5868"/><meta name="ArticleNumber" content="000005868"/><meta name="description" content="PPE-doesn-t-doesnt-comply-with-set-password-policies"/></head><body><article class=" kb-articles"><div class="Content__c"><div id="page_101">
+<div id="id101_1">
+<h2 class="p282 ft15" id="ppe_accepts_passwords_that_do_not_comply_with_the_policy">PPE accepts passwords that do not comply with the policy.</h2>
+
+<p class="p510 ft18">If PPE is enforcing a <span class="ft31">domain policy</span>, then search the Windows Application Event Log on every domain controller for events from Password Policy Enforcer. If there are no events from PPE since the last restart on any domain controller, then make sure that PPE is installed on that domain controller and restart it. Check the Windows Application Event Log again after the restart to ensure that PPE started. For <span class="ft31">local policies</span>, search the Application Event Log on the local computer.</p>
+</div>
+</div>
+
+<div id="id102_1">
+<p class="p511 ft11">Use the <span class="ft13">Test Policies</span> page to test a password that PPE is accepting. Examine the test results and event log to determine why PPE accepted the password. See <span class="ft13">Policy Testing vs. Password Changes</span> if the Test Policies page rejects the password.</p>
+
+<p class="p512 ft18">If the <span class="ft39">Enforce policy when password is reset </span>check box is not selected in the <span class="ft31">PPS Properties</span> page, then PPE will not enforce the password policy for passwords that are reset from the Active Directory Users and Computers console, or the Local Users and Groups console. You should select this option during testing, or test password changes from the Windows Change Password screen.</p>
+
+<h2 class="p382 ft15" id="ppe_rejects_passwords_that_comply_with_the_policy">PPE rejects passwords that comply with the policy.</h2>
+
+<p class="p513 ft11">Use the <span class="ft13">Test Policies</span> page to test a password that PPE is rejecting. Examine the test results and event log to determine why PPE rejected the password. See <span class="ft13">Policy Testing vs. Password Changes</span> if the Test Policies page accepts the password.</p>
+
+<p class="p514 ft18">Set <span class="ft39">User must change password at next logon </span>for the user and repeat the password change test. If the password is accepted, then either Windows or PPE is configured to enforce a minimum password age. Disable the Minimum Age rule in <span class="ft31">Windows</span> and <span class="ft31">PPE</span> to facilitate testing. If you cannot disable the Minimum Age rule, then set <span class="ft39">User must change password at next logon </span>before every password change test to bypass the rule.</p>
+</div></div>
+</article></body></html>

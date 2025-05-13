@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Troubleshoot a Failed Job Execution</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ISGCA2" />
+    <meta name="Id" content="ka0Qk00000049BBIAY" />
+    <meta name="LastPublishedDate" content="2024-06-07T16:04:26.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-07T16:04:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:22:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6582" />
+    <meta name="ArticleNumber" content="000006582" />
+    <meta name="description" content="How to Troubleshoot a Failed Job Execution" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          This article describes how to troubleshoot a failed job execution in Netwrix Enterprise
+          Auditor.
+        </p>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <ul>
+          <li>
+            Check Job Stats.
+            <ul>
+              <li>
+                In the console expand the <strong>Job &gt; Status Node</strong> and Select the
+                <strong>Job Stats Table</strong>. This will allow you to verify if a failure is a
+                one-time occurrence or a recurring issue.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Check Job TaskStats.
+            <ul>
+              <li>
+                In the console, expand <strong>Job &gt; Status Node</strong> and select the
+                <strong>Task Stats Table</strong>. Tthis will allow you to verify if all job
+                components are failing or just specific tasks.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Check <code>Runstats.ini</code>.
+            <ul>
+              <li>Right-click the job and select the <strong>Explore folder</strong> option.</li>
+              <li>Open the runstats_prev.ini in a plain-text editor.</li>
+              <li>
+                Check the run statistics for the previous saved runs (five is the default in the
+                application settings node).
+              </li>
+            </ul>
+          </li>
+          <li>
+            Check Server Uptime.
+            <ul>
+              <li>Open Task Manager.</li>
+              <li>Select the <strong>Performance</strong> tab.</li>
+              <li>
+                Check server uptime. If server uptime is greater than 30 days, make sure that there
+                are no MSFT patches with pending reboots.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Check Job Log.
+            <ul>
+              <li>Right-click on the job and select the <strong>Explore folder</strong> option.</li>
+              <li>
+                Enter the output folder and locate a file named in the following fashion:
+                <ul>
+                  <li>
+                    JobName_log.tsv (Example: the first job in the tree should be 1-AD_Scan for the
+                    .Active Directory Inventory group. The log for this job will be named
+                    1-AD_Scan_log.tsv)
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Review any messages leading up to end of file or leading up to end of processing for
+                a given host:
+                <ul>
+                  <li>Search for the failed host name.</li>
+                  <li>Search for the words ERROR or WARNING and select the match case option.</li>
+                </ul>
+              </li>
+              <li>Get the timestamp of the last line in file.</li>
+            </ul>
+          </li>
+          <li>Check SQL Server uptime and service uptime.</li>
+          <li>
+            Check Windows Event Logs around that time. Look for errors and warnings that could
+            indicate failure.
+            <ul>
+              <li>Application (e.g., crash)</li>
+              <li>Security (e.g., logoff)</li>
+            </ul>
+          </li>
+          <li>Check Task Scheduler history (Task Scheduler Event Log).</li>
+          <li>Check Netwrix Enterprise Auditor Event Log (%sainstalldir%logs).</li>
+          <li>
+            Check SADebug Logs:
+            <ul>
+              <li>Application</li>
+              <li>
+                JobEngine
+                <ul>
+                  <li>
+                    These logs are found in both the SADatabase Folder and in the root of the
+                    installation directory (%sainstalldir%sadatabase).
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Check Applet/Agent logs (e.g., FSAA, SPAA On-Prem, Exchange Metrics, PowerShell). These
+            logs are found in various places:
+            <ul>
+              <li>
+                ExchangePS engine - %sainstalldir%Private Assemblies\Folders identified by query
+                GUID and job runtime
+              </li>
+              <li>PowerShell Applet - %sainstalldir%jobs\SA_CommonData\PowerShell</li>
+              <li>SQL DC - %sainstalldir%jobs\SA_CommonData\SQLDC</li>
+              <li>Smartlog Applet - %sainstalldir%jobs\SA_CommonData\SmartLog</li>
+              <li>FSAA Applet - C:\Program Files(x86)\STEALTHbits\StealthAUDIT\FSAA\HOST</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

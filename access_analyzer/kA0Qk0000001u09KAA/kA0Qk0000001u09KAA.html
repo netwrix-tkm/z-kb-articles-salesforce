@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Weak Password Job Errors: System.IO.FileNotFoundException: Could Not Load File or Assembly:
+      DSInternals.Replication.Interop.dll
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001u09KAA" />
+    <meta name="Id" content="ka0Qk000000CnBRIA0" />
+    <meta name="LastPublishedDate" content="2025-03-04T14:48:28.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-12T19:17:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-04T14:48:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9379" />
+    <meta name="ArticleNumber" content="000009379" />
+    <meta
+      name="description"
+      content="Weak Password job fails because the NEA server is missing DSInternals.Replication.Interop.dll"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            The <strong>Active Directory &gt; 2.Users &gt; AD_WeakPasswords</strong> job fails, and
+            you receive the following error:
+          </p>
+          <pre
+            class="has-inner-focus"
+          >System.IO.FileNotFoundException: Could not load file or assembly<br/>'DSInternals.Replication.Interop.dll' or one of its dependencies. The specified module could not be found.
+</pre>
+          <h2 id="cause">Cause</h2>
+          <div>
+            <p>
+              The required Windows component
+              <strong>Microsoft Visual C++ Redistributable x86</strong> is not installed.
+            </p>
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span
+                >Netwrix Enterprise Auditor requires the x86 version of the C++ Redistributable.
+              </p>
+            </blockquote>
+          </div>
+          <h2 id="resolution">Resolution</h2>
+          <div>
+            <p>
+              Download and install <strong>Microsoft Visual C++ Redistributable x86</strong> onto
+              the Netwrix Enterprise Auditor server.
+            </p>
+            <ul>
+              <li>
+                <a href="https://aka.ms/vs/16/release/vc_redist.x86.exe" target="_blank"
+                  >https://aka.ms/vs/16/release/vc_redist.x86.exe</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

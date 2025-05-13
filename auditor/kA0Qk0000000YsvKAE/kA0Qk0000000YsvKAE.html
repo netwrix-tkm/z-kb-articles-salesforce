@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to View Custom Sensitive File Categories in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000YsvKAE" />
+    <meta name="Id" content="ka0Qk0000002kpxIAA" />
+    <meta name="LastPublishedDate" content="2024-04-05T13:46:50.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-05T13:46:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-29T16:23:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9109" />
+    <meta name="ArticleNumber" content="000009109" />
+    <meta
+      name="description"
+      content="How to View Custom Sensitive File Categories in Netwrix Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            The Sensitive Data Discovery (SDD) module allows users to generate Netwrix Auditor
+            reports and alerts for sensitive data collected and classified with Netwrix Data
+            Classification (NDC). This article covers the use of custom sensitive file categories in
+            the Sensitive Data Discovery module.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Due to the current SDD limitations, Auditor
+              can use only taxonomies built-in in NDC:
+            </p>
+
+            <ul>
+              <li>
+                <p>CCPA</p>
+              </li>
+              <li>
+                <p>CMMC</p>
+              </li>
+              <li>
+                <p>Financial Records</p>
+              </li>
+              <li>
+                <p>GDPR</p>
+              </li>
+              <li>
+                <p>GLBA</p>
+              </li>
+              <li>
+                <p>HIPAA</p>
+              </li>
+              <li>
+                <p>PCI DSS</p>
+              </li>
+              <li>
+                <p>PHI</p>
+              </li>
+              <li>
+                <p>PII</p>
+              </li>
+            </ul>
+          </blockquote>
+
+          <p>Refer to the following steps:</p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>You can reset a built-in taxonomy later—they are
+              included in NDC as templates pre-populated with terms/clues.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                Select the built-in taxonomy to modify—in the main NDC screen, select the
+                <strong>Content</strong> tab and click <strong>Taxonomies</strong>. In the left pane
+                of the <strong>Term Management</strong> section, select the target taxonomy from the
+                drop-down list.
+              </p>
+            </li>
+            <li>
+              <p>
+                Delete the built-in taxonomy terms up to the root term—it is usually named after the
+                taxonomy (e.g., the root CMMC term is named <strong>CMMC</strong>).
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>To delete parent terms, first delete the
+                  children terms.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Once the built-in terms are cleared, create a new child term under the root taxonomy
+                term. Right-click the root term and click <strong>Add Child Term(s)</strong>. Then,
+                insert the new clues to the child term.
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="150"
+                  src="kA0Qk0000000YsvKAE_4fbc9142-b4aa-4bb2-ae45-ad67fcbb5699.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>
+                Set up your sources to include target files for the modified taxonomy. Wait for the
+                files to be crawled and classified.
+              </p>
+            </li>
+          </ol>
+
+          <p>The corresponding Auditor report will include the used taxonomy and file owner.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

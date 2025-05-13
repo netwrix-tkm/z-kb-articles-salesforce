@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor was unable to process the item: Could not load file or assembly...
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WxCAK" />
+    <meta name="Id" content="ka04u000000HcQ7AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1096" />
+    <meta name="ArticleNumber" content="000003250" />
+    <meta
+      name="description"
+      content="Netwrix Auditor was unable to process the item: Could not load file or assembly .NET Framework version 4.0 or 4.5 Oracle Data Access Components 12.1 or 12.2"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor(server) installed on Windows Server 2012 R2 or Windows Server 2016 with
+        default .NET Framework version 4.0 or 4.5 and Oracle Data Access Components 12.1 or 12.2
+        installed. When you create a monitoring plan for auditing Oracle Database and launch data
+        collection, you receive the following error in the Netwrix Auditor System Health event log:
+        Netwrix Auditor was unable to process the item: Could not load file or assembly...
+        <hr />
+        The issue is caused by inconsistent version of the Oracle Data Access (12.1 and 12.2) and
+        the .NET Framework 4.0.
+        <hr />
+        You can resolve this issue in two ways:
+        <ul>
+          <li>
+            Method 1: edit the Netwrix.OracleDataRetriever.exe.config" and
+            Netwrix.AuditCore.OracleVerifier.exe.config configuration files, and provide path to the
+            Oracle.DataAccess.dll file.
+          </li>
+          <li>Method 2: add the .NET Framework 3.5 feature and register .NET assembly.</li>
+        </ul>
+        To edit the configuration files:
+
+        <ol start="1">
+          <li>
+            On the computer where Netwrix Auditor is installed, open registry editor and navigate to
+            HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\KEY_OraClient12Home1.
+          </li>
+          <li>
+            Open the ORACLE_HOME registry key and copy path to the Oracle.DataAccess.dll file. For
+            example: C:\app\client\administrator\product\12.1.0\client_1. Note: The ORACLE_HOME
+            registry key contains incomplete path. Navigate to odp.net.in2.x to access the .dll
+            file.
+          </li>
+          <li>Find and open the configuration files:</li>
+        </ol>
+
+        <div class="table-wrap">
+          <table count-columns="2" border="1">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">Netwrix.OracleDataRetriever.exe.config</td>
+                <td colspan="1" rowspan="1">Netwrix.AuditCore.OracleVerifier.exe.config</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <ol>
+                    <li>
+                      On the computer where Netwrix Auditor is installed, navigate to Netwrix
+                      Auditor installation folder (by default, C:\Program Files (x86)\Netwrix
+                      Auditor) -&gt; Oracle Auditing.
+                    </li>
+                    <li>Open the Netwrix.OracleDataRetriever.exe.config file with Notepad.</li>
+                  </ol>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <ol>
+                    <li>
+                      On the computer where Netwrix Auditor is installed, navigate to Netwrix
+                      Auditor installation folder (by default, C:\Program Files (x86)\Netwrix
+                      Auditor) -&gt; Audit Core.
+                    </li>
+                    <li>Open the Netwrix.AuditCore.OracleVerifier.exe.config file with Notepad.</li>
+                  </ol>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ol start="4">
+          <li>
+            Locate the &lt;Configuration&gt; node and add the following, depending on your Oracle
+            Data Access Components version:
+          </li>
+        </ol>
+
+        <div class="table-wrap">
+          <table count-columns="2" border="1">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">Example for ODAC 12.1</td>
+                <td colspan="1" rowspan="1">Example for ODAC 12.2</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  &lt;runtime&gt; &lt;assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+                  &lt;dependentAssembly&gt; &lt;assemblyIdentity name="Oracle.DataAccess"
+                  publicKeyToken="89B483F429C47342"&gt; &lt;codeBase version="2.121.2.0"
+                  href=""FILE://path_to_Oracle.DataAccess.dll&gt; &lt;/dependentAssembly&gt;
+                  &lt;/assemblyBinding&gt; &lt;/runtime&gt;where FILE://"
+                  path_to_Oracle.DataAccess.dll is the path to the Oracle.DataAccess.dll file you
+                  copied on the step 2.
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    &lt;runtime&gt; &lt;assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+                    &lt;dependentAssembly&gt; &lt;assemblyIdentity name="Oracle.DataAccess"
+                    publicKeyToken="89B483F429C47342"/&gt; &lt;bindingRedirect
+                    oldVersion="2.121.0.0-2.121.9999.9999" newVersion="2.122.1.0"/&gt; &lt;codeBase
+                    version="2.122.1.0"/&gt; href="FILE://path_to_Oracle.DataAccess.dll"&gt;
+                    &lt;/dependentAssembly&gt; &lt;/assemblyBinding&gt; &lt;/runtime&gt; where
+                    FILE://" path_to_Oracle.DataAccess.dll is the path to the Oracle.DataAccess.dll
+                    file you copied on the step 2.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        In order to add the .Net Framework 3.5 feature and register .Net assembly, please follow the
+        steps below:
+
+        <ol>
+          <li>
+            On the computer where Netwrix Auditor is installed, run Server Manager and add the .NET
+            Framework 3.5 feature.
+          </li>
+          <li>
+            Open registry editor and navigate to
+            HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE\KEY_OraClient12Home1.
+          </li>
+          <li>
+            Open the ORACLE_HOME registry key and copy path to the Oracle.DataAccess.dll file. For
+            example: C:\app\client\administrator\product\12.1.0\client_1 Note: The ORACLE_HOME
+            registry key contains incomplete path. Navigate to odp.net.in2.x to access the .dll
+            file.
+          </li>
+          <li>Open a command prompt as an Administrator.</li>
+          <li>Navigate to the directory where your ODAC resides.</li>
+          <li>Execute the following commands:</li>
+        </ol>
+        cd C:\app\client\administrator\product\12.1.0\client_1\odp.net\bin\2.x<br />OraProvCfg.exe
+        /action:gac
+        /providerpath:C:\app\client\administrator\product\12.1.0\client_1\odp.net\bin\2.x\Oracle.DataAccess.dll
+      </div>
+    </article>
+  </body>
+</html>

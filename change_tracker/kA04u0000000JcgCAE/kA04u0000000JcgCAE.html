@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Detect Device Offline Events with Device Idle Time Setting (Log Tracker)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcgCAE" />
+    <meta name="Id" content="ka04u000000HdATAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8252" />
+    <meta name="ArticleNumber" content="000008252" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          A common requirement of Log Tracker users is to detect and report when devices go "red" on
+          the Log Tracker Server "Devices" screen, indicating that a device is no longer sending
+          messages.
+        </p>
+
+        <p>You can easily configure an alert to detect this condition as follows:</p>
+
+        <h2
+          id="HowtoDetectDeviceOfflineEventswithDeviceIdleTimeSetting(LogTracker)-Step-by-stepguide"
+        >
+          Step-by-step guide
+        </h2>
+
+        <ol>
+          <li>
+            Create a new correlation thread that detects the keyphrase "message source is idle".
+          </li>
+          <li>
+            Create an alert that opens a ticket if the above thread increments by one count in zero
+            seconds. (This sets an alert for any and all occurrences of this message.)
+          </li>
+          <li>
+            Optionally, create a daily e-mail report that lists the raw messages for the thread
+            created in step 1 above. This report will be sent each day at midnight (only if at least
+            one device has been reported offline during the previous day.)
+          </li>
+          <li>
+            Optionally, drill down into the "Devices &gt; Advanced" screen, and set the "Message
+            Idle Time" threshold to be 1-Day, or 1-Hour, or 4-Hours, or some other value.
+          </li>
+        </ol>
+
+        <p>
+          The above configuration relies on the internal message that is sent by Log Tracker when a
+          device transitions from green to red. The specific text of this message (which is
+          generated for each and every occurrence of this situation) is as follows:
+        </p>
+
+        <p>
+          <em
+            >Log Tracker Network Monitor: Message source is idle. No messages received from
+            '(device)' address during last (threshold). Message source is no longer sending periodic
+            messages, and may be offline.</em
+          >
+        </p>
+
+        <p> </p>
+
+        <p>
+          The thread created in step 1 above captures these messages. The alert configured in step 2
+          will open a ticket when this condition exists (which can send e-mail by triggering a
+          "Ticket Action".)
+        </p>
+
+        <p>
+          Finally, note that a good alternative to using the above thread and alert is to simply
+          send e-mail when a Log Tracker advisory is generated. (The "Advisory" facility sets a
+          system advisory when one or more devices are not sending messages, among many other
+          advisories that can be generated.) The operator can configure e-mail for advisories using
+          the "System &gt; Prefs &gt; Modify Advisories" screen -- scroll down to the bottom of the
+          "Modify Advisories" screen (aka "Advisory Preferences Screen) to enable and configure the
+          Advisory e-mail notifications.
+        </p>
+
+        <p> </p>
+
+        <h2
+          id="HowtoDetectDeviceOfflineEventswithDeviceIdleTimeSetting(LogTracker)-Relatedarticles"
+        >
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8295" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8307" target="_blank"
+                >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                returned an error: (403) Forbidden.)"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8306" target="_blank"
+                >Rolling-Log Fix: "Couldn't get credentials for remote platform discovery on"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8285" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

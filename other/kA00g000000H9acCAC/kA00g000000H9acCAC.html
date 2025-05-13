@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      DMZ installation: Self-Service portal does not load while Admin and Helpdesk portals work fine
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9acCAC" />
+    <meta name="Id" content="ka04u00000116NrAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T14:20:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1303" />
+    <meta name="ArticleNumber" content="000003472" />
+    <meta
+      name="description"
+      content="The Self-service portal returns an error or does not load at all but Admin and Helpdesk portals work."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The Self-service portal returns an error or does not load at all.<br /><img
+          alt="User-added image"
+          height="268"
+          src="kA00g000000H9acCAC_aa6aa44b-0300-4199-b95c-e1b4b8cbde9e.png"
+          width="500"
+        /><br />However Admin and Helpdesk portals work.<br /><img
+          alt="User-added image"
+          height="282"
+          src="kA00g000000H9acCAC_a6823432-bb64-4edc-b2f6-09a2a7b9a3eb.png"
+          width="500"
+        />
+        <hr />
+        Login to Admin or Helpdesk portal prompts for credentials, and those credentials are used to
+        communicate with the back-end once authentication is complete. The Self-Service portal uses
+        anonymous authentication and as a result - the account specified in IIS at
+        <strong
+          >Connect as<br /><img
+            alt="User-added image"
+            height="306"
+            src="kA00g000000H9acCAC_7dac75fa-5c51-4fee-a391-e031e227f821.png"
+            width="500" /></strong
+        ><br />The issue occurs when there are some issues with permissions of this account.
+        <hr />
+        Make sure that COM settings of the back-end server are correct:
+        <ol>
+          <li>COM Security properties for My Computer node allow Remote activation</li>
+        </ol>
+
+        <div>
+          <img
+            alt="User-added image"
+            height="356"
+            src="kA00g000000H9acCAC_99811924-dcf9-408e-981e-7b5f125e8e8d.png"
+            width="500"
+          />
+        </div>
+
+        <ol start="2">
+          <li>Properties of Netwrix Password Manager COM object allow Remote activation</li>
+        </ol>
+
+        <div>
+          <img
+            alt="User-added image"
+            height="354"
+            src="kA00g000000H9acCAC_8621b913-847f-4dd6-ba46-1ffa24700859.png"
+            width="500"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

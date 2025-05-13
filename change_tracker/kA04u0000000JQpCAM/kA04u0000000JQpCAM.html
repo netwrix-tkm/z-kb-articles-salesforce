@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>10 Installing NNT Agent App for Solaris (SPARC and Intel)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JQpCAM" />
+    <meta name="Id" content="ka04u000000Hd7SAAS" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:30:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:29:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8068" />
+    <meta name="ArticleNumber" content="000008068" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-_Toc484003707InstallingNNTAgentAppforSolaris(SPARCandIntel)"
+        >
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-_Toc484003707"
+            ><span class="confluence-anchor-link" id="_Toc484003707"> </span></span
+          ><span><strong>Installing NNT Agent App for Solaris (SPARC and Intel)</strong></span>
+        </h2>
+        <p>
+          The NNT Change Tracker Enterprise Agent for Linux/Unix uses a Mono runtime instead of the
+          Microsoft .NET framework used on Windows. NNT provide pre-built runtime file sets for
+          Solaris hosts which can be simply downloaded and unzipped on the target host, along with
+          the NNT AgentApp file set. Solaris will typically require the libstdc++ package to be
+          added. This can be acquired from the official Oracle website or from
+          <a class="external-link" href="http://www.opencsw.org/" target="_blank"
+            ><span>{+}</span></a
+          ><a class="external-link" href="http://www.opencsw.org/+" target="_blank"
+            >http://www.opencsw.org/+</a
+          >[ |http://www.opencsw.org/]
+        </p>
+        <h2 id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step1–Downloads">
+          <span>Step 1 – Downloads</span>
+        </h2>
+        <p>
+          Download the required files for your version of Solaris from the
+          <a
+            class="external-link"
+            href="http://www.newnettechnologies.com/members-area/member-2/cat_view/6-support-information-for-existing-customers/23-nnt-agent-app-nix-runtime-packages.html"
+            target="_blank"
+            ><span><span>NNT Members Area</span></span></a
+          >[
+          |http://www.newnettechnologies.com/members-area/member-2/cat_view/6-support-information-for-existing-customers/23-nnt-agent-app-nix-runtime-packages.html].
+          This will almost certainly comprise of a GC and mono zip file. For example, Solaris 10
+          Intel requires the following: <br />gc-7.5-solaris-10-intel <br />Solaris 10 Intel Mono
+          Runtime (Mono 3.2.3) <br />The NNT Agent installation file set (NNTAgent-1.0.0.xxx-yyy.zip
+          can be downloaded from the
+          <a
+            class="external-link"
+            href="http://www.newnettechnologies.com/members-area/member-2/doc_download/172-nnt-change-tracker-6-5-agent.html"
+            target="_blank"
+            ><span><span>Members Area</span></span></a
+          ><a
+            class="external-link"
+            href="http://www.newnettechnologies.com/members-area/member-2/doc_download/172-nnt-change-tracker-6-5-agent.html"
+            target="_blank"
+            ><span><span>.</span></span></a
+          >
+          Copy the three zip files onto your host using scp / WinSCP. The file should be copied to
+          the /opt directory.
+        </p>
+        <h2 id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step2–ExtractMonoruntimetohost">
+          <span>Step 2 – Extract Mono runtime to host</span>
+        </h2>
+        <p>
+          Extract the mono runtime and GC zip files. <br /><strong
+            ><em>$ unzip gc-7.5-solaris-10-intel.zip</em></strong
+          >
+          <br /><strong><em>$ unzip mono-3.2.3-solaris-10-intel.zip</em></strong>
+          <br class="atl-forced-newline" />
+          You should then have /opt/mono and /opt/gc directory in the root of /opt. <br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="127"
+              width="319"
+              src="kA04u0000000JQpCAM_bb28111d-62dd-4454-8584-718a3614d198.png" /></span
+          ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="120"
+              width="312"
+              src="kA04u0000000JQpCAM_dc10384e-6813-4577-bdb0-e84325a5c09b.png"
+          /></span>
+        </p>
+        <h2 id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step3-Installlibstdc++">
+          <span>Step 3 - Install libstdc++</span>
+        </h2>
+        <p>
+          OpenCSW is used by NNT as a method to ensure the correct libraries are present on the
+          Solaris system, namely libstdc++.so.6. Install OpenCSW as follows : <br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="172"
+              width="557"
+              src="kA04u0000000JQpCAM_c95c0fe4-116a-4ee9-8fdd-f46946e41293.png"
+          /></span>
+        </p>
+        <h2
+          id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step4–ExtractNNTAgentAppfilestohost"
+        >
+          <span>Step 4 – Extract NNT Agent App files to host</span>
+        </h2>
+        <p>
+          <strong><em>$ unzip NNTAgent-1.0.0.70.zip files/mono/</em></strong
+          ><em> -d /opt/mono/nntagent</em>*
+        </p>
+        <h2
+          id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step5–CreateHubDetails.xmlfilefortheNNTAgentApp"
+        >
+          <span>Step 5 – Create HubDetails.xml file for the NNT Agent App</span>
+        </h2>
+        <p>
+          Note: entries in highlight should be edited to reflect your settings. <br /><strong
+            ><em>$ cat /opt/mono/nntagent/files/mono/HubDetails.xml</em></strong
+          >
+          <br /><strong><em /></strong><br /><strong><em /></strong><br />
+          <strong><em>true</em></strong
+          ><br />
+          <strong
+            ><em
+              ><a class="external-link" href="https://192.168.1.141/api/" target="_blank"
+                >https://192.168.1.141/api/</a
+              ></em
+            ></strong
+          ><br />
+          <strong><em>agent</em></strong
+          ><br />
+          <strong><em>passWord121</em></strong
+          ><br /><strong><em /></strong> <br /><strong><em>EOF</em></strong>
+          <br class="atl-forced-newline" />
+          Note: It is a good idea to add this HubDetails.xml to your NNT AgentApp file set so that
+          it will then be included for any future deployments to other hosts. <br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="73"
+              width="625"
+              src="kA04u0000000JQpCAM_1446b223-188c-4a96-948f-24beb7a42787.png"
+          /></span>
+        </p>
+        <h2 id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step6–SetupPathInformation">
+          <span>Step 6 – Setup Path Information</span>
+        </h2>
+        <p>
+          NOTE: This should be achievable with one command as follows <br /><strong
+            ><em
+              >$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mono/lib:/opt/gc/lib:/opt/csw/lib</em
+            ></strong
+          >
+          <br class="atl-forced-newline" />
+          The path '/opt/csw/lib' is present to provide the location of libstdc++.so.6 as per step
+          2. <br />Verify the path has been set correctly using <br /><strong
+            ><em>$ set | grep LD_LIB</em></strong
+          >
+          <br /><strong><em>LD_LIBRARY_PATH=:/opt/gc/lib:/opt/mono/lib:/opt/csw/lib</em></strong>
+          <br class="atl-forced-newline" />
+        </p>
+        <h2 id="id-10InstallingNNTAgentAppforSolaris(SPARCandIntel)-Step7–RunAgent">
+          <span>Step 7 – Run Agent</span>
+        </h2>
+        <p>
+          From the nntagent program files path (/opt/mono/nntagent/files/mono) <br /><strong
+            ><em>$ cd /opt/mono/nntagent/files/mono</em></strong
+          >
+          <br /><strong><em>$ nohup /opt/mono/bin/mono NNTAgentApp.exe &amp;</em></strong>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

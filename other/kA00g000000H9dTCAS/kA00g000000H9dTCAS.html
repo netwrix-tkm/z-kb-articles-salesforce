@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Vulnerabilities for web-attacks</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dTCAS" />
+    <meta name="Id" content="ka04u00000116chAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:03:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2746" />
+    <meta name="ArticleNumber" content="000003649" />
+    <meta
+      name="description"
+      content="Netwrix Password Manager - securing the web-portals from attacks/vulnerabilities."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Some scanners can find vulnerabilities in Password manager web-app. Since it is based on
+        IIS, some of these vulnerabilities can be closed by means of additional IIS configuration
+
+        <strong>V1.</strong> The response for request did not have an "X-FRAME-OPTIONS" header
+        present <br /><strong>Solution1:</strong>
+        <ol>
+          <li>Open Internet Information Services (IIS) Manager.</li>
+          <li>
+            In the <strong>Connections</strong> pane on the left side, expand the<strong>
+              Sites </strong
+            >folder and select the site that you want to protect.
+          </li>
+          <li>
+            Double-click the <strong>HTTP Response Headers</strong> icon in the feature list in the
+            middle.
+          </li>
+          <li>In the Actions pane on the right side, click<strong> Add.</strong></li>
+          <li>
+            In the dialog box that appears, type <strong>X-Frame-Options</strong> in the<strong>
+              Name</strong
+            >
+            field and type <strong>SAMEORIGIN</strong> in the <strong>Value</strong> field.
+          </li>
+          <li>Click <strong>OK</strong> to save your changes.</li>
+        </ol>
+        Refer to
+        <a href="http://support.microsoft.com/kb/2694329" target="_blank"
+          >http://support.microsoft.com/kb/2694329</a
+        >
+        --------
+
+        <strong>V2</strong>. Vulnerable to slow HTTP POST Attacks
+
+        <strong>Solution2</strong>: <br /><span
+          >1. Run the IIS Manager on the machine where Netwrix Password Manager is installed
+        </span>
+        2. On the left pane navigate to Sites / Default Web Site / PM 3. On the middle pane
+        double-click on Request Filtering 4. On the right pane click on Edit Feature Settings" 5.
+        Set the Maximum allowed content length to 15000000 bytes, set the Maximum URL length to 1024
+        bytes and set the Maximum query string to 512 bytes, then click ok 6. On the left pane click
+        on Sites, then on the middle pane one-click on Default web-site and on the right pane click
+        Set Web Site Defaults" 7. Expand Connection Limits node 8. Set the Connection Time-out to 60
+        second or lower, set the Maximum Bandwidth to 1400000000 bytes, then click OK 9. Restart the
+        IIS server via Command prompt (Start " Run " cmd, type iisreset and click enter) ------
+
+        <strong>V3. </strong>Cookie does not contain the "HTTPOnly" attribute
+
+        <strong>Solution3:</strong> it is possible to apply a cookie filter with help of URL rewrite
+        for IIS7
+        <a href="http://www.iis.net/downloads/microsoft/url-rewrite" target="_blank"
+          >http://www.iis.net/downloads/microsoft/url-rewrite</a
+        >
+        Install URL rewrite and paste the following into the
+        <strong>&lt;system.webServer&gt; </strong>section of your <strong>web.config</strong>.
+        <div />
+        <div>&lt;rewrite&gt;</div>
+        <div>&lt;outboundRules&gt;</div>
+        <div>&lt;rule name="Add HttpOnly" preCondition="No HttpOnly"&gt;</div>
+        <div>&lt;match serverVariable="RESPONSE_Set_Cookie" pattern=".*" negate="false" /&gt;</div>
+        <div>&lt;action type="Rewrite" value="{R:0}; HttpOnly" /&gt;</div>
+        <div>&lt;conditions&gt;</div>
+        <div>&lt;/conditions&gt;</div>
+        <div>&lt;/rule&gt;</div>
+        <div>&lt;preConditions&gt;</div>
+        <div>&lt;preCondition name="No HttpOnly"&gt;</div>
+        <div>&lt;add input="{RESPONSE_Set_Cookie}" pattern="." /&gt;</div>
+        <div>&lt;add input="{RESPONSE_Set_Cookie}" pattern="; HttpOnly" negate="true" /&gt;</div>
+        <div>&lt;/preCondition&gt;</div>
+        <div>&lt;/preConditions&gt;</div>
+        <div>&lt;/outboundRules&gt;</div>
+        <div>&lt;/rewrite&gt;</div>
+        <br /><span>Described here: </span
+        ><a href="http://forums.iis.net/post/1963706.aspx" target="_blank"
+          >http://forums.iis.net/post/1963706.aspx</a
+        ><span> -----------------</span>
+
+        If you have more
+        <span
+          >vulnerabilities to report, please contact
+          <a href="https://www.netwrix.com/support.html" target="_blank"
+            >Netwrix technical support</a
+          ></span
+        >
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Access MongoDB</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110orCAA"/><meta name="Id" content="ka04u00000116XmAAI"/><meta name="LastPublishedDate" content="2023-07-07T09:25:19.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T09:25:19.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T09:25:19.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8640"/><meta name="ArticleNumber" content="000008640"/><meta name="description" content="How to Access MongoDB"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span><br/><br/>Access the MongoDB shell by first logging in to the SecureONE appliance directly via SSH. SecureONE must already be running and have already been configured properly in order to connect to MongoDB.
+<blockquote>
+<div><span><strong>NOTE:</strong></span> Only utilize the connection approach in this section if the query data being returned is small, such as a <strong>.count()</strong> function or a small data set, as this approach will not export the information but will only display it in the Terminal window.</div>
+</blockquote>
+From the terminal, enter the following command, which executes the Docker container by specifying the container ID, and then automatically begins using the SecureONE document collection once the shell is established:<br/><strong>Single Node:</strong>
+
+<pre>sudo docker exec -it $(sudo docker ps | grep mongo | cut -d’ ‘ -f1)
+mongo SecureONE</pre>
+<strong>Cluster:</strong>
+
+<pre>sudo docker exec -it $(sudo docker ps | grep mongo | cut -d’ ‘ -f1) 
+mongo mongodb://mongo1,mongo2,mongo3/SecureONE?replicaSet=secureone</pre>
+If this command has ever been entered before, another option is to enter:
+
+<pre>history | grep mongo</pre>
+This will return a list of numbered results. Locate the line above, and either copy and paste it into the terminal window or enter an <code>‘!’</code> followed by the number located next to the history line. Executing the command this way will execute the command located on the specified line number from the <code>‘history’</code> output.<br/><img alt="mongo1.png" src="kA04u00000110orCAA_dc071fed-56b4-4d38-8cfa-d0837f2764a3.png"/><br/>Once a successful MongoDB shell connection has been established, the following screen will appear indicating a successful establishment of a MongoDB shell. The ‘&gt;’ character at the bottom indicates a fresh line waiting for commands.<br/>Example:<br/><img alt="mongo2.png" src="kA04u00000110orCAA_9d99a4e0-fef2-44a1-b354-6287de018e7d.png"/><br/>Now, the shell is ready to run the queries that follow.
+<blockquote>
+<div><span><strong>NOTE:</strong></span> Some queries may require moderate computing resources, and scanning may slow down while they are running.</div>
+</blockquote></div>
+</article></body></html>

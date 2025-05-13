@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Installing an IIS Certificate</title><meta name="label" content="skb"/><meta name="label" content="privilege_secure"/><meta name="KnowledgeArticleId" content="kA04u000000Pd7zCAC"/><meta name="Id" content="ka04u000001172VAAQ"/><meta name="LastPublishedDate" content="2021-10-21T15:09:54.000+0000"/><meta name="LastModifiedDate" content="2023-08-04T10:08:34.000+0000"/><meta name="FirstPublishedDate" content="2021-07-12T11:52:58.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5872"/><meta name="ArticleNumber" content="000005872"/><meta name="description" content="Installing an IIS Certificate"/></head><body><article class=" kb-articles"><div class="Content__c"><div class="ControlZone ControlZone--clean a_b_50a7110f" id="1212fc8d-dd6b-408a-8d5d-9f1cc787efbb">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix fontWeightStrongForIEFireFox rteEmphasis root-79">
+<h2 id="overview">Overview</h2>
+This article outlines the process of installing a valid certificate to the SbPAM IIS website.
+
+<h2 id="requirements">Requirements</h2>
+
+<ul><li>The certificate should be for Client and Server Authentication and be from a trusted Certificate Authority (CA).</li><li>The certificate needs to be in the Trusted Root on the SbPAM server (with the private key), and in the Trusted Root on all clients accessing the SbPAM website (without the private key).</li><li>
+	<p>For High Availability (HA) deployments the certificate should have both server FQDN names in either Common Name (CN) or Subject Alternative Name (SAN) fields.</p>
+	</li></ul>
+
+<h2 id="instructions">Instructions</h2>
+
+<p>After receiving the certificate from a CA, the bindings for the SbPAM website need to be updated in <b>Internet Information Services (IIS) Manager</b> on the SbPAM server.</p>
+
+<ol><li>Open the <b>IIS Manager</b> on the SbPAM server.</li><li>In the left sidebar, navigate to the <b>SbPAM Web Service </b>website, right-click, and click <b>Edit Bindings...</b></li></ol>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="4cbc8498-683e-4fa5-ade2-86951b965721">
+<div class="ControlZone--control">
+<div>
+<div class="ai_g_9f38462c css-202">
+<div class="bs_g_9f38462c"> 
+<div class="aq_g_9f38462c"><img alt="User-added image" src="kA04u000000Pd7zCAC_dd6f1e2a-0d6c-4776-97b4-499377123f3c.png"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="97915068-2ef0-4917-880e-9b13887e26c6">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix fontWeightStrongForIEFireFox rteEmphasis root-79">
+<ol><li>Double-click <strong>https</strong>.</li><li>Select the <strong>SSL certificate</strong> for the DNS hostname of your SbPAM server (the DNS name used as the Subject Alternative Name (SAN) in the cert).</li></ol>
+ 
+
+<p><img alt="User-added image" height="394" src="kA04u000000Pd7zCAC_fc70f476-0ad6-43d7-a3e2-f7c1b7b99023.png" width="500"/></p>
+
+<p>After making these changes, restart the SbPAM website by running the "iisreset" command in an elevated Command Prompt.</p>
+
+<h4 id="updating_service_configuration_files_sbpam_36_or_later">Updating Service Configuration Files (SbPAM 3.6 or later)</h4>
+SbPAM service configuration files will need to be updated to use the same DNS name as the certificate. These updates can be triggered via the SbPAM UI. Navigate to the "System Settings" menu, and the "Services" node.<br/><img alt="User-added image" height="255" src="kA04u000000Pd7zCAC_36e788d3-379c-4830-937a-16f038946621.png" width="500"/><br/>Enter the FQDN that matches the name of your cert (e.g. "https://yourcert.company.com:6500"). Leave <b>Ignore HTTPS Certificate Errors </b>unchecked.<br/>Click the <b>Register Services</b> button. A "Services registered" pop-up will appear when the necessary changes have been made.
+
+<h4 id="updating_service_configuration_files_sbpam_35_or_earlier">Updating Service Configuration Files (SbPAM 3.5 or earlier)</h4>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="5e07be23-5ce5-4f0b-b5fb-a3d93f92b9ba">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix fontWeightStrongForIEFireFox rteEmphasis root-79">
+<p>SbPAM service configuration files will need to be updated to use the same DNS name as the certificate. The following files will need to be edited:</p>
+
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\PAM\ActionService\appsettings.user.json
+C:\ProgramData\Stealthbits\PAM\EmailService\appsettings.user.json
+C:\ProgramData\Stealthbits\PAM\ProxyService\appsettings.user.json
+C:\ProgramData\Stealthbits\PAM\SchedulerService\appsettings.user.json
+C:\ProgramData\Stealthbits\PAM\SIEMService\appsettings.user.json
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="8c948fd0-19ac-4333-af37-cb5872af894d">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden"> 
+<div class="rte--read ckeditable_removeMargin highlightFocusFix fontWeightStrongForIEFireFox rteEmphasis root-79">
+<p>In each file, locate the "Url" key and change its value so it matches the DNS name used in the certificate. In the following example, "localhost" should be changed to match the aforementioned DNS name (leaving the port specification unchanged):</p>
+
+<pre class="ckeditor_codeblock">"Url":"https://localhost:6500"
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="ab4b2b66-5b0c-4cfe-a01e-ffdea272606e">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden"> 
+<div class="rte--read ckeditable_removeMargin highlightFocusFix fontWeightStrongForIEFireFox rteEmphasis root-79">
+<p>After updating each config file, verify SbPAM services are running properly by navigating to the <strong>Service Nodes</strong> page in the SbPAM Web UI. The services should be all green:</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="e9175c88-a96f-4123-a451-c267433e216e">
+<div class="ControlZone--control">
+<div>
+<div class="ai_g_9f38462c css-202">
+<div class="bs_g_9f38462c"> 
+<div class="aq_g_9f38462c"><img alt="User-added image" height="302" src="kA04u000000Pd7zCAC_7d0b2ae9-a623-4f89-b61a-1648320dc9ba.png" width="500"/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+ 
+
+<div class="ControlZone ControlZone--clean a_b_50a7110f" id="f4626a73-c365-4049-9ee6-8648cc9e964f">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix fontWeightStrongForIEFireFox rteEmphasis root-79">
+<p>If any services are red, Register Services by selecting your <strong>username</strong> in the top-right of the SbPAM UI, click <b>Settings</b>, then click <b>Register Services</b>.</p>
+</div>
+</div>
+</div>
+</div></div>
+</article></body></html>

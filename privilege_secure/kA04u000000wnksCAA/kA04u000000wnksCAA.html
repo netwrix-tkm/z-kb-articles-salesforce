@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Security Considerations: Non-Domain-Joined Netwrix Privilege Secure Server</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000wnksCAA"/><meta name="Id" content="ka0Qk000000BuZxIAK"/><meta name="LastPublishedDate" content="2025-01-23T19:40:42.000+0000"/><meta name="LastModifiedDate" content="2025-01-23T19:40:42.000+0000"/><meta name="FirstPublishedDate" content="2023-10-31T13:10:25.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8882"/><meta name="ArticleNumber" content="000008882"/><meta name="description" content="Security Considerations: Non-domain-joined Netwrix Privilege Secure Server"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+<div>
+<p>What is the reasoning behind the recommendation in the <a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.2/page/Content/PrivilegeSecure/AccessManagement/Requirements/ApplicationServer.htm" target="_blank">Server Requirements</a> that Netwrix Privilege Secure (NPS) servers not be joined to a managed domain?</p>
+</div>
+<h2 id="answer">Answer</h2>
+<div>
+<p>Netwrix recommends considering standard PAM security cogitations when deploying NPS. NPS instances should be installed on standalone servers that are hardened and have limited access rights.<br/><br/>The following risks are posed by joining NPS to a domain:</p>
+<ol><li>
+<p>A domain-joined server can have its security compromised through group policy controls, as policy inheritance may not be blocked for the server.</p>
+</li><li>
+<p>If a privileged domain account is compromised, the NPS server is then a potential target for lateral movement attacks.</p>
+</li><li>
+<p>A key use case of NPS is to provide dynamic domain administrator access to users. If a user is provided with domain administrator privileges, the user would then have domain administrator access to the NPS server. This would allow for malicious actions that would compromise the security of the NPS Server, up to and including tampering with the audit trail after performing malicious actions.</p>
+</li></ol>
+</div></div>
+</article></body></html>

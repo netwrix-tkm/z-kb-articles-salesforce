@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Forcing Netwrix Auditor to communicate with SQL Server using TLS 1.2</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000Tt8eCAC"/><meta name="Id" content="ka04u000000HdFrAAK"/><meta name="LastPublishedDate" content="2022-08-09T11:18:43.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:20:06.000+0000"/><meta name="FirstPublishedDate" content="2022-08-09T11:18:43.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8474"/><meta name="ArticleNumber" content="000008474"/><meta name="description" content="Forcing Netwrix Auditor to communicate using TLS 1.2"/></head><body><article class=" kb-articles"><div class="Content__c"><div>
+<div class="copy-paste-block">
+<p><span><span>This is a follow-up article for this one, </span></span><a href="https://kb.netwrix.com/3648" target="_blank">https://kb.netwrix.com/3648</a>, therefore, the prerequisite for completing instructions of this article is <span><span>finishing previous one first. Use this article only if the instructions from the first article didn't help.</span></span><br/> </p>
+
+<h2 id="forcing_netwrix_auditor_to_communicate_using_tls_12">Forcing Netwrix Auditor to communicate using TLS 1.2</h2>
+
+<p><span><span>1. Make sure you have necessary product versions:</span></span></p>
+
+<ul><li><span><span>Microsoft SQL Server 2012 (11.0.6518.0), <span><span>2014 (12.0.4439.1),</span></span> or 2016 and above;</span></span></li><li><span><span>SQL Server Native Client 11 (sqlncli11.dll) on Auditor machine;</span></span></li><li><span><span>Netwrix Auditor 8.6.1235 or higher.</span></span></li></ul>
+
+<p> </p>
+
+<p><span><span>2. Turn on extended logging of Schannel to see what encryption is being used:</span></span></p>
+
+<ul><li><span><span><strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL </strong>– set EventLogging to <strong>4</strong>;</span></span></li></ul>
+
+<p><span><span>After that you can filter the System Event Log by the Schannel data source and see the details of all handshakes.</span></span></p>
+
+<div>3. Turn off all old versions of encryption protocols in the registry:</div>
+
+<div>- on the SQL Server, edit the following registry keys:</div>
+
+<pre>[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0]
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0]
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1]
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0]
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client]
+"Enabled"=dword:00000000
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server]
+"Enabled"=dword:00000000</pre>
+
+<div>Alternatively, you can use .reg file of the same content here: <a href="https://www.netwrix.com/download/products/KnowledgeBase/disableoldprot.reg" target="_blank">https://www.netwrix.com/download/products/KnowledgeBase/disableoldprot.reg</a>
+
+<div><br/>Restart all SQL Server services.</div>
+</div>
+</div>
+
+<div> </div>
+
+<div>4. Start regular work and look into the System Event Log to see what kind of encryption the Schannel service is using for SQL Server. You can find the reference of event IDs for SChannel in the Microsoft article here: <a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn786445(v=ws.11)" target="_blank">https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn786445(v=ws.11)</a><br/><br/>5. After you've checked that the connection is done using TLS 1.2 and everything is working fine, you need to disable SChannel logging by setting <span><span><strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\EventLogging </strong>to <strong>1</strong>;</span></span></div>
+
+<div><br/>If the fix still didn't help, you can use this .reg file that would re-enable all the disabled protocols here: <a href="https://www.netwrix.com/download/products/KnowledgeBase/Enableoldprot.reg" target="_blank">https://www.netwrix.com/download/products/KnowledgeBase/Enableoldprot.reg</a></div>
+</div></div>
+</article></body></html>

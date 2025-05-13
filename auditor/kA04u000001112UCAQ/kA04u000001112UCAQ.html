@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor for File Servers Audit Service Stops After Each Startup</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001112UCAQ" />
+    <meta name="Id" content="ka0Qk00000010M9IAI" />
+    <meta name="LastPublishedDate" content="2023-12-14T14:30:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-14T14:30:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-17T13:31:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8736" />
+    <meta name="ArticleNumber" content="000008736" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the issue when the Netwrix Auditor for File Servers Audit Service stops after each startup."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article only applies to customers running Netwrix
+            Auditor 10.5 builds 10936 and 10942.
+          </div>
+        </blockquote>
+
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            The Netwrix Auditor for File Servers Audit Service is not stay running and stops after
+            each startup.
+          </p>
+
+          <p>The following notification is shown for one or several monitoring plans:</p>
+
+          <pre class="has-inner-focus">
+        One of the Netwrix Auditor services is not responding.
+        Navigate to the Services snap-in and check the service statuses. 
+    </pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>This is a known issue that has been fixed in later builds of Netwrix Auditor.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Download the installation package for upgrade. Customers who are logged in to the
+            Netwrix Customer Portal can download the latest version of their software products using
+            the following link:
+            <a href="https://www.netwrix.com/sign_in.html?rf=my_products.html" target="_blank"
+              >My Products</a
+            >. 
+          </p>
+
+          <blockquote>
+            <div>
+              <span><strong>IMPORTANT:</strong></span> Take the steps 1 - 2 below before running the
+              installation package, otherwise, the issue will persist.
+            </div>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                On the Auditor Server host, run the <b>Services</b> snap-in and stop the Netwrix
+                Auditor for File Servers Audit Service.
+              </p>
+            </li>
+            <li>
+              <p>
+                After that, navigate to your Working Folder (default location is
+                <em>C:\ProgramData\Netwrix Auditor\FileStorageAuditor\Data</em>) and delete the
+                <b>FileStorageAuditor</b> folder.
+              </p>
+            </li>
+            <li>
+              <p>Run the upgrade package.</p>
+
+              <blockquote>
+                <div>
+                  <span><strong>NOTE:</strong></span> Make sure you took all required upgrade
+                  preparatory steps. Learn more in the following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/Upgrade.htm#before_starting_the_upgrade"
+                    target="_blank"
+                    >Installation — Before Starting the Upgrade — v10.6</a
+                  >.
+                </div>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Upon the upgrade completion, run data collection for your File Servers monitoring
+                plan – click <b>Update</b> next to the plan.
+              </p>
+
+              <p>You will get the following error once that is expected:</p>
+
+              <pre class="has-inner-focus">
+Data collection has been failed: 0x80070002 The system cannot find the file specified.</pre
+              >
+            </li>
+          </ol>
+
+          <p>
+            You will have to wait from 30 minutes to several hours depending on the amount of data
+            that is going to be collected.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

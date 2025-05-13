@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>No Threats Detected Despite Web Console Reporting Events</title><meta name="label" content="public_v"/><meta name="label" content="threat_manager"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000wnnICAQ"/><meta name="Id" content="ka0Qk0000005DSrIAM"/><meta name="LastPublishedDate" content="2024-08-01T11:26:53.000+0000"/><meta name="LastModifiedDate" content="2024-08-30T08:06:39.000+0000"/><meta name="FirstPublishedDate" content="2023-11-07T19:09:29.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8893"/><meta name="ArticleNumber" content="000008893"/><meta name="description" content="No Threats Detected Despite Web Console Reporting Events"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+
+<div>
+<ul><li>
+	<p>No threats are detected for several days. However, the web console continues to report events.</p>
+	</li><li>
+	<p>The backlog section of the Threat Manager console is not populated. As a result, it's impossible to determine the status of the database maintenance job, as well as other components of the console.</p>
+	</li></ul>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>An EDR, XDR, or antivirus solution in your Netwrix Threat Manager environment conflicts with the PostgreSQL application.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Create exclusions for the PostgreSQL file paths below:</p>
+
+<pre>\Program Files\Stealthbits\PostgreSQL14 
+\ProgramData\Stealthbits\PostgreSQL14 
+\Program Files\Stealthbits\StealthDEFEND 
+\Program Files\STEALTHbits\PostgreSQL14\bin\postgres.exe 
+\Program Files\STEALTHbits\PostgreSQL14\bin\psql.exe
+\Program Files\STEALTHbits\PostgreSQL14\bin\pg_ctl.exe</pre>
+</div>
+
+<blockquote>
+<p><strong>TIP:</strong> Learn more about custom IOA rules in <a href="https://www.crowdstrike.com/blog/tech-center/custom-ioas/" target="_blank">How to Create Custom Rules ⸱ CrowdStrike 🡥</a></p>
+</blockquote>
+
+<h2 id="related_articles">Related articles</h2>
+
+<p><a href="https://www.crowdstrike.com/blog/tech-center/custom-ioas/" target="_blank">How to Create Custom Rules ⸱ CrowdStrike 🡥</a></p></div>
+</article></body></html>

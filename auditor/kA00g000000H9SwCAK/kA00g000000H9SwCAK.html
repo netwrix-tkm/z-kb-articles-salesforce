@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to exclude Smart Card users from monitoring by Password Expiration Notifier?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SwCAK" />
+    <meta name="Id" content="ka04u000000HcMkAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="587" />
+    <meta name="ArticleNumber" content="000003006" />
+    <meta
+      name="description"
+      content="This article describes how to exclude Smart Card users from Password Expiration Notifier monitoring scope."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to exclude Smart Card users from Password Expiration Notifier monitoring scope?
+
+        <hr />
+
+        <span
+          ><span><span>Perform the following steps:</span></span></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  >On the computer where <b>Netwrix Auditor Server</b> resides, open Registry
+                  Editor: navigate to <b>Start</b> -&gt; <b>Run</b> and type "<i>regedit</i>";</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span>In the <b>Registry Editor</b>, create </span></span
+            ><span
+              ><span><span>a new registry key:</span></span></span
+            >
+          </li>
+        </ol>
+        <ul>
+          <li>
+            <span
+              ><span><span>HKEY_LOCAL_MACHINESOFTWAREWow6432NodeNetwrix</span></span></span
+            >
+            <span
+              ><span
+                ><span>AuditorPassword Expiration Notifier&lt;domain name&gt;.</span></span
+              ></span
+            >
+          </li>
+        </ul>
+        <ol start="3">
+          <li>
+            <span
+              ><span
+                ><span
+                  >Create the new DWORD <b>IgnoreUsersWithSmartCardsSettings</b> value under this
+                  key and set it to 1.</span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><b>Note</b>: The shortest way to learn the Monitoring plan GUID would be looking up
+              the trace file for the following line:
+            </span></span
+          ></span
+        >
+        <span
+          ><span><span>Profile</span></span></span
+        >:
+        <span
+          ><span><span>{0}</span></span></span
+        >
+
+          Original KB Article 2108
+      </div>
+    </article>
+  </body>
+</html>

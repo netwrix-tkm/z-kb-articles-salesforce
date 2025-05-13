@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to create real-time alerts</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9btCAC" />
+    <meta name="Id" content="ka04u000000HcUeAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1387" />
+    <meta name="ArticleNumber" content="000003551" />
+    <meta
+      name="description"
+      content="Unable to create real-time alerts specified string parameter empty object definitions"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The first time you create a real-time alert, you see the following errors:
+        <img
+          src="kA00g000000H9btCAC_a86bf2d9-af9a-40ac-89c3-b67d37b7870a.jpg"
+          alt="Error 1"
+          width="500"
+          height="165"
+        />
+
+        <img
+          src="kA00g000000H9btCAC_62b6d797-8039-483f-b304-eafade571c3e.jpg"
+          alt="Error 2"
+          width="500"
+          height="320"
+        />
+
+        <span>Also in the event viewer System log you can find events like this:</span>
+        <div class="table-wrap">
+          <table count-columns="2">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span><strong>Product:</strong></span>
+                </td>
+                <td colspan="1" rowspan="1"><span>Windows Operating System</span></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span><strong>ID:</strong></span>
+                </td>
+                <td colspan="1" rowspan="1"><span>10</span></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span><strong>Source:</strong></span>
+                </td>
+                <td colspan="1" rowspan="1"><span>Microsoft-Windows-Security-Kerberos</span></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span><strong>Version:</strong></span>
+                </td>
+                <td colspan="1" rowspan="1"><span>6.0</span></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span><strong>Symbolic Name:</strong></span>
+                </td>
+                <td colspan="1" rowspan="1"><span>KERBEVT_UDP_TIMEOUT</span></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span><strong>Message:</strong></span>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <span
+                    >The kerberos subsystem is having problems fetching tickets from your domain
+                    controller using the UDP network protocol. This is typically due to network
+                    problems. Please contact your system administrator.</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        By default, Kerberos uses connectionless UDP datagram packets. Depending on a variety of
+        factors including security identifier (SID) history and group membership, some accounts will
+        have larger Kerberos authentication packet sizes. Depending on the network hardware
+        configuration, these larger packets have to be fragmented when going through a network. The
+        problem is caused by fragmentation of these large UDP Kerberos packets. Because UDP is a
+        connectionless protocol, fragmented UDP packets will be dropped if they arrive at the
+        destination out of order.
+
+        <hr />
+
+        <span
+          >According to the following
+          <a
+            href="http://technet.microsoft.com/en-us/library/cc733891%28v=ws.10%29.aspx"
+            target="_blank"
+            >Microsoft TechNet Article</a
+          >, please force Kerberos to use the TCP instead of the UDP network protocol</span
+        >, because TCP is connection oriented, it is a more reliable means of transport across the
+        network. Even if the packets are dropped, the server will re-request the missing data
+        packet. To do this, follow these steps:
+        <ol>
+          <li>Start Registry Editor.</li>
+          <li>
+            Locate and then click the following registry subkey:
+            <div class="indent">
+              <div class="reg_path">
+                HKEY_LOCAL_MACHINESystemCurrentControlSetControlLsa KerberosParameters
+              </div>
+            </div>
+            <b>Note</b> If the <strong class="uiterm">Parameters</strong> key does not exist, create
+            it now.
+          </li>
+          <li>
+            On the <strong class="uiterm">Edit</strong> menu, point to
+            <strong class="uiterm">New</strong>, and then click
+            <strong class="uiterm">DWORD Value</strong>.
+          </li>
+          <li>Type <span class="userInput">MaxPacketSize</span>, and then press ENTER.</li>
+          <li>
+            Double-click <strong class="uiterm">MaxPacketSize</strong>, type
+            <span class="userInput">1</span> in the <strong class="uiterm">Value data</strong> box,
+            click to select the <strong class="uiterm">Decimal</strong> option, and then click OK.
+          </li>
+          <li>Quit Registry Editor.</li>
+          <li>Restart your computer.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

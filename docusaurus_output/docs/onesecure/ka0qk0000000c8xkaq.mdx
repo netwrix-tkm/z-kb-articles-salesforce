@@ -1,0 +1,278 @@
+---
+id: "ka0qk0000000c8xkaq"
+title: "1Secure − Escalation to R&D"
+description: "1Secure − Escalation to R&D"
+sidebar_position: 1
+last_update: "2025-05-13"
+---
+
+> **NOTE:** Return to the main workflow page via this link: [1Secure Troubleshooting Workflow](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html). 
+> 
+> Return to the previous page via this link: [1Secure − Unsuccessful Data Collection](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html). 
+
+## Overview
+
+This article covers the data to include in the escalated ticket for the 1Secure R&D team. It lists the locations for service-specific data in the Working Folder, error-specific data in the Working Folder, log levels, and corresponding services. 
+
+## 1\. Service-specific data required
+
+Four system services represent the 1Secure agent. Refer to the following table for locations of their data in the Working Folder: 
+
+**Agent part**
+
+| 
+
+**Target service name**
+
+| 
+
+**Related data in the Working Folder**  
+`%ProgramData%\Netwrix Cloud Agent`  
+  
+---|---|---  
+  
+**Common infrastructure**
+
+| 
+
+`CloudAgentCoreSvc`
+
+| 
+
+`\AgentCore\*`
+
+`\Logs\CloudAgentCoreSvc\*`  
+  
+**Active Directory Activity**
+
+| 
+
+`AgentDataCollectionCoreSvc`
+
+| 
+
+`\Logs\ActiveDirectory\*`
+
+`\ShortTerm\AD Changes\STA\*`
+
+`\Logs\DataCollectionCore\AgentDataCollectionCoreSvc\*`
+
+`\Logs\Archive\ActiveDirectory\*`  
+  
+**Active Directory Logons**
+
+| 
+
+`NetwrixCloudNLASvc`
+
+| 
+
+`\Logs\DataCollectionCore\NetwrixCloudNLASvc\*`
+
+`\NLA\Data\*`
+
+`\Logs\Archive\ DataCollectionCore\NetwrixCloudNLASvc\*`  
+  
+**File Server Activity**
+
+| 
+
+`NetwrixCloudFSASvc`
+
+| 
+
+`\Logs\DataCollectionCore\NetwrixCloudFSASvc\*`
+
+`\FileStorageAuditor\Data\*`
+
+`\Logs\Archive\DataCollectionCore\NetwrixCloudFSASvc\*`  
+  
+## 2\. Issue-specific data required
+
+Refer to the following table for data required to be provided in the escalation tickets depending on the issue: 
+
+> **IMPORTANT:** Make note of additionally requested files. 
+
+**Issue**
+
+| 
+
+**Required data from`%ProgramData%\Netwrix Cloud Agent` and/or event logs**  
+  
+---|---  
+  
+**All types of issues**
+
+| 
+
+`\AgentCore\ConfigServer\Configuration.xml`  
+  
+**Agent authentication/connection issue**
+
+| 
+
+`\Logs\CloudAgentCoreSvc\*`  
+  
+**Data collection status is Completed  
+Activities are stuck in the Cache folder**
+
+| 
+
+`\NAProcessor\Cache\*  
+\Logs\CloudAgentCoreSvc\*`  
+  
+**Risk counters issue**
+
+| 
+
+`\AgentCore\MetricsStorage\*  
+\Logs\CloudAgentCoreSvc\*`  
+  
+**ADA connector  
+Data collection status is not Completed**
+
+| 
+
+`\AgentCore\ConfigServer\Status.xml  
+\Logs\CloudAgentCoreSvc\*  
+\Logs\ActiveDirectory\*  
+Netwrix Cloud Agent event log`  
+May additionally be requested by R&D:  
+`\ShortTerm\AD Changes\STA\*  
+\Logs\DataCollectionCore\AgentDataCollectionCoreSvc\*  
+\Logs\Archive\ActiveDirectory\* `  
+  
+**NLA connector  
+Data collection status is not Completed**
+
+| 
+
+`\AgentCore\ConfigServer\Status.xml  
+\Logs\CloudAgentCoreSvc\*  
+\Logs\DataCollectionCore\NetwrixCloudNLASvc\*  
+Netwrix Cloud Agent event log`  
+May additionally be requested by R&D:  
+`\NLA\Data\*  
+\Logs\Archive\DataCollectionCore\NetwrixCloudNLASvc\*`  
+  
+**FSA connector  
+Data collection status is not Completed**
+
+| 
+
+`\AgentCore\ConfigServer\Status.xml  
+\Logs\CloudAgentCoreSvc\*  
+\Logs\DataCollectionCore\NetwrixCloudFSASvc\*  
+Netwrix Cloud Agent event log`  
+May additionally be requested by R&D:  
+`\FileStorageAuditor\Data\*  
+\Logs\Archive\DataCollectionCore\NetwrixCloudFSASvc\*`  
+  
+## 3\. Raising log level
+
+The default log level is `INFO`. Messages logged at this level are optimized to troubleshoot the basic issues. You can enable other log levels—these are `DBG`, `DBG2`, `DBG3` (i.e., from less verbose to more verbose). Changing the required log level may be requested by the R&D team to get additional information. Refer to the following steps to change the log level: 
+
+  1. Stop the target service. See the Table 3.
+
+  2. Edit the `MaxSeverity` setting in the corresponding file. See the Table 4\. 
+
+  3. Start the target service.
+
+**Agent part**
+
+| 
+
+**Target service name**
+
+| 
+
+**Service display name**  
+  
+---|---|---  
+  
+**Core infrastructure**
+
+| 
+
+`CloudAgentCoreSvc`
+
+| 
+
+Netwrix Cloud Agent Core Service  
+  
+**Active Directory Activity**
+
+| 
+
+`AgentDataCollectionCoreSvc`
+
+| 
+
+Netwrix Cloud Agent Data Collection Service  
+  
+**Active Directory Logons**
+
+| 
+
+`NetwrixCloudNLASvc`
+
+| 
+
+Netwrix Cloud Logon Activity Audit Service  
+  
+**File Server Activity**
+
+| 
+
+`NetwrixCloudFSASvc`
+
+| 
+
+Netwrix Cloud File Storage Audit Service  
+  
+Refer to the following locations of `.ini` files used to change the log level: 
+
+**Agent part**
+
+| 
+
+**File location in`C:\Program Files\Netwrix Cloud Agent`**  
+  
+---|---  
+  
+**Core infrastructure**
+
+| 
+
+`\Agent Core\GlobalSettings.ini`  
+  
+**Active Directory Activity**
+
+| 
+
+`\Active Directory Auditing\GlobalSettings.ini`  
+  
+**Task manager for Active Directory Activity**
+
+| 
+
+`\Data Collection Core\GlobalSettings.ini`  
+  
+**Active Directory Logons**
+
+| 
+
+`\Logon Activity Auditing\GlobalSettings.ini`  
+  
+**File Server Activity**
+
+| 
+
+`\File Storage Auditing\GlobalSettings.ini`  
+  
+## Related articles
+
+  * [1Secure Troubleshooting Workflow](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html)
+
+  * [1Secure − Unsuccessful Data Collection](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html)
+

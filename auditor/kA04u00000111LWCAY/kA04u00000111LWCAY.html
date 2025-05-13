@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could Not Load System.Net.Http in Exchange Online Monitoring Plan</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111LWCAY" />
+    <meta name="Id" content="ka04u00000118EXAAY" />
+    <meta name="LastPublishedDate" content="2023-10-16T11:26:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-17T14:52:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-16T11:26:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8857" />
+    <meta name="ArticleNumber" content="000008857" />
+    <meta name="description" content="Could Not Update" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for your Exchange Online monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Source:Office 365 Audit Service
+Event ID:2002
+Description:Monitoring Plan: %monitoring_plan_name%
+The following error has occurred while processing '%item_name%':   
+Cannot execute the PowerShell command. Error:
+Could not load file or assembly 'System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies.
+The system cannot find the file specified.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The .NET Framework version installed in your environment does not comply with software
+            requirements for Netwrix Auditor. Refer to the following article for additional
+            information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Software.htm"
+              target="_self"
+              >Software Requirements ⸱ v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Update the .NET Framework version in both the Auditor server and affected client. For
+            the offline .NET Framework v4.8.1 installer, visit
+            <a
+              href="https://dotnet.microsoft.com/en-us/download/dotnet-framework/net481"
+              target="_blank"
+              >Download .NET Framework 4.8.1 ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Software.htm"
+              target="_self"
+              >Software Requirements ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://dotnet.microsoft.com/en-us/download/dotnet-framework/net481"
+              target="_blank"
+              >Download .NET Framework 4.8.1 ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tracing Was Disabled in SQL Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YKCA0" />
+    <meta name="Id" content="ka0Qk0000000uyHIAQ" />
+    <meta name="LastPublishedDate" content="2023-12-05T12:56:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-08T16:45:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1180" />
+    <meta name="ArticleNumber" content="000003335" />
+    <meta
+      name="description"
+      content="A SQL Server Change Reporter report shows a warning regarding incorrect data due to tracing being disabled on the SQL server."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Reports and Activity Summaries return the <strong>System</strong> value in the
+                <strong>Who</strong> field.
+              </p>
+            </li>
+            <li>
+              <p>
+                Activity Summaries and Health Log for the SQL Server monitoring plan contain the
+                following errors:
+              </p>
+
+              <pre class="has-inner-focus">
+Tracing was disabled on the %SQL_Server_name% server.
+As a result, SQL Server logon activity data may be lost.
+SQL Server change reports may show incorrect data in the 'Who' and 'When' fields.</pre
+              >
+
+              <pre class="has-inner-focus">
+Tracing is required for successful change and logon activity auditing, and it has been automatically enabled.</pre
+              >
+
+              <pre class="has-inner-focus">
+The Who Changed and When Changed fields in the change report may show incorrect data
+because tracing was disabled on the %SQL_Server_name% during report generation. 
+Tracing is required for the change reporting process
+and it has been automatically enabled for future reports.</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                If logged once upon the first data collection, Netwrix Auditor automatically
+                detected the default SQL Server log path and enabled the tracing via this path. This
+                is a standard notification sent after the first data collection. These errors can be
+                ignored.
+              </p>
+            </li>
+            <li>
+              <p>
+                If logged repeatedly upon each data collection, SQL Server is misconfigured as it
+                does not return the default SQL server log path. Netwrix Auditor cannot enable the
+                audit tracing.
+              </p>
+            </li>
+            <li>
+              <p>
+                If logged repeatedly upon every SQL server restart, SQL Server tracing stops on
+                every reboot.
+              </p>
+            </li>
+            <li>
+              <p>
+                If logged every day, the antivirus exclusions in your environment may be
+                misconfigured.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <h4 id="resolution_1_−_include_the_traces_folder_to_av_exclusions">
+          Resolution 1 − Include the traces folder to AV exclusions
+        </h4>
+
+        <div>
+          <p>
+            Add the folder containing traces to exclusions of your antivirus suite. Refer to the
+            following default path for traces storage:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">C:\Program Files\Microsoft SQL Server\MSSQL%V%.MSSQLSERVER\MSSQL\Log</code></pre>
+
+          <p>
+            Learn more in
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/security/antivirus-and-sql-server"
+              target="_blank"
+              >Configure antivirus software to work with SQL Server ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="resolution_2_−_specify_the_default_path_to_sql_server_trace_logs">
+          Resolution 2 − Specify the default path to SQL Server trace logs
+        </h4>
+
+        <div>
+          <p>Refer to the following steps to specify the default path to SQL Server trace logs:</p>
+
+          <ul>
+            <li>
+              <p>
+                Locate the <code>pathtotracelogs.txt</code> file in
+                %Netwrix_Auditor_installation_folder%\SQL Server Auditing. Refer to the following
+                default path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\SQL Server Auditing</code></pre>
+            </li>
+            <li>
+              <p>
+                Specify the UNC path to your SQL Server instance following the reference example:
+              </p>
+
+              <pre class="has-inner-focus">SQLSRV01\MSSQL2016|C:\Logs\SQL trace logs\</pre>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>If you would like to specify trace logs locations
+              for multiple instances of one SQL server, make sure the specified UNC paths are unique
+              across these instances.
+            </p>
+          </blockquote>
+        </div>
+
+        <h4 id="resolution_3_−_manually_enable_sql_tracing">
+          Resolution 3 − Manually enable SQL tracing
+        </h4>
+
+        <div>
+          <p>Refer to the following prerequisites to comply with:</p>
+
+          <ul>
+            <li>
+              <p>The user must be a member of the Domain Admins group.</p>
+            </li>
+            <li>
+              <p>The SQL Server instance stores logs in the default path:</p>
+
+              <pre class="has-inner-focus">%Program Files%\Microsoft SQL Server\MSSQL\Log</pre>
+
+              <p>To verify the path, refer to the following steps:</p>
+
+              <ul>
+                <li>
+                  <p>Launch <strong>SQL Server Management Studio</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Right-click the server in <strong>Object Explorer</strong>, and select
+                    <strong>Properties</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select <strong>Database Settings</strong>, and review the
+                    <strong>Log</strong> location in the
+                    <strong>Database default locations</strong> section.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>In case the <strong>Log</strong> path in your
+              SQL Server instance differs from
+              <code>%Program Files%\Microsoft SQL Server\MSSQL\Log</code>, edit the
+              <code>sqlcr_sp.sql</code> file. Change the path stated in the
+              <code>SET @pathtolog =</code> line to the <strong>Log</strong> path before running the
+              script.
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <p>Refer to the following steps to enable SQL tracing:</p>
+
+          <ol>
+            <li>
+              <p>
+                In your Netwrix Auditor server, navigate to
+                <code>C:\Program Files(x86)\Netwrix Auditor\SQL Server Auditing</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate the <code>sqlcr_sp.sql</code> and <code>sqlcr_startup.sql</code> script
+                files.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>In case the <strong>Log</strong> path in
+                  your SQL Server instance differs from
+                  <code>%Program Files%\Microsoft SQL Server\MSSQL\Log</code>, edit the
+                  <code>sqlcr_sp.sql</code> file. Change the path stated in the
+                  <code>SET @pathtolog =</code> line to the <strong>Log</strong> path before running
+                  the script.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Connect to the affected SQL server.</p>
+            </li>
+            <li>
+              <p>
+                Run the <code>sqlcr_sp.sql</code> script file in the affected server to store a
+                procedure with special settings.
+              </p>
+            </li>
+            <li>
+              <p>
+                Run the <code>sqlcr_startup.sql</code> script file in the affected server to create
+                a special stored procedure for SQL server reboot instances.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once completed, the special tracing settings will be enabled automatically each time
+                your SQL server restarts.
+              </p>
+            </li>
+            <li>
+              <p>
+                Wait for the next data collection or launch it manually. In the main Netwrix Auditor
+                screen, select <strong>Monitoring Plans</strong> &gt; select your SQL monitoring
+                plan and click <strong>Edit</strong> &gt; click <strong>Update</strong> in the right
+                pane.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/security/antivirus-and-sql-server"
+              target="_blank"
+              >Configure antivirus software to work with SQL Server ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Configure the FAST Cloud Integration with Proxy Internet Settings</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JfVCAU" />
+    <meta name="Id" content="ka0Qk000000D34vIAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-31T15:08:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:59:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8295" />
+    <meta name="ArticleNumber" content="000008295" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <div>
+          <p>
+            If you have set up a proxy internet connection on your Change Tracker Server and you
+            find that FAST Cloud is not working as expected, follow the instructions below to
+            configure proxy settings for the IIS processes.
+          </p>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <div>
+          <ol>
+            <li>
+              <p>Open <strong>Windows Control Panel</strong>.</p>
+            </li>
+            <li>
+              <p>Choose <strong>System</strong>.</p>
+            </li>
+            <li>
+              <p>Choose <strong>Advanced system settings</strong>.</p>
+            </li>
+            <li>
+              <p>On the Advanced tab, click <strong>Environment Variables</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Click <strong>New</strong> to create a new environment variable under the
+                <strong>System Variables</strong> heading.
+              </p>
+            </li>
+            <li>
+              <p>Enter Variable Name: <strong>ALL_PROXY</strong>.</p>
+            </li>
+            <li>
+              <p>Enter Variable Value: <code>http://IPADDRESS:PORT</code>.</p>
+              <blockquote>
+                <p>
+                  <span class="Note"
+                    ><strong>NOTE:</strong> This should be the IP and port of the proxy
+                    server.</span
+                  >
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Select <strong>OK</strong>.</p>
+            </li>
+            <li>
+              <p>
+                After creating the environment variable, click <strong>OK</strong> to apply the
+                changes.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the environment variable is configured, restart the Change Tracker server. The
+                FAST Cloud should now function as expected.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JfHCAU.html"
+                  target="_blank"
+                  >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                  returned an error: (403) Forbidden.)"</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JX7CAM.html"
+                  target="_blank"
+                  >The NNT FAST™ Cloud Usage Considerations</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

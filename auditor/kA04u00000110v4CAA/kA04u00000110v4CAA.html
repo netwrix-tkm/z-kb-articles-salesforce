@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rollback for Attribute Has Failed Error in Object Restore for Active Directory</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110v4CAA" />
+    <meta name="Id" content="ka04u00000117eoAAA" />
+    <meta name="LastPublishedDate" content="2023-09-07T12:13:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T12:13:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-24T08:27:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8681" />
+    <meta name="ArticleNumber" content="000008681" />
+    <meta
+      name="description"
+      content="This article contains resolution for &#34;The rollback for the attribute *** to *** has failed.&#34; error."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            An attribute was collected in a snapshot and is visible in reports after it has been
+            removed. When trying to restore an attribute or a change via Netwrix Auditor Object
+            Restore, the following error is prompted:
+          </p>
+
+          <pre class="has-inner-focus">
+The rollback for the attribute %attribute% of %user% from %state% to %state% has failed</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Insufficient permissions for the account used to run Netwrix Auditor Object Restore.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Object Restore for Active Directory tool is unable to restore specific object
+                attributes.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Enabled User Account Control (UAC) option causes errors when restoring Active
+                Directory objects with the tool.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The account used to run the Netwrix Auditor Object Restore tool must be a member of
+                the Domain Administrators user group and have permissions to read the Deleted
+                Objects container. Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/ActiveDirectory/Permissions.htm#Grant"
+                  target="_blank"
+                  >Permissions for AD Auditing: Grant Permissions for 'Deleted Objects' Container ⸱
+                  v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Particular AD object attributes cannot be restored with the tool. You can review the
+                <strong>omitproplist_rw.txt</strong> file to see the list of object types and
+                attributes excluded from the list of changes available for roll back. Refer to the
+                following default path to find the .txt file:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\Active Directory Auditing</code></pre>
+
+              <p>
+                Alternatively, the file will be found in the Auditor installation folder specified
+                during the installation process. Refer to the path
+                <code
+                  >%Netwrix_Auditor_installation folder%\Netwrix Auditor\Active Directory
+                  Auditing</code
+                >.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If you would like specific objects and (or)
+                  attributes to become restorable after deletion, either comment the line using the
+                  <code>#</code> symbol in the beginning of the line, or just delete the required
+                  line.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Disable User Account Control (UAC), and restart the Object Restore for Active
+                Directory tool. Learn more on how to disable UAC in
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/disable-user-account-control"
+                  target="_blank"
+                  >How to disable User Account Control (UAC) on Windows Server ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="list_of_attributes_unavailable_for_a_roll_back_for_a_user">
+          List of attributes unavailable for a roll back for a user
+        </h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>user.badPwdCount</p>
+            </li>
+            <li>
+              <p>user.objectCategory</p>
+            </li>
+            <li>
+              <p>user.lastLogoff</p>
+            </li>
+            <li>
+              <p>user.sAMAccountType</p>
+            </li>
+            <li>
+              <p>user.badPasswordTime</p>
+            </li>
+            <li>
+              <p>user.logonCount</p>
+            </li>
+            <li>
+              <p>user.cn</p>
+            </li>
+            <li>
+              <p>user.lastLogon</p>
+            </li>
+            <li>
+              <p>user.pwdLastSet</p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/ActiveDirectory/Permissions.htm#Grant"
+              target="_blank"
+              >Permissions for AD Auditing: Grant Permissions for 'Deleted Objects' Container ⸱
+              v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/windows-security/disable-user-account-control"
+              target="_blank"
+              >How to disable User Account Control (UAC) on Windows Server ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

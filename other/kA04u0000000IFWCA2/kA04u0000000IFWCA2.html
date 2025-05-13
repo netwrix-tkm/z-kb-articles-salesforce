@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SbPAM 3.0sp1 CU2</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IFWCA2" />
+    <meta name="Id" content="ka04u000000HciaAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:11:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:11:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6347" />
+    <meta name="ArticleNumber" content="000006347" />
+    <meta name="description" content="360012020272" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary:</strong></p>
+        <p>This CU addresses multiple issues:</p>
+        <p>
+          LAPS activities are not using the Administrator password and RDP sessions will not
+          connect. Post session logoff action are not logging off a connected Administrator.
+        </p>
+        <p>Users are not getting removed from groups post session.</p>
+        <p>
+          DUO SAML authentication is not able to be configured. When looking in the logs there is an
+          error about a bad date format.
+        </p>
+        <p>
+          Adding &gt; 100 resources to an access policy causes the Session wizard to load for about
+          a minute before letting the user select the activity.
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Kevin Horvatin</p>
+        <p> </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>3.0.6058.0</p>
+        <p> </p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SbPAM</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>3.0.6073.0</p>
+        <p> </p>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>Issue:</strong></p>
+        <p>
+          <strong
+            >1089 - Memory spike when using manually managed user with website activity</strong
+          >
+        </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <div class="table-wrap">
+          <table count-columns="2" width="630">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>1089</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>Memory spike when using manually managed user with website activity</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>1099</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>LAPS RDP sessions fail to connect to host</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>1101</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>Logoff post session is not happening for LAPS sessions.</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>56004/1098</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>DUO SAML is not working</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>875</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>Adding 25 users to Access Policy in single edit causes performance issues</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>1122</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>Users not getting removed from groups post session</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>1068</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>
+                    Performance issues with Session Wizard with policies with many resources, users
+                    or activities
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="96">
+                  <p>1123</p>
+                </td>
+                <td colspan="1" rowspan="1" width="534">
+                  <p>
+                    Post session cleanup of activity token user profiles and user records is failing
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong> </strong></p>
+        <p><strong>Instructions:</strong></p>
+        <p><strong>Download Zip file to SbPAM Server.</strong></p>
+        <p><strong>Extract all files.</strong></p>
+        <p><strong>Run Sb_Setup.exe.</strong></p>
+        <p>
+          If remote action services / proxies have been deployed, copy the installers to remote
+          servers and update those components.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

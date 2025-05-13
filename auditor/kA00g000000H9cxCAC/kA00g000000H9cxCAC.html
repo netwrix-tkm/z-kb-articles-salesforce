@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1240 in Health Log</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cxCAC" />
+    <meta name="Id" content="ka0Qk0000001AzpIAE" />
+    <meta name="LastPublishedDate" content="2023-12-28T14:38:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T14:38:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2445" />
+    <meta name="ArticleNumber" content="000003617" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint issues caused by inaccessible/locked Site Collections."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1240 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Unable to get site collection configuration to site collection %site_collection%</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The web application hosting the target site collection was granted insufficient
+                permissions.
+              </p>
+            </li>
+            <li>
+              <p>The audited site collection status is <strong>No Access</strong>.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Review the resolution steps for the corresponding error:</p>
+
+          <ul>
+            <li>
+              <p>
+                In SharePoint Central Administration, navigate to
+                <strong>Web Applications</strong> &gt; <strong>%affected_application%</strong> &gt;
+                <strong>User Permissions</strong>, and verify the security settings. The minimum
+                required permissions are <strong>Manage Web Site</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In SharePoint Central Administration, navigate to
+                <strong>Application Management</strong> &gt;
+                <strong>Configure Quotas and Locks</strong> &gt;
+                <strong>%affected_site_collection%</strong>, and change the status to
+                <strong>Not locked</strong>.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            Learn more on management of the SharePoint site lock status via PowerShell in
+            <a
+              href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+              target="_blank"
+              >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status for
+              Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+                  target="_blank"
+                  >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status
+                  for Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

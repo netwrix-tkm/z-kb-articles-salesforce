@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot Retrieve Audit Settings in Audit Configuration Assistant</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001114QCAQ" />
+    <meta name="Id" content="ka04u00000117HQAAY" />
+    <meta name="LastPublishedDate" content="2023-08-21T14:12:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-21T14:12:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-21T14:12:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8753" />
+    <meta name="ArticleNumber" content="000008753" />
+    <meta
+      name="description"
+      content="Cannot Retrieve Audit Settings in Audit Configuration Assistant"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            During the assessment via Netwrix Auditor Audit Configuration Assistant you've
+            encountered one of the following errors:
+          </p>
+
+          <pre class="has-inner-focus">
+Cannot retrieve audit settings for these Domain Controllers:
+%DC_name% 
+Could not connect to a remote registry (0x80070005 Access is denied)</pre
+          >
+
+          <pre class="has-inner-focus">
+Cannot retrieve audit settings. Make sure that current user account has permissions required to access SACL configuration.</pre
+          >
+
+          <pre class="has-inner-focus">
+Cannot retrieve admin audit logging settings. Cannot execute the PowerShell command.
+[FailureCategory=AuthZ-CmdletAccessDeniedException]
+The user %user% isn't assigned to any management roles.</pre
+          >
+
+          <div>
+            <img
+              height="388"
+              src="kA04u000001114QCAQ_0de80e80-0013-46a1-8ca6-cb85fe111b2f.png"
+              width="750"
+            />
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The user is not included in any or one of the following groups: Domain Admins,
+            Enterprise Admins, Organization Management of Records Management (in Exchange
+            organization).
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Configure the user to be used in the Audit Configuration Assistant utility. For
+            additional information on user permissions required for Audit Configuration Assistant
+            utility, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Tools/AuditConfigurationAssistant.htm"
+              target="_blank"
+              >Audit Configuration Assistant</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Access Is Denied Error in Event Log Manager Health Log</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000001118mCAA" />
+    <meta name="Id" content="ka04u00000117VeAAI" />
+    <meta name="LastPublishedDate" content="2023-08-31T12:07:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-31T12:31:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-31T12:07:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8778" />
+    <meta name="ArticleNumber" content="000008778" />
+    <meta
+      name="description"
+      content="Access Is Denied in Inactive User Tracker, Password Expiration Notifier, or Event Log Manager Health Log"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Netwrix Auditor Health Log for your Event Log Manager
+            monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID:2002
+Computer: %computer_name%
+User:N/A
+Description:Monitoring plan: %Event_Log_Manager_monitoring_plan_name% 
+The following error has occurred while processing '%computer_name%':   
+Unable to open the Event Log Compression Service.
+Error details: Access is denied.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The data collection account used does not have sufficient permissions to collect
+                data.
+              </p>
+            </li>
+            <li>
+              <p>The data collection account password is incorrect.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Configure the permissions for the data collection account used in the Event Log
+                Manager. For additional information, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Permissions.htm#permissions_for_event_log_auditing"
+                  target="_self"
+                  >Windows Server — Permissions for Windows Server Auditing</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Configure the password for your data collection account in Event Log Manager. Refer
+                to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110m2CAA.html"
+                  target="_self"
+                  >Failed Logon Attempts after Recent Service Account Password Change</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Permissions.htm#permissions_for_event_log_auditing"
+              target="_self"
+              >Windows Server — Permissions for Windows Server Auditing — 10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110m2CAA.html"
+              target="_self"
+              >Failed Logon Attempts after Recent Service Account Password Change</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

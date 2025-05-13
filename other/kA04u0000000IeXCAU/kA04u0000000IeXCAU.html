@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AIC showing folders named something different (environmental causes)</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IeXCAU" />
+    <meta name="Id" content="ka04u000000HcsOAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:45:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:45:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7390" />
+    <meta name="ArticleNumber" content="000007390" />
+    <meta name="description" content="360008944451" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Administrator has
+          deleted a disabled user's folders from a share on a file server, however when accessing
+          the share resource from the AIC, those folder are still visible even after a full rescan
+          and bulk import. FSAA scan job and bulk import shows no errors. Running below hotfixes did
+          not help resolve, either.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> In this case even
+          though the customer deleted a disabled users folder, there was still a duplicate folder of
+          the same object name that was "hidden" in the same root directory on the share. It was
+          hidden in the fact that instead of displaying the correct folder name in CIFS, it showed
+          as a folder called "Documents".  When we right clicked&gt;Properties and went to the
+          security tab we could see that the "Object Name" was in fact named the same as the
+          original folder structure. So, AIC was able to pick up on this and correctly display it as
+          such.<br /> <br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> A good way to
+          see if CIFS is actually reporting the correct name of the folders displayed as either
+          "Documents" or "public Documents" is to bring up file explorer in Windows and go to the
+          share that contains those folders, choose another column header by right clicking on the
+          columns and choosing .More, then locate and select the Filename attribute. Once you do
+          this you will now see the true name of the folder. Issue seems to stem from something that
+          Microsoft is doing or something that is CIFS related. In any case, it doesn't appear that
+          StealthAUDIT is to blame.<br /> <br /><img
+            src="kA04u0000000IeXCAU_aeebb347-4396-4c75-b051-93e3c3faee44.png"
+            alt="mceclip0.png"
+          /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong> AIC<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          AIC - Entitlement Review;AIC - Remediate Open Shares;AIC - Reporter;SA - DC - FSAA -
+          Activity;SA - DC - FSAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          Windows File Servers (Likely not windows OS specific). Not Reproducible<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2380
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

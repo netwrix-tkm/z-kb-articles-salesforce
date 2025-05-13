@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>UAVR Core Service not Responding</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9agCAC" />
+    <meta name="Id" content="ka04u00000117eLAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T11:24:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T11:24:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1318" />
+    <meta name="ArticleNumber" content="000003476" />
+    <meta
+      name="description"
+      content="Agent for User Activity Video Recording shows status Not Responding after install. Agent not responding"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p><span>User Activity Video Recording Core Service shows the following status:</span></p>
+
+        <pre class="ckeditor_codeblock">
+ Not Responding after install
+</pre
+        >
+
+        <h2 id="cause">Cause</h2>
+
+        <p>
+          This issue is often caused by the ports being blocked by Windows Firewall or some other
+          software/hardware.
+        </p>
+
+        <h2 id="reolution">Reolution</h2>
+
+        <p>In order to troubleshoot the issue please perform the following steps:</p>
+
+        <ol>
+          <li>Disable Windows firewall on local and target servers</li>
+          <li>
+            Make sure that the following ports are opened on the local and target server:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/UserActivity/Ports.htm"
+              target="_blank"
+              >User Activity Protocols and Ports ⸱ v10.6</a
+            >
+          </li>
+          <li>
+            Make sure that the following services are started - <em>WMI, RPC, Remote Registry</em>
+          </li>
+          <li>
+            Try to connect to services remotely while logged in as the service account
+            (services.msc)
+            <ul>
+              <li>
+                This can be done by right opening <em>Services</em> and right clicking
+                <em>Services (Local) </em>then select "Connect to Another Computer"
+              </li>
+            </ul>
+          </li>
+          <li>
+            Try to re-install the agent on the target server; with the
+            <strong>UACoreSvcSetup.msi</strong> found in the install path on the Netwrix Host
+            (default path:
+            <code>C:\Program Files (x86)\Netwrix Auditor\User Activity Video Recording</code>
+          </li>
+        </ol>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

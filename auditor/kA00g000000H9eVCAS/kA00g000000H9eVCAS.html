@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hide and Disable Header and Footer in Password Expiration Notifier Emails</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eVCAS" />
+    <meta name="Id" content="ka04u00000117kDAAQ" />
+    <meta name="LastPublishedDate" content="2023-01-23T10:35:02.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-12T14:10:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4226" />
+    <meta name="ArticleNumber" content="000003713" />
+    <meta
+      name="description"
+      content="How to Hide the Header and Footer in Password Expiration Notifier Emails"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="scenario">Scenario</h2>
+
+        <p>
+          You'd like to remove the Netwrix header and footer from emails sent to users and managers.
+          By default, Password Expiration Notifier emails include a branded header and footer. Users
+          may get confused by the branding, or think the email sent by a third party is a phishing
+          attempt.
+        </p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>In some cases both header and footer reset
+            after your Netwrix Auditor instance had been upgraded to v10.6. For additional
+            information, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001116CCAQ.html"
+              target="_self"
+              >Password Expiration Notifier Email Header and Footer Reset After Upgrade</a
+            >.
+          </p>
+        </blockquote>
+
+        <ol>
+          <li>
+            <p>Open Registry Editor in the Netwrix Auditor Server host.</p>
+          </li>
+          <li>
+            <p>
+              Navigate to
+              <code
+                >HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\Password Expiration
+                Notifier</code
+              >.
+            </p>
+          </li>
+          <li>
+            <p>
+              Right-click the <strong>Password Expiration Notifier</strong> hive and click
+              <strong>New</strong>.
+            </p>
+          </li>
+          <li>
+            <p>Select <strong>DWORD (32-bit) Value</strong>.</p>
+
+            <div>
+              <img
+                height="366"
+                src="kA00g000000H9eVCAS_ff98edad-ab31-44b2-a198-22eac34c9d83.png"
+                width="750"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Name the key <strong>HideEmailAdditionalInfo</strong>.</p>
+          </li>
+          <li>
+            <p>Right-click the key and select <strong>Modify</strong>.</p>
+          </li>
+          <li>
+            <p>Set the value data to 1 Hexadecimal.</p>
+
+            <div>
+              <img
+                height="365"
+                src="kA00g000000H9eVCAS_4e0c24de-abba-4b42-ba72-0e40d7c25011.png"
+                width="749"
+              />
+            </div>
+          </li>
+          <li>
+            <p>The next round of emails will be sent without the header and footer.</p>
+          </li>
+        </ol>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If you'd like to re-enable the header and footer,
+            simply change the value data to <code>0</code>.
+          </p>
+        </blockquote>
+
+        <p>
+          To further customize the Password Expiration Notifier emails, refer to the following
+          article:
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9W8CAK.html"
+            target="_self"
+            >Customize Notifications and Reports in Password Expiration Notifier</a
+          >.
+        </p>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9W8CAK.html"
+              target="_self"
+              >Customize Notifications and Reports in Password Expiration Notifier</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001116CCAQ.html"
+              target="_self"
+              >Password Expiration Notifier Email Header and Footer Reset After Upgrade</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

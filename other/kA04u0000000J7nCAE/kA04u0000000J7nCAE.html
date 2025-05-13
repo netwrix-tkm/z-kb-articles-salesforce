@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SAM_4.1_010</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000J7nCAE"/><meta name="Id" content="ka04u000000Hd3HAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:48:31.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:14:35.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:48:31.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7600"/><meta name="ArticleNumber" content="000007600"/><meta name="description" content="360012124711"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> 1.	Sporadic disconnects from SAM agent and NETAPP
+2.	No Kerberos auth. events after applying MS updates for 2016 and 2019 Servers, released January 23, 2020</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <span><span><span><strong><span>Summary:</span></strong></span></span></span> 
+</p><ol><li>
+<span><span><span><i><span>Sporadic disconnects from SAM agent and NETAPP</span></i></span></span></span>
+</li><li><span><span><span><i><span>No Kerberos auth. events after applying MS updates for 2016 and 2019 Servers, released January 23, 2020</span></i></span></span></span></li></ol><span><span><span><strong><span>Behavior Before Fix:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span><i><span>Sporadic disconnects from netapp devices.</span></i></span></span></span>
+</li><li><span><span><span><strong><i><span><span>No Kerberos auth. events after applying MS updates for 2016 and 2019 Servers, released January 23, 2020</span></span></i></strong></span></span></span></li></ol><span><span><span><strong><span>Behavior After Fix:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span><i><span>Netapp should not disconnect anymore.</span></i></span></span></span>
+</li><li><span><span><span><i><span>Updated Active Directory monitor to support latest windows update changes.</span></i></span></span></span></li></ol><span><span><span><b>Changes Since Last Hotfix:</b></span></span></span> 
+<ul><li>
+<span><span><span><span>SFAM-3988: Force Kill Services if they can't be started or stopped (Installs, uninstalls, and upgrades)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-2940: Extend API Server to manipulate SI Agent policies</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4123: SFAM: SharePoint Activity Forward Compatability Broken -Unknown property ItemId</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4203: Implement Forward Compatibility in AD Json Parser</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4076: Update Installer shouldn't allow selecting current SI Agent</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4179: Investigate netapp new VS dependency issue</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3887: Unable to connect to SharePoint 2010</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4248: SharePoint - Show Warning if included sites fail to connect</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-1556: Nasuni - Auto Detect - Suppress Connection Error</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4225: AD deploy doesn't show RODC</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-2224: Update agent host name validation</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3825: Agent Validation: Cache and improve dns resolution</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4174: Agent logs errors about missing CEE (Remote CEE)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4236: Add New Host: Hide Operation Types from all NAS (except HNAS)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4273: Celerra Service Crashes when stopping (disable monitoring) (4.1)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4023: Install Button Should know to include AD Module</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4101: FPolicy fail with secured connection (pem file) ipv6</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4332: Console Crashes when using Install button after upgrading AD Agent fails</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3355: Unable add IPv6 address for syslog output</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3657: Unable to test syslog server with IPv6 address with port</span></span></span></span>
+</li><li><span><span><span><span>SFAM-3334: Default log file name contain invalid characters(ipv6 address)</span></span></span></span></li></ul><br/><span><span><span><strong><span>Submitted by: </span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>Kevin Duddy</span></span></span></span></span><br/><span><span><span><strong><span>Affected Versions:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>STEALTHbits Activity Monitor 4.1</span></span></span></span></span><br/><span><span><span><strong><span>Affected Module:</span></strong></span></span></span><br/><span><span><span class="MsoSubtleEmphasis"><span>Activity Monitor</span></span></span></span><br/><br/><span><span><span><strong><span>Dev Ticket:</span></strong></span></span></span><br/><span><span><span><i><span>SFAM-3987</span></i></span></span></span><br/><span><span><span><strong><span>Resolved in Version:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBActivityMonitorSetup.msi 4.1.0.356</span></span></span></span></span><br/><br/><span><span><span><strong><span>KB Type: </span></strong></span></span></span><br/><span><span><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span></span><br/><br/><span><span><span><strong><span>Modules Included:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBActivityMonitorSetup.msi 4.1.0.356</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBActivityMonitorSetup_unsigned.msi 4.1.0.356</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBTService.exe 1.5.0.575</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SI Version 6.1.0.237</span></span></span></span></span><br/><br/><span><span><span><b>YouTrack/Escalations</b></span></span></span> 
+<ul><li>
+<span><span><span><i><span>SFAM-3987 / 39092</span></i></span></span></span>
+</li><li><span><span><span><span>I-5979 / N/A</span></span></span></span></li></ul><br/><span><span><span><b>Customers</b></span></span></span> 
+<ul><li><span><span><span><strong><span><span>Qualcomm</span></span></strong></span></span></span></li></ul><br/><span><span><span><b>Cumulative List of fixes included since Service Pack:</b></span></span></span> 
+<ul><li>
+<span><span><span><span>SFAM-3434: SAM/Nasuni Error Collecting Events</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3765: SAM capture chgrp and chown on NETAPP</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3637: SFAM SBTService crashing Azure VM server</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3687: Unable to collect events from Windows 2012 R2 Servers</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3464: Human Readable Permission Changes (New Syslog Macro)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3534: Activity sync for ISILON is a week behind</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-2726: SFAM Falling Behind - Isilon</span></span></span></span>
+</li><li>
+<span><span><span><span>I-5693: 2019 Server Only | No LDAP events after applying 19-11 MS update (release: 11/12/19)</span></span></span></span>
+</li><li><span><span><span><span>SFAM-4039: collect logs interface: can't select if list is long and you scroll</span></span></span></span></li></ul><br/><span><span><span><strong><span>Instructions:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span><i><span>Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall previous version, msi will upgrade the monitor).</span></i></span></span></span>
+</li><li><span><span><span><i><span>Upgrade all agents.</span></i></span></span></span></li></ol><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> <span><span><span><strong><span>Instructions:</span></strong></span></span></span> 
+</p><ol><li>
+<span><span><span><i><span>Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall previous version, msi will upgrade the monitor).</span></i></span></span></span>
+</li><li><span><span><span><i><span>Upgrade all agents.</span></i></span></span></span></li></ol>
+<div>
+<br/><a href="https://downloads.stealthbits.com/access/files/SAMHotfixes/4.1/SAM_4.1_010.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAMHotfixes/4.1/SAM_4.1_010.zip</a>
+</div><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> STEALTHbits File Activity Monitor<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> File Activity Monitor - EMC/Celerra;File Activity Monitor - NetApp;File Activity Monitor - Windows<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> STEALTHbits Activity Monitor 4.1<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> SFAM-3987<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> SBActivityMonitorSetup.msi 4.1.0.356<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 2584<br/></p></div>
+</article></body></html>

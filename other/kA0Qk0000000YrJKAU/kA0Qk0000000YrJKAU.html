@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Configure Website Accessibility Using Server Hostname Only</title><meta name="label" content="skb"/><meta name="label" content="password_reset_manager"/><meta name="KnowledgeArticleId" content="kA0Qk0000000YrJKAU"/><meta name="Id" content="ka0Qk0000002mmvIAA"/><meta name="LastPublishedDate" content="2024-04-02T13:38:22.000+0000"/><meta name="LastModifiedDate" content="2024-04-02T13:38:22.000+0000"/><meta name="FirstPublishedDate" content="2024-03-29T16:19:14.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9108"/><meta name="ArticleNumber" content="000009108"/><meta name="description" content="How to Configure Website Accessibility Using Server Hostname Only"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How can you get Netwrix Password Reset to redirect a site to its hostname?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<p>Follow the steps below to configure Netwrix Password Reset to redirect a site to its hostname:</p>
+
+<ol><li>
+	<p>Open <b>IIS Manager</b>.</p>
+	</li><li>
+	<p>Select <b>Default web site</b> and click <b>Advanced Settings...</b> in the right pane.</p>
+
+	<p><img alt="User-added image" height="258" src="kA0Qk0000000YrJKAU_a6184efd-aa9d-4123-8ccf-6ba3d953f5fe.png" width="500"/></p>
+	</li><li>
+	<p>Change the <b>Application Pool</b> from <b>DefaultAppPool</b> to <b>Netwrix Password Reset</b>.</p>
+
+	<p><img alt="User-added image" src="kA0Qk0000000YrJKAU_b5988d9e-3800-403e-b503-a38face5b236.png"/></p>
+	</li><li>
+	<p>Change <b>Physical Path</b> from <b>%SystemDrive%\inetpub\wwwroot</b> to <b>%SystemDrive%\inetpub\wwwroot\pwreset</b>.</p>
+
+	<p><img alt="User-added image" src="kA0Qk0000000YrJKAU_a0ff2204-d102-4b0f-84b1-5107542f141d.png"/></p>
+	</li><li>
+	<p>Click <b>OK</b>, then double-click the <b>Default Document</b> icon in the middle pane.</p>
+
+	<p><img alt="User-added image" src="kA0Qk0000000YrJKAU_27d67788-50ef-44ff-8480-2e3b6fbb9104.png"/></p>
+	</li><li>
+	<p>Click <b>Add...</b> in the right pane, then enter <b>en_default.htm</b> and press <b>Enter</b>.</p>
+
+	<p><img alt="User-added image" height="191" src="kA0Qk0000000YrJKAU_d15cf92c-9407-414c-9fd6-0758dc1a1e65.png" width="500"/></p>
+	</li><li>
+	<p>Double-click <b>Handler Mappings</b> and select <b>ISAPI-dll</b>.</p>
+	</li><li>
+	<p>click <b>Edit Feature Permissions...</b> in the right pane.</p>
+
+	<p><img alt="User-added image" height="192" src="kA0Qk0000000YrJKAU_38e22591-9b8c-4a30-b7f2-8392189f3ec8.png" width="500"/></p>
+	</li><li>
+	<p>Check <b>Execute</b>, then <b>OK</b>.</p>
+	</li></ol>
+
+<p>Your default page when inputting Hostname or IP address should now be your Netwrix Password Reset site.</p>
+
+<p><img alt="User-added image" height="335" src="kA0Qk0000000YrJKAU_2749fd99-87e8-44e4-8811-3e8ce8a8b174.png" width="500"/></p>
+</div></div>
+</article></body></html>

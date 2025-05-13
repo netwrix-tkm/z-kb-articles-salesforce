@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Access to Administrative portal in non-domain DMZ</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bTCAS" />
+    <meta name="Id" content="ka04u00000116c9AAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:19:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1368" />
+    <meta name="ArticleNumber" content="000003525" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when there is no access to the Helpdesk or Admin portal using regular credential at non-domain DMZ deployment."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I installed Password Manager on a non-domain DMZ and cannot log to the Helpdesk or Admin
+        portal using regular credentials.
+
+        <hr />
+
+        The issue occurs because users are authenticated by the front-end server. Non-domain machine
+        has only local accounts and cannot use domain accounts.
+
+        <hr />
+
+        There are two ways of using domain accounts to authenticate the Admin or Help-Desk portals
+        installed on a non-domain DMZ: Option 1. Configure the Password Manager Web application as
+        follows:
+        <ol>
+          <li>Configure Internet Information Services (IIS) on your back-end server.</li>
+          <li>Install the Password Manager Web application on the back-end server</li>
+          <li>Remove the Help-Desk and Admin portals from the front-end server.</li>
+        </ol>
+        Option 2. Create new local accounts with the same credentials on both front-end and back-end
+        servers. The accounts must be assigned local administrators rights. Use these accounts to
+        log on the Admin or Help-Desk portals on a non-domain DMZ. When logging on, enter user names
+        without any domain prefix.
+      </div>
+    </article>
+  </body>
+</html>

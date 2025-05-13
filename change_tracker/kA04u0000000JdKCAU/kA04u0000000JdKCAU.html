@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Log Tracker - I Am Getting a "Correlation Delay" Advisory. What should I do?</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdKCAU" />
+    <meta name="Id" content="ka04u000000HdAeAAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8262" />
+    <meta name="ArticleNumber" content="000008262" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><br /></p>
+        <p>
+          This advisory indicates you are receiving data faster than you can correlate it, this may
+          be a temporary condition you can ignore or a pathological condition that will just get
+          worse unless you address it. Basically, this indication indicates an overload condition --
+          temporary or chronic.
+        </p>
+        <p><br /></p>
+        <p>
+          <u>Here are some recommendations:</u><br /><br />The fastest way to immediately increase
+          your capacity is to redirect certain messages to an "Aux" file, such as all
+          "security*4663" messages. This single change will probably increase your capacity by 20%
+          or more. Note that you do this via the "Messages &gt; Config &gt; FIlters" screen, and you
+          don't necessarily lose these messages permanently. (You can set "Archive Filtered Data" to
+          be "Yes" on the "Messages &gt; Config &gt; Parms" screen.) See screenshot 1 and screenshot
+          2 below for help:
+        </p>
+        <p><strong>Screenshot 1</strong></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              width="550"
+              src="kA04u0000000JdKCAU_5a8ef858-b08e-441c-8973-7c60d64dc4de.png"
+          /></span>
+        </p>
+        <p><strong>Screenshot 2</strong></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              width="550"
+              src="kA04u0000000JdKCAU_8c95bd1b-e623-41fd-ba61-4698be52651e.png" /></span
+          ><br /><br />Another good alternative is to make your correlation thread match patterns
+          more efficient., You need to know that the most time-consuming type of correlation rule is
+          something like "A or B or C or D) (i.e. a match pattern that is a series of "Orred" match
+          patterns.) Although these are still evaluated very fast, they begin to chew up a lot of
+          time because you are comparing each "Orred" component against all messages you receive,
+          scanning the message over and over again. This can burn up "Correlation" time.<br /><br />So
+          if you are sending messages at a very high rate, you can reduce correlation load
+          substantially by doing any of these things:
+        </p>
+        <ol>
+          <li>
+            <p>
+              Redirect boring messages to an "Aux" file. (Note that this does not necessarily mean
+              you are actually losing data since this data can be archived off.)
+            </p>
+          </li>
+          <li>
+            <p>
+              In your correlation thread, match the "Address Group", "Facility" and/or "Severity" of
+              the message (in addition to a "Match Expression") This reduces the correlation delay
+              by limiting the amount of data you have to pass through the correlation rules.
+            </p>
+          </li>
+          <li>
+            <p>
+              Convert your match pattern to something like this: "X and (A or B or C or D)" i.e.
+              find a common keyword that you can compare with as a first step in the correlation
+              rule.
+            </p>
+          </li>
+        </ol>
+        <p>
+          Item #3 above may require you to take a look at all your thread match expressions to see
+          how efficient they are, Note that you can see the load that is being used up for your
+          correlation threads using the "Audit Full Thread Configuration" link, found at the bottom
+          of the "Correlation &gt; Threads" screen. (See screenshot_3,gif)
+        </p>
+        <p><br /></p>
+        <p>For example, if you have a correlation thread match pattern such as this:</p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <p>
+              <em
+                >"security 4902" or "security 4904" or "security 4905" or "security 4906" or
+                "security 4907" or "security 4908" or "security 4912</em
+              >
+            </p>
+          </div>
+        </div>
+        <p>
+          You can make the above thread match expression MUCH more efficient by simply making the
+          thread match pattern like this:
+        </p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <p>
+              <em
+                >"security 49" and ("security 4902" or "security 4904" or "security 4905" or
+                "security 4906" or "security 4907" or "security 4908" or "security 4912")</em
+              >
+            </p>
+          </div>
+        </div>
+        <p><br /></p>
+        <p>
+          In the above case, we just bypass further testing of the message unless "security 49" is
+          present in the thread -- this saves us time. (If it the message does not have "securitty
+          49" in the message, there is no use evaluating the rule further.
+        </p>
+        <p>
+          If you further add a "Match facility" of "audit" (or whatever) that makes the correlation
+          rule work even faster!<br /><br />KEEP IN MIND that ALL MESSAGES are compared to ALL
+          CORRELATION THREADS. You can decrease "correlation delay" by either reducing the amount of
+          data you are passing through these threads (such as with an Aux file filter), or by making
+          the threads more efficient, or both.
+        </p>
+        <p><br /></p>
+        <h2 id="LogTracker-IAmGettinga">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8295" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8230" target="_blank"
+                >How to delete a device in Log Tracker</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8280" target="_blank"
+                >Change Tracker - How to Review Changes Made To The Console</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8275" target="_blank"
+                >Log Tracker - Types of Authentication</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8267" target="_blank">Log Tracker Tags Facility</a>
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKXV&amp;d=%2Fa%2F4u000000Lzmw%2Fa2HzIkat7Y4Lqh9omlpUJAouPZ1Aq54zCjhvl2m_Ss0&amp;asPdf=false"
+          target="_blank"
+          >Capture2.PNG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKXo&amp;d=%2Fa%2F4u000000Lzqf%2FMKDDcdSzm.3T9eS1kYubskclo9hntj5XapFAXjYp7_8&amp;asPdf=false"
+          target="_blank"
+          >Capture.PNG</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

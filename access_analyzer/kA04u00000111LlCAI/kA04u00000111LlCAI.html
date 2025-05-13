@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Improve Local File System Permission Scan Performance − Concurrent Scan Operations
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111LlCAI" />
+    <meta name="Id" content="ka0Qk0000001lmTIAQ" />
+    <meta name="LastPublishedDate" content="2024-01-24T07:26:55.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-12T06:13:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-16T14:15:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8858" />
+    <meta name="ArticleNumber" content="000008858" />
+    <meta
+      name="description"
+      content="How Many Connections Can Netwrix Enterprise Auditor   Make at the Same Time?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span
+              ><strong>IMPORTANT: </strong>R&amp;D approval is required to introduce any changes to
+              <code>Maxthreads</code> and <code>Maxfolderthreads</code> values.</span
+            >
+          </p>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The File System Access Audit scans take too long to complete; performing scans using
+            Applet and Proxy is not viable; increasing the Concurrent Thread property causes the
+            scan to fail.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            Netwrix Enterprise Auditor uses the conventional Windows file interface for scanning
+            purposes. In the default configuration, the system supports a maximum of 12 concurrent
+            scan operations. Learn more in
+            <a
+              href="https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/system-worker-threads"
+              target="_blank"
+              >System Worker Threads ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>The <code>MAXFOLDERTHREADS</code> value should
+            be less than the <code>MAXTHREADS</code> value.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            It is recommended to improve scan performance by making use of proxies. If adding new
+            windows hosts is not possible or otherwise undesirable, it is possible to adjust the
+            configuration of scans running on the Netwrix Enterprise Auditor host. The number of job
+            threads can be increased by modifying the XML of the FSAA Scan and adjusting the values
+            of <code>&lt;MaxThreads&gt;</code> and <code>&lt;MaxFolderThreads&gt;</code>.
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <code>MAXTHREADS</code> − the maximum number of worker threads doing things other
+                than folder enumeration (formatting data for SQL database, identifying security
+                descriptors, etc.).<br />
+                To minimize risks, this can be increased to 64. Start configuring this parameter
+                with a value equal to 32.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>MAXFOLDERTHREADS</code> − the maximum number of threads that can
+                simultaneously enumerate folders. It can be increased but can have a significant
+                impact on workload and memory usage, especially on target hosts with a slow disk.<br />
+                Start configuring this parameter with a value equal to 12.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            Both <code>MAXTHREADS</code> and <code>MAXFOLDERTHREADS</code> must be increased by the
+            same interval incrementally each time (increasing by 4 each time is the general
+            recommendation).
+          </p>
+        </div>
+
+        <h2 id="related_links">Related links</h2>
+
+        <ul>
+          <li>
+            <p>
+              <a
+                href="https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/system-worker-threads"
+                target="_blank"
+                >System Worker Threads ⸱ Microsoft 🡥</a
+              >
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

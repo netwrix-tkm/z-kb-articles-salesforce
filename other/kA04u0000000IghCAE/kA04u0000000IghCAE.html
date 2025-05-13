@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      What is the Least Privileged Access model for Auditing Secirity Event Logs on Domain
+      Controllers with SmartLOG?
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IghCAE" />
+    <meta name="Id" content="ka04u000000HctNAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6922" />
+    <meta name="ArticleNumber" content="000006922" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Least-privileged
+          SMARTLOG collection for Windows Event Viewer using network query mode and membership in
+          Event Log Readers.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> The StealthAUDIT user
+          does not wish to add the service account to the Domain Admin group and wants to use a
+          less-privilege model for SMARTLOG datacollector jobs.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> The Lockout
+          and Who Made The Change AD Report jobs, Domain Admin level privileges are not needed to
+          query Domain Controllers for events if the DCs are Windows Server 2008 or greater. Both
+          membership in the built-in <b>Event Log Readers</b> AD group:<br /><img
+            alt="User-added image"
+            src=""
+            width="500"
+            height="192"
+          /><br /> <br />and changing the collection method in the query to "Use network query" will
+          provide the level of access needed to read the Event Log:<br /><img
+            alt="User-added image"
+            src=""
+          /><br /> <br />This gives read access to all logs, not just System or Security. The
+          trade-off in configuring the collector to operate in network-query mode is that the
+          collection may take longer to complete vs applet mode. Permissions can be tightened
+          further by setting explicit SDDL permissions on individual logs using
+          <strong><span>wevtutil</span></strong> and the instructions linked in the Technet blog
+          entry below.<br /> <br /><b>For Windows 2003</b> least privilege here's a work-around by
+          creating a "CustomSD" registry entry for the Security log using SDDL.<br /><a
+            href="https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-non-administrators-permission-to-read-event-logs-windows-2003-and-windows-2008/"
+            target="_blank"
+            >https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-non-administrators-permission-to-read-event-logs-windows-2003-and-windows-2008/</a
+          ><br /> <br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - Smartlog EventLog<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1+<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2098<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

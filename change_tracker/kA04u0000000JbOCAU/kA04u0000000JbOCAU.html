@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Adding SSL Certificates to Log Tracker Server Web Interface</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JbOCAU" />
+    <meta name="Id" content="ka04u000000HdA8AAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:51:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8228" />
+    <meta name="ArticleNumber" content="000008228" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Log Tracker Server uses a "self-signed" certificate to authenticate the Log Tracker
+          Server, which may be suitable for a wide range of activities within your organization.
+          However, without taking special action (as discussed here) your browser will display a
+          warning message when the web server is accessed, which may be annoying or unacceptable for
+          some organizations.
+        </p>
+        <p>
+          To definitively remove all certificate errors that appear in browsers, you should purchase
+          a certificate from a "Certificate Authority" and install this certificate as discussed
+          below.
+        </p>
+        <p>
+          After installing the " Log Tracker Apache TLS" server on your platform and executing the
+          setup procedure, perform the following actions:
+        </p>
+        <ol>
+          <li>
+            Contact a "Certificate Authority" (CA) such as Comodo or DigiCert and indicate you would
+            like to purchase a web certificate for the Log Tracker Server platform. Note that this
+            is always a fee based service, and Log Tracker cannot do this for you (for security
+            reasons).
+          </li>
+          <li>
+            Review the Certificate Authorities instructions to you (if any.) The Certificate
+            Authority may ask for a CSR (Certificate Signing Request) file for the server. If they
+            ask for this item, send this file to them:
+          </li>
+        </ol>
+        <p />
+        <div class="">C:\Program Files (x86)\NNT Log Tracker Suite\apache-tls\ssl\correlog.csr</div>
+        <p>
+          <em
+            >Note: the above file is created by the Log Tracker Apache TLS setup wizard, and
+            contains information regarding the name of the platform where Log Tracker Server is
+            executing. The name of the platform, used in the URL, is critical, and cannot be changed
+            without creating a new certificate for the platform.</em
+          >
+        </p>
+        <p>
+          <em>3.</em>The Certificate Authoritywill send you back a ".crt" file. (This file sometimes
+          has a ".cer" suffix, but is the same file.) This is your web server security certificate,
+          which must be installed at the Log Tracker Server site,<em
+            >Note that this will normally occur ONLY after fees are paid, and after the Certificate
+            Authority has verified your company identity.</em
+          >
+        </p>
+        <p>
+          <em
+            >4. Copy the file received from the Certificate Authority to the following location:</em
+          >
+        </p>
+        <div class="">C:\Program Files (x86)\NNT Log Tracker Suite\apache-tls\ssl\correlog.crt</div>
+        <p class="">
+          <em
+            >Note: overwrite the file existing file with the purchased security certificate. It is
+            advisable to backup both the old and new files, and keep these files in a secure and
+            private location. These files should not be made publicly available, and should be
+            considered confidential to your organization.</em
+          >
+        </p>
+        <p class="">
+          <em
+            >5. Stop and restart the "Log Tracker Apache TLS" Service using the Windows "Services"
+            dialog.</em
+          >
+        </p>
+        <p class="">
+          <em
+            >6.Access the Log Tracker Server website with your browser, and verify that all warnings
+            or errors are now gone.</em
+          >
+        </p>
+        <p class="">
+          If you still see a warning or error, then the most likely cause is that the host name in
+          the certificate does not agree with the host name in the URL. Note that these two values
+          must agree perfectly. For example, if the certificate contains the Fully Qualified Domain
+          Name (FQDN), then that name must be used when accessing the Log Tracker Server, or an
+          error will be displayed by the browser. The host name in the certificate is contained in
+          the ".csr" file, generated by the Apache TLS Setup wizard. If you need to generate a new
+          ".csr" file, run the C:\Program Files (x86)\NNT Log Tracker Suite
+          \apache-tls\bin\MAKE_CERT.bat" file.
+        </p>
+        <p class="">
+          For more information on Log Tracker Security Certificates, please contact support.
+        </p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to delete a device in Log Tracker</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker - Types of Authentication</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker Tags Facility</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to use CloseTicket.exe to Immediately Close Log Tracker Tickets</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

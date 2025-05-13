@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Failed to grant "Log on as a service" right</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZuCAK" />
+    <meta name="Id" content="ka04u00000116cmAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:04:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1285" />
+    <meta name="ArticleNumber" content="000003430" />
+    <meta
+      name="description"
+      content="I get the &amp;quot;Failed to grant the &amp;quot;Log on as a service&amp;quot; right to the service account&amp;quot; error. Password manager service account needs appropriate rights."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        During product installation I am asked to specify credentials to run the software. But I get
+        the "Failed to grant the "Log on as a service" right to the service account" error.
+
+        <img
+          src="kA00g000000H9ZuCAK_22eef3f1-d832-4985-a781-40e61d941242.png"
+          alt="User-added image"
+          width="500"
+          height="536"
+        />
+
+        <hr />
+
+        Password Manager is based on a service. The service should be run under an account with
+        appropriate rights to perform required operations. However the service account also should
+        be allowed to run services. The right is called "Log on as a service" and can be granted via
+        Local security policy,
+
+        <hr />
+
+        To grant the "Log on as a service" rights please:
+        <ol>
+          <li>Run <strong>secpol.msc</strong></li>
+          <li>
+            In the left pane navigate to
+            <strong>Security Settings - Local policies - User rights assignment</strong>
+          </li>
+          <li>
+            Double click <strong>Log on as a service</strong> entry in the right pane and add the
+            account you want to use a service one
+          </li>
+          <li>Click <strong>OK</strong> to apply</li>
+        </ol>
+        <img
+          src="kA00g000000H9ZuCAK_f18a9243-9f49-4202-8812-b252d4e9b958.png"
+          alt="User-added image"
+          width="500"
+          height="356"
+        />
+      </div>
+    </article>
+  </body>
+</html>

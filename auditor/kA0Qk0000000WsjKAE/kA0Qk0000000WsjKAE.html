@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Generate Reports After Migration</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WsjKAE" />
+    <meta name="Id" content="ka0Qk0000002yEbIAI" />
+    <meta name="LastPublishedDate" content="2024-04-15T16:30:41.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-19T17:18:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-22T16:28:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9081" />
+    <meta name="ArticleNumber" content="000009081" />
+    <meta
+      name="description"
+      content="Error: Unable to cast object of type 'System.Guid' to type 'System.String'"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>After migration, some Netwrix Auditor reports are generating the following error:</p>
+
+          <div>
+            <pre class="has-inner-focus">
+Unable to cast object of type 'System.Guid' to type 'System.String'</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>Some files were corrupted in the <strong>Reports</strong> folder after migration.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>In Netwrix Auditor, navigate to <b>Settings</b> &gt; <b>Audit Database</b>.</p>
+            </li>
+            <li>
+              <p>
+                Open the <b>Report Manager URL</b> to access the SQL Server Reporting Services
+                (SSRS) site.
+              </p>
+            </li>
+            <li>
+              <p>Remove the <b>Netwrix Auditor</b> root folder in SSRS.</p>
+            </li>
+            <li>
+              <p>
+                On the computer that hosts the Auditor Server, open the <b>Services</b> snap-in. You
+                can do this by searching for <em>Services</em>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Restart the <b>Netwrix Auditor Management Service</b>. This will recreate the
+                reports folder and resolve the error. The reports will take 5-10 minutes to
+                re-upload.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

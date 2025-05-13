@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 403</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TwCAK" />
+    <meta name="Id" content="ka04u000000HcNiAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="641" />
+    <meta name="ArticleNumber" content="000003068" />
+    <meta
+      name="description"
+      content="When I try to browse to any portal, I get &#34;Error 403 - Forbidden&#34; or &#34;Error 403 - Access is denied&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When trying to browse to any portal, you get "Error 403 - Access is denied"<br /><br /><img
+          alt="User-added image"
+          height="116"
+          src="kA00g000000H9TwCAK_57b23885-a681-4fd2-ac2d-e4d9ed4b166a.png"
+          width="500"
+        />
+
+        <hr />
+
+        The 403 error can be caused by several reasons. The most common reasons are:<br /><br />1.
+        You are trying to access the site via HTTP when HTTPs is required.<br />To enable access via
+        regular HTTP make sure that <strong>Require SSL </strong>check-box is not enabled.
+        <ol start="1">
+          <li>Launch the IIS Manager</li>
+          <li>
+            Navigate to the <strong>PM</strong> virtual directory (Default Web Site/PM by default).
+          </li>
+          <li>In the central pane double-click <strong>SSL Settings</strong></li>
+          <li>Check settings, change if necessary</li>
+        </ol>
+        <img
+          alt="User-added image"
+          height="315"
+          src="kA00g000000H9TwCAK_b9141036-cdcf-4791-87ec-3e05996c67c6.png"
+          width="500"
+        />
+        <img
+          alt="User-added image"
+          height="242"
+          src="kA00g000000H9TwCAK_b6b8b956-bf27-44e3-8f4e-94f2f8607cca.png"
+          width="500"
+        /><br /><br />2. Default document IIS feature is not enabled.<br /><br />To check this:
+        <ol>
+          <li>Launch the IIS Manager</li>
+          <li>Navigate to the PM virtual directory (Default Web Site/PM by default).</li>
+          <li>In the central pane double-click Default Document</li>
+          <li>
+            In the right pane click Enable (if there is no Enable option there, but Disable is, it
+            means that the feature is enabled)
+          </li>
+        </ol>
+
+        <p>
+          <img
+            alt="User-added image"
+            height="381"
+            src="kA00g000000H9TwCAK_aad13043-db3a-4876-915e-07c21a38130c.png"
+            width="500"
+          />
+          <img
+            alt="User-added image"
+            height="256"
+            src="kA00g000000H9TwCAK_e080f8e5-ed9d-42f5-b4f5-1e18630dff1b.png"
+            width="500"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

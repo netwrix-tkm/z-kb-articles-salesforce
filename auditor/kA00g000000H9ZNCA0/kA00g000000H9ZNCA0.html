@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error occurred during logs collection for &lt;Domain name&gt; domain: Process timeout has
+      expired. For more information, please contact Netwrix technical support.
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZNCA0" />
+    <meta name="Id" content="ka04u000000HcSOAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1243" />
+    <meta name="ArticleNumber" content="000003397" />
+    <meta
+      name="description"
+      content="without timeout LogCollectorVersion =1 (default value) with timeout LogCollectorVersion = 2 (enable collecting logs)Set registry key Tracelevel to 31 %%post_excerpt%%"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You get the following error in the summary report: "Error occurred during logs collection
+        for &lt;Domain name&gt; domain: Process timeout has expired. For more information, please
+        contact Netwrix technical support."
+
+        <hr />
+
+        The product can collect security event logs from Domain Controllers suing one of the
+        following ways:
+        <ul>
+          <li>without <strong>timeout LogCollectorVersion =1 </strong> (default value)</li>
+          <li>
+            with <strong>timeout LogCollectorVersion = 2</strong> (enable collecting logs in the
+            separate process)
+          </li>
+        </ul>
+        The <strong>LogCollectorVersion</strong> registry key can be found in:
+        <ul>
+          <li>
+            <strong>Windows x32</strong>: HKEY_LOCAL_MACHINE -&gt; SOFTWARE -&gt;NetWrix -&gt;AD
+            Change Reporter-&gt;%Your domain node%-&gt;LogCollectorVersion
+          </li>
+          <li>
+            <strong>WIndows x64</strong>: HKEY_LOCAL_MACHINE -&gt; SOFTWARE
+            -&gt;Wow6432Node-&gt;NetWrix -&gt;AD Change Reporter-&gt;%Your domain
+            node%-&gt;LogCollectorVersion
+          </li>
+        </ul>
+        <ol>
+          <li>
+            When <strong>LogCollectorVersion</strong> is set to<em><strong> 2,</strong></em> the
+            product starts collecting security logs from Domain Controllers with a timeout (30
+            minutes by default). If the security logs collecting process takes more than 30 minutes
+            the product skips this Domain Controller and displays the error in the summary report.
+          </li>
+        </ol>
+
+        <hr />
+
+        In order to resolve this issue try one of the following solutions:
+        <ul>
+          <li>
+            Set <strong>LogCollectorVersion</strong> key to the default value - <strong>1</strong>,
+            to start collecting logs without timeout. Navigate to the registry key:
+            <ul>
+              <li>
+                <strong>Windows x32:</strong> HKEY_LOCAL_MACHINE -&gt; SOFTWARE -&gt;NetWrix -&gt;AD
+                Change Reporter-&gt;%Your domain node%-&gt;LogCollectorVersion
+              </li>
+              <li>
+                <strong>Windows x64</strong>: HKEY_LOCAL_MACHINE -&gt; SOFTWARE
+                -&gt;Wow6432Node-&gt;NetWrix -&gt;AD Change Reporter-&gt;%Your domain
+                node%-&gt;LogCollectorVersion
+              </li>
+            </ul>
+          </li>
+          <li>
+            Increase timeout for collecting security logs from Domain Controllers. To do it, perform
+            the following steps:
+          </li>
+        </ul>
+        <ol>
+          <li>
+            Open the registry and navigate to the Netwrix Auditor node.
+            <ul>
+              <li>
+                <strong>Windows x32:</strong> HKEY_LOCAL_MACHINE -&gt; SOFTWARE -&gt;NetWrix -&gt;AD
+                Change Reporter-&gt;%Your domain node%
+              </li>
+              <li>
+                <strong>WIndows x64:</strong> HKEY_LOCAL_MACHINE -&gt; SOFTWARE
+                -&gt;Wow6432Node-&gt;NetWrix -&gt;AD Change Reporter-&gt;%Your domain node%
+              </li>
+            </ul>
+          </li>
+          <li>
+            Create the following registry key with next values:
+            <em
+              ><strong
+                >CollectLogsTimeout (dword : 32) =43200000 (DECIMAL), 43200000ms = 12 hours</strong
+              ></em
+            >
+          </li>
+        </ol>
+        Re-run data collection to check the issue has resolved. If the issue continues to appear:
+        <ol>
+          <li>
+            Set registry key <strong>Tracelevel</strong> to <strong>31 (Decimal). </strong>Navigate
+            to the registry key:
+            <ul>
+              <li>
+                <strong>Windows x32: </strong>HKEY_LOCAL_MACHINE -&gt; SOFTWARE -&gt;NetWrix -&gt;AD
+                Change Reporter-&gt;
+              </li>
+              <li>
+                <strong>Windows x64:</strong> HKEY_LOCAL_MACHINE -&gt; SOFTWARE
+                -&gt;Wow6432Node-&gt;NetWrix -&gt;AD Change Reporter-&gt;
+              </li>
+            </ul>
+          </li>
+          <li>
+            Wait for the next data collection and send us the whole Tracing folder from the Netwrix
+            Auditor installation directory
+          </li>
+          <li>
+            Create a support ticket with details on our website
+            (http://www.netwrix.com/support_ticket.html)
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

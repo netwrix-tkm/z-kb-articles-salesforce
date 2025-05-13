@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Set Up Direct Send for Netwrix Auditor and Netwrix Data Classification</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110ycCAA" />
+    <meta name="Id" content="ka04u00000116zvAAA" />
+    <meta name="LastPublishedDate" content="2023-08-01T11:03:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-02T10:04:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-01T11:03:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8704" />
+    <meta name="ArticleNumber" content="000008704" />
+    <meta name="description" content="Set Up Direct Send for Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to set up direct send via Microsoft 365 or Office 365 for Netwrix Auditor or Netwrix
+            Data Classification?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <h4 id="prerequisites">Prerequisites</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>Port 25 is required and must be unblocked in your network.</p>
+            </li>
+            <li>
+              <p>
+                A static IP address is recommended for an SPF record to be created for your domain.
+                Learn more on SPF in
+                <a
+                  href="https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/email-authentication-spf-configure?view=o365-worldwide"
+                  target="_blank"
+                  >Set up SPF to Help Prevent Spoofing ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="settings_for_netwrix_auditor_notifications">
+          Settings for Netwrix Auditor notifications
+        </h4>
+
+        <div>
+          <p>
+            In the main Netwrix Auditor menu, click <strong>Settings</strong>. In the left pane,
+            select the <strong>Notifications</strong> tab. Click <strong>Modify</strong> under the
+            <strong>Default SMTP Settings</strong> section. The following settings should be used
+            for Netwrix Auditor to implement direct send in your environment:
+          </p>
+
+          <ul>
+            <li>
+              <p>Specify your MX endpoint in the <strong>SMTP server</strong> field.</p>
+            </li>
+            <li>
+              <p>Specify port 25 in the <strong>Port number</strong> field.</p>
+            </li>
+            <li>
+              <p>
+                Specify any email address for one of your Microsoft 365 or Office 365 accepted
+                domains in the <strong>Sender address</strong> field. This email does not need to
+                have a mailbox.
+              </p>
+            </li>
+            <li>
+              <p>The use of SSL/TLS is optional.</p>
+            </li>
+          </ul>
+
+          <div>
+            <img
+              height="479"
+              src="kA04u00000110ycCAA_f9df5427-96f5-4449-bf8b-c56370ccce34.png"
+              width="580"
+            />
+          </div>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>When sending messages from a static IP, add the IP
+            to your SPF record in your domain registrar's DNS settings to avoid having messages
+            flagged as spam:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">v=spf1 ip4:%Static IP Address%include:spf.protection.outlook.com ~all</code></pre>
+        </blockquote>
+
+        <h4 id="settings_for_netwrix_data_classification_notifications">
+          Settings for Netwrix Data Classification notifications
+        </h4>
+
+        <div>
+          <p>
+            In the main Netwrix Data Classification screen, click <strong>Settings</strong>. In the
+            left pane, select the <strong>Communication</strong> tab, and click
+            <strong>Email Servers</strong>. Click <strong>Add</strong> to create a separate email
+            server configuration. The following settings should be used for Netwrix Data
+            Classification to implement direct send in your environment:
+          </p>
+
+          <ul>
+            <li>
+              <p>Specify your MX endpoint in the <strong>Host</strong> field.</p>
+            </li>
+            <li>
+              <p>Specify port 25 in the <strong>Port number</strong> field.</p>
+            </li>
+            <li>
+              <p>
+                Specify any email address for one of your Microsoft 365 or Office 365 accepted
+                domains in the <strong>Sender address</strong> field. This email does not need to
+                have a mailbox.
+              </p>
+            </li>
+            <li>
+              <p>The use of SSL is optional.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <img
+            height="467"
+            src="kA04u00000110ycCAA_44660777-839f-4e01-acad-047cff2d3107.png"
+            width="581"
+          />
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Direct send does not support SMTP AUTH. You can
+            enter any SMTP credentials to proceed.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            Learn more on direct send in
+            <a
+              href="https://learn.microsoft.com/en-us/Exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365?redirectSourcePath=%252fen-gb%252farticle%252fhow-to-set-up-a-multifunction-device-or-application-to-send-email-using-office-365-69f58e99-c550-4274-ad18-c805d654b4c4#option-2-send-mail-directly-from-your-printer-or-application-to-microsoft-365-or-office-365-direct-send"
+              target="_blank"
+              >Send Email Using Microsoft 365 or Office 365 ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Request Is Not Supported — Windows Server Auditing</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110xeCAA" />
+    <meta name="Id" content="ka04u00000117GmAAI" />
+    <meta name="LastPublishedDate" content="2023-07-28T12:25:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-21T10:40:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-28T12:25:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8698" />
+    <meta name="ArticleNumber" content="000008698" />
+    <meta name="description" content="The request is not supported Event ID 2009" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error for Windows Server monitoring plan in Health Log:</p>
+
+          <pre class="has-inner-focus">
+Source:Windows Server Audit Service
+Event ID:2009
+Description:Monitoring plan: %Windows_Server_MP_name% 
+Item: %item_name% 
+The following error has occurred while processing '%item_name%': 
+The Scheduled Tasks data provider failed to get information on task ? due to the following error:
+The request is not supported. (Exception from HRESULT: 0x80070032)
+</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Firewall permissions are misconfigured.</p>
+            </li>
+            <li>
+              <p>Antivirus exclusions are not set up.</p>
+            </li>
+            <li>
+              <p>gMSA account used for data collection is misconfigured.</p>
+            </li>
+            <li>
+              <p>Network traffic compression is disabled for your monitoring plan.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Review the firewall permissions:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Refer to the list of protocols and ports required for Netwrix Auditor for
+                    Windows Server:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/Ports/WindowsServer.htm"
+                      target="_self"
+                      >Protocols and Ports — Windows Server</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Refer to the list of inbound connection rules to be configured:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/WindowsServer/FirewallRules.htm"
+                      target="_self"
+                      >Windows Servers — Windows Firewall Inbound Connection Rules</a
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Review the recommended antivirus exclusions — refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the gMSA configuration — refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/DataCollection/GMSA.htm"
+                  target="_blank"
+                  >Data Collection Account — Group Managed Service Account (gMSA)</a
+                >.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>It is required to add the data collection gMSA
+                  account to the Local Admins group on the Auditor server.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Enable network traffic compression for your Windows Server monitoring plan:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Netwrix Auditor screen, select
+                    <strong>Monitoring plans</strong> under the <strong>Configuration</strong> tab.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the affected Windows Server monitoring plan and click
+                    <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Review the list of affected data sources — in the right pane, click
+                    <strong>Edit data source</strong>, and check the
+                    <strong>Enable network traffic compression</strong> checkbox for each item.
+                    Click <strong>Save</strong> to save changes.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

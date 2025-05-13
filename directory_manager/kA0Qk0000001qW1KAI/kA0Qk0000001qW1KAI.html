@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Change the Default Dynasty Operator</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001qW1KAI" />
+    <meta name="Id" content="ka0Qk000000DUI2IAO" />
+    <meta name="LastPublishedDate" content="2025-04-14T18:56:59.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-30T19:13:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-01-08T20:50:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9361" />
+    <meta name="ArticleNumber" content="000009361" />
+    <meta
+      name="description"
+      content="Change the default Dynasty Operator from Is Exactly to Starts with"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 10 Automate and Directory Manager 11 Group Management</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          In some organizations, the <strong>Title</strong> field may include multiple abbreviations
+          (such as A1, B2, or C1) or a full job title with tiers (such as Systems and Network
+          Engineer). In these cases, using the default <strong>Is Exactly</strong> operator when
+          creating Dynasties may not produce the desired group structure.
+        </p>
+        <p>
+          Instead, you can use the <strong>Starts with</strong> or
+          <strong>Ends with</strong> operator to better match partial title values and group users
+          accordingly.
+        </p>
+        <h4 id="example_using_a_custom_attribute">Example: Using a Custom Attribute</h4>
+        <p>
+          If the <strong>Title</strong> and <strong>Tier</strong> are separated—such as placing the
+          title in <strong>Custom Attribute 1</strong>—you can group by that attribute to simplify
+          results.
+        </p>
+        <p><strong>Attribute value:</strong> Custom Attribute 1 = SOC Analyst</p>
+        <p><strong>Sample group created:</strong> Everyone who is SOC Analyst</p>
+        <h4 id="example_using_the_full_title_field">Example: Using the Full Title Field</h4>
+        <p>
+          If the <strong>Title</strong> field includes both the title and tier (e.g., SOC Analyst I,
+          SOC Analyst II), Automate will create a group for each unique value.
+        </p>
+        <p><strong>Attribute values:</strong></p>
+        <ul>
+          <li>Title = SOC Analyst I</li>
+          <li>Title = SOC Analyst II</li>
+        </ul>
+        <p><strong>Sample groups created:</strong></p>
+        <ul>
+          <li>Everyone who is SOC Analyst I</li>
+          <li>Everyone who is SOC Analyst II</li>
+        </ul>
+        <p>
+          To avoid excessive group creation, use the <strong>Group-By</strong> filter to focus only
+          on the desired portion of the value—for example, everyone who is
+          <strong>SOC Analyst</strong>.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>
+          You can update the default Dynasty grouping behavior when creating a new Dynasty or
+          editing an existing parent Dynasty. Follow the steps below based on your scenario.
+        </p>
+        <h4 id="creating_a_new_dynasty">Creating a New Dynasty</h4>
+        <ol>
+          <li>
+            When creating a new Dynasty, continue through the wizard until you reach the
+            <strong>Dynasty Options</strong> window.
+          </li>
+          <li>
+            Select the attribute you want to group by and click <strong>Edit</strong>. In the
+            <strong>GroupBy settings</strong> dialog, click <strong>Filter</strong>.<br /><br /><img
+              alt="Dynasty Options in Dynasty Creation Wizard - GroupID 10"
+              src="kA0Qk0000001qW1KAI_ae3a08ee-7ac6-4680-a5e4-80cb18bfe065.png"
+            /><br /><br /><img
+              alt="Dynasty Options in Dynasty Creation Wizard - GroupID 11"
+              src="kA0Qk0000001qW1KAI_ce95e36b-3d62-4ce4-9905-aa798c9032b8.png"
+              width="721"
+              height="357"
+            />
+          </li>
+          <li>
+            To change the default operator, choose <strong>Left</strong> and enter the desired
+            number of characters if using <strong>Starts with</strong>. Choose
+            <strong>Right</strong> to switch to <strong>Ends with</strong>.<br /><br /><img
+              alt="Filter Options in GroupID 10"
+              src="kA0Qk0000001qW1KAI_1f8bc210-171c-4089-ad65-7ae473408018.png"
+            /><br /><br /><img
+              alt="Filter Options in GroupID 11"
+              src="kA0Qk0000001qW1KAI_49dabf7f-4e7e-498a-873d-881625a49c4a.png"
+            />
+          </li>
+          <li>
+            After saving your changes, the Dynasty will reflect the updated grouping behavior.
+          </li>
+        </ol>
+        <h4 id="editing_an_existing_dynasty">Editing an Existing Dynasty</h4>
+        <ol>
+          <li>
+            To configure an existing Dynasty using the same filter method, open the parent Dynasty’s
+            properties.
+          </li>
+          <li>
+            Navigate to the <strong>Directory Manager</strong> tab and click
+            <strong>Options</strong>.
+          </li>
+          <li>
+            Follow steps 2 and 3 in the <strong>Creating a New Dynasty</strong> section above to
+            configure and apply the GroupBy filter.<br /><br /><img
+              alt="Dynasty Option in an existing parent dynasty in GroupID 10"
+              src="kA0Qk0000001qW1KAI_b610f9b6-8093-4ee6-9d7b-3c4377626135.png"
+              width="663"
+              height="261"
+            /><br /><img
+              alt="Dynasty Option in an existing parent dynasty in GroupID 11"
+              src="kA0Qk0000001qW1KAI_fcc8ccb7-8287-4b61-aa88-a5c290e4e131.png"
+              width="664"
+              height="341"
+            />
+          </li>
+          <li>
+            After saving your changes, the Dynasty will reflect the updated grouping behavior. <br /><br /><img
+              alt="Modified Attribute Filter Example"
+              src="kA0Qk0000001qW1KAI_4b7aaa03-cce5-4a0a-964b-3f5bfc6fe4df.png"
+            />
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

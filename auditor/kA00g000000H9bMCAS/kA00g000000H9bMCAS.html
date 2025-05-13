@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Misconfigured Permissions and Policies Warnings in Windows Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bMCAS" />
+    <meta name="Id" content="ka0Qk0000001imzIAA" />
+    <meta name="LastPublishedDate" content="2024-02-07T08:00:47.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-07T08:10:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1359" />
+    <meta name="ArticleNumber" content="000003518" />
+    <meta
+      name="description"
+      content="Misconfigured Permissions and Policies Warnings in Windows Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            One of the following events is prompted in Health Log in your Netwrix Auditor instance:
+          </p>
+
+          <pre class="has-inner-focus">
+Windows Registry audit permissions are not enabled for this server. Adjust Windows Registry audit permissions automatically or manually.</pre
+          >
+
+          <pre class="has-inner-focus">
+The Registry data provider failed to get the information on registry key %key% due to the following error: Access is denied.</pre
+          >
+
+          <pre class="has-inner-focus">
+Unable to configure the following policies due to a conflict: %audit_policy%</pre
+          >
+
+          <pre class="has-inner-focus">
+Unable to configure the following audit policies on this computer because it is a domain controller: %audit_policy%</pre
+          >
+
+          <pre class="has-inner-focus">
+The following event log settings may lead to incorrect or incomplete data in reports: %setting%</pre
+          >
+
+          <pre class="has-inner-focus">
+Security log overwrites occurred on this computer since the last collection. Please increase the maximum size of the %affected% event log.</pre
+          >
+
+          <pre class="has-inner-focus">
+Data provider %name% failed during data collection from server %name% due to the following error: The Remote Registry service is not running.</pre
+          >
+
+          <pre class="has-inner-focus">
+Data provider %name% failed during data collection from server %name% due to the following error:
+The interface is unknown. (Exception from HRESULT: 0x800706B5).</pre
+          >
+
+          <pre class="has-inner-focus">
+Data provider %name% failed during data collection from server %name% due to the following error:
+The network path was not found. (Exception from HRESULT: 0x80070035).</pre
+          >
+
+          <pre class="has-inner-focus">
+The following error occurred when collecting data from the Application log: Failed to open log %affected_log%.
+Error details: The interface is unknown. (Error number: 0x800706B5).</pre
+          >
+
+          <pre class="has-inner-focus">
+The following error occurred when collecting data from the Application log: Failed to open log %affected_log%.
+Error details: The network path was not found. (Error number: 0x80070035)</pre
+          >
+
+          <pre class="has-inner-focus">
+Unable to configure the following policies due to a conflict: %setting%.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            The audit settings in the target server are misconfigured. The affected server is stated
+            in the <strong>Item</strong> line of the event.
+          </p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>To review the possible conflicts in your
+              environment, use the <code>gpresult</code> line in elevated Command Prompt. Learn more
+              in
+              <a
+                href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult"
+                target="_blank"
+                >gpresult · Microsoft 🡥</a
+              >.
+            </p>
+          </blockquote>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To disable the automatic configuration of audit
+              settings in your Windows Server monitoring plan, navigate to
+              <strong>Monitoring Plans</strong> &gt; select the affected monitoring plan and click
+              <strong>Edit</strong> &gt; click <strong>Edit data source</strong> in the right pane
+              &gt; uncheck the <strong>Adjust audit settings automatically</strong> checkbox &gt;
+              click <strong>Save</strong>.
+            </p>
+          </blockquote>
+
+          <p>
+            Review the resolutions to ensure the settings are configured correctly in your target
+            servers.
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                Verify both the <code>Remote Registry</code> and
+                <code>Windows Management Instrumentation</code> services are set up to have the
+                <strong>Automatic</strong> startup type. Refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/RemoteRegistry.htm"
+                  target="_blank"
+                  >Windows Server − Enable Remote Registry and Windows Management Instrumentation
+                  Services · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the Windows Registry audit settings are configured correctly − refer to the
+                following article for additional information on the manual setup:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/WindowsRegistry.htm#configuring_windows_registry_audit_settings_on_windows_server_2012_and_above"
+                  target="_blank"
+                  >Windows Server − Configure Windows Registry Audit Settings · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the local audit policies are configured correctly − refer to the following
+                article for additional information on the manual setup:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/LocalPolicy.htm"
+                  target="_blank"
+                  >Windows Server − Configure Local Audit Policies · v10.6</a
+                >. Alternatively, you can set up the advanced audit policies − refer to the
+                following article for additional information on the manual setup:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/AdvancedPolicy.htm"
+                  target="_blank"
+                  >Windows Server − Configure Advanced Audit Policies · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the event log size and retention method settings in target servers − refer to
+                the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+                  target="_blank"
+                  >Windows Server − Adjusting Event Log Size and Retention Settings · v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult"
+                  target="_blank"
+                  >gpresult · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/RemoteRegistry.htm"
+                  target="_blank"
+                  >Windows Server − Enable Remote Registry and Windows Management Instrumentation
+                  Services · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/WindowsRegistry.htm#configuring_windows_registry_audit_settings_on_windows_server_2012_and_above"
+                  target="_blank"
+                  >Windows Server − Configure Windows Registry Audit Settings · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/LocalPolicy.htm"
+                  target="_blank"
+                  >Windows Server − Configure Local Audit Policies · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/AdvancedPolicy.htm"
+                  target="_blank"
+                  >Windows Server − Configure Advanced Audit Policies · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+                  target="_blank"
+                  >Windows Server − Adjusting Event Log Size and Retention Settings · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

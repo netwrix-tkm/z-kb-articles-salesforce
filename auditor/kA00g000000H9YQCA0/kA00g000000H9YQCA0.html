@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could not establish trust relationship for the SSL/TLS secure channel</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YQCA0" />
+    <meta name="Id" content="ka04u000000HcRVAA0" />
+    <meta name="LastPublishedDate" content="2021-10-15T10:51:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1181" />
+    <meta name="ArticleNumber" content="000003341" />
+    <meta
+      name="description"
+      content="All sessions fail with the similar error: &amp;quot;Error saving current VMware Virtual Center snapshot: The underlying connection was closed: Could not establish trust relationship for the SSL/TLS secure channel.&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        All sessions fail with the similar error: "Error saving current VMware Virtual Center
+        snapshot: The underlying connection was closed: Could not establish trust relationship for
+        the SSL/TLS secure channel."
+        <hr />
+        The most common reason of the issue is the Microsoft update -
+        <a
+          href="https://learn.microsoft.com/en-us/security-updates/SecurityAdvisories/2012/2661254"
+          target="_blank"
+          >KB2661254</a
+        >
+        . In summary, this update adds more security that blocks certificates with keys less than
+        1024 bits long. Your vCenter default certificate is less than 1024 bits long so it was being
+        blocked and that was breaking the connection.
+
+        <hr />
+        There are multiple ways to resolve this issue:
+        <span><i>If one of the options does not work, please try the others</i></span>
+
+        <ol>
+          <li>Uninstall the update and restart the server</li>
+          <li>Upgrade the certificate in Virtual Center Server to 1024 Bytes</li>
+          <li>
+            Allow for weaker certificates with the following command: "certutil -setreg chain
+            minRSAPubKeyBitLength 512"
+          </li>
+        </ol>
+
+        <div>If none of these options work, try performing the following:</div>
+
+        <div>
+          - Edit the registry: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\OID\EncodingType
+          0\CertDllCreateCertificateChainEngine\Config - And edit the following DWORDS in decimal:
+        </div>
+
+        <div>EnableWeakSignatureFlags: 2 minRSAPubKeyBitLength: 512</div>
+         
+      </div>
+    </article>
+  </body>
+</html>

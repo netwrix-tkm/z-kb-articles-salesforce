@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scanning SharePoint in a load-balanced environment</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ia2CAE" />
+    <meta name="Id" content="ka04u000000HcqfAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:35:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:35:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7234" />
+    <meta name="ArticleNumber" content="000007234" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> It's common for
+          customers to use load balancers to help with performance as well as provide an additional
+          layer of security in their networks but this can cause issues during SharePoint scans.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> A load balancer does
+          what the name implies, it balances the load of traffic on a network by spreading
+          connections out between multiple servers which direct traffic appropriately. This can
+          cause issues when scanning SharePoint since while we're scanning the connection can be
+          changed from one load balancer to another. This effectively confuses our DC since the
+          expected IP address will be different from what we originally connected to.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> There are two
+          ways we can bypass a load balancer to ensure our connections aren't interrupted:
+        </p>
+        <ol>
+          <li>
+            Run scans in agent mode.
+            <ol>
+              <li>
+                Since the agent resides on the actual SharePoint application server we can connect
+                directly to the sites without making any web calls which would go through the load
+                balancer.
+              </li>
+            </ol>
+          </li>
+          <li>
+            Specify the site collection URL's on the static host list on the StealthAUDIT console.
+            <ol>
+              <li>
+                The hosts file is located within C:\Windows\System32\drivers\etc
+                <ol>
+                  <li>Copy this file to the desktop before editing it</li>
+                  <li>Enter the individual Site Collection URL's here</li>
+                  <li>
+                    Directions for formatting this can be found here:
+                    <a
+                      href="https://www.petri.com/easily-edit-hosts-file-windows-10"
+                      target="_blank"
+                      >Link</a
+                    >
+                  </li>
+                </ol>
+              </li>
+              <li>
+                Here we specify the URL's we intent to scan and bypass the load balancer since we
+                already know what the URL's are instead of going through the load balancer and it
+                telling us what those URL's are.
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA04u0000000Ia2CAE_73522cae-5081-4bb1-9bd9-7817adc73caf.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p> <br /> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Activity;SA - DC - SPAA - Permissions;SA - DC - SPAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          All<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2198
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

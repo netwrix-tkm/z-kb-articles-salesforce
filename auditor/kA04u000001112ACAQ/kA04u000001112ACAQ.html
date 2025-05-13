@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>KDS Removal Tool for ADV-2023-003 Failed to Load Configuration File</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000001112ACAQ" />
+    <meta name="Id" content="ka04u00000117HWAAY" />
+    <meta name="LastPublishedDate" content="2023-08-16T16:30:35.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-21T14:59:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-16T16:30:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8733" />
+    <meta name="ArticleNumber" content="000008733" />
+    <meta
+      name="description"
+      content="KDS Root Key Tool for ADV-2023-003 Failed to Load Configuration File"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            You're unable to run the NetwrixAuditorKDSRemoval (KDS Removal) tool to delete KDS Root
+            Key data (ADV-2023-003). The following error is prompted showing the tool is unable to
+            reach the <strong>Configuration.xml</strong> file:
+          </p>
+
+          <pre class="has-inner-focus">
+Failed to load configuration file.
+Could not find a part of the path</pre
+          >
+
+          <div>
+            <img
+              height="340"
+              src="kA04u000001112ACAQ_b04b17ad-5596-4d91-8a31-70964f696ca2.png"
+              width="651"
+            />
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The KDS Removal tool is unable to locate the Netwrix Auditor configuration file.</p>
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Check the location of the configuration file (located by default in
+                <code>C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer\Configuration.xml</code
+                >). If a Working Folder migration was previously done, check the
+                <code
+                  >HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride</code
+                >
+                key for a path.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open the folder you've extracted the KDS tool to. Open the
+                <code>config.json</code> file using a text editor (e.g., Notepad++). In
+                <strong>"DataPathKey"</strong> section of the file, specify the path to your Working
+                Folder in the <strong>"DefaultValue"</strong> line. Refer to the following code
+                block for an example:
+              </p>
+
+              <pre class="has-inner-focus">
+"DataPathKey": 
+    {
+        "KeyPath": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Netwrix Auditor\\DataPathOverride",
+        "KeyName": "",
+        "DefaultValue": "%PROGRAMDATA%\\Netwrix Auditor"
+    },
+
+to
+
+"DataPathKey": 
+    {
+        "KeyPath": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\Netwrix Auditor\\DataPathOverride",
+        "KeyName": "",
+        "DefaultValue": "C:\\ProgramData\\Netwrix Auditor"
+    },</pre
+              >
+            </li>
+            <li>
+              <p>Save changes and run the tool again.</p>
+            </li>
+          </ol>
+
+          <p>
+            In case these steps did not help, contact
+            <a href="https://www.netwrix.com/open_a_ticket.html" target="_blank"
+              >Netwrix Technical Support</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

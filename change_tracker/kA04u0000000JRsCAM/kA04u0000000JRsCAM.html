@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>9. Gen 7 Settings Page - Configuration Templates - Network Port Tracker</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JRsCAM" />
+    <meta name="Id" content="ka04u000000Hd7hAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:32:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8083" />
+    <meta name="ArticleNumber" content="000008083" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-9.Gen7SettingsPage-ConfigurationTemplates-NetworkPortTracker-_Toc484003734"
+            ><span class="confluence-anchor-link" id="_Toc484003734"> </span></span
+          ><span>Configuration Templates: Network Port Tracker</span>
+        </p>
+        <p>
+          <span
+            >N.B. The Network Port Tracker is designed to detect track changes to the open network
+            ports on either a single device, or a range/group of devices. The tracker uses a
+            network-scanning approach, probing a device externally via the network to determine
+            whether TCP and UDP ports are open or not. The scan is executed from a NNT Gen 7 Agent
+            and utilizes an NMAP instance installed locally to the NNT Gen 7 Proxy Agent.</span
+          >
+        </p>
+        <p><span>This means that there are three scanning options available</span></p>
+        <ul>
+          <li>
+            <strong
+              ><em><span>Self-Scan</span></em></strong
+            ><span>
+              - Local Gen 7 Agent scans the local host (N.B. for a Windows device, this mode is not
+              available for virtualized Windows machines). The same agent can run a full template
+              including all other tracker types.</span
+            >
+          </li>
+        </ul>
+        <p><span> </span></p>
+        <ul>
+          <li>
+            <strong
+              ><em><span>Remote Scan</span></em></strong
+            ><span>
+              – a remote Gen 7 Agent scans the host/device. In this mode, the remote device is
+              configured as a Proxied device for the Agent being used, and therefore for other
+              trackers to be run against the Proxied Device, credentials will be required e.g. Cisco
+              Firewall running config can also be tracked if valid credentials are assigned</span
+            >
+          </li>
+        </ul>
+        <p><span> </span></p>
+        <ul>
+          <li>
+            <strong
+              ><em><span>Network Scan </span></em></strong
+            ><span
+              >– a Gen 7 Agent can be used to scan a range of devices. In this instance the ‘device’
+              is defined as ‘The Network’ or ‘New York Office LAN’, with the address range defined
+              as ‘192.168.1.1-255, or 192.168.1.18 192.168.1.19 192.168.1.20-100’, ie individually
+              specified addresses space seaparetd, ranges defined using a -</span
+            >
+          </li>
+        </ul>
+        <p><span> </span></p>
+        <p>
+          <span
+            >The NMAP package must be installed to a default program file location (Windows: Program
+            Files(x86)\Nmap), Linux: /usr/bin/)
+          </span>
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JRsCAM_80a58ec2-e90e-4383-a63c-cb330b30d8d6.jpg"
+          /></span>
+        </p>
+        <p>
+          <span
+            >The Network Port Tracker is configured by specifying port ranges to include and exclude
+            from the scan. In addition, the protocol used for each range can also be selected,
+            either TCP, UDP or both.</span
+          >
+        </p>
+        <p>
+          <strong><em>Note</em></strong
+          ><em
+            >: as with any UDP scan, the non-acknoweldged nature of UDP requires a more intensive,
+            slower approach which may result in scan times exceeding 24 hours.
+          </em>
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JRsCAM_8c990edc-9172-4975-9eeb-eeaaaf9fa86c.jpg"
+          /></span>
+        </p>
+        <h4 id="id-9.Gen7SettingsPage-ConfigurationTemplates-NetworkPortTracker-NetworkScan">
+          <span>Network Scan </span>
+        </h4>
+        <p>
+          <span
+            >There are a number of steps required to configure and define a multi-device ‘network’
+            scan.</span
+          >
+        </p>
+        <p>
+          <span
+            >1.  Define ‘The Network’ device – Select the agent from which you would like the scan
+            to run, usually the Agent installed on the Hub server, but any remote Gen 7 Agent or
+            Agents can be used to run scans to their local subnet, thereby simplifying
+            routing/firewall rules.</span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JRsCAM_939e1e91-2ff4-4fad-97e6-0929f130c3e1.jpg" /></span
+          ></span>
+        </p>
+        <p>
+          <span
+            >2. The Network Port Tracker can then be scheduled to run like any other tracker,
+            although due to the typically prolonged time needed to complete each scan, especially if
+            UDP ports are included, we would advise that the tracker is set to “Polling frequency:
+            run at ‘agent startup’ and repeat ‘No repeat’ “</span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                width="625"
+                src="kA04u0000000JRsCAM_43c27c43-ea0e-4d26-9585-8bc2ccea3bac.jpg" /></span
+          ></span>
+        </p>
+        <p>
+          <span
+            >3. Once the initial poll has completed the duration will be required as a
+            communications Event</span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                width="625"
+                src="kA04u0000000JRsCAM_728e7267-2c4d-4ac9-b2cb-4984516cd914.jpg" /></span
+          ></span>
+        </p>
+        <p>
+          <span
+            >4. Provided you have specified within the tracker template to ‘Send Baseline Events’
+            then you will also be able to see both the full baseline/current status for the tracker
+            results, as well as the usual change events. Similarly you can also report on these,
+            export the events and receive alerts for any Planned and Unplanned changes.</span
+          >
+        </p>
+        <p>
+          <span
+            ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JRsCAM_558b2e79-6893-4cb9-9dec-af671eaf0eb9.jpg" /></span
+          ></span>
+        </p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

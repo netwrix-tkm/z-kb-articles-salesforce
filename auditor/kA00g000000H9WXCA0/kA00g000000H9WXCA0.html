@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why reports reflect folders that were not supposed to be scanned?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WXCA0" />
+    <meta name="Id" content="ka04u000000HcPjAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="805" />
+    <meta name="ArticleNumber" content="000003224" />
+    <meta
+      name="description"
+      content="Seeing events for folders and files that should not be audited."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        A few shares are enabled, but in the reports, you are seeing a folder that wasn't supposed
+        to be scanned.
+        <hr />
+        For the most part, the product collects events from the Windows Security log. If a UNC path
+        is specified in Managed Items as "\\server\share\folder", but the actual share is
+        "\\server\share", in your report you can get events related to "\\server\share\folder2"
+        which was not supposed to be scanned. Take a closer look at the reported folders' audit
+        settings - it can be inherited from some of the root folders and make it appear in reports.
+        Also, you can use the omitstorelist.txt file which is located in the product installation
+        directory to exclude any folder or file from being reported.
+      </div>
+    </article>
+  </body>
+</html>

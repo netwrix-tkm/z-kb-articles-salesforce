@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Creating a Daily Report on Job Errors</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001KXlKAM" />
+    <meta name="Id" content="ka0Qk000000513VIAQ" />
+    <meta name="LastPublishedDate" content="2024-08-09T07:04:01.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-19T12:16:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-08-09T07:04:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9242" />
+    <meta name="ArticleNumber" content="000009242" />
+    <meta name="description" content="Creating a Daily Report on Job Errors" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Does Netwrix Enterprise Auditor allow the creation of a daily report on failed jobs and
+            errors in jobs?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To keep track of custom jobs, you can create a
+              separate job group. This article references a custom group as
+              <strong>Sandbox</strong>.
+            </p>
+          </blockquote>
+
+          <p>Refer to the following steps to create a custom report on job errors:</p>
+
+          <ol>
+            <li>
+              <p>
+                In the Netwrix Enterprise Auditor console, right-click the
+                <strong>Sandbox</strong> job group and select <strong>Add Instant Job</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Proceed to the <strong>Instant Job</strong> page. Expand the
+                <strong>StealthAUDIT Utilities</strong> node, select the
+                <strong>SAS_ExecutionStatistics</strong> job and click <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                The host assignment does not affect the job—select the
+                <strong>Use default settings</strong> option. Proceed with the wizard steps to save
+                the job and exit the wizard.
+              </p>
+            </li>
+            <li>
+              <p>
+                Right-click the <strong>SAS_ExecutionStatistics</strong> job in the job tree and
+                select <strong>Schedule</strong> to create a scheduled task. In the
+                <strong>Schedule</strong> window, click <strong>New</strong> to define a schedule.
+                Complete the wizard steps to save the schedule.
+              </p>
+            </li>
+            <li>
+              <p>
+                Under the <strong>SAS_ExecutionStatistics</strong> job, navigate to Configure &gt;
+                Reports, and configure the <strong>Job Execution Statistics</strong> report. In the
+                <strong>E-mail</strong> page of the wizard, specify the target e-mail. Complete the
+                wizard steps to save the changes.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

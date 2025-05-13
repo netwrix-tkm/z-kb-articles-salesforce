@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Policy settings not applied on domain controller locally</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9UqCAK" />
+    <meta name="Id" content="ka04u00000117fXAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T12:52:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T12:52:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:33:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="697" />
+    <meta name="ArticleNumber" content="000003124" />
+    <meta
+      name="description"
+      content="Audit policy settings have not been applied on a local domain controller (DC), though all audit settings were successfully configured by the effective DC policy."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The Audit policy settings have not been applied on a local domain controller (DC), though
+        all audit settings were successfully configured by the effective DC policy.
+        <hr />
+        The issue appears if an organizational unit (OU) from your domain has some enforced policies
+        in Group Policy Management Console. This may prevent the audit settings from being
+        implemented.<br />To resolve the issue, do the following:
+        <ol>
+          <li>Change all Domain Controllers policies status for the OU to be not Enforced.</li>
+          <li>
+            In the Command Prompt, type in gpupdate/force command, press Enter and close the dialog
+            after update.
+          </li>
+          <li>
+            Open Local Security Policy: go to Start -&gt;Run, type in secpol.msc and click OK.
+          </li>
+          <li>In the left pane, navigate to Local Policies -&gt;Audit Policy.</li>
+          <li>
+            Make sure the Audit account management and Audit directory service access policies are
+            set to Success
+          </li>
+        </ol>
+        This error can also occur when an audit.csv file is not allowing the local security policy
+        to be set properly. This can be fixed by removing the audit.csv file in the following two
+        locations:<br />C:\Windows\system32\grouppolicy\machine\microsoft\windows
+        nt\audit\audit.csv<br />SYSVOL\domain\Policies\{GUID}\Machine\microsoft\windows nt\Audit<br /> 
+      </div>
+    </article>
+  </body>
+</html>

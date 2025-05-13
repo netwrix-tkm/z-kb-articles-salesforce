@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to Configure Netwrix Auditor to process NetApp Clustered Data ONTAP 9.x using TLS 1.2
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9T1CAK" />
+    <meta name="Id" content="ka04u000000HcMoAAK" />
+    <meta name="LastPublishedDate" content="2022-03-10T10:34:54.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="582" />
+    <meta name="ArticleNumber" content="000003011" />
+    <meta name="description" content="NetApp 9 mode audit configuration" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        This article contains instructions regarding configuration of Netwrix Auditor to allow it to
+        work with NetApp Clustered Data ONTAP 9.x using TLS 1.2?<br /> 
+        <h2 id="configuring_for_net_45_or_later_clr_40">
+           Configuring for .NET 4.5 or later (CLR 4.0)
+        </h2>
+
+        <ol>
+          <li>
+            Make sure .NET 4.5 (or later) is installed on the machine where Netwrix Auditor server
+            runs.
+          </li>
+          <li>
+            In the registry editor, go to
+            <b>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319</b> and
+            specify the key value: <b>"SchUseStrongCrypto"=dword:00000001</b>
+          </li>
+          <li>
+            Go to
+            <b
+              >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+              1.2 </b
+            >and make sure the necessary key values are configured:
+            <ul>
+              <li>
+                under
+                <b
+                  >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Security\Providers\SCHANNEL\Protocols\TLS
+                  1.2\Client</b
+                >
+                <ul>
+                  <li><b>"</b>DisabledByDefault"=dword:00000000</li>
+                  <li><b>"</b>Enabled"=dword:00000001</li>
+                </ul>
+              </li>
+              <li>
+                under
+                <b
+                  >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+                  1.2\Server</b
+                >
+                <ul>
+                  <li><b>"</b>DisabledByDefault"=dword:00000000</li>
+                  <li><b>"</b>Enabled"=dword:00000001</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h2 id="configuring_for_net_35_sp1_clr_20">Configuring for .NET 3.5 SP1 (CLR 2.0)</h2>
+
+        <ol>
+          <li>
+            Make sure .NET 3.5 SP1 is installed on the machine where Netwrix Auditor server runs.
+          </li>
+          <li>
+            Install update
+            <a
+              href="https://support.microsoft.com/en-ca/help/3154520/support-for-tls-system-default-versions-included-in-the-net-framework"
+              target="_blank"
+              >KB3154520</a
+            >
+            (for Windows Server 2012R2) from Microsoft.
+          </li>
+          <li>
+            In the registry editor, go to
+            <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727</b> and specify the
+            key value <b>"SystemDefaultTlsVersions"=dword:00000001</b>
+          </li>
+          <li>
+            Go to
+            <b>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v2.0.50727 </b>and
+            specify the key value <b>"SystemDefaultTlsVersions"=dword:00000001</b>
+          </li>
+          <li>
+            Go to
+            <b
+              >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+              1.2
+            </b>
+            and make sure the necessary key values are configured:
+            <ul>
+              <li>
+                under
+                <b
+                  >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+                  1.2\Client</b
+                >
+                <ul>
+                  <li>"DisabledByDefault"=dword:00000000</li>
+                  <li>"Enabled"=dword:00000001</li>
+                </ul>
+              </li>
+              <li>
+                under
+                <b
+                  >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+                  1.2\Server</b
+                >
+                <ul>
+                  <li>"DisabledByDefault"=dword:00000000</li>
+                  <li>"Enabled"=dword:00000001</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <br />  Original KB Article 2120
+      </div>
+    </article>
+  </body>
+</html>

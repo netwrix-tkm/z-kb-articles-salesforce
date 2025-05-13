@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: "Failed to detect the current audit settings in the managed domain."</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YzCAK" />
+    <meta name="Id" content="ka04u000000HcS0AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1221" />
+    <meta name="ArticleNumber" content="000003373" />
+    <meta
+      name="description"
+      content="you need to log into the system as another user who has the required permission product installation folder, Active Directory Audit Configuration %%post_excerpt%%"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You are getting the following error during the configuration of audit settings in your
+        domain using the Active Directory Audit Configuration Wizard.
+        <img
+          src="kA00g000000H9YzCAK_234d0c0f-2fc5-4701-ab76-4676a763a5ff.png"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        The account you use to run the <strong>Active Directory Audit Configuration</strong> wizard
+        with Netwrix Auditor does not have the permissions to check current audit settings. The
+        account must have the 'Managed Auditing and Security log' privilege.
+
+        <hr />
+
+        By default the <strong>Active Directory Audit Configuration </strong>wizard is run under the
+        credentials of the current Windows session (On behalf of a user who logged in to the machine
+        and started the Netwrix Auditor console). To resolve this issue, you need to log into the
+        system as another user who has the required permission, or perform the following:
+        <ol>
+          <li>
+            Go to the product installation folder, by default
+            <strong>C:Program Files (x86)NetwrixActive Directory Auditing</strong>
+          </li>
+          <li>
+            Locate the <strong>Active Directory Audit Configuration </strong>shortcut<strong
+              >.</strong
+            >
+          </li>
+          <li>
+            SHIFT + right-click on the
+            <strong>Active Directory Audit Configuration </strong>shortcut,<strong> </strong>select
+            "<strong>Run as different use</strong>r" and specify
+            <strong>domain admin credentials, </strong>or an account that is known to have the
+            'Managed Auditing and Security log' privilege.
+          </li>
+        </ol>
+        Refer to the following Microsoft knowledge base
+        <a
+          href="http://windows.microsoft.com/en-us/windows7/how-do-i-run-an-application-once-with-a-full-administrator-access-token"
+          target="_blank"
+          >article</a
+        >
+        on how to run an application as an Administrator:
+      </div>
+    </article>
+  </body>
+</html>

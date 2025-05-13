@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Automatic user enrollment failed: Server certificate revocation check failed</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bQCAS" />
+    <meta name="Id" content="ka04u000000HcUBAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1358" />
+    <meta name="ArticleNumber" content="000003522" />
+    <meta
+      name="description"
+      content="Automatic user enrollment failed: Server certificate revocation check failed. The following error occurs when the enrollment wizard starts: Error Code:12057"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The following error occurs when the enrollment wizard starts: Automatic user enrollment
+        failed: Server certificate revocation check failed. (Error Code:12057, URL:
+        <a href="https://pmserver/gina_isprofilecreated.asp" target="_blank"
+          >https://pmserver/gina_isprofilecreated.asp</a
+        >
+        Please contact your system administrator if this problem persists.
+        <hr />
+        The error means that the system was not able to check if the SSL certificate was revoked. In
+        case of third-party certificates, it can be caused by firewall or anti-malware software
+        blocking connections to revocation servers. Self-signed certificates are usually not checked
+        for revocation, however the reason for the issue might be the same - the system cannot reach
+        any certificate authority.
+        <hr />
+        To address the issue:
+        <ol>
+          <li>
+            Make sure firewall or other software is not blocking connection. Enable all connections
+            and launch the wizard.
+          </li>
+          <li>Also make sure that proxy server is not affecting connection</li>
+          <li>
+            If you use a self-signed certificate - try disabling the proxy and launch the wizard
+          </li>
+          <li>If the above does not work try disabling revocation check :</li>
+        </ol>
+
+        <ul>
+          <li>Launch Control panel - Internet options</li>
+          <li>Go to Advanced tab</li>
+          <li>
+            Disable "Check server certificate for revocation" checkbox under Security group of
+            settings.
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

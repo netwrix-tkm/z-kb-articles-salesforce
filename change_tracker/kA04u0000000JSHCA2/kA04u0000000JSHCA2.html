@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>10. Configuration Templates - Working with Baseline Data</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JSHCA2" />
+    <meta name="Id" content="ka04u000000wwECAAY" />
+    <meta name="LastPublishedDate" content="2023-11-23T15:33:30.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-23T15:33:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:33:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8089" />
+    <meta name="ArticleNumber" content="000008089" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="id-10.ConfigurationTemplates-WorkingwithBaselineData-_Toc479092938_Toc484003735ConfigurationTemplates:WorkingwithBaselineData"
+        >
+          <span>Configuration Templates: Working with Baseline Data</span>
+        </h2>
+
+        <p>
+          <strong
+            ><em
+              >Note: Baseline Data functions are only supported with the NNT Gen 7 Agent **</em
+            ></strong
+          >
+        </p>
+
+        <p>
+          <br />Change Tracker Gen 7 has been designed to localize baseline data with the Agent. The
+          key advantage of an Agent for FIM is that it can monitor file changes in real-time. Due to
+          the agent being installed on the monitored host, the OS activity can be monitored and any
+          file activity can be observed and changes recorded.<br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="338"
+              src="kA04u0000000JSHCA2_623f5f1f-f74c-49c4-b334-f7bda15ac80d.png"
+              width="526" /></span
+          ><br />The second major advantage of an agent is that the monitored host does not need to
+          be 'opened up' to allow monitoring. All critical system and configuration files will
+          always be protected by the host filesystem security, for example, the Windows System 32
+          folder is always an 'Administrator Access Only' folder. An Agentless monitoring approach
+          would therefore need to operate using an Admin-level account with network access to the
+          monitored host, while an Agent can operate within the confines of the Host, just pushing
+          out File Integrity changes as they are detected. Finally an Agent offers a further
+          advantage over and above the Agentless approach in that it can offer a 'changes only'
+          update across the network, and will only require host resources when there is a change to
+          assess and report. By contrast, for every polled check, an Agentless scan will always need
+          to re-examine and generate new hash values for all files in order to detect any changes
+          even if there are none. See 'FIM Agent Versus Agentless FIM'
+        </p>
+
+        <p>
+          <br />However, there are cases whereby the baseline data has other useful applications
+          outside of change detection for the individual host, for example
+        </p>
+
+        <ul>
+          <li>
+            To retain a 'hard copy' of a device's configuration settings, for example, a router
+            config or firewall ruleset, or full software inventory
+          </li>
+          <li>
+            To compare one host's build standard with another/many others. While the CIS Benchmark
+            reports built into
+          </li>
+        </ul>
+
+        <p>
+          Change Tracker will assess a host's configuration settings, other configuration/build
+          attributes beyond the scope of the CIS Benchmark may be pertinent, for example,
+        </p>
+
+        <ul>
+          <li>installed software and updates</li>
+          <li>open ports</li>
+          <li>folder/filesystem structure</li>
+          <li>specified versions of files</li>
+          <li>service and process lists</li>
+          <li>
+            other general configuration settings outside of the scope of the CIS Benchmark, e.g.
+            Application specific settings
+          </li>
+          <li>
+            To mine a configuration for specified items, for example, the hash value for a known-bad
+            version of a file
+          </li>
+        </ul>
+
+        <p>
+          In all these examples, a full record of the configuration settings for a device is needed
+          to be held at the Gen 7 hub for re-use, and for these instances, the 'Send Baseline
+          Events' checkbox should be used in the Configuration Template.
+        </p>
+
+        <h2
+          id="id-10.ConfigurationTemplates-WorkingwithBaselineData-SendBaselineEvents–SetupandOperation"
+        >
+          <br /><span>Send Baseline Events – Setup and Operation</span>
+        </h2>
+
+        <p>
+          <br />Any tracker can be enabled for the collection of Baseline Events by checking the
+          'Send Baseline Events' box.
+        </p>
+
+        <p>
+          <br /><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="71"
+              src="kA04u0000000JSHCA2_42dd7b85-9014-45fb-817a-192dafa4fc16.png"
+              width="624"
+          /></span>
+        </p>
+
+        <p>
+          See below for an example of the 'Send Baseline Events' checkbox – this will result in the
+          Installed Software and Updates baseline being pushed back to the Hub as a series of
+          Baseline Events.<br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="103"
+              src="kA04u0000000JSHCA2_b450d890-5523-4146-9742-54442e6708a1.png"
+              width="624"
+          /></span>
+        </p>
+
+        <p>
+          The baseline data is sent to the Hub as a series of Baseline Events. These can be viewed
+          directly in the Events screen by selecting Baseline Events.<br
+            class="atl-forced-newline"
+          />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="142"
+              src="kA04u0000000JSHCA2_49bac655-de36-40ff-9bd7-4f2157e1c580.png"
+              width="553"
+          /></span>
+        </p>
+
+        <p>
+          There are two types of Baseline Event – a Current Baseline and Historical Baseline. When a
+          change is made to the Baseline data e.g. by adding, changing or removing a configuration
+          element, the Current Baseline is updated to reflect the change and a new Historical
+          Baseline event is also created as a record of the previous Baseline for the device.<br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="288"
+              src="kA04u0000000JSHCA2_38ecb2f6-f24b-4ba4-a644-918e15fa41f0.png"
+              width="625"
+          /></span>
+        </p>
+
+        <h2
+          id="id-10.ConfigurationTemplates-WorkingwithBaselineData-ViewingBaselineRecords,trackingfullconfigurationrecordsforNetworkDevices"
+        >
+          <span
+            >Viewing Baseline Records, tracking full configuration records for Network Devices</span
+          >
+        </h2>
+
+        <p>
+          <br />For a text output-based Tracker, for example, Network Ports, the Baseline data is
+          the full scan output.<br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="146"
+              src="kA04u0000000JSHCA2_c2066b9e-5dcc-4ff9-942a-a3a116846e2c.png"
+              width="458" /></span
+          ><br />Or for a firewall/router, the Baseline Records allow you to capture a full config
+          record as well as the interim changes made via the Device Events.<br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="176"
+              src="kA04u0000000JSHCA2_853c78cb-bd62-44f5-a64a-56c7bc0d5b86.png"
+              width="456"
+          /></span>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

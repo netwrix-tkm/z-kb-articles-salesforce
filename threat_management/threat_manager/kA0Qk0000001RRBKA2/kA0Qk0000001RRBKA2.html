@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Test Connection in Active Directory Sync Integration Fails</title><meta name="label" content="public_v"/><meta name="label" content="threat_manager"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001RRBKA2"/><meta name="Id" content="ka0Qk0000005sxRIAQ"/><meta name="LastPublishedDate" content="2024-10-01T11:00:31.000+0000"/><meta name="LastModifiedDate" content="2024-10-01T11:00:31.000+0000"/><meta name="FirstPublishedDate" content="2024-09-20T14:02:00.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9279"/><meta name="ArticleNumber" content="000009279"/><meta name="description" content="Test Connection in Active Directory Sync Integration Fails"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+
+<div>
+<p>Refer to the following symptoms present in your environment:</p>
+
+<ul><li>
+	<p>In Netwrix Threat Manager (NTM), the test connection fails when you attempt to configure the Active Directory Sync Integration.</p>
+	</li><li>
+	<p>The Threat Manager Console is configured to use the HTTPS protocol.</p>
+	</li></ul>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The Active Directory Service is misconfigured and cannot be connected to via HTTPS.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Edit the Active Directory Service configuration to implement the HTTPS protocol. Refer to the following steps:</p>
+
+<ol><li>
+	<p>Proceed to the Web Service folder and locate the <code>appsettings.json</code> file to manage the service settings. Refer to the following default location:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\Stealthbits\StealthDEFEND\WebService</code></pre>
+	</li><li>
+	<p>Locate the <code>"ADService"</code> node and alter the <code>Scheme</code> value to state <code>https</code>. Refer to the following example:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">"ADService": {
+"Host": "localhost",
+"Scheme": "https",
+"Port": "55556"
+},</code></pre>
+	</li><li>
+	<p>Locate or create the <code>JWT</code> node. Specify the relevant certificate values. Refer to the following example:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">"Jwt": {
+    "CertificateFile": "C:\\ProgramData\\Stealthbits\\StealthDEFEND\\WebService\\%certificateName%.pfx",
+    "CertificatePassword": "%password%",
+    "CertificateThumbprint": "%thumbprint%",
+    "Version": 2
+},</code></pre>
+	</li><li>
+	<p>Save the changes.</p>
+	</li></ol>
+
+<p>Refer to the following example of the <code>appsettings.json</code> file:</p>
+
+<div><img height="317" src="kA0Qk0000001RRBKA2_f2739d62-2607-4fb5-bf0c-1f57bbae4ae6.png" width="688"/></div>
+</div></div>
+</article></body></html>

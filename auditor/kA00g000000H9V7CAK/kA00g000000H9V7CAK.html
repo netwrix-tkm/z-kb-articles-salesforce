@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Why do I receive my SharePoint Online audit data too late (or do not receive at all)?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9V7CAK" />
+    <meta name="Id" content="ka04u000000HcOUAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="720" />
+    <meta name="ArticleNumber" content="000003141" />
+    <meta
+      name="description"
+      content="Find out why your SharePoint Online audit data might be missing"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Why audit data for SharePoint Online is collected behind the schedule or missing?
+        <hr />
+        Due to Microsoft Management Activity API limitations, Netwrix Auditor may experience delays
+        when collecting audit data.
+        <ul>
+          <li>
+            It may take up to 12 hours since the Monitoring Plan creation to start collecting audit
+            data. For more information, refer to the following Microsoft article:
+            <a
+              href="https://msdn.microsoft.com/office-365/office-365-management-activity-api-reference"
+              target="_blank"
+              >https://msdn.microsoft.com/office-365/office-365-management-activity-api-reference</a
+            >
+          </li>
+          <li>
+            After initial configuration, it may take approximately 15 minutes for events to appear
+            in the activity log after the change occurred.
+          </li>
+          <li>
+            In case of Microsoft maintenance works, audit data may be unavailable for a few days.
+            For more information, refer to the following Microsoft article:
+            <a
+              href="https://support.office.com/en-us/article/Search-the-audit-log-in-the-Office-365-Security-Compliance-Center-0d4d0f35-390b-4518-800e-0c7ec95e946c?ui=en-US&amp;rs=en-US&amp;ad=US"
+              target="_blank"
+              >https://support.office.com/en-us/article/Search-the-audit-log-in-the-Office-365-Security-Compliance-Center-0d4d0f35-390b-4518-800e-0c7ec95e946c?ui=en-US&amp;rs=en-US&amp;ad=US</a
+            >
+          </li>
+        </ul>
+        Also, Microsoft automatically removes events that are older than 7 days—Netwrix Auditor will
+        be unable to collect them. To ensure your audit data is always complete, make sure the
+        Monitoring plan is always active.
+      </div>
+    </article>
+  </body>
+</html>

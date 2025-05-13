@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitor and Parse Synology Messages in Network Devices Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnhFCAQ" />
+    <meta name="Id" content="ka04u000000wvuvAAA" />
+    <meta name="LastPublishedDate" content="2023-10-20T15:38:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-26T11:01:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-20T15:38:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8866" />
+    <meta name="ArticleNumber" content="000008866" />
+    <meta
+      name="description"
+      content="Monitor and Parse Synology 7.2 Messages in Network Devices Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span
+              ><strong>IMPORTANT: </strong>These changes to Configuration.xml must be performed
+              after the Team Lead and RnD approval!</span
+            >
+          </p>
+        </blockquote>
+
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to set up a Network Devices monitoring plan to parse Synology messages?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                In the Netwrix Auditor server, stop Configuration Server, Network Devices Audit, and
+                Logs Collection services. Run the following lines in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Stop-Service -DisplayName "Netwrix Auditor for Network Devices Audit Service"
+Stop-Service -DisplayName "Netwrix Auditor Logs Collection Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Backup the <code>Configuration.xml</code> file. You can find the
+                <code>configuration.xml</code> file by following the provided path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%Working_Folder%\AuditCore\ConfigServer\</code></pre>
+            </li>
+            <li>
+              <p>
+                Open the <code>Configuration.xml</code> file and locate the
+                <code>NetworkDevicesParsers</code> node. Insert the following lines:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="91A79832-E1E5-49F1-8290-F27AB5AEE843"&gt;
+&lt;a n="Device" v="Synology"/&gt;
+&lt;a n="Group" v="Synology NAS"/&gt;
+&lt;a n="Name" v="Successful authentication attempts"/&gt;
+&lt;/n&gt;
+&lt;n n="9DA8BFF6-F724-4506-BFAD-9FD042A19B56"&gt;
+&lt;a n="Device" v="Synology"/&gt;
+&lt;a n="Group" v="Synology NAS"/&gt;
+&lt;a n="Name" v="Failed authentication attempts"/&gt;
+&lt;/n&gt;
+&lt;n n="99792BE0-3C4C-4F58-BD12-7ADA170FCBA9"&gt;
+&lt;a n="Device" v="Synology"/&gt;
+&lt;a n="Group" v="Synology NAS"/&gt;
+&lt;a n="Name" v="Configuration changes"/&gt;
+&lt;/n&gt;
+&lt;n n="9229BB52-4882-409E-A2B4-F9815E1DEE81"&gt;
+&lt;a n="Device" v="Synology"/&gt;
+&lt;a n="Group" v="Synology NAS"/&gt;
+&lt;a n="Name" v="VPN logons"/&gt;
+&lt;/n&gt;</code></pre>
+
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>Start the previously stopped services:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Start-Service -DisplayName "Netwrix Auditor for Network Devices Audit Service"
+Start-Service -DisplayName "Netwrix Auditor Logs Collection Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Create an item in the <strong>Network Devices</strong> monitoring plan. Prior steps
+                create a separate tab for Synology NAS.
+              </p>
+
+              <div>
+                <img
+                  height="536"
+                  src="kA04u000000wnhFCAQ_052dce36-40b6-4710-aca8-4c2729912243.png"
+                  width="700"
+                />
+              </div>
+            </li>
+            <li>
+              <p>After the item is added, a folder with parsing rules for Synology is created:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\SyslogCollection\Data\*\Config.xml</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

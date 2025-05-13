@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Triggering Microsoft Flow from Directory Manager Workflows</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015ldKAA" />
+    <meta name="Id" content="ka0Qk000000DSL3IAO" />
+    <meta name="LastPublishedDate" content="2025-04-16T20:10:20.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:24:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:20:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9168" />
+    <meta name="ArticleNumber" content="000009168" />
+    <meta name="description" content="MS Flow workflow from GroupID" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to trigger a Microsoft Flow (MS Flow) from Netwrix Directory
+          Manager (formerly GroupID). The goal is to automate user provisioning by linking user
+          creation in Directory Manager to a corresponding SharePoint site access flow based on
+          department information.
+        </p>
+        <p>
+          By integrating Directory Manager workflows with MS Flow, administrators can ensure that
+          when a user is created and assigned a department, a flow is automatically triggered to
+          grant them access to their department’s SharePoint site. When the MS Flow is approved, the
+          linked Directory Manager workflow is also approved automatically.
+        </p>
+        <h4 id="prerequisites">Prerequisites</h4>
+        <p>
+          The Directory Manager application in Azure must have the following permissions for MS
+          Flow:
+        </p>
+        <p>
+          <img
+            alt="A screenshot of a computer  Description automatically generated"
+            src="kA0Qk00000015ldKAA_f77607b4-02e3-4b45-8834-bccfd4b248ac.png"
+            width="618"
+            height="364"
+          />
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>Follow the steps below to link a MS Flow to a Directory Manager Workflow:</p>
+        <ol>
+          <li>
+            In Netwrix Directory Manager Management Console, go to the
+            <strong>Identity Stores</strong> node.
+          </li>
+          <li>Double-click the required identity store to open its properties.</li>
+          <li>
+            On the <strong>Workflow</strong> tab, click <strong>Microsoft Flow</strong> and
+            configure the following:
+            <ul>
+              <li><strong>Org Code:</strong> The unique name for the MS Flow environment.</li>
+              <li><strong>Region:</strong> The location of your MS Flow environment.</li>
+              <li>
+                <strong>Directory Manager Server:</strong> The name or IP of your Directory Manager
+                server.
+              </li>
+              <li>
+                <strong>ClientID:</strong> The application ID of the Directory Manager app
+                registered in Azure.
+              </li>
+            </ul>
+          </li>
+          <li>Click <strong>OK</strong> to save changes.</li>
+          <li>Log into the MS Flow portal and open the flow you want to link.</li>
+          <li>
+            Generate a request URL for the MS Flow.
+            <img
+              src="kA0Qk00000015ldKAA_e4983a44-f1b6-45f5-b8af-b4ee1e7a2f3f.png"
+              alt=""
+              width="592"
+              height="450"
+            /> 
+          </li>
+          <li>
+            In the Directory Manager Console, go back to the <strong>Workflow</strong> tab of the
+            identity store properties.
+          </li>
+          <li>
+            Select the workflow to link (e.g., <strong>Create User</strong>) and click
+            <strong>Edit</strong>.
+          </li>
+          <li>
+            In the <strong>Edit Workflow Route</strong> dialog box, paste the MS Flow request URL
+            into the <strong>Microsoft Flow Request URL</strong> field. 
+          </li>
+          <li>
+            Click <strong>Authenticate</strong> and provide identity store credentials.
+            <img
+              src="kA0Qk00000015ldKAA_07c05718-37f7-4752-9473-26af53f20d45.png"
+              alt=""
+              width="536"
+              height="72"
+            /> 
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE:</strong></span> To quickly define a flow in MS
+                Flow, click <strong>Create Temp</strong> to create a basic template and connect it.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            Click <strong>OK</strong> to finalize the link between the Directory Manager workflow
+            and MS Flow.
+          </li>
+        </ol>
+        <p>
+          Now, when a user is created in Directory Manager Self-Service and assigned a department,
+          it will trigger the Create User workflow. That workflow will trigger the MS Flow to grant
+          access to the department’s SharePoint site. Approval of the MS Flow will automatically
+          approve the Directory Manager workflow.
+        </p>
+        <h4 id="validation_checklist">Validation Checklist</h4>
+        <ul>
+          <li>Confirm on the Self-Service portal that the user has been created.</li>
+          <li>
+            Navigate to SharePoint and verify that the user has access to the appropriate department
+            site.
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

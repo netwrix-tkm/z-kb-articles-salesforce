@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Add Additional Space to Long-Term Archive</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001115iCAA" />
+    <meta name="Id" content="ka0Qk000000426TIAQ" />
+    <meta name="LastPublishedDate" content="2024-06-03T13:56:13.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-03T13:56:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-24T12:04:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8761" />
+    <meta name="ArticleNumber" content="000008761" />
+    <meta
+      name="description"
+      content="This article contains instructions to add additional space to the Netwrix Archive."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            In some cases, you may need to add space to the Long-Term Archive. Please follow the
+            steps below to enhance your archive capacity.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>
+            <strong>Long-Term Archive</strong> is a file-based storage where Netwrix Auditor saves
+            the collected activity records. By default, it is located on the system drive at
+            <em>%PROGRAMDATA%\Netwrix Auditor\Data</em> and keeps data for <strong>120</strong>
+            <strong>months (10 years) </strong>. The product informs you if you are running out of
+            space on a system disk where it is stored.<br /><br />There is a <strong
+              >Long-Term Archive</strong
+            > widget that helps you to monitor the Long-Term Archive capacity. The widget can be
+            found by clicking the <strong>Health Status</strong> tile on the Netwrix Auditor home
+            screen. It displays the current size and daily increase of the Long-Term Archive as well
+            as the remaining free space on the target drive. <br /><br />Once the free disk space
+            starts approaching the minimum level, you will see events in the
+            <strong>Netwrix Auditor System Health</strong> log. When the free disk space is less
+            than <strong>3 GB</strong>, the Netwrix services responsible for audit data collection
+            will be stopped, which means that data collection also stops.
+          </p>
+
+          <p>
+            Typically, Netwrix recommends adding space (150-200 GB) to the drive where the Long-Term
+            Archive resides to resolve the issue. Follow the steps below to find where your
+            Long-Term Arvice data is stored.
+          </p>
+
+          <ol>
+            <li>
+              <p>In Netwrix Auditor, navigate to <b>Settings</b>.</p>
+            </li>
+            <li>
+              <p>
+                Select the <b>Long-Term Archive</b> page and review where your audit data is
+                written. You can modify the archive retention settings here, however, read the steps
+                below for the correct procedure.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            In this scenario, all historical data collected by the product will be preserved. If you
+            do not have enough hardware resources for that, add some space (recommended 25-30 GB) on
+            the Auditor Server host to restore regular product functionality and then decrease the
+            retention period of the archive.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> After changing the retention, for example to
+              1 year, all data older than 1 year will be removed (it might take up to several days)
+              and that freed up even more disk space.
+            </p>
+          </blockquote>
+
+          <p>Follow the steps below to decrease the retention period for the archive:</p>
+
+          <ol>
+            <li>
+              <p>Add some space (25-30GB) on the Auditor Server.</p>
+            </li>
+            <li>
+              <p>Shortly after adding additional space, start all Netwrix services.</p>
+            </li>
+            <li>
+              <p>
+                Immediately after that, decrease the Long-Term Archive retention. For that, navigate
+                to the Auditor settings -&gt; <b>Long-Term Archive</b> and click <b>Modify</b> under
+                the Long-term Archive. Then provide a new retention value in months.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            It is up to you to decide how long you want to keep historical data. If you know that no
+            historical data will be needed past one year, decrease the retention to
+            <b>12 months</b>. The historical data can be imported from the Archive back to your
+            Audit Database when needed via the <b>Investigations</b> feature.
+          </p>
+
+          <p>
+            Learn more about Investigations in the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/Investigations.htm"
+              target="_blank"
+              >Netwrix Auditor Settings – Investigations</a
+            >.
+          </p>
+
+          <p>
+            Review additional recommendations for preventing Long-Term Archive overflow in the
+            following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PbdHCAS.html"
+              target="_blank"
+              >How to Prevent Overflow of the Long-Term Archive</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

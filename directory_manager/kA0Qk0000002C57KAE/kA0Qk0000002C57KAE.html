@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Replicating Custom AD Attributes to Elasticsearch</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002C57KAE" />
+    <meta name="Id" content="ka0Qk000000CtITIA0" />
+    <meta name="LastPublishedDate" content="2025-05-01T15:26:32.000+0000" />
+    <meta name="LastModifiedDate" content="2025-05-01T15:26:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-05-01T15:26:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10089" />
+    <meta name="ArticleNumber" content="000010089" />
+    <meta
+      name="description"
+      content="Description: This article helps you replicate custom AD attributes to the Elasticsearch repository. Keywords: AD attributes, Custom Attributes, Replication, Active Directory, AD, Elasticsearch"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 10</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          Netwrix Directory Manager (formerly GroupID) 10 allows you to replicate custom Active
+          Directory (AD) attributes to the Elasticsearch repository. This article provides
+          instructions for adding a custom attribute to the AD schema and configuring Directory
+          Manager to include it in replication.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <ol>
+          <li>
+            Create the custom attribute in the Active Directory schema. For example, to add
+            <em>campusName</em> for users, define the attribute in the AD schema and assign it to
+            user objects. Once completed, the attribute will appear in the attribute list for users
+            in AD.
+          </li>
+          <li>
+            On the Directory Manager machine, open Task Scheduler and run the task named
+            <strong>Schema Replication</strong>. <br /><img
+              src="kA0Qk0000002C57KAE_f1acded8-bf53-458f-9078-29b536035bce.png"
+              alt="Task Scheduler with Schema Replication task highlighted"
+              width="602"
+              height="327"
+            />
+          </li>
+          <li>
+            After the Schema Replication task completes, navigate to the Directory Manager
+            Management Console and click the <strong>Identity Stores</strong> node. 
+          </li>
+          <li>
+            On the <strong>Identity Stores</strong> tab, double-click the required identity store to
+            open its properties.
+          </li>
+          <li>
+            On the <strong>Replication</strong> tab, add the custom attribute you created.<br /><img
+              src="kA0Qk0000002C57KAE_17add252-a92e-446e-965f-9da6573aeae9.png"
+              alt="Replication tab in Identity Store properties with custom attribute added"
+              width="478"
+              height="388"
+            />
+          </li>
+          <li>
+            Once complete, open Services and restart the <strong>Elasticsearch</strong> service and
+            the <strong>Netwrix Replication</strong> service.
+          </li>
+          <li>
+            Open <strong>regedit.msc</strong> and navigate to
+            <code class="lang-Registry"
+              >HKEY_LOCAL_MACHINE\SOFTWARE\Imanami\GroupID\Version 10.0\Replication</code
+            >.
+          </li>
+          <li>
+            Expand the <strong>Replication</strong> registry key to view your identity stores.
+            Select your domain’s identity store, and in the <strong>users</strong> value, delete the
+            existing value data. Click <strong>OK</strong> to save your changes. This action forces
+            a full replication of user objects, ensuring the new attribute is included in
+            Elasticsearch. <br /><img
+              src="kA0Qk0000002C57KAE_f501b033-dfd5-4b3e-b2b6-f033930e1409.png"
+              alt="Registry editor showing Replication key and users value"
+              width="623"
+              height="272"
+            />
+          </li>
+          <li>
+            In Directory Manager Management Console, go to the <strong>Replication</strong> tab for
+            the identity store and click <strong>Replicate Now</strong> in the Replication Service
+            area. This starts users-only replication for your domain. Once complete, your custom
+            attribute will be included in Elasticsearch.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

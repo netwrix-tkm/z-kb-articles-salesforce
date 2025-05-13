@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Process Item Error when Using gMSA in Netwrix Auditor</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000GuNCAU" />
+    <meta name="Id" content="ka04u000000wwFoAAI" />
+    <meta name="LastPublishedDate" content="2023-11-27T12:36:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-27T12:36:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-09-08T04:13:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5816" />
+    <meta name="ArticleNumber" content="000005816" />
+    <meta name="description" content="Using gMSAs with Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            You may get a variety of errors referring to the logon/impersonation issues, depending
+            on the data collection scope affected.
+          </p>
+
+          <p>
+            For instance, using gMSA for Netwrix Auditor for File Servers, you encounter the
+            following error in the Health Log:
+          </p>
+
+          <pre>Unable to process item: A logon request contained an invalid logon type value.</pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            On January 10th 2023 Microsoft has released a security update affecting the
+            pre-10.5.11041 Netwrix Auditor versions ability to impersonate gMSA. Refer to the
+            following article for additional information on the update:
+            <a
+              href="https://support.microsoft.com/en-us/topic/january-10-2023-kb5022291-os-build-20348-1487-38772acf-103f-463e-9d60-486174e806b2"
+              target="_blank"
+              >Update KB5022291</a
+            >.
+          </p>
+
+          <p>
+            In Netwrix Auditor version 9.96 group managed service accounts can be used instead of
+            regular service accounts in a limited number of cases. Refer to the following article
+            for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/gMSA.htm"
+              target="_blank"
+              >Requirements – Use Group Managed Service Account(gMSA) ⸱ v10.6</a
+            >. Permissions for gMSA are the same as for regular service accounts, refer to the
+            following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+              target="_blank"
+              >Monitoring Plans – Data Collecting Account ⸱ v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          <p>
+            For the pre-10.5.11041 Netwrix Auditor version, make sure to update your Netwrix Auditor
+            instance — refer to the following articles for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9ePCAS.html"
+              target="_self"
+              >How to Upgrade Netwrix Auditor</a
+            >
+            and
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eJCAS.html"
+              target="_self"
+              >Upgrade Increments for Netwrix Auditor</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

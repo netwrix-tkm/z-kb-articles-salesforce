@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Investigate Compression Services Errors</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000TsqpCAC" />
+    <meta name="Id" content="ka0Qk00000045E1IAI" />
+    <meta name="LastPublishedDate" content="2024-06-06T13:47:24.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-06T13:47:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-05-24T13:48:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8439" />
+    <meta name="ArticleNumber" content="000008439" />
+    <meta name="description" content="How to investigate compression Services errors" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          In the Netwrix Auditor health log, some error events mention issues with the compression
+          service or its connectivity, such as
+          <strong>Compression service is unavailable</strong> and
+          <strong>Unable to update the Compression Service</strong>. This article describes how to
+          troubleshoot these errors.
+        </p>
+
+        <h2 id="description">Description</h2>
+
+        <ol>
+          <li>
+            If you recently migrated Netwrix Auditor to a new server, check that the old Netwrix
+            instance doesn't have access to your environment. Navigate to the old Netwrix server and
+            stop all Netwrix Auditor services.
+          </li>
+          <li>
+            Log in to the Netwrix server with Data Collection Account credentials (monitoring plan –
+            settings – data collection) and check that you can open this path via File Explorer:
+            <ul>
+              <li>\\*<strong>audited_server</strong>*\c$\Windows\</li>
+            </ul>
+            Check if you can add or remove files from this folder. If not, check the permissions for
+            the Data Collection account:
+
+            <ul>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+                  target="_blank"
+                  >MonitoringPlans – Data Collecting Account ⸱ v10.6</a
+                >
+              </li>
+            </ul>
+            <strong>Note:</strong> Pay attention to which collector you're going to adjust
+            permissions.
+          </li>
+          <li>
+            Test the ports required for the problematic monitoring plan:
+            <ul>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Ports.htm"
+                  target="_blank"
+                  >Requirements – Protocols and Ports ⸱ v10.6</a
+                >
+                (choose the problematic monitoring plan on the left).
+              </li>
+            </ul>
+            Here is an article on how to check ports:
+
+            <ul>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000TsquCAC.html"
+                  target="_blank"
+                  >How to check TCP, UDP and Dynamic ports required for Netwrix Auditor monitoring
+                  plans</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            Check Remote Registry and Windows Management Instrumentation Services:
+            <ul>
+              <li>
+                For File Servers Auditing:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/RemoteRegistryService.htm"
+                  target="_blank"
+                  >Windows File Servers – Enable Remote Registry Service ⸱ v10.6</a
+                >
+              </li>
+              <li>
+                For Windows Server Auditing:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/RemoteRegistry.htm"
+                  target="_blank"
+                  >Windows Server – Enable Remote Registry and Windows Management Instrumentation
+                  Services ⸱ v10.6</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            Add antivirus exclusions on the Netwrix and target servers for folders:
+            <ul>
+              <li>
+                See the article on how to do it:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_blank"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_9.0_075</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I1ACAU" />
+    <meta name="Id" content="ka04u000000HcdCAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:57:02.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:00:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:57:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6104" />
+    <meta name="ArticleNumber" content="000006104" />
+    <meta name="description" content="360012217872" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong> Error message about parsing datetime on import</p>
+        <p>
+          Before Fix: When scanning on a proxy/remote host that has a time setting to be displayed
+          with periods instead of colons, FSAA stores the ScanTime value incorrectly and prevents
+          bulk import from working correctly.
+        </p>
+        <p>
+          After fix: FSAA should store the datetime correctly, regardless of the computer settings
+          on the execution host.
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Michael Burrofato</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>9.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – DC – FSAA</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ul>
+          <li>SAFS-18331</li>
+        </ul>
+        <p><strong>Resolved in Version:</strong></p>
+        <ul>
+          <li>DCFSAA.dll 9.0.1185</li>
+          <li>FSAASrv.dll 9.0.1185</li>
+          <li>Stealthbits.StealthAUDIT.DataCollectors.FSAA.dll 9.0.1185</li>
+          <li>Stealthbits.StealthAUDIT.DataCollectors.FSAA.UI.dll 9.0.1185</li>
+        </ul>
+        <p><strong>Other dependencies included:</strong></p>
+        <ul>
+          <li>AIPHelper.dll</li>
+          <li>FSAAnetApp.dll</li>
+          <li>FSAATagHelper.exe</li>
+          <li>libnfs.dll</li>
+          <li>sqlite3.dll</li>
+          <li>StealthAUDITRPC.exe</li>
+          <li>StealthAUDITRPCClient.dll</li>
+          <li>UpdateFSAAService.exe</li>
+          <li>StealthAUDIT.DataCollectors.DLP.Common.dll</li>
+          <li>StealthAUDIT.DataCollectors.DLP.UI.dl</li>
+          <li>StealthAUDIT.DataCollectors.FSAA.RPCClient.dll</li>
+        </ul>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p>-              SAFS-21532/Escalation 59983</p>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>
+          -              SAFS-17006 FSAA: Access denied on first time scan followed by bulk import
+          causes Resource Mapping error
+        </p>
+        <p>
+          -              SAFS-17136 FSAA: Null values in OSType field cause object reference error
+        </p>
+        <p>
+          -              SAFS-16829 35363 - FSAA Scan Isilon requires manually opening IFS with
+          windows explorer
+        </p>
+        <p>-              SAFS-17111 37180 - FS SDD | Quantify Skipped Files</p>
+        <p>
+          -              SAFS-16860 35529 - Update UseFSAAforDeleted to mark any resource as deleted
+          if it doesn't have an AccessID
+        </p>
+        <p>
+          -              SAFS-17129 LAT Preservation: Check if we updated LAT after scanning a file
+        </p>
+        <p>
+          -              SAFS-17192 FSAA: LAT preservation retry does not use the admin path
+          appropriately on retry
+        </p>
+        <p>
+          -              SAFS-17180 37684 - Enhance FSAA scoping to allow priorities for Exclusions
+        </p>
+        <p>
+          -              SAFS-17475 39177 - FSAA Limit maximum number of Files Setting not saving
+        </p>
+        <p>
+          -              SAFS-16992 36323 - Update Remove Host Query to remove SA_FSAC_FileResources
+          table
+        </p>
+        <p>-              SAFS-17530 FSAA: Not throwing mismatched GUID error when applicable</p>
+        <p>
+          -              SAFS-17542 39666 - noticed a bunch of failed scan zip files taking up a
+          bunch of space on the C: drive
+        </p>
+        <p>
+          -              SAFS-16879 37889 - FSAA UI Bug: Changing from Maintenance categories breaks
+          navigation
+        </p>
+        <p>-              SAFS-15314 Improve logging when erroring using Strong Proxy Affinity</p>
+        <p>
+          -              SAFS-17716 40468 - Collecting Folder Creation Date and Folder Last Modified
+          Date with FSAA
+        </p>
+        <p>-              SAFS-18064 FSAA: OOB Scoping queries do not have priority set</p>
+        <p>-              SAFS-18164 Conflicts in scoping options do not default to child path</p>
+        <p>
+          -              SAFS-18162 FSAA Scoping Options UI: Turning an 'Exclude' scope into an
+          'Include' Scope allows options to be selected without being enabled.
+        </p>
+        <p>
+          -              SAFS-17574 39746 - FSAA - Misleading error message being thrown when retry
+          is successful.
+        </p>
+        <p>-              SAFS-18328 Update Proxy Service is failing (10.0+)</p>
+        <p>
+          -              SAFS-2766 20628 / 36790 - FSAA | Proxy Upgrade Job Isn't Multi-Threaded
+        </p>
+        <p>-              SAFS-18629 637 - Access Violation during FSAA Scan</p>
+        <p>-              SAFS-18439 42338 - Update FSAC to support UCS2 encoding</p>
+        <p>
+          -              SAFS-18737 471 - FSAA Unable to start scan: Could not initialize scan
+          session for "SERVER" with "SCANNER"
+        </p>
+        <p>
+          -              SAFS-18771 50592 - FSAA Bulk import errors "UNIQUE constraint failed" on
+          Turkish console.
+        </p>
+        <p>
+          -              SAFS-18331 428 - FSAA SDD: Make DLP exceptions report actual filename/path
+        </p>
+        <p> </p>
+        <p><strong>Changes since last Hotfix</strong></p>
+        <p>
+          -              SAFS-19270 51453 - FSAC: Impersonation issue when targeting Windows
+          Clusters
+        </p>
+        <p>
+          -              SAFS-19693 53538 - FS scans do not respect scoping rules when folder is a
+          substring of filter
+        </p>
+        <p>-              SAFS-20276 SA 10.0 365 day limit on file activity (UI)</p>
+        <p>
+          -              SAFS-21243 FSAA scan hangs after failure to enumerate folder fails with
+          "The semaphore timeout period has expired"
+        </p>
+        <p>-              SAFS-20257 FSAC: Proxy Connection Error Logging Improvements</p>
+        <p>-              SAFS-21532 59983 - Error message about parsing datetime on import</p>
+        <p> </p>
+        <p><strong>Comments:</strong></p>
+        <p>
+          <strong
+            >THIS HOTFIX HAS A PREREQUISITE OF HOTFIX <u>SA_9.0_018</u>. PLEASE APPLY THAT HOTFIX
+            PRIOR TO APPLYING THIS ONE. SEE KB FOR THAT HOTFIX FOR MORE DETAILS</strong
+          >
+        </p>
+        <p>
+          This version of FSAA includes a change that also requires a change to SDD add-on. Please
+          upgrade your SDD add-on to version 9.0.0.33 or later. FSAA will be compatible with older
+          versions of SDD but you will see a warning message that says the following:<br />“Cannot
+          find interface for temporary file scan, SDD Components may be out of date. Continuing scan
+          with old interface...”
+        </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog, if an unblock button exists
+            there. 
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Update all DC files in your %SAInstallDir%DC folder</li>
+          <li>Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder.</li>
+          <li>
+            Run the ‘Update Proxy Service’ query under the Maintenance tab in the FSAA data
+            collector against your proxy servers (if running proxy service).
+            <ol>
+              <li>
+                PLEASE NOTE THAT THIS HOTFIX INCLUDES A CHANGE THAT MAY REQUIRE YOU TO RUN THE
+                UPDATE PROXY SERVICE TWICE TO UPDATE SDD COMPONENTS ON THE PROXY SERVER. YOU SHOULD
+                RECEIVE A WARNING ON THE FIRST RUN INDICATING THIS.
+              </li>
+            </ol>
+          </li>
+          <li>
+            Delete tier 2s on proxy/remote host (if applicable). You do NOT have to delete the tier
+            2 on the local SA Console.
+          </li>
+          <li>Re scan affected hosts.</li>
+        </ol>
+        <p>
+          <strong
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAHotFixes/9.0/SA_9.0_101.zip"
+              target="_blank"
+            >
+              https://downloads.stealthbits.com/access/files/SAHotFixes/9.0/SA_9.0_101.zip</a
+            ></strong
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

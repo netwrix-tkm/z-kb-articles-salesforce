@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Storing Password History in Netwrix Password Policy Enforcer</title><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000PdL3CAK"/><meta name="Id" content="ka04u00000118AHAAY"/><meta name="LastPublishedDate" content="2023-10-13T09:52:06.000+0000"/><meta name="LastModifiedDate" content="2023-10-13T10:08:36.000+0000"/><meta name="FirstPublishedDate" content="2021-07-12T12:13:30.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5889"/><meta name="ArticleNumber" content="000005889"/><meta name="description" content="Changing-Attribute-for-Storing-PPE-Password-History"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to set up Netwrix Password Policy Enforcer (PPE) to store the password history in an existing attribute?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>While this article covers the use of an existing attribute for the password storage, you can use a newly created attribute. There are 2 distinct benefits when using a new attribute:</p>
+
+<ol><li>
+	<p>The new attribute won't be used by any other application.</p>
+	</li><li>
+	<p>The new attribute can be marked as <strong>Confidential</strong> in Active Directory.</p>
+	</li></ol>
+
+<p>This article covers the use of the <strong>ppePwdHistory</strong> attribute created by PPE and marked <strong>Confidential</strong> by default. Alternatively, you can use an existing atribute not used by other applications, e.g. <strong>desktopProfile</strong>. Learn more about the <strong>desktopProfile</strong> attribute in <a href="https://learn.microsoft.com/en-us/windows/win32/adschema/a-desktopprofile" target="_blank">Desktop-Profile attribute ⸱ Microsoft 🡥</a>.</p>
+</blockquote>
+</div>
+
+<h4 id="prerequisites">Prerequisites</h4>
+
+<div>
+<ul><li>
+	<p>The steps described should be performed in your schema master domain controller.</p>
+	</li><li>
+	<p>The account used to perform the steps described must be a member of the <strong>Domain Admin</strong> group.</p>
+	</li><li>
+	<p>In case a custom attribute is to be used, it should be a single-valued attribute with the octet string, printable string, IA5 string, or Unicode string syntax. It should also allow long strings, possibly as long as 5411 characters to store 100 hashes.</p>
+	</li></ul>
+
+<p>Refer to the following steps to discover the schema master domain controller in your environment:</p>
+
+<ol><li>
+	<p>In any domain controller in your environment, run the following command in elevated Command Prompt to get a list of Flexible Single Master Operation (FSMO) roles in Active Directory:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">netdom query fsmo</code></pre>
+	</li><li>
+	<p>Review the list of FSMO roles to find the schema master domain controller, see the screenshot for a reference.</p>
+
+	<div><img height="139" src="kA04u000000PdL3CAK_64e2ae82-9d26-4bbd-a01e-0462847cc964.png" width="454"/></div>
+	</li></ol>
+</div>
+
+<h4 id="setup">Setup</h4>
+
+<div>
+<p>Refer to the following steps to configure the password history attribute:</p>
+
+<ol><li>
+	<p>In your schema master domain controller, open the PPE configuration console.</p>
+	</li><li>
+	<p>In the <strong>Password Policy Server</strong> tab, select <strong>Support Tools</strong>.</p>
+
+	<div><img height="359" src="kA04u000000PdL3CAK_677c0534-a49e-4c63-8bd9-1e1cbdac08dd.png" width="749"/></div>
+	</li><li>
+	<p>Select the <strong>Property Editor</strong> tab.</p>
+	</li><li>
+	<p>Select the <code>HISTORYATTR</code> value in the <strong>Property</strong> drop-down list. Specify the <code>ppePwdHistory</code> or other attribute value in the <strong>Value</strong> field. Specify <code>1020</code> in the <strong>Property ID</strong> field. Click <strong>Set value</strong> to save changes.</p>
+
+	<div><img height="396" src="kA04u000000PdL3CAK_6a36c286-8b82-4282-be44-bdb966f79dd2.png" width="329"/></div>
+	</li></ol>
+</div>
+
+<div>
+<p>PPE will now store the password history in the attribute selected. Authenticated users can read standard attributes of other users, so the AD permissions for the existing attribute should be changed to prevent users from reading the hashes (password history) of other users. This is required for existing attributes. ppePwdHistory attribute created for PPE is protected by default.</p>
+
+<p>You can also implement the <strong>Enforce password history</strong> policy to avoid implementing changes to Active Directory. Learn more in <a href="https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/enforce-password-history" target="_blank">Enforce password history ⸱ Microsoft 🡥</a>.</p>
+</div>
+
+<h4 id="related_articles">Related articles</h4>
+
+<div>
+<p><a href="https://learn.microsoft.com/en-us/windows/win32/adschema/a-desktopprofile" target="_blank">Desktop-Profile attribute ⸱ Microsoft 🡥</a></p>
+
+<p><a href="https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/enforce-password-history" target="_blank">Enforce password history ⸱ Microsoft 🡥</a></p>
+</div></div>
+</article></body></html>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Copy the Design of Portal via SQL Query</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="KnowledgeArticleId" content="kA0Qk000000161lKAA" />
+    <meta name="Id" content="ka0Qk000000DSzNIAW" />
+    <meta name="LastPublishedDate" content="2025-04-28T18:12:13.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T18:12:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T19:04:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9178" />
+    <meta name="ArticleNumber" content="000009178" />
+    <meta name="description" content="Copy the Design of Portal via SQL Query" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article provides step-by-step instructions for copying a portal design between
+          environments using SQL queries. The process covers scenarios for the same SQL server and
+          database, different databases on the same server, and different SQL servers.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="copy_the_design_within_the_same_sql_server_and_database">
+          Copy the Design Within the Same SQL Server and Database
+        </h4>
+        <ol>
+          <li>Go to the database used with the test server.</li>
+          <li>
+            Select the database and create a new query.
+            <img
+              src="kA0Qk000000161lKAA_97847971-da5b-4b87-a20b-bcd867898084.png"
+              alt="SQL Server Management Studio new query window with database selected"
+            />
+          </li>
+          <li>Enter the following query:</li>
+        </ol>
+        <pre class="has-inner-focus">
+DECLARE @fromClient AS int = n
+DECLARE @fromStore AS int = n
+DECLARE @toClient AS int = n
+DECLARE @tostore AS int = n
+
+UPDATE [SSPR].[PortalDesigns]
+SET Design = (SELECT Design FROM [SSPR].[PortalDesigns] WHERE ClientId = @fromClient AND IdentityStoreId = @fromStore)
+WHERE ClientId = @toClient AND IdentityStoreId = @tostore
+</pre
+        >
+        <ol start="4">
+          <li>
+            In <code class="lang-Registry">@fromClient</code>, enter the Client ID of the portal you
+            want to copy. For example, to copy the design of Portal 1, use Client ID 11.
+            <img
+              src="kA0Qk000000161lKAA_e61cf128-1402-472a-8d71-dc97aa6a97a4.png"
+              alt="PortalDesigns table showing Client ID and Identity Store ID values"
+            />
+          </li>
+          <li>
+            In <code class="lang-Registry">@fromStore</code>, enter the Identity Store ID. For
+            example, use 2.
+            <img
+              src="kA0Qk000000161lKAA_6af4ed4b-a3cc-4b63-baaa-09646430ab4d.png"
+              alt="Identity Store ID value in PortalDesigns table"
+            />
+          </li>
+          <li>
+            In <code class="lang-Registry">@toClient</code> and
+            <code class="lang-Registry">@toStore</code>, enter the Client ID and Identity Store ID
+            for the target portal. For example, Client ID 13 and Store ID 2.
+          </li>
+          <li>Run the query.</li>
+          <li>The following screenshot shows the executed query:</li>
+        </ol>
+        <p>
+            <img
+            src="kA0Qk000000161lKAA_2cbbb153-ef2d-42da-a32b-91304d51d6ea.png"
+            alt="Screenshot of executed SQL query"
+          />
+        </p>
+        <h4 id="copy_the_design_with_the_same_sql_server_and_different_databases">
+          Copy the Design with the Same SQL Server and Different Databases
+        </h4>
+        <p>
+          <strong>Environment:</strong> Test instance configured with
+          <strong>SQLTestServer-DB1</strong>, production instance configured with
+          <strong>SQLTestServer-DB2</strong>.
+        </p>
+        <ol>
+          <li>Go to SQL Server and create a new query.</li>
+          <li>Enter the following query:</li>
+        </ol>
+        <pre class="has-inner-focus">
+DECLARE @fromClient AS int = n
+DECLARE @fromStore AS int = n
+DECLARE @toClient AS int = n
+DECLARE @tostore AS int = n
+
+UPDATE [toDB].[SSPR].[PortalDesigns]
+SET Design = (SELECT Design FROM [fromDB].[SSPR].[PortalDesigns] WHERE ClientId = @fromClient AND IdentityStoreId = @fromStore)
+WHERE ClientId = @toClient AND IdentityStoreId = @tostore
+</pre
+        >
+        <ol start="3">
+          <li>
+            In <code class="lang-Registry">@fromClient</code>,
+            <code class="lang-Registry">@fromStore</code>,
+            <code class="lang-Registry">@toClient</code>, and
+            <code class="lang-Registry">@toStore</code>, enter the appropriate Client ID and Store
+            ID values as described above.
+          </li>
+          <li>
+            In <code class="lang-Registry">[toDB]</code>, enter the database name of the production
+            portal.
+            <img
+              src="kA0Qk000000161lKAA_73974d7d-b3fb-4e1d-8bf0-0706e7d4eacd.png"
+              alt="Screenshot of SQL query for copying design between databases"
+            />
+          </li>
+          <li>
+            In <code class="lang-Registry">[fromDB]</code>, enter the database name of the test
+            portal.
+          </li>
+          <li>Run the query.</li>
+          <li>
+            The following screenshot shows the executed query:
+            <img
+              src="kA0Qk000000161lKAA_f0797366-8464-4028-96b5-ff9c8df4ce76.png"
+              alt="Screenshot of executed SQL query for different databases"
+            />
+          </li>
+        </ol>
+        <p> </p>
+        <h4 id="copy_the_design_with_different_sql_servers_and_databases">
+          Copy the Design with Different SQL Servers and Databases
+        </h4>
+        <p>
+          <strong>Environment:</strong> Test server configured with <strong>DB1</strong>, production
+          server configured with <strong>DB2</strong>.
+        </p>
+        <ol>
+          <li>
+            On the test server, connect to the SQL Server instance where you want to create the
+            linked server.
+          </li>
+          <li>
+            In Object Explorer, go to <strong>Server Objects</strong> and click
+            <strong>Linked Servers</strong>.
+          </li>
+          <li>Create a new linked server.</li>
+          <li>
+            In the <strong>New Linked Server</strong> window, enter the name of the server you want
+            to link.
+          </li>
+          <li>
+            Select <strong>Server type</strong> as <strong>SQL Server</strong>.
+            <img
+              src="kA0Qk000000161lKAA_880baf97-b0d1-4faf-976c-f88579f8d111.png"
+              alt="Linked server properties window"
+            />
+          </li>
+          <li>
+            Select <strong>Security</strong> from the left pane, choose the appropriate login
+            option, and enter the server credentials.
+          </li>
+          <li>
+            Click <strong>OK</strong>. The linked server will appear in the list.
+            <img
+              src="kA0Qk000000161lKAA_e47ced76-2ddf-42d3-8315-3760412c3626.png"
+              alt="Linked server security settings"
+            />
+          </li>
+        </ol>
+        <p>
+            <img
+            src="kA0Qk000000161lKAA_768a38c2-07e2-428d-b74f-8b98ddce3855.png"
+            alt="Linked server shown in SQL Server Management Studio"
+          />
+        </p>
+        <ol start="8">
+          <li>
+            Go to the GroupID portal of the test server and make the required changes to the portal
+            design.
+          </li>
+          <li>Return to SQL Server.</li>
+          <li>
+            Right-click the server and select <strong>New Query</strong>.
+            <img
+              src="kA0Qk000000161lKAA_dcfe071b-82a1-4e7d-97f6-a93961b9a060.png"
+              alt="SQL Server Management Studio new query window for linked server"
+            />
+          </li>
+          <li>Enter the following query:</li>
+        </ol>
+        <pre class="has-inner-focus">
+DECLARE @fromClient AS int = n
+DECLARE @fromStore AS int = n
+DECLARE @toClient AS int = n
+DECLARE @tostore AS int = n
+
+UPDATE [toSourceServer].[toDB].[SSPR].[PortalDesigns]
+SET Design = (
+    SELECT Design FROM [fromSourceServer].[fromDB].[SSPR].[PortalDesigns]
+    WHERE ClientId = @fromClient AND IdentityStoreId = @fromStore
+)
+WHERE ClientId = @toClient AND IdentityStoreId = @tostore
+</pre
+        >
+        <ol start="12">
+          <li>
+            In <code class="lang-Registry">@fromClient</code>,
+            <code class="lang-Registry">@fromStore</code>,
+            <code class="lang-Registry">@toClient</code>, and
+            <code class="lang-Registry">@toStore</code>, enter the appropriate Client ID and Store
+            ID values as described above.
+          </li>
+          <li>
+            In <code class="lang-Registry">[toSourceServer]</code>, enter the server name of the
+            production server.
+            <img
+              src="kA0Qk000000161lKAA_36d2901b-7542-4e26-b6d7-e67d6b5e6984.png"
+              alt="Linked server name entry in SQL query"
+            />
+          </li>
+          <li>
+            In <code class="lang-Registry">[fromSourceServer]</code>, enter the server name of the
+            test server.
+          </li>
+          <li>
+            In <code class="lang-Registry">[fromDB]</code> and
+            <code class="lang-Registry">[toDB]</code>, enter the database names as described above.
+          </li>
+          <li>Execute the query. </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk000000161lKAA_85a21276-0a42-4070-816c-b9cb8bf13696.png"
+            alt="Screenshot of executed SQL query for linked server"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

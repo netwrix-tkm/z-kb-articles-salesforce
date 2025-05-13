@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Best Practices for Controlling Changes to Group Membership</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000I4zKAE" />
+    <meta name="Id" content="ka0Qk00000016TBIAY" />
+    <meta name="LastPublishedDate" content="2023-12-21T11:23:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-21T11:23:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-06T15:01:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8944" />
+    <meta name="ArticleNumber" content="000008944" />
+    <meta name="description" content="Best Practices for Controlling Changes to Group Membership" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+
+        <div>
+          <p>GroupID 11</p>
+        </div>
+
+        <h2 id="modules">Modules:</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>GroupID Group Management</p>
+            </li>
+            <li>
+              <p>GroupID User Management</p>
+            </li>
+            <li>
+              <p>Management Shell</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="business_statement">Business Statement:</h2>
+
+        <div>
+          <p>
+            Managing directory groups and using them to control access to resources is a critical
+            job for IT administrators. Groups help manage mailing lists and enumerate permissions to
+            resources. For these very reasons, groups should never be out of order and changes to
+            group memberships must be tracked.
+          </p>
+
+          <p>
+            In light of this, GroupID offers some best practices that enable organizations to
+            control changes to group memberships.
+          </p>
+        </div>
+
+        <h2 id="groupid_best_practices">GroupID Best Practices:</h2>
+
+        <div>
+          <p>
+            Turns out, GroupID is equipped with a host of features that allow IT administrators to
+            keep a sharp eye on any changes that may occur in group membership. Controls can be
+            applied at multiple levels, enabling administrators to view tentative membership changes
+            before committing them.
+          </p>
+
+          <p>
+            The following best practices act as preemptive and reactive measures to guard group
+            membership:
+          </p>
+
+          <ul>
+            <li>
+              <p>Configure the Out of Bounds settings for an identity store.</p>
+
+              <p>
+                These settings enable you to specify the maximum number of members a group can have.
+              </p>
+
+              <p>
+                You can also set up a group membership update threshold, that compares the existing
+                member count to the new member count in order to detect unusual and large changes to
+                group membership. In the event of a threshold violation, GroupID notifies the group
+                owner or administrator via email, who can approve or deny the change. Click
+                <a
+                  href="https://support.imanami.com/knowledgebase/article/KA-01200/en-us?how-to-prevent-massive-changes-to-group-membership"
+                  target="_blank"
+                  >here</a
+                >
+                for more.
+              </p>
+            </li>
+            <li>
+              <p>
+                Define a workflow that is triggered when a user makes a change to the query of a
+                Smart Group or Dynasty.
+              </p>
+
+              <p>
+                In GroupID, the Query Designer enables you to define membership update queries for
+                Smart Groups and Dynasties. As a proactive measure, create a workflow for an
+                identity store, that routes an approval request to an authorized approver when a
+                user makes a change to this query in the Query Designer. The request must be
+                approved for changes to take effect. Click
+                <a
+                  href="https://imanami.microsoftcrmportals.com/knowledgebase/article/KA-01201/en-us"
+                  target="_blank"
+                  >here</a
+                >
+                for more.
+              </p>
+            </li>
+            <li>
+              <p>
+                For a GroupID portal, use the Visibility and Access controls to restrict user roles
+                from viewing and updating Smart Group and Dynasty queries.
+              </p>
+
+              <p>
+                Individual fields in a Self-Service portal are subject to the following controls:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <b>Visibility level</b> determines the security roles who can view a field in
+                    the portal.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Access level</b> determines the security roles that can update the value of a
+                    field using the portal.
+                  </p>
+                </li>
+              </ul>
+
+              <p>
+                You can hide the Smart Group query and Dynasty query fields or render them as
+                read-only in the portal for all except an authoritative user role. Click
+                <a
+                  href="https://support.imanami.com/knowledgebase/article/KA-01199/en-us?how-to-control-access-and-visibility-on-the-group-query-in-the-self-service-portal"
+                  target="_blank"
+                  >here</a
+                >
+                for more.
+              </p>
+            </li>
+            <li>
+              <p>Allow selective security roles to access GroupID Management Shell.</p>
+
+              <p>
+                For a security role, you can choose to allow or deny access to a GroupID client,
+                such as Management Shell. Make sure only selective security roles have access to it
+                for creating and updating groups.
+              </p>
+            </li>
+            <li>
+              <p>Restrict access to the GroupID server.</p>
+
+              <p>
+                To ensure that only authorized users log on to the GroupID server, create a group
+                with permissions on the GroupID server and limit its membership to those users.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            These practices make use of workflows, access controls, and alerts to offer foolproof
+            security for your groups, which in turn secure your organization.
+          </p>
+        </div>
+
+        <h2 id="references">References:</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                GroupID Online Help topic:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/AdminCenter/Workflow/Overview.htm"
+                  target="_blank"
+                  >Workflows</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                GroupID Online Help topic:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/Portal/Group/QueryDesigner/Overview.htm"
+                  target="_blank"
+                  >Query Designer dialog box</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                GroupID Online Help topic:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/AdminCenter/IdentityStore/Configure/DirectoryService/OutOfBounds.htm"
+                  target="_blank"
+                  >Group Membership Settings</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                GroupID Online Help topic:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/AdminCenter/MobileService/Design/ObjectProperties.htm"
+                  target="_blank"
+                  >Customize Object Properties</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HQfKAM.html"
+                  target="_blank"
+                  >Walkthrough Search Policy - Define Scope and Filter Results</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >How To Enforce Users to Create Groups in a Specific OU</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HthKAE.html"
+                  target="_blank"
+                  >How To Import Members to a Group Using Self-Service Import Wizard</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HwvKAE.html"
+                  target="_blank"
+                  >How to Trigger a workflow When a User Сreates a Group</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HyXKAU.html"
+                  target="_blank"
+                  >How To Add Message Approvers in Group Properties in Self-Service</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000IPxKAM.html"
+                  target="_blank"
+                  >Best Practices for Preventing Accidental Data Leakage</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

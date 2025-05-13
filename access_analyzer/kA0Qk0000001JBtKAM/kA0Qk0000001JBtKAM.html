@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Cannot Create a File When That File Already Exists (SSL Certificate)</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001JBtKAM" />
+    <meta name="Id" content="ka0Qk000000CqvhIAC" />
+    <meta name="LastPublishedDate" content="2024-07-29T10:39:39.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-18T16:57:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-07-29T10:39:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9230" />
+    <meta name="ArticleNumber" content="000009230" />
+    <meta name="description" content="Error: Cannot Create a File When That File Already Exists" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            When you attempt to create an SSL binding for Netwrix Enterprise Auditor Access Reports
+            or Access Information Centner, your PowerShell instance prompts the following error:
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">SSL Certificate add failed, Error: 183
+Cannot create a file when that file already exists.</code></pre>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            The target port has a bound SSL certificate. If you would like to bind a different
+            certificate, unbind the prior certificate from the target port.
+          </p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            Refer to the following steps to verify that the target port has a bound SSL certificate
+            and unbind the certificate:
+          </p>
+          <ol>
+            <li>
+              <p>
+                Run the following line in an elevated Command Prompt instance to generate a
+                <code>result.txt</code> file containing certificates bound to ports in your server:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh http show sslcert &gt; c:\result.txt</code></pre>
+            </li>
+            <li>
+              <p>
+                Open the created <code>result.txt</code> file and search for the target port. If you
+                confirm the bound certificate, run the following line in the elevated PowerShell
+                instance to unbind the certificate:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh http delete sslcert ipport=0.0.0.0:481</code></pre>
+              <p>Replace <code>481</code> with the target port.</p>
+            </li>
+            <li>
+              <p>
+                Bind a new certificate—refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Access/Reviews/Installation/Secure.htm"
+                  target="_self"
+                  >Secure Console Access—Create an SSL Binding · v10.7</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Access/Reviews/Installation/Secure.htm"
+                  target="_self"
+                  >Secure Console Access—Create an SSL Binding · v10.7</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

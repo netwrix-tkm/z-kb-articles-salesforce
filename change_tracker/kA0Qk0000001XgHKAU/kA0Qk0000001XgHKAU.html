@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Determine If the Default Agent Password Is in Use</title>
+    <meta name="label" content="ct_troubleshooting" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001XgHKAU" />
+    <meta name="Id" content="ka0Qk00000078VVIAY" />
+    <meta name="LastPublishedDate" content="2024-10-21T18:07:49.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-23T16:34:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-10-10T16:24:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9298" />
+    <meta name="ArticleNumber" content="000009298" />
+    <meta name="description" content="How to Determine If the Default Agent Password Is in Use" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <div>
+          <p>
+            An account named agent is created during the installation of the Change Tracker Hub. In
+            versions prior to 7.7.4, it was recommended that the agent account's default password
+            was updated after installation of the Hub. Since the release of 7.7.4, a complex
+            password for the agent account is required to be entered during installation.
+          </p>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="versions_post-774">Versions post-7.7.4</h4>
+        <div>
+          <p>
+            Versions of the Hub from 7.7.4 will warn if any agent is using the default password by
+            displaying the following warning in the bottom right of the screen.
+          </p>
+          <div>
+            <img
+              alt="Default password warning.png"
+              src="kA0Qk0000001XgHKAU_83844c0c-8fd9-44e4-b364-2427c139b66c.png"
+              width="462"
+              height="342"
+            />
+          </div>
+          <p><br />The User Notifications page will also display the warning.</p>
+          <p> </p>
+          <div>
+            <img
+              alt="Default password warning 2.png"
+              src="kA0Qk0000001XgHKAU_c884131f-5b2b-4793-88df-1d5a8edd362d.png"
+              width="610"
+              height="139"
+            />
+          </div>
+        </div>
+        <h4 id="versions_pre-774"><br />Versions pre-7.7.4</h4>
+        <div>
+          <p>
+            For users on versions prior to 7.7.4, the scripts below can be used to determine whether
+            an agent is using the default password. These scripts can be rolled out by an IT
+            automation system. However, if only one account is used by agents to authenticate, then
+            manually running it on one device will be enough as all agents will be using the same
+            authentication details.
+          </p>
+          <p>
+            The script asks for the Hub's URL and attempts to authenticate as an agent by using the
+            default password. If it connects, then the default password is in use and the following
+            outputs will be produced.
+          </p>
+          <p>
+            Refer to the following examples of default passwords in use if using versions prior to
+            7.7.4.
+          </p>
+        </div>
+        <div>
+          <p><strong>Windows</strong></p>
+          <p>
+            <img
+              alt="Default password in use on Windows.png"
+              src="kA0Qk0000001XgHKAU_4d3b6f77-cc7f-4e81-93f9-e2e420482306.png"
+              width="610"
+              height="77"
+            />
+          </p>
+          <p><strong>Linux</strong></p>
+          <p>
+            <img
+              alt="Default password in use on Linux"
+              src="kA0Qk0000001XgHKAU_a935374e-43c1-42a6-ba59-8f47e19340b9.png"
+              width="610"
+              height="43"
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            If it fails to connect, then the default password is <strong>not</strong> in use and the
+            following outputs will be seen.
+          </p>
+        </div>
+        <div>
+          <p><strong>Windows</strong></p>
+          <p>
+            <img
+              alt="Default password not in use on Windows.png"
+              src="kA0Qk0000001XgHKAU_625be966-2b78-4b7d-aa5f-1b6d7a7f3e9f.png"
+              width="610"
+              height="79"
+            />
+          </p>
+          <p><strong>Linux</strong></p>
+          <p>
+            <img
+              alt="Default password not in use on Linux.png"
+              src="kA0Qk0000001XgHKAU_26c21264-f7f4-45ca-b254-d3423cd6e4ef.png"
+              width="610"
+              height="43"
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            For users on versions prior to 7.7.4, the scripts below can be used to determine if an
+            agent is using the default password.
+          </p>
+        </div>
+        <div>
+          <p><strong>Windows (PowerShell)</strong></p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry"># You should modify the host to match with the ChangeTracker host being tested 
+$CT_HOST="http://192.168.18.16:5000" 
+Write-Host "Modify the ChangeTracker host (CT_HOST value) if this appears incorrect -&gt; ChangeTracker Host :" $CT_HOST 
+            
+# Default Agent settings 
+$agentUser='agent' 
+$defaultAgentPwd="passWord123" 
+        
+Function TrustAnyCertificate()
+{
+    if ("AnyCertificatePolicy" -as [type] -eq $null ) { 
+add-type @" 
+        using System.Net; 
+        using System.Security.Cryptography.X509Certificates; 
+        
+        public class AnyCertificatePolicy : ICertificatePolicy { 
+        
+            public AnyCertificatePolicy() {} 
+            public bool CheckValidationResult( 
+                ServicePoint sPoint, X509Certificate cert, 
+                WebRequest wRequest, int certProb) { 
+                return true; 
+             } 
+        } 
+"@ 
+        Write-Host "Added trust for any HTTPS certificate" 
+     } 
+     [System.Net.ServicePointManager]::CertificatePolicy = new-object AnyCertificatePolicy 
+} 
+        
+TrustAnyCertificate 
+        
+Try { 
+        
+  Write-Host "Acquiring User Session: $agentUser ("$CT_HOST.replace("=$defaultAgentPwd", "=******")")" 
+        
+  $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]" 
+  $headers.Add("Accept", "application/json") 
+  $params = "username=$agentUser&amp;password=$defaultAgentPwd&amp;format=json" 
+        
+  $response = Invoke-RestMethod "$($CT_HOST)/api/auth/credentials" -Method 'POST' -Headers $headers -Body $params 
+        
+  if ($null -ne $response -and $response.UserId -ge 0) { 
+    Write-Output "WARNING: The default password for the User 'agent' is still active." 
+  } 
+        
+} 
+Catch [System.Exception] { 
+  $resp = $_.Exception.Response; 
+  if ($null -ne $resp -and $resp.StatusCode -eq [Net.HttpStatusCode]::Unauthorized) { 
+    Write-Output "The default password for the User 'agent' is NOT active." 
+  } 
+  else { 
+    if($null -ne $resp -and $resp.StatusCode -eq [Net.HttpStatusCode]::Forbidden) { 
+      Write-Output "The agent account is currently blocked" 
+      Write-Output $_.Exception.Message 
+   } 
+   else { 
+     Write-Output "Error occured, ensure the correct ChangeTracker host has been specified." 
+     Write-Output $_.Exception.Message 
+   } 
+ } 
+} 
+Read-Host -Prompt "Press any key to finish"</code></pre>
+        </div>
+        <div>
+          <p><strong>Linux (Bash)</strong></p>
+          <pre class="has-inner-focus"><code class="lang-Registry">#!/bin/bash 
+
+# You should modify the host to match with the ChangeTracker host being tested 
+CT_HOST="https://192.168.18.16" 
+echo "Modify the ChangeTracker host (CT_HOST value) if this appears incorrect -&gt; ChangeTracker Host: $CT_HOST" 
+    
+# Default Agent settings 
+agentUser='agent' 
+defaultAgentPwd="passWord123" 
+    
+echo "Acquiring User Session: $agentUser (${CT_HOST//=$defaultAgentPwd/=******})" 
+    
+# Set headers and parameters 
+headers="-H 'Accept: application/json'" 
+params="username=$agentUser&amp;password=$defaultAgentPwd&amp;format=json" 
+    
+# Make the API call using curl (with sudo), and capture the response and HTTP status code 
+response=$(sudo curl -sS -k -X POST "$CT_HOST/api/auth/credentials" \ 
+-H "Accept: application/json" \ 
+--data "$params" \ 
+--write-out "%{http_code}" --output response_body.txt) 
+    
+# Read the HTTP status code 
+http_code="${response: -3}"  # Last 3 characters of the response variable 
+response_body=$(&lt;response_body.txt)  # Read the response body from the file 
+    
+# Extract UserId from the response body 
+userId=$(echo "$response_body" | jq -r '.UserId') 
+    
+# Check for valid response and userId 
+if [[ "$http_code" == 200 &amp;&amp; "$userId" -ge 0 ]]; then 
+  echo "WARNING: The default password for the User 'agent' is still active, and UserId is valid." 
+elif [[ "$http_code" == 401 ]]; then 
+  echo "The default password for the User 'agent' is NOT active." 
+ elif [[ "$http_code" == 403 ]]; then 
+  echo "The agent account is currently locked." 
+else 
+  echo "Error occurred, ensure the correct ChangeTracker host has been specified." 
+fi 
+    
+read -p "Press any key to finish"
+</code></pre>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

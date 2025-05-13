@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Restricting Expiration Policy Options by Role</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002Is5KAE" />
+    <meta name="Id" content="ka0Qk000000D9n3IAC" />
+    <meta name="LastPublishedDate" content="2025-04-29T18:44:02.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-29T18:44:02.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-29T18:44:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10129" />
+    <meta name="ArticleNumber" content="000010129" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+        <p>Directory Manager 11</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          By default, all expiration policy options are available in the
+          <strong>Expiration Policy</strong> drop-down list for group properties in Netwrix
+          Directory Manager (formerly GroupID) 11. You can customize which options are visible or
+          make the drop-down list read-only or hidden for specific roles. This article explains how
+          to configure these settings in the portal.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="show_specific_options_in_the_expiration_policy_list">
+          Show Specific Options in the Expiration Policy List
+        </h4>
+        <ol>
+          <li>
+            In Directory Manager Admin Center, go to <strong>Applications</strong>. Under
+            <strong>Directory Manager Portal</strong>, click the three dots (<strong>...</strong>)
+            next to your portal and select <strong>Settings</strong>.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_d8a42753-cbc0-45db-b1c8-de03f729bfdb.png"
+              alt="Applications page in Directory Manager Admin Center with settings option highlighted"
+              width="624"
+              height="250"
+            />
+          </li>
+          <li>
+            On the <strong>Server Settings</strong> tab, under <strong>Design Settings</strong>,
+            select your portal.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_94bd3de5-8e45-4154-bcdb-2cc0dbd88478.png"
+              alt="Design Settings section in Directory Manager Admin Center"
+              width="320"
+              height="398"
+            />
+          </li>
+          <li>
+            On the <strong>Custom Display Types</strong> tab, select
+            <em>lstExpirationPolicy</em> and click <strong>Edit</strong>.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_65bc6f19-69c6-42c9-b77e-19c533d4ae9b.png"
+              alt="Custom Display Types tab with lstExpirationPolicy selected"
+              width="623"
+              height="236"
+            />
+          </li>
+          <li>
+            In the <strong>Edit Dropdown List Display Type</strong> window, select a value in the
+            <strong>Values</strong> area and click <strong>Edit</strong>. The
+            <strong>Values</strong> area displays all values defined for the Expiration Policy
+            drop-down list.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_7589358c-f18e-4837-9a13-bc9538ae0433.png"
+              alt="Edit Dropdown List Display Type window in Directory Manager"
+              width="625"
+              height="234"
+            />
+          </li>
+          <li>
+            In the <strong>Combo Value</strong> dialog box, select a visibility level for the value:
+            <ul>
+              <li>
+                Select a role to make the value visible to users of that role and roles with a
+                higher priority value.
+              </li>
+              <li>Select <em>Never</em> to hide the value from all users.<br /><br /></li>
+            </ul>
+            <img
+              src="kA0Qk0000002Is5KAE_b9725fbe-a1c6-463c-8e70-76e931e00693.png"
+              alt="Combo Value dialog box for setting visibility in Directory Manager"
+              width="427"
+              height="574"
+            />
+          </li>
+          <li>
+            Click <strong>OK</strong> to close the <strong>Combo Value</strong> and
+            <strong>Edit Design Type</strong> dialog boxes. Then click the
+            <strong>Save</strong> icon at the bottom to save your changes.
+          </li>
+        </ol>
+        <p>
+          You can set the visibility level for all required values in the
+          <strong>Expiration Policy</strong> drop-down list.
+        </p>
+        <p>
+          By default, or if no visibility settings are configured, all expiry options are available
+          in the <strong>Expiration Policy</strong> drop-down list:<br /><br />
+        </p>
+        <p>
+          <img
+            src="kA0Qk0000002Is5KAE_419feb1b-f6df-4455-bfa2-c527035e94f7.png"
+            alt="Expiration Policy drop-down list showing all options"
+            width="623"
+            height="192"
+          />
+        </p>
+        <p>
+          After applying visibility settings, only the selected values will be available. For
+          example, if you set <em>Never</em> for all but two values, only those two will appear in
+          the list:<br /><br />
+        </p>
+        <p>
+          <img
+            src="kA0Qk0000002Is5KAE_ef5fbe93-e63c-477a-8950-0540592e7d27.png"
+            alt="Expiration Policy drop-down list showing limited options"
+            width="624"
+            height="208"
+          />
+        </p>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>You can also completely hide the
+            <strong>Expiration Policy</strong> drop-down list or make it read-only.
+          </p>
+        </blockquote>
+        <h4 id="make_the_expiration_policy_drop-down_list_read-only">
+          Make the Expiration Policy Drop-Down List Read-Only
+        </h4>
+        <ol>
+          <li>
+            In Directory Manager Admin Center, go to <strong>Applications</strong>. Under
+            <strong>Directory Manager Portal</strong>, click the three dots (<strong>...</strong>)
+            next to your portal and select <strong>Settings</strong>.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_3b8c4af0-17e0-451a-8728-5cbd00eb861e.png"
+              alt="Applications page in Directory Manager Admin Center with settings option highlighted"
+              width="624"
+              height="250"
+            />
+          </li>
+          <li>
+            On the <strong>Server Settings</strong> tab, under <strong>Design Settings</strong>,
+            select your portal.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_87232a8e-9a28-4934-8a89-291852c2800e.png"
+              alt="Design Settings section in Directory Manager Admin Center"
+              width="320"
+              height="398"
+            />
+          </li>
+          <li>
+            On the <strong>Properties</strong> tab, select <em>Group</em> in the
+            <strong>Select Directory Object</strong> list. Then select the
+            <strong>General</strong> option and click <strong>Edit</strong>.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_1dfc01a4-0b2e-47d1-9786-f35c1c0e6755.png"
+              alt="Properties tab with Group selected in Directory Manager"
+              width="624"
+              height="235"
+            />
+          </li>
+          <li>
+            In the <strong>Edit Design Category</strong> dialog box, select the
+            <strong>Expiration Policy</strong> option in the <strong>Fields</strong> section and
+            click <strong>Edit</strong>.<br /><br /><img
+              src="kA0Qk0000002Is5KAE_21a4687a-2dcb-4bdc-890f-7d232613d084.png"
+              alt="Edit Design Category dialog box with Expiration Policy field selected"
+              width="430"
+              height="575"
+            />
+          </li>
+          <li>
+            In the <strong>Edit Field</strong> dialog box, select a role in the
+            <strong>Access Role</strong> list. The access level determines whether a user can change
+            the value in the <strong>Expiration Policy</strong> drop-down list.
+            <ul>
+              <li>
+                Select a role to allow users of that role and roles with a higher priority value to
+                change the value.
+              </li>
+              <li>
+                Select <em>Never</em> to make the <strong>Expiration Policy</strong> drop-down list
+                read-only for all users.
+              </li>
+              <li>
+                Alternatively, select the <strong>Is Read Only</strong> check box to disable the
+                list for all users, so they can view its value but cannot change it.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Click <strong>OK</strong> to close the <strong>Edit Field</strong> and
+            <strong>Edit Design Category</strong> dialog boxes. Then click the
+            <strong>Save</strong> icon at the bottom of the page.
+          </li>
+        </ol>
+        <p>
+          The disabled <strong>Expiration Policy</strong> drop-down list will be displayed in the
+          portal as shown below. The <strong>Expiration Date</strong> field is also read-only and
+          displays the group's expiry date, as calculated based on the expiry policy.<br /><br />
+        </p>
+        <p>
+          <img
+            src="kA0Qk0000002Is5KAE_9b5fd794-0189-4c70-aa72-002da53a5129.png"
+            alt="Expiration Policy drop-down list and Expiration Date field shown as read-only"
+            width="624"
+            height="174"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Certificate Key Size Value Error When Validating SharePoint Online Source</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111KJCAY" />
+    <meta name="Id" content="ka04u000001188tAAA" />
+    <meta name="LastPublishedDate" content="2023-10-10T13:23:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-10T13:23:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-09T17:22:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8850" />
+    <meta name="ArticleNumber" content="000008850" />
+    <meta
+      name="description"
+      content="This article provides resolution for the &#34;Certificate used must have a key size of at least 2048 bits&#34; error when validating SharePoint Online source."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>When validating a SharePoint Online source, the following error appears:</p>
+
+          <pre class="has-inner-focus">
+The certificate used must have a key size of at least 2048 bits.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The issue occurs when a third-party certificate authority has been used and the
+            generated certificate for Azure app is only 1024 bit.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Create a new 2048 bit certificate using your certificate authority tool.</p>
+
+          <p>
+            Then import and upload it to to Azure for SharePoint Online app per normal configuration
+            insctructions.
+          </p>
+
+          <p>
+            For additional information on how to prepare the certificate for your Azure AD app,
+            refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Configuration/ConfigInfrastructure/AzureAppExchangeOnlineMFA.htm#step_1_prepare_application_certificate"
+              target="_blank"
+              >Step 1: Prepare application certificate</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

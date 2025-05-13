@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Pwnd Passwords Database Downloader for Netwrix StealthINTERCEPT</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000HDkaCAG"/><meta name="Id" content="ka04u000000HdNsAAK"/><meta name="LastPublishedDate" content="2023-05-18T21:43:58.000+0000"/><meta name="LastModifiedDate" content="2023-05-18T21:43:58.000+0000"/><meta name="FirstPublishedDate" content="2023-05-18T21:43:58.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8585"/><meta name="ArticleNumber" content="000008585"/><meta name="description" content="How to run the HIBP Downloader with Netwrix StealthINTERCEPT"/></head><body><article class=" kb-articles"><div class="Content__c"><span><span><span><span><b><span><span><span>Before you start</span></span></span></b></span></span></span></span>
+<ul><li><span><span><span><span><span><span><span>Please note that </span></span></span><span><a href="https://github.com/HaveIBeenPwned/PwnedPasswordsDownloader" target="_blank"><span><span><span>Pwnd Passwords Downloader</span></span></span></a></span><span><span><span> is a third party, open source tool, created by the HaveIBeenPwned team, and distributed under a BSD 3-Clause License. You might experience issues during the hash download process, depending on your threading settings or the load on the CloudFlare backend. The Pwnd Passwords Downloader tool will automatically retry to continue downloading the hashes until it fully completes the download process. </span></span></span></span></span></span></span></li><li><span><span><span><span><span><span><span>HIBP (Have I Been Pwned database) hashes can take up to <b>30 GB</b>. The resultant database after converting your hashes for SI is almost the same in size. Make sure that you have enough free space on your disk.</span></span></span></span></span></span></span></li></ul>
+
+<h2 id="instructions"><span><span><span><span><span><span><span>Instructions</span></span></span></span></span></span></span></h2>
+
+<h3 id="step_1install_net_60"><span><span><span><span><span><span><span><span>Step 1. Install .NET 6.0</span></span></span></span></span></span></span></span></h3>
+<span><span><span><strong><span><span>IMPORTANT.</span></span></strong><span><span> It is strongly recommended to install .NET 6 first as it only guarantees to get the latest breached hashes from Have I Been Pwned (HIBP). </span></span></span></span></span>
+
+<ol><li class="paragraph"><span><span><span><span><span>Download and install .NET 6 from </span></span><span><a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0" target="_blank"><span>https://dotnet.microsoft.com/en-us/download/dotnet/6.0</span></a></span></span></span></span></li></ol>
+
+<h3 id="step_2install_pwnd_passwords_downloader"><span><span><span><span><span><span><span><span>Step 2. Install Pwnd Passwords Downloader</span></span></span></span></span></span></span></span></h3>
+
+<ol><li class="paragraph"><span><span><span><span><span><span>Open Command Prompt, and navigate to your .NET install folder (e.g. C:\Program Files (x86)\dotnet). </span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Run:</span></span></span></span></span></span></li></ol>
+
+<div>
+<pre><span><span><span><span><span><span><span>dotnet tool install --global haveibeenpwned-downloader</span></span></span></span></span></span></span></pre>
+</div>
+<img alt="User-added image" height="177" src="kA04u000000HDkaCAG_459ebb1f-5889-4e20-92d4-3ec094699a3c.png" width="500"/><br/> 
+<h3 id="step_3update_an_already_installed_pwnd_passwords_downloader"><span><span><span><span><span><span><span><span>Step 3. Update an already installed Pwnd Passwords Downloader</span></span></span></span></span></span></span></span></h3>
+
+<ol><li class="paragraph"><span><span><span><span><span><span>Open Command Prompt </span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Run:</span></span></span></span></span></span></li></ol>
+
+<div>
+<pre><span><span><span><span><span><span><span>dotnet tool update --global haveibeenpwned-downloader </span></span></span></span></span></span></span>
+</pre>
+</div>
+<br/><img alt="User-added image" height="30" src="kA04u000000HDkaCAG_1e8fcb33-617b-449b-ada5-9cbbb8085772.png" width="500"/>
+<h4 id="usage_of_pwnd_passwords_downloader"><span><span><span><span><span><span><strong><span><span><span>Usage of Pwnd Passwords Downloader </span></span></span></strong></span></span></span></span></span></span></h4>
+<span><span><span><span><span>To download NTLM hashes:</span></span></span></span></span>
+
+<ol><li class="paragraph"><span><span><span><span><span><span>Navigate to the folder where you want to download the hashes </span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Download all NTLM hashes to a single txt file, called for example pwnedpasswords.txt: </span></span></span></span></span></span></li></ol>
+<span><span><span><em><span><span>haveibeenpwned-downloader.exe -n pwnedpasswords</span></span></em>  </span></span></span><br/><img alt="User-added image" height="91" src="kA04u000000HDkaCAG_54533489-7d2b-469e-a9b4-1f8f684acfbf.png" width="500"/><br/> 
+<h3 id="step_4prepare_pwned_db_for_si"><span><span><span><span><span><span><span><span>Step 4. Prepare Pwned DB for SI</span></span></span></span></span></span></span></span></h3>
+
+<ol><li class="paragraph"><span><span><span><span><span><span>Run SI console.</span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Select Configuration\’EPE setting’ menu item.</span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Select File button.</span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Click ‘Select File’ and choose downloaded txt file.</span></span></span></span></span></span></li><li class="paragraph"><span><span><span><span><span><span>Click the Update button.</span></span></span></span></span></span></li></ol>
+
+<div class="paragraph"> </div>
+<img alt="User-added image" height="388" src="kA04u000000HDkaCAG_30cb9eeb-890d-4f4d-b7e4-10341556fa64.png" width="500"/></div>
+</article></body></html>

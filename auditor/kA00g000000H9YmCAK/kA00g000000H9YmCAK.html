@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1024 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YmCAK" />
+    <meta name="Id" content="ka0Qk0000003cbpIAA" />
+    <meta name="LastPublishedDate" content="2024-05-07T08:28:53.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-07T08:29:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1209" />
+    <meta name="ArticleNumber" content="000003360" />
+    <meta
+      name="description"
+      content="Version(s) 8.5 and older The Netwrix Auditor System Health Log (Netwrix Auditor EventLog in Netwrix Auditor 6.5 and below) eventID 1024: Email delivery failed"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Your SharePoint monitoring plan prompts the following error message under Event ID 1024
+            in Health Log:
+          </p>
+
+          <pre class="has-inner-focus">Email delivery failed.</pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>An internal error occurred during the Activity Summary generation.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Regenerate the Activity Summary:</p>
+
+          <ol>
+            <li>
+              <p>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select your SharePoint monitoring plan and click
+                <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>In the right pane, click <strong>Update</strong>.</p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If the error persists, create a ticket in
+              <a href="https://www.netwrix.com/tickets.html#/tickets/open" target="_blank"
+                >My Tickets · Netwrix</a
+              >
+              and submit the following files from the Auditor server to Netwrix Support:
+            </p>
+
+            <ul>
+              <li>
+                <p>All contents of the following path:</p>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">\%WorkingFolder%\Logs\SharePoint Auditing</code></pre>
+
+                <p>
+                  The default Working Folder path is <code>C:\ProgramData\Netwrix Auditor</code>. If
+                  unsure, in the main Auditor menu, select <strong>Health Status</strong> &gt;
+                  <strong>Open diagnostic logs folder</strong> under the
+                  <strong>Working Folder</strong> pane.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Netwrix Auditor System Health event log. Run the following command in elevated
+                  Command Prompt:
+                </p>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">wevtutil epl "Netwrix Auditor" %userprofile%\desktop\NASH.evtx</code></pre>
+
+                <p>
+                  Refer to the following article for additional information for an option to
+                  manually save the Auditor event log:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9VXCA0.html"
+                    target="_self"
+                    >How to Save and Zip Netwrix Auditor System Health Event Log</a
+                  >.
+                </p>
+              </li>
+            </ul>
+          </blockquote>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9VXCA0.html"
+                  target="_self"
+                  >How to Save and Zip Netwrix Auditor System Health Event Log</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://www.netwrix.com/tickets.html#/tickets/open" target="_blank"
+                  >My Tickets · Netwrix</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

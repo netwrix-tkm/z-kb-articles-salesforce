@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Deleted Objects in ADInventory</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IpGCAU" />
+    <meta name="Id" content="ka04u00000116R0AAI" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:41:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-30T07:55:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:41:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7321" />
+    <meta name="ArticleNumber" content="000007321" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> IsDeleted column is
+          not being populated in AD Inventory Users view
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Objects are not being
+          flagged as deleted by ADInventory.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span>ADInventory uses LDAP queries to enumerate objects from Active Directory.  </span
+          ><br /><span
+            >A full scan will query all objects, updating the full data set each time.  </span
+          ><br /><br /><span
+            >The option to "collect only changes" only returns user, group and computer objects that
+            have changed since the last scan.  <br />This works by scoping the scan to
+            objects having a USNChanged value greater than the highest value recorded for that
+            domain controller at the start of the previous scan. </span
+          ><br /><br /><span
+            >In order for the IsDeleted column to be updated properly, you must either have:</span
+          >
+        </p>
+        <ul>
+          <li>
+            <span>Access to all Containers with </span
+            ><span>Users/Computers/Groups/tombstone objects</span>
+          </li>
+        </ul>
+        <p><span>OR</span></p>
+        <ul>
+          <li>
+            <span
+              >You must deselect the option to "Collect only updates since the last scan".  </span
+            >
+          </li>
+        </ul>
+        <p>
+          <span
+            >If you go the route of granting the service account increased access, the Domain Admins
+            group is not necessarily sufficient to gain proper access in all environments. </span
+          ><br /><span
+            >The ACL on the all containers including the "delete objects" container should be
+            checked to ensure that the service account has been granted the proper access.</span
+          ><br />   <br /><span
+            >To verify your account has access to the "Deleted Objects" Container, you require log
+            on to a computer with ADAC (Active Directory Administrative Center):</span
+          >
+        </p>
+        <ol>
+          <li>      <span>Log on with the account used in the connection profile.</span></li>
+          <li>      <span>Open ADAC</span></li>
+          <li>
+                 
+            <span
+              >Select you domain for the environment you are running Active Directory
+              Inventory</span
+            >
+          </li>
+          <li>      <span>On the right hand pane double click to open "Deleted Objects"</span></li>
+        </ol>
+        <p>
+          <span
+            >This will list the deleted objects, if you are unable to view this with the connection
+            profile account, you will need to ensure that the correct permissions have been
+            assigned.</span
+          ><br /><span
+            >By default the Builtin Administrators group has access to this container
+            (BUILTIN\Administrators)</span
+          ><br /> <br /><span
+            >One method to grant a credential the necessary rights on the "Deleted Objects"
+            container is using the DACLS command with an account that does have access to the
+            container.  <br /><br />Schema admins may be required to execute this.  <a
+              href="https://technet.microsoft.com/en-us/library/cc771151%28v=ws.11%29.aspx?f=255&amp;MSPPError=-2147217396"
+              target="_blank"
+              >See Dsacls Technet Article here.</a
+            ></span
+          ><br /><br /><span>dsacls "CN=Deleted Objects,DC=Contoso,DC=com" /G \:LCRP</span
+          ><br /> <br />This article shows how to modify the permissions on the deleted items
+          container: <br />https://technet.microsoft.com/en-us/library/cc816824(v=ws.10).aspx<br /><br /><span
+            >So, if it helps at all, here's an article with some other information: </span
+          ><span
+            ><a
+              href="https://technet.microsoft.com/en-us/library/dd379509(v=WS.10).aspx#BKMK_1"
+              target="_blank"
+              >https://technet.microsoft.com/en-us/library/dd379509(v=WS.10).aspx#BKMK_1</a
+            ></span
+          ><br /> <br /><span
+            >By default, builtin\administrator has access to this container.  So, by default, domain
+            admins should have access to it.  </span
+          ><br /> <br /><span
+            ><span><span>Displaying the Deleted Objects container</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >When Active Directory objects are deleted, they are placed in the Deleted Objects
+                container. By default, the CN=Deleted Objects container is not displayed. You can
+                use the Ldp.exe administration tool in Active Directory Domain Services (AD DS) to
+                display the Deleted Objects container.</span
+              ></span
+            ></span
+          ><br /> <br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - ADInventory<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          all<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          1193
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

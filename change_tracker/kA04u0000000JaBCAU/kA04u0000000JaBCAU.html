@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "ERROR ConfigurationLoader - Hub location details have not been specified.
+      Please edit the following file to specify hub location and account details:
+      /var/nnt/gen7agent.service/HubDetails.xml”
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JaBCAU" />
+    <meta name="Id" content="ka04u000000Hd9pAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:50:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8208" />
+    <meta name="ArticleNumber" content="000008208" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This problem can occur when the Agent password being sent to the Hub Server is incorrect.
+        </p>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:													  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2017-07-10 19:49:59,891 [1] ERROR ConfigurationLoader - Hub location details have not been specified. 
+Please edit the following file to specify hub location and account details: /var/nnt/gen7agent.service/HubDetails.xml
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="Rolling-LogFix:">
+          <strong><span>What Does It Mean?</span></strong>
+        </h2>
+
+        <p>
+          <strong
+            >This means that the agent could not locate the HubDetails.xml file, which is
+            responsible for telling the agent how to connect to the NNT Hub Server</strong
+          >
+        </p>
+
+        <h2 id="Rolling-LogFix:">
+          <strong><span>How Can I Fix This / Should I Worry?</span></strong>
+        </h2>
+
+        <p>
+          If you are receiving this error, the NNT Agent is NOT reporting to your hub. This is a
+          critical error and for monitoring to continue, it must be resolved. To resolve this error:
+        </p>
+
+        <ol>
+          <li>Stop the NNT Agent Service.</li>
+          <li>
+            Run the NNT Connection Script by issuing the following command: "sudo<span
+              >sh /opt/nnt/gen7agent/configure-gen7agent.sh" - Complete the requested details</span
+            >
+          </li>
+          <li><span>Start the Service</span></li>
+        </ol>
+
+        <p><span>If the above does not work:</span></p>
+
+        <ol>
+          <li>Stop the NNT Agent Service</li>
+          <li>
+            Navigate to your NNT Agent Directory Which contains the Rolling-Log Files - Which is
+            defined in this article -<a href="https://kb.netwrix.com/8048" target="_blank"
+              >NNT Software Problem? What Info Should I Provide?</a
+            >
+          </li>
+          <li>Modify the HubDetails.xml (A known good HubDetails.XML example is below)</li>
+          <li>Modify the HubURL and insert yours in its place.</li>
+          <li>
+            Remove the Tags as they are the agent password which has been encrypted - If there are
+            any.
+          </li>
+          <li>
+            In the place of the Tags, enter the Tags - See example hubdetails below. The default
+            password is used as an example.
+          </li>
+          <li>
+            In between the password entries, enter your Agent Account password as defined on your
+            NNT Hub Server.
+          </li>
+          <li>
+            In between the Thumbprint entries, enter your custom certificate thumbprint if you have
+            one. If you do not have a custom and are using the default, leave it blank.
+          </li>
+          <li>
+            Save the file out, replacing the old one. Note that you may need to save this to the
+            desktop and copy and paste replacing the old file back into the directory.
+          </li>
+          <li>Restart the agent service</li>
+        </ol>
+
+        <p> </p>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <p class="title">Note</p>
+
+          <div class="confluence-information-macro-body">
+            <p>
+              <br /><span
+                ><strong
+                  >When you start the service, the agent will automatically re-encrypt your
+                  password, and the E1 tags will replace the password tags. Also, There is a ten
+                  minute cool off when this happens. Now that the username and password has been
+                  corrected the agent should register after the ten minutes has elapsed. This cool
+                  off period is counted at the NNT Hub server, and does not take effect at the agent
+                  level. If you have stopped the service, you do not have to wait 10 minutes after
+                  restarting it.</strong
+                ></span
+              ><br /> 
+            </p>
+          </div>
+        </div>
+
+        <p> </p>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <p>
+            Example HubDetails.xml<br /><strong
+              >&lt;?xml version="1.0" encoding="utf-8"?&gt;</strong
+            >
+          </p>
+
+          <p>
+            <strong
+              >&lt;HubDetails xmlns:xsi="<a
+                href="http://www.w3.org/2001/XMLSchema-instance"
+                target="_blank"
+                >http://www.w3.org/2001/XMLSchema-instance</a
+              >" xmlns:xsd="<a href="http://www.w3.org/2001/XMLSchema" target="_blank"
+                >http://www.w3.org/2001/XMLSchema</a
+              >"&gt;</strong
+            >
+          </p>
+
+          <p>
+            <strong
+              >       &lt;Url&gt;<a
+                href="https://myserver.mydomain.local/api%3c/Url"
+                target="_blank"
+                >https://myserver.mydomain.local/api&lt;/Url</a
+              >&gt;</strong
+            >
+          </p>
+
+          <p><strong>       &lt;Username&gt;agent&lt;/Username&gt;</strong></p>
+
+          <p><strong>       &lt;Password&gt;passWord121&lt;/Password&gt;</strong></p>
+
+          <p><strong>       &lt;Proxy /&gt;</strong></p>
+
+          <p><strong>       &lt;ProxyDomain /&gt;</strong></p>
+
+          <p><strong>       &lt;ProxyUsername /&gt;</strong></p>
+
+          <p><strong>       &lt;ProxyPassword /&gt;</strong></p>
+
+          <p><strong>       &lt;UseDefaultProxy&gt;false&lt;/UseDefaultProxy&gt;</strong></p>
+
+          <p><strong>       &lt;NamePrefix&gt;&lt;/NamePrefix&gt;</strong></p>
+
+          <p><strong>       &lt;NameSuffix&gt;&lt;/NameSuffix&gt;</strong></p>
+
+          <p>
+            <strong
+              >     
+               &lt;Thumbprint&gt;BCD1067FBAB59CCED21786657C672F6AB5BE824C&lt;/Thumbprint&gt;</strong
+            >
+          </p>
+
+          <p><strong>&lt;/HubDetails&gt;</strong></p>
+
+          <div class="confluence-information-macro-body">
+            <p> </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

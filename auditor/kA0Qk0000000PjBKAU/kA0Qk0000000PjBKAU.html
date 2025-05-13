@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: A Required Privilege is Not Held by the Client</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PjBKAU" />
+    <meta name="Id" content="ka0Qk0000001UiPIAU" />
+    <meta name="LastPublishedDate" content="2024-01-25T15:26:03.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-25T15:26:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-25T11:28:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9023" />
+    <meta name="ArticleNumber" content="000009023" />
+    <meta name="description" content="Error: A Required Privilege is Not Held by the Client" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>The <b>Netwrix Auditor System Health Log</b> contains the following error:</p>
+
+              <div>
+                <pre class="has-inner-focus">
+ 
+    Source:Windows Server Audit Service
+    Event ID:2009
+    The following error has occurred while processing %affected_domain_controller%:
+    The collector Registry data provider failed while gathering data on the server %server_name% due to the following error: A required privilege is not held by the client.
+                </pre>
+              </div>
+            </li>
+            <li>
+              <p>
+                Netwrix Auditor is installed in a child domain and the report contains the following
+                error for the root domain controllers:
+              </p>
+
+              <div>
+                <pre class="has-inner-focus">
+ 
+    Failed to process DC: %affected_domain_controller%:
+    Failed to open the event log. Error details: A required privilege is not held by the client.
+                </pre>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The error occurs due to insufficient permissions for the account specified in the
+                monitoring plan settings or misconfiguration of the target source itself.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>
+            Check the following (target system configuration and that the account used for the data
+            collection meet the requirements):
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Overview.htm"
+                  target="_blank"
+                  >Data Source Configuration — v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+                  target="_blank"
+                  >Administration — Monitoring Plans — Data Collecting Account — v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

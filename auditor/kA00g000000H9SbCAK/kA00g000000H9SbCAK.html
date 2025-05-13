@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>I can't see changed values with Database Content Audit</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SbCAK" />
+    <meta name="Id" content="ka04u000000HcMPAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:41:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="252" />
+    <meta name="ArticleNumber" content="000002985" />
+    <meta
+      name="description"
+      content="changed values not seen with database content audit, reports contain no changed values"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You have enabled database content audit and received a report which contains only the number
+        of modified rows without values. There are two possible reasons:<br />1. You enabled the
+        triggerless ("Do not use triggers") mode. This option does not show 'before' and 'after'
+        values. <br />2. You enabled the "Use triggers for detailed monitoring" mode, but the table
+        that you specified in the Monitoring rules does not contain a primary key. To add a primary
+        key to the table, please run the following SQL Command: ALTER TABLE table_name ADD PRIMARY
+        KEY (primary_key_column_name). Please note that If you use the ALTER TABLE statement to add
+        a primary key, the primary key column must already have been declared to not contain NULL
+        values (when the table was first created).
+      </div>
+    </article>
+  </body>
+</html>

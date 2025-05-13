@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Configure Granular Permissions for a Service Account</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110j3CAA" />
+    <meta name="Id" content="ka0Qk0000005NaHIAU" />
+    <meta name="LastPublishedDate" content="2024-06-06T12:51:37.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-09T09:05:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-20T16:21:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8619" />
+    <meta name="ArticleNumber" content="000008619" />
+    <meta
+      name="description"
+      content="How to Configure Granular Permissions for a Service Account"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          Granular permissions are needed to reduce the number of accounts with unnecessary
+          administrative rights when implementing the Principle of Least Privilege (POLP). Using
+          granular permissions, you can avoid granting local admin rights to the NDC Service
+          Account.
+        </p>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <p>To configure granular permissions for a Service Account:</p>
+
+        <ol>
+          <li>
+            <p>Check if your Service Account has the following permissions:</p>
+
+            <ul>
+              <li>
+                <p>Permissions to run the Windows Services and IIS Application pool</p>
+              </li>
+              <li>
+                <p>
+                  SQL Server DBO permissions to the NDC SQL database (if using Windows
+                  Authentication to access SQL Server)
+                </p>
+              </li>
+              <li>
+                <p>The Logon as a service privilege</p>
+              </li>
+            </ul>
+
+            <p>
+              Read more in the
+              <a
+                href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Requirements/AccountReqs.htm"
+                target="_blank"
+                >Accounts and Required Permissions
+              </a>
+              article.
+            </p>
+          </li>
+          <li>
+            <p>Add Read permissions to a folder where NDC is installed (NTFS Permissions).</p>
+          </li>
+          <li>
+            <p>
+              Add Write permissions to the index files' location (NTFS Permissions)<br />
+              The index files' location can be looked up in <strong>conceptConfig.exe</strong> in
+              <code>C:\inetpub\wwwroot\NDC\bin</code>:
+            </p>
+
+            <div>
+              <img
+                alt="index_files_location.png"
+                src="kA04u00000110j3CAA_2b825327-68a9-4dbd-86e1-8da633b445fc.png"
+              />
+            </div>
+          </li>
+        </ol>
+
+        <blockquote>
+          <p>
+            <strong>TIP: </strong>In some instances, the NDC Service Viewer Utility won't work
+            correctly if the service account is not a member of the Local Administrators group on
+            the NDC server. In this case, they should use the Service Viewer built into the web UI.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Upgrade Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ePCAS" />
+    <meta name="Id" content="ka0Qk000000CsflIAC" />
+    <meta name="LastPublishedDate" content="2025-03-19T14:00:54.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-19T14:00:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3666" />
+    <meta name="ArticleNumber" content="000003707" />
+    <meta name="description" content="How To Upgrade Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>How to update Netwrix Auditor?</p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <blockquote>
+          <p>
+            <strong><span>NOTE: </span></strong>It is highly recommended to capture a snapshot of
+            the server.
+          </p>
+        </blockquote>
+        <blockquote>
+          <p>
+            <strong><span>NOTE: </span></strong>Before you begin, launch a PowerShell session as
+            Administrator and execute the following command:
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Stop-Service -Displayname Netwrix*</code></pre>
+          <p>This will stop all Netwrix services and prevent complications during the upgrade.</p>
+        </blockquote>
+        <h4 id="netwrix_auditor_v996_and_later">Netwrix Auditor v.9.96 and later</h4>
+        <div>
+          <p>
+            Refer to the following video for step-by-step instructions on upgrading to the latest
+            Netwrix Auditor version.
+          </p>
+          <iframe
+            frameborder="1"
+            scrolling="auto"
+            width="560"
+            height="315"
+            allowfullscreen="allowfullscreen"
+            src="https://www.youtube.com/embed/M_IfPaf_7ig"
+            title="YouTube video player"
+            ><!----></iframe
+          >
+        </div>
+        <div>
+          <p>
+            For the text version of the guide, refer to the following documentation article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Install/Upgrade.htm"
+              target="_self"
+              >Upgrade to the Latest Version</a
+            >.
+          </p>
+        </div>
+        <h4 id="netwrix_auditor_v995_and_earlier">Netwrix Auditor v.9.95 and earlier</h4>
+        <blockquote>
+          <p>
+            <strong><span>NOTE: </span></strong>For additional information on upgrade increments,
+            refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eJCAS.html"
+              target="_self"
+              >Upgrade Increments for Netwrix Auditor</a
+            >.
+          </p>
+        </blockquote>
+        <div>
+          <p>
+            The following steps represent a scenario for upgrading from v.9.95 to v.9.96. The
+            upgrade progress for Netwrix Auditor version 8.0 up to 9.96 will be similar. If you are
+            upgrading from an earlier version, please view the additional steps under
+            <strong>Post Upgrade</strong> &gt; <strong>Legacy Steps</strong> further in this
+            article.
+          </p>
+        </div>
+        <div>
+          <ol>
+            <li>
+              <p>
+                When upgrading, it is recommended to log via your data collection service
+                account.<br />Right-click the installer and choose
+                <strong>Run as administrator</strong>. The following window will include options to
+                view documentation for the new version.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Install</strong> button to continue the upgrade. You'll be
+                confirming the version you're upgrading to in the next window.
+              </p>
+            </li>
+            <li>
+              <p>Confirm the version and click <strong>Next</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Read the EULA, check the
+                <strong>I accept the terms of the License Agreement</strong> checkbox and click
+                <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Install</strong>. Once the installation process is complete, you
+                should see the confirmation.
+              </p>
+            </li>
+            <li>
+              <p>Congratulations, you have successfully upgraded!</p>
+            </li>
+          </ol>
+        </div>
+        <h4 id="post_upgrade">Post Upgrade</h4>
+        <div>
+          <p>
+            Upon completion, Netwrix Auditor will launch. To confirm integrity, run the following
+            tests:
+          </p>
+          <ul>
+            <li>
+              <p>
+                <strong>Configuration:</strong> View your Monitoring Plans and settings to confirm
+                the configuration successfully carried over.
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>SQL Connectivity:</strong> On the homepage click "Search" and run a search
+                with your desired parameters. If data is returned, SQL connectivity is validated.
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>SSRS Connectivity:</strong> On the homepage click "Reports" and attempt to
+                view a report for a data source that you are currently auditing. If the report
+                successfully builds, SSRS connectivity is validated.
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>Legacy Steps:</strong> On version 8.5 and lower, you will need to launch the
+                Netwrix Auditor Administrator Console and manually upgrade the Audit Databases in
+                SQL.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Click <strong>Audit Database</strong> and then click <strong>Upgrade</strong>.
+                  </p>
+                  <div>
+                    <img
+                      alt="8.0-Upgrade-6-1.png"
+                      height="502"
+                      src="kA00g000000H9ePCAS_f2bd7b8d-fac8-4a82-bc2e-4b10d6af2f15.png"
+                      width="601"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <h4 id="related_articles">Related articles</h4>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Install/Upgrade.htm"
+            target="_self"
+            >Upgrade to the Latest Version ⸱ 10.7</a
+          >
+        </p>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eJCAS.html"
+            target="_self"
+            >Upgrade Increments for Netwrix Auditor</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

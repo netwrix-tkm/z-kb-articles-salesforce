@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthAUDIT File System Scans Fails to Start with GetSessions error</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HsrCAE" />
+    <meta name="Id" content="ka04u000000HcamAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:51:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:58:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:51:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5984" />
+    <meta name="ArticleNumber" content="000005984" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>
+          StealthAUDIT File System scans fail to initialize and result in a ‘GetSessions failed with
+          code 0x80004005’ error.
+        </p>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Kevin Joyce</p>
+        <p><strong> </strong></p>
+        <p><strong>Product(s):</strong></p>
+        <p>StealthAUDIT</p>
+        <p> </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>All</p>
+        <p> </p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA - DC - FSAA - Activity</p>
+        <p>SA - DC - FSAA - Permissions</p>
+        <p>SA - DC - FSAA - Sensitive Data</p>
+        <p> </p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>N/A</p>
+        <p> </p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>N/A</p>
+        <p> </p>
+        <p><strong>Issue:</strong></p>
+        <p>
+          When using the StealthAUDIT File System solution to scan file servers, you could
+          potentially run into an error initializing the scan. The error you’ll receive would be:
+        </p>
+        <p>"<em>Unable to start scan: GetSessions failed with code 0x80004005”.</em></p>
+        <p><em> </em></p>
+        <p><strong>Instructions:</strong></p>
+        <p><em>This issue can occur in a couple of scenarios.</em></p>
+        <ol>
+          <li><em>There is a hung StealthAUDITRPC.exe process </em></li>
+          <li><em>Permission issues querying the applet</em></li>
+        </ol>
+        <p>
+          <em
+            >To understand if you’ve encountered a hung StealthAUDITRPC.exe process you can do the
+            following:</em
+          >
+        </p>
+        <ol>
+          <li>
+            <em>Open 32-bit Task Manager</em>
+            <ol>
+              <li><em>Navigate to ‘C:\Windows\SysWOW64’</em></li>
+              <li><em>Launch Taskmgr.exe</em></li>
+            </ol>
+          </li>
+          <li><em>Navigate to the Details tab</em></li>
+          <li>
+            <em>Sort by name and look for a process ‘StealthAUDITRPC.exe’</em>
+            <ol>
+              <li>
+                <em
+                  >If no scans are actively running or have completed in the past 5 minutes, there
+                  should not be a ‘StealthAUDITRPC.exe’ process. The parent ‘StealthAUDITRPC.exe’
+                  process will linger for 5 minutes after a completed scan.</em
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            <em>If you believe you’ve identified a hung ‘StealthAUDITRPC.exe’</em>
+            <ol>
+              <li><em>Right click the process &gt; Create dump file</em></li>
+              <li>
+                <em
+                  >After that completes, take note of the location the dump file was created and end
+                  the task.</em
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            <em>Attempt to run the job that was previously failing with a GetSessions error.</em>
+            <ol>
+              <li>
+                <em
+                  >If the scan now runs successfully, contact Stealthbits support and provide the
+                  previously created dump file.</em
+                >
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          <em>If the above instructions are not applicable, review the </em
+          ><a
+            href="https://www.stealthbits.com/jdownloads/Documentation%20User%20Guides%20PDF/Stealthbits_SMP_FileSystem_Permissions.pdf"
+            target="_blank"
+            ><em>File Systems Permissions guide</em></a
+          ><em>
+            and ensure the service account being used has the correct set of permissions and group
+            membership applied for both scan types and target file servers.</em
+          >
+        </p>
+        <p><em> </em></p>
+        <p><strong> </strong></p>
+        <p><em> </em></p>
+      </div>
+    </article>
+  </body>
+</html>

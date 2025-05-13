@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>High CPU load and memory usage</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TDCA0" />
+    <meta name="Id" content="ka04u000000HcN0AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="600" />
+    <meta name="ArticleNumber" content="000003023" />
+    <meta name="description" content="ALE Account Lockout Examiner high CPU load and memory load" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Account Lockout Examiner Service causes high CPU spikes and uses up a large percent of
+        memory. What can I do?
+
+        <hr />
+
+        <div>In order to reduce CPU load and memory usage, perform the following steps:</div>
+        <div>
+          <ol>
+            <li>
+              Open the <strong>Registry Editor </strong>(navigate to Start --&gt; Run and type
+              <em>regedit</em>).
+            </li>
+            <li>
+              Navigate to
+              <strong
+                >HKEY_LOCAL_MACHINESOFTWARE[Wow6432Node]NetWrixAccount Lockout Examiner </strong
+              >(Wow6432Node only for x64 OS)
+            </li>
+            <li>Locate the <strong>Readlog</strong> key and set its value to 0.</li>
+            <li>
+              Create a new key called <strong>UseWatcher</strong>, set its type to DWORD and value
+              to 1.
+            </li>
+            <li>
+              Restart the <strong>NetWrix Account Lockout Examiner </strong>service via<strong>
+                Services.msc</strong
+              >
+            </li>
+          </ol>
+          <div>
+            If this does not help, set the <strong>LockoutStatusRefreshPeriod</strong> key value to
+            0, but in this case the Account Lockout Examiner will not verify accounts status via
+            Active Directory, so account lockouts will not be reported if a corresponding event is
+            not found in the event log.
+          </div>
+        </div>
+        <img
+          src="kA00g000000H9TDCA0_a37d92cd-97ff-4324-a1af-a4f5ac0cb5a3.png"
+          alt="User-added image"
+          width="500"
+          height="222"
+        />
+      </div>
+    </article>
+  </body>
+</html>

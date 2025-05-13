@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could Not Allocate Space for Object (ObjectName) in Database (DatabaseName)</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WsCAK" />
+    <meta name="Id" content="ka0Qk000000C9kHIAS" />
+    <meta name="LastPublishedDate" content="2025-02-10T17:17:01.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-10T17:17:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1093" />
+    <meta name="ArticleNumber" content="000003245" />
+    <meta
+      name="description"
+      content="Could not allocate space for object (ObjectName) in database (DatabaseName)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            The following error message appears in the Netwrix Auditor Health Log or under the
+            database status on the Database Statistics page:
+          </p>
+          <pre class="has-inner-focus">
+Error in reports stating Could not allocate space for object '*' in database '*' because the 'PRIMARY' filegroup is full. 
+Create disk space by deleting unneeded files, dropping objects in the filegroup, adding additional files to the filegroup, 
+or setting autogrowth on for existing files in the filegroup</pre
+          >
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            SQL Server is preventing Auditor from writing data to the Monitoring Plan Audit Database
+            due to storage constraints. The following factors may contribute to this issue:
+          </p>
+          <ul>
+            <li>
+              <p>
+                SQL Server Express Edition is being used for Auditor and the database has reached
+                the 10GB limitation.
+              </p>
+            </li>
+            <li>
+              <p>The disk where the database's files are stored is full.</p>
+            </li>
+            <li>
+              <p>Autogrowth is not properly set for the database.</p>
+              <blockquote>
+                <span class="Note"
+                  ><strong>NOTE:</strong> If the issue is related to Autogrowth, refer to the
+                  following resources:</span
+                >
+                <ul>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/answers/questions/555422/primary-filegroup-is-full"
+                      target="_blank"
+                      >'PRIMARY' Filegroup Is Full</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.sqlshack.com/resolving-sql-server-errors-the-primary-filegroup-is-full/"
+                      target="_blank"
+                      >Resolving SQL Server Errors: The Primary Filegroup Is Full</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/database-file-operations/considerations-autogrow-autoshrink"
+                      target="_blank"
+                      >Considerations for the Autogrow and Autoshrink Settings in SQL Server</a
+                    >
+                  </li>
+                </ul>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <h4 id="long-term_solutions">Long-Term Solutions</h4>
+        <p>
+          To help prevent recurring database storage issues and support long-term stability, please
+          refer to the solutions below:
+        </p>
+        <ul>
+          <li>
+            <p>
+              Upgrade the <strong>SQL Server edition</strong> from Express to Standard or
+              Enterprise.
+            </p>
+            <blockquote>
+              <span class="Note"><strong>NOTE: </strong></span>This is the only long-term option to
+              prevent database size limitations from disrupting Auditor data collection.
+            </blockquote>
+          </li>
+          <li>
+            <p>
+              Split the problematic <strong>Monitoring Plan</strong> into several plans, each
+              assigned to its own database.
+            </p>
+            <blockquote>
+              <span class="Note"><strong>NOTE: </strong></span>Ensure when splitting the plan that
+              you do not monitor the same item in multiple plans for the same data source.
+            </blockquote>
+          </li>
+          <li>
+            <p>
+              Narrow the auditing scope by disabling auditing options that generate larger amounts
+              of data, such as <strong>Successful Reads for File Servers</strong> or
+              <strong>Non-interactive logons for Logon Activity</strong> in the monitoring plan
+              settings (Edit monitoring plan &gt; Edit Data Source).
+            </p>
+          </li>
+        </ul>
+        <h4 id="short-term_solutions">Short-Term Solutions</h4>
+        <p>
+          The following solutions can temporarily offer more database storage and disk space but do
+          not address the root cause of database size constraints.
+        </p>
+        <ul>
+          <li>
+            <p>
+              Disable state-in-time data collection for the File Server monitoring plan by
+              unselecting the <b>Collect data for state-in-time reports</b> option in the monitoring
+              plan settings (Edit monitoring plan &gt; Edit Data Source).
+            </p>
+          </li>
+          <li>
+            <p>
+              Allocate additional disk space to the Auditor and SQL Server.
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/Console.htm"
+                target="_self"
+                >Hardware Requirements</a
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              Change the <strong>Database Retention</strong> period via Auditor Console (Settings
+              &gt; Audit Database) to reduce the amount of time collected data is stored.
+            </p>
+          </li>
+          <li>
+            <p>
+              Recreate the database associated with the problematic Monitoring Plan. Since all
+              collected data is also stored in the Long-Term Archive, no data loss is expected.
+              However, recreating the database will remove its data from Searching and Reporting. To
+              access this data, use the
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/Investigations.htm"
+                target="_blank"
+                >Netwrix Auditor Settings – Investigations ⸱ v10.6</a
+              >
+              feature.
+            </p>
+          </li>
+        </ul>
+        <p>To recreate the database, follow these steps:</p>
+        <div>
+          <ol>
+            <li>
+              <p>
+                Open <strong>SQL Server Management Studio (SSMS)</strong> &gt; Connect to the SQL
+                instance &gt; Expand the <strong>Databases</strong> folder &gt; Right-click the
+                problematic database &gt; Delete.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the box <strong>Close existing connections</strong>, and click OK to confirm
+                the deletion.
+              </p>
+            </li>
+            <li>
+              <p>
+                Restart <strong>Netwrix Auditor Management Service</strong> on the Auditor Server.
+              </p>
+            </li>
+            <li>
+              <p>
+                Refresh or close out <strong>SSMS</strong> and reconnect to the SQL instance to
+                verify that the database was recreated with the same name.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once confirmed, navigate to
+                <strong>Auditor Console &gt; Health Status &gt; Database Statistics</strong> and
+                check the status of the recreated database.
+              </p>
+              <blockquote>
+                <span class="Note"><strong>NOTE: </strong></span>It may take several minutes for the
+                recreated database to go into an <strong>OK</strong> state.
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <ul>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/answers/questions/555422/primary-filegroup-is-full"
+              target="_blank"
+              >'PRIMARY' Filegroup Is Full</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.sqlshack.com/resolving-sql-server-errors-the-primary-filegroup-is-full/"
+              target="_blank"
+              >Resolving SQL Server Errors: The Primary Filegroup Is Full</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/database-file-operations/considerations-autogrow-autoshrink"
+              target="_blank"
+              >Considerations for the Autogrow and Autoshrink Settings in SQL Server</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/Investigations.htm"
+              target="_blank"
+              >Netwrix Auditor Settings – Investigations ⸱ v10.6</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110wRCAQ.html"
+              target="_blank"
+              >SQL Server Express Database Size Reached 10GB</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

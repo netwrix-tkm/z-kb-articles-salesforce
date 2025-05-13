@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SharePoint Application Installation for Netwrix Data Classification</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbcuCAC" />
+    <meta name="Id" content="ka04u000000HcXhAAK" />
+    <meta name="LastPublishedDate" content="2021-09-09T15:14:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5486" />
+    <meta name="ArticleNumber" content="000003753" />
+    <meta
+      name="description"
+      content="This article explains how to install SharePoint Application for Netwrix Data Classification"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This guide is for deploying the SharePoint application. This is the app needed for
+          enabling write-back within SharePoint.
+        </p>
+
+        <p>
+          The <strong>conceptClassifierAppInstaller.exe</strong> can be used to install or upgrade
+          the <strong>conceptClassifierApp</strong>.
+          <a
+            href="https://www.netwrix.com/download/Netwrix_Data_Classification_for_SharePoint.zip"
+            target="_blank"
+            >Download </a
+          >and copy this file to your local server:
+        </p>
+
+        <ul>
+          <li>ConceptClassifierAppInstaller.zip</li>
+        </ul>
+
+        <p>Extract the files and run conceptClassifierAppInstaller.exe</p>
+        <img
+          alt="User-added image"
+          height="387"
+          src="kA00g000000PbcuCAC_24712663-85e1-4a9b-a1e1-4440946694d4.png"
+          width="500"
+        />Click <em>next</em> after reading the wizard introduction and recommendations
+
+        <p>Read and confirm that you accept the EULA and click <em>next</em></p>
+        <img
+          alt="User-added image"
+          height="377"
+          src="kA00g000000PbcuCAC_b5587f7f-4ee3-4896-94d0-0e77d47a2050.png"
+          width="500"
+        />
+        <p>
+          Specify connection details for your organization's app catalog (you may have more than one
+          of these if you are working across multiple web applications if so, you will need to run
+          the installer once per app catalog.
+        </p>
+        <img
+          alt="User-added image"
+          height="381"
+          src="kA00g000000PbcuCAC_2d5b7ece-54db-4008-8965-7eea91b084f1.png"
+          width="500"
+        />
+        <p>
+          Enter the location of the conceptSearching server (which must be installed onto a secure
+          with a secure (HTTPS) endpoint): In this case of SharePoint Online, the certificate used
+          must be externally verifiable (from a trusted source).<br />Select the
+          <b>Use SharePoint Online Login</b> checkbox if you want to use the new authentication
+          method.
+        </p>
+        <img
+          alt="User-added image"
+          height="178"
+          src="kA00g000000PbcuCAC_7d991e11-4564-4982-80cf-806107ab0bca.png"
+          width="500"
+        />
+        <p>
+          Please also note, the HTTPS binding in IIS should have the host header specified, in the
+          case of the above example the host header would be “secure.conceptsearching.com”. To do
+          this please follow these steps:
+        </p>
+
+        <p>Open Internet Information Services (IIS) Manager</p>
+
+        <ol>
+          <li>Open Internet Information Services (IIS) Manager</li>
+          <li>
+            Edit the Site Bindings for the website you which to assign an SSL certificate
+            (right-click, select Edit Bindings)
+          </li>
+          <li>Select the HTTPS port and select Edit</li>
+          <li>
+            Where possible edit the Host Name (Host Header field), if it is not possible please
+            continue:
+          </li>
+          <li>
+            Launch the Microsoft Management Console (MMC) a) Select Start –&gt; Run
+            <ul>
+              <li>Select Start –&gt; Run</li>
+              <li>Type in “MMC” and hit enter</li>
+              <li>From the console, select File –&gt; Add / Remove Snap-in</li>
+              <li>Select Certificates from the Add / Remove dialog</li>
+              <li>
+                Select Computer Account when prompt for which certificates the snap-in will manager
+              </li>
+              <li>Select Local Computer when prompted</li>
+              <li>Click OK to add the Snap-in to the MMC</li>
+            </ul>
+          </li>
+          <li>
+            Locate your SSL certificate
+            <ul>
+              <li>For self-signed (SELFSSL), look in Personal</li>
+              <li>
+                For installed / purchased, look in the appropriate folder the certificate was
+                originally installed in
+              </li>
+            </ul>
+          </li>
+          <li>Right-click on the certificate and select properties</li>
+          <li>Edit the Friendly Name field so the name starts with an *</li>
+          <li>Repeat steps #1 – 3 above</li>
+        </ol>
+
+        <p><em>Note that the Host Name (Host Header) field is now available for editing.</em></p>
+
+        <p>
+          Assuming you have not completed any of the steps of the installation previously you will
+          then be shown the following screen, otherwise (if this is an upgrade), the installer will
+          indicate that you can skip this step.
+        </p>
+        <img
+          class="wp-image-5499"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2020/04/SP-app-install5.png"
+        />
+        <p>
+          This screen provides the information required to configure the app principal registration
+          information which allows the conceptSearching products to communicate with SharePoint.
+        </p>
+
+        <p>
+          Please follow the link provided and enter the information as shown, you will be required
+          to generate a “Client Secret”, this is required for Azure ACS enabled environments, and
+          not for on-premise environments that wish to use a certificate trust configuration. Please
+          click the "Generate” button for the client secret and make a note of this in a secure
+          location. Here is an example of the completed registration form:
+        </p>
+        <img
+          class="wp-image-5500"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2020/04/SP-app-install6.png"
+        />
+        <p>The app should then be ready for installation, click “Install” to proceed”.</p>
+
+        <p>
+          The app will now be deployed to your app catalog and ready for installation on your site
+          collections:
+        </p>
+         
+
+        <hr class="wp-block-separator" />
+        <h3
+          id="if_you_wish_to_use_the_conceptclassifierapp_in_an_on-premise_environment_you_will_need_to_complete_a_few_additional_steps_shown_in_step_1_otherwise_skip_to_step_2"
+        >
+          If you wish to use the conceptClassifierApp in an on-premise environment you will need to
+          complete a few additional steps shown in step 1, otherwise, skip to step 2.
+        </h3>
+
+        <p><strong>1. Building the trust relationship for an on-premise environment</strong></p>
+
+        <p>
+          (A) To begin the app model should be enabled on the farm. By following the steps in the
+          following link the SharePoint farm will be ready to make use of any SharePoint apps:
+        </p>
+
+        <p>
+          <a
+            href="http://technet.microsoft.com/en-us/library/fp161236(v=office.15).aspx"
+            target="_blank"
+            >http://technet.microsoft.com/en-us/library/fp161236(v=office.15).aspx</a
+          >
+        </p>
+
+        <p>
+          (B) Next, it is necessary to build a trust relationship between the SharePoint server and
+          the server that will be hosting the conceptQS, this is to allow the QS to make requests
+          back to SharePoint (please note that this is still necessary even if the QS is hosted on
+          the same server as the SharePoint site). Please now proceed through the following help
+          guide:
+        </p>
+
+        <p>
+          <a
+            href="http://msdn.microsoft.com/en-us/library/office/fp179901(v=office.15).aspx"
+            target="_blank"
+            >http://msdn.microsoft.com/en-us/library/office/fp179901(v=office.15).aspx</a
+          >
+        </p>
+
+        <p><strong>2. Configuring the services with the authentication configuration</strong></p>
+
+        <p>First, navigate to the following URL:</p>
+
+        <p><em>/conceptQS/Sources/SharePoint/AppConfiguration</em></p>
+
+        <p>Select the appropriate tab:</p>
+
+        <ul>
+          <li>Azure Access Control Service (ACS) should be used for Office 365</li>
+          <li>Server-to-Server (S2S) should be used for an on-premise environment</li>
+        </ul>
+
+        <p>
+          Please complete the necessary fields, if you are an Office 365 customer you will need your
+          client secret, otherwise, you will need the values completed in step 1,(B) above
+        </p>
+
+        <hr class="wp-block-separator" />
+        <h3 id="if_you_would_like_to_continue_with_the_deployment_of_the_sharepoint_application">
+          If you would like to continue with the deployment of the SharePoint Application:
+        </h3>
+
+        <p><a href="https://kb.netwrix.com/5505" target="_blank">Follow this article</a></p>
+      </div>
+    </article>
+  </body>
+</html>

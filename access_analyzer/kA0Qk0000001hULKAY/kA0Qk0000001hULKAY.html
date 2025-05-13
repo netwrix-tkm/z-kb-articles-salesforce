@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Connection Attempt Failed Because Connected Party Did Not Properly Respond</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001hULKAY" />
+    <meta name="Id" content="ka0Qk000000BdCXIA0" />
+    <meta name="LastPublishedDate" content="2024-12-19T15:45:59.000+0000" />
+    <meta name="LastModifiedDate" content="2024-12-20T17:11:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-19T15:45:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9326" />
+    <meta name="ArticleNumber" content="000009326" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>The File System Scan completes with the following error message:</p>
+          <pre
+            class="has-inner-focus"
+          >Error: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host <br/>has failed to respond IP:87xx</pre>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            A third-party security tool or firewall rule is blocking the needed ports (<strong
+              >8767</strong
+            >
+            and <strong>8766</strong>) for the File System Scan to function correctly.
+          </p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            The Netwrix Enterprise Auditor server needs to communicate with the audited host via
+            ports <strong>8767</strong> and <strong>8766</strong> as shown below. You may refer to
+            the following PS commands but ensure to replace <strong>2019dc</strong> with your needed
+            host name:
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">$RPC_host= 'REPLACE-WITH-YOUR-PROXY-HOST'
+Test-NetConnection -ComputerName $RPC_host -Port 8766 -InformationLevel Detailed
+Test-NetConnection -ComputerName $RPC_host -Port 8767 -InformationLevel Detailed</code></pre>
+          <img
+            src="kA0Qk0000001hULKAY_76ae82ff-f451-4a45-8d74-5ea10f4e53c9.png"
+            width="715"
+            height="491"
+          />
+        </div>
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>If the test connections are successful on both
+              ports, then the error should not appear. If the test connections are failures, then
+              the environment must either have a firewall or other security software preventing
+              communication on ports 8767 and 8766.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <p>
+            For more information on port requirements, please see the various guides for each scan
+            mode below:
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem/AppletModePorts.htm"
+                target="_self"
+                >Netwrix Enterprise Auditor vl 1.6 &gt; Requirements &gt; File System Solution &gt;
+                File System Scan Options &gt; <strong>Applet Mode Port Requirements</strong></a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem/ProxyModeAppletPorts.htm"
+                target="_self"
+                >Netwrix Enterprise Auditor v11.6 &gt; Requirements &gt; File System Solution &gt;
+                File System Scan Options &gt;
+                <strong>Proxy Mode with Applet Port Requirements</strong></a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem/ProxyModeServicePorts.htm"
+                target="_self"
+                >Netwrix Enterprise Auditor v11.6 &gt; Requirements &gt; File System Solution &gt;
+                File System Scan Options &gt;
+                <strong>Proxy Mode as a Service Port Requirements</strong></a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem/LocalModePorts.htm"
+                target="_self"
+                >Netwrix Enterprise Auditor v11.6 &gt; Requirements &gt; File System Solution &gt;
+                File System Scan Options &gt; <strong>Local Mode Port Requirements</strong></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

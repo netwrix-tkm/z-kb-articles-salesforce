@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Data flow from Stealthbits Activty Monitor and StealthINTERCEPT agents (to StealthDEFEND and
+      syslog servers)
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IBtCAM" />
+    <meta name="Id" content="ka04u000000HchKAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:07:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:07:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6291" />
+    <meta name="ArticleNumber" content="000006291" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p> </p>
+        <p><strong>Channel:</strong>  Internal</p>
+        <p>
+          <strong>Summary:</strong> explanation and diagram of differences in activity data flow
+          between SAM and SI agent
+        </p>
+        <p><strong>Submitted by:</strong>  Robert Parsons</p>
+        <p><strong>Product:</strong> SAM,SI,SD</p>
+        <p><strong>Affected Versions:</strong> SAM 4.0+, SI 6.0+, SD 2.0+</p>
+        <p><strong>Affected Module:</strong> syslog/amqp</p>
+        <p><strong>Dev Ticket:</strong> N/A</p>
+        <p><strong>Resolved In Version:</strong> N/A</p>
+        <p><strong>KB Type:</strong> FAQ</p>
+        <p> </p>
+        <p>
+          <strong>Issue:</strong>  How does data flow from SAM and INTERCEPT agents to DEFEND or
+          syslog servers?
+        </p>
+        <p> </p>
+        <p><strong>Instructions:</strong>  see below</p>
+        <p> </p>
+        <p><strong>SAM agents: </strong></p>
+        <ul>
+          <li>Sends both Syslog and AMQP data directly to destination</li>
+          <li>SAM console is never involved in this communication</li>
+          <li>File activity uses syslog on port 10000 UDP</li>
+          <li>AD activity uses AMQP on port 10001 TCP (requires DEFEND app token)</li>
+        </ul>
+        <p><strong>INTERCEPT agents:</strong></p>
+        <ul>
+          <li>
+            File and AD activity sent to DEFEND directly from agent using AMQP on port 10001 TCP
+            (requires DEFEND app token)
+          </li>
+          <li>
+            All syslog is sent via the Enterprise Manager rather than the SI agent (syslog is not
+            used by SI agents to send to DEFEND)
+          </li>
+        </ul>
+        <p>
+          <img
+            src="kA04u0000000IBtCAM_d8eb6469-117c-435c-892e-83c42e6be86f.png"
+            alt="mceclip0.png"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

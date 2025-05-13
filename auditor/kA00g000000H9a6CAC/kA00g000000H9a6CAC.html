@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Database contains tables not compatible with the product</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9a6CAC" />
+    <meta name="Id" content="ka04u000000HcT5AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1216" />
+    <meta name="ArticleNumber" content="000003442" />
+    <meta
+      name="description"
+      content="This article will explain the following error that shows in the change summary report and will detail how to resolve it. &#34;Error saving history to database: Database %name of database% already contains tables that aren't compatible with the product&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Your audited system fails with the following error: Error saving history to database:
+        Database %name of database% already contains tables that are not compatible with the product
+
+        <hr />
+
+        Database permissions for the Data Processing Account are not sufficient. The Data Processing
+        Account must either be a Sysadmin or have DB_Owner permission to each Netwrix database in
+        order to upload audit data to the reporting database
+
+        <hr />
+
+        Using SQL Management Studio give the Data Processing Account DB_Owner rights to the product
+        database in question. To do this perform the following: 1) Log into the instance which
+        contains the product database using SQL Management Studio with a
+        <strong>sysadmin account</strong>. 2) Expand <strong>Security</strong> and then
+        <strong>Logins</strong>.
+        <img
+          src="kA00g000000H9a6CAC_454d7e5f-92a8-420c-9e06-a3dfaaaa3c2e.png"
+          alt="User-added image"
+        />
+        3) <strong>Right click</strong> the <strong>Data Processing Account</strong> and go to
+        <strong>Properties</strong> (add the account if it doesn't exist).
+        <img
+          src="kA00g000000H9a6CAC_80cdf614-d782-4218-af4f-bdf510ffa364.png"
+          alt="User-added image"
+        />
+        4) Under <strong>Server Roles</strong> you can give <strong>sysadmin</strong> to this
+        account OR alternatively you can go to <strong>User Mapping</strong> and select each Netwrix
+        database individually and add <strong>DB_Owner</strong> permissions.
+        <img
+          src="kA00g000000H9a6CAC_d655946d-a205-452a-bfb2-751cb92bcb2b.png"
+          alt="User-added image"
+          width="500"
+          height="451"
+        />
+      </div>
+    </article>
+  </body>
+</html>

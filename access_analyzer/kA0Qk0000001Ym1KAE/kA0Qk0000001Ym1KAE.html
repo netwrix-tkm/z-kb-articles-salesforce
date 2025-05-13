@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Configure File System Scans to Look for Sensitive Data Discovery</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001Ym1KAE" />
+    <meta name="Id" content="ka0Qk000000BujdIAC" />
+    <meta name="LastPublishedDate" content="2024-11-15T19:03:25.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-23T21:32:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-11-15T19:03:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9302" />
+    <meta name="ArticleNumber" content="000009302" />
+    <meta
+      name="description"
+      content="How to Configure File System Scans to Look for Sensitive Data Discovery"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            How do you configure Netwrix Enterprise Auditor (NEA) to scan File Systems for Sensitive
+            Data?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>Scanning file systems for sensitive data has the following prerequisites:</p>
+          <ol>
+            <li>
+              <p>You have a valid license for the Sensitive Data Discovery (SDD) module.</p>
+              <ul>
+                <li>
+                  <p>
+                    The SDD module is licensed separately, and an active license is required for all
+                    Sensitive Data auditing. You can confirm which modules are actively licensed in
+                    NEA via <strong>NEA &gt; Help &gt; About</strong>. The SDD module will appear as
+                    <strong>Sensitive Data</strong> on the <strong>Licensed Features</strong> list.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                The SDD Add-On is installed on the NEA Console server (see
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/SensitiveDataDiscovery/Overview.htm"
+                  target="_blank"
+                  >Sensitive Data Discovery Add-On Installation)</a
+                >.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    If you are using either of the File System Proxy scan modes, the SDD Add-on must
+                    also be installed on the server where the proxy service is installed. 
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <p>
+            Once the prerequisites are in place, SDD scans are found in the NEA Job tree under the
+            FileSystem group. The scan for sensitive data consists of two jobs, which are both found
+            under <strong>Jobs &gt; FileSystem &gt; 0.Collection</strong>:
+          </p>
+          <ul>
+            <li>
+              <p><strong>1-SEEK System Scans</strong> – scans files for the sensitive data.</p>
+            </li>
+            <li>
+              <p><strong>2-SEEK Bulk Import</strong> – uploads the results to the database.</p>
+            </li>
+          </ul>
+          <p>
+            A guide to configure the <strong>SEEK System Scans</strong> job can be found here:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/FileSystem/Collection/1-SEEK_System_Scans.htm"
+              target="_blank"
+              >1-SEEK System Scans Job</a
+            >.
+          </p>
+        </div>
+        <h2 id="additional_information">Additional Information</h2>
+        <div>
+          <p>
+            An overview of the SDD Add-On can be found here:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/SensitiveDataDiscovery/Overview.htm"
+              target="_blank"
+              >Sensitive Data Discovery Add-On</a
+            >.
+          </p>
+          <p>
+            You can modify what classifies as Sensitive Data by configuring criteria in the
+            <strong>Global Sensitive Data Settings</strong>. Please refer to the following
+            configuration guides in our Help Center:
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Settings/SensitiveData/Overview.htm"
+                target="_blank"
+                >Sensitive Data</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/SensitiveDataDiscovery/CriteriaEditor/Overview.htm"
+                target="_blank"
+                >Sensitive Data Criteria Editor</a
+              >
+            </li>
+          </ul>
+        </div>
+        <blockquote>
+          <p>
+            <span class="Caution"><strong>IMPORTANT: </strong></span> If running SDD scans, it will
+            be necessary to increase the minimum amount of RAM. Each thread requires a minimum of 2
+            additional GB of RAM per host. For example, if the job is configured to scan 8 hosts at
+            a time, then an extra 16 GB of RAM are required (8x2=16).
+          </p>
+        </blockquote>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/SensitiveDataDiscovery/Overview.htm"
+                target="_blank"
+                >Sensitive Data Discovery Add-On Installation</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/FileSystem/Collection/1-SEEK_System_Scans.htm"
+                target="_blank"
+                >1-SEEK System Scans Job</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/SensitiveDataDiscovery/Overview.htm"
+                target="_blank"
+                >Sensitive Data Discovery Add-On</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Settings/SensitiveData/Overview.htm"
+                target="_blank"
+                >Sensitive Data</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/SensitiveDataDiscovery/CriteriaEditor/Overview.htm"
+                target="_blank"
+                >Sensitive Data Criteria Editor</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

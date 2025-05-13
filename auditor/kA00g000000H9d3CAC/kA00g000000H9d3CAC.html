@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Event ID 1206 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9d3CAC" />
+    <meta name="Id" content="ka0Qk000000D5GPIA0" />
+    <meta name="LastPublishedDate" content="2025-04-02T13:32:39.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-02T13:32:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2490" />
+    <meta name="ArticleNumber" content="000003623" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues caused by missing/inaccessible Core Service (Traffic Compression Agent)."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>The Netwrix Auditor System Health Log contains the following error message:</p>
+          <pre>
+Event ID: 1206 
+Netwrix Auditor for SharePoint Core Service cannot be found</pre
+          >
+        </div>
+        <h2 id="causes">Causes</h2>
+        <div>
+          <p>This can be due to one of the following reasons:</p>
+          <ul>
+            <li>
+              <p>
+                The manual Core Service installation mode was selected when the monitoring plan was
+                created, and the Netwrix Auditor for SharePoint Core Service cannot be found on the
+                computer where SharePoint Central Administration is installed.
+              </p>
+            </li>
+            <li>
+              <p>
+                The manual Core Service installation mode was selected when the monitoring plan was
+                created, but the wrong SharePoint Central Administration URL was specified.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="resolutions">Resolutions</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                If the manual installation mode was used, check that you have specified a valid
+                SharePoint Central Administration URL.
+              </p>
+            </li>
+            <li>
+              <p>
+                Install the Netwrix Auditor for SharePoint Core Service manually. For detailed
+                instructions, refer to the following article: <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Install/SharePointCoreService.htm"
+                  target="_self"
+                  >Installation − Install for SharePoint Core Service · v10.7</a
+                >
+              </p>
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <strong>TIP:</strong> After the successful manual installation, the error will persist
+              until the next scheduled data collection. To start the collection manually, navigate
+              to a SharePoint monitoring plan, select <strong>Edit</strong> and click
+              <strong>Update</strong> on the right pane.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="related_article">Related Article</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Install/SharePointCoreService.htm"
+                  target="_self"
+                  >Installation − Install for SharePoint Core Service · v10.7</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

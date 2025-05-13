@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix:SA_8.2_017</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IelCAE" />
+    <meta name="Id" content="ka04u000000HcsSAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6863" />
+    <meta name="ArticleNumber" content="000006863" />
+    <meta name="description" content="360012326351" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> This hotfix adds
+          retry logic to the SQL SDD scan to alleviate timeout and disconnect issues.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:</span></strong
+          ><br />This hotfix adds retry logic to the SQL SDD scan to alleviate timeout and
+          disconnect issues.<br /><strong><span>Behavior Before Fix: </span></strong><br />SQL SDD
+          scans did not handle temporary disconnects or server side timeouts and scans could be
+          interrupted.<br /><strong><span>Behavior After Fix: </span></strong><br />Retry logic will
+          now fire when StealthAUDIT sees a server side disconnection.  The debug logs will now
+          indicate that connection attempts are being retried, for example "Retrying connection
+          attempt '1' of '3", and the SQL SDD scans should now be more resilient to any possible
+          environmental issues that would interrupt it before the fix.<br /><b
+            >Changes Since Last Hotfix:</b
+          ><br />n/a<br /><strong><span>Submitted by: </span></strong><br />Rob Evert<br /><strong
+            ><span>Affected Versions:</span></strong
+          ><br />8.2<br /><strong><span>Affected Module:</span></strong
+          ><br />SA - DC - SQL<br /> <br /><strong><span>Dev Ticket:</span></strong
+          ><br />SAT-4707  30899 - SQL SEEK getting Execution TimeOut<br /><strong
+            ><span>Resolved in Version:</span></strong
+          ><br />DCSQL.DLL  8.2.82<br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><strong><span>Modules Included:</span></strong
+          ><br />/DC/DCSQL.DLL  8.2.82<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.dll 
+          8.2.59<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll 
+          8.2.82<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  8.2.82<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll 
+          8.2.82<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll 
+          8.2.82<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SqlServer.dll 
+          8.2.82<br /> <br /><b>YouTrack/Escalations:</b><br />SAT-4707/30899<br /><b>Customers</b
+          ><br />Southern Communications<br /><b
+            >Cumulative List of fixes included since Service Pack:</b
+          ><br />SAT-4723  Performance Improvements for SQL SDD scans<br />SAT-4462  fix for
+          DatabasePrincipals unique key constraint<br />SAT-4700  Fix for permissions from deleted
+          users showing up on views<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Unblock the
+          hotfix zip file in the windows property dialog if an unblock button exists there.<br />2.
+          Close all instances of StealthAUDIT (check task manager under processes for all users)<br />3.
+          Exit StealthAUDIT console<br />4. Copy and replace files from the included folder into SA
+          Install dir.<br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="38">
+                <td colspan="1" rowspan="1" height="38" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.2/SA_8.2_017.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SAHotFixes/8.2/SA_8.2_017.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SQL<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          8.2<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAT-4707<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          DCSQL.DLL 8.2.82<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2256<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

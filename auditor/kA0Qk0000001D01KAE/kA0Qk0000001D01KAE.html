@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Specifying the SQL Server Instance Name</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001D01KAE" />
+    <meta name="Id" content="ka0Qk0000004BCzIAM" />
+    <meta name="LastPublishedDate" content="2024-06-11T13:53:31.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-11T13:53:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-06-11T13:53:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9197" />
+    <meta name="ArticleNumber" content="000009197" />
+    <meta name="description" content="Specifying the SQL Server Instance Name" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            What SQL Server instance name should you specify in the Audit Database settings in
+            Netwrix Auditor?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Depending on the SQL Server setup, you should specify the instance differently. Refer to
+            the following steps to establish the correct instance name:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                In environments with a single default SQL Server instance (i.e.,
+                <code>MSSQLSERVER</code>), specify the server FQDN or NetBIOS name to connect to the
+                SQL Server.
+              </p>
+            </li>
+            <li>
+              <p>
+                In environments with multiple SQL Server instances and named instances, specify the
+                instance in the <code>Server_Name\Instance_Name</code> format. Refer to the
+                following example:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">SQLMachine\SQLExpress</code></pre>
+            </li>
+          </ul>
+
+          <p>
+            Learn more about establishing the instance name in
+            <a
+              href="https://learn.microsoft.com/en-us/sql/relational-databases/lesson-1-connecting-to-the-database-engine?view=sql-server-ver15#determine-the-name-of-the-instance-of-the-database-engine"
+              target="_blank"
+              >Connecting to the Database Engine — Determine the name of the instance of the
+              Database Engine · Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/relational-databases/lesson-1-connecting-to-the-database-engine?view=sql-server-ver15#determine-the-name-of-the-instance-of-the-database-engine"
+                  target="_blank"
+                  >Connecting to the Database Engine — Determine the name of the instance of the
+                  Database Engine · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

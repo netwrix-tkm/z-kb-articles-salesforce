@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: "Error saving AD history to database: ExecuteNonQuery requires an open and available
+      Connection. The connection's current state is closed."
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZLCA0" />
+    <meta name="Id" content="ka04u000000HcSMAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1242" />
+    <meta name="ArticleNumber" content="000003395" />
+    <meta
+      name="description"
+      content="1. Restart SQL server hosting the product database; 2. In case where a restart does not help perform 2.1. Logon with an account... for Netwrix Auditor tasks"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You get the following error in the summary email reports: "Error saving AD history to
+        database: ExecuteNonQuery requires an open and available Connection. The connection's
+        current state is closed."
+
+        <hr />
+
+        Database corruption can cause the error above to be thrown during a product database
+        upgrade. Such corruption can - go unnoticed in the database until the upgrade is attempted.
+        - be caused by the loss of connectivity or disk corruption on the storage device where the
+        database resides.
+
+        <hr />
+
+        In order resolve this issue please do the following: 1. Restart SQL server hosting the
+        product database; 2. In case where a restart does not help perform the following steps on
+        SQL Server: 2.1. Logon with an account that you are using for Netwrix Auditor tasks 2.2.
+        Launch Microsoft SQL Server Management Studio 2.3. Open a Query window focused on the
+        database. 2.4. Run the following SQL command against the product database: dbcc checkdb 2.5
+        Review and save to a file the results of the command to confirm database corruption due to
+        consistency errors. A sample of the command output is: CHECKDB found 0 allocation errors and
+        29 consistency errors in database ''. repair_allow_data_loss is the minimum repair level for
+        the errors found by DBCC CHECKDB (...). DBCC execution completed. If DBCC printed error
+        messages, contact your system administrator. 2.6. Open a ticket with Netwrix Tech Support
+        and upload the command results as well as product log files - a zip of the %Netwrix
+        Installation Folder%Active Drirectory AuditingTracing folder.
+      </div>
+    </article>
+  </body>
+</html>

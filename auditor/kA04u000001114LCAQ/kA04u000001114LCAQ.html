@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The Remote Procedure Call Failed Error When Collecting Logs</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001114LCAQ" />
+    <meta name="Id" content="ka0Qk0000000veDIAQ" />
+    <meta name="LastPublishedDate" content="2023-12-11T10:25:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-11T10:25:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-21T14:12:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8752" />
+    <meta name="ArticleNumber" content="000008752" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the following error: The remote procedure call failed and did not execute."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When trying to collect data from target systems with Netwrix Auditor, the following
+            error appears:
+          </p>
+
+          <pre class="has-inner-focus">
+ 
+            The remote procedure call failed and did not execute. 
+        </pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Here are the possible causes for the issue:</p>
+
+          <ul>
+            <li>
+              <p>Cause 1. Current Firewall configuration blocks access to event logs.</p>
+            </li>
+            <li>
+              <p>Cause 2. Insufficient permissions for the account used for data collection.</p>
+            </li>
+            <li>
+              <p>Cause 3. Issues with RPC server (RPC server is unavailable).</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Review the possible resolutions depending on you cause:</p>
+
+          <ul>
+            <li>
+              <p>
+                For cause 1. Make sure you configured Firewall rules. For additional information on
+                the Firewall rules configuration, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Ports.htm"
+                  target="_blank"
+                  >Requirements – Protocols and Ports Required — v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                For cause 2. Make sure you assigned all required rights and permissions to the
+                account used for data collection. For additional information on the data collecting
+                account configuration, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataAccounts.htm"
+                  target="_blank"
+                  >Monitoring Plans – Data Collecting Account — v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                For cause 3. For additional information on the data collecting account
+                configuration, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9YLCA0.html"
+                  target="_blank"
+                  >Error: The RPC server is unavailable</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

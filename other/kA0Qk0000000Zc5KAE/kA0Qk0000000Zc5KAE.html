@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Task Start Failed Error on HIBP Database Update</title><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000Zc5KAE"/><meta name="Id" content="ka0Qk0000002ogfIAA"/><meta name="LastPublishedDate" content="2024-04-04T10:00:43.000+0000"/><meta name="LastModifiedDate" content="2024-04-04T10:09:28.000+0000"/><meta name="FirstPublishedDate" content="2024-04-04T10:00:43.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9113"/><meta name="ArticleNumber" content="000009113"/><meta name="description" content="Task Start Failed Error HIBP Updates"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<ul><li>
+	<p>The weekly HaveIBeenPwned (HIBP) database update fails.</p>
+	</li><li>
+	<p>Password Policy Enforcer prompts the following error in the schedule history:</p>
+
+	<pre class="has-inner-focus">Task Start Failed</pre>
+
+	<p>The error includes the following description:</p>
+
+	<pre class="has-inner-focus">Task Scheduler failed to start "\Netwrix\%task_name%" task for user "%user_account%".
+Additional Data: Error Value: 2147943785.</pre>
+	</li></ul>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Refer to the following steps to review the schedule history:</p>
+
+<ol><li>
+	<p>In the Password Policy Enforcer window, select <strong>Action</strong> and click the <strong>Run HIBP Updater</strong> button.</p>
+	</li><li>
+	<p>Click the <strong>Scheduler</strong> button.</p>
+	</li><li>
+	<p>Select a schedule from the list and click <strong>Edit schedule</strong>.</p>
+	</li><li>
+	<p>In the right pane, click the <strong>History</strong> button.</p>
+	</li></ol>
+</blockquote>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The user designated to run the scheduled task has insufficient rights.</p>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Verify the designated user has sufficient rights to run the scheduled task. Refer to the following steps to establish the designated user:</p>
+
+<ol><li>
+	<p>On the Password Policy Enforcer server, launch Task Scheduler.</p>
+	</li><li>
+	<p>In the left pane, extend the <strong>Task Scheduler Library</strong> folder and select the <strong>Netwrix</strong> folder.</p>
+	</li><li>
+	<p>In the central view, select the Password Policy Enforcer task, right-click it, and select <strong>Properties</strong>.</p>
+	</li><li>
+	<p>In the Properties window, review the user specified in the <strong>When running the task, use the following user account</strong> field.</p>
+	</li></ol>
+</blockquote>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Grant the designated user the <strong>Log on as a batch job</strong> rights in your environment via Group Policy.</p>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Alternatively, you can assign the task to another user with <strong>Log on as a batch job</strong> rights. If not, the SYSTEM user can be used instead.</p>
+</blockquote>
+</div></div>
+</article></body></html>

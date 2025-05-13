@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The Task Scheduler Service is not running. (Exception from HRESULT: 0x80041315)</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZqCAK" />
+    <meta name="Id" content="ka04u000000HcSrAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1276" />
+    <meta name="ArticleNumber" content="000003426" />
+    <meta
+      name="description"
+      content="The Task Scheduler Service is not running. (Exception from HRESULT: 0x80041315)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You cannot launch the created product task due to the following error: The Task Scheduler
+        Service is not running. (Exception from HRESULT: 0x80041315)
+
+        <hr />
+
+        Common causes of this issue are: - The Task Scheduler service is not running; - Created task
+        is corrupted.
+
+        <hr />
+
+        <span>In order to resolve the issue please make sure that the</span> Task Scheduler service
+        is running. If it does appear to be running follow the instructions below to re-create the
+        task.<br />
+        1. Delete the existing product task from the Task Scheduler; 2. Create a new text file and
+        paste to it the following:
+
+        <span>&lt;?xml version="1.0" encoding="UTF-16"?&gt;</span><br /><span
+          >&lt;Task version="1.1" &gt; <span>&lt;RegistrationInfo&gt;</span><br /><span
+            >&lt;Author&gt;USERNAME&lt;/Author&gt;</span
+          ><br /><span>&lt;/RegistrationInfo&gt;</span><br /><span>&lt;Triggers&gt;</span
+          ><br /><span>&lt;CalendarTrigger&gt;</span><br /><span
+            >&lt;StartBoundary&gt;2014-01-17T03:00:00&lt;/StartBoundary&gt;</span
+          ><br /><span>&lt;Enabled&gt;true&lt;/Enabled&gt;</span><br /><span
+            >&lt;ScheduleByDay&gt;</span
+          ><br /><span>&lt;DaysInterval&gt;1&lt;/DaysInterval&gt;</span><br /><span
+            >&lt;/ScheduleByDay&gt;</span
+          ><br /><span>&lt;/CalendarTrigger&gt;</span><br /><span>&lt;/Triggers&gt;</span
+          ><br /><span>&lt;Principals&gt;</span><br /><span>&lt;Principal id="Author"&gt;</span
+          ><br /><span>&lt;UserId&gt;DOMAINUSERNAME&lt;/UserId&gt;</span><br /><span
+            >&lt;LogonType&gt;InteractiveTokenOrPassword&lt;/LogonType&gt;</span
+          ><br /><span>&lt;RunLevel&gt;HighestAvailable&lt;/RunLevel&gt;</span><br /><span
+            >&lt;/Principal&gt;</span
+          ><br /><span>&lt;/Principals&gt;</span><br /><span>&lt;Settings&gt;</span><br /><span
+            >&lt;DisallowStartIfOnBatteries&gt;false&lt;/DisallowStartIfOnBatteries&gt;</span
+          ><br /><span>&lt;StopIfGoingOnBatteries&gt;false&lt;/StopIfGoingOnBatteries&gt;</span
+          ><br /><span>&lt;IdleSettings&gt;</span><br /><span
+            >&lt;Duration&gt;PT600S&lt;/Duration&gt;</span
+          ><br /><span>&lt;WaitTimeout&gt;PT3600S&lt;/WaitTimeout&gt;</span><br /><span
+            >&lt;StopOnIdleEnd&gt;false&lt;/StopOnIdleEnd&gt;</span
+          ><br /><span>&lt;RestartOnIdle&gt;false&lt;/RestartOnIdle&gt;</span><br /><span
+            >&lt;/IdleSettings&gt;</span
+          ><br /><span>&lt;Enabled&gt;true&lt;/Enabled&gt;</span><br /><span
+            >&lt;Hidden&gt;false&lt;/Hidden&gt;</span
+          ><br /><span>&lt;RunOnlyIfIdle&gt;false&lt;/RunOnlyIfIdle&gt;</span><br /><span
+            >&lt;WakeToRun&gt;false&lt;/WakeToRun&gt;</span
+          ><br /><span>&lt;ExecutionTimeLimit&gt;PT259200S&lt;/ExecutionTimeLimit&gt;</span
+          ><br /><span>&lt;Priority&gt;5&lt;/Priority&gt;</span><br /><span>&lt;/Settings&gt;</span
+          ><br /><span>&lt;Actions Context="Author"&gt;</span><br /><span>&lt;Exec&gt;</span
+          ><br /><span
+            >&lt;Command&gt;C:Program Files (x86)NetWrixAD Change
+            ReporterADCR.exe&lt;/Command&gt;</span
+          ><br /><span>&lt;Arguments&gt;-dn=DOMAIN.COM&lt;/Arguments&gt;</span><br /><span
+            >&lt;WorkingDirectory&gt;C:Program Files (x86)NetWrixAD Change
+            Reporter&lt;/WorkingDirectory&gt;</span
+          ><br /><span>&lt;/Exec&gt;</span><br /><span>&lt;/Actions&gt;</span><br /><span
+            >&lt;/Task&gt; 3. For the following tags please add your specific information:
+          </span>
+          <span>&lt;Author&gt;USERNAME&lt;/Author&gt; -specify netwrix service account</span>
+          <span>&lt;UserId&gt;DOMAINUSERNAME&lt;/UserId&gt; </span
+          ><span>-specify netwrix service account</span>
+          <span
+            >&lt;Command&gt;C:Program Files (x86)NetWrixAD Change ReporterADCR.exe&lt;/Command&gt; -
+            make sure that path to </span
+          ><span>ADCR.exe specified correctly</span><br /><span
+            >&lt;Arguments&gt;-dn=DOMAIN.COM&lt;/Arguments&gt; </span
+          ><span>-specify target domain name</span><br /><span
+            >&lt;WorkingDirectory&gt;C:Program Files (x86)NetWrixAD Change
+            Reporter&lt;/WorkingDirectory&gt; </span
+          ><span>- make sure that path to </span><span>AD Change Reporter folder</span
+          ><span> specified correctly</span>
+
+          <span
+            >4. Save this file in .xml format; 5. Import the task from the created xml-file (Open </span
+          >Task Scheduler | right click on the Task Scheduler Library | select
+          <span>xml | Open</span><span>).</span>
+        </span>
+      </div>
+    </article>
+  </body>
+</html>

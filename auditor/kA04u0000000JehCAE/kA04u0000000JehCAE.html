@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring Oracle Databases using Change Tracker</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JehCAE" />
+    <meta name="Id" content="ka04u000000HdAyAAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:57:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8282" />
+    <meta name="ArticleNumber" content="000008282" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Are you looking to monitor an Oracle Database using NNT Change Tracker? Do you require
+          some assistance with configuring that monitoring? Then this is the article for you! Read
+          on, the information below should get you setup and if you need anything else, just contact
+          support via web.
+        </p>
+        <p>
+          <br />In order to monitor a database successfully, there are a few key pieces of
+          information you will need to obtain. The required information and how to obtain them are
+          listed below:
+        </p>
+        <p>
+          <strong>Server</strong>:
+          <em>This is the IP address of the server which is hosting the Oracle Database.</em>
+        </p>
+        <p>
+          <strong>Database name</strong>:
+          <em>This is the name/SID of the database that you want to monitor.</em>
+        </p>
+        <p>
+          <strong>Port</strong>:
+          <em
+            >The port in which the database is listening for a connection. The default port is
+            normally 1521 but if this does not work, you can find the port in the databases
+            listener.ora file.</em
+          >
+        </p>
+        <p>
+          <strong>User</strong> <strong>Id</strong>:
+          <em
+            >This is the username that Change Tracker will use to authenticate with the Oracle
+            Database. This user will need a specific set of roles assigned to it which are listed in
+            one of the following sections.</em
+          >
+        </p>
+        <p>
+          <strong>Password</strong>:
+          <em>This is the password for the User Id you have specified.</em>
+        </p>
+        <p>
+          <em
+            >=<em>=</em
+            ><em
+              >=<em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em></em
+            ></em
+          >
+        </p>
+        <p>
+          To obtain the name of the database you wish to monitor, you will need to run a query
+          against your Oracle database. This can be done using an application like Oracle SQL
+          Developer or through the server itself using sqlplus and command line. An example of this
+          can be seen below:
+        </p>
+        <p>
+          Using Oracle SQL Developer, you can run a query called
+          <strong>select * from global_name;</strong> OR
+          <strong>select name from v$database; </strong>- the results of the query will show the
+          name(s) of the database that you can monitor...
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JehCAE_7ecdadd9-dab5-42fb-917e-94a5b85b1dd8.png" /></span
+          >   <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JehCAE_440299a2-833c-41b1-9f14-7be7fc2899a8.png"
+          /></span>
+        </p>
+        <p>
+          <em
+            >=<em>=</em
+            ><em
+              >=<em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em></em
+            ></em
+          >
+        </p>
+        <p>
+          You will also need to identify an SID value. This is normally the same as the database
+          name but you can find this value, along with the port in which the database is using but
+          looking at the following file:
+        </p>
+        <p>
+          <em
+            ><strong
+              >/SERVER-NAME/app/oracle/product/VERSION-NUMBER/DATABASE-NAME/network/admin/listener.ora</strong
+            ></em
+          >
+        </p>
+        <p>
+          Example:
+          <strong># cat /OracleSRV/app/oracle/product/11.2.0/xe/network/admin/listener.ora</strong>
+        </p>
+        <p><span># listener.ora Network Configuration File:</span></p>
+        <p>
+          <span>SID_LIST_LISTENER =</span><br /><span>(SID_LIST =</span><br /><span
+            >(SID_DESC =</span
+          ><br /><span>(<strong>SID_NAME = xe</strong>)</span><br /><span
+            >(ORACLE_HOME = /u01/app/oracle/product/11.2.0/xe)</span
+          ><br /><span>(PROGRAM = extproc)</span>
+        </p>
+        <p>
+          <span>LISTENER =</span><br /><span>(DESCRIPTION_LIST =</span><br /><span
+            >(DESCRIPTION =</span
+          ><br /><span>(ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC_FOR_XE))</span><br /><span
+            >(ADDRESS = (PROTOCOL = TCP)(HOST = localhost.localdomain)(<strong>PORT = 1521</strong
+            >))</span
+          >
+        </p>
+        <p><span>DEFAULT_SERVICE_LISTENER = (XE)</span></p>
+        <p><br /></p>
+        <p>
+          <strong
+            ><span
+              >You can also identify the SID_Name by running the following command:</span
+            ></strong
+          >
+        </p>
+        <p>
+          <span
+            >[oracle@my-oracle-db ~]$ env | grep ORA<br />ORACLE_SID=oradb<br />ORACLE_BASE=/u01/app/oracle<br />ORACLE_HOME=/u01/app/oracle/product/19.0.0/db_1<br /><br /><br
+          /></span>
+        </p>
+        <p>
+          <span
+            ><em
+              >=<em>=</em
+              ><em
+                >=<em>=<em>=</em></em
+                ><em>=<em>=</em></em
+                ><em>=<em>=</em></em
+                ><em>=<em>=</em></em
+                ><em>=<em>=</em></em></em
+              ></em
+            ></span
+          >
+        </p>
+        <p>
+          You will also need to create an account for the database(s) being monitored. The
+          account(s) require enough privileges to access the information that we are querying. This
+          level of privilege can be adjusted depending on the monitoring requirement. For example
+          the privileges for the below ‘c##nnt’ account have been used within previous engagements
+          to monitor databases successfully:<br /><br />
+        </p>
+        <p><strong>CREATE USER c##nnt IDENTIFIED BY password;</strong></p>
+        <p><strong>GRANT SELECT_CATALOG_ROLE TO c##nnt;</strong></p>
+        <p><strong>GRANT SELECT ANY TABLE TO c##nnt;</strong></p>
+        <p><strong>GRANT EXECUTE ANY PROCEDURE TO c##nnt;</strong></p>
+        <p><strong>GRANT CREATE ANY TRIGGER TO c##nnt;     </strong></p>
+        <p><strong>ALTER USER c##nnt DEFAULT ROLE ALL;</strong></p>
+        <p><strong>GRANT SELECT ON DBA_USERS_WITH_DEFPWD TO c##nnt;</strong></p>
+        <p><strong>GRANT CONNECT TO c##nnt;</strong></p>
+        <p><strong>GRANT CONNECT, RESOURCE, DBA TO c##nnt;</strong></p>
+        <p><strong>GRANT UNLIMITED TABLESPACE TO c##nnt;</strong></p>
+        <p><strong>GRANT CREATE SESSION TO c##nnt WITH ADMIN OPTION;</strong></p>
+        <p>
+          <em
+            ><em
+              >=<em>=</em
+              ><em
+                >=<em>=<em>=</em></em
+                ><em>=<em>=</em></em
+                ><em>=<em>=</em></em
+                ><em>=<em>=</em></em
+                ><em>=<em>=</em></em></em
+              ></em
+            ></em
+          >
+        </p>
+        <p>
+          Once you have obtained all of the above, you will be able to create a
+          <em><strong>"Change Tracker Credential String"</strong></em> which is what Change Tracker
+          will use to connect to and authenticate with the database. An example credentials string
+          can be found below:
+        </p>
+        <p>
+          <strong
+            ><span
+              >Server=192.168.1.85;Port=1521;User Id=c##nnt;Password=password;Direct=True;</span
+            ></strong
+          >
+        </p>
+        <p>
+          <span
+            >The connection string will need to be entered into the following section on the Change
+            Tracker web console:</span
+          >
+        </p>
+        <p>
+          <strong
+            >Settings &gt; Credentials &gt; Database Credentials &gt; Add Database
+            Credential</strong
+          >
+        </p>
+        <p>In the pop up menu that appears, enter the following:</p>
+        <p>
+          <strong>Credential Name: </strong>XE (This is personal preference)<br /><strong
+            >Database Platform:</strong
+          >
+          Oracle<br /><strong>Connection String:</strong> Copy in your string (as shown in the
+          example above)
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              src="kA04u0000000JehCAE_115e7e45-e4af-4f0d-befd-fbbead31502a.png"
+          /></span>
+        </p>
+        <p>Press <strong>Update</strong></p>
+        <p>
+          <em
+            >=<em>=</em
+            ><em
+              >=<em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em></em
+            ></em
+          >
+        </p>
+        <p>
+          Once you have created a credential string, you will want to navigate to Settings &gt;
+          Groups &gt; Select "All Devices" and click "Add" to create a "Databases" and the type of
+          database group underneath in order to configure the compliance reporting later:
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              height="393"
+              width="744"
+              src="kA04u0000000JehCAE_b6fc7f49-c434-456c-89a1-a599b84c9fe1.png"
+          /></span>
+        </p>
+        <p>
+          Next, you will need to use this to create a
+          <strong>"Change Tracker Proxied Device"</strong>. Here you will need to specify the name
+          of the database that you want to monitor on the Oracle server:
+        </p>
+        <p>
+          The proxied device will need to be configured in the following section of the Change
+          Tracker web console:
+        </p>
+        <p>
+          <strong
+            >Settings &gt; Agents &amp; Devices &gt; Highlight a device that will be able to
+            communicate with the database over the network (default port is 1521) &gt; Select the
+            Add Proxied Device button</strong
+          >
+        </p>
+        <p>In the pop up menu that appears, enter the following:</p>
+        <p>
+          <strong>Name:</strong> XE (This is the display name of the database and how it will be
+          presented on Change Tracker)<br /><strong>Host/Database Name:</strong> XE (This is the
+          name of the database/its SID name)<br /><strong>Device Type:</strong>
+          Database<br /><strong>Operating System:</strong> Oracle (This is personal preference)<br /><strong
+            >Credentials:</strong
+          >
+          XE (This will need to match up with the name of the credentials you created previously)<br /><strong
+            >Groups:</strong
+          >
+          OracleDB (This is personal preference - there is not an out of the box group in Change
+          Tracker which covers Oracle databases so you may need to create your own)<br /><strong
+            >Online Detection:</strong
+          >
+          None/Auto (If set to <strong>None</strong>, Change Tracker will automatically assume the
+          device is online and will attempt to communicate with it. If set to <strong>Auto</strong>,
+          Change Tracker will attempt to ping the device and will wait for a response before showing
+          the device as online -
+          <strong>I would advise setting this option to None</strong>)<br /><strong
+            >Diagnostic Mode:</strong
+          >
+          Yes/No (If enabled, there will be more verbose logging available on the Change Tracker web
+          console surrounding this device which will aid with troubleshooting any issues -
+          <strong>I would advise enabling this option</strong>)
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              height="382"
+              width="485"
+              src="kA04u0000000JehCAE_006f7786-f5ff-477f-a8cc-b6a5eca3676a.png"
+          /></span>
+        </p>
+        <p>
+          <em
+            >=<em>=</em
+            ><em
+              >=<em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em></em
+            ></em
+          >
+        </p>
+        <p>
+          Once you have configured the Proxy, you can run a test report to validate the credentials
+          by navigating to Reports &gt; Then click "Actions" &gt; "Add a Compliance Report" &gt; You
+          can skip the naming screen and go to "Query Settings". Once in Query Settings, choose the
+          name of the group we created earlier that you will assign the database to during the proxy
+          device configuration, and then choose the Database Credential Test, then hit Update Report
+          Title so that the title gets updated with the group name and the report name, and hit
+          update. Then run the report to see if it successfully connects:
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              height="503"
+              width="695"
+              src="kA04u0000000JehCAE_37806baf-d3f5-4093-b9df-66ae12958513.png"
+          /></span>
+        </p>
+        <p>
+          Once the above has been configured, you can run an
+          <strong>"NNT Change Tracker Compliance Report"</strong> against your database(s) to keep
+          track of data like the:
+        </p>
+        <ul>
+          <li><strong>Number of tables within a database</strong></li>
+          <li><strong>Names of tables within a database</strong></li>
+        </ul>
+        <ul>
+          <li><strong>Number of columns within a specified table</strong></li>
+          <li><strong>Names of columns with a specified table</strong></li>
+        </ul>
+        <p>
+          At this stage I would advise that you contact the <strong>support team</strong> for
+          assistance as we can help you put together an
+          <strong>"NNT Change Tracker Compliance Report"</strong> that will meet your requirements
+          and work for the database you are looking to monitor.
+        </p>
+        <p>
+          <em
+            >=<em>=</em
+            ><em
+              >=<em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em></em
+            ></em
+          >
+        </p>
+        <p>
+          If after the NNT Support Team have provided you with a compliance report, you receive
+          error messages when trying to run it against your database, some of the following error
+          messages and descriptions may help you diagnose the issue, alternatively if the error
+          message you are receiving is not listed below, please use this
+          <u
+            ><span
+              ><a
+                class="external-link"
+                href="https://docs.oracle.com/cd/B19306_01/server.102/b14219.pdf"
+                target="_blank"
+                >LINK</a
+              ></span
+            ></u
+          >
+          for a full list of error messages provided by Oracle.
+        </p>
+        <p>
+          <strong>ORA-12541: TNS:no listener</strong><br /><strong>Cause</strong>: The connection
+          request could not be completed because the listener is not running.<br /><strong
+            >Action</strong
+          >: Ensure that the supplied destination address matches one of the addresses used by the
+          listener - compare the TNSNAMES.ORA entry with the appropriate LISTENER.ORA file (or
+          TNSNAV.ORA if the connection is to go by way of an Interchange). Start the listener on the
+          remote machine.
+        </p>
+        <p>
+          <strong>ORA-12543: TNS:destination host unreachable</strong><br /><strong>Cause</strong>:
+          Contact can not be made with remote party.<br /><strong>Action</strong>: Make sure the
+          network driver is functioning and the network is up.
+        </p>
+        <p>
+          <strong>ORA-12531: TNS:cannot allocate memory</strong><br /><strong>Cause</strong>:
+          Sufficient memory could not be allocated to perform the desired activity.<br /><strong
+            >Action</strong
+          >: Either free some resource for TNS, or add more memory to the machine. For further
+          details, turn on tracing and reexecute the operation.
+        </p>
+        <p>
+          <em
+            >=<em>=</em
+            ><em
+              >=<em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em
+              ><em>=<em>=</em></em></em
+            ></em
+          >
+        </p>
+        <p>
+          If you require more information or assistance with the setup of your Oracle Database,
+          please contact the <strong>support team.</strong>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

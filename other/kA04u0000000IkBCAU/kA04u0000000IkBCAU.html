@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Regain Access to SI Console</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IkBCAU" />
+    <meta name="Id" content="ka04u000000HcurAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:38:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:38:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7276" />
+    <meta name="ArticleNumber" content="000007276" />
+    <meta name="description" content="360008304132" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span class="wysiwyg-font-size-medium"><strong>Summary:</strong></span>
+        </p>
+        <p>
+          <span class="wysiwyg-font-size-medium"
+            ><strong>Issue:</strong> If you lose access to a StealthINTERCEPT admin console and
+            customer doesn't know the credentials to regain access, here's how to fix it.</span
+          >
+        </p>
+        <p>
+          <span class="wysiwyg-font-size-medium"
+            ><strong>Instructions:</strong>
+            <span
+              ><strong
+                ><span>NOTE: SENSITIVE SECURITY INFORMATION - INTERNAL ONLY</span><br /><span
+                  >Please be careful who this is distributed to.  </span
+                ></strong
+              ></span
+            ></span
+          ><br /><br /><span class="wysiwyg-font-size-medium"
+            >There are different functionalities depending on the version of StealthINTERCEPT.
+             </span
+          ><br /><span class="wysiwyg-font-size-medium"
+            >I'm not sure of the exact version the change was made in.  </span
+          ><br /><br /><span class="wysiwyg-font-size-medium"><strong>3.x &amp; Older</strong></span
+          ><br /><span class="wysiwyg-font-size-medium">Username: Simon</span><br /><span
+            class="wysiwyg-font-size-medium"
+            >Password: Password$</span
+          ><br /><br /><span class="wysiwyg-font-size-medium"><strong>3.x &amp; Newer</strong></span
+          ><br /><span class="wysiwyg-font-size-medium"
+            >Uses windows authentication and stores security descriptors for who can login in the
+            dbo.Folder table of the NvMonitorConfig database.  <br />To re-gain control over SI, you
+            can nullify securityDescriptor-s in that table.  </span
+          >
+        </p>
+        <p>
+          <span class="wysiwyg-font-size-medium"
+            >Step 1: Run this command against the NvMonitorConfig database:</span
+          >
+        </p>
+        <div>
+          <span class="wysiwyg-font-size-medium"
+            ><span
+              ><span><span>update</span></span></span
+            ><span
+              ><span>
+                dbo<span>.</span>Folder<br /><span>set</span> securityDescriptor <span>=</span>
+                <span>null</span></span
+              ></span
+            ></span
+          >
+        </div>
+        <p><span class="wysiwyg-font-size-medium" /></p>
+        <p>
+          <span class="wysiwyg-font-size-medium"><strong>Product:</strong> StealthINTERCEPT</span
+          ><br /><span class="wysiwyg-font-size-medium"
+            ><strong>Module:</strong> SI - Admin Console</span
+          ><br /><span class="wysiwyg-font-size-medium"
+            ><strong>Legacy Article ID:</strong> 1221</span
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

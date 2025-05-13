@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SR 1.5 HF 002</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IiKCAU" />
+    <meta name="Id" content="ka04u000000Hcu4AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:31:08.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:31:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7142" />
+    <meta name="ArticleNumber" content="000007142" />
+    <meta name="description" content="360012021092" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Improve Default
+          PostgreSQL Config Calculations; Detect and install VC++ redistributables correctly
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Summary:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><i
+                  ><span
+                    >Improve Default PostgreSQL Config Calculations; Detect and install VC++
+                    redistributables correctly</span
+                  ></i
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Submitted by: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Jon Obst</span></span></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Versions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>1.5</span></span></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Module:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>StealthRECOVER - General</span></span></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Dev Ticket:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><i><span>SR-5661, SR-5685</span></i></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Resolved in Version:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>1.5.19.0</span></span></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>KB Type: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>                Hotfix</span></span></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Issue: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>SR-5661 - Improve Default PostgreSQL Config Calculations</span></span
+                ></span
+              ></span
+            ></span
+          >
+        </p>
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      >Previously, on systems with lots of resources, the calculation for setting
+                      PgSQL defaults would exceed maximum values for certain settings, causing PgSQL
+                      to default to a basic setting.  The installer now correctly limits certain
+                      values to maximum thresholds.</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >SR-5685 - 41110 - StealthRECOVER: 1.5 fails to install with C++ 2017 is
+                  installed</span
+                ></span
+              ></span
+            ></span
+          ></span
+        >
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    >The Microsoft Visual C++ Redistributables share the same product ID, so
+                    previously we would detect VC++2015 as being installed when only VC++2017 was
+                    present.  The checks have been expanded and this scenario is now handled
+                    correctly and the product installs as expected.</i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span><b>Modules Included</b></span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>StealthRECOVER</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>YouTrack/Escalations</b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i><span>SR-5661, SR-5685 - 41110, 35708</span></i></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Customers</b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span><i>STEALTHbits Technologies</i></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+          ></span
+        >
+        <div class="table-wrap">
+          <table count-columns="3" class="Table" width="583">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" valign="bottom" width="171">
+                  <span
+                    ><span
+                      ><span><span>40934</span></span></span
+                    ></span
+                  >
+                </td>
+                <td colspan="1" rowspan="1" valign="bottom" width="171">
+                  <span
+                    ><span
+                      ><span><span>SR-5655</span></span></span
+                    ></span
+                  >
+                </td>
+                <td colspan="1" rowspan="1" valign="bottom" width="241">
+                  <span
+                    ><span
+                      ><span><span>Service account password field limitation</span></span></span
+                    ></span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i><span>For Upgrades from 1.4 or 1.5</span></i></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i><span>Double click the installer to being the upgrade process</span></i></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i
+                  ><span>Click through the wizard to complete the upgrade process</span></i
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i><span>For Upgrades from 1.3</span></i></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i><span>Please contact technical support for assistance</span></i></strong
+              ></span
+            ></span
+          ></span
+        ><br /><br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Instructions:</span></strong></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><i><span>For Upgrades from 1.4 or 1.5</span></i></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><i
+                    ><span>Double click the installer to being the upgrade process</span></i
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><i
+                    ><span>Click through the wizard to complete the upgrade process</span></i
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><i><span>For Upgrades from 1.3</span></i></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><i><span>Please contact technical support for assistance</span></i></strong
+                ></span
+              ></span
+            ></span
+          ><br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/SRHotfixes/1.5/StealthRECOVER-1.5-HF-002.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SRHotfixes/1.5/StealthRECOVER-1.5-HF-002.zip</a
+          ><br /><br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthRECOVER<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          StealthRECOVER - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          1.5<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SR-5661, SR-5685<br /><strong
+            ><span class="wysiwyg-font-size-large">Resolved In:</span></strong
+          >
+          1.5.19.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2588<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

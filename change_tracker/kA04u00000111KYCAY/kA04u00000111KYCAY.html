@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Default SSL Trust Policy Failed and Certificate Thumbprint is not in Trusted List</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111KYCAY" />
+    <meta name="Id" content="ka04u00000118AaAAI" />
+    <meta name="LastPublishedDate" content="2023-10-13T10:26:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-13T10:26:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-11T16:25:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8853" />
+    <meta name="ArticleNumber" content="000008853" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the &#34;Default SSL Trust policy failed and certificate thumbprint is not in trusted list&#34; error."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            the Gen7 Sync Connector fails and the syncservice-log.txt contains the following error:
+          </p>
+
+          <pre class="has-inner-focus">
+ERROR ServerCertificateValidationTask - Default SSL trust policy failed with RemoteCertificateChainErrors (sender hostname was *****.*****.com), and certificate thumbprint is not in trusted list. Consider setting thumbprint in the application configuration, or altering server Url setting to match certificate CN.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This error appears if the ITSM integration module is unable to validate the SSL
+            certificate that is being used by the Change Tracker application or the ITSM application
+            we are integrating with.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Add the thumbprint of the certificate that cannot be validated to the thumbprints list.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts Gen7 Sync Connector, navigate to the
+                <b>Services</b> snap-in and stop the <b>Gen 7 Sync</b> service.
+              </p>
+            </li>
+            <li>
+              <p>
+                Navigate to <em>C:\ProgramData\NNT\gen7syncservice\</em> and open the
+                <b>syncservice-log.txt</b> file.
+              </p>
+            </li>
+            <li>
+              <p>Find the certificates Thumbprint value. For example:</p>
+              <code>[Thumbprint]</code> <code>1N2J3H4J5K6J7H8G9K8N7I6H5B4V3C2Y1G2J3N45</code>
+            </li>
+            <li>
+              <p>Copy the <code>Thumbprint</code> value.</p>
+            </li>
+            <li>
+              <p>
+                Navigate to <em>C:\Program Files\NNT Change Tracker Suite\Gen7SyncService\</em> and
+                open the <b>Gen7SyncService.exe.Config</b> with a text editor.
+              </p>
+            </li>
+            <li>
+              <p>
+                Scroll to the bottom of the file and locate the <code>thumbprints</code> section.
+                Example below:
+              </p>
+
+              <div>
+                <pre class="has-inner-focus">
+&lt;thumbprints&gt;
+&lt;add key="NNTThumbprint1" value="6F7F11707C0C93CD0F7E92D5BC0F1C9345D68A64"/&gt;
+&lt;add key="NNTThumbprint2" value="BAD1067FBAB59CCED21786657C672F6AB5BE824C"/&gt;
+&lt;add key="NNTThumbprint3" value="2611980C41C0D0DA804B8DEB6255BD822A69D22F"/&gt;
+&lt;add key="NNTThumbprint4" value="E8B1FBD30B0EF275FB3D658F0027B6836B545104"/&gt;
+&lt;/thumbprints&gt;</pre
+                >
+              </div>
+            </li>
+            <li>
+              <p>
+                Add the thumbprint of the certificate that cannot be validated to the list. Example
+                below:
+              </p>
+
+              <div>
+                <pre class="has-inner-focus">&lt;thumbprints&gt;
+&lt;add key="NNTThumbprint1" value="6F7F11707C0C93CD0F7E92D5BC0F1C9345D68A64"/&gt;
+&lt;add key="NNTThumbprint2" value="BAD1067FBAB59CCED21786657C672F6AB5BE824C"/&gt;
+&lt;add key="NNTThumbprint3" value="2611980C41C0D0DA804B8DEB6255BD822A69D22F"/&gt;
+&lt;add key="NNTThumbprint4" value="E8B1FBD30B0EF275FB3D658F0027B6836B545104"/&gt;
+<strong>&lt;add key="NNTThumbprint5" value="1N2J3H4J5K6J7H8G9K8N7I6H5B4V3C2Y1G2J3N45"/&gt;</strong>
+&lt;/thumbprints&gt;
+</pre>
+              </div>
+            </li>
+            <li>
+              <p>Save your edits and close file.</p>
+            </li>
+            <li>Restart the <b>Gen 7 Sync</b> service you stopped on the step 1.</li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

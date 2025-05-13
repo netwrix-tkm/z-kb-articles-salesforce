@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How To Change a Domain Name for All Enrolled Users?</title><meta name="label" content="password_reset_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000LkPKAU"/><meta name="Id" content="ka0Qk0000001CrxIAE"/><meta name="LastPublishedDate" content="2024-01-03T14:27:12.000+0000"/><meta name="LastModifiedDate" content="2024-01-03T14:27:12.000+0000"/><meta name="FirstPublishedDate" content="2023-12-26T10:03:27.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8985"/><meta name="ArticleNumber" content="000008985"/><meta name="description" content="How To Change a Domain Name for All Enrolled Users?"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to to bulk re-enroll users that have had their email domain changed?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<p>A domain name is stored in the SQL database. To change a domain name for the enrolled users, you need to update the database with a SQL query.</p>
+
+<blockquote>
+<p><span><strong>IMPORTANT:</strong></span> Always backup the database with the Data Console closed and the Netwrix Password Reset service stopped before modifying the database.</p>
+</blockquote>
+
+<p>If you are using <b>SQL Server Compact</b>, you can use the open source <a href="https://github.com/ErikEJ/SqlCeCmd/releases" target="_blank">SqlCeCmd40</a> tool.</p>
+
+<p>The queries below can be used for SQL Server, but with a different tool. Ask your Database Administrator for more information.</p>
+
+<ul><li>
+	<p>Use this query to set the domain name for all users:</p>
+	<code>SqlCeCmd40.exe -d "Data Source=apr.sdf" -q "UPDATE Usr SET DomainName = 'NewDomain'"</code>
+
+	<p>where <code>'NewDomain'</code> is the name of your new domain.</p>
+	</li><li>
+	<p>If you only want to update one user, for example, for testing purposes, then use the following query:</p>
+	<code>SqlCeCmd40.exe -d "Data Source=apr.sdf" -q "UPDATE Usr SET DomainName = 'NewDomain' where (LogonName = 'Test') AND (DomainName = 'OldDomain')"</code>
+
+	<p>where <code>'NewDomain'</code> is the name of your new domain and <code>'OldDomain'</code> is the old name arrordingly.</p>
+	</li></ul>
+</div></div>
+</article></body></html>

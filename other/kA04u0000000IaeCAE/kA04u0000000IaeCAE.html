@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_8.2_063</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IaeCAE" />
+    <meta name="Id" content="ka04u000000HcquAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:25:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:25:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6762" />
+    <meta name="ArticleNumber" content="000006762" />
+    <meta name="description" content="360012326351" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Resolves issue with
+          SPAA Bulk Imports where Users were running into FK constraints because we were importing
+          the RolesProxyId's for the children of a deleted Parent.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Summary:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    >Resolves issue with SPAA Bulk Imports where Users were running into FK
+                    constraints because we were importing the RolesProxyId's for the children of a
+                    deleted Parent.
+                  </span></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Behavior After Fix: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >SPAA Bulk imports are appropriately cleaning up RolesProxyId's for deleted
+                items.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><b>Instructions for applying Hotfix:</b></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >1. Unblock the hotfix zip file in the windows property dialog(Get-ChildItem -Path
+                '' -Recurse | Unblock-File), if an unblock button exists there.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >2. Close all instances of StealthAUDIT (check task manager under processes for all
+                users)</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>3. Exit StealthAUDIT console</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >4. Copy and replace files from the DC folder in this hotfix, to the DC Folder in SA
+                Install Dir</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >5. Copy and replace files from the PrivateAssemblies folder in this hotfix, to the
+                PrivateAssemblies folder in SA Install dir.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >6. (For updating Agent:) Take a backup of the files in SPAA directory on target
+                SharePoint server</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>7. Uninstall existing agent</span></span></span
+          ><br /><span
+            ><span><span>8. Install SPAA Agent 8.2.0.13</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Submitted by: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Rich</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Versions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>8.2+</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Module:</span></strong></span
+              ></span
+            ></span
+          ><br /><span><span>SA - DC - SPAA</span></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    >Dev Ticket: SAFS-16917 - 35864 - Unable to bulk import SPSEEK - due to FORIEIGN
+                    Key constraint</span
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    >Resolved in Version: binaries from build 8.2.0.824 (too many to list check
+                    readme)</span
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>KB Type: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>                Hotfix</span></span></span
+            ></span
+          ><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><span
+            ><span><span>8/6/2019</span></span></span
+          ><br /><br /><span
+            ><span><span>Modules Included</span></span></span
+          ><br /><br /><span
+            ><span><span>X \DC\DCSPAA.dll 8.2.134.1006</span></span></span
+          ><br /><span
+            ><span><span>X \DC\SPAAConfig.xml N/A</span></span></span
+          ><br /><br /><span
+            ><span
+              ><span
+                >X
+                \PrivateAssemblies\Microsoft.Online.SharePoint.Client.Tenant.dll-16.1.8210.1200</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Microsoft.SharePoint.Client.dll-16.1.8210.1200</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Microsoft.SharePoint.Client.Runtime.dll-16.1.8210.1200</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X
+                \PrivateAssemblies\Microsoft.SharePoint.Client.UserProfiles.dll-16.1.8210.1200</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span>X \PrivateAssemblies\Stealthbits.SharePoint.dll 1.2.87.1006</span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.SharePoint.XMLSerializers.dll - 1.2.1.0</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span>x \PrivateAssemblies\Stealthbits.StealthAUDIT.Agent.dll 8.2.4.1006</span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >x \PrivateAssemblies\Stealthbits.StealthAUDIT.Agent.Client.dll 8.2.4.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >x \PrivateAssemblies\Stealthbits.StealthAUDIT.Agent.Client.dll.config -  N/A</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.dll 8.2.59.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.dll.config - n/a</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.DLP.Common.dll
+                8.2.23.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.DLP.UI.dll
+                8.2.2.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Agent.Common.dll
+                8.2.8.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Common.dll
+                8.2.43.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Common.dll.config
+                N/A</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.dll
+                8.2.228.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.CSOM.dll
+                8.2.64.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X
+                \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.CSOM.dll.config
+                N/A</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X
+                \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.Database.dll
+                8.2.26.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Storage.dll
+                8.2.45.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.UI.dll
+                8.2.148.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.UI.dll.config
+                N/A</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.UI.dll.config
+                N/A</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >X \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.UI.dll
+                8.2.55.1006</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>SPAA-8.2.0.13.zip</span></span></span
+          ><br /><br /><br /><span
+            ><span><span>YouTrack/Escalations</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >SAFS-16917 - 35864 - Unable to bulk import SPSEEK - due to FORIEIGN Key
+                constraint</span
+              ></span
+            ></span
+          ><br /><br /><br /><br /><span
+            ><span><span>Cumulative List of fixes included since Release:</span></span></span
+          ><br /><span
+            ><span><span>RMT/YouTrack     Description</span></span></span
+          ><br /><span
+            ><span
+              ><span>SASP-3953 - 29436 - StealthAUDIT | Sharepoint SDD Collection</span></span
+            ></span
+          ><br /><span
+            ><span><span>SASP-3951 | SPAA Tag exclusions excluding SDD Scans</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >SASP-3979 - track separate last modified timestamps for permissions, tag, and sdd
+                scans</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >SASP-3902 SPAA Local mode scan support for mixed mode Authentication</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >SASP-4107/SAFS-15872 - Enhance SPAA to query for service account permissions on
+                Site Collections (log effective rights of job credentials to detail missing
+                rights)</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >SASP-4037/SAFS-15894 - 27087 - SPSEEK BI error: The parameterized query '(@HOST
+                smallint,@Id int,@Name nvarchar(256),@SiteCollectionId in' expects the parameter
+                '@Name', which was not supplied</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >SAFS-16917 - 35864 - Unable to bulk import SPSEEK - due to FORIEIGN Key
+                constraint</span
+              ></span
+            ></span
+          ><br /><br /><br /><span
+            ><span><span>Instructions for applying Hotfix:</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >1. Unblock the hotfix zip file in the windows property dialog(Get-ChildItem -Path
+                '' -Recurse | Unblock-File), if an unblock button exists there.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >2. Close all instances of StealthAUDIT (check task manager under processes for all
+                users)</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>3. Exit StealthAUDIT console</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >4. Copy and replace files from the DC folder in this hotfix, to the DC Folder in SA
+                Install Dir</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >5. Copy and replace files from the PrivateAssemblies folder in this hotfix, to the
+                PrivateAssemblies folder in SA Install dir.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >6. (For updating Agent:) Take a backup of the files in SPAA directory on target
+                SharePoint server</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>7. Uninstall existing agent</span></span></span
+          ><br /><span
+            ><span><span>8. Install SPAA Agent 8.2.0.13</span></span></span
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span><span>Instructions for applying Hotfix:</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >1. Unblock the hotfix zip file in the windows property dialog(Get-ChildItem -Path
+                '' -Recurse | Unblock-File), if an unblock button exists there.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >2. Close all instances of StealthAUDIT (check task manager under processes for all
+                users)</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>3. Exit StealthAUDIT console</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                >4. Copy and replace files from the DC folder in this hotfix, to the DC Folder in SA
+                Install Dir</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >5. Copy and replace files from the PrivateAssemblies folder in this hotfix, to the
+                PrivateAssemblies folder in SA Install dir.</span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >6. (For updating Agent:) Take a backup of the files in SPAA directory on target
+                SharePoint server</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>7. Uninstall existing agent</span></span></span
+          ><br /><span
+            ><span><span>8. Install SPAA Agent 8.2.0.13</span></span></span
+          ><br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.2/SA_8.2_063.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/8.2/SA_8.2_063.zip</a
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Activity;SA - DC - SPAA - Permissions;SA - DC - SPAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.2+<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-16917 - 35864 - Unable to bulk import SPSEEK - due to FORIEIGN Key constraint<br /><strong
+            ><span class="wysiwyg-font-size-large">Resolved In:</span></strong
+          >
+          binaries from build 8.2.0.824 (too many to list check readme)<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2424<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

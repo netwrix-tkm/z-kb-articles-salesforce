@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Permission Denied Error</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XlCAK" />
+    <meta name="Id" content="ka04u00000116d1AAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:14:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1144" />
+    <meta name="ArticleNumber" content="000003300" />
+    <meta name="description" content="NetWrix Password Manager, Permission Denied" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I get this error when trying to browse to Helpdesk or Administrative portal:
+
+        <img
+          src="kA00g000000H9XlCAK_4493109d-ef88-4e4f-86ee-f9ce9f09715b.png"
+          alt="User-added image"
+          width="500"
+          height="100"
+        />
+
+        <hr />
+
+        Such error occurs when the account whose credentials is used to access the portal is not
+        granted with appropriate security role. NetWrix Password Manager uses role-based security
+        model. To access the Help Desk portal, the user must be granted the Help Desk operators
+        role. To access Administrative portal, the Administrator role is required. Invalid
+        authentication settings might also cause such error.
+
+        <hr />
+
+        To resolve the issue: 1.Adjust product security roles. Go to the
+        <strong>Administrative portal - Roles </strong>and make sure that the account or
+        corresponding security group is granted the corresppnding role.
+
+        <img
+          src="kA00g000000H9XlCAK_7535e9fe-577b-4bc9-b907-bb5862ff8777.png"
+          alt="User-added image"
+          width="500"
+          height="390"
+        />
+
+        2. Make sure that the <strong>Anonymous</strong> authentication is NOT ENABLED for the
+        <strong>helpdesk </strong>and <strong>admin</strong> virtual directories in the IIS manager.
+        To ensure the required settings are enabled in IIS6, do the following:
+        <ol>
+          <li>
+            In <strong>IIS Manager</strong> left pane, navigate to &lt;your computer name&gt; - Web
+            Sites - Default Web Site - PM.
+          </li>
+          <li>
+            Right-click the <strong>helpdesk</strong> (or <strong>admin</strong>) virtual directory
+            under <strong>PM </strong>folder and select <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Properties </strong>dialog, open the
+            <strong>Directory Security </strong>tab, and select <strong>Edit</strong> for
+            Authentication and access control.
+          </li>
+          <li>
+            In the <strong>Authentication Methods </strong>dialog, enable either the
+            <strong>Integrated Windows authentication </strong>box or
+            <strong>Basic authentication </strong>(password is sent in clear text), and clear all
+            other authentication options for Authentication access.
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9XlCAK_8fb6a0ef-fedc-40d6-bfba-775cc700cff8.png"
+          alt="User-added image"
+          width="309"
+          height="342"
+        />
+
+        To ensure the required settings are enabled in IIS7, do the following:
+        <ol>
+          <li>
+            In IIS Manager left pane, navigate to &lt;your computer name&gt; -
+            <strong>Web Sites - Default Web Site - PM </strong>- <strong>helpdesk</strong> (or
+            <strong>admin)</strong>
+          </li>
+          <li>
+            In the Manager central pane, double-click the <strong>Authentication</strong> option
+            under IIS block
+          </li>
+          <li>
+            In the <strong>Authentication </strong>list, enable either
+            <strong>Windows Authentication </strong>option or <strong>Basic Authentication</strong>,
+            and disable all other authentication options.
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9XlCAK_836cf65d-2220-4dae-a760-611e15410f4a.png"
+          alt="User-added image"
+          width="500"
+          height="319"
+        />
+        <img
+          src="kA00g000000H9XlCAK_ce8b2869-8025-44f5-9085-f6eec349b550.png"
+          alt="User-added image"
+          width="405"
+          height="219"
+        />
+      </div>
+    </article>
+  </body>
+</html>

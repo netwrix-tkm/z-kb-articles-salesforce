@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Nwx Executables Removed and Readded to Domain Controllers</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001114GCAQ" />
+    <meta name="Id" content="ka04u00000117InAAI" />
+    <meta name="LastPublishedDate" content="2023-08-21T12:57:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-22T14:57:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-21T12:57:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8751" />
+    <meta name="ArticleNumber" content="000008751" />
+    <meta name="description" content="Nwx Executables Removed and Readded to Domain Controllers" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            The same Netwrix Auditor-related executable files are being regularly removed and
+            readded to a DC in the environment. The list of files includes
+            <code>NwxSaclTunerAgent.exe</code>, <code>NwxNlaAgent.exe</code>, and
+            <code>NwxFsAgent.exe</code>. Should this behavior be expected?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Yes, this behavior is to be expected — these executable files represent the network
+            traffic compression service running on domain controllers. The use of the up-to-date
+            version of compression service executables is ensured when copying these files on every
+            data collection. The compression service collects and pre-filters data to send it to
+            your Netwrix Auditor server in a highly compressed format. For additional information on
+            network traffic compression service, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SLCA0.html"
+              target="_self"
+              >How the Network Traffic Compression Service Works</a
+            >.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>While not recommended, you can disable the
+              compression service. Refer to the following article for additional information on
+              monitoring plan setup:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/Create.htm"
+                target="_self"
+                >Monitoring Plans — Create a New Plan</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

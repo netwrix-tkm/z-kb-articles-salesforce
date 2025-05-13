@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MongoDB - Pre-allocated Log Files. Disk Space Errors</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdQCAU" />
+    <meta name="Id" content="ka04u000000Qmc7AAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-25T15:39:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:58:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8285" />
+    <meta name="ArticleNumber" content="000008285" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="problem">Problem</h2>
+        The number of pre-allocated log files grows unbounded in MongoDB Version 3.6.3 and<span>
+          t</span
+        >he MongoDB service unexpectedly stops on the server and the following errors are reported
+        in the mongod.log file:
+
+        <div>
+          <div>
+            <pre>
+: No space left on device
+2018-11-29T14:48:23.440+0000 E STORAGE  [thread16497] WiredTiger error (28) [1543502903:439454][5596:140717558290144], log-server: log pre-alloc server error: No space left on device
+2018-11-29T14:48:23.440+0000 E STORAGE  [thread16497] WiredTiger error (28) [1543502903:440450][5596:140717558290144], log-server: log server error: No space left on device
+2018-11-29T14:48:23.440+0000 E STORAGE  [thread16497] WiredTiger error (-31804) [1543502903:440450][5596:140717558290144], log-server: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2018-11-29T14:48:23.458+0000 F -        [thread16497] Fatal Assertion 28558 at src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp 361
+2018-11-29T14:48:23.458+0000 F -        [conn16466] Fatal Assertion 28559 at src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp 64
+2018-11-29T14:48:23.458+0000 F -        [thread16497] 
+
+***aborting after fassert() failure
+
+
+2018-11-29T14:48:23.458+0000 F -        [conn16466] 
+
+***aborting after fassert() failure</pre
+            >
+          </div>
+        </div>
+        The log file seems to indicate that there is no disk space left on the device, however,
+        checking the storage available on the server seems to say otherwise where there is more than
+        enough storage available.
+
+        <h2 id="cause">Cause</h2>
+        The problem above seems to be a bug in MongoDB version 3.6.3 and is an issue which has been
+        resolved in version 3.6.4.
+
+        <h2 id="resolution">Resolution</h2>
+
+        <ol>
+          <li>
+            Head to the <a href="https://www.mongodb.com/" target="_blank">MongoDB website</a> and
+            download the following version:<br />
+            <strong>win32/mongodb-win32-x86_64-2008plus-ssl-3.6.4-signed.msi</strong>.
+          </li>
+          <li>Install it on the Change Tracker Server where MongoDB resides.</li>
+        </ol>
+
+        <h3 id="related_articles">Related articles</h3>
+
+        <ul>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JWTCA2.html"
+                target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JemCAE.html"
+                target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JgJCAU.html"
+                target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JVQCA2.html"
+                target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JkGCAU.html"
+                target="_blank"
+                >Change Tracker Gen 7 Change Log / Update Log / ReadMe.txt Documents for
+                Agent/Hub</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

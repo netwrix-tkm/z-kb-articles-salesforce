@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SG_InstalledApplications job may causes performance issues on targets</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IioCAE" />
+    <meta name="Id" content="ka04u000000HcuNAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:35:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:35:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7222" />
+    <meta name="ArticleNumber" content="000007222" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> The
+          SG_InstalledApplications uses a WMI class known to cause performance issues on target
+          systems.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Microsoft recommends
+          against using the Win32_Product class, since it causes performance issues on target
+          machines by triggering consistency checks of the installed applications. This not only
+          causes performance issues, but goes against the principles of read-only auditing,
+          especially since failed consistency checks may result in changes being done outside of
+          client maintenance windows.<br /> <br />From Microsoft:<br />"On Windows Server 2003,
+          Windows Vista, and newer operating systems, querying Win32_Product will trigger Windows
+          Installer to perform a consistency check to verify the health of the application. This
+          consistency check could cause a repair installation to occur. You can confirm this by
+          checking the Windows Application Event log. You will see the following events each time
+          the class is queried and for each product installed"<br /> <br /><strong
+            >"If you have an application that makes use of the above class, please contact the
+            vendor to get an updated version that does not use this class."</strong
+          ><br /> <br />Win32_product Class is not query optimized. Queries such as "select * from
+          Win32_Product where (name like 'Sniffer%')" require WMI to use the MSI provider to
+          enumerate all of the installed products and then parse the full list sequentially to
+          handle the "where" clause. This process also initiates a consistency check of packages
+          installed, verifying and repairing the install. With an account with only user privileges,
+          as the user account may not have access to quite a few locations, may cause delay in
+          application launch and an event 11708 stating an installation failure.<br /> <br /><a
+            href="https://support.microsoft.com/en-us/help/974524/event-log-message-indicates-that-the-windows-installer-reconfigured-al"
+            target="_blank"
+            >https://support.microsoft.com/en-us/help/974524/event-log-message-indicates-that-the-windows-installer-reconfigured-al</a
+          >
+          - KB for issue<br /><a
+            href="https://blogs.technet.microsoft.com/heyscriptingguy/2011/11/13/use-powershell-to-quickly-find-installed-software/"
+            target="_blank"
+            >https://blogs.technet.microsoft.com/heyscriptingguy/2011/11/13/use-powershell-to-quickly-find-installed-software/</a
+          >
+          - article that describes the issue in more detail and proposes an alternative approach
+          (registry), which is similar to the collection used in the Applications_Installed instant
+          job<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Recommend
+          disabling/removing this job until it's updated to collect the info using another method or
+          class. The the Applications_Installed instant job is a good surrogate, but has its own
+          issues as of the time of this KB (11/9/2018), as documented in Escalation 29155.
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Core<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          All<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SMPC-5322<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2140
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

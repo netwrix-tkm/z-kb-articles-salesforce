@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Trigger a Workflow When a User Сreates a Group</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000HwvKAE" />
+    <meta name="Id" content="ka0Qk00000016OLIAY" />
+    <meta name="LastPublishedDate" content="2023-12-18T14:28:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-21T10:57:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-06T10:15:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8940" />
+    <meta name="ArticleNumber" content="000008940" />
+    <meta name="description" content="How to Trigger a workflow When a User Сreates a Group" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+
+        <div>
+          <p>GroupID 11</p>
+        </div>
+
+        <h2 id="business_scenario">Business Scenario:</h2>
+
+        <div>
+          <p>
+            While delegating directory group creation to end users reduces Helpdesk load, it is
+            always necessary to have some approval/monitoring process on the creation of new groups
+            being created by the end users. Is there a way to set up a workflow approval process for
+            group creation?
+          </p>
+        </div>
+
+        <h2 id="solution">Solution:</h2>
+
+        <div>
+          <p>
+            A workflow route can be defined for an identity store to track any new group creation
+            and send out approval requests to concerned Approvers. When a user creates a group via
+            GroupID Self-Service, it will trigger the workflow and an approval request will be
+            generated. In this way, group creation, which would subsequently take effect in Active
+            Directory, is immediately brought to notice. A workflow route to control group creation
+            involves:
+          </p>
+
+          <ul>
+            <li>
+              <p>the object (group) the workflow applies to</p>
+            </li>
+            <li>
+              <p>the event (create)</p>
+            </li>
+            <li>
+              <p>
+                the filter (security role) to specify a condition that must be met for the workflow
+                to trigger.
+              </p>
+            </li>
+            <li>
+              <p>the approver(s) to send the workflow request for approval.</p>
+            </li>
+          </ul>
+
+          <p>
+            This implies that when a user meeting a certain workflow triggering condition creates a
+            group via the self-service portal, a workflow request is sent to the approver(s).
+            Changes are applied after the request is approved.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> You must configure notifications for an
+              identity store for workflows to work.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="steps">Steps:</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>In the GroupID Admin Center portal, click the <b>Identity Stores</b> node.</p>
+            </li>
+            <li>
+              <p>
+                Click on the <b>Triple Dot</b> button on the identity store and then click on
+                <b>Edit</b> to open its properties.
+              </p>
+            </li>
+            <li>
+              <p>Click the <b>Workflow</b> tab.</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="211"
+                  src="kA0Qk0000000HwvKAE_0ff1950a-517d-4763-8b43-986ec18b65bb.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Click <b>Add Workflow</b>. A new window will appear.</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="239"
+                  src="kA0Qk0000000HwvKAE_8db32708-0d56-43d0-a40c-33cf99758606.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Make sure the <b>Enabled</b> check box is selected for the workflow to apply.</p>
+            </li>
+            <li>
+              <p>In the <b>Object(s)</b> list, select <em>Group</em>.</p>
+            </li>
+            <li>
+              <p>
+                Enter a name for the workflow In the <b>Name</b> box—for example,
+                <em>Group Creation</em>.
+              </p>
+            </li>
+            <li>
+              <p>In the <b>Events</b> drop-down list, select <em>Create</em>.</p>
+            </li>
+            <li>
+              <p>
+                Select the <b>Enable mail approval</b> check box to enable the approver to approve
+                or deny a workflow request from within the workflow email notification.
+              </p>
+            </li>
+            <li>
+              <p>
+                The <b>Enable approver acceleration</b> check box applies if approver acceleration
+                has been enabled for the identity store. To exempt this workflow route from approver
+                acceleration, clear this check box.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <b>Description</b> box, enter a brief description of the workflow. For
+                example,
+                <em
+                  >This workflow tracks the creation of groups by people from the User Security
+                  Role</em
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <b>Portal URL</b> drop-down list, select a <b>Self-Service portal URL</b> to
+                include in the workflow email notifications. The URL would redirect the recipients
+                to the portal for acting on the respective request, such as approve or deny it.
+              </p>
+            </li>
+            <li>
+              <p>
+                Use the Filters area to specify a criterion that must be met for the workflow to
+                trigger. In other words, when this filter criterion is not met, the workflow will
+                not trigger. Do not apply a filter if you want the workflow to apply to all users.
+              </p>
+
+              <p>For example, if you apply the following filter:</p>
+
+              <div class="table-wrap">
+                <table count-columns="3">
+                  <tbody>
+                    <tr>
+                      <th colspan="1" rowspan="1">Field</th>
+                      <th colspan="1" rowspan="1">Condition</th>
+                      <th colspan="1" rowspan="1">Value</th>
+                    </tr>
+                    <tr>
+                      <td colspan="1" rowspan="1">Role</td>
+                      <td colspan="1" rowspan="1">Equals</td>
+                      <td colspan="1" rowspan="1">User</td>
+                    </tr>
+                    <tr />
+                  </tbody>
+                </table>
+              </div>
+
+              <p>
+                It implies that when a user from the User security role creates a group via the
+                Self-Service portal, the change isn’t effective immediately and this workflow gets
+                triggered. When a person from any other security role creates a group, it won’t
+                trigger the workflow.
+              </p>
+            </li>
+            <li>
+              <p>The final step is to add a workflow approver:</p>
+
+              <ul>
+                <li>
+                  <p>Click <b>Add Approvers</b> in the <b>Approvers</b> area.</p>
+
+                  <p>
+                    <img
+                      alt="User-added image"
+                      height="408"
+                      src="kA0Qk0000000HwvKAE_d0e0c0e7-1f84-47df-96d8-25f72a47e252.png"
+                      width="500"
+                    />
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the user/group to approve the requests generated for this workflow. It is
+                    safer to specify an administrator/helpdesk as the approver rather than the group
+                    owners.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <b>Add</b>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Click <b>OK</b> on the <b>Workflow Route</b> dialog box and then on the
+                <b>Workflow</b> tab.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Now, any group creation made through groupid by users from the User security role will
+            trigger a workflow request.
+          </p>
+        </div>
+
+        <h2 id="reference">Reference:</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/AdminCenter/Workflow/Overview.htm"
+              target="_blank"
+              >Admin Center — Workflows — Overview — v11.0</a
+            >
+          </p>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HQfKAM.html"
+                  target="_blank"
+                  >Walkthrough Search Policy - Define Scope and Filter Results</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >How To Enforce Users to Create Groups in a Specific OU</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HthKAE.html"
+                  target="_blank"
+                  >How To Import Members to a Group Using Self-Service Import Wizard</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HyXKAU.html"
+                  target="_blank"
+                  >How To Add Message Approvers in Group Properties in Self-Service</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >Best Practices for Controlling Changes to Group Membership</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000IPxKAM.html"
+                  target="_blank"
+                  >Best Practices for Preventing Accidental Data Leakage</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

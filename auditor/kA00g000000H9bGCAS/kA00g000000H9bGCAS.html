@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Failed to connect to server or shared folder server name. Access is denied</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bGCAS" />
+    <meta name="Id" content="ka04u000000HcU1AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1341" />
+    <meta name="ArticleNumber" content="000003512" />
+    <meta
+      name="description"
+      content="Access denied WMI provider Failed to connect to server or shared folder server name. Access is denied"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Each data collection results in an Access denied error in the report.
+
+        <hr />
+
+        To get the information about disk space state or service status, the product uses the
+        <a href="http://msdn.microsoft.com/en-us/library/aa394582%28v=vs.85%29.aspx" target="_blank"
+          >WMI</a
+        >
+        system which requires administrative rights on the monitored computer. When the service
+        account does not have enough rights to connect to the necessary WMI provider on the remote
+        computer, the system blocks the connection.
+
+        <hr />
+
+        In order to resolve the issue, please perform the following steps:
+        <p>
+          1. Make sure the remote computer is not protected by a firewall. 2. Make sure that the
+          product service account has enough rights to access the monitored server:
+        </p>
+        <p>
+          - Log on to the computer (where the product is installed) under the account that you use
+          to run the product - Run the Services snap-in, right click the services node and select
+          "Connect to another computer" - Specify the problematic server name and click OK. You
+          should be able to successfully connect to that computer.
+        </p>
+        <p>
+          NOTE: the best account for the Disk Space Monitor and Service Monitor tools is a domain
+          administrators' account.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

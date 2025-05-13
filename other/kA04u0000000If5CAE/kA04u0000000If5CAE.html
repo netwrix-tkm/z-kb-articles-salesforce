@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIEntManager_SIWindowsAgent_4.1.0.706_5.0.0.739</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000If5CAE" />
+    <meta name="Id" content="ka04u000000HcsdAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6876" />
+    <meta name="ArticleNumber" content="000006876" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> StealthINTERCEPT
+          collects attributes values for ms-mcs-admpwd
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong
+          >StealthINTERCEPT collects attributes values for ms-mcs-admpwd<br /><strong
+            ><span>Before fix</span></strong
+          ><b>:</b> StealthINTERCEPT collects attributes values for attribute name ms-mcs-admpwd
+          which are passwords in clear text.<br /><strong><span>After fix:</span></strong
+          ><br />1. Changeset introduces 'permanent' rules to filter.json. Such a rules doesn't
+          depend on any UI configuration, they will be applied immediately after EM startup &amp;
+          agents registering.<br />2. Changeset also extended filters.json syntax by introducing
+          'HideAttributeValues' action. It allows to hide values of the attribute matching
+          condition. Values will be presented as ''/''<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Maxim Sidarau<br /><strong><span>Affected Versions:</span></strong
+          ><br />3.4.0      No Patch created at this time<br />3.4.1      No Patch created at this
+          time<br />3.4.2      No Patch created at this time<br />4.0.0      No Patch created at
+          this time<br />4.1.0      SIEntManager_SIWindowsAgent_4.1.0.706_SI-3460<br />5.0.0     
+          SIEntManager_SIWindowsAgent_5.0.0.739_SI-3460<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Enterprise Manager<br />SI - Windows Agent<br /> <br /><strong
+            ><span>Dev Ticket:</span></strong
+          ><br />SI-3460<br /><strong><span>Resolved in Version:</span></strong
+          ><br />SI 4.1.0.706<br />SI 5.0.0.739<br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><b>Escalations: </b>23309<br /><b>Customers: </b>Capital One
+          Services, LLC<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <b
+            ><u><span>Attention:</span></u></b
+          ><br />Existing 'filters.json' file will be replaced during extracting of files for
+          Enterprise Manager<br />If the customer has custom changes in the 'filter.json' file, then
+          these changes must be stored and placed to the new 'filters.json' file after replacing
+          files for Enterprise Manager<br /><u>Enterprise Manager:</u><br />1. Stop
+          'SIEnterpriseManager' service.<br />2. Extract files from attached 'SIEnterpriseManager'
+          folder to the C:\Program Files (x86)\STEALTHbits\StealthINTERCEPT\SIEnterpriseManager
+          folder<br />3. Start 'SIEnterpriseManager' service<br /><u>SI Windows Agent:</u><br />1.
+          Stop SIWindowsAgent service<br />2. Extract attached archive to the "C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Start SIWindowsAgent
+          service<br /><br />4.1.0
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="38">
+                <td colspan="1" rowspan="1" height="38" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI4.1.0/SIEntManager_SIWindowsAgent_4.1.0.706_SI-3460.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI4.1.0/SIEntManager_SIWindowsAgent_4.1.0.706_SI-3460.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        5.0.0
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="38">
+                <td colspan="1" rowspan="1" height="38" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIEntManager_SIWindowsAgent_5.0.0.739_SI-3460.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIEntManager_SIWindowsAgent_5.0.0.739_SI-3460.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Enterprise Manager;SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          4.1.0, 5.0.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          SI-3460<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          4.1.0.706; 5.0.0.739<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1816<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

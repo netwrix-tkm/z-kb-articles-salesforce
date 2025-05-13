@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor was Unable to Deliver the subscription due to following error: "Access is
+      denied"
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HjkCAE" />
+    <meta name="Id" content="ka04u000000HcaIAAS" />
+    <meta name="LastPublishedDate" content="2022-01-25T18:20:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:57:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-01-25T11:36:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5943" />
+    <meta name="ArticleNumber" content="000005943" />
+    <meta name="description" content="Which account is used to generate Subscription Files?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="problem">Problem</h2>
+        When I subscribe to the report and want to have report results delivered to the certain
+        folder, I get an "Access Denied" error, despite the fact that the account has full
+        permissions to upload a file there.
+
+        <h2 id="answer">Answer</h2>
+        When you select the “Upload to a file share” option in the create\edit subscription menu
+        (‘General’ tab), Netwrix uses different accounts to upload the report to the share:
+
+        <ul>
+          <li>
+            For SSRS-based subscriptions, the account specified for Long-Term Archive (LTA) is used,
+            as reflected in our documentation:
+            https://helpcenter.netwrix.com/Configure_IT_Infrastructure/Configure_NA_Roles/Configure_Roles_LTA.html
+          </li>
+          <li>
+            For Search-based and Risk Assessment reports, Netwrix uses a Local System account,
+            regardless of which account was specified for LTA.
+          </li>
+        </ul>
+        <br />As a result, with different types of subscriptions and a custom LTA account, you must
+        give access to the share to two accounts at once: the computer account of the Netwrix server
+        and the LTA account.
+      </div>
+    </article>
+  </body>
+</html>

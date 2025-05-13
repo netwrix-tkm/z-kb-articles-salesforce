@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: "Scale-out Deployment" Is Not Supported in This Edition of Reporting Services
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WntKAE" />
+    <meta name="Id" content="ka0Qk0000002yJRIAY" />
+    <meta name="LastPublishedDate" content="2024-04-02T13:56:10.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-22T07:32:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-22T13:32:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9079" />
+    <meta name="ArticleNumber" content="000009079" />
+    <meta
+      name="description"
+      content="Error: &#34;Scale-out Deployment&#34; Is Not Supported in This Edition of Reporting Services"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            After migration to a new SQL Server instance or backup/restore of the SQL Server
+            encryption key, the following error appears in the
+            <b>SQL Server Reporting Services Manager</b>
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+The feature: “Scale-out deployment” is not supported in this edition of Reporting Services. (rsOperationNotSupported)</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This error indicates that the restored key corresponds to the previous server, leading
+            your Reporting Server instance to perceive itself as part of a multi-server deployment,
+            which is not supported in the standard edition of Reporting Services.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            To resolve the issue, check the servers currently in use and remove the encryption key
+            of the old server:
+          </p>
+
+          <ol>
+            <li>
+              <p>Open the <b>Report Server Configuration Manager</b>.</p>
+            </li>
+            <li>
+              <p>Navigate to the <b>Scale-out deployment</b> tab.</p>
+            </li>
+            <li>
+              <p>Review your current configuration for any old servers.</p>
+            </li>
+            <li>
+              <p>
+                Navigate to your Report Server database and check the [Keys] table. Delete the extra
+                entries with the following statement:
+              </p>
+              <code>DELETE from dbo.Keys WHERE MachineName='X'</code>
+
+              <p>where <code>'X'</code> is your old server name.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://learn.microsoft.com/en-us/answers/questions/653685/the-feature-scale-out-deployment-is-not-supported"
+                target="_blank"
+                >The feature: "Scale-out deployment" is not supported in this edition of Reporting
+                Services ⸱ Microsoft 🡥</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

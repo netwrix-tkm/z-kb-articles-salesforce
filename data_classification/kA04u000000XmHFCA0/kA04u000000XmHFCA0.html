@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Keyset does not exist ( exception from HRESULT : 0x80090016)</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000XmHFCA0" />
+    <meta name="Id" content="ka04u000000HdG3AAK" />
+    <meta name="LastPublishedDate" content="2021-01-28T21:13:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:20:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-01-28T21:13:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5849" />
+    <meta name="ArticleNumber" content="000005849" />
+    <meta
+      name="description"
+      content="Keyset does not exist ( exception from HRESULT : 0x80090016)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario">Scenario</h3>
+        Netwrix Data Classification displays the following error:<br /><br /><b
+          >Error: There was an error while performing this operation.<br />Details:<br />Keyset does
+          not exist ( exception from HRESULT : 0x80090016)</b
+        ><br /> 
+        <h3 id="solution">Solution</h3>
+        We can regenerate these machine keys without reinstalling IIS completely. To do that follow
+        the below steps:
+
+        <ol>
+          <li>
+            Rename the below files or move it to a different location from
+            <b>C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\</b>
+
+            <ul>
+              <li><b> iisConfigurationKey</b> 6de9cb26d2b98c01ec4e9e8b34824aa2_GUID</li>
+              <li><b>NetFrameworkConfigurationKey</b> d6d986f09a1ee04e24c949879fdb506c_GUID</li>
+              <li><b>iisWasKey</b> 76944fb33636aeddb9590521c2e8815a_GUID</li>
+            </ul>
+          </li>
+          <li>
+            Backup <b>applicationhost.config</b>, then delete everything inside the tags below in
+            applicationhost.config. Delete the contents within &lt;configProtectedData&gt; or
+            &lt;providers&gt;.
+            <ul>
+              <li>
+                &lt;configProtectedData&gt;<br />
+                &lt;providers&gt;<br />
+                ...<br />
+                &lt;/providers&gt;<br />
+                &lt;/configProtectedData&gt;<br />
+                 
+              </li>
+            </ul>
+          </li>
+          <li>
+            Open a command prompt in admin mode and run the below command:
+            <ul>
+              <li>"%windir%\system32\inetsrv\iissetup.exe /install SharedLibraries"</li>
+            </ul>
+          </li>
+          <li>
+            Keys should be recreated in the <b>MachineKeys</b> folder. Now the IIS App pool user can
+            be changed. 
+          </li>
+        </ol>
+
+        <div>
+          <br />These steps, along with more information, can be found
+          <a
+            href="https://techcommunity.microsoft.com/t5/iis-support-blog/keyset-does-not-exist-exception-from-hresult-0x8009000d-or-or/ba-p/342955"
+            target="_blank"
+            >here </a
+          >as well!
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

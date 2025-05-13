@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: ERROR "HubDetails - Crypto error. Has the agent process account changed since
+      the password data was entered?"
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Jf1CAE" />
+    <meta name="Id" content="ka04u000000QmYFAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-23T11:02:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:58:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8287" />
+    <meta name="ArticleNumber" content="000008287" />
+    <meta
+      name="description"
+      content="ERROR &#34;HubDetails - Crypto error. Has the agent process account changed since the password data was entered?&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <span><span>Error message example:</span></span
+        ><br /><span
+          ># # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+          # # # # # # # # # # # # # # # # #</span
+        >
+
+        <div>
+          <pre>
+#                                                   Example Message:                                                      #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+2019-01-04 07:02:35,644 [4] ERROR HubDetails - Crypto error. Has the agent process account changed since the password data was entered?
+System.Security.Cryptography.CryptographicException: Key not valid for use in specified state.
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                    Note: Typically followed by 3 other messages below...                                #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2019-01-04 07:02:35,675 [4] ERROR ConfigurationLoader - Hub details cannot be read successfully from: C:\ProgramData\NNT\gen7agent.service\HubDetails.xml. Error: Key not valid for use in specified state.
+2019-01-04 07:02:35,675 [4] INFO  Message - Application core shutting down due to error, please restart service: Hub details cannot be read successfully from: C:\ProgramData\NNT\gen7agent.service\HubDetails.xml. Error: Key not valid for use in specified state.
+2019-01-04 07:02:35,691 [4] INFO  Message - Application starting shutdown due to: FatalError - Hub details cannot be read successfully from: C:\ProgramData\NNT\gen7agent.service\HubDetails.xml. Error: Key not valid for use in specified state.
+</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>
+          <span
+            ><span
+              >This error means that the information in the <strong>HubDetails.xml</strong> file is
+              having issues being used with the Agent Service. The specific error above tells us
+              that the password has already been encrypted elsewhere and can not be used. See
+              Screenshot Below:</span
+            ></span
+          ><br /><span
+            ><span
+              ><img
+                src="kA04u0000000Jf1CAE_cd365048-aefe-412e-a5a3-df1d3cc2ea4c.png" /></span></span
+          ><br /><span
+            ><span
+              >The reason it can not be read by the agent is because each agent must locally encrypt
+              the password entered into the <strong>HubDetails.xml</strong> file. This error will
+              occur when moving a <strong>HubDetails.xml</strong> file from one agent to another in
+              a means to simplifying the agent installation. Please see the instructions below on
+              how to remedy this issue.</span
+            ></span
+          >
+        </p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <p>
+          <span
+            ><span
+              >If you are receiving this error, the NNT Agent is NOT reporting to your hub. This is
+              a critical error and for monitoring to continue, it must be resolved. To resolve this
+              error:</span
+            ></span
+          >
+        </p>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span><span>Stop</span> the NNT Agent Service. Linux Command: </span></span
+              ></span
+            >
+
+            <pre class="ckeditor_codeblock">service nntgen7agent stop</pre>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >On Windows, navigate to the following folder <strong
+                    >C:\ProgramData\NNT\gen7agent.service</strong
+                  ><br />
+                  On Linux, navigate to the following folder <strong
+                    ><span>/var/nnt/gen7agent.service/</span></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Delete all files located in this folder <strong>EXCEPT </strong>for the
+                    <strong>HubDetails.xml</strong> file</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Edit the <strong>HubDetails</strong>.<strong>xml</strong> file using a program
+                    such as Notepad (Windows) or Nano (Linux)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Inside the <strong>HubDetails</strong>.<strong>xml</strong> file, remove the
+                    entire line containing data with the </span
+                  ><span><strong>&lt;E1&gt;</strong></span
+                  ><span>
+                    tags. See Screenshot Below:<br />
+                    <img
+                      src="kA04u0000000Jf1CAE_e8b006ec-666b-44ac-b389-fa2419715611.png" /></span></span></span
+            ></span>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Once this has been removed, enter the password tags to contain the
+                    following:</span
+                  ></span
+                ></span
+              ></span
+            >
+            <pre class="ckeditor_codeblock">
+&lt;Password&gt;Enter-Password-Here&lt;/Password&gt;</pre
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>Be sure to enter your Agent password where it states "</span
+                  ><span><strong>Enter-Password-Here"</strong></span
+                  ><span> between the </span><span><strong>&lt;Password&gt;</strong></span
+                  ><span> tags. </span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Confirm that the <strong>HubDetails.xml</strong> file contains the proper
+                    information in the correct format, See Screenshot below for an Example:<br />
+                    <img
+                      src="kA04u0000000Jf1CAE_9df1d698-e3db-4cc8-a606-10d69bd4d153.png" /></span></span></span
+            ></span>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/ChangeTracker_7.6/page/Content/ChangeTracker/Install/Agent/HubDetailsFile.htm"
+                target="_blank"
+                >Read more</a
+              > a<span
+                ><span
+                  ><span
+                    ><span>bout <strong>HubDetails.xml</strong> file.</span></span
+                  ></span
+                ></span
+              >
+            </p>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Once this information has been entered properly, please start the NNT Agent
+                    Service. </span
+                  >Linux Command: </span
+                ></span
+              ></span
+            >
+            <pre class="ckeditor_codeblock">service nntgen7agent start</pre>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >The following <strong>Rolling-Log</strong> Information will show that the Agent
+                  was able to read the information and connect the device, see below:<br />
+                  <img
+                    src="kA04u0000000Jf1CAE_6ffea64d-860f-4fc2-8961-091db5d7589f.png" /></span></span
+            ></span>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >You may also confirm that the device is registered via the Change Tracker Web
+                  Console, see below:<br />
+                  <img
+                    src="kA04u0000000Jf1CAE_4abbdf54-4a78-421c-8444-655da3403fc9.png" /></span></span
+            ></span>
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <h3 id="related_articles">Related articles</h3>
+
+        <ul>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JXHCA2.html"
+                target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JgJCAU.html"
+                target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JdtCAE.html"
+                target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JVQCA2.html"
+                target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JkGCAU.html"
+                target="_blank"
+                >Change Tracker Gen 7 Change Log / Update Log / ReadMe.txt Documents for
+                Agent/Hub</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

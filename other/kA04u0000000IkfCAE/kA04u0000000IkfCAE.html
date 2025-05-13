@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_7.2_SP1_034</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IkfCAE" />
+    <meta name="Id" content="ka04u000000HcuzAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:52:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:52:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7857" />
+    <meta name="ArticleNumber" content="000007857" />
+    <meta name="description" content="360012217812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> FSAA Exceptions
+          Calculation Fails Because of Mathematical Overflow
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:</span></strong
+          ><br /><strong
+            ><i><span>Summary</span></i></strong
+          ><strong
+            ><span
+              >: FSAA Exceptions Calculation Fails Because of Mathematical Overflow</span
+            ></strong
+          ><br /><i>Issue</i>: Previously the FSAA_Exceptions job was reassigning IDs by
+          incrementing the values starting after the max ID value of the previous run. That happened
+          when new 'Stale User' exceptions were found. If the ExceptionID value reaches billions,
+          the next run causes a mathematical overflow error and aborts processing because it maxes
+          out the size on that column.<br /><i>Fix</i>: An analysis task to re-index the IDs was
+          added to the DataAnalysisTasks.XML file of the 3-FSAA Exceptions job.<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Jazmina D�az<br /><strong><span>Affected Versions:</span></strong
+          ><br />7.2, 8.0<br /><strong><span>Affected Module:</span></strong
+          ><br />SA - Solution Set - File System<br /> <br /><strong
+            ><span>Dev Ticket:</span></strong
+          ><br />SAFS-1799<br /><strong><span>Resolved in Version:</span></strong>
+        </p>
+        <ul>
+          <li>Job set, no version.</li>
+        </ul>
+         <br /><strong><span>KB Type: </span></strong><br />                Hotfix<br /> <br /> <br /> <br /> <br /> <br /><strong
+          ><span>Issue:</span></strong
+        ><br /><strong><span>Modules Included</span></strong>
+        <ul>
+          <li>DataAnalysisTasks.XML</li>
+        </ul>
+         <br /><strong><span>YouTrack/Escalations</span></strong
+        ><br /> <br /><strong><span>-              SAFS-1799 \ Escalations 12663</span></strong
+        ><br /> <br /><strong><span>Customers:</span></strong
+        ><br /> <br /><strong><span>-              HSBC Global Services (UK) Limited</span></strong
+        ><br /> <br /><strong
+          ><span>Cumulative List of fixes included since Service Pack:</span></strong
+        ><br /> <br /><strong
+          ><span
+            >-              SAFS-1799: FSAA Exceptions Calculation Fails Because of Mathematical
+            Overflow</span
+          ></strong
+        ><br /><strong
+          ><span>-              SAFS-2382: FS | FKCV While Deleting Trustees:</span></strong
+        >
+        <ul>
+          <li>
+            <strong><span>Use merge for trustees instead of delete</span></strong>
+          </li>
+        </ul>
+        <strong
+          ><span><span>Move delete to before insert to minimize down time.</span></span></strong
+        >
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <strong
+              ><span
+                >Replace the DataAnalysisTasks.XML file in the job:
+                Jobs\GROUP_FileSystem\GROUP_0.Collection\JOB_3-FSAA Exceptions</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong><span>Refresh the job in SA. Rerun the job.</span></strong>
+          </li>
+        </ol>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <colgroup>
+              <col width="64" />
+            </colgroup>
+            <tbody>
+              <tr height="20">
+                <td colspan="1" rowspan="1" class="xl64" height="20" width="64">
+                  <a
+                    href="http://downloads.stealthbits.com/access/files/SAHotFixes/7.2/SA_7.2_SP1_034.zip"
+                    target="_blank"
+                    >http://downloads.stealthbits.com/access/files/SAHotFixes/7.2/SA_7.2_SP1_034.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Solution Set - File System<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.2, 8.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-1799<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          - Job set, no version.<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1564<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

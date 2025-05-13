@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Generate License Counts with CLI Command</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110pBCAQ"/><meta name="Id" content="ka04u00000116YBAAY"/><meta name="LastPublishedDate" content="2023-07-07T10:24:06.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T10:24:06.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T10:24:06.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8644"/><meta name="ArticleNumber" content="000008644"/><meta name="description" content="Generate License Counts with CLI Command"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span><br/><br/>The purpose of this document is to outline the steps required to get an accurate license count for the SecureONE product that is on a version older than 2.16.1.
+<blockquote>
+<div><span><strong>NOTE:</strong> </span>Whether the licensing information is gathered from the script or the UI, the numbers should match as the UI is simply a reflection of the script.</div>
+</blockquote>
+
+<h2 id="licensing_overview">Licensing Overview</h2>
+Netwrix Privilege Secure for Discovery is licensed based on systems successfully scanned in the last 90 days. The database queries below can be run from the CLI to get the licensing counts. Add all applicable count together to get the total licensing count.
+
+<h2 id="cli_commands">CLI Commands</h2>
+Below is a CLI command to output a count of successfully scanned systems in last 90 days. Only run the command matching the deployment type. Each block of lines is all one command, copy all the lines and paste in a node terminal (SSH) session:<br/><strong>Cluster deployment command:</strong>
+
+<pre>CtR=$(sudo docker ps | grep mongo | cut -d' ' -f1); \
+    DBExQ="sudo docker exec -it $CtR mongo mongodb://mongo1,mongo2,mongo3/SecureONE?replicaSet=secureone --eval"; \
+    clear;echo "Windows Server Count:"; \
+    $DBExQ 'db.ldap_store.count({obj_type:"computer", "last_scanned":{$gte:new Date(ISODate().getTime()- 1000*86400*90)}, "operatingSystem":/SERVER/i, "os_type":"windows"})' | \
+    grep -vi "NETWORK\|Implicit\|MongoDB"; \
+    echo;echo "Windows Workstation Count:"; \
+    $DBExQ 'db.ldap_store.count({obj_type:"computer", "last_scanned":{$gte:new Date(ISODate().getTime()- 1000*86400*90)}, "operatingSystem":{$not:/SERVER/i}, "os_type":"windows"})' | \
+    grep -vi "NETWORK\|Implicit\|MongoDB"; \
+    echo;echo "Linux Server Count:"; \
+    $DBExQ 'db.ldap_store.count({obj_type:"computer", "last_scanned":{$gte:new Date(ISODate().getTime()- 1000*86400*90)}, "os_type":"linux"})' | \
+    grep -vi "NETWORK\|Implicit\|MongoDB"; echo</pre>
+<strong>Single-node deployment command:</strong>
+
+<pre>CtR=$(sudo docker ps | grep mongo | cut -d' ' -f1); \
+        DBExQ="sudo docker exec -it $CtR mongo SecureONE --eval"; \
+        clear;echo "Windows Server Count:"; \
+        $DBExQ 'db.ldap_store.count({obj_type:"computer", "last_scanned":{$gte:new Date(ISODate().getTime()- 1000*86400*90)}, "operatingSystem":/SERVER/i, "os_type":"windows"})' | \
+        grep -vi "NETWORK\|Implicit\|MongoDB"; \
+        echo;echo "Windows Workstation Count:"; \
+        $DBExQ 'db.ldap_store.count({obj_type:"computer", "last_scanned":{$gte:new Date(ISODate().getTime()- 1000*86400*90)}, "operatingSystem":{$not:/SERVER/i}, "os_type":"windows"})' | \
+        grep -vi "NETWORK\|Implicit\|MongoDB"; \
+        echo;echo "Linux Server Count:"; \
+        $DBExQ 'db.ldap_store.count({obj_type:"computer", "last_scanned":{$gte:new Date(ISODate().getTime()- 1000*86400*90)}, "os_type":"linux"})' | \
+        grep -vi "NETWORK\|Implicit\|MongoDB"; echo</pre>
+<strong>Example Output</strong><br/>Below is an example of the output for the above command:
+<pre>Windows Server Count:
+556
+            
+Windows Workstation Count:
+3956
+            
+Linux Server Count:
+156</pre></div>
+</article></body></html>

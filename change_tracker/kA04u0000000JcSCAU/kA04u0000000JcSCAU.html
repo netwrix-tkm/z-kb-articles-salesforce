@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Change Tracker – How to Create a Custom Tracked Attributes Filter Within a Configuration
+      Template
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcSCAU" />
+    <meta name="Id" content="ka04u000000HdAOAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8265" />
+    <meta name="ArticleNumber" content="000008265" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article will guide you in creating a customized tracked attributes filter within a
+          configuration template. This is useful for when you cannot find the correct tracked
+          attributes filter for your requirements.
+        </p>
+        <p>
+          For example, you may want to create a custom filter to only track security setting
+          modifications and nothing else, and you may find that there is no default filter for this
+          within the list. For cases like this, you can create a custom filter to track specific
+          attributes you are interested in only.
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <ol>
+          <li>
+            On the Change Tracker Server, please head into this
+            directory:<strong>Windows:</strong>C:\inetpub\wwwroot\Change Tracker Generation 7
+            Hub\bin\Filters<strong>Linux:</strong><span>/opt/nnt/hubservice/bin/Filters</span>
+          </li>
+          <li>
+            <span>Edit the file called <strong>d</strong><strong>efault.xml</strong>.</span>
+          </li>
+          <li>
+            <span
+              ><strong>default.xml</strong> contains all of the standard file and registry filters
+              as seen on the configuration templates. Please copy the filter that is close to what
+              you want to achieve. For this example, I will be creating a custom filter for file
+              security changes only, so I will need to copy the following section to use as a
+              template as seen in the screenshot below:</span
+            ><span> </span><span class=""><img class="" width="" src="" /> </span>
+          </li>
+          <li>
+            Once you have copied the section of interest, please head into the
+            <strong>CustomFilters.xml</strong> file which is located within the same directory as
+            the <strong>default.xml</strong> file.
+          </li>
+          <li>
+            In the<strong>CustomFilters.xml</strong> file, paste in the section you have copied in
+            between the tags and modify the parameters by setting them to true or false. I have
+            included a screenshot below on how I have configured my filter (Note: The description
+            parameter is what will be displayed as the filter name on the configuration template.
+            Also, ensure that the <strong>name</strong> parameter is unique, I have named the
+            parameter <strong>allchanges2</strong> for this example):
+            <span class=""><img class="" width="" src="" /> </span>
+          </li>
+          <li>Once you have changed the parameters to your liking, save the file.</li>
+          <li>
+            Head into your Change Tracker Console. You should be logged out after saving that file,
+            please log back in.
+          </li>
+          <li>
+            Once you are logged back in, head into your configuration template. If you have
+            successfully followed the steps above, you will find your custom filter on the list.
+            Below is a screenshot to show this:
+          </li>
+        </ol>
+        <p>
+          <span class=""><img class="" width="" src="" /> </span>
+        </p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >Support Process - Enabling Change Tracker's FAST Cloud NNT Support Internal</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">The NNT FAST™ Cloud Usage Considerations</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >Change Tracker ‚Äì How to Create a Custom Tracked Attributes Filter Within a
+                Configuration Template</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a href="" target="_blank">Capture4.PNG</a> <br /><a
+          href=""
+          target="_blank"
+          >Capture3.PNG</a
+        >
+        <br /><a href="" target="_blank">Capture2.PNG</a> <br /><a href="" target="_blank"
+          >Capture.PNG</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

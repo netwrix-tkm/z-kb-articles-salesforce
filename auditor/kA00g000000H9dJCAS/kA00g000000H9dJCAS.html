@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The Account Lockout Examiner service account</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dJCAS" />
+    <meta name="Id" content="ka04u000000HcW3AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2738" />
+    <meta name="ArticleNumber" content="000003639" />
+    <meta
+      name="description"
+      content="Netwrix Account Lockout Examiner - granting permissions without adding the account to &amp;quot;Domain Admins&amp;quot; group."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        If you do not want to grant domain admin rights to the service account, you can create a
+        less priviledged one. To create an account which has all required rights please perfrom the
+        following steps. <u>On any Domain Controller that has Group policy management:</u> Step 1.
+        Enable <strong>Manage auditing and security log </strong>user rights for this account:
+        <ol>
+          <li>Run <strong>Group Policy Management </strong></li>
+          <li>
+            Navigate to the Group Policy Object which is applied to all Domain Controllers (Default
+            Domain Controllers Policy, for example)
+          </li>
+          <li>Right click on it and select <strong>Edit</strong></li>
+          <li>
+            Expand C<strong
+              >omputer Configuration -&gt; Windows Settings -&gt; Security Settings -&gt; Local
+              Policies -&gt; User Rights Assignment
+            </strong>
+          </li>
+          <li>Double click on the <strong>Manage auditing and security log</strong> policy</li>
+          <li>
+            Click A<strong>dd user or group,</strong> specify the Account Lockout Examiner
+            <strong>service account </strong>and click <strong>OK</strong>
+          </li>
+        </ol>
+        <br /><a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000Xdsb&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wqQ"
+          target="_blank"
+          ><img
+            alt="User-added image"
+            height="342"
+            src="kA00g000000H9dJCAS_fddd9319-e444-4b60-b945-820b98541b21.png"
+            width="500" /></a
+        ><br />Step 2. Add the service account to the required security groups:
+        <ol>
+          <li>Run <strong>Active Directory Users and Computers</strong></li>
+          <li>Expand <strong>&lt;Domain name&gt;</strong> - <strong>Built-in</strong></li>
+          <li>
+            Click the <strong>Account Operators </strong>group and select
+            <strong>Properties</strong>
+          </li>
+          <li>
+            Go to the <strong>Members</strong> tab and add the user account you want to use for the
+            Account Lockout Examiner service to the list.
+          </li>
+          <li>
+            For <strong>Windows 2008 and above </strong>Domain Controllers, one additional step is
+            required: Add the service account to the <strong>Event Log Readers </strong>group.
+          </li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000Xdsb&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wqL"
+          target="_blank"
+          ><img
+            alt="User-added image"
+            height="206"
+            src="kA00g000000H9dJCAS_34fcaeea-11dd-4208-b773-523ecf97e566.png"
+            width="500" /></a
+        ><br /><br />Step 3. <u>On every monitored Domain Controller e</u>nable WMI access
+
+        <ol>
+          <li>
+            Run <strong>Computer managemnet </strong>(Start-&gt;Administrative Tools-&gt;Computer
+            Management)
+          </li>
+          <li>Expand <strong>Services and Applications -&gt; WMI Control</strong>.</li>
+          <li>Right-click on it and select P<strong>roperties.</strong></li>
+          <li>Go to the Security tab and expand<strong> Root -&gt; CIMV2</strong>.</li>
+          <li>
+            Highlight <strong>CIMV2 a</strong>nd click the<strong> Security </strong>button at the
+            bottom of the window.
+          </li>
+          <li>
+            Add the user account you want to use for the Account Lockout Examiner service to the
+            list
+          </li>
+          <li>
+            Grant it with <strong>Remote Enable </strong>permission (put a check in the
+            <strong>Allow</strong> checkbox).
+          </li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000Xdsb&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wqV"
+          target="_blank"
+          ><img
+            alt="User-added image"
+            height="554"
+            src="kA00g000000H9dJCAS_3243fdd1-af37-482c-b974-e8d88aeca113.png"
+            width="500" /></a
+        ><br /><br />Step 4. Configure DCOM settings
+        <ol>
+          <li>
+            Open <strong>Component Services </strong>(Start -&gt; Programs -&gt; Administrative
+            Tools -&gt; Component Services).
+          </li>
+          <li>
+            Navigate to<strong>
+              C<strong>omponent </strong>Services - Computers - My Computer.</strong
+            >
+            Right click it and select <strong>Properties</strong>.
+          </li>
+          <li>Go to the <strong>COM Security </strong>tab.</li>
+          <li>
+            Click the E<strong>dit Limits b</strong>utton in the
+            <strong>Launch and Activation Permissions </strong>group box.
+          </li>
+          <li>
+            Add the user account you want to use for the Account Lockout Examiner service to the top
+            window.
+          </li>
+          <li>
+            Set A<strong>llow </strong>checbox for the <strong>Remote Activation </strong>option.
+          </li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000Xdsb&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wqa"
+          target="_blank"
+          ><img
+            alt="User-added image"
+            height="484"
+            src="kA00g000000H9dJCAS_ba897240-b3a4-4f9e-bfec-d8dd0a8c911b.png"
+            width="500" /></a
+        ><br /><strong>NOTE:</strong> steps 3 and 4 might require a reboot to apply new settings<br /><br />Step
+        5. <u>On the machine where NetWrix Account Lockout Examiner is installed g</u>rant local
+        administrator rights to the service account.
+
+        <ol>
+          <li>Run <strong>Computer management</strong></li>
+          <li>Expand <strong>System tools - Local users and groups - Groups</strong></li>
+          <li>
+            Right click <strong>Administrators</strong> group and select<strong>
+              Add to group</strong
+            >
+          </li>
+          <li>
+            Clcik <strong>Add</strong> and specify the service account. Click <strong>Ok</strong>
+          </li>
+        </ol>
+        <strong
+          ><a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000Xdsb&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wqf"
+            target="_blank"
+            ><img
+              alt="User-added image"
+              height="463"
+              src="kA00g000000H9dJCAS_0c2ea84b-e207-4392-9b3d-b8e6f8c4eb85.png"
+              width="500" /></a></strong
+        ><br /><br />Step 6: <u
+          >On all machines that need to be examined by Account Lockout Exmainer</u
+        > grant the local administrator rights to the service account. This can be done manually or
+        by means of Group policy. Local admin rights are also necessary to find the root proocess
+        causing invalid logons.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Prepare Netwrix Server for OS Upgrade</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnjVCAQ" />
+    <meta name="Id" content="ka0Qk0000001YIzIAM" />
+    <meta name="LastPublishedDate" content="2023-10-26T15:01:22.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-29T10:06:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-26T11:53:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8877" />
+    <meta name="ArticleNumber" content="000008877" />
+    <meta
+      name="description"
+      content="Recommendations for OS Upgrade (Windows Server): How to Prevent Data Loss"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article provides preparation steps for upgrading an operating system (Windows) in
+            the Netwrix Auditor host server.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="pre-upgrade_data_security_measures_snapshot_and_backup_guidelines">
+          Pre-Upgrade Data Security Measures: Snapshot and Backup Guidelines
+        </h4>
+
+        <div>
+          <p>
+            Taking a snapshot or creating a backup of the Netwrix Auditor Server is recommended for
+            data protection and recovery. The method to be used depends on the approach used for
+            Auditor installation, whether it's on a virtual or physical machine.
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <strong>TIP:</strong> You can configure Auditor in the failover mode. To learn about
+            failover and backup scenarios, read
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9TECA0.html"
+              target="_blank"
+              >How to configure Netwrix Auditor in the Failover Mode?</a
+            >
+          </p>
+        </blockquote>
+
+        <p>
+          Stop all Netwrix services running in your server − run the following line in elevated
+          PowerShell:
+        </p>
+
+        <pre
+          class="has-inner-focus"
+        ><code class="lang-Registry">Stop-Service -Displayname Netwrix*</code></pre>
+
+        <h4 id="post-upgrade_procedure_auditor_initialization_and_service_verification">
+          Post-Upgrade Procedure: Auditor Initialization and Service Verification
+        </h4>
+
+        <div>
+          <p>
+            After the upgrade, give a couple of hours to Auditor to initialize, and make sure all
+            services are running. To start all Auditor-related processes in the server, run the
+            following line in elevated PowerShell:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Start-Service -Displayname Netwrix*</code></pre>
+        </div>
+
+        <h4 id="post-upgrade_warnings_and_data_collection_interruptions">
+          Post-Upgrade Warnings and Data Collection Interruptions
+        </h4>
+
+        <div>
+          <p>
+            After the upgrade, you might notice warnings in the Health log. These warnings occur
+            because services are temporarily unavailable and data collection is interrupted during
+            the upgrade and server reboot. Once the upgrade is complete, services will be
+            automatically restarted, and data collection will continue without any issues.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9TECA0.html"
+              target="_blank"
+              >How to configure Netwrix Auditor in the Failover Mode?</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

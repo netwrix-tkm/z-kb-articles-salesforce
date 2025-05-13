@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SbPAM 3.0 SP4 CU1 (3.0.9120)</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HypCAE" />
+    <meta name="Id" content="ka04u000000HccSAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:56:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:59:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:56:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6070" />
+    <meta name="ArticleNumber" content="000006070" />
+    <meta name="description" content="4402579741588" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary: </strong>Fixes issue found where Cisco credentials would be exposed in
+          SbPAM logs in certain scenarios.
+        </p>
+        <p><strong>Affected Versions: </strong>SbPAM 3.0.9118 and earlier</p>
+        <p><strong>KB Type: </strong>Cumulative Update</p>
+        <p><strong>Submitted by: </strong>Dan Piazza</p>
+        <p>
+          <strong>Download Link: </strong
+          ><a
+            href="https://downloads.stealthbits.com/access/files/SbPAMHotfixes/3.0/SbPAM.3.0.9120.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SbPAMHotfixes/3.0/SbPAM.3.0.9120.zip</a
+          >
+        </p>
+        <p><strong>Work Items/Escalations:</strong></p>
+        <ul>
+          <li>6887 SbPAM - Credentials exposed in logs</li>
+          <li>
+            6778 SbPAM - Linux Activity Token and Managed Login Account types use a username instead
+            of full loginAccountFormat for SSH log-in
+          </li>
+        </ul>
+        <p><strong>Instructions:</strong></p>
+        <p>Download Zip file to SbPAM Server.</p>
+        <p>
+          <strong><em>NOTE:</em></strong
+          ><em> If running HA configuration, please refer to HA instructions.</em>
+        </p>
+        <ol>
+          <li>Extract all files.</li>
+          <li>Run Sb_Setup.exe as Administrator.</li>
+          <li>
+            If upgrading from 3.0sp2 then after setup completes, login to SbPAM Web UI to allow
+            services to reregister.
+          </li>
+        </ol>
+        <p><strong>Configuration instructions for 2824:</strong></p>
+        <p>
+          <em>2824 <strong>Allow authenticators to be used that aren't assigned</strong></em>
+        </p>
+        <p>
+          To change the authenticator behavior to pre-sp3 behavior (any user can authenticate with
+          an external authenticator), update the Web
+          <strong>C:\Program Files\Stealthbits\PAM\Web\appsettings.json</strong> file.
+        </p>
+        <p>
+          <strong><em>NOTE:</em></strong
+          ><em> This path may vary if you installed to a non-default location.</em>
+        </p>
+        <p>
+          Add the following line before the closing } , "StrictExternalAuth": "False" For example if
+          your existing appsettings file looks like this:
+        </p>
+        <pre>{<br/>   "StrictExternalAuth": "False"<br/>}</pre>
+        <p>
+          <em><strong>NOTE:</strong> Make sure to add a comma if there are other properties.</em>
+        </p>
+        <p>
+          <strong><em>BEFORE:</em></strong>
+        </p>
+        <pre>{<br/>   "Example": "value"<br/>}</pre>
+        <p>
+          <strong><em>AFTER:</em></strong>
+        </p>
+        <pre>{<br/>   "Example": "value",<br/>   "StrictExternalAuth": "False"<br/>}</pre>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

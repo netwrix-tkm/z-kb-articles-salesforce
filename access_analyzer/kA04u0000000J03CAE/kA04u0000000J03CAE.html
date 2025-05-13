@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Execute a StealthAUDIT Process Dump</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000J03CAE" />
+    <meta name="Id" content="ka0Qk000000CaCbIAK" />
+    <meta name="LastPublishedDate" content="2025-02-26T19:16:07.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-26T19:16:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:46:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7417" />
+    <meta name="ArticleNumber" content="000007417" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <span class="Caution"
+            ><strong>IMPORTANT:</strong> This article is outdated and is currently being updated.
+            Some information may no longer be applicable.</span
+          >
+        </blockquote>
+        <p>
+          <strong>Summary:</strong>  This article provides instructions for how to execute a process
+          dump of StealthAUDIT. This can be applied to other processes, as well.
+        </p>
+        <p> </p>
+        <p>
+          <strong>Issue:</strong>  Instructions for how to execute a process dump of StealthAUDIT.
+          This can be applied to other processes, as well.
+        </p>
+        <p> </p>
+        <p>
+          <strong>Instructions:</strong>  <strong><u>How to Execute a Process Dump</u></strong>
+        </p>
+        <p>Three methods will be covered: </p>
+        <ol>
+          <li>
+            Use procdump.exe (<a
+              href="http://technet.microsoft.com/en-us/sysinternals/dd996900.aspx"
+              target="_blank"
+              >http://technet.microsoft.com/en-us/sysinternals/dd996900.aspx</a
+            >). This works on all systems and provides more information than Task Manager
+          </li>
+          <li>
+            Use 32-bit Task Manager on Windows 2008 or later (standard on 32 bit systems, requires
+            special procedure on 64 bit systems)
+          </li>
+          <li>Use the standard 64-bit Task Manager on Windows 2008 or later (least preferred)</li>
+        </ol>
+        <p>
+          <span class="wysiwyg-underline"
+            ><strong><u>Using procdump.</u>exe</strong></span
+          >
+        </p>
+        <p>
+          If the StealthAUDIT Console or a data collector, analysis module, or action module running
+          within it is experiencing access violations or out of memory errors, StealthAUDIT can run
+          procdump.exe automatically if it’s present alongside the StealthAUDIT.exe file. The
+          procdump.exe file should only be present while troubleshooting otherwise spurious dump
+          files can fill up the disk. Copy prodcump.exe to the StealthAUDIT folder, then start
+          StealthAUDIT normally. The dump files will be created under the StealthAUDIT\SADatabase
+          folder, with names such as StealthAudit_131211_121213.dmp, with the numbers corresponding
+          to the date (YMD) and time (HMS) of the dump.
+        </p>
+        <p>
+          For hangs or errors where StealthAUDIT is not automatically producing the dump files, such
+          as an error on startup or shutdown, procdump.exe can create a process dump file
+          immediately when it’s run, wait until  or wait until there is an exception and trigger off
+          automatically. To create a dump file immediately, start an administrator command prompt
+          and run:
+        </p>
+        <p class="wysiwyg-indent3">procdump -ma PID</p>
+        <p>where PID is the process ID of the process whose memory you want to dump, or:</p>
+        <p class="wysiwyg-indent3">procdump -ma processname</p>
+        <p>
+          where processname is the name of the process you want to dump, such as StealthAUDIT.exe.
+        </p>
+        <p>
+          To wait for an exception (usually an access violation), you can specify the -e and -f
+          switches (c0000005 is the exception code for access violation):
+        </p>
+        <p class="wysiwyg-indent3">procdump -ma -e 1 -f c0000005 StealthAUDIT</p>
+        <p>
+          If the StealthAUDIT process is not yet running, you can specify the -w switch to wait for
+          StealthAUDIT, or the -x switch to start it:
+        </p>
+        <p class="wysiwyg-indent3">procdump -ma -e 1 -f c0000005 -w StealthAUDIT</p>
+        <p>
+          Starts procdump waiting StealthAUDIT to start, and waits for an access violation exception
+          before creating a process dump file.
+        </p>
+        <p class="wysiwyg-indent3">procdump -ma -e 1 -f c0000005 -x StealthAUDIT.exe MyJob</p>
+        <p>
+          Starts procdump then starts StealthAUDIT and runs MyJob, waiting for an access violation
+          exception before creating a process dump.
+        </p>
+        <p>
+          <strong><u>Using Task Manager to Create a Process Dump File</u></strong>
+        </p>
+        <p>
+          Windows Vista/2008 and later have the ability to create a process dump file from within
+          Task Manager. However, on 64 bit systems. The default task manager is a 64 bit Task
+          Manager, which creates 64 bit dump files. Since StealthAUDIT is a 32 bit process, it is
+          more difficult to debug with these files than a 32 bit dump file. In order to start 32 bit
+          Task Manager, first close Task Manager. Then go to Start-&gt;Run (or a command prompt) and
+          type C:\Windows\SysWOW64\taskmgr.exe. (Note that Windows keeps the 32 bit executables in a
+          directory with a 64 in its name.) Once you do this, look for taskmgr.exe in the process
+          list. You should see a “*32” next to taskmgr.exe, signifying that it’s a 32 bit process:
+        </p>
+        <p>
+          <img
+            alt="mceclip0.png"
+            src="kA04u0000000J03CAE_e36aea2c-b1e8-4a4b-a931-38ee346de5b5.png"
+          />
+        </p>
+        <p>
+          Next, if UAC is enabled, click the “Show processes from all users” button so that Task
+          Manager is running in elevated mode. This is required to dump StealthAUDIT.exe, or an
+          “Access is denied” message is displayed.
+        </p>
+        <p>Finally, right-click on StealthAUDIT.exe, and select “Create dump file”:</p>
+        <p>
+          <img
+            alt="mceclip1.png"
+            src="kA04u0000000J03CAE_e5203618-0aed-456f-898d-1cf2455006ea.png"
+          />
+        </p>
+        <p>
+          Once you do this, you’ll see a dialog that the dump is in progress.<strike>  </strike
+          >Finally, a dialog with the name and location of the dump file displays:
+        </p>
+        <p>
+          <img
+            alt="mceclip2.png"
+            src="kA04u0000000J03CAE_e7b6e9d1-2ba7-469c-97bd-9ad8f357ce72.png"
+          />
+        </p>
+        <p>
+          Pro Tip: You can select the file path text in the dialog box and copy it to the clipboard
+          (Ctrl-C or right-click Copy).
+        </p>
+        <p>
+          You can do the same thing with the standard Task Manager on a 64 bit system, but in some
+          cases, the 64 bit dump file is significantly less useful than the 32 bit dump, so please
+          take a 32 bit dump whenever possible.
+        </p>
+        <p>
+          <strong><u>A Hung Process or a Process with a Memory Leak</u></strong>
+        </p>
+        <p>
+          It would be most helpful to execute at least two dumps, about a minute apart, so that we
+          can see what’s changing in the process. Also, include any log files, such as a job log
+          (check the date/time on the .tsv files to see which one is most recent) and SADebug.tsv.
+          If there is already a StealthAUDIT process running, StealthAUDIT creates its debug log as
+          SADebug.PID.tsv, where PID is the process ID of the StealthAUDIT.exe process.
+        </p>
+        <p> </p>
+        <p> </p>
+        <p>
+          <strong>Submitted by:</strong>  Paul Pitas (previously submitted by Matt Squicciarini)
+        </p>
+        <p><strong>Product:</strong> StealthAUDIT</p>
+        <p><strong>Affected Versions:</strong> N/A</p>
+        <p><strong>Affected Module:</strong> N\A</p>
+        <p><strong>Dev Ticket:</strong> N\A</p>
+        <p><strong>Resolved In Version:</strong> N\A</p>
+        <p><strong>KB Type:</strong> How</p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DMZ installation: Server.CreateObject failed</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9aoCAC" />
+    <meta name="Id" content="ka04u00000116eJAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T15:59:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1314" />
+    <meta name="ArticleNumber" content="000003484" />
+    <meta
+      name="description"
+      content="DMZ installation: Server.CreateObject failed Administrative and Helpdesk portals return Server.CreateObject failed Self-service portal does not work"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Administrative and Helpdesk portals return the Server.CreateObject failed
+        <img
+          src="kA00g000000H9aoCAC_fa9a2ee4-5999-428a-b3be-eafda934f5a1.png"
+          alt="User-added image"
+          width="500"
+          height="85"
+        />
+
+        meanwhile Self-Service portal does not work at all
+        <img
+          src="kA00g000000H9aoCAC_74fc7279-6ea0-439a-b0ea-73212cb642e5.png"
+          alt="User-added image"
+          width="500"
+          height="268"
+        />
+
+        <hr />
+
+        Server.CreateObject failed means that there is no Netwrix Password manager Service
+        registered on the server where the frontend tries to connect to, or the service is not
+        running.
+
+        <hr />
+
+        First of all, make sure that DCOM settings on the frontend server are configured properly to
+        point to the backend server as follows:
+        <ol>
+          <li>
+            Navigate to <strong>Start</strong> <span>à</span> <strong>Run</strong> and execute the
+            <em>dcomcnfg.exe</em> command to run <strong>Component Services</strong>.
+          </li>
+          <li>
+            In the <strong>Component Services</strong> snap-in navigate to
+            <strong>Console Root</strong> <span>à</span> <strong>Component Services</strong>
+            <span>à</span> <strong>Computers</strong> <span>à</span> <strong>My Computer</strong>
+            <span>à</span> <strong>DCOM Config</strong>.
+          </li>
+          <li>
+            Right-click <strong>Netwrix Password Manager</strong> and select
+            <strong>Properties</strong>.
+          </li>
+          <li>
+            Go to the <strong>Location</strong> tab and disable the <strong>Run</strong>
+            <strong>application on this computer</strong> checkbox.
+          </li>
+          <li>
+            Then enable the <strong>Run application on the following computer</strong> option, and
+            enter the <strong>Netbios</strong> or <strong>FQDN</strong> name or
+            <strong>IP</strong> address of the back-end server you have installed.
+          </li>
+          <li>Then click <strong>OK</strong>.</li>
+        </ol>
+        <div>
+          <strong>NOTE.</strong> Try reapplying the settings if they are in place.
+          <img
+            src="kA00g000000H9aoCAC_11dd4863-e486-46a5-8df2-64555e7f44b6.png"
+            alt="User-added image"
+            width="500"
+            height="357"
+          />
+        </div>
+        Also please make sure that the Password manager service is running on the backend server.
+        Refer to the <a href="https://kb.netwrix.com/1332" target="_blank">KB1332</a>
+      </div>
+    </article>
+  </body>
+</html>

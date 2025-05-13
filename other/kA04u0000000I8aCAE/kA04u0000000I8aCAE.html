@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthDEFEND Service Error 1053</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I8aCAE" />
+    <meta name="Id" content="ka04u000000HcgRAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:03:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:03:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6237" />
+    <meta name="ArticleNumber" content="000006237" />
+    <meta name="description" content="360010581231" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Issue:</strong> When FIPS-compliance is being enforced on the StealthDEFEND host
+          it can prevent the Action Service and Job Service from starting: 
+        </p>
+        <p>
+          <br /><img
+            src="kA04u0000000I8aCAE_85c3c275-5783-40b3-9ecb-2011d08b46ea.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p>You may see these .NET runtime errors in the Event Viewer:</p>
+        <pre>Application: JobService.exe<br/>Framework Version: v4.0.30319<br/>Description: The process was terminated due to an unhandled exception.<br/>Exception Info: System.InvalidOperationException<br/>  at System.Security.Cryptography.AesManaged..ctor()<br/>  at StealthDefend.Common.Aes256Managed.Decrypt(System.String)<br/>  at StealthDefend.Common.Database.ConnectionString(Microsoft.Extensions.Configuration.IConfiguration)<br/>  at JobService.Program+d__0.MoveNext()<br/>  at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()<br/>  at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(System.Threading.Tasks.Task)<br/>  at JobService.Program.(System.String[])<br/><br/></pre>
+        <p> </p>
+        <p>
+          <strong>Instructions:</strong> You can confirm that FIPS-compliance is being enforced
+          using this script:
+        </p>
+        <div>
+          <pre>
+if((Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\FipsAlgorithmPolicy).Enabled) {Write-Warning "FIPS is being enforced."} else {Write-Host "FIPS is not being enforced"}</pre
+          >
+        </div>
+        <div> </div>
+        <div>
+          To force the services to comply with FIPS, open the appsettings.common.json file of each
+          service that fails to start and change this:
+        </div>
+        <pre>"FIPS-Compliant": "False", </pre>
+        <div>to this:</div>
+        <div>
+          <pre>"FIPS-Compliant": "True",</pre>
+        </div>
+        <p> </p>
+        <p><strong>Channel:  </strong>Internal</p>
+        <p>
+          <strong>Submitted by:</strong><span class="diff-removed-string"> </span
+          ><span class="diff-added-string"> Mike Olig</span>
+        </p>
+        <p><strong>Product:</strong> SD</p>
+        <p><strong>Affected Versions:</strong> 2.5+</p>
+        <p><strong>KB Type:</strong> Known Issue</p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

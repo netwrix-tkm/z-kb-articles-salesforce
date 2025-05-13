@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Manually Remove Compression Services from Audited Servers</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HepCAE" />
+    <meta name="Id" content="ka04u00000116iGAAQ" />
+    <meta name="LastPublishedDate" content="2023-07-17T08:11:45.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-17T09:36:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-12-13T12:46:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5929" />
+    <meta name="ArticleNumber" content="000005929" />
+    <meta
+      name="description"
+      content="How to Manually Remove Compression Service Agents from Audited Servers"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            I've changed the auditing scope for Windows Servers Auditing or User Activity Auditing
+            monitoring plans. How to manually delete compression services from previously audited
+            servers?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <h4 id="prerequisites">Prerequisites</h4>
+
+        <div>
+          <p>Refer to the following list for prerequisites:</p>
+
+          <ul>
+            <li>
+              <p>
+                Access to your domain contoller. All further activities should be done on a domain
+                controller.
+              </p>
+            </li>
+            <li>
+              <p>Access to PowerShell.</p>
+            </li>
+            <li>
+              <p>Access to a file share accessible from all servers.</p>
+            </li>
+            <li>
+              <p>
+                PsExec tool. Download the PsExec tool in
+                <a
+                  href="https://learn.microsoft.com/en-us/sysinternals/downloads/psexec"
+                  target="_blank"
+                  >PsExec ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="generate_a_list_of_affected_servers">Generate a list of affected servers</h4>
+
+        <div>
+          <p>
+            You can manually create the list, however, it is recommended to execute the following
+            PowerShell command to create it:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Get-ADComputer -Filter * -SearchBase "DIstinguishedName of an OU with affected servers" | Select -Expand Name | Out-File -filepath %PATH TO FILESHARE%\serverlist.txt</code></pre>
+
+          <p>Do make sure to replace <strong>*PATH TO FILESHARE*</strong> with a relevant path.</p>
+        </div>
+
+        <h4 id="add_compression_service_installation_files_to_your_file_share">
+          Add Compression Service installation files to your file share
+        </h4>
+
+        <div>
+          <p>For Windows Server Auditing:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\Windows Server Auditing\Netwrix.WSA.CompressionService.Setup.msi</code></pre>
+        </div>
+
+        <div>
+          <p>For User Activity Auditing:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\User Activity Video Recording\UACoreSvcSetup.msi</code></pre>
+        </div>
+
+        <h4 id="create_a_text_file">Create a text file</h4>
+
+        <div>
+          <p>Depending on Compression Service, add the following lines to the file:</p>
+        </div>
+
+        <div>
+          <p>For Windows Server Auditing:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">msiexec /i "%PATH TO FILESHARE%\Netwrix.WSA.CompressionService.Setup.msi" /quiet
+msiexec /x "%PATH TO FILESHARE%\Netwrix.WSA.CompressionService.Setup.msi" /quiet</code></pre>
+        </div>
+
+        <div>
+          <p>For User Activity Auditing:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">msiexec /i "%PATH TO FILESHARE%\UACoreSvcSetup.msi" /quiet
+msiexec /x %PATH TO FILESHARE%\UACoreSvcSetup.msi" /quiet</code></pre>
+        </div>
+
+        <div>
+          <p>
+            Name the file <strong>"remove"</strong> and add the <strong>".bat"</strong> extension to
+            have the file named <strong>remove.bat</strong>.
+          </p>
+        </div>
+
+        <h4 id="execute_the_command_via_powershell">Execute the command via PowerShell</h4>
+
+        <div>
+          <p>
+            Open Powershell in the PSexec installation folder and execute the following command:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">./psexec64.exe \\@"*PATH TO FILESHARE*\serverlist.txt" -s "*%PATH TO FILESHARE%\remove.bat"</code></pre>
+
+          <p>Do make sure to replace <strong>*PATH TO FILESHARE*</strong> with a relevant path.</p>
+        </div>
+
+        <div>
+          <p>
+            If you'd like to remove Compression Service from a single server, replace @"*PATH TO
+            FILESHARE*\serverlist.txt" with %\\Servername%. Refer to the following screenshot for
+            the output reference:
+          </p>
+
+          <div><img src="kA04u0000000HepCAE_9a459ab0-da7b-45f6-af4f-b59b8e545d63.png" /></div>
+        </div>
+
+        <div>
+          <p>
+            The script calls upon the functions in the msi to upgrade the Compression Service to the
+            version of .msi installer and then to remove said Compression Service, since it only can
+            execute remove command on a Compression Service of the same version.
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If the script reads only the first symbol of the
+            serverlist.txt file, you will need to use Notepad++ or any similar tool to change the
+            file encoding to ANSI.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

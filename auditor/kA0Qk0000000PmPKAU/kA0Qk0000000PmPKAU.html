@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: An Unknown Error Occurred While Processing the Request on the Server</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PmPKAU" />
+    <meta name="Id" content="ka0Qk0000001ZBpIAM" />
+    <meta name="LastPublishedDate" content="2024-01-29T18:06:42.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-29T18:06:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-25T13:32:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9024" />
+    <meta name="ArticleNumber" content="000009024" />
+    <meta
+      name="description"
+      content="Error: An Unknown Error Occurred While Processing the Request on the Server"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When running State-in-Time reports for items that contain large amount of data, the
+            report completes with the following error:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+        Sys.WebForms.PageRequestManagerServerErrorException: An unknown error occurred while processing the request on the server. 
+        The status code returned from the server was: 500.
+            </pre>
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The error occurs due to large amount of processed data.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Extend the report timeout on the on the Report Manager URL. For that:</p>
+
+          <ol>
+            <li>
+              <p>
+                Go to your Report Manager URL: in Netwrix Auditor, navigate to <b>Settings</b> -&gt;
+                <b>Audit Database</b> and click the <b>Report Manager URL</b> link.
+              </p>
+            </li>
+            <li>
+              <p>Find the problematic report and open it.</p>
+            </li>
+            <li>
+              <p>
+                Click the 3 dots in the Reports Manager for the report itself, then click
+                <b>Manage</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <b>Advanced</b> section, modify the report timeout settings.<br />
+                <img
+                  alt="User-added image"
+                  height="398"
+                  src="kA0Qk0000000PmPKAU_418eb2a8-7d08-4d54-9572-7ecfe6b12128.png"
+                  width="500"
+                />
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

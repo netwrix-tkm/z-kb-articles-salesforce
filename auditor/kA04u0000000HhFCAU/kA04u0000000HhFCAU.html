@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Fix Pre-Authentication Errors Between Netwrix Server and SQL Server\DC</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HhFCAU" />
+    <meta name="Id" content="ka04u000000HcaBAAS" />
+    <meta name="LastPublishedDate" content="2022-01-05T14:30:35.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:57:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-01-05T11:18:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5935" />
+    <meta name="ArticleNumber" content="000005935" />
+    <meta
+      name="description"
+      content="How to Fix Preauthentication Errors Between Netwrix Server and SQL Server\DC"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        There are a lot of the events with failed logon coming from the Netwrix Server to any other
+        server using collector account. The event contains this line:
+        <b>Error Code: 0x19 KDC_ERR_PREAUTH_REQUIRED</b>
+
+        <h2 id="solution">Solution</h2>
+        Nothing needs to be done as it is registered by Microsoft to be a false positive. You can
+        read more about details here:
+        https://docs.microsoft.com/en-US/troubleshoot/windows-server/identity/enable-kerberos-event-logging
+
+        <h2 id="explanation">Explanation</h2>
+        <span class="test-id__field-value slds-form-element__static slds-grow word-break-ie11"
+          >Netwrix Auditor does not keep connections to any entity open "just in case". Instead, for
+          every call to LDAP, file share, or SQL Server, we log in, obtain the necessary ticket,
+          complete he task and log off.<br />For each initial <b>AS_REQ </b>request the server
+          returns the <b>ERR_PREAUTH_REQUIRED </b>error and the necessary pre-authentication data.
+          Using this reply, Auditor creates a correct AS_REQ request and gains access to the
+          necessary resource.<br />One monitoring plan with one AD domain with one DC generates 5-6
+          errors per minute. The more plans, items and DCs - the more errors<br /><br />This
+          behavior is compliant with the following standards:<br /><a
+            href="https://datatracker.ietf.org/doc/html/rfc6113#section-2.2"
+            target="_blank"
+            >https://datatracker.ietf.org/doc/html/rfc6113#section-2.2</a
+          ><br /><a href="https://datatracker.ietf.org/doc/html/rfc4120#section-3.1" target="_blank"
+            >https://datatracker.ietf.org/doc/html/rfc4120#section-3.1</a
+          ></span
+        ><br /><br /><b>Note:</b> It is possible to mitigate such errors by disabling Kerberos
+        pre-authentication. However, we advise against doing so because of the potential security
+        risks.
+      </div>
+    </article>
+  </body>
+</html>

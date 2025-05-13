@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Object Named PK_SA_SPAA_Exceptions Is Already in Database</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001OBZKA2" />
+    <meta name="Id" content="ka0Qk0000005J5FIAU" />
+    <meta name="LastPublishedDate" content="2024-09-05T08:40:43.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-05T08:40:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-05T08:40:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9257" />
+    <meta name="ArticleNumber" content="000009257" />
+    <meta
+      name="description"
+      content="Error: Object Named PK_SA_SPAA_Exceptions Is Already in Database"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>This is a work-in-progress article. The product
+            R&amp;D team has yet to review some or all of information below.
+          </p>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Enterprise Auditor prompts the following error when you run the
+            5-SPAA_BulkImport job:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">There is already an object named 'PK_SA_SPAA_Exceptions' in the database.
+Could not create constraint or index.
+        
+Cannot find the object "dbo.SA_SPAA_Exceptions" because it does not exist or you do not have permissions.
+        
+Exception Error:
+Invalid object name 'dbo.SA_SPAA_Exceptions'.
+SA_SPAA_SiteCollectionsView: NOT CHANGING
+SA_SPAA_WebAppPoliciesView: NOT CHANGING
+SA_SPAA_SiteCollectionsTraversalView: NOT CHANGING
+SA_SPAA_EffectiveAccessView: NOT CHANGING
+SA_SPAA_PermissionsView: NOT CHANGING
+SA_SPAA_DirectPermissionsView: NOT CHANGING
+SA_SPAA_LocalGroupMembersView: NOT CHANGING</code></pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          Refer to the possible causes in your environment:
+          <ul>
+            <li>
+              <p>Multiple copies of the SPAA_Exceptions job exist and run simultaneously.</p>
+            </li>
+            <li>
+              <p>Instances of SPAA_Exceptions and SPAA_BulkImport are running simultaneously.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Enterprise Auditor requires one instance of the SPAA_Exceptions job to identify all
+            potential high risk conditions. Review and perform the following steps to resolve the
+            issue:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Ensure that only one copy of the SPAA_Exceptions job is enabled in your Enterprise
+                Auditor environment.
+              </p>
+            </li>
+            <li>
+              <p>
+                Ensure that the SPAA_Exceptions job does not overlap with any scheduled
+                SPAA_BulkImport job.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Refer to the following article to learn more about the 7-SPAA_Exceptions job:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/SharePoint/Collection/7-SPAA_Exceptions.htm"
+              target="_self"
+              >SharePoint Solution — 7-SPAA_Exceptions Job · v11.6</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/SharePoint/Collection/7-SPAA_Exceptions.htm"
+                  target="_self"
+                  >SharePoint Solution — 7-SPAA_Exceptions Job · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

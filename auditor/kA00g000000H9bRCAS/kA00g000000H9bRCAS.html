@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Slow examination</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bRCAS" />
+    <meta name="Id" content="ka04u000000HcUCAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1360" />
+    <meta name="ArticleNumber" content="000003523" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when examination of lockouts does not return any result."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Examination of lockouts runs for several hours without returning any results.
+
+        <hr />
+
+        During examination Account Lockout Examiner service connects to the workstation where the
+        lockout occurred and scans it. Time of examination depends on several factors, e.g.
+        <ul>
+          <li>
+            Bandwidth of the connection to the workstation - for workstations located on other
+            continents examination might run for a long time
+          </li>
+          <li>
+            The Account Lockout Examiner service load - if there are a lot of events to process in
+            your environment, the service might not have resources to perform the examination
+          </li>
+          <li>Permissions or connection issues.</li>
+          <li>etc</li>
+        </ul>
+
+        <hr />
+
+        Ensure that:
+        <ol>
+          <li>Workstation is reachable from the Account Lockout Examiner server.</li>
+          <li>Connection is not blocked by the firewall.</li>
+          <li>
+            CPU and Memory usage of Account Lockout Examiner (ALEService.exe process) is normal
+          </li>
+          <li>
+            The Account Lockout Examiner service account has local administrator permissions on the
+            target workstation.
+          </li>
+          <li>
+            There is not a network bottleneck between the two endpoints (Account Lockout Examiner
+            and target workstation).
+          </li>
+        </ol>
+        It is recommended to perform examination of workstations located in the same site with the
+        Account Lockout Examiner host machine. Using separate installations of Account Lockout
+        Examiner for other sites is recommended. If all above factors are OK, please try to perform
+        the steps from the following articles and re-run examination:
+
+        <a href="https://kb.netwrix.com/2763" target="_blank">https://kb.netwrix.com/2763</a>
+        <a href="https://kb.netwrix.com/1406" target="_blank">https://kb.netwrix.com/1406</a>
+        <a href="https://kb.netwrix.com/2777" target="_blank">https://kb.netwrix.com/2777</a>
+      </div>
+    </article>
+  </body>
+</html>

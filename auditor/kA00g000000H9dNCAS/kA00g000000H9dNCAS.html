@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Incorrect data in reports without any warnings</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dNCAS" />
+    <meta name="Id" content="ka04u000000HcW7AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2750" />
+    <meta name="ArticleNumber" content="000003643" />
+    <meta
+      name="description"
+      content="Reports/Searches display &amp;quot;system&amp;quot; instead of the username, while Netwrix Auditor doesn&amp;#039;t display any errors."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You receive reports containing no information or "<strong><em>System</em></strong
+        >" value in the "<strong><em>Who</em></strong
+        >" column. and there are no errors and warnings in the Netwrix Auditor System Health log.
+        <hr />
+        There possible cause of this issue is Security Event Log on the File Server:
+        <ul>
+          <li>The Security event log is not populated with new events.</li>
+          <li>The Security event log was relocated.</li>
+        </ul>
+
+        <div>
+          <hr />
+        </div>
+
+        <ul>
+          <li>
+            If you changed the Security event log location and did not reboot your file server, the
+            system services may fail to update their settings based on the updated configuration.
+            Therefore, you must reboot your file server.
+          </li>
+          <li>
+            If you did not relocate the Security event log, perform one of the following to resolve
+            the issue:
+            <ul>
+              <li>
+                Open the Security event log using the Event Viewer. If the log is corrupted or
+                contains events with ID 521, this may indicate that there is not enough free disk
+                space to store new information. Provide more disk space and clear the log. Refer to
+                the
+                <a href="https://kb.netwrix.com/1262" target="_blank"
+                  >The disk on a monitored file server is overfilled</a
+                >
+                knowledge base article for more information.
+              </li>
+              <li>
+                Make sure that either the <strong>Overwrite events as needed</strong> retention
+                method is selected, or the Security log automatic archiving option is enabled: <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/WindowsFileShares/EventLog.htm"
+                  target="_blank"
+                  >https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/WindowsFileShares/EventLog.htm</a
+                >
+              </li>
+              <li>
+                Verify with gpresult tool if your settings are being overwritten by Group Policies.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

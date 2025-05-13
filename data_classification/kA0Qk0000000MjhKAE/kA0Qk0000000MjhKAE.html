@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot Completely Remove a Large Directory from the Sources</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000MjhKAE" />
+    <meta name="Id" content="ka0Qk0000001GE1IAM" />
+    <meta name="LastPublishedDate" content="2024-01-08T16:31:24.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-08T16:31:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-08T15:31:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8994" />
+    <meta name="ArticleNumber" content="000008994" />
+    <meta
+      name="description"
+      content="Cannot Completely Remove a Large Directory from the Sources"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            A large directory was removed from the Sources and its path was excluded from future
+            scans. However, clicking the button to expunge doesn't do anything. All files are stored
+            in the Deleted Automatically section.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>A bug that affects Data Classification v.5.6-5.7.</p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> The identified issue is set to be resolved in
+              version 5.8. Once this version is released, the build number will be promptly updated
+              on the My Products page: https://www.netwrix.com/my_products.html.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="workaround_solution">Workaround solution</h2>
+
+        <div>
+          <p>On a Data Classification SQL server, run the following query:</p>
+
+          <pre>
+USE 'database name' 
+WHILE 1=1 
+BEGIN 
+DELETE top (5000) FROM Pages 
+where Status = 9;
+                
+if @@ROWCOUNT&lt;1 break; 
+END</pre
+          >
+
+          <p>It will remove all automatically deleted entries in the DB.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bulk Import Error: SQL Logic Error Unknown Database Strucmap</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001msDKAQ" />
+    <meta name="Id" content="ka0Qk000000CEaHIAW" />
+    <meta name="LastPublishedDate" content="2025-02-12T17:51:12.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-12T18:46:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-02-12T17:51:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9351" />
+    <meta name="ArticleNumber" content="000009351" />
+    <meta
+      name="description"
+      content="Bulk import error: &#34;SQL logic error unknown database strucmap&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>The 2-FSAA Bulk Import job is returning the following error message:</p>
+          <pre class="has-inner-focus">
+SQL logic error unknown database strucmap.
+</pre
+          >
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            This error message is the result of a discrepancy or corruption in the database's
+            structure map. It can be caused by configuration changes or other interruptions during a
+            scan or database import.
+          </p>
+        </div>
+        <h2 id="resolutions">Resolutions</h2>
+        <div>
+          <p>
+            Please try both of the following Resolutions. Start with resetting the hosts, and if the
+            error persists, try <a href="#repair">repairing the database</a>. For both approaches,
+            run the <strong>Bulk Import Maintenance</strong>, targeting the host(s) having the
+            problem.
+          </p>
+          <h4 id="reset_the_hosts">Reset the Host(s)</h4>
+          <ol>
+            <li>
+              <p>
+                Navigate to and select the <strong>2-FSAA Bulk Import</strong> job in the Netwrix
+                Enterprise Auditor (NEA) Job tree.
+              </p>
+              <ul>
+                <li>
+                  <p>The exact location in the Job tree can vary based on your deployment.</p>
+                </li>
+                <li>
+                  <p>
+                    The default location is
+                    <strong
+                      >NEA &gt; Jobs &gt; FileSystem &gt; 0.Collection &gt; 2-FSAA Bulk
+                      Import</strong
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Click <strong>Configure &gt; Query &gt; Query properties &gt; Configure</strong>.
+              </p>
+              <ul>
+                <li>
+                  <p>This opens the File System Access Audit Data Collector Wizard.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>At the bottom of the wizard, click <strong>Maintenance</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select the Maintenance type: <strong><em>Reset Hosts</em></strong
+                >, then click <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Select the hosts that are throwing the error.</p>
+            </li>
+            <li>
+              <p>
+                Click <strong><em>Reset Hosts</em></strong
+                >.
+              </p>
+              <ul>
+                <li>
+                  <p>The maintenance should run immediately.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After the maintenance run completes, click through the following dialogs:
+                <strong>Continue &gt; Finish &gt; Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Ensure that <strong>Import incomplete scan data</strong> is enabled, then click
+                <strong>Finish</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Try running the <strong>FileSystem</strong> collection again.</p>
+            </li>
+          </ol>
+          <h4 id="repair">Repair the SQL Database</h4>
+          <ol>
+            <li>
+              <p>
+                Navigate to and select the <strong>2-FSAA Bulk Import</strong> job in the NEA Job
+                tree.
+              </p>
+              <ul>
+                <li>
+                  <p>The exact location in the Job tree can vary based on your deployment.</p>
+                </li>
+                <li>
+                  <p>
+                    The default location is
+                    <strong
+                      >NEA &gt; Jobs &gt; FileSystem &gt; 0.Collection &gt; 2-FSAA Bulk
+                      Import</strong
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Click <strong>Configure &gt; Query &gt; Query properties &gt; Configure</strong>.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    This opens the <strong>File System Access Audit Data Collector Wizard</strong>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>At the bottom of the wizard, click <strong>Maintenance</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select the Maintenance type: <strong><em>Repair</em></strong
+                >, then click<strong> Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Select the hosts that are throwing the error.</p>
+            </li>
+            <li>
+              <p>
+                Click <strong><em>Run</em></strong
+                >.
+              </p>
+              <ul>
+                <li>
+                  <p>The maintenance should run immediately.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After the maintenance finishes, click through the following dialogs:
+                <strong>Continue &gt; Finish &gt; Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Ensure that <strong>Import incomplete scan data</strong> is enabled, then click
+                <strong>Finish</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Try running the <strong>FileSystem</strong> collection again.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

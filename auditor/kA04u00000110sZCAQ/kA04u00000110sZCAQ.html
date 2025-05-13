@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Subscription Reports Errors</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110sZCAQ" />
+    <meta name="Id" content="ka0Qk0000004pn7IAA" />
+    <meta name="LastPublishedDate" content="2024-07-30T08:37:52.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-30T08:37:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-17T10:52:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8669" />
+    <meta name="ArticleNumber" content="000008669" />
+    <meta name="description" content="The Report with ReportID Is Missing From Your Server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor prompts one of the following errors when you're viewing a subscription
+            report:
+          </p>
+
+          <pre class="has-inner-focus">
+The report with ReportID %REPORT_UID% is missing on your server.</pre
+          >
+
+          <pre class="has-inner-focus">
+Could not find a part of the path C:\ProgramData\Netwrix Auditor\Reports.</pre
+          >
+
+          <pre class="has-inner-focus">
+The item '/Netwrix Auditor/%Report_name%' cannot be found.(rsItemNotFound)</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Your SSRS instance limits the available authentication methods.</p>
+            </li>
+            <li>
+              <p>The content of your <strong>Reports</strong> folder has been corrupted.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <ol>
+          <li>
+            <p>
+              Verify that your SSRS instance allows all authentication methods (NTLM, Kerberos,
+              Negotiate) in your environment—learn more in
+              <a
+                href="https://learn.microsoft.com/en-us/sql/reporting-services/security/configure-windows-authentication-on-the-report-server?view=sql-server-ver16#configure-a-report-server-to-use-windows-integrated-security"
+                target="_blank"
+                >Configure Windows Authentication on the Report Server — Configure a Report Server
+                to Use Windows Integrated Security · Microsoft 🡥</a
+              >.
+            </p>
+          </li>
+          <li>
+            <p>Recreate the <strong>Reports</strong> folder:</p>
+
+            <blockquote>
+              <p>
+                <span><strong>NOTE: </strong></span>If you have previously added a custom report,
+                you must set it up again manually.
+              </p>
+            </blockquote>
+
+            <ol>
+              <li>
+                <p>On the Auditor Server host, proceed to the following folder:</p>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\Reports</code></pre>
+              </li>
+              <li>
+                <p>
+                  If none exists, locate the <code>Reports.zip</code> archive in the following
+                  folder:
+                </p>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\</code></pre>
+
+                <p>
+                  If the <strong>Reports</strong> folder exists, create a backup of the folder,
+                  delete the original folder and recreate it by following the provided steps.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Create a <strong>Reports</strong> folder in
+                  <code>C:\ProgramData\Netwrix Auditor\</code>. Extract the contents of the
+                  <code>Reports.zip</code> archive to the <strong>Reports</strong> folder. Wait 10
+                  minutes for the reports to rebuild.
+                </p>
+
+                <blockquote>
+                  <p>
+                    <span><strong>NOTE: </strong></span>Alternatively, you can restart the
+                    <code>Netwrix Auditor Management Service</code>.
+                  </p>
+                </blockquote>
+              </li>
+              <li>
+                <p>
+                  Manually rerun the subscription—open the failed subscription and click
+                  <strong>Try Again</strong>.
+                </p>
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/reporting-services/security/configure-windows-authentication-on-the-report-server?view=sql-server-ver16#configure-a-report-server-to-use-windows-integrated-security"
+                  target="_blank"
+                  >Configure Windows Authentication on the Report Server — Configure a Report Server
+                  to Use Windows Integrated Security · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

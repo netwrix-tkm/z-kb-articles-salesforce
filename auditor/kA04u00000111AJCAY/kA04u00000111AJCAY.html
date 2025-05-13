@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Event Trace Session Does Not Exist or Is Configured Incorrectly in Windows Server Monitoring
+      Plan
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111AJCAY" />
+    <meta name="Id" content="ka04u00000117khAAA" />
+    <meta name="LastPublishedDate" content="2023-09-07T15:19:08.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-12T15:23:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-07T15:19:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8791" />
+    <meta name="ArticleNumber" content="000008791" />
+    <meta
+      name="description"
+      content="Event Trace Session Does Not Exist or Is Configured Incorrectly in Windows Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            You've encountered the following error in Health Log for your Windows Servers monitoring
+            plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Source:Windows Server Audit Service
+Event ID:1016
+User:N/A
+Item: %computer_name%
+On %date% %time%, the following error has occurred while processing %item%:
+The event trace session does not exist or is configured incorrectly</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Security event log settings are misconfigured.</p>
+            </li>
+            <li>
+              <p>
+                The affected monitored %item% server is a virtual machine. Changes monitored in the
+                server include removable media.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review event log settings — refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+                  target="_blank"
+                  >Windows Server — Adjusting Event Log Size and Retention Settings ⸱ v10.6</a
+                >. For additional information on Windows Server audit setup, refer to the following
+                article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm"
+                  target="_blank"
+                  >Configuration — Windows Server ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Review the monitored changes to system components for the affected VM server:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>,
+                    select the monitoring plan containing the affected server, and click
+                    <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the right pane, click <strong>Edit data source</strong> under the
+                    <strong>Data source</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Under the <strong>Monitor changes to system components</strong> section, uncheck
+                    the <strong>Removable media</strong> and <strong>Hardware</strong> checkboxes.
+                    Click <strong>Save &amp; Close</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Update</strong> under the
+                    <strong>Monitoring plan</strong> section.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+              target="_blank"
+              >Windows Server — Adjusting Event Log Size and Retention Settings ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm"
+              target="_blank"
+              >Configuration — Windows Server ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

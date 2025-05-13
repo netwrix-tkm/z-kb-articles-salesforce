@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Update Service Account Password Upon Password Change in Active Directory (AD)</title>
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IKbCAM" />
+    <meta name="Id" content="ka0Qk000000B8wjIAC" />
+    <meta name="LastPublishedDate" content="2023-12-08T12:58:59.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-31T14:52:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:15:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6432" />
+    <meta name="ArticleNumber" content="000006432" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <div>
+          <p>
+            When passwords for service accounts get reset in Active Directory (AD), the passwords do
+            not update and propagate automatically − they should be updated manually.
+          </p>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>In case Windows auth is used for the SQL database
+            connection, no changes to the Netwrix Enterprise Auditor connection settings are
+            required. The Windows auth method allows to connect to your SQL Server using the
+            currently logged-in Windows user credentials when the Enterprise Auditor console is
+            opened. If the credentials are valid, the SQL database connection will be established.
+          </p>
+        </blockquote>
+        <h4 id="netwrix_enterprise_auditor">Netwrix Enterprise Auditor</h4>
+        <div>
+          <ul>
+            <li>
+              <p>
+                Change the service account password in <strong>Enterprise Auditor</strong> &gt;
+                <strong>Settings</strong> &gt; <strong>Connection</strong>.
+              </p>
+              <div><img src="kA04u0000000IKbCAM_8ad81aab-2030-41c0-963f-35c066e54f72.png" /></div>
+            </li>
+            <li>
+              <p>
+                Change the service account password in <strong>Enterprise Auditor</strong> &gt;
+                <strong>Settings</strong> &gt; <strong>Schedule</strong>.
+              </p>
+              <div><img src="kA04u0000000IKbCAM_0887cbbf-b71b-4d71-b13c-27570bfeb95e.png" /></div>
+            </li>
+          </ul>
+        </div>
+        <h4 id="netwrix_activity_monitor">Netwrix Activity Monitor</h4>
+        <div>
+          <ul>
+            <li>
+              <p>
+                If a Netwrix Activity Monitor (NAM) agent runs the agent service with the service
+                account, the password in NAM should also be updated. While the service may run using
+                the Local System account, make sure to confirm it is. If you need to change the
+                password, right-click the NAM agent service (in Windows Services), and navigate to
+                <strong>Properties</strong> &gt; <strong>Logon</strong> tab.
+              </p>
+              <div>
+                <img
+                  src="kA04u0000000IKbCAM_227e110b-5b2a-4fdc-b621-bbb6f8473518.png"
+                  width="623"
+                  height="424"
+                />
+              </div>
+            </li>
+          </ul>
+          <p>Agent settings</p>
+          <ul>
+            <li>
+              Select the agent and click on Edit. Under the connection tab, update the password if a
+              specific account was used.
+            </li>
+          </ul>
+          <p>
+            <img
+              src="kA04u0000000IKbCAM_dc690c5f-53aa-4d24-97bd-da6310af79f5.png"
+              width="623"
+              height="418"
+            />
+          </p>
+          <p>Monitored Host (NAS devices)</p>
+          <ul>
+            <li>
+              Select the Host and click Edit. Under the Auditing tab, update the user's password to
+              connect to the OneFS Platform API.
+            </li>
+          </ul>
+          <p>
+            <img
+              src="kA04u0000000IKbCAM_db1206e4-a668-4ae0-85f3-b3ad537b3939.png"
+              width="623"
+              height="396"
+            />
+          </p>
+        </div>
+        <h4 id="access_information_center">Access Information Center</h4>
+        <div>
+          <ul>
+            <li>
+              <p>
+                Reinstall Access Information Center (AIC) in case the service account is used to
+                establish the connection to the SQL database for Windows authentication. The repair
+                option will not reset the database connection.
+              </p>
+              <div><img src="kA04u0000000IKbCAM_12ed5500-3908-4aad-8bbf-0e371c9dffc6.png" /></div>
+              <div><img src="kA04u0000000IKbCAM_45d36129-7a66-450c-82c6-5e66eeddd734.png" /></div>
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span> If any customizations have been made to the AIC
+              (enabling SSL, SSO, ownership workflow, etc.), then it is advised to make a backup of
+              the Enterprose Auditor compliance folder so the customizations can be restored after
+              the AIC reinstall. Refer to the default location:
+            </p>
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">C:\inetpub\wwwroot\StealthAUDIT Compliance</code></pre>
+          </blockquote>
+        </div>
+        <h4 id="fsaa_proxy">FSAA Proxy</h4>
+        <ul>
+          <li>
+            <p>
+              If using the FSAA Proxy stand-alone application, you will need change the password in
+              the <strong>Properties</strong> &gt; <strong>Log On</strong> tab in Windows Services
+              for the service (<code>StealthAUDIT FSAA Proxy Scanner</code>).
+            </p>
+            <div><img src="kA04u0000000IKbCAM_c30c091d-04d2-424f-8cd7-5780a3096141.png" /></div>
+          </li>
+        </ul>
+        <h4 id="netwrix_activity_monitor">Netwrix Activity Monitor</h4>
+        <ul>
+          <li>
+            <p>
+              If using a NAM agent to monitor a NetApp NAS with this service account, it may also be
+              necessary to update the credentials for the
+              <code>Stealthbits NetApp File Monitoring Service</code> (in Windows Services):
+            </p>
+            <div><img src="kA04u0000000IKbCAM_507ec22f-09a4-4598-bb6a-b6acbfa50ea8.png" /></div>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

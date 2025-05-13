@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Event collection failed: Event log read failure. Error details: Data error (cyclic redundancy
+      check). Error number: 0x80004005
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZACA0" />
+    <meta name="Id" content="ka04u000000HcSBAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1240" />
+    <meta name="ArticleNumber" content="000003384" />
+    <meta
+      name="description"
+      content="This error indicates that Netwrix Auditor cannot read the Security event log antivirus software that is running on the DC the error was generated for"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor summary report contains the "Failed to process DC: %Domain controller name%.
+        The error is: .Event collection failed: Event log read failure. Error details: Data error
+        (cyclic redundancy check). Error number: 0x80004005" error.
+        <hr />
+        This error indicates that Netwrix Auditor cannot read the Security event log on the
+        monitored domain controller. Usually, this error occurs if the Security event log file is
+        corrupted or there is antivirus software which blocks the connection and reading attempts.
+        <hr />
+        <ol>
+          <li>
+            If you have any kind of antivirus software that is running on the domain controller the
+            error was generated for, please disable it and see if the error is reproduced. If the
+            error stops appearing, add the appropriate exclusions to the antivirus software for the
+            Netwrix Auditor installation directory.
+          </li>
+          <li>
+            If you do not have antivirus software on the problematic domain controller or you
+            disabled the antivirus software but the error keeps appearing, this may indicate that
+            the Security event log is corrupted. To resolve this issue please clear the Security
+            event log on the problematic domain controller:
+          </li>
+        </ol>
+
+        <ul>
+          <li>Log onto the problematic domain controller</li>
+          <li>Open Event Viewer, right-click the Security event log and select "Clear log"</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

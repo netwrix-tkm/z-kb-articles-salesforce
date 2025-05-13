@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scheduled Tasks Not Running in Windows</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I7rCAE" />
+    <meta name="Id" content="ka0Qk00000049EPIAY" />
+    <meta name="LastPublishedDate" content="2024-07-18T19:32:08.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-18T19:32:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:03:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6224" />
+    <meta name="ArticleNumber" content="000006224" />
+    <meta name="description" content="Scheduled Tasks Not Running in Windows" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          This article describes how to troubleshoot Netwrix Enterprise Auditor tasks not initiating
+          at scheduled times.
+        </p>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <p>
+          To troubleshoot Netwrix Enterprise Auditor/Windows Task Scheduler issues, follow the steps
+          below:
+        </p>
+
+        <h3 id="re-create_the_issue">Re-create the issue:</h3>
+
+        <ol>
+          <li>Open the <strong>Netwrix Enterprise Auditor Console</strong>.</li>
+          <li>Click <strong>Schedules</strong>.</li>
+          <li>
+            Right-click on a job (preferably one that runs quickly) and select <strong>Run</strong>.
+          </li>
+          <li>
+            Right-click the <strong>job</strong> and select <strong>Open Task Scheduler</strong>.
+          </li>
+          <li>
+            Locate the job within Windows Task Scheduler and check to see if the job is running.
+          </li>
+          <li>If the task is not running, start the task in the Task Scheduler.</li>
+          <li>Click <strong>History</strong> and check for errors or warnings.</li>
+        </ol>
+
+        <h3 id="determine_the_issue_with_windows_event_viewer">
+          Determine the issue with Windows Event Viewer:
+        </h3>
+
+        <p>
+          Open <strong>Windows Event Viewer</strong> &gt; Click
+          <strong>Applications and Services Logs</strong> &gt;
+          <strong>Netwrix Enterprise Auditor</strong> &gt; look in the timeframe of the above job.
+          If errors/warnings are seen, here is what to check:
+        </p>
+
+        <h3 id="1_permissions_check">1. Permissions Check</h3>
+
+        <p>
+          Navigate to <strong>Netwrix Enterprise Auditor</strong> &gt;
+          <strong>Settings</strong> &gt; <strong>Schedule</strong> and ensure the user in this job
+          has the following permissions:
+        </p>
+
+        <ul>
+          <li>Is in the Local Administrators group for the Netwrix Enterprise Auditor Server.</li>
+          <li>
+            Has the appropriate security rights:
+            <ul>
+              <li>
+                Go to <strong>Administrative Tools</strong> &gt;
+                <strong>Local Security Policy</strong> &gt; <strong>Local Policies</strong> &gt;
+                <strong>User Rights Assignment</strong> &gt; <strong>Log On As Batch Job</strong>
+              </li>
+              <li>
+                GPO: Computer Configuration\Windows Settings\Security Settings\Local Policies\User
+                Rights Assignment\Log On As Batch Job
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+
+        <h3 id="2_console_administrators_group">2. Console Administrators Group</h3>
+
+        <p>
+          If the error in the Netwrix Enterprise Auditor logs located in
+          <code>%SAINSTALLDIR%SADatabase\Logs\Application</code> states that
+          <code>User is not a member of the console administrators group</code>, add the user to the
+          Administrator role by navigating to <strong>Netwrix Enterprise Auditor</strong> &gt;
+          <strong>Settings</strong> &gt; <strong>Access</strong> and add the user to the
+          Administrator role of the console access.
+        </p>
+
+        <h3 id="3_database_access">3. Database Access</h3>
+
+        <p>
+          If there are database access errors, ensure that the user is in the
+          <strong>Settings</strong> &gt; <strong>Storage</strong> group to access the database, add
+          them as in step 1.
+        </p>
+
+        <h3 id="4_filesystem_access">4. Filesystem Access</h3>
+
+        <p>
+          If there are file system access errors, ensure that the schedule user has at least
+          Read/Write/Create access to the C:\windows\tasks and C:\windows\system32\tasks folders.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

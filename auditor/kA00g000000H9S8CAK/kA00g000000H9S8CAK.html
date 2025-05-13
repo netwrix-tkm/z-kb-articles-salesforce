@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Process event log backup without domain administrator permissions</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9S8CAK" />
+    <meta name="Id" content="ka0Qk000000DRonIAG" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:53:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="157" />
+    <meta name="ArticleNumber" content="000002956" />
+    <meta name="description" content="event log backup share domain administrator permission" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h4
+          id="if_your_service_account_is_not_a_member_of_the_domain_administrator_group_and_you_would_like_the_product_to_process_event_log_backups_please_perform_the_following_steps"
+        >
+          If your service account is not a member of the domain administrator group and you would
+          like the product to process event log backups please perform the following steps:
+        </h4>
+
+        <ol>
+          <li>
+            Add your service account to one of following groups: <strong>Print Operators</strong> Or
+            <strong>Server Operators</strong>
+          </li>
+          <li>
+            Specify Read permissions for the following registry node:
+            <em>HKLM\System\CurrentControlSet\Services\EventLog\Security</em> on all Domain
+            Controllers
+          </li>
+          <li>
+            Share the folder with event log backups (default is
+            <em>C:\Windows\System32\winevt\Logs </em>) on all Domain Controllers
+          </li>
+          <li>
+            Specify read permissions for the event log backup folder (default is
+            <em>C:\Windows\System32\winevt\Logs </em>) on all Domain Controllers
+          </li>
+        </ol>
+        If you have too many Domain Controllers you can create a new group policy to apply these
+        setting to all Domain Controllers. To create new group policy please perform the following
+        steps:
+
+        <ol>
+          <li>Run gpmc.msc</li>
+          <li>
+            Create new policy object and link it to the<strong> Domain Controllers</strong> OU
+            (right-click the <strong>Domain Controllers</strong> OU and select
+            <strong>Link Existing GPO</strong> then select the policy that you've just created)
+          </li>
+          <li>Edit the policy that you've just created.</li>
+          <li>
+            Navigate to the <strong>Computer Configuration</strong> -
+            <strong>Policies</strong>-<strong>Windows Settings</strong>-<strong
+              >Security Settings</strong
+            >-<strong>Registry</strong>
+          </li>
+          <li>
+            Right-click the <strong>Registry</strong>, select <strong>Add Key</strong>, Select the
+            following key: <em>HKLM\System\CurrentControlSet\Services\EventLog\Security</em>, press
+            OK
+          </li>
+          <li>Add the Netwrix service account, specify Read permissions</li>
+          <li>
+            Navigate to the <strong>Computer Configuration</strong> -
+            <strong>Policies</strong>-<strong>Windows Settings</strong>-<strong
+              >Security Settings</strong
+            >-<strong>File System</strong>
+          </li>
+          <li>
+            Right-click the <strong>File System</strong>, select <strong>Add File</strong>, Select
+            the following folder: <em>C:\Windows\System32\winevt\Logs</em>, press OK
+          </li>
+          <li>Add the Netwrix service account, specify Full control</li>
+          <li>
+            Navigate to the <strong>Computer Configuration</strong> - <strong>Preferences</strong> -
+            <strong>Windows Settings</strong> - <strong>Network Shares</strong>
+          </li>
+          <li>
+            Right-click the <strong>Network Shares</strong> - <strong>New</strong> -
+            <strong>Network Share</strong>
+          </li>
+          <li>
+            Select <strong>Update</strong> at the <strong>Action</strong> drop-down menu, specify
+            <strong>Share name</strong> (e.g. EventLogs), specify the following folder to the<strong>
+              Folder Path</strong
+            >
+            area: <em>C:\Windows\System32\winevt\Logs</em>, press OK
+          </li>
+        </ol>
+        After replication, all your domain controllers will have the Event Logs shared folder with
+        event logs in it and the product will be able to process backups.
+      </div>
+    </article>
+  </body>
+</html>

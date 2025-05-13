@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Send E-Mails to Multiple Users on Log Tracker</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcWCAU" />
+    <meta name="Id" content="ka04u000000HdARAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:52:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8249" />
+    <meta name="ArticleNumber" content="000008249" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The "SENDMAIL.bat" ticket action (added via the "Tickets &gt; Actions" screen) accepts
+          only one argument, which is the e-mail address to send data to. You cannot send e-mail to
+          multiple users with this batch file. You cannot add multiple users as arguments.
+        </p>
+        <p>
+          HOWEVER -- to send e-mail to multiple users, there are two simple techniques you can use:
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <ol>
+          <li>
+            If you want to send e-mail to a few arbitrary users, you can add the SENDMAIL.bat file
+            as another ticket action, and just have both of these executed when a ticket is opened.
+            For example, see screenshot:
+          </li>
+        </ol>
+        <p><strong> Screenshot</strong></p>
+        <p>
+          <span class=""><img class="" height="" width="" src="" /> </span>
+        </p>
+        <p>
+          2. If you want to send e-mail to a group of users, it may be simpler to just create
+          another ticket action, called SENDGROUP.bat, and have this call the SENDMAIL.bat for each
+          user in the group.
+        </p>
+        <p>The actual SENDGROUP.bat file is simple, and consists of something like this:</p>
+        <p><br /></p>
+        <p>REM: Send e-mail to each user below using SENDMAIL.bat:</p>
+        <p>CALL SENDMAIL.bat<a class="" href="" target="_blank">user1@mydom.com</a></p>
+        <p>CALL SENDMAIL.bat<a class="" href="" target="_blank">user2@mydom.com</a></p>
+        <p>CALL SENDMAIL.bat<a class="" href="" target="_blank">user3@mydom.com</a></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p>File:<a href="" target="_blank">SENDGROUP_A_bat.txt</a></p>
+        <p><br /></p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to delete a device in Log Tracker</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker - Types of Authentication</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker Tags Facility</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to use CloseTicket.exe to Immediately Close Log Tracker Tickets</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a href="" target="_blank">SENDGROUP_A_bat.txt</a> <br /><a
+          href=""
+          target="_blank"
+          >Screenshot1.PNG</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

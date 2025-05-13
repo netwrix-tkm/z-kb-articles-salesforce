@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Where does Netwrix Auditor collect security logs?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TUCA0" />
+    <meta name="Id" content="ka04u000000HcNGAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:57.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="617" />
+    <meta name="ArticleNumber" content="000003040" />
+    <meta name="description" content="Security event logs domain controller lightweight agent" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Where does Netwrix Auditor collect security logs? What are the Lightweight Agents designed
+        for?
+
+        <hr />
+
+        Security logs are automatically collected from all domain controllers. The Agents can also
+        be enabled to improve and speed up this process in highly loaded networks. An agent is a
+        lightweight executable that runs on domain controllers, collects data, pre-filters it and
+        then sends it to Netwrix Auditor in a highly compressed format.<br /><br />To enable Agents,
+        navigate to
+        <strong>Netwrix Auditor -&gt; &lt;your_Managed_object&gt; -&gt; Active Directory</strong>
+        and check "Enable Lightweight Agents" option. By default, this option will enable agents on
+        all domain controllers. You can also enable agent during the Managed Object creation.<br /><br />The
+        <strong>agent.ini</strong> file in the program installation folder provides for more
+        specific and granular control over the agent behavior. This file can be used to specify the
+        domain controllers to be processed by the agents with the following options:<br /><br />Remote:
+        process a domain controller without agent<br />Agent: process a domain controller with
+        agent<br />Skip: do not process a domain controller<br />
+        <div>
+          <em><strong>Example</strong></em
+          >:<br />You have 6 domain controllers; 5 of them are located in New York and 1 in Seattle.
+          You do not need to use agents in the New York domain controllers since they have fast
+          network connections while the one loocated in Seattle is slow due to its distance from the
+          main office. You can enable Lightweight Agents in Netwrix Auditor, open
+          <strong>agent.ini</strong> and specify the agent monitoring as follows:
+        </div>
+
+        <div>
+          <br /><a href="http://NY1.acme.com" target="_blank">NY1.acme.com</a>=remote<br /><a
+            href="http://NY2.acme.com"
+            target="_blank"
+            >NY2.acme.com</a
+          >=remote<br /><a href="http://NY3.acme.com" target="_blank">NY3.acme.com</a
+          >=remote<br /><a href="http://NY4.acme.com" target="_blank">NY4.acme.com</a
+          >=remote<br /><a href="http://NY5.acme.com" target="_blank">NY5.acme.com</a
+          >=remote<br /><a href="http://Seattle.acme.com" target="_blank">Seattle.acme.com</a>=agent
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

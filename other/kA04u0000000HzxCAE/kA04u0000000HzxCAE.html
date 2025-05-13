@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_11.0_045</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HzxCAE" />
+    <meta name="Id" content="ka04u000000HcclAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:56:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:59:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:56:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6086" />
+    <meta name="ArticleNumber" content="000006086" />
+    <meta name="description" content="360012217892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>SQL Sensitive Data Errors on Analysis tasks and reporting</p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Justin Giemza</p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>None</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>11.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA - Solution Set - SQL</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>SMPDB-1658 - 60409</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>GROUP_SQL\GROUP_5.Sensitive Data\JOB_SQL_SensitiveData\DataAnalysisTasks.XML</p>
+        <p>GROUP_SQL\GROUP_5.Sensitive Data\JOB_SQL_SensitiveData\JOB_SQL_SensitiveData.XML</p>
+        <p><strong>KB Type: </strong>Bug</p>
+        <p><strong>Issue:</strong></p>
+        <p>
+          Arithmetic overflow error converting expression to data type int. The statement has been
+          terminated. 
+        </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            Turn off read-only on the hotfix zip files in the windows property dialog if it exists
+            there.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Exit StealthAUDIT console</li>
+          <li>
+            Copy and replace files from the folders in this hotfix to the corresponding folders in
+            SA Install dir.
+          </li>
+          <li>
+            In directory GROUP_SQL\GROUP_5.Sensitive Data\JOB_SQL_SensitiveData\ check there are no
+            JOB_SQL_SensitiveData.change file. If there is rename or delete it.
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_045.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_045.zip</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why am I receiving fileaccessed events in Change Tracker?</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JYjCAM" />
+    <meta name="Id" content="ka04u000000Hd9VAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:46:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8185" />
+    <meta name="ArticleNumber" content="000008185" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="WhyamIreceivingfileaccessedeventsinChangeTracker?-ThisarticlewilldescribewhyyouarereceivingFileAccesseventsinChangeTracker,whattheyare,andhowtodisableorenablethem."
+        >
+          This article will describe why you are receiving File Access events in Change Tracker,
+          what they are, and how to disable or enable them.
+        </h2>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p>
+          <span
+            >The "fileaccessed" event you are seeing is a "read" operation for the file shown in the
+            details. This does not mean someone changed the file, it simply means the file was
+            accessed (or read), whether that be a person or software doing so. Think of it as
+            someone opening a word document. If you where tracking that, you would see the same
+            notification for the word document simply being opened.</span
+          >
+        </p>
+        <p><br /></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="400"
+              src="kA04u0000000JYjCAM_7b897991-3215-454e-9cee-9229372efa16.png"
+          /></span>
+        </p>
+        <p><br /></p>
+        <h2 id="WhyamIreceivingfileaccessedeventsinChangeTracker?-HowtoEnableorDisable">
+          How to Enable or Disable "fileaccessed" Events in Change Tracker
+        </h2>
+        <p>
+          The steps below will show you how to enable or disable these event types in Change
+          Tracker.
+        </p>
+        <p><br /></p>
+        <div class="panel conf-macro output-block">
+          <div class="panelHeader"><b>Disabling File Access Events</b></div>
+          <div class="panelContent">
+            To enable file access events, follow the steps below:<br />
+            <ol>
+              <li>
+                This setting is configured from a device "Configuration Template" which is appended
+                to a group. Devices within that group then receive the template.
+              </li>
+              <li>
+                Go to the Settings Tile &gt; Click on the "Configuration Templates" Navigation
+                button to the left
+              </li>
+              <li>
+                Find the Configuration Template that you want to use for these event types, or
+                create a new one by pressing the Create a Template button
+              </li>
+              <li>Click the Edit button on the template you want to modify</li>
+              <li>
+                For the desired path, locate the "Tracked Attributes" Column. Click the "Edit"
+                button and change this to
+                <span>"File attributes (excluding contents) only" (See Screenshot Below)</span>
+              </li>
+              <li><span>Click "Save Changes" at the top of the page.</span></li>
+              <li>
+                <span
+                  >If this is a new template, apply it to the group of devices by going to Settings
+                  &gt; Groups &gt; Select the group &gt; Device Templates &gt; Add a template.</span
+                >
+              </li>
+            </ol>
+            <p>
+              <span
+                >Please note, when you update a configuration template, the agent does a re-baseline
+                of the files within the defined parameters. Changes to the files will not be seen
+                until after the baseline is completed. A baseline typically takes about 15-20
+                minutes to complete on a windows device. If you are going to test a change on this
+                folder, and you update it as per the instructions above, please test it about 30
+                minutes after you have saved the change to the template so that the agent has
+                adequate time to complete its baseline process.</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="panel conf-macro output-block">
+          <div class="panelHeader"><b>Enabling File Access Events</b></div>
+          <div class="panelContent">
+            To enable file access events, follow the steps below:<br />
+            <ol>
+              <li>
+                This setting is configured from a device "Configuration Template" which is appended
+                to a group. Devices within that group then receive the template.
+              </li>
+              <li>
+                Go to the Settings Tile &gt; Click on the "Configuration Templates" Navigation
+                button to the left
+              </li>
+              <li>
+                Find the Configuration Template that you want to use for these event types, or
+                create a new one by pressing the Create a Template button
+              </li>
+              <li>Click the Edit button on the template you want to modify</li>
+              <li>
+                For the desired path, locate the "Tracked Attributes" Column. Click the "Edit"
+                button change this to "<span
+                  >All file and folder attributes excluding contents"<span
+                    >(See Screenshot Below)</span
+                  ></span
+                >
+              </li>
+              <li><span>Click "Save Changes" at the top of the page.</span></li>
+              <li>
+                <span
+                  >If this is a new template, apply it to the group of devices by going to Settings
+                  &gt; Groups &gt; Select the group &gt; Device Templates &gt; Add a template.</span
+                >
+              </li>
+            </ol>
+            <p>
+              <span
+                >Please note, when you update a configuration template, the agent does a re-baseline
+                of the files within the defined parameters. Changes to the files will not be seen
+                until after the baseline is completed. A baseline typically takes about 15-20
+                minutes to complete on a windows device. If you are going to test a change on this
+                folder, and you update it as per the instructions above, please test it about 30
+                minutes after you have saved the change to the template so that the agent has
+                adequate time to complete its baseline process.</span
+              >
+            </p>
+          </div>
+        </div>
+        <h2 id="WhyamIreceivingfileaccessedeventsinChangeTracker?-">
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="400"
+              src="kA04u0000000JYjCAM_a7b04987-20f8-4170-8be0-853724ed9fe7.png"
+          /></span>
+        </h2>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+        <h2 id="WhyamIreceivingfileaccessedeventsinChangeTracker?-Relatedarticles">
+          Related articles
+        </h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8313" target="_blank"
+                >How to fix "Error, the requested event counts summary size cannot be smaller than
+                the system event count window size" message</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8161" target="_blank"
+                >The NNT FAST™ Cloud Usage Considerations</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8300" target="_blank"
+                >HTTP Error 500.19 - Internal Server Error - Error Code 0x8007007e</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8286" target="_blank"
+                >Redis - QFork.dat Files Taking Up Large Amounts Of Disk Space?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8276" target="_blank"
+                >NNT Gen 7 Agent - Hub Connection Test Error (WinHttp.WinHttpRequest)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK9x&amp;d=%2Fa%2F4u000000Lzvc%2FB7kznCt15N_PvtMJ3DcJVb8WU9QhgPSTRRes0pShjEY&amp;asPdf=false"
+          target="_blank"
+          >image2018-1-12_17-10-47.png</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK3u&amp;d=%2Fa%2F4u000000LzqJ%2FKKXAUZwSCeprXZsqzYuhzM69v.P0arwr3Ft3XCOs3OQ&amp;asPdf=false"
+          target="_blank"
+          >attrib.PNG</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

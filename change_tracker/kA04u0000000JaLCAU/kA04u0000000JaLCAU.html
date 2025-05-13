@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MongoDB Log Fix: Out of Memory</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JaLCAU" />
+    <meta name="Id" content="ka04u000000QmjwAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-05T11:42:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:50:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8211" />
+    <meta name="ArticleNumber" content="000008211" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# 				Example Message				                     #  
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+2017-10-27T10:23:48.348-0400 F - [conn3080] out of memory.</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+        This means that your MongoDB service has crashed because the system ran out of Physical and
+        Virtual Memory. Typically, this is due to misconfigured Page File Settings.
+
+        <h2 id="resolution">Resolution</h2>
+        If you are receiving this error, the Netwrix Change Tracker Database and Hub Server are NOT
+        functioning. This is a critical error and for monitoring to continue, it must be resolved.
+        To resolve this error:
+
+        <ol>
+          <li>
+            Open <strong>Run</strong> by typing the <strong>Windows+R</strong> key on your keyboard
+          </li>
+          <li>Type in <strong>SYSDM.CPL </strong>and hit <strong>Enter</strong></li>
+          <li>
+            This will open up <strong>Advanced System Settings</strong>. Click on the
+            <strong>Advanced</strong> tab
+          </li>
+          <li>Under Performance, click on <strong>Settings...</strong></li>
+          <li>In the Performance Options Menu, click the <strong>Advanced</strong> tab</li>
+          <li>Under Virtual Memory click on <strong>Change</strong></li>
+          <li>
+            Verify that Virtual Memory is <strong>System managed</strong><br />
+            <br />
+            <br />
+            <span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JaLCAU_72b26689-c188-44d7-a231-e0a130e685f4.png" /></span
+            ><br />
+             
+          </li>
+          <li>
+            If it is not set to <strong>System managed</strong>, please configure that by selecting
+            the <strong>System managed size</strong> radio button
+          </li>
+          <li>Click <strong>OK</strong></li>
+          <li>In some scenarios, it may be best to reboot the server.</li>
+        </ol>
+        <span><strong>NOTE</strong></span
+        >: MongoDB has garbage which clean up physical and virtual memory. MongoDB tries to reserve
+        as much memory as possible, even though it is not using it. It gladly will give up this
+        memory to the systems that need it. Any queries run get stored into the page file for easy
+        access. If this is not system managed, when it reaches the limit, it will crash the mongo
+        database service. Having the C drive set to system managed is the best way to ensure
+        excellent performance from both the system, as well as the database itself.
+
+        <h3 id="related_articles">Related articles</h3>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8150" target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8282" target="_blank"
+                >Monitoring Oracle Databases using Change Tracker</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

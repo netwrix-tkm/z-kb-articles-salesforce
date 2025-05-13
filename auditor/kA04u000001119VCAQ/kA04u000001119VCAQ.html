@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1000 Application Errors in Netwrix Auditor Server</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001119VCAQ" />
+    <meta name="Id" content="ka04u00000117fmAAA" />
+    <meta name="LastPublishedDate" content="2023-09-05T10:02:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T13:19:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-05T10:02:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8784" />
+    <meta name="ArticleNumber" content="000008784" />
+    <meta name="description" content="Application Errors in Netwrix Auditor Server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>No data is collected in your Active Directory monitoring plan.</p>
+            </li>
+            <li>
+              <p>
+                When attempting to set up a monitoring plan via Audit Configuration Assistant in
+                your Netwrix Auditor server, the following error is prompted:
+              </p>
+
+              <pre class="has-inner-focus">
+Cannot display assessment results
+Netwrix Auditor Server is unreachable.
+Your network settings are not properly configured.</pre
+              >
+            </li>
+            <li>
+              <p>The following error is prompted in your server event log:</p>
+
+              <pre class="has-inner-focus">
+Event ID: 1000
+Faulting application name: Netwrix.ADA.DirSyncCollector.exe, version: %current Auditor_version%
+Faulting module name: Kernelbase.dll, version: %.dll_version%
+Exception code: 0xe0434352
+Faulting application path: %path%
+Faulting module path: %path%</pre
+              >
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Both
+                  <strong>Faulting application name</strong> and
+                  <strong>Faulting module name</strong> may differ — they depend on the affected
+                  monitoring plan. The issue may also affect different Netwrix-related executables
+                  (e.g., <code>Netwrix.ADA.SitServiceUpdater.exe</code>,
+                  <code>Netwrix.ADA.BackwardDataAnalyzer.exe</code>,
+                  <code>Netwrix.ADA.EventCollector.exe</code>, etc.) based on the affected
+                  monitoring plans, as well as system and (or) Netwrix-related dynamic-link library
+                  files.
+                </p>
+
+                <p>
+                  It is important to refer to the paths stated in error messages to understand the
+                  scope of components affected.
+                </p>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The <strong>Faulting module name</strong> dynamic-link library file was corrupted. This
+            could happen due to a conflict between your antivirus solution and Netwrix Auditor.
+          </p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Set up antivirus exclusions to prevent both your antivirus solution and Netwrix
+                Auditor from conflicting — refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Establish the scope of affected .dll files. In case the
+                <strong>Faulting module path</strong> links the system folder (e.g.,
+                <code>C:\Windows\System32</code>), refer to the following steps:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Once the antivirus exclusions are set up, run elevated Command Prompt in your
+                    Netwrix Auditor server. In elevated Command Prompt line, run the following
+                    command to scan Windows and restore your system-related files:
+                  </p>
+
+                  <pre class="has-inner-focus"><code class="lang-Registry">sfc /scannow</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Once the scan is finished, run the following commands one by one allowing each
+                    to complete to prepare, scan, and restore the Windows system image via
+                    Deployment Image Servicing and Management tool:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Dism /Online /Cleanup-Image /CheckHealth</code></pre>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Dism /Online /Cleanup-Image /ScanHealth</code></pre>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Dism /Online /Cleanup-Image /RestoreHealth</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Once the commands are completed and components are restored, restart the server.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                In case the <strong>Faulting module path</strong> links a Netwrix-related folder
+                (e.g.,
+                <code>C:\Program Files (x86)\Netwrix Auditor\Active Directory Auditing</code>),
+                repair your Netwrix Auditor installation. Refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001119QCAQ.html"
+                  target="_self"
+                  >How to Repair Netwrix Auditor Installation</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+              target="_self"
+              >Antivirus Exclusions for Netwrix Auditor</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001119QCAQ.html"
+              target="_self"
+              >How to Repair Netwrix Auditor Installation</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

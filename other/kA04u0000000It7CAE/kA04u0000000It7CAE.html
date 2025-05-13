@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Creating A Customized One DC Per Domain Host List Using Discovery Task Results Referencing Current Online Domain Controllers</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000It7CAE"/><meta name="Id" content="ka04u000000HcxmAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:38:42.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:12:19.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:38:42.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7281"/><meta name="ArticleNumber" content="000007281"/><meta name="description" content="360008408371"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> This article describes how to create a custom One DC Per Domain dynamic host list routine to reference current domain controllers</p>
+<p><strong><span class="wysiwyg-font-size-large">Issue: </span></strong><span class="wysiwyg-font-size-large">Creating A Customized One DC Per Domain Host List</span></p>
+<p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong></p>
+<ol><li>From the Discovery node in StealthAUDIT, create a Host Discovery Task to discover Domain Controllers from the domain(s) of interest, run it. 
+<ul><li>
+<strong>IMPORTANT: </strong> Carefully consider the name of the discovery task as it will remain and be referenced by a custom created function</li><li>
+<strong>IMPORTANT: </strong>On the 'Host Inventory Settings' page, ensure the option 'Refresh inventory every time when the host discovery query completes' is checked</li></ul>
+</li></ol>
+<ol start="2"><li>Close instances of StealthAUDIT</li></ol>
+<p><img src="kA04u0000000It7CAE_9276cf87-289e-4a16-a8c9-1a3ea0ffa7fe.png" alt="mceclip0.png" width="468" height="113"/></p>
+<p><strong>IMPORTANT: </strong>Schedule the host discovery task to run daily or weekly to ensure list contents and online status is updated regularly</p>
+<ol start="3"><li>Find and open the file "<strong>.. STEALTHbits\StealthAUDIT\SADatabase\predefineviews.ini"</strong>; add the following entry to the end of the file:</li></ol>
+<p> <br/><span><span>[One DC Per Domain]</span></span><br/><span><span>ID={12345678-1111-0000-0001-000000000050}</span></span><br/><span><span>Filter=((Name IN (SELECT Name FROM CUSTOMOneDcPerDomain())))</span></span><br/><span><span>HIRefreshType=Manual</span></span><br/><span><span>HIRefreshFrequency=24</span></span><br/><span><span>HIRefreshUnit=hours</span></span><br/><span><span>UserDeleted=False</span></span><br/><span><span>ConnectionProfile=User default</span></span><br/><span><span>PlacementPath=AD</span></span><br/> </p>
+<ol start="4"><li>Download, extract, and add the job 'OneDCPerDomain' to your job tree
+<ul><li>The job can be download from the following location:  <a href="http://downloads.stealthbits.com/access/files/Jobs/JOB_OneDCPerDomain.zip" target="_blank">http://downloads.stealthbits.com/access/files/Jobs/JOB_OneDCPerDomain.zip</a>
+</li></ul>
+</li></ol>
+<p> </p>
+<ol start="5"><li>Launch StealthAUDIT</li></ol>
+<p> </p>
+<ol start="6"><li>Expand the job, select the Analysis node, open analysis task '1. One DC Per Domain Function'.  Modify the following <strong>WHERE</strong> clause to reflect the name of the discovery task that was created in step 1.  Exact spelling of the list is critical.  In this example, the name of the discovery task created is named <strong>'DC Discovery'</strong>.  Simply change <strong>'DC Discovery' </strong>highlighted below to the name of your task/list</li></ol>
+<p><img src="kA04u0000000It7CAE_a1253514-6096-4dc9-a019-76485ddd3b2c.png" alt="mceclip1.png" width="543" height="565"/><br/><br/></p>
+<p> </p>
+<ol start="7"><li>Save and close the analysis task; run the job.</li></ol>
+<ul><li>Re-run the job to recreate the function if criteria changes</li></ul>
+<ol start="8"><li> Close and Open StealthAUDIT, the newly created custom list '<strong>ONE DC PER DOMAIN</strong>' will be visible within the AD Host List Group</li></ol>
+<p><img src="kA04u0000000It7CAE_750a698c-3476-458c-86e1-e6e6bef3e3e1.png" alt="mceclip2.png" width="284" height="112"/></p>
+<ol start="9"><li>Replicate job and/or repeat the process on other SA consoles as desired</li></ol>
+<p> </p>
+<p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - Core;SA - DC - Active Directory<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> All versions<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 1448</p></div>
+</article></body></html>

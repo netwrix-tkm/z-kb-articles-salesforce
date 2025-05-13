@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1276 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9coCAC" />
+    <meta name="Id" content="ka0Qk0000001EKHIA2" />
+    <meta name="LastPublishedDate" content="2024-01-04T15:04:08.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-04T15:04:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2386" />
+    <meta name="ArticleNumber" content="000003608" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues caused by inaccessible SQL Server/database or Traffic Compression Service (Agent)."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            One of the following error messages under Event ID 1259 is prompted in Health Log for
+            your SharePoint monitoring plan:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Error #1 −
+                <code
+                  >Unable to verify if SharePoint audit was configured correctly due to the
+                  following error: There was no endpoint listening at
+                  %Central_Administration_URL%/_vti_bin/Netwrix/ConfigurationService.svc that could
+                  accept the message. This is often caused by an incorrect address or SOAP action.
+                  See InnerException, if present, for more details.</code
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #2 −
+                <code
+                  >Unable to verify if SharePoint audit was configured correctly due to the
+                  following error: A network-related or instance-specific error occurred while
+                  establishing a connection to SQL Server. The server was not found or was not
+                  accessible. Verify that the instance name is correct and that SQL Server is
+                  configured to allow remote connections. (provider: TCP Provider, error: 0 - No
+                  connection could be made because the target machine actively refused it.)</code
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #3 −
+                <code
+                  >Unable to verify if SharePoint audit was configured correctly due to the
+                  following error: Cannot open database "SharePoint_Config" requested by the login.
+                  The login failed. Login failed for user 'username'.</code
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #4 −
+                <code
+                  >Unable to verify if SharePoint audit was configured correctly due to the
+                  following error: "The request channel timed out while waiting for a reply after
+                  01:00:00. Increase the timeout value passed to the call to Request or increase the
+                  SendTimeout value on the Binding. The time allotted to this operation may have
+                  been a portion of a longer timeout.</code
+                >
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Error #1 − Netwrix Auditor for SharePoint Core Service was uninstalled.</p>
+            </li>
+            <li>
+              <p>
+                Error #2 − The SQL Server instance hosting SharePoint configuration database is
+                inaccessible.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #3 − The SharePoint configuration database is offline, or the user acting as
+                Farm Account does not have the required rights and permissions to access the
+                configuration database.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #4 − The timeout (1 hour by default) for the audit configuration operation has
+                expired.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Error #1 − Verify Netwrix Auditor for SharePoint Core Service is still installed in
+                the SharePoint Central Administration server. For additional information on
+                installation, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/SharePointCoreService.htm"
+                  target="_self"
+                  >Installation − Install for SharePoint Core Service · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #2 − Verify the SQL Server hosting the SharePoint configuration database is
+                accessible, and that the audited SharePoint farm is operational.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #3 − Verify the configuration database is online, and that the Farm Account
+                has the necessary rights to access the configuration database.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error #4 − Verify the farm can be reached. It might be required to extend the
+                timeout on a binding − learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/framework/wcf/feature-details/configuring-timeout-values-on-a-binding"
+                  target="_blank"
+                  >Configuring Timeout Values on a Binding ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/SharePointCoreService.htm"
+                  target="_self"
+                  >Installation − Install for SharePoint Core Service · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/framework/wcf/feature-details/configuring-timeout-values-on-a-binding"
+                  target="_blank"
+                  >Configuring Timeout Values on a Binding ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

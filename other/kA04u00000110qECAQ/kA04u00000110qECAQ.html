@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Error: File Copies Freezes at Start of Copy</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110qECAQ"/><meta name="Id" content="ka04u00000116dLAAQ"/><meta name="LastPublishedDate" content="2023-07-11T14:12:34.000+0000"/><meta name="LastModifiedDate" content="2023-07-11T14:12:34.000+0000"/><meta name="FirstPublishedDate" content="2023-07-11T14:12:34.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8657"/><meta name="ArticleNumber" content="000008657"/><meta name="description" content="Error: File Copies Freezes at Start of Copy"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+
+<div>
+<p>Error Message:</p>
+
+<pre>File Copies Freezes at Start of Copy (DR Copies Freeze)</pre>
+</div>
+
+<h4 id="symptom_1">Symptom 1</h4>
+
+<div>
+<p>When attempting to login through the web UI:</p>
+
+<pre>Invalid Request</pre>
+
+<p>In the browser Developer Tools, Headers Status Code will show:</p>
+
+<pre>500 Internal Server Error</pre>
+
+<p>coupled with the following error:</p>
+
+<pre>error:0607F08A:digital envelope routines:EVP_EncryptFinal_ex:data not multiple of block length</pre>
+</div>
+
+<h4 id="symptom_2">Symptom 2</h4>
+
+<div>
+<p>When attempting to login through the web UI:</p>
+
+<pre>Invalid Request</pre>
+
+<p>In the browser Developer Tools, Headers Status Code will show:</p>
+
+<pre>500 Internal Server Error</pre>
+
+<p>coupled with the following error:</p>
+
+<pre>Missing attribute value for attribute Destination of element samlp:AuthnRequest</pre>
+</div>
+
+<h4 id="symptom_3">Symptom 3</h4>
+
+<div>
+<p>Files copied between SecureONE nodes freezes at the start of copy. This affects the backup files form being copied from the PROD node to DR node (Disaster Recovery) using SCP (Secure Copy Protocol).</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<h4 id="cause_1">Cause 1</h4>
+
+<div>
+<p>A domain user is using a unicode chars in their password. Example: <code>Password£123</code></p>
+</div>
+
+<h4 id="cause_2">Cause 2</h4>
+
+<div>
+<p>SSO enabled in and mis-configured or one or more field showing <code>Empty</code>.</p>
+</div>
+
+<h4 id="cause_3">Cause 3</h4>
+
+<div>
+<p>MTU set below 1500 on a network device in the path to the receiving node, and MTU set at or larger than 1500 on the sending device.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<h4 id="resolution_1">Resolution 1</h4>
+
+<div>
+<p>Workaround is to remove the unicode character cause the error. A fix is scheduled for Netwrix Privilege Secure for Discovery v. 2.17.</p>
+</div>
+
+<h4 id="resolution_2">Resolution 2</h4>
+
+<div>
+<p>Fix or disable SSO in <strong>Configure</strong> &gt; <strong>Server</strong> &gt; <strong>SAML Configuration</strong>.</p>
+</div>
+
+<h4 id="resolution_3">Resolution 3</h4>
+
+<div>
+<p>Allow MTU standard sizes or 1500 or greater. Lowering MTUs on network adapters may allow copies and transfers to complete, but will slow down those transfers and database replications considerably.</p>
+</div></div>
+</article></body></html>

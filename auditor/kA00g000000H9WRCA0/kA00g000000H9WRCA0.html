@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Recover access to a SQL Server Instance</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WRCA0" />
+    <meta name="Id" content="ka04u000000HcPcAAK" />
+    <meta name="LastPublishedDate" content="2021-11-17T11:35:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="793" />
+    <meta name="ArticleNumber" content="000003218" />
+    <meta
+      name="description"
+      content="SQL login, Local System, database permissions, recover access, SQL server instance"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to log into SQL Server Management Studio if there is no sysadmin account or you don't
+        know the password.
+        <hr />
+        By default the Local System account on the SQL Server instance has sysadmin rights. In order
+        to log into SQL Server Management Studio and assign another account sysadmin permissions,
+        please follow the steps:
+        <ol>
+          <li>
+            Download PSExec
+            <a href="http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx" target="_blank"
+              >http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx
+            </a>
+          </li>
+          <li>
+            Run the following command in the command prompt, replace the wildcard with the number
+            depending on deployed SQL Server version:
+            <b
+              >PsExec -s -i "C:\Program Files (x86)\Microsoft SQL
+              Server*\Tools\Binn\ManagementStudio\Ssms.exe" </b
+            >(path in the parentheses is the default installation path to SQL Server Management
+            Studio, it might differ if you have installed it elsewhere)
+          </li>
+          <li>
+            The SQL Server Management Studio runs, after clicking Connect you will be connected with
+            sysadmin permissions.
+          </li>
+        </ol>
+        <b>Note</b>: SQL Server Management Studio might be installed at the different drive
+        therefore you should change the path to "Ssms.exe" before running the command.
+      </div>
+    </article>
+  </body>
+</html>

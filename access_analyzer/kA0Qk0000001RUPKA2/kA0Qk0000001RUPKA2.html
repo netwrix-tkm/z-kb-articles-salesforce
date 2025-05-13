@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Invalid Local Storage Version</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001RUPKA2" />
+    <meta name="Id" content="ka0Qk000000C7qXIAS" />
+    <meta name="LastPublishedDate" content="2025-02-18T21:34:53.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-18T21:34:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-20T14:19:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9281" />
+    <meta name="ArticleNumber" content="000009281" />
+    <meta name="description" content="Error: Invalid Local Storage Version" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            After the recent Netwrix Enterprise Auditor upgrade (11.6.0.69), an Activity Auditing
+            (SPAC) scan populates the following error:
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Stealthbits.StealthAUDIT.DataCollectors.SPAA.Storage.InvalidStorageVersionException:
+Invalid local SPAA storage version. Expected %x&amp; but found %y%.</code></pre>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>The SPAA database schema is outdated and requires an update.</p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>Perform the following steps to update the database schema:</p>
+          <ol>
+            <li>
+              <p>
+                Run either the <strong>1-SPSEEK_SystemScans</strong> or
+                <strong>2-SPAA_SystemScans</strong> job at level 0. Refer to the following articles
+                for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/SharePoint/Collection/1-SPSEEK_SystemScans.htm"
+                  target="_self"
+                  >0.Collection Job Group — 1-SPSEEK_SystemScans Job · v11.6</a
+                >
+                and
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/SharePoint/Collection/2-SPAA_SystemScans.htm"
+                  target="_self"
+                  >0.Collection Job Group — 2-SPAA_SystemScans Job · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Depending on the previously selected job, run either the
+                <strong>4-SPSEEK_BulkImport</strong> or <strong>5-SPAA_BulkImport</strong> job to
+                update the schema.
+              </p>
+            </li>
+            <li>
+              <p>
+                Run the <strong>3-SPAC_SystemScans</strong> job to verify that the issue is
+                resolved.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/SharePoint/Collection/1-SPSEEK_SystemScans.htm"
+                  target="_self"
+                  >0.Collection Job Group — 1-SPSEEK_SystemScans Job · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/SharePoint/Collection/2-SPAA_SystemScans.htm"
+                  target="_self"
+                  >0.Collection Job Group — 2-SPAA_SystemScans Job · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

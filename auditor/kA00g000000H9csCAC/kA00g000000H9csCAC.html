@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1241 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9csCAC" />
+    <meta name="Id" content="ka0Qk0000001L7FIAU" />
+    <meta name="LastPublishedDate" content="2024-01-15T10:57:41.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T10:57:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2440" />
+    <meta name="ArticleNumber" content="000003612" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues caused by incorrect Site Collection(s) audit settings."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1241 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Audit settings for security events in site collection %item_ID% are not configured properly.
+As a result, some read access events may be lost.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The Editing users and permissions audit is disabled for the site collection.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In the affected site collection, navigate to <strong>Site Settings</strong> &gt;
+                <strong>Site Collection Administration</strong> &gt;
+                <strong>Site Collection Audit Settings</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the <strong>Editing users and permissions</strong> checkbox under the
+                <strong>Lists, Libraries, and Sites</strong> section. Save the changes.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update the monitoring plan − select the affected monitoring plan, click
+                <strong>Edit</strong>, and click <strong>Update</strong> in the right pane.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Verify the audit settings are set to be adjusted
+              automatically − in the SharePoint monitoring plan, click Edit data source and check
+              the Configure audit settings checkbox. Save the changes.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

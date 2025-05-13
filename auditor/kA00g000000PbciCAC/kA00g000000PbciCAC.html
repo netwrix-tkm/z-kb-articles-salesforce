@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Investigating Failed Logons</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbciCAC" />
+    <meta name="Id" content="ka04u00000117buAAA" />
+    <meta name="LastPublishedDate" content="2023-09-06T09:53:25.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-06T09:53:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5198" />
+    <meta name="ArticleNumber" content="000003741" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>
+          You have encountered a situation where an account is getting locked out from multiple
+          failed logons. Reports show that this account is in fact performing failed logons,
+          however, the events from which Netwrix Auditor has parsed do not provide what is causing
+          the logon events on the workstation.
+        </p>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>
+          There are several root causes for this scenario, but most commonly there are services or
+          applications that are running via the locked out account. The stored credentials become
+          expired and when the service or application attempts to authenticate via the account, it
+          performs a failed logon.
+        </p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <p>
+          If further investigation is needed, the XML query below can be executed against the
+          Security Event Logs of systems that you suspect the account to being performing failed
+          logons.
+        </p>
+
+        <p>
+          In order to populate the Security Log with logon/logoff details, you will need to enable
+          logon/logoff auditing via local policy. The Security Log will now provide additional logon
+          activity details.
+        </p>
+
+        <p>
+          Next, navigate to the Windows Event Viewer and open the Security Log. Filter the log, as
+          seen here.
+        </p>
+
+        <p><strong>Enter the following query into the XML tab</strong></p>
+
+        <pre class="wp-block-verse">&lt;QueryList&gt;
+&lt;Query Id="0" Path="Security"&gt;
+&lt;Select Path="Security"&gt;*[System[(EventID=4625 or EventID=4776 or EventID=4777 or EventID=4624 or EventID=4634 or EventID=4740 or EventID=4767 or EventID=4768 or EventID=4769 or EventID=4779) and TimeCreated[timediff(@SystemTime) &amp;lt;= 43200000]]] and 
+*[EventData[Data[@Name ='TargetUserName'] ='<i><b>ACCOUNT_IN_QUESTION</b></i>']]&lt;/Select&gt;
+&lt;/Query&gt;
+&lt;/QueryList&gt;</pre>
+
+        <p>
+          You will need to replace the <i><b>ACCOUNT_IN_QUESTION </b></i>of the query to the name of
+          the account that caused failed logon.<br />Alternatively, if you want to only see auth
+          requests and failed logon attempts, use this query:
+        </p>
+
+        <pre>&lt;QueryList&gt; 
+&lt;Query Id="0" Path="Security"&gt; 
+&lt;Select Path="Security"&gt;*[System[(EventID=4625 or EventID=4776 or EventID=4777 or EventID=4624 or EventID=4740 or EventID=4768 or EventID=4769) and TimeCreated[timediff(@SystemTime) &amp;lt;= 43200000]]] and 
+*[EventData[Data[@Name ='TargetUserName'] ='<i><b>ACCOUNT_IN_QUESTION</b></i>']]&lt;/Select&gt; 
+&lt;/Query&gt; 
+&lt;/QueryList&gt;</pre>
+
+        <p>
+          You can also remove or expand the time frame by manipulating the
+          <strong>TimeCreated[timediff(@SystemTime) &lt;= 43200000]</strong> element of the query.
+        </p>
+
+        <ul>
+          <li>Last Hour = 3600000</li>
+          <li>Last 12 Hours = 43200000</li>
+          <li>Last 24 Hours = 86400000</li>
+          <li>Last 7 days = 604800000</li>
+        </ul>
+
+        <h4 id="investigating_recurring_failed_logons">Investigating Recurring Failed Logons</h4>
+        The most common scenario for failed logons is when some service or application is running
+        using wrong credentials. To find the exact program or see more details for the logon event,
+        please follow the instructions below:
+
+        <ol>
+          <li>
+            Run Netwrix Auditor –&gt; Search, and specify the filters:<br />
+            <b>Data Source – Equals – Logon Activity </b><br />
+            <b>Action – Equals – Failed logon</b>
+          </li>
+          <li>
+            Find the event, and locate the workstation where the failed logon occurred. (details –
+            originating workstation)
+          </li>
+          <li>
+            Navigate to the workstation where the failed logon occurred and enable local audit
+            policy settings:<br />
+            <i
+              ><b
+                >gpedit.msc -&gt; Computer Configurations -&gt; Windows Settings -&gt; Security
+                Settings -&gt; Local Policies -&gt; Audit Policy</b
+              ></i
+            ><br />
+            <b>-Audit process tracking: Success, Failure</b><br />
+            <b>-Audit Logon events: Success, Failure</b>
+          </li>
+          <li>
+            Right-click <b>Start &gt; Event Viewer &gt;Windows&gt;Security event log.</b><br />
+            Now we need to wait for new failed logons for the account, and filter security event log
+            by event ID 4625.
+          </li>
+          <li>
+            Find the event we are looking for (you can click ctrl+f and enter the problematic
+            account name).
+          </li>
+        </ol>
+        <b>NOTE</b>: The username in events can be indicated in different formats, for example,
+        domain\user, user@domain.com, or simply user in general. You can search for the unique part
+        of the username, the [user] part in domain\user.<br /><br />In the Caller Process Name you
+        can see the name of the program which is using wrong credentials.<br /><br />For example:<br />Caller
+        Process Name: C:\Program Files\Microsoft SQL Server\MSRS13.SQLEXPRESS\Reporting
+        Services\ReportServer\bin\ReportingServicesService.exe<br />In such case you can open SQL
+        Server Reporting Services Configuration Manager and change the credentials for user there.
+        Also you can check if you have old SSRS instances on this server.<br /><br />Update the
+        password for the problematic service and disable audit policies that have been enabled in
+        step 3 after the investigation.
+        <h4 id="investigating_failed_logons_from_outside_of_domain_using_netlogon_debugging">
+          Investigating Failed Logons from Outside of Domain using Netlogon Debugging
+        </h4>
+        Sometimes failed logons occur when users from outside of Domain try to logon onto your
+        servers. This can be detected by Netwrix Auditor when there is no domain name in the WHO
+        field (neither domain\username nor username@doman style). This means that there is an
+        attempt to logon using NTLM.<br /> 
+        <p><strong>Step 1: Find your logon server</strong></p>
+        First, check which server is your domain’s logon server by typing “<b>set logonserver</b>”
+        in CMD
+
+        <p><strong>Step 2: Look at Event Viewer</strong></p>
+        Log into that server and open Event Viewer, or open Event viewer and choose
+        <b>Action &gt; Connect to another Computer</b><br />Look in the Security log files, and if
+        you see “<b>Audit failure</b>” with “<b>logon type=3</b>” that means there are Network
+        “Netlogon” failure attempts.
+
+        <p><strong>Step 3: Enable NetLogon logging</strong></p>
+        Enable NetLogon Logging: Use the following command on the logon server in a command prompt:
+
+        <pre>nltest /dbflag:0x2080ffff</pre>
+        The netlogon.log file is located in the <b>%SystemRoot%\Debug</b> directory of the Microsoft
+        Windows Logon Server.
+
+        <p><strong>Step 4: Identify the source of the attack</strong></p>
+        In the <b>netlogon.log </b>file, you can find which entries correspond to your failed logon
+        attempts and this will also show you what the hostname is that the attempt is coming
+        from.<br />If an internal attack, the workstation name is likely part of your domain/network
+        already.<br />If an outside attack, the hostname can be anything, even the name of a brute
+        force program such as FreeRDP - in some cases, it may even be blank.
+        <p><strong>Step 5: Disable NetLogon logging</strong></p>
+        When finished, and you have found examples of your impacted username being attempted,
+        disable NetLogon Logging with this command:
+
+        <pre>nltest /dbflag:0x0</pre>
+        You don't want to keep NetLogon enabled simply because it will use resources and disk space
+        on your system when it is not actively needed.
+
+        <p><strong>Step 6: Identify Reason Codes/Error Codes</strong></p>
+        See code translations:<br /><a
+          href="https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/quick-reference-troubleshooting-netlogon-error-codes/bc-p/1561127/"
+          target="_blank"
+          >https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/quick-reference-troubleshooting-netlogon-error-codes/bc-p/1561127/</a
+        ><br />2 Common codes you may see in the log file: 0XC000006A – An incorrect password was
+        guessed 0XC0000234 – An account lockout was issued from the “Via” computer name - this is
+        the computer which is being attempted against, and which sends the lockout signal to your
+        domain controller (or local policy holder if in a workgroup).<br />If you want an overview
+        on how Failed Logon information is collected, check this article:
+        <a href="https://kb.netwrix.com/5905" target="_blank"
+          >Why Do I Have Incomplete Information on Failed Logons?</a
+        ><br />If you have multiple Failed Logons, check this article:
+        <a href="https://kb.netwrix.com/3553" target="_blank"
+          >How to detect the root cause of multiple failed logons</a
+        >
+
+        <div id="hzImg"> </div>
+      </div>
+    </article>
+  </body>
+</html>

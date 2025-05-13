@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Invoke Management Shell from PowerShell 7 in v11</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015QfKAI" />
+    <meta name="Id" content="ka0Qk000000DGwbIAG" />
+    <meta name="LastPublishedDate" content="2025-04-15T18:51:58.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-16T19:56:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-10T12:32:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9162" />
+    <meta name="ArticleNumber" content="000009162" />
+    <meta
+      name="description"
+      content="Make a remote connection to Directory Manager Management Shell from regular PS"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 11</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to remotely invoke the Management Shell from PowerShell 7 in
+          Netwrix Directory Manager version 11. This article covers the process of establishing a
+          remote session, importing the necessary modules, and connecting to an Identity Store using
+          credentials. This method allows administrators to run Directory Manager cmdlets in
+          PowerShell 7 without directly signing into the Directory Manager server.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>Follow the steps below to remotely connect to the Management Shell:</p>
+        <ol>
+          <li>Open <strong>PowerShell 7</strong> as an Administrator.</li>
+          <li>Enter the following cmdlet and update the placeholders with the correct values:</li>
+        </ol>
+        <ul>
+          <li>
+            <code>"DOMAIN\\USERNAME"</code> – Replace with the domain and username of your account.
+          </li>
+          <li><code>"USER-PASSWORD"</code> – Replace with your actual password (in plain text).</li>
+          <li>
+            <code>"YOUR MACHINE NAME HERE"</code> – Replace with the name of the Directory Manager
+            server.
+          </li>
+          <li>
+            <code>"IDENTITYSTOREID HERE"</code> – Replace with the appropriate Identity Store ID.
+          </li>
+        </ul>
+        <pre class="has-inner-focus"><code>$username = "DOMAIN\USERNAME"
+$pass = ConvertTo-SecureString "USER-PASSWORD" -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential ($username, $pass)
+$s = New-PSSession -ComputerName "YOUR MACHINE NAME HERE" -Credential $Cred -ConfigurationName PowerShell.7
+
+Invoke-Command -Session $s -ScriptBlock {
+  $srcu = [reflection.assembly]::LoadFrom('C:\Program Files\PowerShell\7\System.Windows.Forms.dll')
+  $OnAssemblyResolve = [System.ResolveEventHandler] {
+    param($sender, $e)
+    if ($e.Name -like "System.Windows.Forms, Version=*") {
+      return $srcu
+    }
+    return $null
+  }
+  [System.AppDomain]::CurrentDomain.add_AssemblyResolve($OnAssemblyResolve)
+  $reg = Get-ItemProperty -Path HKLM:SOFTWARE\Microsoft\PowerShell\1\PowerShellSnapIns\Imanami.Groups.Management.PowerShell.Admin11
+  $appbase = $reg.ApplicationBase
+  Import-Module -Name "$appbase\GroupIDManagementShell\bin\Imanami.GroupID.Management.dll"
+  Set-ModulePath -ModulePath "$appbase\GroupIDManagementShell\bin"
+}
+
+Import-PSSession -Session $s -Type cmdlet -AllowClobber
+Connect-IdentityStore -mode "2" -IdentityStoreID "IDENTITYSTOREID HERE" -Credential $Cred</code></pre>
+        <ol start="3">
+          <li>
+            Once the script completes, a remote session will be established. This allows you to run
+            Directory Manager cmdlets in PowerShell 7 without logging directly into the Directory
+            Manager server.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

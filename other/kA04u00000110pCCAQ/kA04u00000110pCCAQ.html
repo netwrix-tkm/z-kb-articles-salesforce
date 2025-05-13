@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Error: Invalid SSH Credentials Authentication Failed</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110pCCAQ"/><meta name="Id" content="ka04u00000116bFAAQ"/><meta name="LastPublishedDate" content="2023-07-07T10:29:52.000+0000"/><meta name="LastModifiedDate" content="2023-07-11T10:32:19.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T10:29:52.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8645"/><meta name="ArticleNumber" content="000008645"/><meta name="description" content="Error: Invalid SSH Credentials Authentication Failed"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+When trying to register Linux endpoint the following error occurs:
+
+<pre>Invalid SSH Credentials Authentication Failed</pre>
+
+<h2 id="cause">Cause</h2>
+Windows Command Prompt occurrence: when trying to register a new Linux endpoint and either the Registration account is either not on the endpoint in the /etc/sudoers file or the password for that account doesn't match what is being used in the registration process (via the QuickStart or Postman).
+
+<h2 id="resolution">Resolution</h2>
+<strong>Step 1.</strong> Log into the Linux endpoint via SSH with a sudoer's account.<br/><strong>Step 2.</strong> Confirm the Registration account is within the /etc/passwd file (which lists all users that have basic access to the Linux system) with the below command. The output from this command will display the contents of the passwd file, which should have the Registration account listed.
+
+<ol><li>If the Registration account is not in the output aka the /etc/passwd file, it will need to be created with the below command, replace the <code>REGISTER-ACCOUNT</code> string with the actual name of the account being used for the one-time registration of systems into Netwrix Privilege Secure for Discovery. If it is in the output continue on to step No 3 and test the password being used.<br/>	The command may vary depending on the Linux Operating System:
+	<pre>sudo useradd REGISTER-ACCOUNT</pre>
+	<strong>Example:</strong> for a user named "secureone" the command would be <code>sudo useradd secureone</code></li><li>Once the above "useradd" process has been completed, setting of the password for that account is needed via the below command, again replace the <code>REGISTER-ACCOUNT</code> string with the actual name.<br/>	The command may vary depending on the Linux Operating System:
+	<pre>sudo passwd REGISTER-ACCOUNT</pre>
+	<strong>Example:</strong> for a user named "secureone" the command would be <code> sudo passwd secureone</code></li><li>Test the password for the account with the below command. Remember to replace the <code>REGISTER-ACCOUNT</code> string with the actual name of the account:
+	<pre>su REGISTER-ACCOUNT</pre>
+	</li></ol>
+<strong>Step 3.</strong> Confirm the Registration account is within the /etc/sudoers file with the below command. The output from this command will display the contents of the sudoers file, which should have the "registration account" listed:
+
+<pre>sudo cat /etc/sudoers</pre></div>
+</article></body></html>

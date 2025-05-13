@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>SCP and SFTP Proxy Monitoring</title><meta name="label" content="employees_v"/><meta name="label" content="partners_v"/><meta name="label" content="customers_v"/><meta name="label" content="public_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001auHKAQ"/><meta name="Id" content="ka0Qk0000007FaDIAU"/><meta name="LastPublishedDate" content="2024-10-20T18:22:54.000+0000"/><meta name="LastModifiedDate" content="2024-10-24T14:19:08.000+0000"/><meta name="FirstPublishedDate" content="2024-10-20T18:22:54.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9307"/><meta name="ArticleNumber" content="000009307"/><meta name="description" content="SCP and SFTP Proxy Monitoring"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<p>For versions 4.2 or higher, Netwrix Privilege Secure (NPS) allows the routing and monitoring of SCP and SFTP traffic through the NPS Proxy. Instructions are provided on how to configure traffic monitoring for both protocols, as well as how an end user can launch a DirectConnect SCP or SFTP session. These diagrams provide an overview of how this connection occurs for SCP and SFTP, respectively.</p>
+<p><img src="kA0Qk0000001auHKAQ_3480929b-c7f8-455e-b846-02efde2a4cc4.png"/></p>
+<p><img src="kA0Qk0000001auHKAQ_293a17e2-e315-44ec-a003-18bf8cc023cd.png"/></p>
+<h2 id="instructions_sftp">Instructions (SFTP)</h2>
+<ol><li>On the NPS server, navigate to \ProgramData\Stealthbits\PAM\ProxyService (on the C: drive by default)</li><li>Open the sbpam_ssh.json file in a text editor, and ensure that "RecordSFTP" exists and is set to "true":<br/><pre class="language-markup"><code>{
+  "RecordSFTP":true
+}</code></pre>
+</li><li>Ensure that the file is properly comma separated after your changes have been made, and save it.</li><li>(Optional) Also located in the \ProxyService\ directory is the "sbpam_sftp.json" file. If you wish not to audit certain SFTP operations, you can edit this file to not include them. Again, ensure that the file is properly comma separated before saving it.<br/><pre class="language-markup"><code>{
+  "auditable_operations": [
+    "SSH_FXP_READ",
+    "SSH_FXP_WRITE",
+    "SSH_FXP_OPEN",
+    "SSH_FXP_CLOSE",
+    "SSH_FXP_OPENDIR",
+    "SSH_FXP_READDIR",
+    "SSH_FXP_REMOVE",
+    "SSH_FXP_MKDIR",
+    "SSH_FXP_RMDIR",
+    "SSH_FXP_RENAME",
+    "SSH_FXP_NAME"
+  ],
+  "name_limit": 20
+}</code></pre>
+</li><li>SFTP connections through the Proxy will now be monitored.</li></ol>
+<h2 id="instructions_scp">Instructions (SCP)</h2>
+<ol><li>On the NPS server, navigate to \ProgramData\Stealthbits\PAM\ProxyService (on the C: drive by default)</li><li>Open the sbpam_ssh.json file in a text editor, and ensure that "RecordExec" exists and is set to "true":<br/><pre class="language-markup"><code>{
+  "RecordExec":true,
+  "ExecExcludes":["WinSCP:"]
+}</code></pre>
+</li><li>(Optional) "ExecExcludes" can be added, with any number of strings to be excluded when recording traffic. "WinSCP", for instance, occurs very often during an SCP connection through WinSCP and it is advisable to include it in ExecExcludes.</li><li>Ensure that the file is properly comma separated after your changes have been made, and save it.</li><li>SCP connections through the Proxy will now be monitored.</li></ol>
+<h2 id="instructions_directconnect">Instructions (DirectConnect)</h2>
+<p>In order to launch an SFTP or SCP connection that uses the NPS proxy, a <a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.2/page/Content/PrivilegeSecure/AccessManagement/EndUser/Configure/RDCManager.htm" target="_blank">DirectConnect</a> string may be used with your preferred SCP/SFTP capable client. The instructions for determining this string are in the linked documentation. Once the string has been determined, it can be provided to your SFTP/SCP program. In this instance we demonstrate SFTP via WinSCP.</p>
+<ol><li>Launch WinSCP and supply your NPS server in the Host Name field, 4422 as the port, and your DirectConnect string as your user name.<br/><img src="kA0Qk0000001auHKAQ_a78104db-7915-493a-9713-aac4996688e2.png"/></li><li>An authentication banner with the "NPS" ASCII should pop up. Click "Continue".<br/><img src="kA0Qk0000001auHKAQ_4933a9d1-3888-4a3b-92a1-7fb88fb7d7e1.png"/></li><li>You will be prompted for your NPS user's password. Provide it and click "OK".<br/><img src="kA0Qk0000001auHKAQ_fb0cb8ae-a7ff-4201-bb05-e5b044b255c1.png"/></li><li>You should now have an established WinSCP session. This can be monitored by an NPS user with the Administrator role<br/><img src="kA0Qk0000001auHKAQ_3e069d4b-0de1-41ef-ad7c-5cb61e7f77bb.png"/></li></ol></div>
+</article></body></html>

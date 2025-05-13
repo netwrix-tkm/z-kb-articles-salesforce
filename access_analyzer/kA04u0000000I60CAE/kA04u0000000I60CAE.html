@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Action Module Troubleshooting</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I60CAE" />
+    <meta name="Id" content="ka04u000000HcfhAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:00:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:00:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6189" />
+    <meta name="ArticleNumber" content="000006189" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> During File Action
+          module (FSAM) run an error occurs, or no actions are taken.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue: </span></strong
+          ><span class="wysiwyg-font-size-large"
+            >When a configured action module runs interactively or through the schedule, an error
+            "<em>access denied</em>" occurs, or the action completes without error or warning, and
+            no action is completed.</span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>  <span
+            > </span
+          >
+        </p>
+
+        <p>The following should be referenced to ensure that configuration is correct:</p>
+
+        <ol>
+          <li>
+            Reference KB Action modules for required columns, these are required to be setup, and
+            often without the correct columns it will return an error "Access Denied"<a
+              href="https://support.stealthbits.com/hc/en-us/articles/360043492271"
+              target="_blank"
+              >https://support.stealthbits.com/hc/en-us/articles/360043492271</a
+            >
+          </li>
+          <li>Ports: 135, 8767 and 8766 are required to the remote host/proxy</li>
+        </ol>
+
+        <p><strong>Troubleshooting:</strong></p>
+
+        <p>
+          To troubleshoot the issues, it is beneficial to understand how the action module functions
+          when it is run.
+        </p>
+
+        <p>
+          These steps are specific to the File System Action module, sometimes referred to as FSAM.
+        </p>
+
+        <ol>
+          <li>A tier 2 SQL lite file is created with the actions to execute.</li>
+          <li>The input.db is sent to the target host to action.</li>
+          <li>
+            Once these actions are completed the output.db is compressed to a zip is sent back for
+            StealthAUDIT to write to the Tier 1 database.
+          </li>
+        </ol>
+
+        <p>
+          When troubleshooting any issues, you can file the logs and tier 2 files in the target host
+          (specified by the job configuration)
+        </p>
+
+        <p>
+          <em
+            ><strong>:Program Files (x86)\STEALTHbits\StealthAUDIT\Actions\FileSystem\</strong></em
+          >
+        </p>
+
+        <p>A timestamp folder is created for each action run.</p>
+
+        <p>Multiple timestamps for one run, one of which will contain “action.log”</p>
+
+        <p>
+          When StealthAUDIT console “Application log level” is set to “Debug”, this file will
+          contain debug level logging.
+        </p>
+
+        <p>
+          <span class="wysiwyg-font-size-large"><strong>Common issues:</strong></span>
+        </p>
+
+        <p>
+          1. <em><strong>Access denied</strong></em> in this log can reference a number of items;
+        </p>
+
+        <p>This can be the access to the target host, or the access to the SQL tier 1 table.</p>
+
+        <p>
+          e.g. if the access denied is occurring after “output.db” is being processed, the rows
+          being written into SQL may not match the expected columns from the required list of
+          columns. (Refer to column requirements)
+        </p>
+
+        <p>
+          2. Errors relating to <em><strong>RPC</strong> </em>are commonly associated with the port
+          access not setup. (Refer to port configuration)
+        </p>
+
+        <p>
+          3. If there are issues with <em><strong>timeout</strong> </em>during the
+          output.zip/output.db being transferred back to StealthAUDIT, then the timeout setting may
+          need to be modified.
+        </p>
+
+        <p>The TCPIP registry settings on the proxy server and StealthAUDIT server.</p>
+
+        <p>Our recommendation would be to modify the registry value:</p>
+
+        <p>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip \Parameters\KeepAliveTime</p>
+
+        <p>
+          To a value under 1 hour (3540000 is 59 minutes). This is because the TCP timeout for most
+          routers is 1 hour.
+        </p>
+
+        <p>
+          This has resolved RPC issues at other customers historically. This value is stored in
+          milliseconds
+        </p>
+
+        <p>The following technet blog that goes into more detail.</p>
+
+        <p>
+          <a
+            href="https://us-east-2.protection.sophos.com?d=proofpoint.com&amp;u=aHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX191cy0yRGVhc3QtMkQyLnByb3RlY3Rpb24uc29waG9zLmNvbS0zRmQtM0Rwcm9vZnBvaW50LmNvbS0yNnUtM0RhSFIwY0hNNkx5OTFjbXhrWldabGJuTmxMbkJ5YjI5bWNHOXBiblF1WTI5dEwzWXlMM1Z5YkQ5MVBXaDBkSEJ6TFROQlgxOWliRzluY3k1MFpXTm9ibVYwTG0xcFkzSnZjMjltZEM1amIyMWZibVYwZEhKaFkyVnlYekl3TVRCZk1EWmZNRE5mZEdocGJtZHpMVEpFZEdoaGRDMHlSSGx2ZFMweVJHMWhlUzB5UkhkaGJuUXRNa1IwYnkweVJHdHViM2N0TWtSaFltOTFkQzB5UkhSamNDMHlSR3RsWlhCaGJHbDJaWE5mSm1ROVJIZE5Sa0ZuSm1NOVExSkxZV1ZzTmt4blZuUTFlR3AyZVhGUVJESTNaRkJTTW1WTGMwRk5kelZmVlVkMmEwVnJNMlZWV1NaeVBXSnpURm8wV1ZCRWJIUm1hR0UxTTJSU2IzVmxaMEVtYlQxc1IzZzJaWEZFU0daTE5GWlpObXBETWpaTWFGRjBNMUJEVldWbVlWUm5WMFp6YWxrdGIxbDVVMVU0Sm5NOVN6TklkR0UzVUhGb2RuUktZbTVIVlZwSFMzRnpTblUxVVcxS1FrcFJNbTlrV0ZBd1JWUllaVlk1YXlabFBRLTNELTNELTI2ZS0zRGEyVjJhVzR1YW05NVkyVkFjM1JsWVd4MGFHSnBkSE11WTI5dC0yNnQtM0RTMWRLWlVRM1JYWnVia3MyTTI0NFRGZENjRmR0TlVjMGJXUm5lSGRMWVRsclUyUnJlbWgwTWtzME1EMC0zRCZkPUR3TUZBZyZjPUNSS2FlbDZMZ1Z0NXhqdnlxUEQyN2RQUjJlS3NBTXc1X1VHdmtFazNlVVkmcj1ic0xaNFlQRGx0ZmhhNTNkUm91ZWdBJm09VjlPbGl6TDFyMUljTTRsaTZnRHdGNDFCUUQ3QlMxbDhFM2d1VmNKNUItTSZzPXZ2anI0MGVKUkNCSWswaHlsN3ljN2NwaVRkT3FXVXNUT09ackxIYWtQdk0mZT0=&amp;e=YWxleC5idWNodGFAc3RlYWx0aGJpdHMuY29t&amp;t=MW1pL3FHem9aQUNoYUs0VXh6S3NBQTlieTBsMUM3dEZUUG5ldGJRRmlQdz0="
+            target="_blank"
+            >https://blogs.technet.microsoft.com/nettracer/2010/06/03/things-that-you-may-want-to-know-about-tcp-keepalives/</a
+          >
+        </p>
+
+        <p>Issues regarding to which actions have happened (i.e. no errors or warnings)</p>
+
+        <p>
+          The target table from the action will be created with the same name and suffix to
+          reference the status, and rollback data.
+        </p>
+
+        <p>
+          <em>Sourcetable_Actions</em><br />This referenced the GUID of the action associated with
+          the table.
+        </p>
+
+        <p><em>Sourcetable_ActionsLog</em><br />Messages that occur during the job run.</p>
+
+        <p><em>Sourcetable_ActionStatus</em><br />The result of the action job completion</p>
+
+        <p>
+          <em>Sourcetable_FSActionsRollback</em><br />Details of the changes made to the file system
+          and previous permission.
+        </p>
+
+        <p>These tables can be used to reference the actions that have completed.<br /> </p>
+      </div>
+    </article>
+  </body>
+</html>

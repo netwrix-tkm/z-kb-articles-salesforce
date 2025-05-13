@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why False Positive Read Access Attempts Are Reported by Netwrix Auditor?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnoaCAA" />
+    <meta name="Id" content="ka04u000000wwAFAAY" />
+    <meta name="LastPublishedDate" content="2023-11-21T10:40:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-21T10:40:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-14T11:24:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8900" />
+    <meta name="ArticleNumber" content="000008900" />
+    <meta
+      name="description"
+      content="Why False Positive Read Access Attempts Are Reported by Netwrix Auditor?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            When running a report, Netwrix Auditor lists files as Read even though the files were
+            never opened. Why Netwrix reports false positive Read access attempts?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Successful reads can be tricky and is prone to false positives. This is because of the
+            way Windows and other software browse files. To trigger a "Read" event Netwrix Auditor
+            is looking for two events in conjunction:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+EventID Audit Type Description Accesses Time ObjectName User
+4656 Audit Success Handle request Read* time name user
+4663 Audit Success Access Read* time name user
+Read access type includes ReadData, ReadAttributes, ReadExtendedAttributes, ReadControl, Synchronize, AccessSystemSecurity
+        </pre
+            >
+          </div>
+
+          <p>
+            What this means is that in some circumstances, just browsing files or clicking through
+            the folder the files are in can trigger reads. In Windows File Explorer, for example,
+            just navigating to a file doesn't always trigger the read but clicking on a file or
+            hovering the mouse over it long enough for the tool tip to pop up, can sometime report
+            as a read.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

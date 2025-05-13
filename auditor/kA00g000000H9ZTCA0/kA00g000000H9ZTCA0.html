@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      [WARNING] Auditing of Object Access Success and Auditing of Object Access Failure is not
+      enabled for this Server
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZTCA0" />
+    <meta name="Id" content="ka04u000000HcSUAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1260" />
+    <meta name="ArticleNumber" content="000003403" />
+    <meta
+      name="description"
+      content="warning Auditing of Object Access Success and Auditing of Object Access Failure is not enabled for this Server Your default audit settings on the following shares may prevent the &#34;Who Changed&#34; and &#34;When Changed&#34; fields from being reported correctly"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          You receive a report containing incorrect data or no data at all. In the attached
+          <strong>warning.txt</strong> file or in Sessions you can find the following warning
+          messages:
+        </div>
+        <ul>
+          <li>
+            <strong
+              >"Auditing of Object Access Success and Auditing of Object Access Failure is not
+              enabled for this Server"</strong
+            >
+          </li>
+          <li>
+            <strong
+              >"[WARNING] Your default audit settings on the following shares may prevent the "Who
+              Changed" and "When Changed" fields from being reported correctly"</strong
+            >
+          </li>
+        </ul>
+
+        <hr />
+
+        <div>
+          The problem occurs if the default audit settings on file shares prevent collection and
+          storage of information required for Netwrix Auditor.
+        </div>
+
+        <hr />
+
+        <strong>Configure audit settings on file shares:</strong>
+        <ol>
+          <li>
+            Navigate to the target file share, right-click it and select
+            <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>&lt;Share_Name&gt; Properties</strong> dialog, select the
+            <strong>Security </strong>tab and click <strong>Advanced</strong>.
+          </li>
+          <li>
+            In the <strong>Advanced Security Settings for &lt;Share_Name&gt;</strong> dialog,
+            navigate to the <strong>Auditing </strong>tab, select <strong>Everyone </strong>(or
+            another user-defined group containing users that are granted special permissions) and
+            click <strong>Edit</strong>.
+          </li>
+          <li>
+            Depending on the OS, perform the following steps:
+            <ul>
+              <li>
+                Pre-Windows Server 2012:
+                <ol>
+                  <li>
+                    In a separate
+                    <strong>Advanced Security Settings for &lt;Share_Name&gt;</strong> dialog,
+                    select <strong>Everyone </strong>and click <strong>Edit</strong>. You can
+                    specify any other user group, but in this case netwrix Auditor will send emails
+                    with warnings on incorrect audit configuration. This will not affect the Reports
+                    functionality and the product will only monitor user accounts that belong to the
+                    selected group.
+                  </li>
+                  <li>
+                    In the <strong>Auditing Entry for &lt;Share_Name&gt;</strong> dialog, select
+                    <em><strong>Successful </strong></em>and <strong><em>Failed </em></strong>next
+                    to the following options:
+                    <ul>
+                      <li>
+                        To monitor successful read access and failed read access attempts:
+                        <ul>
+                          <li><span class="Apple-tab-span">"</span>List Folder / Read Data</li>
+                        </ul>
+                      </li>
+                      <li>
+                        To monitor successful modifications and failed modification attempts:
+                        <ul>
+                          <li>Create Files / Write Data</li>
+                          <li>Create Folders / Append Data</li>
+                          <li>Write Attributes</li>
+                          <li>Write Extended Attributes</li>
+                          <li>Delete Subfolders and Files</li>
+                          <li>Delete</li>
+                          <li>Change Permissions</li>
+                          <li>Take Ownership</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Make sure that <strong>Apply onto</strong> is set to "<strong
+                      ><em>This folder, subfolders and files</em></strong
+                    >", and
+                    <strong
+                      >Apply these auditing entries to objects and/or containers within this
+                      container only</strong
+                    >
+                    is cleared.
+                  </li>
+                </ol>
+              </li>
+              <li>
+                Windows Server 2012:
+                <ol>
+                  <li>
+                    In the <strong>Auditing Entry for &lt;Share_Name&gt;</strong> dialog, set
+                    <strong>Type </strong>to "<em><strong>All</strong></em
+                    >" and <strong>Applies to</strong> to "<strong
+                      ><em>This folder, subfolder and files</em></strong
+                    >".
+                  </li>
+                  <li>
+                    Click <strong>Show advanced permissions</strong> and select the following
+                    options:
+                    <ul>
+                      <li>
+                        To monitor successful read access and failed read access attempts:
+                        <ul>
+                          <li><span class="Apple-tab-span">"</span>List Folder / Read Data</li>
+                        </ul>
+                      </li>
+                      <li>
+                        To monitor successful modifications and failed modification attempts:
+                        <ul>
+                          <li>Create Files / Write Data</li>
+                          <li>Create Folders / Append Data</li>
+                          <li>Write Attributes</li>
+                          <li>Write Extended Attributes</li>
+                          <li>Delete Subfolders and Files</li>
+                          <li>Delete</li>
+                          <li>Change Permissions</li>
+                          <li>Take Ownership</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Make sure that the
+                    <strong
+                      >Only apply these auditing settings to objects and/or containers within this
+                      container </strong
+                    >check-box is cleared.
+                  </li>
+                </ol>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <div>
+          After you have configured audit settings on the file shares, make sure that you have
+          specified the types of events you want to monitor in the Audit object access policy.
+        </div>
+        <strong>To configure the Audit Object Access policy:</strong>
+        <ol>
+          <li>
+            Navigate to
+            <strong
+              >Start --&gt; Programs --&gt; Administrative Tools --&gt; Group Policy
+              Management</strong
+            >.
+          </li>
+          <li>
+            Expand the <strong>Domains </strong>node, right-click the &lt;Domain_Name&gt; node, then
+            select <strong>New Organizational Unit </strong>and specify the unit"s name (for
+            example, File Servers).
+          </li>
+          <li>
+            Right-click the newly created Organizational Unit and select the "<strong
+              >Create a GPO in this domain and Link it here</strong
+            >' option. In the <strong>New GPO</strong> dialog type "<strong
+              ><em>File Servers</em></strong
+            >" in the <strong>Name entry </strong>field and click <strong>OK</strong>.
+          </li>
+          <li>
+            Right-click the newly created<strong> File Servers GPO</strong> and select
+            <strong>Edit</strong>. In the <strong>Group Policy Management Editor</strong> dialog,
+            navigate to:
+            <strong
+              >Computer Configuration --&gt; Policies --&gt; Windows Settings --&gt; Security
+              Settings --&gt; Local Policies --&gt; Audit Policy</strong
+            >.
+
+            <img
+              src="kA00g000000H9ZTCA0_81e59b63-f4ae-4eda-8909-156f165ff72f.png"
+              alt="User-added image"
+              width="500"
+              height="196"
+            />
+          </li>
+          <li>
+            In the right pane, double-click the <strong>Audit object access</strong> policy. Select
+            the <strong>Success </strong>check-box to monitor successful read/modification attempts
+            and the <strong>Failure </strong>check-box to monitor failed read/modification attempts.
+          </li>
+          <li>
+            Navigate to
+            <strong
+              >Start --&gt; Administrative Tools --&gt; Active Directory Users and Computers</strong
+            >. Click the <strong>Computers </strong>node and move your monitored file server(s) from
+            the right pane to the newly created <strong>File Servers</strong> organizational unit.
+          </li>
+          <li>
+            On the file server(s), navigate to <strong>Start --&gt;Run</strong> and launch command
+            prompt (cmd). Run <span>gpupdate /force </span>to update the Group Policy.
+          </li>
+          <li>
+            Use the <strong>Resultant Set of Policy (RSoP)</strong> snap-in, to ensure that your
+            settings are not overwritten by other Group Policies.
+          </li>
+        </ol>
+        <div>
+          For Microsoft Windows file servers running Windows Vista and above, you can configure the
+          advanced audit policy. Via advanced audit policy you can manage auditing at a detailed
+          level, which helps you avoid saving unnecessary data to your event logs.
+          <strong>To configure advanced audit policy, perform the following steps:</strong>
+        </div>
+        <ol>
+          <li>
+            Navigate to
+            <strong
+              >Start --&gt; Programs --&gt; Administrative Tools --&gt; Group Policy
+              Management</strong
+            >.
+          </li>
+          <li>
+            Expand the <strong>Domains </strong>node, right-click the &lt;Domain_Name&gt; node, then
+            select <strong>New Organizational Unit </strong>and specify the unit"s name (for
+            example, File Servers).
+          </li>
+          <li>
+            Right-click the newly created Organizational Unit and select the "<strong
+              >Create a GPO in this domain and Link it here</strong
+            >' option. In the <strong>New GPO</strong> dialog type "<strong
+              ><em>File Servers</em></strong
+            >" in the <strong>Name entry </strong>field and click <strong>OK</strong>.
+          </li>
+          <li>
+            Right-click the newly created <strong>File Servers GPO</strong> and select
+            <strong>Edit</strong>. In the<strong> Group Policy Management Editor</strong> dialog,
+            navigate to:
+            <strong
+              >Computer Configuration --&gt; Policies --&gt; Windows Settings --&gt; Security
+              Settings --&gt; Advanced Audit Policy Configuration --&gt; Audit Policies --&gt;
+              Object Access</strong
+            >.
+
+            <img
+              src="kA00g000000H9ZTCA0_b156bb05-86da-4752-a2dd-46436a81dafe.png"
+              alt="User-added image"
+              width="500"
+              height="311"
+            />
+          </li>
+          <li>
+            In the right pane, double-click the <strong>Audit File System</strong> and
+            <strong>Handle Manipulation</strong> policies and select Success and/or Failure
+            check-boxes.
+          </li>
+          <li>
+            Navigate to
+            <strong
+              >Start --&gt; Administrative Tools --&gt; Active Directory Users and Computers</strong
+            >. Click the <strong>Computers </strong>node and move your monitored file server(s) from
+            the right pane to the newly created <strong>File Servers</strong> organizational unit.
+          </li>
+          <li>
+            On the file server(s), navigate to <strong>Start --&gt;Run</strong> and launch command
+            prompt (cmd). Run gpupdate /force to update the Group Policy.
+          </li>
+          <li>
+            Use the Auditpol command to verify that your settings are have been set locally on the
+            target file servers. To do this, navigate to <strong>Start --&gt;Run</strong> and then
+            type <strong><em>cmd</em></strong
+            >. Type <span>auditpol /get /category:*</span> press Enter to run the command.
+          </li>
+        </ol>
+        Refer to
+        <a
+          href="http://www.netwrix.com/download/documents/Netwrix_Auditor_Installation_Configuration_Guide.pdf"
+          target="_blank"
+          >Netwrix Auditor Installation and Configuration Guide</a
+        >
+        for more information.
+
+        <span id="articleDetail:j_id228"
+          ><span id="articleDetail:j_id228:j_id229:customFields"
+            ><span id="articleDetail:j_id228:j_id229:sectionRepeat:0:fieldRepeat:3:j_id397"
+              ><strong>Note:</strong>
+            </span></span
+          ></span
+        >Currently the file server auditing functionality within Netwrix Auditor ignores the
+        Advanced audit policy settings, as a result of which you will be getting warning messages
+        even f the audit policy subcategory configuration is applied. These warning messages can be
+        ignored, as they do not affect the product functionality. Netwrix plans to support Advanced
+        auditing policies in the future product versions.
+      </div>
+    </article>
+  </body>
+</html>

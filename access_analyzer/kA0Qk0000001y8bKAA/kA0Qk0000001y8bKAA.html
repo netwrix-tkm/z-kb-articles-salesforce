@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Activity Monitor Report Shows Successful But is Not Updating Data</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001y8bKAA" />
+    <meta name="Id" content="ka0Qk000000C7tlIAC" />
+    <meta name="LastPublishedDate" content="2025-03-04T15:04:39.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-04T15:04:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-04T15:04:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9389" />
+    <meta name="ArticleNumber" content="000009389" />
+    <meta
+      name="description"
+      content="Custom Sealthbits Activity Monitor Report shows Successful but is not updating the data"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <div>
+          <p>
+            In the FSAC System scan log (<code>1-FSAC System Scans_Log.tsv</code>), the following
+            errors are observed:
+          </p>
+          <ul>
+            <li>
+              <pre class="has-inner-focus">
+ERROR TDCThread TDCThread.LoadSourceItf "No DC installed to handle source: FILESYSTEMACCESS"</pre
+              >
+            </li>
+            <li>
+              <pre class="has-inner-focus">
+ERROR TDCThread TDCThread.PrepareForTask "The 'FILESYSTEMACCESS' data collector has not been installed"</pre
+              >
+            </li>
+          </ul>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            There is no license for one or more of the following features in
+            <strong>Netrix Activity Monitor</strong> (NAM):
+          </p>
+          <ul>
+            <li>
+              <p>File System</p>
+            </li>
+            <li>
+              <p>File System Actions</p>
+            </li>
+            <li>
+              <p>File System Reports</p>
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <span class="Note"><strong>NOTE: </strong></span>There may only be a license for
+              <strong>File Activity</strong> in NAM and not for
+              <strong>File System Reports</strong>, <strong>File System Actions</strong>, or
+              <strong>File System</strong> in Netwrix Enterprise Auditor (NEA). Sometimes, leftover
+              reports from a sales or professional services demo may still be present in NEA.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>To verify a feature's licensing in NEA, refer to the following steps:</p>
+          <ol>
+            <li>
+              <p>Navigate to <strong>Help &gt; About</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Scroll down to the <strong>File System Licensed Features</strong> section to confirm
+                the licensed features.
+              </p>
+            </li>
+          </ol>
+          <p>
+            If needed, contact the Netwrix Account Owner, Enterprise Account Manager (EAM), or
+            Customer Success Manager (CSM) to negotiate the proper functionality and licensing
+            required for the customer.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

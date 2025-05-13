@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "FATAL TraceLogger - AplicationInstance.Start() Fatal error, Application
+      shutting down. Error: Address already in use System.Net.Sockets.SocketException: Address
+      already in use"
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ja6CAE" />
+    <meta name="Id" content="ka04u000000Hd9oAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:49:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8207" />
+    <meta name="ArticleNumber" content="000008207" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                          Example Message:												        #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+2018-03-26 10:31:37,607 [AgentService.WorkerThread] FATAL TraceLogger - ApplicationInstance.Start() 
+Fatal error, Application shutting down. Error: Address already in use 
+System.Net.Sockets.SocketException: Address already in use
+  at System.Net.Sockets.Socket.Bind (System.Net.EndPoint local_end)  
+  in :0 
+  at System.Net.EndPointListener..ctor (System.Net.IPAddress addr, Int32 port, Boolean secure)  
+  in :0 
+  at System.Net.EndPointManager.GetEPListener (System.String host, Int32 port, System.Net.HttpListener listener, Boolean secure) 
+   in :0 
+  at System.Net.EndPointManager.AddPrefixInternal (System.String p, System.Net.HttpListener listener)  
+  in :0 
+  at System.Net.EndPointManager.AddListener (System.Net.HttpListener listener)  
+  in :0 
+
+</pre
+            >
+          </div>
+        </div>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>What Does It Mean?</span></strong>
+        </h2>
+        <p>
+          This error occurs when you have another application using the local agent UI port (6.5
+          Agent - Port 8095 or Gen7 Agent - Port 8096)
+        </p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>How Can I Fix This / Should I Worry?</span></strong>
+        </h2>
+        <p>
+          If you are receiving this error, the NNT Agent is NOT reporting to your hub. This is a
+          critical error and for monitoring to continue, it must be resolved.
+        </p>
+        <p><br /></p>
+        <p>To resolve this error:</p>
+        <ol>
+          <li>Check to see if anything is using Port 8095 or 8096</li>
+          <li>Determine if that port number can be easily changed, or if it cannot.</li>
+          <li>
+            Change the port of that application, or, if it cannot be changed, you can choose to
+            disable the local UI port all together:<br />
+            <ol>
+              <li>
+                Modify the NNTAgentService.exe.config file (C:\Program Files\NNT Change Tracker
+                Suite\Agent\NNTAgentService.exe.config or<span
+                  >/opt/nnt/agent/bin/NNTAgentService.exe.config)</span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      >Change the below value to "0" to disable, or assign a new, available port to
+                      it.<br />
+                      <br /></span></span
+                ></span>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span
+              ><span><span>Restart your NNT Agent Service</span></span></span
+            >
+          </li>
+        </ol>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8302" target="_blank"
+                >Support for TLS 1.2 in the .NET Framework 3.5.1</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8285" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8265" target="_blank"
+                >Change Tracker ‚Äì How to Create a Custom Tracked Attributes Filter Within a
+                Configuration Template</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8284" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

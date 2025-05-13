@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Errors after upgrading to 8.2</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IylCAE" />
+    <meta name="Id" content="ka04u00000116OVAAY" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:45:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T15:39:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:45:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7395" />
+    <meta name="ArticleNumber" content="000007395" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Issue has been
+          identified when upgrading to SA 8.2 prior to bulk importing data that was scanned in
+          previous versions of SA.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Issue has been
+          identified when upgrading to SA 8.2 prior to bulk importing data that was scanned in
+          previous versions of SA.<br /> <br />You may see an error on bulk import that says "Failed
+          to import SA_FSAA_Resources: Column 'ID' does not allow DBNull.Value." or
+          "Stealthbits.StealthAUDIT.DataCollectors.FSAA.FSAAException: ID 5 mapping not found in
+          ResourceMap"<br /> <br />To fix this issue, a tool has been created to remedy the tier 2
+          databases that will allow the data to be imported.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Drop in the
+          contents of the zip file attached to this KB into the FSAA folder of your SA Console and
+          follow the instructions in the ReadMe.<br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/StealthTOOLS/AUDIT/ResetMinChangedIDsTool.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/StealthTOOLS/AUDIT/ResetMinChangedIDsTool.zip</a
+          ><br /><br />Once the tool is ran successfully, modify the USN value in the SA_FSAA_Hosts
+          table in tier 1.<br />If running Permissions bulk import:<br />              
+          <span
+            ><span><span>UPDATE</span></span></span
+          ><span
+            ><span>
+              SA_FSAA_Hosts <span>SET</span> AccessUSN <span>=</span> 0 <span>WHERE</span> HOST
+              <span>=</span> [HOST]</span
+            ></span
+          ><br /> <br />If running Activity bulk import:<br />              
+          <span
+            ><span><span>UPDATE</span></span></span
+          ><span
+            ><span>
+              SA_FSAA_Hosts <span>SET</span> ActivityUSN <span>=</span> 0 <span>WHERE</span> HOST
+              <span>=</span> [HOST]</span
+            ></span
+          ><br /> <br />If running SDD bulk import:<br />              
+          <span
+            ><span><span>UPDATE</span></span></span
+          ><span
+            ><span>
+              SA_FSAA_Hosts <span>SET</span> DLPUSN <span>=</span> 0 <span>WHERE</span> HOST
+              <span>=</span> [HOST]</span
+            ></span
+          ><br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.2 to 9.0 (not 10.0+)<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2245
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Deploy the Windows Endpoint Protector Agent</title>
+    <meta name="label" content="endpoint_protector" />
+    <meta name="label" content="f_cososys" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001FTFKA2" />
+    <meta name="Id" content="ka0Qk0000004RknIAE" />
+    <meta name="LastPublishedDate" content="2024-06-28T18:50:55.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-02T18:23:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-06-28T18:50:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9209" />
+    <meta name="ArticleNumber" content="000009209" />
+    <meta name="description" content="How to Deploy the Windows Endpoint Protector Agent" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="manual_installation">Manual Installation</h2>
+
+        <p>
+          If installing the Endpoint Protector Agent on a small number of clients or for testing,
+          the agent can simply be installed by downloading the MSI Package from the Endpoint
+          Protector Console and executed. When downloaded from the console, the installer will have
+          a name that follows the below convention, where <code>&lt;VERSION_INFO&gt;</code> is
+          replaced with the agent version and
+          <code>&lt;ENDPOINT_PROTECTOR_SERVER_ADDRESS&gt;</code> is replaced with the Endpoint
+          Protector server IP or URL:
+        </p>
+
+        <p>
+          <code
+            >EPPClientSetup.&lt;VERSION_INFO&gt;._x86_64_[a=‌&lt;ENDPOINT_PROTECTOR_SERVER_ADDRESS&gt;].msi</code
+          >
+        </p>
+
+        <p>Example installer:</p>
+
+        <p><code>EPPClientSetup.6.2.2.1006_x86_64_[a=10.0.0.86].msi</code></p>
+
+        <p>
+          Note: This does not apply to the Endpoint Protector Hotfix, as agents were not included in
+          the server patch. To download the agents, please go to the security advisory located at
+          <a href="https://security.netwrix.com/Advisories/ADV-2024-002" target="_blank"
+            >https://security.netwrix.com/Advisories/ADV-2024-002</a
+          >
+          and download the required agent(s).
+        </p>
+
+        <h2 id="silent_installation">Silent Installation</h2>
+
+        <p>
+          Customers wishing to install the Endpoint Protector Windows agent silently can do so using
+          MSIExec and specifying the options required for their environment.
+        </p>
+
+        <h2 id="examples">Examples</h2>
+
+        <p>
+          In all the below examples, replace <code>EPPClient.msi</code> with the name of the MSI
+          being used.
+        </p>
+
+        <h2 id="basic_installation">Basic Installation</h2>
+
+        <p>
+          To install the Endpoint Protector Agent with the defaults and the EPP server located at
+          192.168.1.50, use the following:
+        </p>
+
+        <pre>msiexec /i "C:\EPPClient.msi" /qn WSIP=192.168.1.50</pre>
+
+        <h2 id="installation_with_non-default_department">
+          Installation with Non-Default Department
+        </h2>
+
+        <p>
+          Use the same as the basic installation and specify your department code using the
+          <strong>DEPT_CODE</strong> property:
+        </p>
+
+        <pre>msiexec /i "C:\EPPClient.msi" /qn WSIP=192.168.1.50 DEPT_CODE=depfin</pre>
+
+        <h2 id="installation_with_agent-specific_proxy_settings">
+          Installation with Agent-Specific Proxy Settings
+        </h2>
+
+        <p>
+          To install the agent with a proxy that doesn’t require authentication, use the
+          <strong>PROXYSETTINGSRBGPROP</strong>, <strong>PROXYIP</strong>, and
+          <strong>PROXYPORT</strong> options along with the basic installation. The following will
+          set the agent's proxy to 10.0.0.10:8080:
+        </p>
+
+        <pre>
+msiexec /i "C:\EPPClient.msi" WSIP=192.168.1.50 PROXYSETTINGSRBGPROP=ManualProxy PROXYIP=10.0.0.10 PROXYPORT=8080</pre
+        >
+
+        <p>
+          Advanced Installations customers requiring further options should see the Appendix for the
+          full list of properties that can be specified.
+        </p>
+
+        <h2 id="deploying_the_agent_via_group_policy">Deploying the Agent via Group Policy</h2>
+
+        <p>
+          Deploying the agent via Group Policy requires editing the MSI either directly or via an
+          MSI transform file to be created and the specific properties updated in the transform. To
+          do this, follow the below instructions:
+        </p>
+
+        <ol>
+          <li>
+            Download the Orca MSI (or your preferred MSI editing software; these instructions will
+            use Orca).
+            <ol>
+              <li>Orca can be installed from the Windows SDK and selecting the MSI options.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>
+          <img alt="image.png" src="kA0Qk0000001FTFKA2_e7d04e7d-d625-49e6-90f5-da2741c6d6f8.png" />
+        </p>
+
+        <ol start="2">
+          <li>Right-click on the EPPClientSetup MSI and select <strong>Edit with Orca</strong>.</li>
+        </ol>
+
+        <p>
+          <img alt="image.png" src="kA0Qk0000001FTFKA2_61621a35-3642-40f4-a98f-f1f3da6fd5ec.png" />
+        </p>
+
+        <ol start="3">
+          <li>Click on <strong>Transform</strong> &gt; <strong>New Transform</strong>.</li>
+          <li>
+            Add the required properties to the Property Table.
+            <ol>
+              <li>Find and open the Property table.</li>
+              <li>Right click in the table and select <strong>Add Row</strong>.</li>
+              <li>
+                In the popup box, input <strong>WSIP</strong> as the property, and then add your EPP
+                Server IP Address or FQDN as the value.
+              </li>
+              <li>Click <strong>Ok</strong>.</li>
+              <li>
+                Optional: If there are more properties that need changing or adding, such as not
+                using the default department code, refer to the Appendix for the list of properties
+                and change them all in the Properties table.
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>
+          <img alt="image.png" src="kA0Qk0000001FTFKA2_984b11c4-73a2-498c-b393-cc5fea71a1c6.png" />
+        </p>
+
+        <p>
+          <img alt="image.png" src="kA0Qk0000001FTFKA2_d917661d-acb6-4c36-84f5-dbf67fda5349.png" />
+        </p>
+
+        <ol start="5">
+          <li>
+            Generate the Transform.
+            <ol>
+              <li>Click on <strong>Transform</strong>.</li>
+              <li>Click on <strong>Generate Transform</strong>.</li>
+              <li>In the open box, save your transform.</li>
+              <li>
+                Ensure the packages are placed on a network share that is accessible to all clients
+                that need to install it.
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>
+          <img alt="image.png" src="kA0Qk0000001FTFKA2_cd2e0c87-389f-49b5-9ff6-86b3389cf75a.png" />
+        </p>
+
+        <ol start="6">
+          <li>
+            Deploy the MSI with the Transform file via Group Policy.
+            <ol>
+              <li>Open Group Policy Management Console.</li>
+              <li>Find or create a new group policy for the deployment.</li>
+              <li>Right click on the group policy object and select <strong>Edit…</strong></li>
+              <li>
+                Expand <strong>Computer Configuration</strong> / <strong>Policies</strong> /
+                <strong>Software Settings</strong>.
+              </li>
+              <li>
+                Right-click <strong>Software Installation</strong> and Select
+                <strong>New</strong> &gt; <strong>Package</strong>.
+              </li>
+              <li>Select the Advanced option on the Deploy Software dialog box.</li>
+              <li>
+                Browse to the network share where the installer and transform were placed in step 5.
+              </li>
+              <li>Select the EPPClientSetup MSI file and click <strong>Open</strong>.</li>
+              <li>In the new window, select the <strong>Modifications</strong> tab.</li>
+              <li>
+                Click <strong>Add</strong> and browse to your saved transform file on the network
+                share.
+              </li>
+              <li>Select the transform file and click <strong>Ok</strong>.</li>
+              <li>Click <strong>Ok</strong>.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <p>
+          <img
+            alt="image.png"
+            src="kA0Qk0000001FTFKA2_4e5eaa95-71e8-4190-884e-762f28060268.png"
+          /><br /><img
+            alt="image.png"
+            src="kA0Qk0000001FTFKA2_88168c02-0593-4424-838a-92aca8cd080b.png"
+          /><br /><img
+            alt="image.png"
+            src="kA0Qk0000001FTFKA2_7fdcb3bd-ee04-493d-bcc5-5b45fb754eeb.png"
+          /><br /><img
+            alt="image.png"
+            src="kA0Qk0000001FTFKA2_319df597-823b-4be9-a4a3-c609856c114b.png"
+          /><br /><img
+            alt="image.png"
+            src="kA0Qk0000001FTFKA2_8a6ee272-56cf-408d-9930-76f495793c7c.png"
+          />
+        </p>
+
+        <h2 id="appendix">Appendix</h2>
+
+        <p>
+          A full list of properties that can be specified in the installer can be found in this
+          table.
+        </p>
+
+        <div class="table-wrap">
+          <table count-columns="3">
+            <tbody>
+              <tr>
+                <th colspan="1" rowspan="1">Property</th>
+                <th colspan="1" rowspan="1">Example Values</th>
+                <th colspan="1" rowspan="1">Description</th>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>WSIP</strong></td>
+                <td colspan="1" rowspan="1">EPPServer.domain.local</td>
+                <td colspan="1" rowspan="1">
+                  The name or IP address of your Endpoint Protector Server. If this is not
+                  specified, then the value of [a=XXX] from the name of the installer is used for
+                  new installations. For existing installations, the registry is used.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>WSPORT</strong></td>
+                <td colspan="1" rowspan="1">443</td>
+                <td colspan="1" rowspan="1">
+                  The port on which the Endpoint Protector Server is listening for agents. Default
+                  value: 443
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>DEPT_CODE</strong></td>
+                <td colspan="1" rowspan="1">Defdep</td>
+                <td colspan="1" rowspan="1">
+                  The department code to assign the computers. Default value: defep
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>PROXYSETTINGSRBGPROP</strong></td>
+                <td colspan="1" rowspan="1">SystemProxy</td>
+                <td colspan="1" rowspan="1">
+                  Whether to use the System settings for proxy or to use the agent's own proxy
+                  configuration. Default: SystemProxy Allowed values: ManualProxy, SystemProxy
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>PROXYIP</strong></td>
+                <td colspan="1" rowspan="1">192.168.1.200</td>
+                <td colspan="1" rowspan="1">
+                  The IP Address of the proxy server. This is only used when
+                  <strong>PROXYSETTINGSRBGPROP</strong> is set to ManualProxy.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>PROXYPORT</strong></td>
+                <td colspan="1" rowspan="1">8080</td>
+                <td colspan="1" rowspan="1">
+                  The port to use for the proxy server. This is only used when
+                  <strong>PROXYSETTINGSRBGPROP</strong> is set to ManualProxy.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>AUTHCHECKBOXPROP</strong></td>
+                <td colspan="1" rowspan="1">1</td>
+                <td colspan="1" rowspan="1">
+                  Enable this to use Authentication on the proxy. Allowed values: 0 (Disabled), 1
+                  (Enabled)
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>AUTHUSER</strong></td>
+                <td colspan="1" rowspan="1">ProxyUser</td>
+                <td colspan="1" rowspan="1">
+                  The username for the user that will authenticate to the proxy.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>AUTHPASSWORD</strong></td>
+                <td colspan="1" rowspan="1">P@ssw0rd123</td>
+                <td colspan="1" rowspan="1">
+                  The password for the user that will authenticate to the proxy.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>INSTALL_NOTES_EXT</strong></td>
+                <td colspan="1" rowspan="1">1</td>
+                <td colspan="1" rowspan="1">
+                  Installs the Lotus Notes Add-on. Default value: 1 (Install) Allowed values: 1
+                  (Install), 0 (Don’t install)
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>INSTALL_OUTLOOK_EXT</strong></td>
+                <td colspan="1" rowspan="1">1</td>
+                <td colspan="1" rowspan="1">
+                  Installs the Outlook Add-on. Default value: 1 (Install) Allowed values: 1
+                  (Install), 0 (Don’t install)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

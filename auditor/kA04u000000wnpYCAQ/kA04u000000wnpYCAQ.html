@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could Not Create SSL/TLS Secure Channel Error in Windows Server Monitoring Plan</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnpYCAQ" />
+    <meta name="Id" content="ka0Qk00000011QHIAY" />
+    <meta name="LastPublishedDate" content="2023-12-05T08:34:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-15T11:27:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-20T12:31:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8909" />
+    <meta name="ArticleNumber" content="000008909" />
+    <meta
+      name="description"
+      content="Could Not Create SSL/TLS Secure Channel in Windows Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>No data is collected in your Windows Server monitoring plans.</p>
+            </li>
+            <li>
+              <p>
+                The affected Windows Server monitoring plans have network traffic compression option
+                enabled.
+              </p>
+            </li>
+            <li>
+              <p>
+                The following error is prompted in Netwrix Auditor Health Log for your Windows
+                Server monitoring plans:
+              </p>
+
+              <pre class="has-inner-focus">
+WebException: The request was aborted: Could not create SSL/TLS secure channel.</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>TLS 1.2 is disabled in your environment.</p>
+            </li>
+            <li>
+              <p>
+                TLS protocol versions used differ in the Windows Server host and compression
+                service.
+              </p>
+            </li>
+            <li>
+              <p>The Windows Server Auditing certificate has expired.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Enable TLS 1.2 in your environment − refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                  target="_self"
+                  >Сonnection Issue when TLS 1.2 Is Required</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In case TLS protocol versions are limited to specific versions in your environment,
+                make sure to allow the operating system to select the protocol for incoming and
+                outgoing communication. Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+                  target="_self"
+                  >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+                  Algorithm</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Review the certificate used for Windows Server auditing:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the Netwrix Auditor server, either press Win + R or launch the
+                    <strong>Run</strong> command window.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Run</strong> command window, type <code>mmc</code> and press
+                    <strong>OK</strong>. Select <strong>Yes</strong> in the following prompt.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Console</strong> window, click <strong>File</strong> &gt;
+                    <strong>Add/Remove Snap-in</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the left <strong>Available snap-ins</strong> window, select
+                    <strong>Certificates</strong>, and click <strong>Add &gt;</strong>.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>Once you add the
+                      <strong>Certificates</strong> snap-in, the following options should be
+                      selected in the prompted pop-up windows:
+                      <strong>Computer account</strong> &gt; <strong>Local computer</strong> &gt;
+                      <strong>Finish</strong> &gt; <strong>OK</strong>.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, expand the
+                    <strong>Certificates (Local Computer)</strong> store, and proceed to
+                    <strong>Netwrix Auditor for Windows Server</strong> &gt;
+                    <strong>Certificates</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Review the certificate located in the <strong>Certificates</strong> folder. If
+                    expired (or multiple certificates are present), right-click the corresponding
+                    certificate and select <strong>Delete</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Restart the server to reissue the certificate.</p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                  target="_self"
+                  >Сonnection Issue when TLS 1.2 Is Required</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+                  target="_self"
+                  >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+                  Algorithm</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

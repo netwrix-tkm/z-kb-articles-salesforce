@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitor CurrentControlSet Changes in Windows Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnkTCAQ" />
+    <meta name="Id" content="ka04u000000wvyJAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-30T09:18:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-30T14:09:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-30T09:18:56.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8879" />
+    <meta name="ArticleNumber" content="000008879" />
+    <meta
+      name="description"
+      content="Monitor CurrentControlSet Changes in Windows Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to monitor changes to the <code>CurrentControlSet</code> subkey in Netwrix Auditor?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The <code>CurrentControlSet</code> subkey is a pointer to the existing
+            <code>HKEY_LOCAL_MACHINE\SYSTEM\ControlSet%%%</code> control sets. It is required to set
+            up change monitoring via <code>\ControlSet%%%</code> subkeys to avoid security event
+            mismatch. Refer to the following steps to set up <code>\ControlSet%%%</code> subkeys
+            monitoring:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In the Netwrix Auditor host, navigate to
+                <code>%Netwrix Auditor installation folder%\Windows Server Auditing</code>. The
+                following path is the default installation path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\Windows Server Auditing</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate and edit the <code>customregistrykeys.txt</code> file − add the following two
+                lines:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%Monitoring_Plan%,%Server_Name%,HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001
+%Monitoring_Plan%,%Server_Name%,HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet002</code></pre>
+
+              <p>
+                Make sure to replace the placeholders with actual monitoring plan and server names.
+              </p>
+            </li>
+            <li>
+              <p>Save the changes.</p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>In most cases, <code>ControlSet001</code> stands
+              for the last control set the server was booted with. <code>ControlSet002</code> stands
+              for the last known good control set, or the control set that last successfully booted
+              the server.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Events related to the <code>CurrentControlSet</code> subkey changes state
+                <strong>system</strong> in the <strong>Who</strong> field.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            In case <code>CurrentControlSet</code> subkey was specified in
+            <code>customregistrykeys.txt</code>, the related events will contain
+            <code>\ControlSet%%%</code> paths causing event mismatches and subsequent replacement of
+            the <strong>Who</strong> field values with <strong>system</strong>. Explicitly state the
+            <code>ControlSet%%%</code> control sets to be monitored in
+            <code>customregistrykeys.txt</code>, refer to the following example:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Windows_Server_MP,test-server-01.internal,HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001
+Windows_Server_MP,test-server-01.internal,HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet002</code></pre>
+
+          <p>
+            This example implies a Windows Server monitoring plan named
+            <strong>Windows_Server_MP</strong> with the
+            <strong>test-server-01.internal</strong> server monitored. Replace the names used with
+            the names used in your environment.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm#monitoring_custom_registry_keys"
+              target="_self"
+              >Windows Server − Monitoring Custom Registry Keys ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

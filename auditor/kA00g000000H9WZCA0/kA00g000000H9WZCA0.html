@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Message Size Exceeds Fixed Maximum Message Size Error in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WZCA0" />
+    <meta name="Id" content="ka04u00000117FuAAI" />
+    <meta name="LastPublishedDate" content="2023-08-18T10:24:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-18T10:25:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="807" />
+    <meta name="ArticleNumber" content="000003226" />
+    <meta name="description" content="maximum email size limit on our Exchange server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>You've encountered one of the following errors in your Health Log:</p>
+
+          <pre class="has-inner-focus">
+Netwrix Auditor was unable to send Activity Summary to %email_address%. 
+Error: SMTP Exception: The server rejected the message: %message%
+Message size exceeds fixed maximum message size.  
+Check your SMTP settings. Make sure the Exchange server is up and running and recipient's mailbox is accessible.
+</pre
+          >
+
+          <pre class="has-inner-focus">
+Netwrix Auditor was unable to deliver the subscription %subscription_name% due to the following error: 
+The following subscriptions could not be sent to the recipient %email_address%: 
+Error: Exceeded storage allocation. The server response was: %message%
+Message size exceeds fixed maximum message size.
+</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Size of the attached report exceeds the maximum message size.</p>
+            </li>
+            <li>
+              <p>Your Exchange server is affected by a connectivity issue.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Activity Summaries in large environments may exceed the maximum message size.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Netwrix Auditor menu, select <strong>Monitoring plans</strong>,
+                    select the affected monitoring plan in the left pane, and click
+                    <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the right pane, click <strong>Edit settings</strong> under the
+                    <strong>Monitoring plan</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>In the left pane, select <strong>Notifications</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Check the <strong>Compress attachment before sending</strong> checkbox, and
+                    click <strong>Save</strong>.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Subscription reports in large environments may exceed the maximum message size.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Netwrix Auditor menu, select <strong>Subscriptions</strong>, select
+                    the affected subscription, and click <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>In the left pane, select the <strong>General</strong> tab.</p>
+                </li>
+                <li>
+                  <p>
+                    Under the <strong>Specify delivery options</strong>, select
+                    <strong>CSV</strong> in the drop-down <strong>File format</strong> list.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <strong>Save</strong> to save changes.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Restart your Exchange server to verify the issue is not related to the server.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

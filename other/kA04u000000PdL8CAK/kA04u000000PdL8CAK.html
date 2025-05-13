@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>PPE: How to enable SSL on PPE Mailer to enable access with password</title><meta name="label" content="skb"/><meta name="label" content="password_policy_enforcer"/><meta name="KnowledgeArticleId" content="kA04u000000PdL8CAK"/><meta name="Id" content="ka04u000000HdF7AAK"/><meta name="LastPublishedDate" content="2021-07-12T12:16:17.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:49.000+0000"/><meta name="FirstPublishedDate" content="2021-07-12T12:16:17.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5890"/><meta name="ArticleNumber" content="000005890"/><meta name="description" content="PPE: How to enable SSL on PPE Mailer to enable access with password"/></head><body><article class=" kb-articles"><div class="Content__c"><div id="spPageCanvasContent">
+<div class="SPCanvas">
+<div class="SPCanvas-canvas">
+<div class="CanvasComponent">
+<div class="a_c_50a7110f Canvas grid Canvas--withLayout">
+<div class="m_c_50a7110f">
+<div class="a_e_50a7110f a_e_50a7110f root-79 CanvasZone row CanvasZone--alignment CanvasZone--noMargin CanvasZone--read">
+<div class="q_e_50a7110f">
+<div class="a_b_50a7110f i_b_50a7110f CanvasSection CanvasSection-col CanvasSection-sm12 CanvasSection--read CanvasSection-xl12">
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="1212fc8d-dd6b-408a-8d5d-9f1cc787efbb">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<p>As <span>by default no password can be used</span>, using this guide you can enable PPE Mailer to use SSL.</p>
+
+<ol><li><span><span>Download <a href="https://www.anixis.com/ftp/users/tonio/PPEMail_SSL.zip" title="https://www.anixis.com/ftp/users/tonio/PPEMail_SSL.zip" target="_blank">From Anixis Website</a> <a href="https://netwrixcorporation.sharepoint.com/:u:/r/SupportWiki2/Shared%20Documents/PPEMail_SSL.zip?csf=1&amp;web=1&amp;e=1Lr1iB" title="https://netwrixcorporation.sharepoint.com/:u:/r/SupportWiki2/Shared%20Documents/PPEMail_SSL.zip?csf=1&amp;web=1&amp;e=1Lr1iB" target="_blank">or from Sharepoint.</a> </span></span></li><li><span><span>Stop the PPPE Mailer service.</span></span></li><li><span><span>Rename PPEMail.exe in the <em>\Program Files (x86)\Password Policy Enforcer\ folder</em> to PPEMail.exe.original</span></span></li><li><span><span>Extract the new PPEMail.exe downloaded above into the <em>\Program Files (x86)\Password Policy Enforcer\</em> folder</span></span></li><li><span><span>Open the PPE Management Console to the PPS Properties page.</span></span></li><li><span><span>Click the E-mail Tab.</span></span></li><li><span><span>Make sure the port number is 25 (587 will not work).</span></span></li><li><span><span>Click OK.</span></span></li><li><span><span>Open the registry editor on the server that the PPE Mailer is running on.</span></span></li><li><span><span>Create the registry key <em>HKEY_LOCAL_MACHINE\SOFTWARE\ANIXIS\Password Policy Enforcer</em></span></span></li><li><span><span>Create a <strong>REG_DWORD </strong>value called MailUseSSL and set it to 1.</span></span></li><li><span><span>Create a <strong>REG_SZ </strong>value called MailUsername and set it to the SMTP username.</span></span></li><li><span><span>Create a <strong>REG_SZ </strong>value called MailPassword and set it to the SMTP password.</span></span></li><li><span><span>Run the mailer with the /test parameter to send a test email. For example:"ppemail.exe /test <a href="mailto:tonio@anixis.com" target="_blank">tonio@anixis.com</a></span></span>"</li><li><span><span>You should see a message that the credentials were moved to the credential manager, and the username and password you created in the registry should be gone.</span></span></li><li><span><span>The stored credentials are only accessible from your user account, so if the test above worked you should add the credentials to the service account. To do this, repeat steps 12 and 13 and then start the PPE Mailer service. The username and password should disappear from the registry again.</span></span></li></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</article></body></html>

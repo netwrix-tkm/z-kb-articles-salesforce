@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error message when you try to visit admin or helpdesk portal page: "HTTP Error 401.2 -
+      Unauthorized"
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZKCA0" />
+    <meta name="Id" content="ka04u000000HcSLAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1245" />
+    <meta name="ArticleNumber" content="000003394" />
+    <meta
+      name="description"
+      content="Netwrix Password Manager. When you try to visit the Admin or Helpdesk portal page, you may receive the following error message: &amp;quot;401 - Unauthorized: Access is denied due to invalid credentials&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When you try to visit the Admin or Helpdesk portal page, you may receive the following error
+        message:
+        <div>"401 - Unauthorized: Access is denied due to invalid credentials"</div>
+        However Authentication settings are correct - Windows authentication is enabled, all other
+        disabled.
+
+        <hr />
+
+        The Integrated Windows authentication native module section of the
+        <strong>ApplicationHost.config</strong> file or of the <strong>Web.config</strong> file is
+        not valid.
+
+        <hr />
+
+        <div>Add the Integrated Windows authentication native module in IIS Manager:</div>
+        <div />
+        <div>1. Open Internet Information Services (IIS) Manager;</div>
+        <div>
+          2. In the Connections pane, expand the computer that is running IIS, expand Web Sites, and
+          then click Default Web Site.
+        </div>
+        <div>3. On the Default Web Site Home page, double-click Modules.</div>
+        <div>4. In the Actions pane, click Add Native Module.</div>
+        <div>
+          5. In the Add Native Module dialog box, click to select the WindowsAuthenticationModule
+          check box, and then click OK. If it is not present there, please create it: - In the
+          Connections pane, click on the computer node that is running IIS and then click Modules on
+          the right; - In the Actions pane, click Configure Native Modules; - In the Configure
+          Native Modules dialog box, click to Register; - Specify WindowsAuthenticationModule in the
+          Name field and %windir%System32inetsrvauthsspi.dll under path, and then click OK.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

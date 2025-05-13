@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to exclude certain file/folders/shares from auditing by Netwrix Auditor for File Servers?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ccCAC" />
+    <meta name="Id" content="ka04u000000HcVNAA0" />
+    <meta name="LastPublishedDate" content="2022-09-19T14:20:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2321" />
+    <meta name="ArticleNumber" content="000003596" />
+    <meta
+      name="description"
+      content="Excluding files/folders from File Server Auditing scope using the omit files."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to exclude files, folders or shares from auditing by Netwrix Auditor for File Servers?
+        <hr />
+        If you do not want to audit every file and folder on the file server's shares or if you are
+        monitoring the whole server but want to omit a specific share, you can achieve that by using
+        a special omit file.
+        <ol>
+          <li>
+            Navigate to the product installation folder via Windows Explorer (by default: C:\Program
+            Files (x86)\Netwrix Auditor\File Server Auditing)
+          </li>
+          <li>Open <b>omitcollectlist.txt</b> file in any text editor</li>
+          <li>
+            Add the paths you do not want to be audited. For example:
+            <ul>
+              <li>Exclude a specific file in a share: *,,\\\\server\\share\\file</li>
+              <li>Exclude all files and subfolders in a share: *,,\\\\server\\share\\*</li>
+            </ul>
+          </li>
+          <li>Save changes</li>
+        </ol>
+        <br /><strong>Note</strong>: The above changes will not take effect until the next data
+        collection. Also, this would only prevent excluded data from showing in reports, but will
+        not suppress warnings/errors that happen during data collection. For instance, "Access
+        denied" errors will not disappear.
+      </div>
+    </article>
+  </body>
+</html>

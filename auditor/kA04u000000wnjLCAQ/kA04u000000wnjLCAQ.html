@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WMI Classes Data Provider Failed − Service Cannot Be Started</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnjLCAQ" />
+    <meta name="Id" content="ka04u000000wvv5AAA" />
+    <meta name="LastPublishedDate" content="2023-10-26T09:44:08.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-26T11:16:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-26T09:44:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8875" />
+    <meta name="ArticleNumber" content="000008875" />
+    <meta
+      name="description"
+      content="WMI Classes Data Provider Failed − Service Cannot Be Started"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for your Windows Server monitoring plan in
+            Netwrix Auditor:
+          </p>
+
+          <pre class="has-inner-focus">
+Source: Windows Server Audit Service
+Event ID: 1016
+Description: Monitoring plan: %Windows_Server_monitoring_plan%
+Item: %server_name%
+The WMI Classes data provider failed to get information on Win32_SystemSlot due to the following error:
+The service cannot be started, either because it is disabled or because it has no enabled devices associated with it.
+Exception from HRESULT: 0x80070422</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The Windows Management Instrumentation service has been stopped in the
+            <strong>Item</strong> server.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>This could happen due to a recent OS update in the
+              affected server.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Start the Windows Management Instrumentation service in the affected
+            <strong>Item</strong> server:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Search for <strong>Services</strong> in the search bar, or run
+                <code>services.msc</code> in the Run command window.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate the <strong>Windows Management Instrumentation</strong> service, right-click
+                it and click <strong>Start</strong>.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Data collection should resume once the
+            <strong>Windows Management Instrumentation</strong> service starts − you can update the
+            affected Windows Server monitoring plan to check if the error was solved.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

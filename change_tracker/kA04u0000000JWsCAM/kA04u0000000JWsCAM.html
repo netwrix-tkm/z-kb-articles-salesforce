@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Hub Connection Failed (500 Server Message)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JWsCAM" />
+    <meta name="Id" content="ka0Qk000000DSEbIAO" />
+    <meta name="LastPublishedDate" content="2025-04-23T21:24:43.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:25:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:41:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8158" />
+    <meta name="ArticleNumber" content="000008158" />
+    <meta name="description" content="Error: Hub Connection Failed (500 Server Message)" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <p>
+          When attempting to connect a device to the Netwrix Change Tracker, the following error
+          message may appear in the rolling log:
+        </p>
+        <pre class="has-inner-focus">
+2017-08-15 16:29:41,627 [10] INFO Message - Hub connection failed (500 Server message: Error, requested Agent name is in use by device with uniqueId: 123456a6-ffee-78a9-927e-34921d59ce64)</pre
+        >
+        <h2 id="cause">Cause</h2>
+        <p>
+          This problem occurs when a device that has the same name as an already registered agent
+          attempts to connect to the <strong>Netwrix Change Tracker</strong>. When an agent
+          connects, it receives an identifier called the <strong>agent.id</strong> file, which
+          contains an alphanumeric ID for identification purposes. If the ".id" file is not located
+          in the Agent Directory (<code class="lang-Registry"
+            >%ProgramData%\NNT\gen7agent.service</code
+          >
+          or <code class="lang-Registry">/var/nnt/gen7agent.service</code>), you will see an error
+          in the Agent's <strong>Rolling-log.txt</strong> similar to the one above.
+        </p>
+        <blockquote>
+          <p>
+            <span class="Caution"><strong>IMPORTANT: </strong></span>This method should only be used
+            to resolve this problem if the Agent you are trying to connect is the same device or a
+            re-imaged variant of the older device. Contact
+            <a
+              href="https://www.netwrix.com/sign_in.html?rf=tickets.html#/open-a-ticket"
+              target="_blank"
+              >Netwrix Change Tracker Support</a
+            >
+            before attempting this fix.
+          </p>
+        </blockquote>
+        <h2 id="resolution">Resolution</h2>
+        <h4 id="for_windows-based_os">For Windows-Based OS</h4>
+        <p>Follow these steps:</p>
+        <ol>
+          <li>Stop the Netwrix Change Tracker gen7agent Service.</li>
+          <li>
+            Open the rolling log and copy the Agent ID that is listed. Example: Hub connection
+            failed (500 Error, requested Agent name is in use by device with uniqueId:
+            123456a6-ffee-78a9-927e-34921d59ce64).
+          </li>
+          <li>
+            Edit the <strong>agent.id</strong> file in
+            <code class="lang-Registry">%ProgramData%\NNT\gen7agent.service</code> using Notepad.
+          </li>
+          <li>
+            Erase the ID that is currently in that file and paste in the ID copied from the rolling
+            log above. Ensure there are no spaces at the beginning or end of the text string.
+          </li>
+          <li>
+            Delete all files within the
+            <code class="lang-Registry">%ProgramData%\NNT\gen7agent.service</code> folder except the
+            <strong>Hubdetails.xml</strong> and <strong>agent.id</strong> file.
+          </li>
+          <li>
+            Edit the <strong>Hubdetails.xml</strong> file and erase the <code>&lt;E1&gt;</code> tags
+            and everything in between them.
+          </li>
+          <li>
+            Replace the <code>&lt;Password /&gt;</code> entry in the hubdetails with
+            <code>&lt;Password&gt;passWord121&lt;/Password&gt;</code>.
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span><strong>passWord121</strong> is the
+                default agent password. If you have changed the default password, use the updated
+                password instead.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            If you have specified a Prefix or Suffix and would like to remove it, replace
+            <code>&lt;NamePrefix&gt;MyPrefix&lt;/NamePrefix&gt;</code> with
+            <code>&lt;NamePrefix /&gt;</code>.
+          </li>
+          <li>
+            Save the <strong>Hubdetails.xml</strong>. You may need to save it to your desktop and
+            copy it back to the original location due to hardened permissions.
+          </li>
+          <li>
+            Start the gen7agent Service. The new device should now be registered using its original
+            device name.
+          </li>
+        </ol>
+        <h4 id="for_rhelcentos_linux-based_os">For RHEL/CentOS Linux-Based OS</h4>
+        <p>Follow these steps:</p>
+        <ol>
+          <li>Stop the Netwrix Change Tracker gen7agent Service.</li>
+          <li>
+            Open the rolling log using <code class="lang-Registry">cat</code>,
+            <code class="lang-Registry">nano</code>, or <code class="lang-Registry">vi</code> (<code
+              class="lang-Registry"
+              >cat/vi/nano/var/nnt/gen7agent.service/rolling-log.txt</code
+            >). Copy the Agent ID that is listed.
+          </li>
+          <li>
+            Edit the <strong>agent.id</strong> file in
+            <code class="lang-Registry">/var/nnt/gen7agent.service/agent.id</code> using
+            <code class="lang-Registry">nano</code> or <code class="lang-Registry">vi</code>.
+          </li>
+          <li>
+            Erase the ID that is currently in that file and paste in the ID copied from the rolling
+            log above. Ensure there are no spaces at the beginning or end of the text string.
+          </li>
+          <li>
+            Delete all files except the <strong>Hubdetails.xml</strong> and
+            <strong>agent.id</strong> file within the
+            <code class="lang-Registry">/var/nnt/gen7agent.service</code> folder.
+          </li>
+          <li>
+            Edit the <strong>Hubdetails.xml</strong> file and erase the <code>&lt;E1&gt;</code> tags
+            and everything in between them.
+          </li>
+          <li>
+            Replace the <code>&lt;Password /&gt;</code> entry in the hubdetails with
+            <code>&lt;Password&gt;passWord121&lt;/Password&gt;</code>.
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span><strong>passWord121</strong> is the
+                default agent password. If you have changed the default password, use the updated
+                password instead.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            If you have specified a Prefix or Suffix and would like to remove it, replace
+            <code>&lt;NamePrefix&gt;MyPrefix&lt;/NamePrefix&gt;</code> with
+            <code>&lt;NamePrefix /&gt;</code>.
+          </li>
+          <li>Save the <strong>Hubdetails.xml</strong>.</li>
+          <li>
+            Start the nntgen7agent Service. The new device should now be registered using its
+            original device name.
+          </li>
+        </ol>
+        <h2 id="related_articles">Related Articles</h2>
+        <ul>
+          <li>
+            <a href="https://kb.netwrix.com/8295" target="_blank"
+              >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8283" target="_blank"
+              >How to Move Your Linux Server MongoDB Database to a Windows Server</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8164" target="_blank"
+              >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+              Gen7</a
+            >
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/8310" target="_blank"
+              >How to Change the Admin Password of Your Mongo Database</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

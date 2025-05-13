@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>High CPU usage on remote desktop servers</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9beCAC" />
+    <meta name="Id" content="ka04u000000HcUOAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1374" />
+    <meta name="ArticleNumber" content="000003536" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when Account Lockout Examiner causes high CPU usage on remote desktop servers."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          >After installing Account Lockout Examiner(ALE) remote desktop servers are caused be
+          increased CPU usage with the process wmiprsve.exe.</span
+        >
+        <span
+          >This has been traced back to WMI calls originating from the server running ALE. If we
+          stop the Netwrix Account Lockout Examiner service while the CPU is loaded , the CPU usage
+          is reduced immediately.</span
+        >
+
+        <hr />
+
+        <span
+          >ALE tracks lockout events and invalid logon events from Windows security log of specified
+          DCs. Once an invalid logon event is collected from the DC, ALE connects to the machine
+          where the invalid logon originated and search for details in its security log. </span
+        ><br /><span>By default the WMI service is used to connect to security logs.</span>
+
+        Every invalid logon event on a DC initiates a WMI query to the workstation (servers) on
+        which that logon occurred. In case there are a lot of invalid logons on the target machine,
+        numerous WMI calls can affect CPU usage.
+
+        <hr />
+
+        <span>There are two options here </span><br /><br /><span
+          >1. Switch method that is used to connect to security logs.</span
+        >
+
+        In this case WMI service will not be used by ALE, but a .Net-based mechanism will be. This
+        will reduce the CPU usage of servers, however might cause high CPU usage on the ALE machine.
+        <div>
+          In order to do this perform the following on the machine where ALE is installed:
+          <ol>
+            <li>Run Registry Editor (regedit),</li>
+            <li>
+              Go to HKLMSoftware[Wow6432Node]NetWrixAccount Lockout Examiner (Wow6432Node only for
+              x64 OS)
+            </li>
+            <li>Change the "UseWMI_Workstations" value to 0</li>
+            <li>Restart the Netwrix Account Lockout Examiner service via Services.msc</li>
+          </ol>
+        </div>
+        <img
+          src="kA00g000000H9beCAC_98643e69-3eae-41b9-ab73-94ad96de2ba3.png"
+          alt="User-added image"
+          width="500"
+          height="278"
+        />
+        <br />
+
+        <span
+          >2. If step 1 is not enough, disable searching for detailed info about invalid
+          logons.</span
+        >
+
+        In this case ALE will not try to search for information on workstation or servers, the only
+        source will be domain controllers. With this scenario you will never see the name of the
+        process that caused invalid logon. <br /><br /><span
+          >In order to do this perform the following on the machine where ALE is installed:</span
+        >
+        <ol>
+          <li><span>Run Registry Editor (regedit)</span></li>
+          <li>
+            <span
+              >Go to HKLMSoftware[Wow6432Node]NetWrixAccount Lockout Examiner (Wow6432Node only for
+              x64 OS),
+            </span>
+          </li>
+          <li><span>Create a new DWORD called "PF_Enabled" and set its value to 0.</span></li>
+          <li>Restart the Netwrix Account Lockout Examiner service via Services.msc</li>
+        </ol>
+        <img
+          src="kA00g000000H9beCAC_783f247f-f1b3-41a2-9e56-64180f2584ad.png"
+          alt="User-added image"
+          width="500"
+          height="214"
+        />
+      </div>
+    </article>
+  </body>
+</html>

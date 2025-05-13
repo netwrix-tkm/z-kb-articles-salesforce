@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why Netwrix Auditor Reads AD FS DKM Key and Is It Normal?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wns3CAA" />
+    <meta name="Id" content="ka0Qk0000001LbtIAE" />
+    <meta name="LastPublishedDate" content="2024-01-15T14:30:54.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T14:30:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-28T14:56:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8925" />
+    <meta name="ArticleNumber" content="000008925" />
+    <meta name="description" content="Why Netwrix Auditor Reads AD FS DKM Key and Is It Normal?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Windows Defender generates the <b>Suspected AD FS DKM key read</b> alert due to activity
+            from the Netwrix account. Is it a normal behavior for the product?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Reading of this key is expected behavior as part of enumerating all AD attributes during
+            DirSync.
+          </p>
+
+          <p>
+            Avoiding reading it entirely seems to be impossible as Netwrix Auditor has to enumerate
+            all keys to determine what needs to be collected. However, you can fine tune Auditor to
+            exclude the <b>AD FS DKM key</b> from the auditing scope. For that:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts Netwrix Auditor Server, navigate to
+                <em>%Installation Path%\Active Directory Auditing\</em>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open the <b>omitstorelist.txt</b> file with any text editor, for example, with
+                Notepad.
+              </p>
+            </li>
+            <li>
+              <p>Add the following as a new line:</p>
+              <code>*.thumbnailPhoto</code>
+            </li>
+            <li>
+              <p>Save your edits.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Antivirus Exclusions for Netwrix Change Tracker</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111HFCAY" />
+    <meta name="Id" content="ka0Qk0000004pojIAA" />
+    <meta name="LastPublishedDate" content="2024-07-03T08:18:01.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-30T08:39:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-29T11:05:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8830" />
+    <meta name="ArticleNumber" content="000008830" />
+    <meta name="description" content="Antivirus Exclusions for Netwrix Change Tracker" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Should Netwrix Change Tracker folders, services, and processes be excluded from the
+            monitoring scope of your antivirus and endpoint detection and response solutions?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Netwrix Change Tracker performance may be negatively affected by antivirus and endpoint
+            detection and response solutions. Refer to the following list of exclusions to avoid
+            potential performance degradation.
+          </p>
+        </div>
+
+        <div>
+          <blockquote>
+            <p>Exclusions for Change Tracker agents:</p>
+          </blockquote>
+
+          <div class="table-wrap">
+            <table count-columns="4">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Name/Platform</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Service</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Process</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Folder</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>Windows NetCore Agent</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Gen7AgentCore</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Gen7Agent.App.NetCore.exe</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>C:\ProgramData\NNT\gen7agent.app.netcore</p>
+                      </li>
+                      <li>
+                        <p>C:\Program Files\NNT Change Tracker Suite\Gen7Agent (NetCore)</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>Linux NetCore Agent</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>nntgen7agentcore</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>/opt/nnt/gen7agentcore/bin/Gen7Agent.App.NetCore</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>/var/nnt/gen7agent.app.netcore/</p>
+                      </li>
+                      <li>
+                        <p>/opt/nnt/gen7agentcore/</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>Linux Express Agent</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>nntexpressagent</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>/opt/nnt/expressagent/expressAgent</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>/var/nnt/expressagent/</p>
+                      </li>
+                      <li>
+                        <p>/opt/nnt/expressagent/</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <blockquote>
+            <p>Exclusions for Change Tracker Hub:</p>
+          </blockquote>
+
+          <div class="table-wrap">
+            <table count-columns="3">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Service</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Process</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Folder</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>MongoDB</p>
+                      </li>
+                      <li>
+                        <p>W3SVC (Windows IIS Service)</p>
+                      </li>
+                    </ul>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>MongoDB Database Service (mongod.exe)</p>
+                      </li>
+                      <li>
+                        <p>IIS Worker Process (w3wp.exe)</p>
+                      </li>
+                    </ul>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>C:\Program Files\NNT Change Tracker Suite\Gen7\</p>
+                      </li>
+                      <li>
+                        <p>C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub</p>
+                      </li>
+                      <li>
+                        <p>C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) WebUI</p>
+                      </li>
+                      <li>
+                        <p>C:\ProgramData\Change Tracker Generation 7 (NetCore)\MongoDB\</p>
+                      </li>
+                      <li>
+                        <p>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Manual Removal of StealthINTERCEPT Windows Agent</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IvXCAU"/><meta name="Id" content="ka04u000000HcyaAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:42:22.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:12:36.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:42:22.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7328"/><meta name="ArticleNumber" content="000007328"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to manually remove a StealthINTERCEPT Windows Agent</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> steps to manually remove StealthINTERCEPT Windows agent installation when the Windows agent entry is not in add / remove programs or program features</p><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>  <br/>To manually remove the StealthINTERCEPT Windows agent: 
+</p><ul><li>step 1 -  open an administrator command prompt and execute: 
+<ul><li>sc delete SIWindowsAgent
+</li><li>sc delete SIGPOSvc
+</li><li>sc delete SBTService</li></ul>
+</li><li>step 2 - verify in the operating system's service list Windows agent, Windows File Monitoring, and Group Policy services are removed
+</li><li>step 3 - delete STEALTHbits folder at :\program files(x86)\STEALTHbits
+</li><li>step 4 - remove registry keys 
+<ul><li>remove registry keys at regedit hkey_local_machine | software | STEALTHbits
+</li><li>remove registry keys at regedit hkey_local_machine | software | wow6432node | StealthINTERCEPT</li></ul>
+</li></ul><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthINTERCEPT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SI - Windows Agent<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 1256<br/></p></div>
+</article></body></html>

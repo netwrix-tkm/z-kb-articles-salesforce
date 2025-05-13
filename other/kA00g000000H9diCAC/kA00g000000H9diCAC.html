@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to create Failover cluster for Password Manager?</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9diCAC" />
+    <meta name="Id" content="ka04u00000116RyAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-30T11:09:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2795" />
+    <meta name="ArticleNumber" content="000003664" />
+    <meta name="description" content="How to create Failover cluster for Password Manager?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        We recommend using Windows 2008 R2 or newer to build a failover cluster. Note, that only
+        Enterprise and Datacenter editions have the Failover cluster feature. Do the following: 1.
+        Enable the <strong>Failover cluster </strong>feature:
+        <ol start="1">
+          <li>Run <strong>Server Manager </strong>snap-in.</li>
+          <li>
+            In the left pane, right-click <strong>Features</strong>, select
+            <strong>Add feature</strong>. A wizard opens.
+          </li>
+          <li>
+            Enable the <strong>Failover clustering </strong>check-box, click <strong>Next</strong>,
+            then click <strong>Install</strong>.
+          </li>
+        </ol>
+        2. Create a network storage as per instructions below. It should include at least 2 disks
+        (one active and another one " witness)
+        <a
+          href="http://blogs.technet.com/b/canitpro/archive/2011/04/12/creating-a-san-using-microsoft-iscsi-software-target-3-3.aspx"
+          target="_blank"
+          >http://blogs.technet.com/b/canitpro/archive/2011/04/12/creating-a-san-using-microsoft-iscsi-software-target-3-3.aspx</a
+        >
+        <strong>NOTE:</strong> The machine that hosts storage drives should not be included to a
+        cluster as a node. 3. Install Netwrix Password Manager on all the machines that will be
+        included into the cluster. The installation directory should be placed on the shared storage
+        and be accessible from every node. Every new installation will overwrite this directory. 4.
+        Please create a failover cluster as per this instruction:
+        <a href="http://blogs.msdn.com/b/clustering/archive/2008/01/18/7151154.aspx" target="_blank"
+          >http://blogs.msdn.com/b/clustering/archive/2008/01/18/7151154.aspx</a
+        >
+
+        5. Configure the Netwrix Password Manager service for high availability:
+        <ol>
+          <li>Run the<strong> Failover Cluster Manager </strong>snap-in.</li>
+          <li>
+            In the left pane go to
+            <strong
+              >Failover Cluster Manager - &lt;Cluster name&gt; - Services and applications</strong
+            >
+          </li>
+          <li>
+            Click <strong>Configure a Service or Applications"</strong> in the right pane. A window
+            opens.
+          </li>
+          <li>
+            Select <strong>Generic service </strong>from the list, click <strong>Next</strong>.
+          </li>
+          <li>
+            Select <strong>Netwrix Password Manager </strong>from the list, click
+            <strong>Next.</strong>
+          </li>
+          <li>
+            Enter a name for the failover service and the IP address, by which Password Manager will
+            be available. Click <strong>Next.</strong>
+          </li>
+          <li>
+            Select the storage where the Password Manager installation directory is located from the
+            list. Click <strong>Next.</strong>
+          </li>
+          <li>
+            Specify a registry key which should be synchronized between the cluster nodes. For
+            Password manager it is HKLMSoftwareWow6432NodeNetwrixPassword Manager. Click<strong>
+              Next</strong
+            >.
+          </li>
+          <li>Verify all settings and confirm by clicking <strong>Next</strong>.</li>
+          <li>Wait until failover service is configured.</li>
+        </ol>
+        For more information and screenshots refer to:
+        <a href="http://technet.microsoft.com/en-us/library/cc731844(v=ws.10).aspx" target="_blank"
+          >http://technet.microsoft.com/en-us/library/cc731844(v=ws.10).aspx</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

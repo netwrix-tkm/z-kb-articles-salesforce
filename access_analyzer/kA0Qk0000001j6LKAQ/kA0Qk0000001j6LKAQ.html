@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-7.1.221</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001j6LKAQ" />
+    <meta name="Id" content="ka0Qk000000BM5FIAW" />
+    <meta name="LastPublishedDate" content="2024-11-22T18:56:25.000+0000" />
+    <meta name="LastModifiedDate" content="2024-11-22T18:56:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-11-22T18:56:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9334" />
+    <meta name="ArticleNumber" content="000009334" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span>Title: </span></strong>
+        </p>
+        <p>
+          <i><span>activitymonitor-7.1.221</span></i>
+        </p>
+        <p>
+          <strong><span>Summary:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <span class="test-idfield-value"
+              ><i><span>NAM reporting wrong user domain</span></i></span
+            >
+          </li>
+          <li>
+            <span class="test-idfield-value"
+              ><i
+                ><span
+                  >Not Recording Events for NFS Mount – Several Other servers are working new one is
+                  not.</span
+                ></i
+              ></span
+            >
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior Before Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            In some environments when netbios and fqdn domain name differ, we report the wrong user
+            domain.
+          </li>
+          <li>For Linux samba / smb activity we were reporting the path incorrectly.</li>
+        </ol>
+        <p>
+          <strong><span>Behavior After Fix:</span></strong>
+        </p>
+        <ol>
+          <li>Implemented fix to always report the netbios domain name.</li>
+          <li>
+            <span
+              >Implemented several improvements in the logic how we process the events from auditd
+              in order to have a better caching of path names and reconstruct correct full path
+              based on the information we get from auditd.  Reporting of samba / smb paths should
+              work as expected now.</span
+            >
+          </li>
+        </ol>
+        <p><b>Changes Since Last Hotfix:</b></p>
+        <ul>
+          <li>
+            <span> 361982: API Server - 'status' and 'stats' not included with GET response</span>
+          </li>
+          <li>
+            <span>364830: Package 'DotNetZip' 1.16.0 has a known high severity vulnerability</span>
+          </li>
+          <li><span>364073: Linux - Activity script not reporting events</span></li>
+          <li>
+            <span>364345: Linux - Permission events not reported for remote samba activity</span>
+          </li>
+        </ul>
+        <p>
+          <strong><span>Submitted by: </span></strong>
+        </p>
+        <p><span>Kevin Duddy</span></p>
+        <p>
+          <strong><span>Affected Versions:</span></strong>
+        </p>
+        <p><span>Activity Monitor 7.1</span></p>
+        <p>
+          <strong><span>Affected Module:</span></strong>
+        </p>
+        <ol>
+          <li><span>Windows</span></li>
+          <li><span>Linux</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ol>
+          <li>364891</li>
+          <li>310536</li>
+        </ol>
+        <p>
+          <strong><span>Resolved in Version:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.221</span></p>
+        <p>
+          <i><span> </span></i>
+        </p>
+        <p>
+          <strong><span>KB Type: </span></strong>
+        </p>
+        <p><span>Hotfix</span></p>
+        <p>
+          <strong
+            ><i><span> </span></i></strong
+          >
+        </p>
+        <p>
+          <strong><span>Modules Included:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.221</span></p>
+        <p>
+          <span>SBTService.exe </span><i><span>1.24.1119.1033</span></i>
+        </p>
+        <p>
+          <span>SI Version </span><i><span>7.3.9.231</span></i>
+        </p>
+        <p> </p>
+        <p><b>DevOps/Escalations</b></p>
+        <ol>
+          <li>364891 / 00427127</li>
+          <li>310536 / 00397493</li>
+        </ol>
+        <p><b>Cumulative List of fixes included since Service Pack:</b></p>
+        <ol>
+          <li><span>345503: MS updates: SUVP 24-07 support</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>342521: Agent Crashed on 3/28</span></li>
+              <li><span>349229: MS updates: SUVP 24-08 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>346065: Path being reported incorrectly for NetApp</span></li>
+              <li><span>348796: NetApp File Path Discrepancies</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >339474: have the latest "Received Events" that is currently visible only in the
+                  Activity Monitor also be available from the API Server</span
+                >
+              </li>
+              <li><span>356344: MS updates: SUVP 24-09 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >357592: Customer observed several agents are frequently disconnecting momentarily
+                  from console</span
+                >
+              </li>
+              <li><span>359550: MS updates: SUVP 24-10 support</span></li>
+            </ul>
+          </li>
+          <li><span>362194: Filter Activity from App@sharepoint from SharePoint Online</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i
+              ><span
+                >Run the MSI file on a host that has the Activity Monitor Console is
+                installed.</span
+              ></i
+            >
+          </li>
+          <li>
+            <i><span>Upgrade all agents. </span></i>
+          </li>
+        </ol>
+        <p> </p>
+        <p>https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.221.zip</p>
+      </div>
+    </article>
+  </body>
+</html>

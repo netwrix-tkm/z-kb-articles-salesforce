@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker Gen7
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JXHCA2" />
+    <meta name="Id" content="ka04u000000Hd98AAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:41:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8164" />
+    <meta name="ArticleNumber" content="000008164" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article will describe how to configure a Palo Alto device as a proxy agent. These
+          devices are similar to other proxied devices, but do have some known configurations that
+          must be applied in order for the device to register with Change Tracker.
+        </p>
+
+        <h2
+          id="HowtoAddPaloAltoDevicetoaProxyAgentasaProxyDeviceinChangeTrackerGen7-Step-by-stepguide"
+        >
+          Step-by-step guide
+        </h2>
+
+        <p>
+          Here are the prerequisite steps involved to add a Palo Alto device as a proxied device.<br /> 
+        </p>
+
+        <ol>
+          <li>
+            Set up SSH Credentials on the Palo Alto device with at least the ability to view "show
+            system info" and "show config running"<br />
+             
+          </li>
+          <li>
+            Make sure the Palo Alto confirmation prompt is turned off. A simple banner can be added
+            in its place. This has been known to cause problems with tracking configuration.<br />
+             
+          </li>
+          <li>
+            Test the credentials you have set up using an SSH PuTTY session. While you are here,
+            copy the user "prompts" that are to the left of the CLI entry.<br />
+             
+            <ol>
+              <li>
+                <strong>For Example:</strong>
+                <span
+                  ><strong>username@localhost&gt; <span>show config running</span></strong></span
+                >
+                - the "<span><strong>username@localhost&gt;</strong></span
+                >" is the prompt)
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <h2
+          id="HowtoAddPaloAltoDevicetoaProxyAgentasaProxyDeviceinChangeTrackerGen7-SettinguptheProxiedDevice"
+        >
+          Setting up the Proxied Device
+        </h2>
+
+        <p>
+          Once you have followed the steps above, you are ready to add the device to Change
+          Tracker.<br /> 
+        </p>
+
+        <p>
+          <strong>Proxy Agent:</strong><br />By default, every Gen 7 Hub server installation
+          includes an NNT Proxy Agent App or in later deployments, an NNT Gen 7 Agent.Any single
+          Proxy Agent instance can monitor hundreds of devices.<br /><br /><strong
+            >Proxied Device:</strong
+          ><br />Once a Proxy Agent element has been established, the devices to be monitored can be
+          configured.
+        </p>
+
+        <p> </p>
+
+        <p>
+          To add a Proxied device -First, Log into your Change Tracker console and go to the
+          "<strong>Settings</strong>" tile. On the left navigation buttons, select "<strong
+            >Agents &amp; Devices</strong
+          >" and locate your "<strong>Proxy Agent</strong>" and click the "<strong
+            >+Add Proxied Device</strong
+          >" button.
+        </p>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXHCA2_06d59946-3fc1-4b6f-b692-d3b96d627164.png"
+              width="1440"
+          /></span>
+        </p>
+
+        <p> </p>
+
+        <p>Upon clicking that button, you will see the screen below. Here you will enter:</p>
+
+        <ol>
+          <li>
+            <span>The device "Name" as you want it to appear in the Change Tracker Console.</span>
+          </li>
+          <li><span>The device's IP Address.</span></li>
+          <li><span>Select the Device Type (In our case, its "Network").</span></li>
+          <li>
+            <span
+              >Select the correct device Groups (If you type in "Palo Alto" you will see our default
+              results.</span
+            >
+          </li>
+          <li>
+            <span
+              >Make sure the "Diagnostic Mode" checkbox is <u><strong>CHECKED</strong></u></span
+            >
+          </li>
+          <li>
+            <span
+              >Click on the "+New Credentials..." Button to begin entering device credentials.</span
+            >
+          </li>
+          <li>
+            <span>Once you have Created your credentials, Click on "Update"</span><br />
+             
+          </li>
+        </ol>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXHCA2_00af3671-99d7-4b4a-a52e-e30c12fed0a0.png"
+          /></span>
+        </p>
+
+        <p> </p>
+
+        <h2
+          id="HowtoAddPaloAltoDevicetoaProxyAgentasaProxyDeviceinChangeTrackerGen7-SettinguptheCredentials"
+        >
+          Setting up the Credentials
+        </h2>
+
+        <p>
+          At this stage, you are ready to set up the credentials. Some very important pieces are
+          highlighted with Green (See Screenshot Below).
+        </p>
+
+        <ol>
+          <li>Give the credentials a name</li>
+          <li>Select "ANSI" as the Terminal Type</li>
+          <li>Select your prefered protocl type (SSH2 is usually best)</li>
+          <li>Select "CRLF" for the New Line</li>
+          <li>
+            Enter your SSH Username and Password credentials you created in the prerequisits section
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              This next step is very important. for the Prompts, if your firewall places a
+              "(active)" right before the "&gt;" prompt, you should use prompt "A" below and
+              configure your prompts where the text is red. If it does not, use prompt "B" and
+              configure your prompts where the text is red. (Note: in prompt B there is a period (.)
+              immediatly following the "\n"
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">
+                You can copy and paste the below. If you do - remember to remove the "a" and "b"
+              </p>
+
+              <div class="confluence-information-macro-body">
+                <blockquote>
+                  <p>
+                    <strong
+                      ><strong
+                        ><strong
+                          >A:<br />
+                          regex:\n<span>username@hostname</span>\(active\)\&gt;</strong
+                        ></strong
+                      ><br />
+                      <br />
+                      <strong>B:</strong></strong
+                    ><br />
+                    <strong><strong>regex:\n.+-<span>hostname</span>&gt;</strong></strong
+                    ><br />
+                     
+                  </p>
+                </blockquote>
+              </div>
+            </div>
+          </li>
+          <li>Now, make sure you have the "Password with Connect" box checked</li>
+          <li>
+            <p class="auto-cursor-target">Configure the "Login Script" Section as shown below.</p>
+
+            <p class="auto-cursor-target">
+              <span
+                >Note: Palo Alto configurations are exported by default in XML format. Running the
+                "Set cli config-output-format set" command will make them display in a more readable
+                format.</span
+              >
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">You can copy and paste the below</p>
+
+              <div class="confluence-information-macro-body">
+                <blockquote>
+                  <p>
+                    <br />
+                    <strong
+                      >StripCtrl,ON<br />
+                      ExcludeMatchesWithComment,**Uptime Line Removed**,uptime\:<br />
+                      ExcludeMatchesWithComment,**Current time Line Removed**,time\:<br />
+                      Execute,\n<br />
+                      Sleep,2<br />
+                      Execute,set cli pager off<br />
+                      Sleep,2<br />
+                      Execute,set cli config-output-format set<br />
+                      Sleep,2</strong
+                    ><br />
+                     
+                  </p>
+                </blockquote>
+              </div>
+            </div>
+          </li>
+          <li>Click on Update</li>
+          <li>
+            <p class="auto-cursor-target">
+              If you are returned back to the adding a proxied device section afterwards, also click
+              on update.
+            </p>
+          </li>
+        </ol>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              src="kA04u0000000JXHCA2_e9199364-09e9-478d-ace8-eaa6bdce744d.png"
+              width="625"
+          /></span>
+        </p>
+
+        <p> </p>
+
+        <h2
+          id="HowtoAddPaloAltoDevicetoaProxyAgentasaProxyDeviceinChangeTrackerGen7-Insomecases,youwillneedtousethefollowinginstead:"
+        >
+          In some cases, you will need to use the following instead:
+        </h2>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Info</b></div>
+
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+ExcludeMatchesWithComment,,^time.+|^uptime.+|^app-.+|^av-.+|^threat.+|^wf-.+|^url-.+|^wildfire-.+|^global-.+|^Unkn.+
+Sleep,1
+Execute,set cli pager off
+Sleep,1
+Execute,set cli config-output-format set
+Sleep,1
+Send,show config running
+ExecuteAndCapture,$$RESULTS$$,
+Sleep,1
+Send,show system info
+ExecuteAndCapture,$$RESULTS$$,
+Sleep,1
+Send,show admins all
+ExecuteAndCapture,$$RESULTS$$,</pre
+            >
+          </div>
+        </div>
+
+        <p class="auto-cursor-target">
+          If you are using the above, please remember to change the palo alto monitoring template to
+          show the following:
+        </p>
+
+        <p class="auto-cursor-target">
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="400"
+              src="kA04u0000000JXHCA2_1abd0591-62b0-4084-94fa-3d983dfc79c5.png"
+          /></span>
+        </p>
+
+        <h2
+          id="HowtoAddPaloAltoDevicetoaProxyAgentasaProxyDeviceinChangeTrackerGen7-Relatedarticles"
+        >
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8295" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKBU&amp;d=%2Fa%2F4u000000Lzag%2F2_DIe5QtcvgR5r7t2pDoKyYUrKns9VQm.T0vVwIICOc&amp;asPdf=false"
+          target="_blank"
+          >palo_alto.png</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKBa&amp;d=%2Fa%2F4u000000Lzpy%2F5lb73UvnQrYPsFNJYtCKnwhQzPgMHYB.K1rQkhY0cSk&amp;asPdf=false"
+          target="_blank"
+          >image2017-9-20_14-12-18.png</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdJzZ&amp;d=%2Fa%2F4u000000Lzip%2FI.TBnJdUKbi51OypedHIkYB4TLv021r1UnWZNKLBP0s&amp;asPdf=false"
+          target="_blank"
+          >image2017-9-20_12-46-55.png</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKH3&amp;d=%2Fa%2F4u000000LzY8%2Fqeu6MW38CcjXLE0Fagu4FH33EDRRACIB4igsV1kPRNo&amp;asPdf=false"
+          target="_blank"
+          >image2017-9-20_12-36-28.png</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK3b&amp;d=%2Fa%2F4u000000Lziu%2FOJVk4hzh5WVYhXvegUbBz8EN0obCwAIQVlr9R2hzRkM&amp;asPdf=false"
+          target="_blank"
+          >image2017-9-20_12-29-21.png</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdJrj&amp;d=%2Fa%2F4u000000LzQM%2FObg6vUYFZkxjaab9eI4jJgctxHZAZBxJqQ5GW60pc04&amp;asPdf=false"
+          target="_blank"
+          >image2017-9-20_12-25-30.png</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

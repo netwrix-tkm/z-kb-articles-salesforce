@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Exclude Non-operable Domain Controllers from Monitoring in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TQCA0" />
+    <meta name="Id" content="ka0Qk0000003W1lIAE" />
+    <meta name="LastPublishedDate" content="2024-04-05T13:35:52.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-02T08:34:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="613" />
+    <meta name="ArticleNumber" content="000003036" />
+    <meta
+      name="description"
+      content="exclude non-operable domain controllers Inactive User Tracker IUT"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to exclude a non-operable or decommissioned domain controller from monitoring?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>To exclude domain controllers from monitoring, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>Navigate to the %Working Folder%.</p>
+
+              <p>
+                The default path to Netwrix Working Folder is:
+                <b>C:\ProgramData\Netwrix Auditor</b>. If the Working Folder has been moved and you
+                do not know the path, you can find it by opening the <b>Registry Editor</b> and
+                navigating to:
+              </p>
+
+              <p>
+                Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE:</strong></span> The <code>Inactive Users Tracker</code> folder
+                  might not exist in the <code>%working folder%</code> directory if Inactive Users
+                  Tracker was not deployed.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Open the <strong>omitdclist.txt</strong> file and specify the name of the domain
+                controller you want to exclude in a new line.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Make sure the line does not start with the
+                  <strong>#</strong> symbol.
+                </p>
+              </blockquote>
+
+              <p>Refer to the following code block for a reference:</p>
+
+              <pre class="has-inner-focus">
+# DC name formats: full DNS and NETBIOS. IP addresses are not supported.
+# e.g. # dc1.example.com
+#
+MYDC.MYDOMAIN.LOCAL</pre
+              >
+              <img
+                alt="User-added image"
+                height="296"
+                src="kA00g000000H9TQCA0_0581da11-8f54-4df2-87f5-eaabdabf48a8.png"
+                width="500"
+              />
+            </li>
+            <li>
+              <p>Save the changes. Inactive User Tracker will exclude this domain controller.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            Refer to the following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/UserActivity/Scope.htm"
+              target="_self"
+              >Monitoring Plans — User Activity Monitoring Scope — v10.6</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

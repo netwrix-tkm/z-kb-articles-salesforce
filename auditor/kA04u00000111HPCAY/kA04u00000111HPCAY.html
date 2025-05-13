@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Specified Logon Session Does Not Exist Error in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111HPCAY" />
+    <meta name="Id" content="ka04u000001180uAAA" />
+    <meta name="LastPublishedDate" content="2023-09-29T13:59:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-02T07:24:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-29T13:59:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8832" />
+    <meta name="ArticleNumber" content="000008832" />
+    <meta
+      name="description"
+      content="Specified Logon Session Does Not Exist Error in Netwrix Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When you enable <strong>Leverage Integration API</strong> in the Netwrix Auditor
+            <strong>Settings</strong> menu, the following error is prompted:
+          </p>
+
+          <pre class="has-inner-focus">
+Cannot save the settings.
+A specified logon session does not exist. It may already have been terminated.</pre
+          >
+
+          <p>The <strong>Leverage Integration API</strong> switch is turned off subsequently.</p>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>An SSL certificate required to run Integration API is missing.</p>
+            </li>
+            <li>
+              <p>
+                In case of a prior Netwrix Auditor migration, the previously used SSL certificate
+                cannot be found in the certificate store of the new Netwrix Auditor server.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Assign a new SSL certificate to Integration API. Refer to the following article for
+            additional information on commands:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/API/Security.htm"
+              target="_self"
+              >Integration API − Security ⸱ v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/API/Security.htm"
+              target="_self"
+              >Integration API − Security ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

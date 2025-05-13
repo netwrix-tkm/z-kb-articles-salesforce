@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FSAA Registry Key Error</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IvhCAE" />
+    <meta name="Id" content="ka04u000000HcygAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:46:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:12:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:42:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7330" />
+    <meta name="ArticleNumber" content="000007330" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> FSAA Registry Key
+          Error on NAS devices
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> "Error during
+          processing: Could not open registry key
+          SYSTEM\CurrentControlSet\Services\SBTLogging\Parameters for reading: Access is denied (5);
+          local: False"
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions: </span></strong
+          >If you get this error after running a FSAA scan this indicates that the FSAA scan was
+          unable to open a registry key.  <br /> <br /><strong>Windows</strong>
+        </p>
+
+        <p>
+          If you get this after scanning a Windows host, either the registry key doesn't exist, or
+          access is denied. To investigate
+        </p>
+
+        <ul>
+          <li>Open Regedit,</li>
+          <li>Start – CMD - Regedit (running as the same credential as the scan)</li>
+          <li>
+            Try going to the location of the error message and see if the key exists or if you get
+            access denied  
+          </li>
+        </ul>
+
+        <p><strong>NAS</strong></p>
+
+        <p>If you get this after scanning a NAS host, check the details in the Host Management</p>
+
+        <ul>
+          <li>Open the Stealth Audit console</li>
+          <li>Find host management of the left hand side</li>
+          <li>All Hosts</li>
+          <li>Find the Host that has the issue</li>
+          <li>Select View\Edit Host (top right)</li>
+          <li>Select edit Host (bottom of the right)</li>
+          <li>Find OSName, OSType, Model and Manufacturer columns</li>
+          <li>Change OSName and OSType to 'NAS'.</li>
+          <li>Change Model and Manufacturer to 'N/A'.</li>
+        </ul>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - FSAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1200
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How AIC resource reviews work under the hood</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I6ACAU" />
+    <meta name="Id" content="ka04u000000HcfjAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:02:06.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:02:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6192" />
+    <meta name="ArticleNumber" content="000006192" />
+    <meta name="description" content="360008944451" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Issue:</strong> You need information about the tables that drive the AIC resource
+          review process.
+        </p>
+        <p> </p>
+        <p>
+          Reference: Stealthbits_SMP_AIC_DC_Schema PDF (Find in internal documentation folder
+          "\\sbitsinc.com\public\Documentation\Schema")
+        </p>
+        <p> </p>
+        <p><strong>How AIC resource reviews work under the hood</strong></p>
+        <p>
+          NOTE: This information assumes you already have knowledge of how Access Information Center
+          resource ownership and resource review workflows operate.  It discusses the implications
+          of those things and how they interact with the database tables for them.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_de5c8c65-8ff7-434e-b396-95d865e70671.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p> </p>
+        <p> </p>
+        <p><strong>Creating a resources and assigning owners</strong></p>
+        <p>Let’s start by looking at the table SA_AIC_Resources (before we add a new resource).</p>
+        <p>SA_AIC_Resources:</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_0de7b56f-fe5e-4362-a623-eafb42725d83.png"
+            alt="mceclip1.png"
+          /><br />This table simply keeps the list of resources that have had reviews requested. 
+          Resource types are: 0=FileSystemShare, 1=SharePointResource, 2=ActiveDirectoryGroup,
+          3=ActiveDirectoryDistributionList, 4=LocalGroup, 5=FileSystemExport
+        </p>
+        <p> </p>
+        <p> </p>
+        <p>
+          Then let’s create a new resource, afterwards looking to see what the same table looks
+          like.  I assigned a new owner for \\FS.SPIDER.LAB\TypicalDocuments.  Now my Resource
+          Owners page in the AIC looks like this:
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_58bc8ca5-58e4-477d-9e13-c20f093c70a7.png"
+            alt="mceclip2.png"
+          />
+        </p>
+        <p>Here’s SA_AIC_Resources (after the change… note the new entry with ID 5):</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_52f9b22d-2d26-450f-8699-9ce0da2f5280.png"
+            alt="mceclip3.png"
+          /><br />And here is SA_AIC_ResourceOwners:
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_9cdd047f-74bc-4a04-a80f-ec0e95d97c76.png"
+            alt="mceclip4.png"
+          />
+        </p>
+        <p>
+          There is our newly added resource, ID 5 in SA_AIC_Resources.  You’ll see it’s not
+          confirmed yet either by the owner in SA_AIC_ResourceOwners.
+        </p>
+        <p>
+          <em
+            >SIDE NOTE:  You might also notice that there is NOT an entry in the AIC for
+            \\SA10TWO.SPIDER.LAB\TypicalDocs, but there IS any entry for that on line 4 of
+            SA_AIC_Resources.  What’s going on with that you ask?  Resources that have been deleted
+            in and have no owner are still retained in SA_AIC_Resources table.  This is so old
+            resource review history can still be viewed for them.  (I actually deleted it because
+            the name was the same as the one I was going to add, but on a different server,
+            forgetting it worked this way.  So I will just have to trust that you are going to look
+            at the whole UNC and not get confused.)</em
+          >
+        </p>
+        <p>
+          Once the owner confirms that they do own the resource, SA_AIC_ResourceOwners is updated.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_54b8d979-6f2a-4cae-b508-62023e35ba3c.png"
+            alt="mceclip5.png"
+          />
+        </p>
+        <p>
+          (If for some reason the owner confirmation was that they did NOT own the resource,
+          “ConfirmResponse” would be set to 0 but ConfirmTime would still be set.  You’d still see
+          the resource on the resource owners, list it just would say it was NOT confirmed with a
+          red X under the confirmed column in the AIC.)
+        </p>
+        <p>
+          We will also see that SA_AIC_ResourceOptions lets us know if the resource allows adhoc
+          permissions changes by the owner, or self-service access requests by users, plus the
+          description field.  (In our case no resources allow either of those, hence the 0 for all
+          resources in both AllowAdHoc and AllowRequests.)
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_b599ecef-8f66-4fb1-912e-ca59565a7ba5.png"
+            alt="mceclip6.png"
+          />
+        </p>
+        <p>If you use the “edit notes” option for the resource, you can add a note.</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_5214612f-cd21-4f16-976a-8549d97265f2.png"
+            alt="mceclip7.png"
+          />
+        </p>
+        <p>This also shows in the interface with a visual indicator when there is a note.</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_ebb39876-c159-4d82-ba6a-4b27eb1225a6.png"
+            alt="mceclip8.png"
+          />
+        </p>
+        <p> </p>
+        <p>
+          Now we know what happens when a new resource is created and the owner confirmed, and the
+          tables associated with those actions.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_334d97c0-ee2e-4d61-a7ff-0d03dd59dbd5.png"
+            alt="mceclip9.png"
+          />
+        </p>
+        <p>
+          Additionally, there is a view with additional details about the resource owners -
+          SA_AIC_ResourceOwnersView.  Here is an example:
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_4ee4c2f5-206f-4f05-9b5f-6376bce5e854.png"
+            alt="mceclip10.png"
+          />
+        </p>
+        <p> </p>
+        <p> </p>
+        <p><strong>Access Requests</strong></p>
+        <p>
+          To set up for the next section, I made 3 groups, gave them read/modify/full_control,
+          rescanned FSAA and ADI.  Then I could edit a resource to enable the options to allow AdHoc
+          permissions changes by the resource owners and allow access requests from users.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_c6720357-c554-48d4-b31b-917782e3f26e.png"
+            alt="mceclip11.png"
+          />
+        </p>
+        <p>
+          Here is SA_AIC_Resource_options after that change.  Note ID 3 which corresponds to the
+          resource we changed.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_cad71f94-fd70-4e85-b417-1debd7e354a6.png"
+            alt="mceclip12.png"
+          />
+        </p>
+        <p>We also see an update to SA_AIC_ResourceAccessGroups.</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_5dbf8238-8fee-433f-8060-33faa9938bb3.png"
+            alt="mceclip13.png"
+          />
+        </p>
+        <p> </p>
+        <p>
+          Now that users can request access, let’s submit a request.  Previously
+          SA_AIC_ResourceAccessRequests was blank, but after submitting an access request we can see
+          that entry.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_cbd423b9-0014-479a-b6e0-34a6ccec2e58.png"
+            alt="mceclip14.png"
+          />
+        </p>
+        <p>When the owner approves the request, we will see that same table be updated again.</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_1c470c5f-ad75-4f60-9249-deb8cc4167dc.png"
+            alt="mceclip15.png"
+          />
+        </p>
+        <p>
+          If the AIC is NOT set up to automate the changes, the approval record will still be in the
+          table!  It just won’t actually be in effect until whatever manual process is required to
+          move the user into the right group happens. 
+        </p>
+        <p>
+          If you DO have the AIC set up to allow the AIC itself to automate changes, and the owner
+          has permission to make ad-hoc changes to a user’s access on a resource, the owner will
+          also have the “change access” button available when they select a resource from the Manage
+          My Resources (Resource Ownership) page.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_c6e7c529-4c98-4811-994a-a835d06dd20b.png"
+            alt="mceclip16.png"
+          />
+        </p>
+        <p>
+          (If AIC is not set to automate the changes in Configure Console, then this button will not
+          be available. )
+        </p>
+        <p>
+          If a user’s access is changed with this method, it will also also show up in the
+          SA_AIC_ResourceAccessRequests table.
+        </p>
+        <p> </p>
+        <p>
+          We have seen the tables related to Access Requests and how they change during the request
+          (or access change) process.
+        </p>
+        <p>
+          (Note that these examples show tables are from V10 StealthAUDIT.  V11 has additional
+          fields in some of the tables, but the basic concepts are the same.)
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_02acd5d1-2748-49b7-a6ea-eb0baab8b32c.png"
+            alt="mceclip17.png"
+          />
+        </p>
+        <p> </p>
+        <p> </p>
+        <p><strong>Resource Reviews</strong></p>
+        <p>
+          Now that we have covered the basics, we will delve into the complexities of Resource
+          Reviews.   Although there are more tables, we will look at how they are connected and what
+          they store.
+        </p>
+        <p>
+          [I have deleted all resource reviews from my test machine before starting so all the
+          resourcereview tables are empty.]
+        </p>
+        <p>
+          <strong><em>Create Review</em></strong>
+        </p>
+        <p>
+          First we will create a resource review.  I created an access review for one of my
+          resources as an example, and named it “access review 1”.
+        </p>
+        <p>Let’s see how the resource review tables and view look after doing that.</p>
+        <p> </p>
+        <p>SA_AIC_ResourceReviews:</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_7d8dd2ae-e9a1-4792-bb1d-83ff187cc832.png"
+            alt="mceclip18.png"
+          /><br />This table simply shows the name, type, create time, and creator for the review. 
+          Type 0 happens to be an access review.  You can find the access types in Appendix D of the
+          AIC schema documentation, but for clarity I will list them here as well.  Review types:
+          0=access, 1=permissions, 2=membership, 3=sensitive data, 4=file review. <br /><br />
+        </p>
+        <p>SA_AIC_ResourceReviewResponses:</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_6732cc77-32d6-4d2a-b51f-4481c20c84af.png"
+            alt="mceclip19.png"
+          />
+        </p>
+        <p>
+          This table is indicating who did the review AND allowing us to associate the ID of the
+          review itself to the individual responses.  (Reponses will reference ID 19, but the review
+          itself is ID 8.  These are two separate lists of things.)  This table also shows us the
+          ResourceID, which refers to the ID of the resource as listed in SA_AIC_Resources (see info
+          about that table above in Resource Owners section).<br /><br />
+        </p>
+        <p>
+          Be aware that there is also a related view called SA_AIC_ResourceReviewResponsesView. 
+          This is simply a view that gives us more info joined to the info in
+          SA_AIC_ResourceReviewResponses, to make it more useful for humans when viewing the info. 
+          (We won’t look at the view unless there is something specific to call out in the rest of
+          this discussion, but be aware it exists and can provide you extra contextual information.)
+        </p>
+        <p> </p>
+        <p>SA_AIC_ResourceReviewData:</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_9310adc9-2d1c-46f3-b515-4f1b2b534497.png"
+            alt="mceclip20.png"
+          /><br />This table shows all the data about all trustees with access.  (This is the
+          purpose of the review…to show and let someone flag/comment on each trustee.)  You can see
+          that each row has the “responseID” set to 19.  This is telling us each of those entries
+          belongs to the review with the ID 19 in SA_AIC_ResourceReviewResponses.  In turn, the
+          “reviewID” column in <em>that</em> table points us back to the actual review it with ID 8
+          in the table SA_AIC_ResourceReviews.
+        </p>
+        <p>SA_AIC_ResourceReviewResponseDetails and SA_AIC_ResourceReviewResponseDetailsView:</p>
+        <p>Both empty for now, but when someone reviews that data these will be populated.</p>
+        <p> </p>
+        <p>
+          <strong><em>Begin Review</em></strong>
+        </p>
+        <p>
+          Lets log into the AIC as the owner of the resource with the review, and see what it looks
+          like there.  When we click “Begin Review”, we see the list of trustees and their current
+          permissions.  These correspond directly to the items in SA_AIC_ResourceReviewData.  Even
+          though we don’t know the SIDs from that table, we can see there are three trustees with
+          read access and three with full control.  (In this case each item is in the same order,
+          but this is not guaranteed when selecting from the table.)
+        </p>
+        <p>
+          One item to note is the recommendation for one trustee that says “None: No domain login
+          for 60 days”.  This is auto-populated for us based on the trustee not having logged in to
+          the domain for a long time. 
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_290627a7-63ce-420f-96a9-af0a7979096e.png"
+            alt="mceclip21.png"
+          />
+        </p>
+        <p>
+          <br /><strong><em>Recommend Change</em></strong
+          ><br /><br />If we make a change, we can observe the results in the associate tables. 
+          After changing the Authenticated Users trustee to recommend modify permissions and
+          clicking SAVE (without clicking next to finish the review), we will see an addition to the
+          following tables/views:
+        </p>
+        <p>SA_AIC_ResourceReviewResponseDetails:</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_567510d8-ad33-4776-8798-bd1fcbc89743.png"
+            alt="mceclip22.png"
+          />
+        </p>
+        <p>
+          You can see that SA_AIC_ResourceReviewResponseDetails is recording our suggested
+          permissions change in the DesiredValue column.  The ResponseID, ItemName, and TrusteeType
+          are used to associate this response back to the item with the same values in the table
+          SA_AIC_ResourceReviewData (which contains the initial values info).
+        </p>
+        <p>
+          Be aware there is a related view named SA_AIC_ResourceReviewResponseDetailsView, which
+          simply gives more info about the items in SA_AIC_ResourceReviewResponseDetails.  (We won’t
+          look at the view unless there is something specific to call out in the rest of this
+          discussion, but be aware it exists and can provide you extra contextual information.)
+        </p>
+        <p> </p>
+        <p>
+          <strong><em>Submit Changes</em></strong>
+        </p>
+        <p>
+          If we click NEXT in the resource review, we will then be allowed to enter any notes about
+          our recommended changes.  I will enter one we can see for our one suggested change, and
+          then hit Submit.
+        </p>
+        <p>We will see that SA_AIC_ResourceReviewResponseDetails now has our Note for that user:</p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_cc1d3920-d20c-47a4-9f74-aa9f8ffe9979.png"
+            alt="mceclip23.png"
+          />
+        </p>
+        <p>
+          SA_AIC_ResourceReviewResponses also has been updated with the review info, now that the
+          review has been completed and submitted:
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_029d07ee-16f1-4352-9d77-801a8a89f039.png"
+            alt="mceclip24.png"
+          />
+        </p>
+        <p>
+          <strong><em>Approve/Deny Changes</em></strong>
+        </p>
+        <p>
+          The review now goes back to the original requestor, who will look at the recommendations
+          made and approve or deny the individual responses.  In this case, I will accept our change
+          on the individual trustee.  This updates the table SA_AIC_ResourceReviewResponseDetails
+          with the AdminResponse (0=accept, 1=decline, 2=defer), as well as the AdminTime and
+          AdminSID columns.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_03f1686b-7d08-4405-a693-e9ed36a5be96.png"
+            alt="mceclip25.png"
+          />
+        </p>
+        <p>
+          <em
+            >SIDE NOTE: This document does not discuss the “process changes” option.  Maybe it just
+            bulk agrees or denies the suggested changes?</em
+          >
+        </p>
+        <p>
+          <strong><em>Finish Review</em></strong>
+        </p>
+        <p>
+          If the review requestor then returns to the Manage Reviews screen, they will have the
+          ability to use the “Mark Completed” button to finalize the review process.  When they do,
+          SA_AIC_ResourceReviews will be updated with the FinishTime.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_73545b29-eb19-46b9-9fd8-3a8ca202800e.png"
+            alt="mceclip26.png"
+          />
+        </p>
+        <p>
+          <strong><em>Run Again</em></strong>
+        </p>
+        <p>
+          If the ‘Run Again’ button is chosen for a completed review, a new copy of it (with a new
+          ID) is created in SA_AIC_ResourceReviews, and the entire process begins again for that new
+          review.
+        </p>
+        <p>
+          <img
+            src="kA04u0000000I6ACAU_db666637-f5f9-401b-b195-2792849a6b35.png"
+            alt="mceclip27.png"
+          />
+        </p>
+        <p> </p>
+        <p><strong>Conclusion + Review process steps</strong></p>
+        <p>
+          This was a basic walkthrough of how the various tables are used to keep track of items in
+          the Resource Owners and Resource Reviews portion of the AIC.  In a real environment, there
+          would likely be more trustees and perhaps different recommendations for each, but they
+          would just be recorded in the appropriate tables.  
+        </p>
+        <p>
+          I hope this walkthrough was useful to you.  Here is an overview of the steps in the review
+          process that make changes to the various review tables. 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="2">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>CREATE REVIEW [Requestor]</p>
+                </td>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>Adds entries to SA_AIC_ResourceReviews, SA_AIC_ResourceReviewResponses,</p>
+                  <p>and SA_AIC_ResourceReviewData</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>RECOMMEND CHANGES + ADD NOTES [Reviewer]</p>
+                </td>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>Updates values in SA_AIC_ResourceReviewResponseDetails</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>SUBMIT CHANGES [Reviewer]</p>
+                </td>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>Updates value in SA_AIC_ResourceReviewResponses</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>APPROVE/DENY CHANGES [Requestor]</p>
+                </td>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>Updates values in SA_AIC_ResourceReviewResponseDetails</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>FINISH REVIEW [Requestor]</p>
+                </td>
+                <td colspan="1" rowspan="1" width="312">
+                  <p>Updates value in SA_AIC_ResourceReviews</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p> </p>
+        <p>Channel: Internal</p>
+        <p>Submitted by: Robert Parsons</p>
+        <p>Product: Access Information Center (AIC)</p>
+        <p>Affected Versions: all, but written with info from version 10</p>
+        <p>Affected Module: Access Information Center (resource reviews)</p>
+        <p>Dev Ticket: N/A</p>
+        <p>Resolved In Version: N/A</p>
+        <p>KB Type: How to</p>
+      </div>
+    </article>
+  </body>
+</html>

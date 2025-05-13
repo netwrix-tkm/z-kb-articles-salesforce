@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_052</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IGFCA2" />
+    <meta name="Id" content="ka04u000000HcinAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:11:45.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:11:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6357" />
+    <meta name="ArticleNumber" content="000006357" />
+    <meta name="description" content="360012326391" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary: </strong> This hotfix has multiple fixes around handling oracle pluggable
+          databases better when doing an SDD scan.
+        </p>
+        <p>
+          <strong
+            >Before Fix:  The following issues where preventing an implementation when scanning an
+            oracle lab that primarily used pluggable databases:</strong
+          >
+        </p>
+        <ul>
+          <li>
+            <strong
+              >An out of range exception prevented scan when date type values were being returned as
+              00-00-0000 in (MM-DD-YYYY) format and 000000 in Julian date format</strong
+            >
+          </li>
+          <li>
+            <strong
+              >AIC import error of
+              <em
+                >Cannot insert the value NULL into column "HostName", table
+                "tempdb.dbo.#Matches2_"</em
+              ></strong
+            >
+          </li>
+        </ul>
+        <p>
+          <strong
+            >After fix:  SDD scans now handle date data that is out of range and no longer stop with
+            an exception.  AIC script now allows NULLS in the offending columns that was causing
+            errors.</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>Changes Since Last Service Pack</strong></p>
+        <p>
+          SMPDB-1163  fix for oracle SDD data being overwritten when PDBs are scanned after root
+        </p>
+        <p>
+          SMPDB-1123  fix for
+          <strong
+            >“Expecting '@proxyOverride', which was not supplied” exception thrown when doing
+            instance discovery against azure SQL environment</strong
+          >
+        </p>
+        <p>
+          SMPDB-1044  Oracle SDD scan trying to get info from wrong container from schemas on
+          pluggable databases
+        </p>
+        <p>
+          SMPDB-970  Fix for SQL Server scans where a SQL user is renamed to match a previously
+          deleted user
+        </p>
+        <p>SMPDB-940  SQL Flexible imports group overwriting any other imported AIC jobs</p>
+        <p>SMPDB-951 Fix for invalid column name error after upgrading.</p>
+        <p>SMPDB-887 Oracle fix for reading XML from nested tables, reduce filter logging</p>
+        <p>SMPDB-702  Fix merge statement error when importing of permissions to AIC</p>
+        <p>SMPDB-918  Databases AIC permissions do not handle GRANT with grant state permissions</p>
+        <p>
+          SMPDB-887  Oracle Fix Reading XML Data From Nested Tables, Reduce Filter Logging And
+          Exclude Column Headers From Column Data SDD Scans
+        </p>
+        <p>
+          SMPDB-588  Client IP Address and Application Name information in SQL Server 2017 and above
+        </p>
+        <p>
+          SMPDB-522  50758 – fix for UNIQUE KEY constraint during some situations where users are
+          removed and created with the same principal_id.
+        </p>
+        <p>SMPDB-510  50712 – SDD job fails with ‘System.OutOfMemoryException’.</p>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Rob Evert</p>
+        <p>
+          <strong><em> </em></strong>
+        </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p> 10.0</p>
+        <p><strong> </strong></p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – SQL – DC</p>
+        <p> </p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>
+          SMPDB-1126  54763 - SA10 Oracle: SDD Import into AIC job fails Cannot insert the value
+          NULL into column "HostName", table "tempdb.dbo.#Matches2_"
+        </p>
+        <p>SMPDB-1141  55678 - Date Out-of-range exception</p>
+        <p><strong> </strong></p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>SQL DC 10.0.188</p>
+        <p> </p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p> </p>
+        <p><em> </em></p>
+        <p><strong>Files:</strong></p>
+        <p><strong> \DC\DCSQL.dll  10.0.188</strong></p>
+        <p><strong> \PrivateAssemblies\Oracle.ManagedDataAccess.dll  4.122.19.1</strong></p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Oracle.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Oracle.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.SQLServer.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Azure.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Azure.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.MySQL.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.MySQL.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.PostgreSql.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.PostgreSql.dll 
+            10.0.188</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_SQL\GROUP_0.Collection\JOB_1-SQL_PermissionsScan\DataAnalysisTasks.XML
+          </strong>
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_SQL\GROUP_0.Collection\JOB_2-SQL_SensitiveDataScan\DataAnalysisTasks.XML</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_SQL\GROUP_0.Collection\JOB_3-SQL_ActivityScan\DataAnalysisTasks.XML</strong
+          >
+        </p>
+        <p>
+          <strong
+            > \Jobs\GROUP_ORACLE\GROUP_0.Collection\GROUP_2.Collection\JOB_2-Oracle_SensitiveDataScan\DataAnalysisTasks.XML</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>Prior Hotfixes</strong></p>
+        <p>
+          <strong>SA_10.0_050  </strong>SMPDB-1123  55579  Fix for azure sql exception during
+          instance discovery
+        </p>
+        <p>
+          <strong>SA_10.0_046  SMPDB-1044  </strong>54763 - SA10 Oracle: trying to get info from
+          wrong container
+        </p>
+        <p>
+          <strong>SA_10.0_040  SMPDB-970  54284 - SQL Permission Scan Primary Key Error</strong>
+        </p>
+        <p>
+          <strong
+            >SA_10.0_034  SMPDB-940  53981 - SQL Flexible imports group overwriting any other
+            imported AIC jobs</strong
+          >
+        </p>
+        <p>
+          SA_10.0_030 
+          <strong>SMPDB-702  52195 – Fix for MERGE error for AIC permissions imports</strong>
+        </p>
+        <p>SA_10.0_015  SMPDB-510  50712 – SDD job fails with ‘System.OutOfMemoryException’.</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>SMPDB-1126/54763</strong></p>
+        <p><strong>SMPDB-1141/55678</strong></p>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog if an unblock button exists
+            there.
+          </li>
+          <li>
+            Check the customer's licensed features (help --&gt; about) and determine if the customer
+            is licensed for SQL or Oracle and SQL.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>
+            Copy and replace files from correct folder, depending on the licensing, to the
+            corresponding folders in SA Install dir.
+          </li>
+        </ol>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_052.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_052.zip</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Compression Service Does Not Appear Under Installed Programs but Still Exists in The Services
+      Overview
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000R53KAE" />
+    <meta name="Id" content="ka0Qk0000001hxNIAQ" />
+    <meta name="LastPublishedDate" content="2024-02-06T13:57:17.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-06T13:57:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-02-06T11:36:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9043" />
+    <meta name="ArticleNumber" content="000009043" />
+    <meta
+      name="description"
+      content="Compression Service Does Not Appear Under Installed Programs but Still Exists in The Services Overview"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            After uninstallation of Netwrix Compression Service, it does not appear under
+            <b>Programs and Features</b> in the Control Panel, but still exists in the
+            <b>Services Overview</b>.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>Compression service components were not completely removed during uninstallation.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>You can manually delete the Service and its components. For that:</p>
+
+          <ol>
+            <li>
+              <p>
+                Open the <b>Services</b> snap-in and open properties of the problematic service.
+              </p>
+            </li>
+            <li>
+              <p>
+                Copy the full name of the service and the path to executable, for example, to a
+                Notepad document.
+              </p>
+              <img
+                alt="User-added image"
+                src="kA0Qk0000000R53KAE_43ca3e50-bcc5-47c0-80f8-fa5d07f96d72.png"
+              />
+            </li>
+            <li>
+              <p>Run the command prompt as administrator and run the following command:</p>
+              <code>sc delete &lt;service_name</code>
+
+              <p>
+                where the &lt;<code>service_name&gt;</code> is the full name of the service you
+                copied on the step 2.
+              </p>
+            </li>
+            <li>
+              <p>
+                After that, navigate to the file path you copied earlier and delete all the files.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

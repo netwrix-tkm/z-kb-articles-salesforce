@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Cisco SSH session fails with error "ssh: handshake failed: ssh: no common algorithm for key exchange"</title><meta name="label" content="skb"/><meta name="label" content="privilege_secure"/><meta name="KnowledgeArticleId" content="kA04u0000000HQxCAM"/><meta name="Id" content="ka04u000000HcZmAAK"/><meta name="LastPublishedDate" content="2021-11-05T12:44:21.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T09:57:38.000+0000"/><meta name="FirstPublishedDate" content="2021-10-12T13:37:35.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5907"/><meta name="ArticleNumber" content="000005907"/><meta name="description" content="Cisco SSH session fails with error &#34;ssh: handshake failed: ssh: no common algorithm for key exchange&#34;"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>When launching a Cisco SSH activity through SbPAM, the session fails with:</p>
+
+<pre class="ckeditor_codeblock">ssh: handshake failed: ssh: no common algorithm for key exchange; client offered: [curve25519-sha256@libssh.org ecdh-sha2-nistp256 ecdh-sha2-nistp384 ecdh -sha2-nistp521 diffie-hellman-group14-sha1], server offered: [diffie-hellman-group1-sha1]</pre>
+
+<h2 id="issue">Issue</h2>
+
+<p>The SSH Key Exchange and Ciphers for the switch are older than expected and do not allow for SbPAM to connect with out-of-the-box settings.</p>
+
+<h2 id="instructions">Instructions</h2>
+
+<p>Modify the SbPAM proxy server's <b>sbpam_ssh.json</b> file to account for the required Key Exchange and Ciphers.<br/><br/><b>1.</b> Log-in to Windows on the SbPAM proxy server.<br/><br/><b>2.</b> Open an administrative PowerShell and perform the following commands: (where C:\ is the drive SbPAM is installed to):<br/> </p>
+
+<pre class="ckeditor_codeblock">cd "C:\Program Files\Stealthbits\PAM\ProxyService"
+./sbpam-proxy.exe cfg -c sbpam_ssh</pre>
+
+<p><br/><b>3.</b> Open File Explorer and browse to the following:<br/> </p>
+
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\PAM\ProxyService</pre>
+
+<p><br/><b>4. </b>Open <b>sbpam_ssh.json</b> in a text editor, and paste the following (noting this will overwrite any previous configurations to this file, if present):<br/> </p>
+
+<pre class="ckeditor_codeblock">{
+    "listenaddress": "0.0.0.0:4422",
+    "ClientSettings": {
+        "Algorithms": {
+        "KeyExchanges": [
+            "curve25519-sha256@libssh.org",
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group14-sha1",
+            "diffie-hellman-group1-sha1"
+        ],
+        "Ciphers": [
+            "aes128-gcm@openssh.com",
+            "chacha20-poly1305@openssh.com",
+            "aes128-ctr",
+            "aes192-ctr",
+            "aes256-ctr",
+            "aes128-cbc",
+            "3des-cbc",
+            "aes192-cbc",
+            "aes256-cbc"
+        ]
+        }
+    }
+}</pre>
+
+<p><br/><b>5.</b> Save <b>sbpam_ssh.json</b> and close it. Provision the SSH session again in SbPAM and verify the issue has been resolved (SSH session can successfully log-in to Cisco device).</p></div>
+</article></body></html>

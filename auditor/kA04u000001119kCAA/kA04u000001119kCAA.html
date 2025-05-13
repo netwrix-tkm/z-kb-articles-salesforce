@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Inactive User Tracker (IUT) — Internal</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001119kCAA" />
+    <meta name="Id" content="ka04u000000wvoxAAA" />
+    <meta name="LastPublishedDate" content="2023-09-06T10:02:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-20T12:40:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-06T10:02:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8787" />
+    <meta name="ArticleNumber" content="000008787" />
+    <meta name="description" content="Inactive User Tracker — Internal" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span
+              ><strong>IMPORTANT: </strong>This is an internal article migrated from Support Wiki.
+              If any changes to Configuration.xml are implied, the steps should only be performed by
+              Tech Support in a remote session!.</span
+            >
+          </p>
+        </blockquote>
+
+        <div>
+          <h2 id="overview">Overview</h2>
+
+          <div>
+            <blockquote>
+              <p>
+                <span><strong>NOTE: </strong></span>For additional information, refer to the
+                following resources:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <a href="https://netwrix.litmos.com/course/10385497" target="_blank"
+                      >Inactive User Tracker course ⸱ Litmos 🡥</a
+                    >
+                  </p>
+                </li>
+              </ul>
+            </blockquote>
+
+            <p>
+              Inactive User Tracker (IUT) allows tracking of inactive users and manipulating their
+              accounts after a specified number of days of inactivity. It can send a list of such
+              users to the specified recipients, and also automatically send notifications to the
+              managers of these inactive users.<br />Unlike other collectors, IUT can also perform
+              actions on inactive user accounts, making real changes to Active Directory.
+            </p>
+          </div>
+
+          <h2 id="workflow">Workflow</h2>
+
+          <div>
+            <p>
+              Inactive User Tracker functionality is based on two AD attributes: lastLogon and
+              lastLogonTimestamp.
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  <strong>lastLogon</strong> attribute is not replicated and is maintained
+                  separately on each domain controller in the domain. To get an accurate value for
+                  the user's last logon in the domain, the lastLogon attribute for the user must be
+                  retrieved from every domain controller in the domain. The
+                  <strong>largest</strong> value that is retrieved is the true last logon time for
+                  that user.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <strong>lastLogonTimestamp</strong> shows the time the user last logged into the
+                  domain. It is replicated to all domain controllers. Even though its usage might
+                  sound redundant (lastLogon is more accurate), collecting this attribute is
+                  critical:<br />
+                  Imagine a situation where you have a DC that authenticates a group of users
+                  exclusively. One day this DC gets decommissioned or goes down and the customer
+                  omits it so IUT could keep performing its actions. The only remaining evidence of
+                  those users authentication will be LastLogonTimestamp. Thanks to it they won't get
+                  immediately acted upon.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <h2 id="step-by-step_workflow">Step-by-step workflow</h2>
+
+          <h4 id="step_1">Step 1</h4>
+
+          <div>
+            <ul>
+              <li>
+                <p>
+                  Retrieve the list of domain controllers. If any DC failed to respond, no actions
+                  will be performed because the product will have incomplete data and we do not want
+                  to disable or delete an account by mistake. The number of failed DCs can be found
+                  in the IUT trace log as failedDc.count. If this number if greater than zero, no
+                  actions will be performed.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <h4 id="step_2">Step 2</h4>
+
+          <div>
+            <ul>
+              <li>
+                <p>Retrieve the list of users. The following LDAP filter is used:</p>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">(&amp;(sAMAccountType=805306368))</code></pre>
+              </li>
+            </ul>
+          </div>
+
+          <h4 id="step_3">Step 3</h4>
+
+          <div>
+            <p>
+              For each user account get <strong>lastLogon</strong> from each DC and
+              <strong>lastLogonTimestamp</strong>.
+            </p>
+          </div>
+
+          <h4 id="step_4">Step 4</h4>
+
+          <div>
+            <ul>
+              <li>
+                <p>Calculate the difference between the current DateTime and lastLogon values</p>
+              </li>
+              <li>
+                <p>
+                  If the difference is less than the threshold of inactive days (30 days by
+                  default), the user is removed from the list and no actions are performed on them
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <h4 id="step_5">Step 5</h4>
+
+          <div>
+            <ul>
+              <li>
+                <p>Perform selected actions.</p>
+              </li>
+            </ul>
+          </div>
+
+          <h4 id="step_6">Step 6</h4>
+
+          <div>
+            <ul>
+              <li>
+                <p>Send email to administrators.</p>
+              </li>
+            </ul>
+          </div>
+
+          <h2 id="omit_lists">Omit lists</h2>
+
+          <div>
+            <ul>
+              <li>
+                <p>
+                  Omitlist files are created during the first run of your first IUT monitoring plan.
+                  They can then be used in all monitoring plans. Default location:
+                </p>
+
+                <pre class="has-inner-focus">%Working Folder%\Inactive Users Tracker</pre>
+              </li>
+            </ul>
+
+            <div class="table-wrap">
+              <table count-columns="4">
+                <tbody>
+                  <tr>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>Name</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>Description</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>Syntax</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>Examples</strong></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>filter.txt</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p>
+                        Contains a list of user accounts to be excluded from tracking and automated
+                        deactivation.
+                      </p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>Username</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p>Administrator</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>omitdclist.txt</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p>Contains a list of DCs to be excluded from processing.</p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>FQDN or NetBIOS. IPs not supported</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p>dc1.test.local</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>omitoulist.txt</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p>Contains a list of OUs to be excluded from processing.</p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p><strong>OU name, one per line. Wildcards are supported</strong></p>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                      <p>*OU=C,OU=B,OU=A* - for A\B\C</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h4 id="related_resources">Related resources</h4>
+
+          <div>
+            <p>
+              <a href="https://netwrix.litmos.com/course/10385497" target="_blank"
+                >Inactive User Tracker course ⸱ Litmos 🡥</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://learn.microsoft.com/en-us/windows/win32/adschema/a-lastlogontimestamp"
+                target="_blank"
+                >Last-Logon-Timestamp attribute ⸱ Microsoft 🡥</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://learn.microsoft.com/en-us/windows/win32/adschema/a-lastlogon"
+                target="_blank"
+                >Last-Logon attribute ⸱ Microsoft 🡥</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

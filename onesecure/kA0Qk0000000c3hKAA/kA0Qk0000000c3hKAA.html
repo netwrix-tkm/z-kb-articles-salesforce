@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>1Secure − Analyze Status.xml</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000c3hKAA" />
+    <meta name="Id" content="ka0Qk0000004ZjxIAE" />
+    <meta name="LastPublishedDate" content="2024-04-17T14:24:19.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:13:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-17T14:24:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9142" />
+    <meta name="ArticleNumber" content="000009142" />
+    <meta name="description" content="1Secure − Analyze Status.xml" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> Return to the main workflow page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+              target="_self"
+              >1Secure Troubleshooting Workflow</a
+            >.
+          </p>
+
+          <p>
+            Return to the previous page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c0TKAQ.html"
+              target="_self"
+              >1Secure − ManagedObjects Node</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c5JKAQ.html"
+              target="_self"
+              >1Secure − Successful Data Collection</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article covers the <code>Status.xml</code> legend in the 1Secure. This article also
+            includes an example of the <code>Status.xml</code> file. Refer to the following
+            <code>Status.xml</code> location:
+          </p>
+
+          <pre class="has-inner-focus">
+    C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</pre
+          >
+        </div>
+
+        <h2 id="1_statusxml_legend">1. Status.xml legend</h2>
+
+        <div>
+          <p>The <code>Status.xml</code> document should contain the following subnodes:</p>
+
+          <ul>
+            <li>
+              <p><code>AgentInfo</code>. The agent used to communicate with the cloud.</p>
+            </li>
+            <li>
+              <p>
+                <code>LastUpdate</code>. The date of the latest update. The date is stored in the
+                cloud—this reduces the source configuration requests.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>SourceGroups</code>. The values indicate the status of requested source
+                configuration.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>Sources</code>. The values indicate the status of requested source
+                configuration.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>Reference</code>. An internal unique identifier for the source
+                configuration—also used in <code>Confuration.xml</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>Credentials</code>. The values indicate the status of requested credentials.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>ManagedObjectsDataCollectionStatus</code>. The value indicates the status of
+                connectors, refer to the possible GUIDs:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <code>da7c0b3d-63ad-ff26-fe75-ac0712a1835d</code>. Active Directory connector.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>7e498d0b-3592-4d0e-9629-c16be845f4e0</code>. Logon Activity connector.
+                  </p>
+                </li>
+                <li>
+                  <p><code>850fe1da-0ea6-c1a8-9810-0c1cece30698</code>. File Server connector.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <code>LastState/State</code>. For the connector-specific status, refer to the
+                possible values:
+              </p>
+
+              <ul>
+                <li>
+                  <p><code>RunInProgress</code> – The data collection is in progress.</p>
+                </li>
+                <li>
+                  <p><code>Completed</code> – The last data collection was successful.</p>
+                </li>
+                <li>
+                  <p><code>Failed</code> – Some issues occurred during the last data collection.</p>
+                </li>
+                <li>
+                  <p>
+                    <code>CompletedPartially</code> – Some minor issues occurred during the last
+                    data collection.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <code>LastDataCollectionTime</code>. The time of the last attempt to collect
+                activities.
+              </p>
+            </li>
+            <li>
+              <p><code>ItemStatuses</code>. Statuses of specific connector items.</p>
+            </li>
+            <li>
+              <p>
+                <code>Description</code>. The subnode may contain an error message to describe the
+                issue that occurred during the latest data collection.
+              </p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <span><strong>NOTE: </strong></span>Some subnodes are missing from the legend—they do
+            not play a major part in the troubleshooting process. They are inherited from Netwrix
+            Auditor.
+          </blockquote>
+
+          <h2 id="11_reading_statusxml">1.1 Reading Status.xml</h2>
+
+          <p>
+            The <code>Status.xml</code> file is not critical for the agent functioning. If the file
+            is removed, it will be automatically recreated once the main agent service starts
+            (<code>CloudAgentCoreSvc</code>).
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                If the data collection status is <code><strong>Completed</strong></code
+                >:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Review the activity cache folder in
+                    <code>ProgramData\Netwrix Cloud Agent\NAProcessor\Cache</code>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                If the data collection status is <code><strong>CompletedPartially</strong></code> or
+                <strong><code>Failed</code></strong
+                >:
+              </p>
+
+              <ul>
+                <li>
+                  <p>Review the Netwrix Cloud Agent event log.</p>
+                </li>
+                <li>
+                  <p>
+                    Review the internal folders in
+                    <code>ProgramData\Netwrix Cloud Agent\Logs\</code> for the affected connector.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="12_analyze_statusxml">1.2 Analyze Status.xml</h2>
+
+        <div>
+          <p>
+            The <code>Status.xml</code> file is located in
+            <code>C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</code>. Refer to the
+            following code block for a structure reference:
+          </p>
+
+          <pre class="has-inner-focus">
+    &lt;n n="\Statuses"&gt;
+        &lt;n n="AgentInfo"&gt;
+            &lt;a n="LastUpdate" v="2023-07-05T…"/&gt;
+            &lt;n n="SourceGroups"&gt;
+                &lt;n n="40e11e6e-5379-44e2-a277-c73c4598236a"&gt;
+                    &lt;a n="LastUpdate" v="2023-07-…"/&gt;
+                    &lt;a n="Reference" t="2" v="40e11e6e-…"/&gt;
+                    &lt;n n="Sources"&gt;
+                        &lt;n n="80c5cc57-3889-454f-980e-d60d2eb02fab"&gt;
+                            &lt;a n="LastUpdate" v="2023-07-05T…"/&gt;
+                            &lt;a n="Reference" t="2" v="80c5cc57-…"/&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+                &lt;n n="3ede85e3-cf9e-4347-9779-feef7131edb8"&gt;
+                    &lt;a n="LastUpdate" v="2023-07-05T …"/&gt;
+                    &lt;a n="Reference" t="2" v="3ede85e3-…"/&gt;
+                    &lt;n n="Sources"&gt;
+                        &lt;n n="3804ce09-755f-4206-80ec-69fcc0ef15ba"&gt;
+                            &lt;a n="LastUpdate" v="2023-07-05T…"/&gt;
+                            &lt;a n="Reference" t="2" v="3804ce09-…"/&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+            &lt;/n&gt;
+            &lt;n n="Credentials"&gt;
+                    &lt;n n="9811dbc6-9411-43f5-bf4f-657726d1849b"&gt;
+                        &lt;a n="LastUpdate" v="2023-07-05T19:32:20.637327+00:00"/&gt;
+                        &lt;a n="Reference" t="2" v="9811dbc6-…"/&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+            &lt;/n&gt;
+            &lt;n n="ManagedObjectsDataCollectionStatus"&gt;
+                &lt;n n="7e498d0b-3592-4d0e-9629-c16be845f4e0"&gt;
+                    &lt;n n="04f062ba-5ab4-446d-8eb9-0e7e0ccbf521"&gt;
+                        …
+                        &lt;a n="LastDataCollectionTime" t="2" v="2023-07-10T…"/&gt;
+                        &lt;a n="LastRetentionCheckTime" t="2" v="2023-07-09T…"/&gt;
+                        &lt;a n="State" t="2" v="Completed"/&gt;
+                        &lt;a n="StatusDateTime" t="2" v="2023-07-10T18:05:00Z"/&gt;
+                        &lt;n n="ItemStatuses"&gt;
+                            &lt;n n="fc92c61e-402e-414c-8867-643e8e470436"&gt;
+                                &lt;a n="LastState" t="2" v="Completed"/&gt;
+                                &lt;a n="State" t="2" v="Completed"/&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+                &lt;n n="da7c0b3d-63ad-ff26-fe75-ac0712a1835d"&gt;
+                    &lt;n n="f72cb7b7-98b8-4610-b761-aaf93096566e"&gt;
+                        …
+                        &lt;a n="LastDataCollectionTime" t="2" v="2023-07-10T…"/&gt;
+                        &lt;a n="State" t="2" v="Completed"/&gt;
+                        &lt;a n="StatusDateTime" t="2" v="2023-07-10T18:05:00Z"/&gt;
+                        &lt;n n="ItemStatuses"&gt;
+                            &lt;n n="e51b7528-ab32-4b88-863d-95480782e9b9"&gt;
+                                &lt;a n="LastState" t="2" v="Completed"/&gt;
+                                &lt;a n="State" t="2" v="Completed"/&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                        &lt;n n="AdInitial"&gt;
+                            &lt;a n="Description" t="2" v=""/&gt;
+                            &lt;a n="State" t="2" v="Completed"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"&gt;
+                                &lt;n n="e51b7528-ab32-4b88-863d-95480782e9b9"&gt;
+                                    &lt;a n="State" t="2" v="Completed"/&gt;
+                                &lt;/n&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                        &lt;n n="DirSyncCollector"&gt;
+                            &lt;a n="Description" t="2" v=""/&gt;
+                            &lt;a n="State" t="2" v="RunInProgress"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"/&gt;
+                        &lt;/n&gt;
+                        &lt;n n="BackwardDataAnalyzer"&gt;
+                            &lt;a n="Description" t="2" v=""/&gt;
+                            &lt;a n="State" t="2" v="RunInProgress"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"/&gt;
+                        &lt;/n&gt;
+                        &lt;n n="SitServiceUpdater"&gt;
+                            &lt;a n="Description" t="2" v="Latest data colle…"/&gt;
+                            &lt;a n="State" t="2" v="Completed"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"&gt;
+                                &lt;n n="e51b7528-ab32-4b88-863d-95480782e9b9"&gt;
+                                    &lt;a n="State" t="2" v="Completed"/&gt;
+                                &lt;/n&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                        &lt;n n="EventCollector"&gt;
+                            &lt;a n="Description" t="2" v=""/&gt;
+                            &lt;a n="State" t="2" v="RunInProgress"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"/&gt;
+                        &lt;/n&gt;
+                        &lt;n n="ActiveDirectoryCollector"&gt;
+                            &lt;a n="Description" t="2" v="Latest data colle…"/&gt;
+                            &lt;a n="State" t="2" v="Completed"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"&gt;
+                                &lt;n n="e51b7528-ab32-4b88-863d-95480782e9b9"&gt;
+                                    &lt;a n="State" t="2" v="Completed"/&gt;
+                                &lt;/n&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                        &lt;n n="ActiveDirectorySummaryCollector"&gt;
+                            &lt;a n="Description" t="2" v="Latest data colle…"/&gt;
+                            &lt;a n="State" t="2" v="Completed"/&gt;
+                            &lt;a n="StatusDateTime" t="2" v="2023-07-10T…"/&gt;
+                            &lt;n n="ItemStatuses"&gt;
+                                &lt;n n="e51b7528-ab32-4b88-863d-95480782e9b9"&gt;
+                                    &lt;a n="State" t="2" v="Completed"/&gt;
+                                &lt;/n&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+                &lt;n n="850fe1da-0ea6-c1a8-9810-0c1cece30698"&gt;
+                    &lt;n n="85844122-5a19-4bc8-beb1-6922d4209b82"&gt;
+                        &lt;a n="Description" t="2" v=""/&gt;
+                        &lt;a n="LastDataCollectionTime" t="2" v="2023-07-…"/&gt;
+                        &lt;a n="State" t="2" v="Failed"/&gt;
+                        &lt;a n="StatusDateTime" t="2" v="2023-07-10T18:04:09Z"/&gt;
+                        &lt;n n="ItemStatuses"&gt;
+                            &lt;n n="328bfbc6-4e32-46c5-aad0-540e85a54da9"&gt;
+                                &lt;a n="LastState" t="2" v="Failed"/&gt;
+                                &lt;a n="State" t="2" v="Failed"/&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+            &lt;/n&gt;
+            &lt;n n="RisksInfo"&gt;
+                &lt;n n="f72cb7b7-98b8-4610-b761-aaf93096566e"&gt;
+                    &lt;a n="LastUpdate" t="2" v="2023-07-10T00:01:16Z"/&gt;
+                &lt;/n&gt;
+            &lt;/n&gt;
+        &lt;/n&gt;</pre
+          >
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+                  target="_self"
+                  >1Secure Troubleshooting Workflow</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c0TKAQ.html"
+                  target="_self"
+                  >1Secure − ManagedObjects Node</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c5JKAQ.html"
+                  target="_self"
+                  >1Secure − Successful Data Collection</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

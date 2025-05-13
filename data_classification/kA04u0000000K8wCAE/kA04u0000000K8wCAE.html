@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Using Sharepoint Modern Authentication</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000K8wCAE" />
+    <meta name="Id" content="ka0Qk0000000wyTIAQ" />
+    <meta name="LastPublishedDate" content="2023-12-12T10:16:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T10:16:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-05-03T12:45:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8425" />
+    <meta name="ArticleNumber" content="000008425" />
+    <meta
+      name="description"
+      content="Using Sharepoint Modern Authentication for Netwrix Data Classification"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="step_1_preparing_an_application_certificate">
+          Step 1: Preparing an Application Certificate
+        </h2>
+        Prepare application certificate as follows:
+
+        <ol>
+          <li>
+            Create (or load) an IIS certificate on NDC Server (recommended).<br />
+            <b>NOTE</b>: This certificate should be installed for the local machine so that it can
+            be accessed by Netwrix Data Classification and other services.
+          </li>
+          <li>
+            Export the certificate (.CER file):
+            <ol>
+              <li>Open the certificate in IIS management console.</li>
+              <li>Go to the Details tab.</li>
+              <li>
+                Select Copy to File.<br />
+                <b>NOTE</b>: Do not export private key.
+              </li>
+              <li>Set file type to DER-encoded CER.</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h2 id="step_2_creating_and_registering_a_new_app_inmicrosoft_entra_id_formerly_azure_ad">
+          Step 2: Creating and Registering a New App in Microsoft Entra ID (formerly Azure AD)
+        </h2>
+        To register a new application, do the following:
+
+        <ol>
+          <li>
+            Sign into the <b>Microsoft 365 Admin Center </b>(with your Global Administrator,
+            Application Administrator or Cloud Application Administrator account).
+          </li>
+          <li>Search for and select the <b>Microsoft Entra admin center</b>.</li>
+          <li>Under the Azure Directory select the <b>App registrations </b>section.</li>
+          <li>
+            Select <b>New registration</b><br />
+            :<img
+              alt="Picture1.png"
+              src="kA04u0000000K8wCAE_d46c0723-4f48-4427-9da3-891e581fde82.png"
+            />
+          </li>
+          <li>In the <b>Name </b>field, enter the application name.</li>
+          <li>
+            In the <b>Supported account types </b>select who can use this application – use the
+            <b>Accounts in this organizational directory only </b>option.
+          </li>
+          <li>
+            Click the <b>Register </b>button.<img
+              alt="Picture2.png"
+              src="kA04u0000000K8wCAE_010abc17-d7ea-4dd3-b1da-f16ec86d4051.png"
+            /><br />
+            <b>NOTE</b>: Application redirect URl is optional, you can leave it blank on this step. 
+          </li>
+          <li>Copy your application ID from the <b>Overview </b>section it to a safe location.</li>
+        </ol>
+
+        <h2 id="step_3_granting_required_permissions">Step 3: Granting Required Permissions</h2>
+        Next, you need to grant your new application the required API permissions.<br />Azure AD
+        applications can be assigned <i>Delegated </i>or <i>Application </i>permissions:
+
+        <ul>
+          <li>
+            Delegated permissions require a signed-in user present who consents to the permissions
+            every time an API call is sent.
+          </li>
+          <li>Application permissions are consented by an administrator once granted.</li>
+        </ul>
+        For the newly created app, you should use <i>Application </i>permissions.<br /><b>NOTE</b>:
+        By default, a new application is granted one delegated permission for
+        <b>Microsoft Graph API – User.Read. </b>It is not required and can be removed.<br />Do the
+        following:<br />When found, click on the entry and proceed with adding the necessary
+        permissions. The steps from here on remain the same, so in most cases you would need the
+        Application permissions entry, and the relevant set of permissions therein.
+        <ol>
+          <li>Select the relevant entries, hit the Add permissions.</li>
+          <li>
+            On the <b>Request API permissions→Microsoft APIs </b>pane, scroll down and select
+            SharePoint.
+          </li>
+          <li>Select Application Permissions.</li>
+          <li>
+            Apply the following permissions:
+            <ol>
+              <li>
+                Graph – Application permissions (With admin consent granted)
+                <ul>
+                  <li>Sites.FullControl.All (Crawling)</li>
+                </ul>
+              </li>
+              <li>
+                SharePoint – Application permissions (With admin consent granted)
+                <ul>
+                  <li>Sites.FullControl.All (Crawling)</li>
+                  <li>
+                    TermStore.ReadWrite.All (Term Set access)<br />
+                    <b>NOTE</b>: For taxonomy manager to full operate you must also make the user
+                    “app@sharepoint” a taxonomy admin (or group admin)<br />
+                    <img
+                      alt="Picture3.png"
+                      src="kA04u0000000K8wCAE_68dad36a-b9da-4bc2-b52b-7e7f6e6a4c10.png"
+                    />
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+          <li>Click <b>Add permissions</b>.</li>
+        </ol>
+
+        <h2 id="step_4_configuring_certificates_secrets">
+          Step 4: Configuring Certificates &amp; Secrets
+        </h2>
+        Having configured the app, you can upload its application certificate.
+
+        <ol>
+          <li>
+            In the app settings, click <b>Certificates &amp; secrets </b>and select
+            <b>Upload certificate</b>.
+          </li>
+          <li>
+            Upload the .CER file you prepared at
+            <a
+              href="https://helpcenter.netwrix.com/bundle/DataClassification_5.6.2/page/NDC/Config_Infrastructure/Config_SPO_Modern_Auth.html#Step1"
+              target="_blank"
+              >Step 1: Preparing an Application Certificate</a
+            >
+            .
+          </li>
+          <li>Copy the certificate thumbprint to a safe location.</li>
+        </ol>
+
+        <h2 id="step_5_obtaining_tenant_id">Step 5: Obtaining Tenant ID</h2>
+
+        <ol>
+          <li>Open <b>Microsoft Entra admin center</b>.</li>
+          <li>
+            Select <b>Azure Active Directory &gt; Overview </b>section for the required Exchange
+            Online organization.
+          </li>
+          <li>Locate the <b>Tenant ID </b>and copy it to a safe location.</li>
+        </ol>
+        <br /><br /><br /><br /><br /> 
+      </div>
+    </article>
+  </body>
+</html>

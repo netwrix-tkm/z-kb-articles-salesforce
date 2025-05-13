@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_5.0.0.824_5.1.0.459_5.2.0.291_6.0.0.414_7.0.0.294</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IlcCAE" />
+    <meta name="Id" content="ka04u000000HcvLAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:30:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:30:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7077" />
+    <meta name="ArticleNumber" content="000007077" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI-Alerts
+          SBTService is "Stopped"
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong><br />SI-Alerts SBTService is "Stopped"<br /><strong
+            ><span>Behavior before Fix: </span></strong
+          ><br />When ini file has two sections: first SI with office filtering and the second SA
+          without office filtering next situation can happen. When permission event arrives security
+          difference is calculated. Event is passed to office filtering that might trigger several
+          events. When events are extracted from office filtering security difference is calculated
+          one more time. This might lead to the state when the difference is null. Next goest SA
+          section. The same permission event is passed to SA section and as it doesn't have office
+          filtering event is directly sent to the output but with incorrect security difference. In
+          older versions this lead to crash due to AV in latest versions event will be skipped or
+          incorrectly written to file.<br /><strong><span>Behavior after Fix: </span></strong
+          ><br />Now events should be processed correctly without SBTService crash<br /><b
+            >Changes since Last Hotfix:</b
+          ><br />I-4985 [LINK - Teledyne] SI-3849 34136 - SI-Alerts SBTService is "Stopped"2<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Maxim Sidarau  <br /><strong><span>Affected Versions:</span></strong
+          ><br />5.0.0      SIWindowsAgent_5.0.0.824_SI-3849<br />5.1.0     
+          SIWindowsAgent_5.1.0.459_SI-3849<br />5.2.0      SIWindowsAgent_5.2.0.291_SI-3849<br />6.0.0     
+          SIWindowsAgent_6.0.0.414_SI-3849<br />7.0.0      SIWindowsAgent_7.0.0.294_SI-3849<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Windows Agent<br /><strong><span>Dev Ticket:</span></strong
+          ><br />I-4985<br /><strong><span>Resolved in Version:</span></strong
+          ><br />5.0.0.824<br />5.1.0.459<br />5.2.0.291<br />6.0.0.414<br />7.0.0.294<br /><strong
+            ><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><b>Modules Included: </b>SI - Windows Agent<br /><b
+            >YouTrack/Escalations: </b
+          >SI-3849 / 34136<br /><b>Customers:  </b>Teledyne Technologies, Inc.<br /><b
+            >Cumulative List of fixes included since Service Pack:</b
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Stop
+          SIWindowsAgent service<br />2. Replace by attached files:<br />-  C:\Program
+          Files\STEALTHbits\StealthAUDIT\FSAC\SBTService.exe<br />- 
+          C:\Windows\System32\drivers\SBTFSF.sys<br />3. Start SIWindowsAgent service<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIWindowsAgent_5.0.0.824_SI-3849.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIWindowsAgent_5.0.0.824_SI-3849.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.1.0/SIWindowsAgent_5.1.0.459_SI-3849.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.1.0/SIWindowsAgent_5.1.0.459_SI-3849.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.1.0/SIWindowsAgent_5.1.0.459_SI-3849.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.1.0/SIWindowsAgent_5.1.0.459_SI-3849.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWindowsAgent_6.0.0.414_SI-3849.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWindowsAgent_6.0.0.414_SI-3849.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWindowsAgent_7.0.0.294_SI-3849.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWindowsAgent_7.0.0.294_SI-3849.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.0.0, 5.1.0, 5.2.0, 6.0.0, 7.0.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          SI-3849<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.0.0.824 5.1.0.459 5.2.0.291 6.0.0.414 7.0.0.294<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2368<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

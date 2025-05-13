@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unexpected End of File Error in File Server Monitoring Plan</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000ZCHKA2" />
+    <meta name="Id" content="ka0Qk0000003eH3IAI" />
+    <meta name="LastPublishedDate" content="2024-04-01T16:15:16.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-08T09:52:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-01T16:15:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9110" />
+    <meta name="ArticleNumber" content="000009110" />
+    <meta name="description" content="Netwrix Auditor for File Servers: Event IDs 2002 and 2004" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The Netwrix Auditor Health Log contains EventIDs 2002 and 2004:</p>
+
+          <div>
+            <pre class="has-inner-focus">
+Unexpected end of file has occurred. 
+The following elements are not closed refering to Netwrix .xml files in
+the ProgramData directory of the Netwrix server specific to the monitoring plan.</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This error is related to the link-layer protocol. It indicates that no service account
+            has been granted permission to access the Microsoft Link-Layer Discovery Protocol
+            (MSLLD) driver.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>To address this issue, follow these steps:</p>
+
+          <ol>
+            <li>
+              <p>Run elevated Command Prompt to execute the following command:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">SC sdshow MSLLDPCopy</code></pre>
+
+              <p>The output should read similar to the following:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">D:(D;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BG)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)
+(A;;CCDCLCSWRPDTLOCRSDRCWDWO;;;BA)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SO)
+(A;;LCRPWP;;;S-1-5-80-3141615172-2057878085-1754447212-2405740020-3916490453)
+S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)</code></pre>
+            </li>
+            <li>
+              <p>Execute the following command:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">SC sdshow MUPCopy</code></pre>
+
+              <p>The output should read similar to the following:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)
+(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)
+(A;;CCLCSWLOCRRC;;;SU)S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate the entry for <code>NT AUTHORITY\ SERVICE</code> represented as
+                <code>(A;;CCLCSWLOCRRC;;;SU)</code>. Add it to the original MSLLDP security
+                descriptor property, just before the last <code>S:(AU…</code> group.
+              </p>
+            </li>
+            <li>
+              <p>
+                Apply the new security descriptor to the MSLLDP service using the following command.
+                Delete the carriage return symbols when copying the command.
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">sc sdset mslldp D:
+(D;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BG)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)
+(A;;CCDCLCSWRPDTLOCRSDRCWDWO;;;BA)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SO)
+(A;;LCRPWP;;;S-1-5-80-3141615172-2057878085-1754447212-2405740020-3916490453)(A;;CCLCSWLOCRRC;;;SU)
+S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

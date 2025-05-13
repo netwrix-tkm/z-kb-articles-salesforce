@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SAM_6.0_010</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HuJCAU" />
+    <meta name="Id" content="ka04u000000HcbDAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:51:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:58:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:51:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6003" />
+    <meta name="ArticleNumber" content="000006003" />
+    <meta name="description" content="4402579766164" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary:</strong></p>
+        <ol>
+          <li><em>SQL - Certain events not being reported</em></li>
+          <li><em>SAM not collecting events from DC with updated SI agent</em></li>
+          <li><em>ini is available to unprivileged users</em></li>
+          <li>
+            <em>SAM is not receiving activity from SP online - Failed to authenticate Tennant</em>
+          </li>
+          <li>
+            <em
+              >2019 Server | Kerberos events may be lost with Out-of-band KB5008602, published
+              11/14/2021</em
+            >
+          </li>
+          <li>
+            <em
+              >SUVP 21-11 | Kerberos, DCsync or LDAP events may be lost or incomplete after applying
+              MSFT updates, release: 11/09/2021</em
+            >
+          </li>
+        </ol>
+        <p><strong>Behavior Before Fix:</strong></p>
+        <ol>
+          <li><em>For SQL, SAM did not report grant / revoke permission events.</em></li>
+          <li>
+            <em
+              >Upgrade from 4.1 to 6.0 hung; changing agent's safe mode settings did not work in
+              console, multi-select agent uninstall resulted in console crash.</em
+            >
+          </li>
+          <li>
+            <em
+              >ini inherited permissions from the parent folder. As a result, any user could read
+              it.</em
+            >
+          </li>
+          <li><em>SAM Sharepoint Online monitoring did not support HTTP Proxy.</em></li>
+          <li>
+            <em
+              >Kerberos events may be lost or incomplete from 2019 Server with installed
+              KB5008602.</em
+            >
+          </li>
+          <li>
+            <em
+              >Kerberos events may be lost or incomplete with installed KB5007260, KB5007247,
+              KB5007192, KB5007206.</em
+            >
+          </li>
+        </ol>
+        <p><strong>Behavior After Fix:</strong></p>
+        <ol>
+          <li><em>SAM now reports grant / revoke permission events for SQL.</em></li>
+          <li>
+            <em
+              >SAM is now be able to change agent's safe mode settings correctly; upgrade from 4.1
+              shouldn't cause a hang anymore; and multi-select uninstalls shouldn't crash console
+              anymore.</em
+            >
+          </li>
+          <li>
+            <em
+              >The console replaces agents.ini's security descriptor, disables inheritance, Full
+              control to SYSTEM, Full control to BUILTIN\Administrators, Raises the integrity level
+              to High. As a result non-admins or Medium and Low integrity processes cannot
+              read/write the file.</em
+            >
+          </li>
+          <li>
+            <em
+              >SAM added agent settings for HTTP Proxy support. The proxy will be used by Azure AD
+              and SPO collections.</em
+            >
+          </li>
+          <li><em>Signatures updated; SI Agents must be fully functional.</em></li>
+          <li><em>Signatures updated; SI Agents must be fully functional.</em></li>
+        </ol>
+        <p><strong>Changes Since Last Hotfix:</strong></p>
+        <ul>
+          <li>SFAM-7315: Inactivity Alert bulk edit fail</li>
+          <li>SFAM-6612: SQL. SAM does not show a database if there's no user mapping</li>
+          <li>SFAM-7323: MANAGEMENT_GROUP parameter is always in %ProgrmaFiles%</li>
+        </ul>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Kevin Duddy</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>STEALTHbits Activity Monitor 6.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>AD; Filesystem</p>
+        <p> </p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ol>
+          <li>SFAM-7450</li>
+          <li>SFAM-7447</li>
+          <li>SFAM-7369</li>
+          <li>SFAM-6836</li>
+          <li>I-7522</li>
+          <li>I-7501</li>
+        </ol>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>SBActivityMonitorSetup.msi 6.0.0.774</p>
+        <p><em> </em></p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p>
+          <strong><em> </em></strong>
+        </p>
+        <p><strong>Modules Included:</strong></p>
+        <p>SBActivityMonitorSetup.msi 6.0.0.774</p>
+        <p>SBActivityMonitorSetup_unsigned.msi 6.0.0.774</p>
+        <p>SBTService.exe 1.5.0.1522</p>
+        <p>SI Version 7.2.0.306</p>
+        <p> </p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <ol>
+          <li><em>SFAM-7450 / 62503</em></li>
+          <li><em>SFAM-7447 / 62498</em></li>
+          <li><em>SFAM-7369 / 62474</em></li>
+          <li><em>SFAM-6836 / 59592</em></li>
+          <li><em>I-7522 / NA</em></li>
+          <li><em>I-7501 / NA</em></li>
+        </ol>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <ol>
+          <li>
+            SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning (previous
+            fix)
+          </li>
+          <li>
+            SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning (corrected
+            hotfix)
+          </li>
+          <li>
+            SFAM-6977: SAM Nasuni Activity is Collecting but when importing to SA it is not matching
+            share mapping
+          </li>
+          <li>I-7358: 2019 Server only | LSASS may crash with KB5004244, released 07/13/2021</li>
+          <li>SFAM-7041: After upgrade SAM Console crashes when editing agents</li>
+          <li>
+            I-7376: 2016 Server | Kerberos auth. events may be lost or incomplete after applying
+            KB5005393
+            <ul>
+              <li>SFAM-7052: SAM 6.0 - can't set access zone per output</li>
+              <li>SFAM-7168: SAM not receiving all events from SI</li>
+              <li>
+                I-7405: 2019 Server only | Kerberos auth. events may be lost or incomplete with
+                KB5005102 (August 26, 2021)
+              </li>
+            </ul>
+          </li>
+          <li>
+            SFAM-7270: After install of SAM agent 6.0.690 or a few days into running "Agent services
+            may have recently crashed" message is seen
+            <ul>
+              <li>SFAM-7211: Improve AD resolution &amp; caching</li>
+              <li>
+                I-7470: SUVP 21-10 | 2019 Server Only | No NTLM events with KB5006672, release date:
+                10/12/2021
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            <em
+              >Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall
+              previous version, msi will upgrade the monitor).</em
+            >
+          </li>
+          <li><em>Upgrade all agents.</em></li>
+        </ol>
+        <p>
+          <em
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAMHotfixes/6.0/SAM_6.0_010.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAMHotfixes/6.0/SAM_6.0_010.zip</a
+            ></em
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

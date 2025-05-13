@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SharePoint Core Service Deployment Failed</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PcSXCA0" />
+    <meta name="Id" content="ka0Qk0000004dCTIAY" />
+    <meta name="LastPublishedDate" content="2024-07-15T16:01:00.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-15T16:01:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-06-01T17:25:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5800" />
+    <meta name="ArticleNumber" content="000005800" />
+    <meta
+      name="description"
+      content="How to manually update the SharePoint solution when the auto-deployment and .msi install fails."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Automatic or manual deployment of Netwrix Auditor for SharePoint Core Service in Web
+            Front-end (WFE) servers fails.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The service account used to upgrade or install Core Service has insufficient
+            permissions.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Review the permissions granted to the service account. Refer to the following article
+            for additional information on required permissions:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Permissions.htm"
+              target="_self"
+              >SharePoint — Permissions for SharePoint Auditing · v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="manual_installation">Manual Installation</h4>
+
+        <div>
+          <p>Refer to the following steps to manually install Core Service in all WFE servers:</p>
+
+          <ol>
+            <li>
+              <p>
+                Extract the SharePoint solution package—locate the <code>.msi</code> file placed by
+                default in
+                <code
+                  >C:\Program Files (x86)\Netwrix Auditor\SharePoint
+                  Auditing\SharePointPackage</code
+                >
+                and extract the contents via 7-Zip.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once extracted, copy the <code>.wsp</code> file to each WFE server. Run the
+                following lines in each WFE in elevated PowerShell to install the solution package:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Add-SPSolution -LiteralPath c:\Netwrix.SharePoint.Audit.wsp
+Install-SPSolution -identity Netwrix.SharePoint.Audit.wsp -GACDeployment -Local -Force</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Replace the placeholder
+                  <code>-LiteralPath</code> path with the actual path for the
+                  <code>.wsp</code> package.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Confirm the deployment in each server by running the following line in PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Get-SPSolution -Identity 'Netwrix.SharePoint.Audit.wsp' |FT</code></pre>
+
+              <p>Verify that Core Service is installed globally.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Permissions.htm"
+                  target="_self"
+                  >SharePoint — Permissions for SharePoint Auditing · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

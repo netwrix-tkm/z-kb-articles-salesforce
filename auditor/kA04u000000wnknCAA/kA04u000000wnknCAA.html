@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Target Computer Cannot Be Identified in User Activity Monitoring Plan</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnknCAA" />
+    <meta name="Id" content="ka0Qk0000001VszIAE" />
+    <meta name="LastPublishedDate" content="2023-10-31T11:45:26.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-26T07:04:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-31T11:45:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8881" />
+    <meta name="ArticleNumber" content="000008881" />
+    <meta
+      name="description"
+      content="Target Computer Cannot Be Identified in User Activity Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for your User Activity monitoring plan in
+            Netwrix Auditor:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Source:User Activity Audit Service
+The following error has occurred while processing '%monitored_client%':   
+The target computer cannot be identified.
+Make sure that it is online and reachable, Remote Registry service is enabled.</code></pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>The Remote Registry service is disabled in the affected client.</p>
+            </li>
+            <li>
+              <p>Ports required for User Activity monitoring are blocked.</p>
+            </li>
+            <li>
+              <p>
+                The antivirus suite used in your environment is blocking access to Netwrix-related
+                folders.
+              </p>
+            </li>
+            <li>
+              <p>The SMB v2/v3 protocol is disabled in your environment.</p>
+            </li>
+            <li>
+              <p>
+                User Activity Core Service is not installed in the target server or does not match
+                the Auditor server version.
+              </p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>While SMB v1 can be disabled in your
+              environment, the SMB v2/v3 protocol is required to be enabled for Netwrix Auditor to
+              be operating correctly.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Enable the Remote Registry service in the affected client − refer to the following
+                article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/RemoteRegistryService.htm"
+                  target="_self"
+                  >Windows File Servers − Enable Remote Registry Service ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the allowed connections in the affected server in accordance with the
+                following article guidelines:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/UserActivity/Ports.htm"
+                  target="_self"
+                  >User Activity − User Activity Ports ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Exclude the Netwrix-related folders from the monitoring scope of your antivirus
+                suite − refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enable the SMB v2/v3 protocol in both the client and server − learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#how-to-detect-status-enable-and-disable-smb-protocols"
+                  target="_blank"
+                  >Detect, Enable and Disable SMBv1, SMBv2, and SMBv3 ⸱ Windows Learn</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the list of apps installed in the affected server. If User Activity Core
+                Service is either missing or is outdated, refer to the following articles for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/UserActivityCoreService.htm"
+                  target="_self"
+                  >Installation − Install for User Activity Core Service · v10.6</a
+                >
+                and
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000PJNKA2.html"
+                  target="_blank"
+                  >Manually Update User Activity Core Service</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/RemoteRegistryService.htm"
+                  target="_self"
+                  >Windows File Servers − Enable Remote Registry Service ⸱ v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/UserActivity/Ports.htm"
+                  target="_self"
+                  >User Activity − User Activity Ports ⸱ v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3?tabs=server#how-to-detect-status-enable-and-disable-smb-protocols"
+                  target="_blank"
+                  >Detect, Enable and Disable SMBv1, SMBv2, and SMBv3 ⸱ Windows Learn</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/UserActivityCoreService.htm"
+                  target="_self"
+                  >Installation − Install for User Activity Core Service · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000PJNKA2.html"
+                  target="_self"
+                  >Manually Update User Activity Core Service</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

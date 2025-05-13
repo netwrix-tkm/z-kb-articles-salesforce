@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Resolving "No Common Algorithm for Key Exchange" SSH Error for Cisco Resources</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000LLlLCAW"/><meta name="Id" content="ka0Qk0000006rPpIAI"/><meta name="LastPublishedDate" content="2024-10-17T15:41:36.000+0000"/><meta name="LastModifiedDate" content="2024-10-18T18:43:16.000+0000"/><meta name="FirstPublishedDate" content="2023-02-22T14:53:01.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8549"/><meta name="ArticleNumber" content="000008549"/><meta name="description" content="Resolving &#34;No Common Algorithm for Key Exchange&#34; SSH Error for Cisco Resources"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>This article applies only to Cisco connections.</p>
+</blockquote>
+<div>
+<p>It may occur that Privilege Secure is not configured to use the same key exchange algorithm as a target resource when brokering an SSH connection. This will cause the following error to appear in the "PAM-SSHClient" log:</p>
+<pre class="has-inner-focus">Error="ssh: handshake failed: ssh: no common algorithm for key exchange; client offered: [ARRAY_OF_ALGORITHMS], server offered: [ARRAY_OF_ALGORITHMS]"</pre>
+<blockquote>
+<p><span><strong>NOTE:</strong></span> Here, the two arrays of algorithms would <strong>not</strong> contain any shared algorithms.</p>
+</blockquote>
+</div>
+<h2 id="instructions">Instructions</h2>
+<div>
+<p>Refer to the following steps to configure the use of the same key exchange algorithm as a target resource when brokering an SSH connection:</p>
+<ol><li>
+<p>Choose an acceptable algorithm from the list of <strong>server offered</strong> algorithms given in the error message you have received. For example, suppose your server offered <strong>diffie-hellman-group14-sha1</strong>.</p>
+</li><li>
+<p>On your <strong>Privilege Secure</strong> server, navigate to the <strong>ActionServiceWorker</strong> directory.</p>
+<blockquote>
+<p><span><strong>NOTE:</strong></span> On a default installation, it should be <code>C:\Program Files\Stealthbits\PAM\ActionServiceWorker</code></p>
+</blockquote>
+</li><li>
+<p>Open the <strong>sbpam_sshclient.json</strong> file in a text editor.</p>
+</li><li>
+<p>Navigate to the <strong>KeyExchanges</strong> section, which should resemble the following:</p>
+<pre class="has-inner-focus">"KeyExchanges": [
+		"diffie-hellman-group-exchange-sha256",
+		"diffie-hellman-group-exchange-sha1",
+		"diffie-hellman-group1-sha1"</pre>
+</li><li>
+<p>Modify the array to include your desired algorithm, keeping the array properly comma-separated. In our example:</p>
+<pre class="has-inner-focus">"KeyExchanges": [
+		"diffie-hellman-group-exchange-sha256",
+		"diffie-hellman-group-exchange-sha1",
+		"diffie-hellman-group1-sha1",
+		"diffie-hellman-group14-sha1"</pre>
+</li><li>
+<p>You should now be able to negotiate an SSH connection with the target resource using its preferred algorithm.</p>
+</li></ol>
+</div></div>
+</article></body></html>

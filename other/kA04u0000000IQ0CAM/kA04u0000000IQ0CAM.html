@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Reset TCP/IP &amp; Winsock to restore http connectivity</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IQ0CAM"/><meta name="Id" content="ka04u000000HcmhAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:20:09.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:06:39.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:20:09.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6541"/><meta name="ArticleNumber" content="000006541"/><meta name="description" content="360010581231"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Troubleshooting internet connectivity. </p>
+<p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Http connectivity such as websites, skype, gotomeeting, etc. won't work <br/><br/>in this specific case we could ping <a href="https://google.com" target="_blank">google.com</a>, ftp <a href="https://uploads.stealthbits.com" target="_blank">uploads.stealthbits.com</a> worked fine</p>
+<p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong></p>
+<div>Reset WINSOCK entries to installation defaults: netsh winsock reset catalog</div>
+<div> </div>
+<div>Reset TCP/IP stack to installation defaults. netsh int ip reset reset.log</div>
+<div> </div>
+<div>Reboot the machine.</div>
+<div> </div>
+<div><span>If that doesn't work use Device Manager to uninstall your network adapter; then reboot and let Windows find the adapter and reinstall the driver.</span></div>
+<div> </div>
+<p><strong><span class="wysiwyg-font-size-large">Module:</span></strong> Internal<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 000001092</p></div>
+</article></body></html>

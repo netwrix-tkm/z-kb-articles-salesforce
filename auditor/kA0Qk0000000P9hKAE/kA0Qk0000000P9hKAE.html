@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Alert Emails Limited to 10</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000P9hKAE" />
+    <meta name="Id" content="ka0Qk0000001REHIA2" />
+    <meta name="LastPublishedDate" content="2024-01-22T11:54:07.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-22T12:58:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-22T11:54:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9015" />
+    <meta name="ArticleNumber" content="000009015" />
+    <meta name="description" content="Alert Emails Limited to 10" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            In case an alert has been triggered over 10 times, the following notification is
+            prompted in the latest alert:
+          </p>
+
+          <pre class="has-inner-focus">
+This alert has been triggered 10 times during the last 15 minutes.
+To prevent mailbox overflow, Netwrix Auditor will not send emails on this alert for the next 30 minutes.
+To review the full activity trail, use interactive search in Netwrix Auditor.</pre
+          >
+
+          <p>Any emails to report alerts triggered over 10 times are not sent.</p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            A default limit for alert emails is enabled to prevent the feature from spamming the
+            receivers.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Locate the <code>AlertsSender.acconf</code> file. It is located in
+                <code>C:\Program Files (x86)\Netwrix Auditor\Audit Core</code> by default.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <code>AlertsSender</code> file, locate the
+                <code>&lt;n n='AlertsSender'&gt;</code> node and change it as follows:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">&lt;n n='AlertsSender'&gt;
+&lt;a n='AlertsCfgPath' v='\NetwrixAuditor\Alerts'/&gt;
+&lt;a n='NotAvailableText' v='Not available'/&gt;
+&lt;a n='MailsCountMax' v='10'/&gt;
+&lt;a n='MailsWindowSec' v='900'/&gt;
+&lt;a n='MailsTimeoutSec' v='1800'/&gt;
+&lt;/n&gt;
+&lt;/n&gt;</code></pre>
+            </li>
+            <li>
+              <p>
+                Change the <code>MailsCountMax</code> subnode value to allow more alert emails to be
+                sent. Change the <code>MailsTimeoutSec</code> subnode to either make the timeout
+                shorter or longer. Save the changes.
+              </p>
+            </li>
+            <li>
+              <p>Restart both Netwrix Auditor Archive Service and Core Service:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Restart-Service -DisplayName "Netwrix Auditor Archive Service"
+Restart-Service -DisplayName "Netwrix Auditor Core Service"</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

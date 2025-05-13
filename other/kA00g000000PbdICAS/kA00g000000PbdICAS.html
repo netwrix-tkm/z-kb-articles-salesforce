@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to tell Password Manager to use a specific Domain Controller</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdICAS" />
+    <meta name="Id" content="ka04u00000116Q3AAI" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-29T11:00:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="723" />
+    <meta name="ArticleNumber" content="000003777" />
+    <meta name="description" content="Specify Domain Controller for Netwrix Password Manager" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to point Password Manager to use a specific Domain Controller for all account operations
+        (password reset, password change etc..)?
+
+        <hr />
+
+        In order to do this perform the following: 1) On the server that the
+        <strong>Password Manager Service</strong> is running on open the
+        <strong>registry</strong> and navigate to
+        <strong>HKLMSoftwareNetwrixPassword Manager </strong>(for 64-bit systems go to
+        <strong>HKLMSoftwareWow6432NodeNetwrixPassword Manager).</strong>
+
+        2) Create a new <b>String Value</b> named <b>TargetDC</b> and specify the
+        <strong>IP address</strong> of the domain controller you would like to use. 3)
+        <strong>Restart</strong> the <strong>Password Manager service</strong> after making this
+        registry change to ensure the change is reflected in the next operation. 4) To verify the
+        change is being applied you can navigate to the product install directory and find the
+        <strong>ALService</strong> text file. You can then search for the string
+        <strong>"target_comp"</strong> occurring at a time AFTER the registry modification was made.
+      </div>
+    </article>
+  </body>
+</html>

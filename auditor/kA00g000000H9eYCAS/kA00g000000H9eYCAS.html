@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How Netwrix Ensures Safety of Stored Credentials</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eYCAS" />
+    <meta name="Id" content="ka04u000000HcXHAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4264" />
+    <meta name="ArticleNumber" content="000003716" />
+    <meta name="description" content="How Netwrix Ensures Safety of Stored Credentials" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="data_protection">Data Protection</h3>
+
+        <p>
+          Netwrix Auditor leverages accounts with privileges considered higher than regular users"
+          for target systems configuration, access, and data collection. Therefore, credentials of
+          those accounts must be stored on the Netwrix Auditor server in a secure manner.
+          <br /><br />For that, Netwrix Auditor utilizes a native Microsoft Windows cryptographic
+          mechanism called Data Protection API (DPAPI) based on
+          <a
+            href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/cryptography-portal"
+            target="_blank"
+            >Crypto API</a
+          >. Detailed information on DPAPI implementation by Microsoft can be found in
+          <a
+            href="https://docs.microsoft.com/en-us/previous-versions/ms995355(v=msdn.10)?redirectedfrom=MSDN#windataprotection-dpapi_topic04"
+            target="_blank"
+            >Windows Data Protection</a
+          >.
+        </p>
+
+        <p class="has-medium-font-size">The benefits of this approach are </p>
+
+        <ul>
+          <li>
+            Usage of DPAPI is recommended by Microsoft for encryption of sensitive data at rest
+            (such as passwords or
+            <a
+              href="https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/implementation/key-encryption-at-rest?view=aspnetcore-3.0#windows-dpapi"
+              target="_blank"
+              >master keys</a
+            >). Also, DPAPI is used by Microsoft services to store credentials (e.g., Remote Desktop
+            Connection).
+          </li>
+          <li>
+            DPAPI is built-in in the Microsoft Windows operating system. Therefore, all
+            enhancements, updates and security bug fixes are provided through regular Windows
+            Update.
+          </li>
+          <li>
+            <a
+              href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/cryptography-portal"
+              target="_blank"
+              >CryptoAPI</a
+            >
+            under the hood of DPAPI uses proven cryptographic algorithms such as AES 256-bit for
+            data encryption. They can be adjusted to the specific needs of a company through
+            <a href="" target="_blank">Cryptographic Service Providers</a> configuration.
+          </li>
+          <li>
+            Master keys used by DPAPI for data encryption are managed by Microsoft Windows OS;
+            third-party applications and Netwrix Auditor, in particular, do not access or control
+            them.
+          </li>
+        </ul>
+
+        <hr class="wp-block-separator is-style-default" />
+
+        <p class="has-medium-font-size">
+          The following table describes how data containing passwords of data collection accounts is
+          managed by Netwrix Auditor:
+        </p>
+
+        <div class="table-wrap"><table count-columns="" /></div>
+        table { border-collapse: collapse; } table, th, td { border: 1px solid black; }
+
+        <div class="table-wrap">
+          <table count-columns="3">
+            <tbody>
+              <tr>
+                <th colspan="1" rowspan="1">Stage</th>
+                <th colspan="1" rowspan="1">Description</th>
+                <th colspan="1" rowspan="1">How Security is Ensured</th>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">Data Encryption</td>
+                <td colspan="1" rowspan="1">
+                  Netwrix Auditor invokes the
+                  <a
+                    href="https://docs.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata"
+                    target="_blank"
+                    >CryptProtectData</a
+                  >
+                  function, passes a password of a data collection account as sensitive data for
+                  encryption. The function then returns the encrypted data for storage.
+                </td>
+                <td colspan="1" rowspan="1">
+                  The CryptProtectData function is a part of the CryptoAPI located in
+                  <a
+                    href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/crypt32-dll-versions"
+                    target="_blank"
+                    >Crypt32.dll</a
+                  >. The request for further processing is transferred through a secure RPC channel
+                  to the LSA system process. In the LSA, the data is encrypted and transferred back
+                  to the Netwrix Auditor components.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">Data Storage</td>
+                <td colspan="1" rowspan="1">
+                  Data with encrypted passwords is stored in Configuration.xml file located in
+                  <i>%ProgramData%Netwrix AuditorAuditCoreConfigServer</i> on the Netwrix Auditor
+                  Server.
+                </td>
+                <td colspan="1" rowspan="1">
+                  <ol>
+                    <li>
+                      Access to this folder is denied for anyone except for local Administrators on
+                      the Netwrix Auditor host.
+                    </li>
+                    <li>
+                      Copying the data itself or the Configuration file to another machine does not
+                      pose data to risk since the data is encrypted with
+                      <b>CRYPTPROTECT_LOCAL_MACHINE</b> flag. This flag ensures that the data can be
+                      decrypted just on the machine it has been encrypted on.
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">Data Decryption</td>
+                <td colspan="1" rowspan="1">
+                  Netwrix Auditor invokes the
+                  <a
+                    href="https://docs.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptunprotectdata"
+                    target="_blank"
+                    >CryptUnprotectData</a
+                  >
+                  function to get decrypted data with a password that is necessary for connecting to
+                  a specific target system
+                </td>
+                <td colspan="1" rowspan="1">
+                  The decryption is performed in the same secure way as encryption.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr class="wp-block-separator" />
+
+        <p class="has-text-color">Frequently Asked Questions</p>
+
+        <p>
+          <strong>Q:</strong> What cryptographic algorithm is used for encryption?<br /><strong
+            >A:</strong
+          >
+          Since Netwrix Auditor relies on DPAPI instead of directly handling encryption, the actual
+          mechanism is defined by the Windows operation system. Netwrix does not have control over
+          selection of cryptographic algorithms. <br /><br /><a
+            href="https://docs.microsoft.com/en-us/windows/win32/seccrypto/cryptography-portal"
+            target="_blank"
+            >CryptoAPI</a
+          >
+          under the hood of DPAPI uses proven cryptographic algorithms for data encryption such as
+          AES 256-bit.<br /><br />
+        </p>
+
+        <p>
+          <strong>Q:</strong> What if someone unauthorized gets a copy of the
+          <em>Configuration.xml</em> file on another machine and then tries to decrypt passwords
+          stored in it?<br /><strong>A:</strong> Microsoft Data Protection API provides mechanism to
+          associate encrypted data with the machine context. Netwrix uses this approach by utilizing
+          CRYPTPROTECT_LOCAL_MACHINE flag for encryption. This ensures that the data can be
+          decrypted only on the same machine it has been encrypted on.<br /><br />
+        </p>
+
+        <p>
+          <strong>Q:</strong> What should Netwrix administrators do to keep Netwrix Auditor as
+          secure as possible?<br /><strong>A: </strong>The most important thing is to limit access
+          to the Netwrix Auditor server. Just authorized personnel should have access to the Netwrix
+          Auditor server.
+        </p>
+
+        <p>
+          The access level must be thoroughly adjusted as well; regular Netwrix Auditor users don"t
+          need the local Administrators rights.
+        </p>
+
+        <p>
+          For detailed guidelines, see
+          <a href="https://kb.netwrix.com/215" target="_blank"
+            >Best Practices for Securing Netwrix Auditor</a
+          >.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

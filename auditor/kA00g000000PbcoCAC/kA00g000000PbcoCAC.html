@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Navigating and Understanding a Netwrix Auditor Monitoring Plan</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbcoCAC" />
+    <meta name="Id" content="ka0Qk000000DQSvIAO" />
+    <meta name="LastPublishedDate" content="2025-04-25T18:17:08.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-25T18:17:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5658" />
+    <meta name="ArticleNumber" content="000003747" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          While each data source has different monitoring plan configuration options, there are some
+          commonalities across them all. This article will assist you in learning the fundamental
+          layouts of a Monitoring Plan and details on specific configurations.
+        </p>
+
+        <h2 id="monitoring_plan_layout">Monitoring Plan Layout</h2>
+
+        <p>
+          Navigate to any of your configured monitored plans. In the upper right most pane of the
+          Monitoring Plan, you will find the <em>Monitoring Plan</em> configuration options. The
+          options available here apply global to any data source and item listed under the
+          monitoring plan. <em>Edit Settings</em> provides you with the following menu options
+        </p>
+
+        <h3 id="monitoring_plan_options">Monitoring Plan Options</h3>
+
+        <img
+          class="wp-image-5667"
+          src="https://kb.netwrix.com/wp-content/uploads/2020/04/MP-Settings-1024x323.png"
+          alt=""
+        />
+
+        <h4 id="edit_settings">Edit Settings</h4>
+
+        <p>
+          <strong>General – </strong>Here you can rename and provide descriptions for your
+          Monitoring Plan
+        </p>
+
+        <p>
+          <strong>Data Collection – </strong>Here you can change or modify the account used to
+          collect data from audited data sources under this Monitoring Plan
+        </p>
+
+        <p>
+          <strong>Audit Database – </strong>Here you are given the option to disable search
+          functionality if you only wish to receive activity summaries (We do not recommend this
+          option). You may also choose to rename the database in which audit data all data source
+          and items under this monitoring plan is written. <strong>Note: </strong>If you change the
+          name in this text field, it deploys a new database. The previous database will remain in
+          SQL but the content within it is no longer available for searching in reporting. Only
+          databases specified in the Audit Database tab of monitoring plans can be searched and
+          reported on. Lastly, you may choose to specify a custom account to write this audit data
+          to the audit database in your SQL Server.
+        </p>
+
+        <p>
+          <strong>Notifications – </strong>This menu provides the options to modify the notification
+          schedule. By default, the activity summary will be sent daily at 3:00 AM. What is less
+          obvious about this function is that it is tied to the State in Time collection schedule
+          for your data sources. With the default configuration, as listed above, we will run a
+          State in Time collection at 3:00 AM. We recommend leaving the schedule at default.
+          Increasing frequency results in more State in Time snapshots which can lead to more
+          storage consumption and resource performance issues. Changing the time, however, can be
+          useful in situations where many processes are occurring at the same time. Changing the
+          time from 3:00 AM to 4:00 AM should not have a negative impact as long as you leave the
+          frequency at 24 hours.
+        </p>
+
+        <h4 id="delegation">Delegation</h4>
+
+        <p>
+          Delegation allows administrators to provide Role-Based Access to Monitoring Plans and
+          specific data. If you would like to learn more about Delegation, visit our
+          <a
+            href="https://helpcenter.netwrix.com/Roles/Role_Based_Access.html?Highlight=delegation"
+            target="_blank"
+            >Help Center</a
+          >.
+        </p>
+
+        <h4 id="update">Update</h4>
+
+        <p>
+          Following the <em>Delegation</em> option, you will see the <em>Update</em> button. This
+          button allows you to force a collection for every data source and item under the
+          Monitoring Plan. There are some Data Sources that behave differently with this button. For
+          example, User Activity cannot perform a forced collection. There is another exception for
+          the <em>Update</em> button.
+        </p>
+
+        <p>
+          <em>We do not recommend performing an update on an Active Directory Data Source.</em> Due
+          to its design, clicking update may prevent the collector from finishing the combination of
+          event data with state in time data. This often results in Activity Records with incomplete
+          timestamps and Who as <em>System</em>. In this case, it is better to wait for the Active
+          Directory collector to finish, which occurs roughly every 10 minutes.
+        </p>
+
+        <h3 id="data_source_options">Data Source Options</h3>
+
+        <img
+          class="wp-image-5668"
+          src="https://kb.netwrix.com/wp-content/uploads/2020/04/Data-Source-settings-1024x323.png"
+          alt=""
+        />
+
+        <p>
+          <strong>Add Data Source - </strong>Under the Data Source options, we can add a new data
+          source. While this option is available, we only recommended combining Active Directory,
+          Exchange, and Group Policy. Due to the current configuration of globally locked settings,
+          combining Active Directory with something like File Server auditing, can often lead to
+          issues. Keep data sources separated also makes for more efficiently troubleshooting.
+        </p>
+
+        <p><strong>Edit Data Source</strong></p>
+
+        <p>
+          This menu will be greatly different from one data source to another. The only constants
+          you may find here are
+        </p>
+
+        <ul>
+          <li>Enabling/Disabling State in Time – Recommended to be enabled</li>
+          <li>
+            Enabling/Disabling Network Traffic Compression - Recommended to be enabled
+            <ul>
+              <li>
+                When enabled, more processing is done at the target server. When disabled, more data
+                is sent over the network and processes locally on the Netwrix Auditor host.
+              </li>
+            </ul>
+            <ul>
+              <li>
+                If notice performance issues, you could turn this option on or off to trial
+                performance.
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>
+          All other configurations for a data source will heavily depend on the data source. We
+          recommend visiting our
+          <a
+            href="https://helpcenter.netwrix.com/Configure_IT_Infrastructure/Configure_IT-Infrastructure.html"
+            target="_blank"
+            >configuration guides</a
+          >
+          on the Help Center for more specific information.
+        </p>
+
+        <p>
+          <strong>Remove Data Source ­– </strong>Highlighting a data source and selected this option
+          will remove it from the Monitoring Plan. The audit database for this monitoring plan will
+          still contain audit data for this data source but will no longer collect and store further
+          information after the data source is removed.
+        </p>
+
+        <h3 id="item_options">Item Options</h3>
+
+        <img
+          class="wp-image-5669"
+          src="https://kb.netwrix.com/wp-content/uploads/2020/04/Item-Settings-1024x323.png"
+          alt=""
+        />
+
+        <p>
+          <strong>Add Item – </strong>Highlighting a data source and selecting
+          <em>Add Item</em> will allow you to add another support item for that data source. For
+          Active Directory, you could add another Domain. For User Activity, you could add another
+          workstation or server. When it comes to the number of items you should audit under one
+          Monitoring Plan, it comes down to available resources. We highly recommended starting
+          small and working up from there. For example, through trial and error, an administrator
+          finds that their Netwrix Auditor host can handle 5 Windows Server per Windows Server
+          Monitoring Plan. They have 30 servers that need to be audited. They then decided to deploy
+          6 Windows Server Monitoring Plans to accommodate this.
+        </p>
+
+        <p>
+          <strong>Edit Item – </strong>This allows you to modify or change the audited item. For
+          more granularity, you can also use <em>Edit Item</em> to provide custom credentials. This
+          is useful for audited DMZ’s or secured file systems for which you wish to use a more
+          locked down account. Custom credentials will override the credentials provided under
+          <em>Edit Settings &gt; Data Collection</em>.
+        </p>
+
+        <p>
+          <strong>Remove Item</strong> – This will remove the item from the data source and
+          monitoring plan. If the target server has an agent, Netwrix Auditor will attempt to remove
+          it. If it fails, you may need to do so manually through <em>Programs and Features.</em>
+        </p>
+
+        <h3 id="the_perfect_monitoring_plan"><strong>The Perfect Monitoring Plan</strong></h3>
+
+        <p>Ideally, a monitoring plan should exhibit these elements:</p>
+
+        <ul>
+          <li>Segregated Data Sources</li>
+          <li>State in Time Enabled</li>
+          <li>Load Balanced Scope (Number of Items)</li>
+          <li>Careful consideration of Data Source specific configurations</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

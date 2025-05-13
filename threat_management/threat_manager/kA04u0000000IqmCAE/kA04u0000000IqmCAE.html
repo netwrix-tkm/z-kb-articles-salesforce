@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Adjusting Log Level in Threat Manager</title><meta name="label" content="threat_manager"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IqmCAE"/><meta name="Id" content="ka0Qk00000056kjIAA"/><meta name="LastPublishedDate" content="2024-07-30T09:48:59.000+0000"/><meta name="LastModifiedDate" content="2024-08-26T11:11:08.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:35:09.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7226"/><meta name="ArticleNumber" content="000007226"/><meta name="description" content="360008304072"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>Netwrix Threat Manager job services support several logging levels to provide the required level of details to users. This article covers the steps to adjust the logging level for a specific service.</p>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<div>
+<p>Refer to the following steps to modify the logging level for a Threat Manager job service:</p>
+
+<ol><li>
+	<p>Proceed to the installation folder. Refer to the following default location:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\STEALTHbits\StealthDEFEND</code></pre>
+	</li><li>
+	<p>The <code>StealthDEFEND</code> folder contains separate folders for all job services. Proceed to the required service folder and locate the <code>appsettings.default.json</code> file to manage the service settings. Open the file with an available text editor.</p>
+	</li><li>
+	<p>Locate the <code>"Serilog": { }</code> node and modify the values. Refer to the following example:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">"Serilog": {
+    "MinimumLevel": {
+        "Default": "Debug",
+        "Override": {
+          "Microsoft": "Warning",
+           "System": "Warning"
+        }
+    }
+},</code></pre>
+	</li></ol>
+
+<p>The default logging level is <code>Warning</code>. The <code>Information</code> or <code>Debug</code> level is necessary to provide a sufficient level of logging to troubleshoot most issues. Refer to the following list of available logging options from least detailed to most detailed:</p>
+
+<ul><li>
+	<p>Error</p>
+	</li><li>
+	<p>Warning</p>
+	</li><li>
+	<p>Information</p>
+	</li><li>
+	<p>Debug</p>
+	</li></ul>
+</div></div>
+</article></body></html>

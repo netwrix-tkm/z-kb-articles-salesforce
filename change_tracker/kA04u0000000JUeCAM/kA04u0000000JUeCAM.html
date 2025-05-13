@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Send Syslog Messages Using JavaScript (Log Tracker)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JUeCAM" />
+    <meta name="Id" content="ka04u000000Hd8QAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:51:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8231" />
+    <meta name="ArticleNumber" content="000008231" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            >An application note that describes how to configure a simple system to permit
+            JavasScript to send syslog messages in response to Browser events (such as page loads,
+            button clicks, mouseovers, etc.) is provided here:</span
+          >
+        </p>
+
+        <h2 id="">Sending Syslog Messages From A Web Page<br />Application Note</h2>
+
+        <p>
+          It is not difficult to interface a web page with JavaScript to send an arbitrary syslog
+          message to Log Tracker Server when a page is accessed, or some other JavaScript event
+          occurs (such as clicking a button, or even performing a mouse over.) There are several
+          configuration steps required, as detailed in this application note.
+        </p>
+
+        <h2 id="">CorreLog Server Setup</h2>
+
+        <p>
+          At the Log Tracker Server, first create a CGI program that is executed whenever a
+          particular URL is accessed. The syslog text can be passed via an HTTP "GET" request.
+          Although there are various ways to do this, one way is to leverage the standard Log
+          Tracker Server "system\sendlog.exe" program via a simple batch file.
+        </p>
+
+        <p>
+          The following batch file, depicted EXACTLY BELOW, can be transcribed to the file<br />location
+          "s-auth\SENDLOG.bat" on the Log Tracker Server platform.
+        </p>
+
+        <div>
+          <div>
+            <pre>
+@echo off
+echo Access-Control-Allow-Origin: *
+echo Content-type: text/html
+echo.
+set msg="%REMOTE_ADDR% %*"
+..\system\sendlog.exe 127.0.0.1 %msg%</pre
+            >
+          </div>
+        </div>
+
+        <p>
+          The above batch file simply provides the correct headers, and then executes the standard
+          Log Tracker "sendlog.exe" program (found in the "system" folder of each Log Tracker
+          installation), passing to the "sendlog.exe" program whatever message was passed as part of
+          the URL. Standard Windows "batch" commands are used.
+        </p>
+
+        <p>
+          The location of the batch file is important: The "s-auth" directory of Log Tracker is
+          normally used ONLY for error handling, and does not require authentication to execute a
+          CGI Log Tracker, Inc. Page 2 support program. At some sites, you may need (or desire) to
+          put an htaccess.txt file in that directory if limiting access to the URL is a big concern.
+        </p>
+
+        <h2 id="">Client (Web Site) Setup</h2>
+
+        <p>
+          At the Client web site, the user should first implement JavaScript functions to needed to
+          "get" the URL. Although this is not a particularly difficult activity, the documentation
+          is hard to find on the web, so specific notes on how to accomplish this are provided
+          below.
+        </p>
+
+        <p>
+          You can create a small JavaScript library, called "sendlog.js", by transcribing the
+          file<br />below to a path accessible to your URL path EXACTLY as shown below:
+        </p>
+
+        <div>
+          <div>
+            <pre>
+// Filename: sendlog.js
+var request = makeHttpObject();
+//////////////////////////////////////////////////////////////////////
+function makeHttpObject()
+{
+try { req = new XMLHttpRequest(); }
+catch(err1) {
+try { req = new ActiveXObject("Msxml2.XMLHTTP"); }
+catch(err2) {
+try { req = new ActiveXObject("Microsoft.XMLHTTP"); }
+catch(err3) {
+req = false;
+}
+}
+}
+return(req);
+}
+//////////////////////////////////////////////////////////////////////
+function SendLog(message)
+{
+// NOTE: Modify below to use your actual server name
+this_url = "http://logtracker-server/s-auth/sendlog.bat?";
+this_url = encodeURI(this_url + message);
+request.open("GET", this_url, false);
+request.send(null);
+return;
+}</pre
+            >
+          </div>
+        </div>
+
+        <p>
+          Note that the script MUST be configured with the hostname of the Log Tracker Server, hard
+          coded above as "logtracker-server" in the "SendLog()" function. The user should replace
+          "logtracker-server" in the above file with the actual name or IP address of the Log
+          Tracker Server platform.
+        </p>
+
+        <p>
+          The above JavaScript can be cut and paste to any URL available to the client web server.
+          In the specific case of the Log Tracker Server, JavaScript files are normally placed in
+          the "s-html\java" directory of the installation, but any pathname (including external
+          URLs) can be used.
+        </p>
+
+        <p>
+          At some sites, the above JavaScript file may be found in the "s-html\java\sendlog.js" file
+          of the Log Tracker Server installation. This can be directly copied from there to the
+          client web server, and then modified to supply the actual name of the Log Tracker Server
+          platform in the script.
+        </p>
+
+        <h2 id="">Implementing the SendLog() JavaScript Call</h2>
+
+        <p>
+          As a last step, the web page should execute the "SendLog()" function contained in the
+          "sendlog.js" file above. The SendLog() function is executed for any browser event, such as
+          when the page loads.
+        </p>
+
+        <p>
+          For example, the following trivial web page will send the message: "The test page was
+          loaded!" to the Log Tracker server whenever the page loads. The page below assumes that
+          the "sendlog.js" script (discussed above) is found at the "/s-html/java/sendlog.js" URL,
+          accessible to the web page.
+        </p>
+
+        <div>
+          <div>
+            <pre>
+
+ </pre
+            >
+          </div>
+        </div>
+        This is a test page. A syslog message was sent.
+
+        <p>
+          With the JavaScript configured above, whenever someone accesses the page, then a message
+          "The test page was loaded!" will appear in the Log Tracker Server "Messages" tab. This
+          message can be processed like any other syslog message collected by Log Tracker Server.
+          Multiple "SendLog()" JavaScript calls can be implemented in the web page, each with their
+          specific message arguments.
+        </p>
+
+        <h2 id="">Additional Notes</h2>
+
+        <ol>
+          <li>
+            <p>
+              The actual hostname of the Log Tracker Server is essential, and in the above example
+              the value should be set in the "sendlog.js" script example shown above. (This may be a
+              common mistake in setting up syslog for your web page!)
+            </p>
+          </li>
+          <li>
+            <p>
+              The SENDLOG.bat file will operate with the Apache configuration that comes with Log
+              Tracker Server. If you are using some other server, it may be necessary to change the
+              server configuration, or use a more proper scripting language.
+            </p>
+          </li>
+          <li>
+            In the SENDLOG.bat file, it will be essential to include the
+            "Access-Control-AllowOrigin:"<br />
+            header. Otherwise, the JavaScript will fail with a "permission" error.
+          </li>
+          <li>
+            <p>
+              The severity of the syslog message will be the default "debug" severity, and the
+              facility code will be the default "user" code. As configured, the syslog message will
+              contain the remote address of the web site that accessed the URL (given by
+              %REMOTE_ADDR% environmental variable). The "sendlog.exe" program execution statement,
+              within SENDLOG.bat, can be modified to prefix the message, change the facility and
+              severity, and perform other custom processing such as include additional CGI
+              environmental variables.
+            </p>
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p>
+          <span
+            >This application note should be useful to web page designers looking to gather
+            information directly from web pages, and may also be useful to Java developers or
+            engineers looking for interesting automation and monitoring capabilities.</span
+          >
+        </p>
+
+        <h2 id="">Related articles</h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul>
+          <li>
+            <div><span title="">Page:</span></div>
+
+            <div><a href="" target="_blank">How to delete a device in Log Tracker</a></div>
+          </li>
+          <li>
+            <div><span title="">Page:</span></div>
+
+            <div><a href="" target="_blank">Log Tracker - Types of Authentication</a></div>
+          </li>
+          <li>
+            <div><span title="">Page:</span></div>
+
+            <div><a href="" target="_blank">Log Tracker Tags Facility</a></div>
+          </li>
+          <li>
+            <div><span title="">Page:</span></div>
+
+            <div>
+              <a href="" target="_blank"
+                >How to use CloseTicket.exe to Immediately Close Log Tracker Tickets</a
+              >
+            </div>
+          </li>
+          <li>
+            <div><span title="">Page:</span></div>
+
+            <div>
+              <a href="" target="_blank">How to Monitor Devices with Ping Adapter (Log Tracker)</a>
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

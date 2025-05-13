@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Auditing of Logon Success/Failure and Auditing of Account Logon Success/Failure is not enabled
+      for this Server
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YPCA0" />
+    <meta name="Id" content="ka04u000000HcRUAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1187" />
+    <meta name="ArticleNumber" content="000003340" />
+    <meta
+      name="description"
+      content="[WARNING] Auditing of Logon Success and Auditing of Logon Failure and Auditing of Account Logon Success and Auditing of Account Logon Failure is not enabled for this Server"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario"><span>Scenario</span></h3>
+
+        <p>
+          You are receiving the following warning message: [WARNING] Auditing of Logon Success and
+          Auditing of Logon Failure and Auditing of Account Logon Success and Auditing of Account
+          Logon Failure is not enabled for this Server. Please adjust audit policy settings (see the
+          product documentation for more information).
+        </p>
+
+        <h3 id="cause"><span>Cause</span></h3>
+
+        <p>The audit policies are not configured properly.</p>
+
+        <h3 id="solution"><span>Solution</span></h3>
+
+        <p>To configure logon auditing, perform the following steps:</p>
+
+        <ol>
+          <li>
+            Run <strong>Group Policy Management Console</strong> (Go to Start | Run | type
+            "<strong>gpmc.msc</strong>" and click OK).
+          </li>
+          <li>
+            Navigate to the applied Group Policy Object (or create a new one) to Organization Unit
+            that contains listed computers or entire domain (Default Domain Policy by default),
+            right-click it and select Edit.
+          </li>
+          <li>
+            Expand the nodes as follows:
+            <strong
+              >Computer Configuration / Windows Settings / Security Settings / Local Policies /
+              Audit Policy</strong
+            >
+          </li>
+          <li>
+            Go to the right panel and double-click <strong>Audit account logon events</strong>.
+          </li>
+          <li>
+            Check <strong>Define these policy settings</strong>, check Success and Failure boxes and
+            click <strong>Ok</strong>.
+          </li>
+          <li>Double-click <strong>Audit logon events</strong>.</li>
+          <li>
+            Check <strong>Define these policy settings</strong>, check <strong>Success</strong> and
+            <strong>Failure</strong> boxes and click <strong>Ok</strong>.
+          </li>
+          <li>Double-click <strong>Audit account management</strong>.</li>
+          <li>
+            Check <strong>Define</strong> these policy settings, check <strong>Success </strong>box
+            and click <strong>Ok</strong>.
+          </li>
+        </ol>
+        <img
+          alt="Audit Policy Configuration"
+          src="kA00g000000H9YPCA0_1aab5811-78a7-48ae-ab2a-2ad2543516f6.png"
+        />
+      </div>
+    </article>
+  </body>
+</html>

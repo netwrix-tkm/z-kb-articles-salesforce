@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Noscript error when deploying Netwrix Data Classification</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PdNOCA0" />
+    <meta name="Id" content="ka04u000000HdFHAA0" />
+    <meta name="LastPublishedDate" content="2021-07-19T15:59:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-07-19T15:58:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5901" />
+    <meta name="ArticleNumber" content="000005901" />
+    <meta name="description" content="Noscript error when deploying Netwrix Data Classification" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="problem">Problem</h2>
+        <br />When deploying the app to a SharePoint site collection it fails. The error written to
+        the conceptsearching log on the NDC server is:
+        <pre>
+Error: When deploying to a 'noscript' site collection please use a tenancy scoped deployment.
+</pre
+        >
+
+        <h2 id="resolution">Resolution:  </h2>
+
+        <ol>
+          <li>Download &amp; Install SharePoint Online Management Shell</li>
+          <li>Open SharePoint Online Management Shell</li>
+          <li>Connect to your SharePoint Admin Portal</li>
+          <li>
+            Execute the following PowerShell command:
+            <pre>
+Set-SPOsite https://*your-domain.sharepoint.com*/site-path -DenyAddAndCustomizePages 0</pre
+            >
+          </li>
+          <li>Retry the app deployment.</li>
+        </ol>
+        <br /> <br /><br /> 
+      </div>
+    </article>
+  </body>
+</html>

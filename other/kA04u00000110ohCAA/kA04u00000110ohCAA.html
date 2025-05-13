@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Netwrix Privilege Secure for Discovery Port/Firewall and Datacenter Requirements</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110ohCAA"/><meta name="Id" content="ka04u00000116XwAAI"/><meta name="LastPublishedDate" content="2023-07-07T08:47:34.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T10:12:39.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T08:47:34.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8638"/><meta name="ArticleNumber" content="000008638"/><meta name="description" content="Netwrix Privilege Secure for Discovery Port/Firewall and Datacenter Requirements"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="physical_installation">Physical Installation</h2>
+These requirements, in this section, only apply to physical appliances. If there will be a Virtual Appliance used, these requirements do not apply.
+
+<h4 id="appliance_specifications">Appliance Specifications</h4>
+
+<ul><li>1 RU / 1U size appliance</li><li>Dell R440 with 2x 960GB SSDs in a hardware RAID-1 configuration, 64GB of RAM</li><li>Ubuntu 18.04.5 LTS</li></ul>
+
+<h4 id="cablingpower_requirements">Cabling/Power Requirements</h4>
+
+<ul><li>Dual 120V power cables (ideally, connected to independent UPSs) at max 550W each</li><li>Included power plug: NEMA 5-15P to C13 Wall Plug, 125 Volt, 15 AMP, 10 Feet (3m)</li></ul>
+
+<h2 id="networking_specifications">Networking specifications</h2>
+
+<h4 id="physical_requirements">Physical Requirements</h4>
+The Dell R440 servers come with at least 3 NIC’s on the back of the serve
+
+<ul><li>Single Gigabit ethernet, plugged into Ethernet Interface #1 (on rear/backplane of the server) for SecureONE traffic</li><li>Single Gigabit ethernet, plugged into iDRAC Interface (on read/backplane of the server) for iDRAC configuration (credentials are unique to each appliance)</li></ul>
+
+<h4 id="ip_addresses">IP Addresses</h4>
+
+<ul><li>Physical servers will pick up 2 IP addresses via DHCP. One for iDRAC, one for SecureONE</li><li>Virtual servers will pick up 1 IP addresses via DHCP for SecureONE</li><li>A static IP address is required:
+	<ul><li>Physical servers: a static IP address can be configured for iDRAC</li><li>Physical and virtual servers: A static IP addresses can be assigned for SecureONE use</li><li>To access servers with no DHCP IP, a KVM (physical) or virtual console (VM) can be connected to configure a static IP addresses via the terminal. KVM requirements: 1x VGA and 1x USB (keyboard) connectors</li></ul>
+	</li><li>SecureONE uses non-routable link-local addresses, also known as Automatic Private IP Addressing (APIPA), for internalDocker networking use</li></ul>
+
+<h4 id="productiontest_environments_load_balancers">Production/Test Environments: Load Balancer(s)</h4>
+
+<ul><li>Depending on the specific HA and DR configuration requested, one or more load balancers are required to sit in front of each SecureONE environment (i.e. one for Production, one for QA, one for Dev, etc.)</li><li>Traffic pattern: Round-robin traffic among all active SecureONE nodes (i.e. those with an active heartbeat)</li><li>Heartbeat: Detect if the SecureONE node is alive based on response on port 443</li><li>Add header: Configure the load balancer to add the <code>X-Forwarded-For</code> header</li></ul>
+
+<h4 id="ssl_certificates">SSL Certificate(s)</h4>
+
+<ul><li>In order to provide HTTPS connectivity, we recommend issuing and installing an SSL certificate on each of the SecureONE servers</li><li>The SSL certificates must have the load-balanced hostname 1) in the CN, or 2) as a SAN or 3) be issued as a wildcard</li></ul>
+
+<h4 id="wan_accelerators">WAN Accelerators</h4>
+WAN accelerator can impact scan times and function. It is recommend to exclude SecureONE nodes from WAN acceleration.
+
+<h2 id="firewall_rules">Firewall Rules</h2>
+
+<h4 id="protected_computers">Protected Computers</h4>
+
+<ul><li>ICMP</li><li>Windows devices:
+	<ul><li>TCP/445
+		<ul><li>Connect and authentication via SMB to bind a MSRPC service for scanning, policy enforcement, and provisioning Administrative privileges</li></ul>
+		</li><li>TCP/135 and TCP/139
+		<ul><li>Only required for Windows systems using SMBv1 over NetBIOS
+			<ul><li>Windows prior to Vista</li><li>Windows Server prior to 2008</li></ul>
+			</li><li>Connect and authentication via SMB to bind a MSRPC service for scanning, policy enforcement, and provisioning Administrative privileges.</li></ul>
+		</li><li> </li></ul>
+	</li><li>UNIX devices: SSH (TCP/22)</li><li>Mac OS X devices: SSH (TCP/22)</li></ul>
+
+<h4 id="domain_controller">Domain Controller</h4>
+LDAP (TCP/389) or LDAPS (TCP/636)
+
+<h4 id="ntp_host">NTP Host</h4>
+
+<ul><li>Note: In most configurations, NTP will be available on the Domain Controller. In other configurations, SecureONE may need to contact an internet-based NTP host</li><li>Outbound NTP (TCP/123)</li></ul>
+
+<h4 id="radius">RADIUS</h4>
+
+<ul><li>Note: Only required if RADIUS is used for second-factor authentication</li><li>RADIUS (TCP/1812)</li></ul>
+
+<h4 id="saml">SAML</h4>
+HTTPS (TCP/443)
+
+<h4 id="requirements_from_management_workstations_secureone_ui">Requirements from Management Workstation(s). SecureONE UI</h4>
+
+<ul><li>HTTP (TCP/80) for web access</li><li>HTTPS (TCP/443) for web access</li><li>SSH (TCP/22) - limited to maintenance activities only</li></ul>
+
+<h4 id="requirements_to_access_secureone_api">Requirements to Access SecureONE API</h4>
+Inbound HTTPS (TCP/443)
+
+<h4 id="siem_server">SIEM Server</h4>
+
+<ul><li>SYSLOG (UDP/514 + TCP/6514)</li><li>Protocols other than SYSLOG are also supported / may require other ports</li></ul>
+
+<h4 id="secureone_if_ha_clustered">SecureONE (if HA Clustered)</h4>
+
+<ul><li>Cluster management communications (TCP/2377)</li><li>Node communication (TCP/7946 and UDP/7946)</li><li>Docker overlay network traffic (UDP/4789)</li><li>Ping traffic between nodes (ICMP)</li><li>Secure option for overlay networking (Protocol 50 for IPsec)
+	<ul><li>IP tables example: <code>iptables -A INPUT -p 50 -j ACCEPT</code></li></ul>
+	</li></ul>
+
+<h4 id="secureone_primary_nodes_secureone_dr_nodes">SecureONE (Primary Nodes). SecureONE (DR Nodes)</h4>
+
+<ul><li>SCP (tcp/22) for copying the database backup file periodically</li><li>Bi-lateral connection suggested to facilitate fail-back from DR to Production nodes</li></ul>
+
+<h4 id="secureone_update_server">SecureONE Update Server</h4>
+
+<ul><li>URL for SecureONE Update Server is 176947481038.dkr.ecr.us-west-2.amazonaws.com but is subject to change without notice</li><li>HTTPS (TCP/443)</li></ul>
+
+<h4 id="endpoint_detection_and_response_edr_cloud_platforms">Endpoint Detection and Response (EDR) Cloud Platforms</h4>
+HTTPS (TCP/443) to EDR cloud platform URLs such as:
+
+<ul><li>api.crowdstrike.com</li><li>defense.conferdeploy.net</li></ul></div>
+</article></body></html>

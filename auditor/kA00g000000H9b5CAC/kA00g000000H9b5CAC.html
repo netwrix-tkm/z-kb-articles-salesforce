@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The event log file is corrupted. (Error number: 0x80004005)</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9b5CAC" />
+    <meta name="Id" content="ka04u000000HcTrAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1330" />
+    <meta name="ArticleNumber" content="000003501" />
+    <meta
+      name="description"
+      content="The event log file is corrupted. (Error number: 0x80004005) Event log read failure. Error details: The event log file is corrupted. (Error number: 0x80004005)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        In summary reports you see the following error:
+        <strong
+          >Event log read failure. Error details: The event log file is corrupted. (Error number:
+          0x80004005)</strong
+        >
+
+        <hr />
+
+        The event log has been corrupted. If you are using the product without agents, the product
+        uses the Application log and if you are using the product with agents, the product uses its
+        own log located under
+        <strong
+          >Event viewerApplications and Service Logs Netwrix Non-owner Mailbox Access Agent.</strong
+        >
+
+        <hr />
+
+        Please perform steps from the
+        <a href="http://technet.microsoft.com/en-us/library/bb457024.aspx" target="_blank"
+          >following Microsoft Article</a
+        >. If it does not helped, please also perform the following steps:
+        <ul>
+          <li>
+            Disable the <strong>Windows event log</strong> service on the target Exchange server
+          </li>
+          <li>Reboot the server</li>
+          <li>Stop the <strong>Netwrix Non-owner Mailbox Access Reporter Agent</strong> service</li>
+          <li>
+            Renamed the C:WindowsSystem32winevtLogsNetWrix Non-owner Mailbox Access Agent to NetWrix
+            Non-owner Mailbox Access Agent.old
+          </li>
+          <li>
+            Enable the <strong>Windows event log</strong> service,
+            <strong>Netwrix Non-owner Mailbox Access Reporter Agent</strong> service, reboot the
+            server.
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

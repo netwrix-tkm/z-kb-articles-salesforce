@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netapp Fpolicy Deployments Best Practices for Netwrix Activity Monitor</title>
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000LLQXCA4" />
+    <meta name="Id" content="ka04u000000HdDuAAK" />
+    <meta name="LastPublishedDate" content="2022-11-29T15:05:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-11-28T20:06:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8520" />
+    <meta name="ArticleNumber" content="000008520" />
+    <meta name="description" content="Fpolicy NetApp Stealthbits Deployment" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span><b>Netwrix Specific Recommendations</b></span>
+        </p>
+
+        <ul>
+          <li>
+            <p>
+              <span
+                >Per Netwrix guidelines, ensure Netwrix version is up to date including the
+                enhancements for this hotifx </span
+              ><a
+                href="https://files.mtstatic.com/site_13085/102679/0?Expires=1669664946&amp;Signature=laWSub3qi2IDdz7MRLdrypEzNqzhyuiriw6yFnRZgDfzd-2-Qo6BJkPGdxDHQ7OaJll2SW45nvIRg~bBizGLguhZlMFrPQshSClty2JUosV3dM0RMLwteWtx5AXJnKprSN8xEIbCyHjeUjCzcwxOv0mfMkBV0oV23mWuF5IR5ZI_&amp;Key-Pair-Id=APKAJ5Y6AV4GI7A555NA"
+                target="_blank"
+                ><span>SAM_6.0_029</span></a
+              ><span>.<span> </span></span>
+            </p>
+          </li>
+          <li>
+            <p>
+              <span
+                ><span
+                  ><span
+                    >The new version will handle burst of activity events better, optimized for
+                    improved processing of events and other enhancements.</span
+                  ></span
+                ></span
+              >
+            </p>
+          </li>
+        </ul>
+
+        <p>
+          <span><b>Other Netwrix specific Best Practices</b></span>
+        </p>
+
+        <ul>
+          <li>
+            <p>
+              <span
+                >Consider using multiple primary servers for scale out and fault tolerance
+                purposes.</span
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <span
+                >Use low-latency links between ONTAP and Activity Monitor Agent. For example,
+                Activity Monitor Agents should be located in the same datacenter as the monitored
+                NetApp appliances.</span
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <span
+                ><span
+                  ><span
+                    >Reduce the monitoring scope (what operations, shares, volumes are being
+                    monitored). It is not recommended to monitor Directory Read operations on loaded
+                    servers.</span
+                  ></span
+                ></span
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <span
+                ><span
+                  ><span
+                    >Ensure that each ONTAP cluster node has a LIF per SVM to connect to
+                    Agents.</span
+                  ></span
+                ></span
+              >
+            </p>
+          </li>
+        </ul>
+
+        <div>
+          <span><b>NetApp Specific Recommendations</b></span>
+        </div>
+
+        <ul>
+          <li>
+            <p>
+              <span
+                >Upgrade to the appropriate versions of ONTAP that have fixes for known Fpolicy
+                related issues</span
+              > (<span
+                ><a
+                  href="https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1438207"
+                  target="_blank"
+                  title="https://mysupport.netapp.com/site/bugs-online/product/ONTAP/BURT/1438207"
+                  ><span
+                    >1438207 - FPolicy might stop sending screen requests to the external engine if
+                    it enters a throttling state</span
+                  ></a
+                >)</span
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <span>For Netwrix External Engines, set send-buffer-size  to 7895160</span> (<span
+                >Netwrix best practice is to set to maximum value: "The FPolicy Send-Buffer size is
+                set to 7895160")</span
+              >
+            </p>
+          </li>
+        </ul>
+
+        <div>
+          <pre class="ckeditor_codeblock">
+vserver fpolicy policy external-engine modify -vserver &lt;vserver&gt; -engine-name &lt;engine-name&gt; send-buffer-size 7895160</pre
+          >
+        </div>
+
+        <div>
+          <p><span>For more information on how to set send-buffer size:</span></p>
+
+          <p>
+            - <span
+              ><a
+                href="https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_calculate_send_buffer_for_ONTAP_9_FPolicy"
+                target="_blank"
+                title="How to calculate send buffer for ONTAP 9 FPolicy"
+                ><span>How to calculate send buffer for ONTAP 9 FPolicy</span></a
+              ></span
+            >
+          </p>
+
+          <p>
+            - <span
+              ><a
+                href="https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/Write_EAGAIN_errors_found_in_EMS_and_Fpolicy.log"
+                target="_blank"
+                title="Write EAGAIN errors found in EMS and Fpolicy.log"
+                ><span>Write EAGAIN errors found in EMS and Fpolicy.log</span></a
+              ></span
+            >
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <span
+                  >To lessen the potential impact of latency, with Netwrix guidance, set abort
+                  timeout lower, for example: 10s.</span
+                >
+              </p>
+            </li>
+          </ul>
+
+          <div>
+            <span
+              >If there is a large amount of latency between the Agent and the SVM, it can cause a
+              delay in the TCP acknowledgements, and potential impact to latency in very rare
+              occasions.</span
+            ><br /><span
+              >To decrease end-user latency in cases where there are connection issues or CPU
+              starvation on the Agent, it is recommended to lower the "Timeout for Aborting a
+              Request" from 40 to 10 seconds. </span
+            >
+
+            <pre class="ckeditor_codeblock">
+vserver fpolicy policy external-engine modify -vserver &lt;vserver -engine-name &lt;engine-name&gt; -reqs-abort-timeout 10s</pre
+            >
+            <span
+              >Please refer to the following documentation:
+              <a
+                href="https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr-910%2Fvserver__fpolicy__policy__external-engine__show.html"
+                target="_blank"
+                ><span
+                  >Vserver fpolicy policy external-engine commands - vserver fpolicy policy
+                  external-engine show</span
+                ></a
+              >.<br /><br /> </span
+            ><b><span>General Recommendations</span></b>
+          </div>
+
+          <div>
+            <p>
+              <span>Review the following sections of the </span
+              ><a
+                href="https://www.netapp.com/pdf.html?item=/media/17001-tr4696pdf.pdf"
+                target="_blank"
+                ><span>Technical Report. FPolicy Solution Guide for ONTAP</span></a
+              ><span>:</span>
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  <span>Managing FPolicy Workflow and Dependency on Other Technologies (7.5)</span>
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p>
+              <span
+                >NetApp recommends disabling an FPolicy policy before making any configuration
+                changes. For example, if you want to add or modify an IP address in the external
+                engine configured for the enabled policy, then first disable the policy.<br />If you
+                configure FPolicy to monitor NetApp FlexCache® volumes, NetApp recommends that you
+                do not configure FPolicy to monitor read and getattr file operations. Monitoring
+                these operations in ONTAP requires the retrieval of inode-to-path (I2P) data.
+                Because I2P data cannot be retrieved from FlexCache volumes, it must be retrieved
+                from the origin volume. Therefore, monitoring these operations eliminates the
+                performance benefits that FlexCache can provide. When both FPolicy and an off-box
+                antivirus (AV) solution are deployed, the AV solution receives notifications first.
+                FPolicy processing starts only after AV scanning is complete. A slow AV scanner
+                could affect overall performance, so AV solutions must be sized properly. When
+                defining the scope, add all the shares you want to monitor or audit into the
+                share/include list. Turn off monitoring on the file server if you do not want to
+                monitor the shares. Disabling FPolicy on the SVM is not helpful because the Netwrix
+                Activity Monitor activity agent periodically checks on the file server and
+                automatically disables or enables FPolicy if it notices a disconnection (if the
+                Enable and connect FPolicy option was selected).</span
+              >
+            </p>
+
+            <ul>
+              <li>
+                <p><span>Sizing Considerations (7.6)</span></p>
+              </li>
+            </ul>
+
+            <p>
+              <span
+                >FPolicy performs inline monitoring of CIFS operations, sends notifications to the
+                external server, and</span
+              >
+              <span
+                >waits for a response, depending on the mode of external engine communication
+                (synchronous or</span
+              >
+              <span
+                >asynchronous). This process affects the performance of CIFS access and CPU
+                resources. To mitigate</span
+              >
+              <span
+                >any issues, NetApp recommends assessing and sizing the environment before enabling
+                FPolicy.</span
+              ><br /><span
+                >Performance is affected by the number of users, workload characteristics such as
+                operations per user,</span
+              >
+              <span>data size, and network latency.</span>
+            </p>
+          </div>
+
+          <ul>
+            <li>
+              <p><span>Netwrix File Activity Monitor Best Practices (8)</span></p>
+            </li>
+          </ul>
+
+          <p>
+            <span
+              >The following best practices are recommended when using the Netwrix File Activity
+              Monitor with a NetApp file server:<br />• Restrain the FPolicy configuration to
+              specific volumes, shares, and operations to decrease the impact<br />on the SVM.<br />•
+              Consider deploying multiple Netwrix Activity Monitor activity agents for load
+              balancing and fault<br />tolerance.<br />• Use the Enable and Connect FPolicy option
+              to keep the SVM connected and consistently sending<br />events to the Netwrix Activity
+              Monitor activity agents.</span
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

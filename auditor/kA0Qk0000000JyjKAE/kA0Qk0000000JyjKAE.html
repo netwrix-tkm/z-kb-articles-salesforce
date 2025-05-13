@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How To Find Logon IDs in Windows Event Viewer and Link It to Other Events?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000JyjKAE" />
+    <meta name="Id" content="ka0Qk0000001KG1IAM" />
+    <meta name="LastPublishedDate" content="2024-01-12T11:49:25.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-12T11:49:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-13T11:49:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8961" />
+    <meta name="ArticleNumber" content="000008961" />
+    <meta
+      name="description"
+      content="How To Find Logon IDs in Windows Event Viewer and Link It to Other Events?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>How to validate data from Netwrix Auditor Activity Records?</p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>
+            For example, Netwrix Auditor determines the <b>Workstation</b> field of changes made in
+            the File Server data source by matching the Logon ID from a Logon event with the change
+            event.
+          </p>
+
+          <p>
+            In order to detect changes, the product collects events with certain IDs (4633 and
+            others). Those events themselves do not contain any originating workstation information.
+            However, they have a field with a distinct <b>Logon ID</b> that can be matched to the
+            <b>Logon ID in local logon events</b> (ID 4624).<br />There might be several open
+            sessions on different workstations for a single user, or no recent logons or logoffs
+            events on workstations registered. In this case, the <strong>Workstation</strong> field
+            might be returned as <strong>unknown</strong> in Activity Summary, reports, and search
+            results. 
+          </p>
+
+          <p>
+            Logon events, in turn, include the <b>Source Network Address</b> for the originating
+            workstation which is then resolved to FQDN and displayed in Netwrix Auditor.
+          </p>
+
+          <p>
+            The simplest example (adding a file).<br /><strong>LogonID</strong> of the events 4656
+            and 4663:
+          </p>
+
+          <p>
+            <img
+              alt="User-added image"
+              src="kA0Qk0000000JyjKAE_840811a0-9d4a-4e49-8314-c1bd3c590d08.png"
+            />
+          </p>
+
+          <p>Matches to the <strong>LogonID of the logon event</strong>:</p>
+
+          <p>
+            <img
+              alt="User-added image"
+              src="kA0Qk0000000JyjKAE_b927837f-da35-4be9-be7e-d80ada7aa371.png"
+            />
+          </p>
+
+          <p>Which also contains the <b>Source Network Address:</b></p>
+
+          <p>
+            <img
+              alt="User-added image"
+              src="kA0Qk0000000JyjKAE_321d2238-27f0-430b-abf5-ce2f6373f4d3.png"
+            />
+          </p>
+
+          <p>Which is resolved to the <b>FQDN name:</b></p>
+
+          <p>
+            <img
+              alt="User-added image"
+              src="kA0Qk0000000JyjKAE_0f848106-d7c4-40ab-8dfa-34a605ad2b93.png"
+            />
+          </p>
+
+          <blockquote>
+            <p>
+              <strong>TIP: </strong>For testing purposes in the lab, it'd be better to use a
+              dedicated account or do a sign-in/sign-out for the currently used one.
+            </p>
+          </blockquote>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> If the product reports the
+              <b>Workstation</b> field as <code>NULL</code> then in both: Search and SSRS reports
+              this field will be hidden for those Activity Records. There is a common Auditor logic
+              specifically for the <b>Workstation</b> field.
+            </p>
+          </blockquote>
+        </div>
+
+        <h3 id="related_article">Related Article:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9VdCAK.html"
+                  target="_blank"
+                  >Workstation Field Reported as Unknown</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

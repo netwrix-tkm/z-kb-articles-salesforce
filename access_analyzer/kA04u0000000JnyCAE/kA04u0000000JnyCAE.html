@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_11.5_008</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JnyCAE" />
+    <meta name="Id" content="ka04u000000HdCFAA0" />
+    <meta name="LastPublishedDate" content="2022-03-04T18:37:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-15T16:52:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8380" />
+    <meta name="ArticleNumber" content="000008380" />
+    <meta name="description" content="Not collecting Last Logon time stamps from Azure AD scan" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary: </span></strong>  Not collecting Last Logon time stamps from
+              Azure AD scan</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Justin Giemza</span></span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>11.5</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>SA – DC – Azure ADI</span></span></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>84193</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>DC\DCAzureADInventory.dll v. 11.5.53.0</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.AzureADInventory.dll v.
+                  11.5.53.0</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.AzureADInventory.UI.dll
+                  v. 11.5.53.0</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>Escalation</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>329474</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Comments: </b></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              >This does may not fix the issue, but it does add extra logging that will help trouble
+              shoot why last logon timestamp is not being collected.</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >In debug log there should be something like this:<br />"Completed gathering groups,
+              owners and members. 138 groups were collected."              
+              STEALTHBITSTECHNOLOGIE.ONMICROSOFT.COM              DCExtract</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >"Gathering sign-in activity."        
+              STEALTHBITSTECHNOLOGIE.ONMICROSOFT.COM               DCExtract</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >"Starting the full scan for sign-in activity."              
+              STEALTHBITSTECHNOLOGIE.ONMICROSOFT.COM              DCExtract</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >"Completed gathering sign-in activity. 567 sign-in events were collected. 8 users
+              were updated."            STEALTHBITSTECHNOLOGIE.ONMICROSOFT.COM             
+              DCExtract</span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span><span>Instructions:</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              >1. Unblock the hotfix zip file in the windows property dialog if an unblock button
+              exists there.</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >2. Close all instances of StealthAUDIT (check task manager under processes for all
+              users)</span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>3. Exit StealthAUDIT console</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              >4. Copy and replace files from the folders in this hotfix to the corresponding
+              folders in SA Install dir.</span
+            ></span
+          ></span
+        ><br /><br /><br />https://downloads.stealthbits.com/access/files/SAHotFixes/11.5/SA_11.5_008.zip<br /> 
+      </div>
+    </article>
+  </body>
+</html>

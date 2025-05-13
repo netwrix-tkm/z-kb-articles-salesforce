@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Change the Default Ports in Netwrix Auditor User Activity Video Recording</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VcCAK" />
+    <meta name="Id" content="ka0Qk000000CYM5IAO" />
+    <meta name="LastPublishedDate" content="2025-02-20T20:57:04.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-26T15:20:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="742" />
+    <meta name="ArticleNumber" content="000003167" />
+    <meta name="description" content="User Activity Video Recording — Custom Ports" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="related_query">Related Query</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                "Is there a way to configure the agent to use different ports instead of 9003 and
+                9004 for User Activity Video Recording?"
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            How can you change the default ports in Netwrix Auditor User Activity Video Recording?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            Yes, you can configure the agent to use different ports by modifying the registry
+            settings on both the Netwrix Auditor host server and the target servers. Follow these
+            steps:
+          </p>
+          <h4 id="on_the_netwrix_auditor_host_server">On the Netwrix Auditor Host Server</h4>
+          <ol>
+            <li>
+              <p>Open <strong>Registry Editor</strong> and navigate to:</p>
+              <code
+                >HKEY_LOCAL_MACHINE\SOFTWARE\(Wow6432Node)\NetWrix Auditor\User Activity Video
+                Reporter</code
+              >
+            </li>
+            <li>
+              <p>
+                Create a new <strong>DWORD (32-bit)</strong> value named
+                <strong>ServerPort</strong> (default: <code>9004</code>).
+              </p>
+            </li>
+          </ol>
+          <h4 id="on_each_target_machine">On Each Target Machine</h4>
+          <ol>
+            <li>
+              <p>Open <strong>Registry Editor</strong> and navigate to:</p>
+              <code
+                >HKEY_LOCAL_MACHINE\SOFTWARE\(Wow6432Node)\NetWrix\User Activity Video Reporter
+                Agent</code
+              >
+            </li>
+            <li>
+              <p>
+                Create a new <strong>String</strong> value named <strong>ServerPort</strong> (this
+                should match the value specified on the Netwrix host).
+              </p>
+            </li>
+            <li>
+              <p>
+                Create another <strong>String</strong> value named
+                <strong>CallbackPort</strong> (default: <code>9003</code>).
+              </p>
+            </li>
+            <li>
+              <p>Specify the desired ports in both values.</p>
+            </li>
+            <li>
+              <p>
+                Restart the <strong>UAVR Service</strong> on each target machine to apply the
+                changes.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

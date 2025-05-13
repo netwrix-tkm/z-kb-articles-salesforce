@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Using Client API Functions for Integration in Applications</title><meta name="label" content="employees_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000wnoQCAQ"/><meta name="Id" content="ka04u000000ww8YAAQ"/><meta name="LastPublishedDate" content="2023-11-17T16:25:38.000+0000"/><meta name="LastModifiedDate" content="2023-11-17T16:25:38.000+0000"/><meta name="FirstPublishedDate" content="2023-11-14T10:54:33.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8898"/><meta name="ArticleNumber" content="000008898"/><meta name="description" content="Using Client API Functions for Integration in Applications"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<blockquote>
+<div>
+<p><span><strong>NOTE:</strong></span> The target audience of this article is any developer accustomed to invoking functions within DLLs should find the content comprehensible.</p>
+</div>
+</blockquote>
+
+<div>
+<p>The client API serves as the interface for integration within your applications. Key API functions, limited to two, are housed in the PPEClt.dll file, available in both 32-bit and 64-bit versions. To obtain the DLL,Using Client API Functions for Integration in Applications navigate to the system32 folder on a computer running the Password Policy Client. For successful interaction with the client API, the calling computer must establish TCP/IP access to a domain controller. There are no additional license fees to use the Client API.</p>
+</div>
+
+<h2 id="getppepolicymessage">GetPPEPolicyMessage</h2>
+
+<div>
+<p>This function gets a user's password policy message (the message to display when a user is changing their password). You only need to call this function if you want to display the password policy:</p>
+
+<pre>DWORD WINAPI GetPPEPolicyMessage9(LPCWSTR                  lpwszUsername,
+                                      LPCWSTR                  lpwszDomain,
+                                      const LANGID             LanguageID,
+                                      LPCWSTR                  lpwszIPAddress,
+                                      const unsigned short     usPort,
+                                      const long               lTimeout,
+                                      const unsigned short     usRetries,
+                                      LPWSTR                   lpwszPolicyMessage,
+                                      const size_t             cchPolicyMessage)</pre>
+</div>
+
+<h4 id="arguments">Arguments</h4>
+
+<div>
+<ul><li>
+	<p><code>lpwszUsername</code> – Username</p>
+	</li><li>
+	<p><code>lpwszDomain</code> – User's domain</p>
+	</li><li>
+	<p><code>LanguageID</code> – Language ID (1033 for US English). Read how to resolve the language ID to the name of the correct language pack that you want to install: <a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/deployment/use-language-id-identify-language-pack" target="_blank">Using language IDs to identify language packs for AD DS and AD LDS domain controllers ⸱ Microsoft 🡥</a></p>
+	</li><li>
+	<p><code>lpwszIPAddress</code> – IP address of the Password Policy Server (use <code>NULL</code> to locate a server automatically).</p>
+	</li><li>
+	<p><code>usPort</code> – Password Policy Server port (Password Policy Client (PPC) default is 1333)</p>
+	</li><li>
+	<p><code>lTimeout</code> – Communication timeout in milliseconds (PPC default is 5000)</p>
+	</li><li>
+	<p><code>usRetries</code> – Number of retries on error (PPC default is 2)</p>
+	</li><li>
+	<p><code>lpwszPolicyMessage</code> – A pointer to the buffer that receives the policy or rejection message</p>
+	</li><li>
+	<p><code>cchPolicyMessage</code> – Size of <code>lpwszPolicyMessage</code> in wide characters</p>
+	</li></ul>
+</div>
+
+<h2 id="getpperejectionmessage">GetPPERejectionMessage</h2>
+
+<div>
+<p>Once a user enters their password, you will need to check it and get back the rejection message (if any). To make it easier, it was combined into a single function:</p>
+
+<pre>DWORD WINAPI GetPPERejectionMessage9(LPCWSTR               lpwszUsername,
+                                     LPCWSTR               lpwszDomain,
+                                     LPCWSTR               lpwszOldPassword,
+                                     LPCWSTR               lpwszNewPassword,
+                                     BOOL                  bSetOperation,
+                                     LPCWSTR               lpwszDictionaryFile,
+                                     LPCWSTR               lpwszSecondaryDictionaryFile,
+                                     LPCWSTR               lpwszClientHashFile1,
+                                     LPCWSTR               lpwszClientHashFile2,
+                                     LPCWSTR               lpwszClientHashFile3,
+                                     const LANGID          LanguageID,
+                                     LPCWSTR               lpwszIPAddress,
+                                     const unsigned short  usPort,
+                                     const long            lTimeout,
+                                     const unsigned short  usRetries,
+                                     PBOOL                 pbPasswordRejected,
+                                     LPWSTR                lpwszRejectionMessage,
+                                     const size_t          cchRejectionMessage)</pre>
+</div>
+
+<h4 id="arguments">Arguments</h4>
+
+<div>
+<ul><li>
+	<p><code>lpwszUsername</code> – Username</p>
+	</li><li>
+	<p><code>lpwszDomain</code> – User's domain</p>
+	</li><li>
+	<p><code>lpwszOldPassword</code> – User's old password</p>
+	</li><li>
+	<p><code>lpwszNewPassword</code> – User's new password</p>
+	</li><li>
+	<p><code>bSetOperation</code> – <code>TRUE</code> for password set / reset, <code>FALSE</code> for password change; determines if the Minimum Age and History rules should be enforced</p>
+	</li><li>
+	<p><code>lpwszDictionaryFile</code> – Path to custom PPE dictionary file (<code>NULL</code> for default, typically no client dictionary, only server dictionary).</p>
+	</li><li>
+	<p><code>lpwszSecondaryDictionaryFile</code> – Path to the secondary dictionary rule</p>
+	</li><li>
+	<p><code>lpwszClientHashFile1</code>, <code> lpwszClientHashFile2</code>, <code> lpwszClientHashFile3</code> – Paths to custom Compromised rule hash files (<code>NULL</code> for defaults, usually no client hash file, only server files)</p>
+	</li><li>
+	<p><code>LanguageID</code> – Language ID (1033 for US English). Read how to resolve the language ID to the name of the correct language pack that you want to install: <a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/deployment/use-language-id-identify-language-pack" target="_blank">Using language IDs to identify language packs for AD DS and AD LDS domain controllers ⸱ Microsoft 🡥</a></p>
+	</li><li>
+	<p><code>lpwszIPAddress</code> – IP address of the Password Policy Server (use <code>NULL</code> to locate a server automatically).</p>
+	</li><li>
+	<p><code>usPort</code> – Password Policy Server port (PPC default is 1333)</p>
+	</li><li>
+	<p><code>lTimeout</code> – Communication timeout in milliseconds (PPC default is 5000)</p>
+	</li><li>
+	<p><code>usRetries</code> – Number of retries on error (PPC default is 2)</p>
+	</li><li>
+	<p><code>pbPasswordRejected</code> – Pointer to a boolean. It is set to <code>TRUE</code> on return if the password was rejected by PPE</p>
+	</li><li>
+	<p><code>lpwszRejectionMessage</code> – A pointer to the buffer that receives the policy or rejection message</p>
+	</li><li>
+	<p><code>cchRejectionMessage</code> – Size of <code>lpwszRejectionMessage</code> in wide characters</p>
+	</li></ul>
+</div>
+
+<h2 id="example">Example</h2>
+
+<div>
+<p>Both functions return a numeric error code, or ERROR_SUCCESS (0) if there was no error. Here is a very simple example showing the functions in use:</p>
+
+<pre>WCHAR          wszUsername[] = L"testuser";
+        WCHAR          wszDomain[] = L"axdev";
+        WCHAR          wszOldPassword[] = L"OldPassword";
+        WCHAR          wszNewPassword[] = L"NewPassword";
+        WCHAR          wszDictionaryFile[] = L"E:\\temp\\dict.txt";
+        WCHAR          wszSecondaryDictionaryFile[] = L"E:\\temp\\dict2.txt";
+        LANGID         LangID = 1033;
+        unsigned short usPort = 1333;
+        long           lTimeout = 5000;
+        unsigned short usRetries = 2;
+        BOOL           bPasswordRejected;
+        WCHAR          wszMessage[2048];
+        
+        
+        if (ERROR_SUCCESS == GetPPEPolicyMessage9(wszUsername, wszDomain, LangID, NULL, usPort, lTimeout, usRetries, wszMessage, 2048))
+          MessageBox(NULL, wszMessage, L"Password Policy", MB_OK);
+        
+        if (ERROR_SUCCESS == GetPPERejectionMessage9(wszUsername, wszDomain, wszOldPassword, wszNewPassword, FALSE, wszDictionaryFile, wszSecondaryDictionaryFile, NULL, NULL, NULL, LangID, NULL, usPort, lTimeout, usRetries, &amp;bPasswordRejected, wszMessage, 2048))
+          if (bPasswordRejected)
+              MessageBox(NULL, wszMessage, L"Password Rejected", MB_OK);</pre>
+</div></div>
+</article></body></html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Set Up Netwrix Password Policy Enforcer to Work with Cisco DUO Authentication</title><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000111D8CAI"/><meta name="Id" content="ka0Qk0000000wgjIAA"/><meta name="LastPublishedDate" content="2023-09-14T15:21:16.000+0000"/><meta name="LastModifiedDate" content="2023-12-12T06:42:03.000+0000"/><meta name="FirstPublishedDate" content="2023-09-14T15:21:16.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8807"/><meta name="ArticleNumber" content="000008807"/><meta name="description" content="Set Up Netwrix Password Policy Enforcer to Work with Cisco DUO Authentication"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to set up Netwrix Password Policy Enforcer to work with Cisco DUO Authentication?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<p>Refer to the following steps to set up Password Policy Enforcer with Cisco DUO Authentication in a client:</p>
+
+<ol><li>
+	<p>In the client, open <strong>Registry Editor</strong> and follow the specified path:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Duo Security\DuoCredProv</code></pre>
+	</li><li>
+	<p>Check if you have the <strong>ProvidersWhitelist</strong> value available in the key. If not, right-click the <strong>DuoCredProv</strong> key, and select <strong>New</strong> &gt; <strong>Multi-String Value</strong>. Name the value <strong>ProvidersWhitelist</strong>.</p>
+
+	<div><img height="378" src="kA04u00000111D8CAI_34971a29-36a2-4308-8cf7-84aaf920b7cc.png" width="826"/></div>
+	</li><li>
+	<p>Once created, right-click the value and select <strong>Modify</strong>. Input the Password Policy Enforcer Client GUID in the <strong>Edit Multi-String</strong> window:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">{F347212E-AF6B-4726-92B3-E4DF3388D58C}</code></pre>
+
+	<div><img height="377" src="kA04u00000111D8CAI_f35a3479-4e16-447c-aaf8-424d85d575cf.png" width="825"/></div>
+	</li><li>
+	<p>Save the changes, and reboot the client to verify the changes.</p>
+	</li></ol>
+
+<p>Learn more in <a href="https://help.duo.com/s/article/4041?language=en_US#:~:text=Installing%20Duo%20disables%20all%20other,last%20used%20credential%20provider%20GUID" target="_blank">Can I enable other credential providers after installing Duo Authentication for Windows Logon? ⸱ Cisco DUO 🡥</a>.</p>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>If the PPE-specific GUID does not work, you can try to use the GenericProvider GUID instead:</p>
+</blockquote>
+
+<pre class="has-inner-focus"><code class="lang-Registry">{25CBB996-92ED-457e-B28C-4774084BD562}</code></pre>
+</div>
+
+<h4 id="related_articles">Related articles</h4>
+
+<div>
+<p><a href="https://help.duo.com/s/article/4041?language=en_US#:~:text=Installing%20Duo%20disables%20all%20other,last%20used%20credential%20provider%20GUID" target="_blank">Can I enable other credential providers after installing Duo Authentication for Windows Logon? ⸱ Cisco DUO 🡥</a></p>
+</div></div>
+</article></body></html>

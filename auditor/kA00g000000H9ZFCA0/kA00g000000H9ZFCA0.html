@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Notifications are not sent to distribution groups</title>
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZFCA0" />
+    <meta name="Id" content="ka04u000000HcSGAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1233" />
+    <meta name="ArticleNumber" content="000003389" />
+    <meta
+      name="description"
+      content="This is related to authentication settings. Configure SMTP authentication in the settings of the Netwrix Management"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        If a user`s e-mail address is specified as a recipient, notifications work. If a
+        distribution group is specified as the recipient, notifications do not come through
+
+        <hr />
+
+        This is related to authentication settings. By default, even if the Exchange receive
+        connector accepts anonymous SMTP, sending to distribution groups requires clients to be
+        authenticated.
+        <div>
+          <a
+            href="http://technet.microsoft.com/en-us/library/bb629676%28v=exchg.80%29.aspx"
+            target="_blank"
+            >http://technet.microsoft.com/en-us/library/bb629676%28v=exchg.80%29.aspx</a
+          >
+        </div>
+         
+
+        <hr />
+
+        There are two solutions:
+        <ol>
+          <li>Configure SMTP authentication in the settings of the Netwrix Management console</li>
+        </ol>
+        <div>
+          <img
+            src="kA00g000000H9ZFCA0_1cbb3635-f412-4c93-9958-308bb9e62c0f.png"
+            alt="SMTP authentication settings in Netwrix Auditor"
+            width="500"
+            height="400"
+          />
+        </div>
+        <ol start="2">
+          <li>Disable "require authentication" option in distribution group options as follows</li>
+        </ol>
+        <div>
+          <ol>
+            <li>Launch Exchange Management console</li>
+            <li>Navigate to MS Exchange - Recipient configuration - Distribution groups</li>
+            <li>Select the required distribution group and open its Properties</li>
+          </ol>
+          <div>
+            <img
+              src="kA00g000000H9ZFCA0_e51ff2d9-0968-4121-aa45-3d6606e7661f.png"
+              alt="User-added image"
+            />
+          </div>
+          <ol start="4">
+            <li>Go to Mail Flow Setting tab</li>
+            <li>Select Message Delivery Restrictions from the list and open its Properties</li>
+          </ol>
+          <div>
+            <img
+              src="kA00g000000H9ZFCA0_a83bb730-15c6-4e8e-961d-28ce8869bc3b.png"
+              alt="User-added image"
+            />
+          </div>
+          <ol start="6">
+            <li>
+              Uncheck <strong>Require that all senders are authenticated</strong> and click
+              <strong>OK</strong>
+            </li>
+          </ol>
+          <div>
+            <img
+              src="kA00g000000H9ZFCA0_229f6e0c-9e9a-4032-93ab-1ccb5cf312b1.png"
+              alt="User-added image"
+            />
+          </div>
+          <div>
+            Alternatively you can run the following command via Exchange Management Shell:<em
+              ><strong
+                >Set-Mailbox -RequireSenderAuthenticationEnabled $false -Identity %group%,
+              </strong></em
+            >where <strong>%group% </strong>is like<strong> dynamic.group@example.com</strong>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Inactive Users Tracker Locks Out Active Accounts not Logging to Windows</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000TsnvCAC" />
+    <meta name="Id" content="ka04u00000116LqAAI" />
+    <meta name="LastPublishedDate" content="2022-05-13T11:21:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-27T10:34:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-05-13T11:21:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8434" />
+    <meta name="ArticleNumber" content="000008434" />
+    <meta
+      name="description"
+      content="Inactive Users Tracker Locks Out Active Accounts not Logging to Windows"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom_and_cause">Symptom and Cause</h2>
+
+        <div>
+          <p>
+            Inactive Users Tracker uses LastLogonTime AD attribute to decide when was the last time
+            user was active. Certain actions (such as Logon to Office 365 on hybrid Environments) do
+            not affect this attribute, so IUT perceives these accounts to be inactive and locks
+            them.
+          </p>
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          <p>
+            This issue can be worked around by omitting either the user or the OU from the
+            monitoring scope of Inactive User Tracker. This will prevent IUT from acting on account
+            in any way, making it impossible to set the locked status for specified accounts. For
+            additional information on omit lists for Inactive Users Tracker, refer to the following
+            article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/MonitoringScope/InactiveUsers.htm"
+              target="_self"
+              >Exclude Objects from Monitoring Scope — Inactive Users</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

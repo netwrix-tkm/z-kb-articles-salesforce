@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Resolving IIS hosted pages loading blank when requested filtering in IIS is enabled</title><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IztCAE"/><meta name="Id" content="ka04u000000HczzAAC"/><meta name="LastPublishedDate" content="2022-02-22T13:32:26.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:13:09.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:45:52.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7412"/><meta name="ArticleNumber" content="000007412"/><meta name="description" content="360008816812"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary:</strong> Resolving IIS hosted pages loading blank when requested filtering in IIS is enabled using Set-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "allowUnlisted" -value "False" -errorAction SilentlyContinue</p>
+
+<p><strong>Issue:</strong> In IIS there is an installable component called Request filtering.  An element within that functionality allows users to allow or deny certain file extenstions from loading in the webpage. </p>
+
+<p>allowUnlisted - Specifies whether the Web server should process files that have unlisted file name extensions. If you set this attribute to true, you must list all file name extensions you want to deny. If you set this attribute to false, you must list all file name extensions you want to allow. The default value is true.</p>
+
+<p><strong>Command used:</strong> Set-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "allowUnlisted" -value "False" -errorAction SilentlyContinue</p>
+
+<p>Enabling this option is common practice when securing IIS, however, this can potentially break Access Information Center (AIC) and SI Reporting Console reports from loading as these both utilize IIS.</p>
+
+<p>For more context on this functionality see below:</p>
+
+<p><a href="https://docs.microsoft.com/en-us/iis/configuration/system.webserver/security/requestfiltering/fileextensions/" target="_blank">https://docs.microsoft.com/en-us/iis/configuration/system.webserver/security/requestfiltering/fileextensions/</a></p>
+
+<p>If this is the case then the following commands can be run in PowerShell as Administrator to add the Necessary extensions:</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension=‘.svc’} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.xaml'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.xap'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.xbap'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.ashx'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.js'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.css'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.html'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.aspx'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.png'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.gif'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.woff'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.woff2'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.csv'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.xls'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4">Add-WebConfigurationProperty -pspath 'MACHINE/WEBROOT/APPHOST'  -filter "system.webServer/security/requestFiltering/fileExtensions" -name "." -value @{fileExtension='.xlsx'} -errorAction SilentlyContinue</p>
+
+<p class="wysiwyg-indent4"> </p>
+
+<p><strong>Submitted by: </strong>Ricky Calder</p>
+
+<p><strong>Product:</strong> StealthAUDIT and StealthINTERCEPT</p>
+
+<p><strong>Affected Versions:</strong> ALL</p>
+
+<p><strong>Affected Module:</strong> SA, AIC, SI Reports</p>
+
+<p><strong>Dev Ticket:</strong> N/A</p>
+
+<p><strong>Resolved In Version:</strong> N/A</p>
+
+<p><strong>KB Type:</strong> How To</p></div>
+</article></body></html>

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Update Service Account Password</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110uzCAA" />
+    <meta name="Id" content="ka0Qk000000CodlIAC" />
+    <meta name="LastPublishedDate" content="2025-03-14T16:35:03.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-14T16:35:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-21T09:23:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8680" />
+    <meta name="ArticleNumber" content="000008680" />
+    <meta name="description" content="How to Update Service Account Password" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="before_you_start">Before You Start</h2>
+        <blockquote>
+          <div>
+            <span><strong>IMPORTANT:</strong></span> this article is made for versions
+            <strong>5.6</strong> and <strong>5.7.</strong> Variation in the service name is very
+            likely as between these two major versions they were changed. If you previously had 5.6
+            and upgraded to 5.7, you will retain old service names, if a fresh install, you get new
+            service names. Keep it in mind if setting up Distributed Query Server (DQS) where one
+            server was set up before the others in your environment (read more about
+            <a
+              href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Requirements/DQSMode.htm"
+              target="_blank"
+              >applying DQS mode in Configuring NDC Servers Cluster and Load Balancing with DQS Mode
+              ・ v 5.7</a
+            >).
+          </div>
+        </blockquote>
+        <h3 id="check_your_netwrix_data_classification_version">
+          Check Your Netwrix Data Classification Version
+        </h3>
+        <p>Check for the current NDC version on any of the NDC pages</p>
+        <h3 id="check_service_names">Check Service Names</h3>
+        <div class="table-wrap">
+          <table count-columns="2" border="1">
+            <thead>
+              <tr>
+                <th colspan="1" rowspan="1">
+                  <b
+                    ><span
+                      ><span><span>5.7 but upgraded from 5.6.x.x</span></span></span
+                    ></b
+                  >
+                </th>
+                <th colspan="1" rowspan="1">
+                  <b
+                    ><span
+                      ><span><span>Fresh install of 5.7.x.x</span></span></span
+                    ></b
+                  >
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span
+                    ><span><span>ConceptCollector</span></span></span
+                  >
+                </td>
+                <td colspan="1" rowspan="1">
+                  <span
+                    ><span><span>NDC Collector</span></span></span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span
+                    ><span><span>ConceptIndexer</span></span></span
+                  >
+                </td>
+                <td colspan="1" rowspan="1">
+                  <span
+                    ><span><span>NDC Indexer</span></span></span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <span
+                    ><span><span>ConceptClassifier</span></span></span
+                  >
+                </td>
+                <td colspan="1" rowspan="1">
+                  <span
+                    ><span><span>NDC Classifier</span></span></span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <div>
+          <ol>
+            <li>
+              <p>Login to your NDC server(s)</p>
+            </li>
+            <li>
+              <p>Stop the services:</p>
+              <ol>
+                <li>
+                  <p>Press WIN + R on the keyboard</p>
+                </li>
+                <li>
+                  <p>Enter <strong>services.msc.</strong> and click <strong>OK</strong></p>
+                  <p>Result: the <strong>Services</strong> window appears</p>
+                </li>
+                <li>
+                  <p>
+                    Right click a service with the <strong>Running</strong> status and select
+                    <strong>Stop</strong>
+                  </p>
+                </li>
+              </ol>
+              <blockquote>
+                <div>
+                  <strong>TIP:</strong> you can change startup type to <strong>Manual</strong>, so
+                  then they don’t startup on their own:
+                </div>
+                <div>
+                  <img
+                    alt="User-added image"
+                    src="kA04u00000110uzCAA_c8f7d7b0-0bb6-4ae2-be17-89b7a45cce45.png"
+                  />
+                </div>
+              </blockquote>
+            </li>
+            <li>
+              In the <strong>Services</strong> window, scroll down to find the following services:
+              <ul>
+                <li>
+                  <p>NDC Classifier</p>
+                </li>
+                <li>
+                  <p>NDC Collector</p>
+                </li>
+                <li>
+                  <p>NDC Indexer</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>For each service, do the following:</p>
+              <div>
+                <img
+                  alt="Picture2.png"
+                  height="587"
+                  src="kA04u00000110uzCAA_21a6a638-31ff-43eb-b2ff-ea98cec07beb.png"
+                  width="500"
+                />
+              </div>
+              <ol>
+                <li>
+                  <p>
+                    Right click a service name, select <strong>Properties</strong> and go to the
+                    <strong>Log on</strong> tab
+                  </p>
+                </li>
+                <li>
+                  <p>Enter new password</p>
+                </li>
+                <li>
+                  <p>Click on <strong>Apply</strong></p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Launch the Internet Information Services / Internet Information Services Manager
+                (IIS) and do the following:
+              </p>
+              <ol>
+                <li>
+                  <p>Expand the server and head into Application Pools</p>
+                </li>
+                <li>
+                  <p>Look for your corresponding application.</p>
+                  <blockquote>
+                    <div>
+                      <span><strong>NOTE:</strong> </span>there is a variation in name between
+                      versions:
+                      <p><strong>V5.7 but upgraded from 5.6.x.x</strong>: ConceptQSAppPool</p>
+                      <p><strong>Fresh install of v5.7.x.x</strong>: NDCAppPool</p>
+                    </div>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    Click on the application and then on the right pane, click on
+                    <strong>Advanced Settings</strong>
+                  </p>
+                  <div>
+                    <img
+                      alt="Picture3.png"
+                      height="208"
+                      src="kA04u00000110uzCAA_a339f172-9810-4f31-b319-39b01e4c87ac.png"
+                      width="500"
+                    />
+                  </div>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Once you are in the <strong>Advanced Settings</strong>, go to
+                <strong>Process Model</strong> &gt; <strong>Identity</strong> &gt;
+                <strong>...</strong>
+              </p>
+              <div>
+                <img
+                  alt="Picture4.png"
+                  height="586"
+                  src="kA04u00000110uzCAA_4edd225e-76a2-4cb0-9091-fd8b9de81c89.png"
+                  width="500"
+                />
+              </div>
+            </li>
+            <li>
+              <p>In the <strong>Application Pool Identity</strong> window do the following:</p>
+              <ol>
+                <li>
+                  <p>Click on <strong>Set</strong></p>
+                </li>
+                <li>
+                  <p>
+                    Enter new credentials (always enter your domain before the user as not doing so
+                    can cause problems later)
+                  </p>
+                </li>
+                <li>
+                  <p>Click on <strong>OK</strong></p>
+                  <div>
+                    <img
+                      alt="Picture5.png"
+                      height="569"
+                      src="kA04u00000110uzCAA_92d04339-dbf3-46db-a2b4-2a663529365b.png"
+                      width="500"
+                    />
+                  </div>
+                </li>
+              </ol>
+            </li>
+            <li>
+              Since you are in the IIS, head into your NDC webpage by doing the following:
+              <ol>
+                <li>
+                  <p>Expand the <strong>Sites</strong> folder</p>
+                </li>
+                <li>
+                  <p>
+                    Expand <strong>Default Web Site</strong> then click on <strong>NDC2</strong> or
+                    <strong>ConceptQS</strong>
+                  </p>
+                </li>
+                <li>
+                  <p>Click on <strong>Browse</strong> on the right pane</p>
+                  <div>
+                    <img
+                      alt="Picture6.png"
+                      height="160"
+                      src="kA04u00000110uzCAA_cd444af9-62ac-45d7-a3fd-2f42443d99e3.png"
+                      width="500"
+                    />
+                  </div>
+                  <p>Result: the NDC's <strong>System Dashboard</strong> section appears:</p>
+                  <div>
+                    <img
+                      alt="Picture7.png"
+                      height="241"
+                      src="kA04u00000110uzCAA_49bcb3bb-6059-4de3-9708-4afd4837ae55.png"
+                      width="500"
+                    />
+                  </div>
+                  <blockquote>
+                    <div>
+                      <span><strong>IMPORTANT:</strong></span
+                      >  follow the steps below if only you have setup the same Service Account for
+                      more than just the services such as SQL Access or SQL Server Instance Services
+                    </div>
+                  </blockquote>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Go to your NDC installation directory. The default directory varies depending on the
+                version:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    <strong>V5.7 but upgraded from 5.6.x.x</strong>:
+                    <code>c:\Program Files\conceptsearching</code>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>Fresh install of 5.7.x.x</strong>:
+                    <code>c:\Program Files\Netwrix\Data Classification</code>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Go to the <strong>Services</strong> folder and do the following:</p>
+              <ol>
+                <li>
+                  <p>Open the <strong>conceptindexer</strong> folder</p>
+                </li>
+                <li>
+                  <p>To sort documents, click <strong>Type</strong> once</p>
+                </li>
+                <li>
+                  <p>Open the <strong>ConceptConfig.exe</strong> file</p>
+                  <div>
+                    <img
+                      alt="Picture8.png"
+                      height="322"
+                      src="kA04u00000110uzCAA_a3a12ac2-ade3-41f1-a099-74c480590fa0.png"
+                      width="500"
+                    />
+                  </div>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                In the <strong>Netwrix Data Classification: Database Configuration</strong> window,
+                proceed as follows:
+              </p>
+              <ol>
+                <li>
+                  <p>Change user password</p>
+                </li>
+                <li>
+                  <p>
+                    Click on <strong>Test Connection</strong> to have NDC try to connect with your
+                    new credentials
+                  </p>
+                  <div>
+                    <img
+                      alt="Picture9.png"
+                      height="420"
+                      src="kA04u00000110uzCAA_e8724b7e-d40d-4d7a-8f44-c67bc1bfa912.png"
+                      width="500"
+                    />
+                  </div>
+                  <p>
+                    Result: a dialog window with the
+                    <strong>Connection Test Succeeded</strong> message appears.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Repeat for the other service folder</p>
+            </li>
+            <li>
+              <p>
+                Go to <code>c:\inetpub\wwwroot\NDC</code> (or ConceptQS) and repeat the same process
+                as above (classify by type and launch <strong>ConceptConfig.exe</strong>)
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Login Failed—Cannot Open Database in Reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9Z1CAK" />
+    <meta name="Id" content="ka0Qk0000005JObIAM" />
+    <meta name="LastPublishedDate" content="2024-09-04T17:12:27.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-05T14:34:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1226" />
+    <meta name="ArticleNumber" content="000003375" />
+    <meta
+      name="description"
+      content="Error: &amp;quot;Error saving AD history to database: Login failed for user &amp;quot;DomainUser&amp;quot; &amp;quot; Error: &amp;quot;Cannot open database &amp;lt;Database name&amp;gt; requested by the login. %%post_excerpt%%"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>When you attempt to open a Netwrix Auditor report, you see the following error:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">An error has occurred during report processing. 
+(rsProcessingAborted) 
+Cannot create a connection to data source ‘DS’. 
+(rsErrorOpeningConnection) 
+"Cannot open database &lt;%Database_name%&gt; requested by the login. 
+The login failed. Login failed for user &lt;%User_name%&gt;".</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The Audit Database Account used to connect to SQL Server does not have the required
+            permissions to access the target SQL database <code>%database_name%.</code>
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Verify that the <strong>db_owner</strong> role for the target database is assigned to
+            the default Audit Database Account by following the steps below:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Navigate to
+                <strong
+                  >Start &gt; All Programs &gt; Microsoft SQL Server &gt; SQL Server Management
+                  Studio</strong
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Object Explorer</strong> pane of SQL Server Management Studio,
+                navigate to <strong>Security &gt; Logins &gt;</strong>
+                <code>%Audit_Database_account%</code>. Right-click the account and select
+                <strong>Properties</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>User Mapping</strong> tab, locate the affected database and verify
+                that the <strong>db_owner</strong> role is assigned. Click <strong>OK</strong> to
+                save the changes.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            For additional information on required access rights, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/SQLServer.htm#configure_audit_database_account"
+              target="_self"
+              >Configure Audit Database Account — Requirements for SQL Server to Store Audit Data ·
+              v10.7</a
+            >.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span> If your account lacks the correct
+              permissions to assign the roles, you can run your SSMS instance in the single-user
+              mode. Learn more in
+              <a
+                href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/start-sql-server-in-single-user-mode?view=sql-server-ver16"
+                target="_blank"
+                >Single-user Mode for SQL Server · Microsoft 🡥</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/SQLServer.htm#configure_audit_database_account"
+                  target="_self"
+                  >Configure Audit Database Account — Requirements for SQL Server to Store Audit
+                  Data · v10.7</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/start-sql-server-in-single-user-mode?view=sql-server-ver16"
+                  target="_blank"
+                  >Single-user Mode for SQL Server · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

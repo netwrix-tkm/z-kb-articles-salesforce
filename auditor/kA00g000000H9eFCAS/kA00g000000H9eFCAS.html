@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How To Determine the Exchange Web Services (EWS) URL</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eFCAS" />
+    <meta name="Id" content="ka04u000000HcWyAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3538" />
+    <meta name="ArticleNumber" content="000003697" />
+    <meta name="description" content="How To Determine the Exchange Web Services (EWS) URL" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The default <strong>URL</strong> for <strong>EWS</strong> is usually in the format
+        <em>https://mailserver/EWS/Exchange.asmx</em>, however this may not be correct for every
+        <strong>Exchange</strong> <strong>Server</strong>. There are two methods to find the
+        <strong>URL:</strong>
+        <h3 id="How-ToDeterminetheExchangeWebServices(EWS)URL-PowerShell">PowerShell</h3>
+        <ol>
+          <li>
+            Open the <strong>Exchange</strong> <strong>Management</strong> <strong>Shell</strong> on
+            the <strong>Exchange</strong> <strong>Server</strong>
+          </li>
+          <li>Type <strong>Get-WebServicesVirtualDirectory |Select name, *url* | fl</strong></li>
+        </ol>
+        <h3 id="How-ToDeterminetheExchangeWebServices(EWS)URL-Outlook">Outlook</h3>
+        <ol>
+          <li>Open <strong>Outlook</strong></li>
+          <li>
+            Hold the <strong>Ctrl key</strong> + <strong>right-click</strong> on the
+            <strong>Outlook</strong> Icon in the system tray
+          </li>
+          <li>Select <strong>"Test E-mail Auto Configuration"</strong> from the menu</li>
+          <li>
+            Type in an <strong>email</strong> <strong>address</strong> located on the desired
+            <strong>Exchange</strong> <strong>Server</strong>
+          </li>
+          <li>Click "<strong>Test"</strong></li>
+          <li>The URL is listed as "<strong>Availability Service URL</strong>"</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

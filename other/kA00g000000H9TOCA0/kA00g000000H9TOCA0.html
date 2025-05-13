@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Automatic user enrollment failed: The certificate authority is invalid or incorrect
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TOCA0" />
+    <meta name="Id" content="ka04u00000116cjAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:15:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="610" />
+    <meta name="ArticleNumber" content="000003034" />
+    <meta
+      name="description"
+      content="The enrollment wizard returns the following error: &#34;Automatic user enrollment failed: The certificate authority is invalid or incorrect (Error code: 12045)&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          On the startup, the enrollment wizard does not start and returns the following error:
+        </div>
+
+        <div>
+          "Automatic user enrollment failed: The certificate authority is invalid or incorrect
+          (Error code: 12045)"<br />
+        </div>
+
+        <hr />
+
+        <div>
+          This issue occurs when you use a self-signed SSL certificate for the Self-Service
+          portal.<br />To resolve the issue, either obtain a signed third-party SSL certificate, or
+          deploy the self-signed certificate to root CA (certificate authority) of all problematic
+          workstations.
+        </div>
+
+        <div></div>
+
+        <div>
+          To deploy a self-signed certificate
+          <ol>
+            <li>
+              Save certificate to file locally. In order to do this browse to the web-site you have
+              assigned a certificate to, click Agree to continue on a notification screen, in
+              address bar find certificate and open certificate information (see screenshots – View
+              certificates or Certificate information)
+            </li>
+          </ol>
+          <img
+            alt="User-added image"
+            height="228"
+            src="kA00g000000H9TOCA0_ae733534-61cd-4da2-942a-c68ff6758bdb.png"
+            width="500"
+          />
+          <ol>
+            <li>
+              Go to the <strong>Details</strong> tab and click
+              <strong>Copy to file…</strong> button, a wizard opens
+            </li>
+            <li>
+              Select <strong>Cryptographic Message Syntax Standard (PKCS #7)</strong> and click
+              <strong>Next</strong>
+            </li>
+            <li>
+              Select a Path to save the file and click <strong>Next</strong>, then
+              <strong>Finish</strong>.
+            </li>
+            <li>Copy the file to the machine where Group Policy Manager is installed</li>
+            <li>
+              Start <strong>Group Policy Manager </strong>and edit
+              <strong>Default Domain Policy</strong>
+            </li>
+            <li>
+              In the Group Policy Object Editor, navigate down to:
+              <strong
+                >Computer Configuration - Windows Settings – Security Settings - Public Key Policies
+                - Trusted Root Certification Authorities</strong
+              >, right-click and select <strong>Import</strong>.
+            </li>
+            <li>
+              In wizard specify the file we have created earlier and click <strong>Next</strong>,
+            </li>
+            <li>
+              Leave Certificate Store as default and click <strong>Next</strong>, then click
+              <strong>Finish</strong>
+            </li>
+            <li>Run <em>gpupdate /force </em>or wait until policy applies automatically</li>
+          </ol>
+          <img
+            alt="User-added image"
+            height="377"
+            src="kA00g000000H9TOCA0_1f48cbae-77d7-44be-8533-b6113b118d1d.png"
+            width="303"
+          />
+        </div>
+
+        <div></div>
+
+        <div>
+          Also, make sure that the name of the server stored in the certificate matches the name you
+          specified on the Password Manager client setup.<br /><br />More screenshots here
+          <a href="http://unixwiz.net/techtips/deploy-webcert-gp.html" target="_blank"
+            ><font color="#333435"
+              >Deploying a Self-Signed Root Certificate with Group Policy</font
+            ></a
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

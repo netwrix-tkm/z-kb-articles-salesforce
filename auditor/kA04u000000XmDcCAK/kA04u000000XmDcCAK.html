@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event Log Manager Report "Service Starts and Stops" Multi-Lingual Configuration</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000XmDcCAK" />
+    <meta name="Id" content="ka04u000000HdFvAAK" />
+    <meta name="LastPublishedDate" content="2021-01-07T20:06:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:20:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-01-05T21:08:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5841" />
+    <meta name="ArticleNumber" content="000005841" />
+    <meta
+      name="description"
+      content="Event Log Manager Report &#34;Service Starts and Stops&#34; Multi-Lingual Configuration"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        If your servers are configured in any language other than English, the Event Log Manager
+        report "Service Starts and Stops" will not display information. This is due to the fact that
+        the report template file is written to look for the terms "RUNNING", "START", or "STOP". To
+        fix this, simply replace those words with the words in the configured language.
+
+        <hr />
+         
+        <ol>
+          <li>
+            Navigate to the RDL file located at <span
+              ><span
+                >C:\ProgramData\Netwrix Auditor\Reports\Netwrix Auditor for Event Log\Change
+                Reports\Service Starts and Stops.rdl</span
+              ></span
+            >
+          </li>
+          <li>
+            Control + F to find the English words Running, Start, and Stop. Add the correct words in
+            the alternative language to the string values. <b>Ex:</b> ('RUNNING', 'START', 'WORD3',
+            'WORD4')
+            <ul>
+              <li>
+                <img
+                  alt="User-added image"
+                  height="350"
+                  src="kA04u000000XmDcCAK_03ca003b-01c8-4d42-a558-6712eb70b740.jpg"
+                  width="750"
+                />
+              </li>
+            </ul>
+          </li>
+          <li>Save the file</li>
+          <li>
+            Navigate to the SSRS Report Manager URL, which can be found under Netwrix Auditor
+            Settings &gt; Audit Database tab
+          </li>
+          <li>Drill down through the Netwrix Auditor Report folder on the homepage</li>
+          <li>
+            Select the Netwrix Auditor for <b>Event Log folder</b> and then the
+            <b>Change Reports folder</b>
+          </li>
+          <li>
+            Find the <b>Service Starts and Stops</b> file and click the three dots to choose the
+            delete option.
+          </li>
+          <li>
+            Restart the <b>Netwrix Auditor Management Service</b> and the file will be updated with
+            the appropriate language
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to manually enable advanced SQL tracing</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HFBCA2" />
+    <meta name="Id" content="ka04u0000001B1iAAE" />
+    <meta name="LastPublishedDate" content="2023-09-07T12:04:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T12:04:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-12-28T20:55:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5839" />
+    <meta name="ArticleNumber" content="000005839" />
+    <meta name="description" content="How to manually enable advanced SQL tracing" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>To manually enable advanced SQL tracing, follow these simple steps:</p>
+
+        <ol>
+          <li>
+            On the Netwrix Auditor host, navigate to <b
+              >C:\Program Files(x86)\Netwrix Auditor\SQL Server Auditing</b
+            >
+          </li>
+          <li>Find the file <b>sqlcr_audit_db.sql</b></li>
+          <li>
+            The set of files here, starting with <b>sqlcr_</b> are tied to the monitoring plan
+            configuration.
+            <ul>
+              <li>
+                Follow the table below to determine which files are needed and then continue with
+                the steps.
+              </li>
+            </ul>
+          </li>
+          <li>Copy this file to the SQL Server host</li>
+          <li>
+            Launch <b>SQL Server Management Studio (SSMS)</b> and connect to the audited SQL Server
+          </li>
+          <li>
+            Drag and drop the <b>sqlcr_audit_db.sql</b> file into the open blue space right of the
+            Object Explorer window
+          </li>
+          <li>
+            After the text from the stored procedure appears, click the "Execute" button on the tool
+            bar at the top of the screen.
+          </li>
+        </ol>
+
+        <div>
+           
+          <div class="table-wrap">
+            <table count-columns="2" border="1">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">Auditing Configuration Changes</td>
+                  <td colspan="1" rowspan="1">sqlcr_audit_db.sql</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Failed SQL and Windows logons</td>
+                  <td colspan="1" rowspan="1">sqlcr_sp_logon_failed.sql</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Successful SQL logons</td>
+                  <td colspan="1" rowspan="1">sqlcr_sp_logon_success.sql</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><i>If all logon boxes are checked</i></td>
+                  <td colspan="1" rowspan="1">sqlcr_sp_logon_success_failed.sql</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"> </td>
+                  <td colspan="1" rowspan="1"> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

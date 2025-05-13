@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NetApp Activity Load Balancing and Fail Over</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ih3CAE" />
+    <meta name="Id" content="ka04u000000HctXAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:34:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:34:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7211" />
+    <meta name="ArticleNumber" content="000007211" />
+    <meta name="description" content="360008602431" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to configure
+          multiple SAM clients to collect activity for a single NetApp
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Customer wants to
+          load balance activity events from a large NetApp device or create a fail over system to
+          ensure all events are delivered.  
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <p>
+          <strong>Step 1:</strong><br />Install SAM on two separate Windows servers and configure
+          them to both monitor the same NetApp filer/cluster<br /><br /><strong>Step 2: </strong>
+        </p>
+        <div>
+          <strong>Load Balancing</strong><br />The IP address of the secondary SAM Agent needs to be
+          added to the <u>primary</u> servers parameter of an external engine.<br /> <br /><span
+            ><span
+              ><span
+                >if multiple SAM agents are defined as primary servers, they will receive events in
+                a round robin fashion.<br />If one fails, the other(s) will continue to receive
+                events and no events will be lost. This would also help balance performance for a
+                busy filer.</span
+              ></span
+            ></span
+          ><br /><br /><strong>Fail Over</strong><br />The IP address of the secondary SAM Agent
+          needs to be added to the <u>secondary</u> servers parameter of an external engine.<br /> 
+        </div>
+        <p>
+          <strong
+            ><span><span>Step 3: </span></span></strong
+          ><br /><span
+            ><span
+              >To collect from both SAM servers, StealthAUDIT should have two separate
+            </span></span
+          ><span
+            ><span
+              >FSAC scans targeting the same NetApp.  <br />Adjust one scan's proxy setting to the
+              primary SAM server, and the other scan's to the secondary.  </span
+            ></span
+          ><br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong> STEALTHbits File
+          Activity Monitor<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          File Activity Monitor - NetApp;SA - DC - FSAA - Activity<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          *<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          1920
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Managing Non-domain-joined Windows Computers with Privilege Secure</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000Tt1TCAS"/><meta name="Id" content="ka04u000000ww6mAAA"/><meta name="LastPublishedDate" content="2023-11-10T16:25:56.000+0000"/><meta name="LastModifiedDate" content="2023-11-13T16:06:27.000+0000"/><meta name="FirstPublishedDate" content="2022-07-08T14:08:00.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8453"/><meta name="ArticleNumber" content="000008453"/><meta name="description" content="Managing Non-domain-joined Windows Computers with Netwrix SbPAM"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview"><span><b>Overview</b></span></h2>
+
+<p><span><span>This article describes the process for managing a non-domain-joined Windows computer with Privilege Secure.</span></span></p>
+
+<h2 id="before_you_begin"><span><b>Before You Begin</b></span></h2>
+
+<p><span><span>Make sure that you have the following:</span></span></p>
+
+<ul><li><span><span>A local Administrator account on the target computer, for which you know the password</span></span></li><li><span><span>PowerShell Remoting enabled on the target computer (<a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enable-psremoting?view=powershell-7.2" target="_blank">Enable-PSRemoting ⸱ Microsoft 🡥</a>)</span></span></li><li><span><span>Port 5985 open for connections from the SbPAM server (and any hosts running remote action services, if applicable)</span></span></li></ul>
+
+<h2 id="instructions"><span><b>Instructions</b></span></h2>
+
+<h3 id="adding_the_sbpam_service_account"><span><b>Adding the SbPAM Service Account</b></span></h3>
+
+<ol><li><span><span>As a user with the Administrator role, open Privilege Secure. Navigate to the "Configuration &gt; Service Accounts" page.</span></span></li><li><span><span>Click the green plus button to create a new Service Account</span></span></li><li><span><span>Enter the required information</span></span>
+	<ol><li><span><span>Name (a friendly name that is displayed in the rest of the UI for this account)</span></span></li><li><span><span>Description (additional text for identifying this account)</span></span></li><li><span><span>Domain (This MUST be the NETBIOS name of the target computer)</span></span></li><li><span><span>Username (A Local Administrator account on the target computer)</span></span></li><li><span><span>Password (The password for the local administrator account)</span></span></li><li><span><span>Platform (Windows)</span></span></li><li><span><span>Vault Connecter (&lt;none&gt;)</span></span></li></ol>
+	</li><li><span><span>Click "Save"</span></span></li></ol>
+
+<div><span><span><img alt="User-added image" height="246" src="kA04u000000Tt1TCAS_8b73c665-959a-4e79-b4f1-2c7d97216e24.png" width="500"/></span></span></div>
+
+<h3 id="adding_the_computer_to_sbpam"><span><b>Adding the Computer to SbPAM</b></span></h3>
+
+<ol><li><span><span>Navigate to the "Resources" page</span></span></li><li><span><span>Click the “Add” button</span></span></li><li><span><span>Select “New Server” from the dropdown list</span></span></li><li><span><span>Click the “Add Manually” radio button</span></span></li><li><span><span>Enter the FQDN of the target computer</span></span></li><li><span><span>Click “Add”</span></span></li><li><span><span>In the lower right, select the Service Account you created above.</span></span></li><li><span><span>Click “Add”</span></span></li></ol>
+<span><span>This will start the scanning step, you can close the dialog or wait for the scan to complete. If there are failures during the scan you can review the logs by navigating to the resource page.<br/><img alt="User-added image" height="195" src="kA04u000000Tt1TCAS_b15e3062-e701-4ee5-99b2-ef140ee0f035.png" width="500"/></span></span>
+
+<h3 id="troubleshooting_a_failed_scan"><span><b>Troubleshooting a Failed Scan</b></span></h3>
+<span> <span>If the scan fails, you can troubleshoot it by viewing the scan logs on the "Resources" page.</span></span>
+
+<ol><li><span><span>Search for the computer you attempted to add</span></span></li></ol>
+
+<ol start="2"><li><span><span>Click on the Resource name of the computer</span></span></li><li><span><span>Click on the “History” tab</span></span></li><li><span><span>Select the last scan event and click “View Logs”</span></span></li></ol>
+
+<div><span><span><img alt="User-added image" height="94" src="kA04u000000Tt1TCAS_0688bcf1-8ff7-41c8-9419-f7490bca72af.png" width="500"/></span></span></div>
+
+<h3 id="additional_troubleshooting_access_denied"><span><b>Additional Troubleshooting: "Access Denied"</b></span></h3>
+In the event that you see "Access Denied" when investigating the logs, refer to <a href="https://kb.netwrix.com/8526" target="_blank">SbPAM: Resolving "Access Denied" When Connecting to a Non-domain-joined Windows Resource</a> .
+
+<h2 id="summary"><span><b>Summary</b></span></h2>
+
+<p><span><span>After going through this process, you can use this computer's resource in Activities. A non-domain joined Windows computer can be used in any activity that doesn’t require Active Directory. You can create local Activity Token users and local managed accounts. Requester and accounts that require Active Directory will not work.<br/><br/>To configure a local Activity Token/Managed Account activity, when creating the activity remove the “%targetdomain%\” portion of the default Login Account Format. Make sure to use the “Windows” Platform as well.</span><br/><br/><img alt="User-added image" height="135" src="kA04u000000Tt1TCAS_6ce1cc67-7c37-4187-bd5d-52e61f9e4d31.png" width="500"/></span></p></div>
+</article></body></html>

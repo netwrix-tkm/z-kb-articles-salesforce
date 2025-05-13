@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring Plan Shows Not Responding Status</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000XLlKAM" />
+    <meta name="Id" content="ka0Qk0000002kLJIAY" />
+    <meta name="LastPublishedDate" content="2024-03-29T16:08:55.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-29T16:08:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-25T16:21:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9090" />
+    <meta name="ArticleNumber" content="000009090" />
+    <meta name="description" content="Monitoring Plan Shows Not Responding Status" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>A monitoring plan in Netwrix Auditor shows the <b>Not responding</b> status.</p>
+
+          <p>When drilling down to the <b>Details</b>, the following error appears:</p>
+          <code
+            >One of the Netwrix Auditor services is not responding. Navigate to the Services snap-in
+            and check the service statuses</code
+          >.
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This error indicates that a Netwrix Auditor monitoring plan stopped because data
+            collection timed out prematurely.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            To prevent premature timeout of data collection, you need to restart some Netwrix
+            services:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts your Auditor Server, open the <b>Services</b> snap-in.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate and restart the following services depending on your audited data source:
+              </p>
+
+              <ul>
+                <li>
+                  <p>For all data sources: Netwrix Auditor Data Collection Service</p>
+                </li>
+                <li>
+                  <p>
+                    For a specific data source: Netwrix Auditor for {Your Data Source} Audit Service
+                  </p>
+
+                  <p>
+                    where {Your Data Source} is the name of the source, such as
+                    <b>Active Directory</b>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Ad-Hoc and Email reports shows different results in one-way-trust forests environment
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9Z0CAK" />
+    <meta name="Id" content="ka04u000000HcS1AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1222" />
+    <meta name="ArticleNumber" content="000003374" />
+    <meta
+      name="description"
+      content="Password Expiration email report (being delivered automatically) and Ad-hoc report (generated manually) provide a different number of user accounts"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Password Expiration email report (being delivered automatically) and Ad-hoc report
+        (generated manually) provide a different number of user accounts in the following operating
+        environment:
+        <ul>
+          <li>
+            Netwrix Auditor is configured to monitor password expirations in a domain which belongs
+            to the forest with one-way trusts established.
+          </li>
+          <li>
+            The password policy in the target domain is set granularly by using the Fine Grained
+            Password Policy (FGP)
+          </li>
+          <li>
+            Netwrix Auditor is set to report on users with Fine Grained Policy Settings (the "Only
+            report on users with Fine Grained Policy Settings" checkbox is checked )
+          </li>
+        </ul>
+
+        <hr />
+
+        This could happen because the Data Processing Account that is being used to collect data
+        does not have enough permissions to read the Password Settings Container from the target
+        domain. While the Ad-Hoc is being run under a different account which can read the Password
+        Settings Container
+
+        <hr />
+
+        To check if the Data Processing Account has enough permissions please perform the following
+        steps:
+        <ul>
+          <li>
+            Run ADSI Edit as the Data Processing Account (refer to the
+            <a href="https://kb.netwrix.com/743" target="_blank">KB</a> if you need to install ADSI
+            Edit utility)
+          </li>
+          <li>Connect to the target domain Default Naming Context</li>
+          <li>Navigate to the CN=System</li>
+          <li>Try to open CN=Password Settings Container and read the PSO.</li>
+        </ul>
+        If you do not see the CN=Password Settings Container under the CN=System node or cannot read
+        the properties this indicates Data Processing Account does have read rights (see the
+        screenshot below: the account does not have rights to access the Password Settings
+        Container).
+        <div>
+          <img
+            src="kA00g000000H9Z0CAK_b812f991-65f8-4c30-a260-6f036fcc9f3e.png"
+            alt="User-added image"
+            width="500"
+            height="229"
+          />
+        </div>
+        To provide read permissions to the Data Processing Account:
+        <ul>
+          <li>Run ADSI Edit as a domain Administrator</li>
+          <li>Connect to the target domain Default Naming Context</li>
+          <li>Navigate to the CN=System</li>
+          <li>
+            Right-click CN=Password Settings Container, select Properties, go to the Security tab
+            and add the Data Processing Account and specify Read permissions.
+          </li>
+        </ul>
+        Once the read permission for the Data Processing Account is set, verify the access by
+        opening the CN=Password Settings Container properties with the Data Processing Account. This
+        time you should be able to see CN=Password Settings Container under the CN=System node and
+        read its properties (see the screenshot below)
+        <div>
+          <img
+            src="kA00g000000H9Z0CAK_0e4f11df-f827-43bf-bfc0-1f5921003d74.png"
+            alt="User-added image"
+            width="500"
+            height="160"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

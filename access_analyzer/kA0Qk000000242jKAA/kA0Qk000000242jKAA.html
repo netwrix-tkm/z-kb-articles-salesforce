@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-8.0.124</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk000000242jKAA" />
+    <meta name="Id" content="ka0Qk000000CWXBIA4" />
+    <meta name="LastPublishedDate" content="2025-02-24T21:29:53.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-24T21:29:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-02-24T21:29:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9416" />
+    <meta name="ArticleNumber" content="000009416" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p> </p>
+        <p>
+          <strong><span>Summary:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i><span>NAM - User SID resolves incorrectly</span></i>
+          </li>
+          <li>
+            <i
+              ><span
+                >NetApp. Occasional errors when an SVM is being monitored by several agents</span
+              ></i
+            >
+          </li>
+          <li>
+            <i><span>SUVP 25-02 support</span></i>
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior Before Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            Previously the search behavior was to resolve the account SID that started with the SID
+            value. And this resolved incorrectly because there was another account starting with the
+            same values.
+          </li>
+          <li>
+            When two or more agents are monitoring the same SVM, they compete against each other to
+            update the FPolicy configuration of the SVM. As a result, one of the agents may fail and
+            display an error in the Console. The end result is that the FPolicy configuration is
+            accurate and the error disappears in several minutes.
+          </li>
+          <li> </li>
+        </ol>
+        <ul>
+          <li>
+            2025 Server - KB5051987
+            <ul>
+              <li>LDAP Bind events will be lost or incomplete</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve LDAP_CONN::BindRequest</li>
+                  <li>
+                    Couldn't resolve CConnectionEx::InitializeClientData (4 param)|<br /><br />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            2022 Server - KB5051979
+            <ul>
+              <li> <i>NTLM, FSMO roles and LDAP Bind</i> events will be lost or incomplete</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve NlpUserValidate<br /><br /></li>
+                  <li>Couldn't resolve DsaGetValidFSMOs<br /><br /></li>
+                  <li>Couldn't resolve LDAP_CONN::BindRequest<br /><br /></li>
+                  <li>Couldn't resolve KdcGetTicket</li>
+                  <li>Couldn't resolve HandleTGSRequest</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            2019 Server - KB5052000
+            <ul>
+              <li>NTLM, LDAP Bind and Kerberos events will be lost or incomplete</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve NlpUserValidate</li>
+                  <li>Couldn't resolve LDAP_CONN::BindRequest</li>
+                  <li>Couldn't resolve KdcGetTicket</li>
+                  <li>Couldn't resolve HandleTGSRequest</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            2016 Server - KB5052006
+            <ul>
+              <li>NTLM and AD Replication events will be lost or incomplete</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve NlpUserValidate</li>
+                  <li>Couldn't resolve IDL_DRSGetNCChanges</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          <strong><span>Behavior After Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            We updated the search behavior to resolve the account SID that fully matches the SID
+            value.
+          </li>
+          <li>Conflicts during FPolicy updates are not reported in the Console.</li>
+          <li>AD Module updated. Product should report Active Directory events as expected</li>
+        </ol>
+        <p><b>Changes Since Last Hotfix:</b></p>
+        <p><span>N/A</span></p>
+        <p>
+          <strong><span>Submitted by: </span></strong>
+        </p>
+        <p><span>Kevin Duddy</span></p>
+        <p>
+          <strong><span>Affected Versions:</span></strong>
+        </p>
+        <p><span>Activity Monitor 8.0</span></p>
+        <p>
+          <strong><span>Affected Module:</span></strong>
+        </p>
+        <ol>
+          <li><span>Search</span></li>
+          <li><span>NetApp</span></li>
+          <li><span>Active Directory</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ol>
+          <li>374999</li>
+          <li>365901</li>
+          <li>374172</li>
+        </ol>
+        <p>
+          <strong><span>Resolved in Version:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 8.0.124</span></p>
+        <p>
+          <i><span> </span></i>
+        </p>
+        <p>
+          <strong><span>KB Type: </span></strong>
+        </p>
+        <p><span>Hotfix</span></p>
+        <p>
+          <strong
+            ><i><span> </span></i></strong
+          >
+        </p>
+        <p>
+          <strong><span>Modules Included:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 8.0.124</span></p>
+        <p>
+          <span>SBTService.exe </span><i><span>1.24.1203.1430</span></i>
+        </p>
+        <p>
+          <span>SI Version </span><i><span>7.4.0.163</span></i>
+        </p>
+        <p> </p>
+        <p><b>DevOps/Escalations</b></p>
+        <ol>
+          <li>374999 / 00435568</li>
+          <li>365901 / 00428241</li>
+          <li>374172 / NA</li>
+        </ol>
+        <p><b>Cumulative List of fixes included since Service Pack:</b></p>
+        <p>NA</p>
+        <p> </p>
+        <p>
+          <strong><span>Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i
+              ><span
+                >Run the MSI file on a host that has the Activity Monitor Console is
+                installed.</span
+              ></i
+            >
+          </li>
+          <li>
+            <i><span>Upgrade all agents.</span></i>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <a
+            href="https://releases.netwrix.com/products/activitymonitor/8.0/activitymonitor-8.0.124.zip"
+            target="_blank"
+            >https://releases.netwrix.com/products/activitymonitor/8.0/activitymonitor-8.0.124.zip</a
+          >     
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

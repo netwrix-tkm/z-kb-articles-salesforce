@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Policy Requirements Missing in Password Policy Enforcer/Web</title><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="label" content="employees_v"/><meta name="KnowledgeArticleId" content="kA0Qk0000000a3VKAQ"/><meta name="Id" content="ka0Qk0000002obpIAA"/><meta name="LastPublishedDate" content="2024-04-04T09:33:56.000+0000"/><meta name="LastModifiedDate" content="2024-04-04T09:34:06.000+0000"/><meta name="FirstPublishedDate" content="2024-04-04T09:33:56.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9119"/><meta name="ArticleNumber" content="000009119"/><meta name="description" content="Policy Requirements Missing in Password Policy Enforcer/Web"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>The policy requirements are not visible in Netwrix Password Policy Enforcer/Web (PPE/Web) clients.</p>
+</div>
+
+<h2 id="causes">Causes</h2>
+
+<div>
+<ol><li>
+	<p>The <strong>Only accept encrypted client requests</strong> option is enabled.</p>
+	</li><li>
+	<p>The <code>[LIVE_POLICY]</code> declaration is specified instead of <code>[POLICY]</code> in the Policy Properties Messsages tab.</p>
+	</li></ol>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Refer to the following steps:</p>
+
+<ol><li>
+	<p>Disable the <strong>Only accept encrypted client requests</strong> option in PPE.</p>
+
+	<ol><li>
+		<p>In the left pane of the main PPE window, select <strong>Password Policy Server</strong> and click <strong>PPS Properties</strong>.</p>
+		</li><li>
+		<p>In the <strong>General</strong> tab, uncheck the <strong>Only accept encrypted client requests</strong> checkbox and click <strong>OK</strong> to save your changes.</p>
+		</li></ol>
+	</li><li>
+	<p>Specify the <code>[POLICY]</code> declaration.</p>
+
+	<ol><li>
+		<p>In the left pane of the main PPE window, extend the <strong>Policies</strong> node, right-click the target policy, and select <strong>Properties</strong>.</p>
+		</li><li>
+		<p>In the <strong>Messages</strong> tab, replace the <code>[LIVE_POLICY]</code> declaration with <code>[POLICY]</code>.</p>
+		</li><li>
+		<p>Save the changes by clicking <strong>OK</strong>.</p>
+		</li></ol>
+	</li></ol>
+</div></div>
+</article></body></html>

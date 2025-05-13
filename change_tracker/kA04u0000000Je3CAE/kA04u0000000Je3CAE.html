@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Log Tracker - Types of Authentication</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Je3CAE" />
+    <meta name="Id" content="ka0Qk0000000x89IAA" />
+    <meta name="LastPublishedDate" content="2023-12-12T11:01:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T11:01:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:55:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8275" />
+    <meta name="ArticleNumber" content="000008275" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            >Internal security of your Log Tracker data, and the permissions granted to access this
+            data, are both important topics that should be considered by all Log Tracker
+            administrators. Log Tracker server potentially contains private data, especially with
+            regard to user activity, and the Log Tracker data should be protected to prevent user
+            privacy and other concerns.</span
+          >
+        </p>
+
+        <p>
+          <span
+            >Log Tracker Server provides multiple types of logon authentication, documented in the
+            Log Tracker manuals, and summarized here.</span
+          >
+        </p>
+
+        <ul>
+          <li>
+            HTTP Authentication. The out-of-box authentication used by Log Tracker is HTTP
+            Authentication, which is a tried and true form of authentication used by the web
+            browser. The Log Tracker administrator updates a local database of users and permissions
+            via the "System &gt; Logins &gt; Users" screen. This type of authentication has many
+            benefits: It is verifiable; it is an industry standard method; it is very convenient.
+            The only disadvantage to this type of authentication is that HTTP authentication does
+            not provide a "Logout" mechanism. To log out of the server (once logged in) you need to
+            close all instances of your browser.
+          </li>
+          <li>
+            <span
+              >Web Screen Authentication: An alternate form of authentication is "Web Screen
+              Authentication", which is set by the "System &gt; Logins &gt; Security" tab. To switch
+              to this type of authentication, set the "Security Enhanced Functions" to "Enabled",
+              and set the "Login Authentication Method" to "Web Screen". This type of authentication
+              provides a traditional login screen, requires cookies in your browser to be enabled,
+              and provides a "Logout" link. This type of authentication is quite popular, and has
+              the benefit of easily permitting the user to switch logons.</span
+            >
+          </li>
+          <li>
+            HTTP Auth + Web Screen. This is simply a combination of both HTTP and Web Screen. The
+            user must logon once using HTTP authentication, and then can logon again under the same
+            user name (or switch user names.) This is probably not required except at those sites
+            that need to demonstrate and prove verifiable security.
+          </li>
+          <li>
+            Active Directory User Authentication. This type of logon uses "Active Directory" logons.
+            It works only for the "Web Screen" type of Login authentication. The user simply sets
+            the "User Active Directory Authentication" value to "True" on the "System &gt; Logins
+            &gt; Security" screen. Then, when a user logs into the system using one of the names
+            specified on the "System &gt; Logins &gt; Users" screen, the user's password can be
+            authenticated against Active Directory (instead of the local login database.)
+          </li>
+          <li>
+            Active Directory Group Authentication. This type of logon is similar to the above,
+            except the user name does not have to be configured in the "System &gt; Logins &gt;
+            Users" screen. The permissions of the user are assigned via the "System &gt; Logins &gt;
+            Group Mapping" tab. To use this type of authentication requires installation of the ADGM
+            (Active Directory Group Mapping) adapter, available from Log Tracker
+          </li>
+        </ul>
+
+        <p>
+          The precise method of authentication is fairly arbitrary. Any of the above techniques can
+          provide sound security of your data. The particular technique employed by and end-user
+          depends largely on convenience, the need to verify the security (such as prove to auditors
+          the data is secure) and how paranoid an organization may be in protecting the Log Tracker
+          data.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

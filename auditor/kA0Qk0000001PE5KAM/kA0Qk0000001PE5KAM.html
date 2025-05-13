@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Service Did Not Respond to Start or Control Request in SSRS</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001PE5KAM" />
+    <meta name="Id" content="ka0Qk000000CHmfIAG" />
+    <meta name="LastPublishedDate" content="2025-02-18T21:31:05.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-18T21:31:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-11T12:22:30.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9262" />
+    <meta name="ArticleNumber" content="000009262" />
+    <meta
+      name="description"
+      content="Error: Service Did Not Respond to Start or Control Request in SSRS"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <div>
+          <p>
+            The following symptoms affect your Netwrix Auditor and SQL Server Reporting Services
+            (SSRS) server:
+          </p>
+          <ul>
+            <li>
+              <p>
+                When attempting to run reports via Auditor console, the following error populates:
+              </p>
+              <pre class="has-inner-focus">Can't reach this page.</pre>
+            </li>
+            <li>
+              <p>
+                <code>SQL Server Reporting Services</code> service fails to start, displaying error
+                1053:
+              </p>
+              <pre class="has-inner-focus">
+Error 1053: The service did not respond to the start or control request in a timely fashion.</pre
+              >
+            </li>
+            <li>
+              <p>
+                The SSRS log files located in
+                <code>C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\LogFiles</code>
+                contain the following error:
+              </p>
+              <pre class="has-inner-focus">
+System.IO.FileLoadException: Could not load file or assembly '%name%' or one of its dependencies. 
+The located assembly's manifest definition does not match the assembly reference. 
+(Exception from HRESULT: 0x80131040)</pre
+              >
+            </li>
+          </ul>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>Your SSRS instance is corrupted.</p>
+          <blockquote>
+            <span class="Note"><strong>NOTE: </strong></span> In some cases of SSRS corruption, the
+            following SSRS files are blank or contain illegible symbols:
+          </blockquote>
+          <pre class="has-inner-focus">
+C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\web.config</pre
+          >
+          <pre class="has-inner-focus">
+C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\rssrvpolicy.config</pre
+          >
+          <pre class="has-inner-focus">
+C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\Portal\RSPortal.exe.config</pre
+          >
+        </div>
+        <h2 id="resolutions">Resolutions</h2>
+        <p>Apply one of the following options to resolve the issue:</p>
+        <div>
+          <ul>
+            <li>
+              <p>Repair the SSRS instance.</p>
+              <ol>
+                <li>
+                  <p>
+                    In <strong>Programs and Features</strong>, select
+                    <strong>Microsoft SQL Server Reporting Services</strong> and click
+                    <strong>Uninstall/Change</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the new window, select <strong>Repair</strong> and proceed with the prompted
+                    steps that follow.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Uninstall SQL Server Reporting Services and install the application on the Auditor
+                server.
+              </p>
+              <blockquote class="Caution">
+                <strong>IMPORTANT:</strong> This resolution applies only to SQL Server Standard and
+                Enterprise editions.
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

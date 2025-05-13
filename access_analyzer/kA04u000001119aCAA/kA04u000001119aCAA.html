@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Blank Reports in Enterprise Auditor Web Console</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001119aCAA" />
+    <meta name="Id" content="ka0Qk0000001ggLIAQ" />
+    <meta name="LastPublishedDate" content="2024-02-05T14:36:26.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-05T14:36:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-05T12:47:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8785" />
+    <meta name="ArticleNumber" content="000008785" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the issue when StealthAudit unable to show the reports in Web Console"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The published reports in the Web Console of Netwrix Enterprise Auditor show blank pages.
+            Searching by a report name allows to run a report.
+          </p>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The SQL Server instance times out due to the preexisting query. This issue might
+                arise in larger environments with higher loads.
+              </p>
+            </li>
+            <li>
+              <p>The <b>Reports</b> folder is corrupted.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 id="resolutions">Resolutions</h2>
+
+          <h4 id="remove_the_solutionxml_file">Remove the Solution.xml file</h4>
+
+          <p>
+            The <code>Solution.xml</code> file queries SQL for a summary of audited systems, and it
+            might be timing out depending on the loads in your environment. Removing it allows the
+            reports to populate in a timely manner.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In the Enterprise Auditor host, navigate to
+                <code>Installation_Folder\STEALTHbits\StealthAUDIT\Jobs\GROUP_NAME</code>.
+              </p>
+            </li>
+            <li>
+              <p>Remove the <b>Solution.xml</b> file.</p>
+            </li>
+          </ol>
+
+          <div>
+            <h4 id="recreate_the_reports_folder">Recreate the Reports folder</h4>
+
+            <p>In case the prior resolution didn't help, refer to the following steps:</p>
+
+            <ol>
+              <li>
+                <p>In Enterprise Auditor, navigate to the <b>Reporting</b> node.</p>
+              </li>
+              <li>
+                <p>
+                  Review the path to the <b>Reports</b> folder in the <b>Publish Reports:</b> field.
+                  The default path is
+                  <code>C:\Program Files (x86)\STEALTHbits\StealthAUDIT\Reports</code>.
+                </p>
+              </li>
+              <li>
+                <p>In the Enterprise Auditor host, recreate the <b>Reports</b> folder.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

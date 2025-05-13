@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Mongo Commands - MongoDB fs.chunk irregular growth lead to no HDD space</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000JgdCAE"/><meta name="Id" content="ka04u000000HdBOAA0"/><meta name="LastPublishedDate" content="2022-02-07T01:02:36.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:18:21.000+0000"/><meta name="FirstPublishedDate" content="2022-02-07T01:02:36.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8314"/><meta name="ArticleNumber" content="000008314"/><meta name="description" content="HELPDESK"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Scenario</strong>: Customer MongoDB crashed due to insufficient disk space after upgrading to Change Tracker 7.3.0.1</p><p><strong>Root cause</strong>: Customer had orphaned reports created by a user that has since been deleted. The upgrade to Change Tracker 7.3.0.1 is suspected to have re-initiated those orphaned reports and they started running.</p><p> </p><ol><li><p>Assign Report Admin on a user to view all available reports.</p></li><li><p>Delete all reports that was created by the deleted user.</p></li><li><p>Configure settings parameter</p></li></ol><p>a. CreateDefaultGroups → No</p><p>b. CreateDefaultQueries → No</p><p><strong>Resolution</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">use NNTHubService</pre>
+</div></div><p>to select the database</p><p><strong>Command to check top 10 largest reports</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">db.fs.files.find({},{_id : 0, length : 1, filename :1}).sort({length : -1}).limit(100);</pre>
+</div></div><p><strong>Command to check fs.chunk size</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">db.fs.chunks.stats({}).indexSizes;</pre>
+</div></div><p><strong>Command to check for orphaned files</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">var count = 0;
+db.fs.chunks.distinct("files_id").forEach(function check(c) {var f = db.fs.files.count({_id:c});if(f==0) count++;});
+print("Orphaned files : " + count);
+db.fs.chunks.count();
+db.fs.files.count();</pre>
+</div></div><p>                Huge Chunks &amp; small Files is cause for concern</p><p><strong>Command to remove chunks</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">var count = 0;
+db.fs.chunks.distinct("files_id").forEach(
+  function check(c) {
+    var f = db.fs.files.count({_id:c});
+    if (f==0 &amp;&amp; count
+</pre></div></div><p>                The 1000 can be replace with higher number, such as 50000</p><p><strong>Command to check fs.chunk block-manager</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">db.fs.chunks.stats().wiredTiger[“block-manager”];</pre>
+</div></div><p>                File bytes available for reuse give an indication of how much space left after compact</p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JgdCAE_b212201c-698a-4d39-bcee-590699019323.png"/></span><p/><p><strong>Command to list out all collections in size order</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">var collectionNames = db.getCollectionNames(), stats = []; collectionNames.forEach(function (n) { stats.push(db[n].stats()); }); stats = stats.sort(function(a, b) { return b['size'] - a['size']; }); for (var c in stats) { print(stats[c]['ns'] + ": " + stats[c]['size'] + " (" + stats[c]['storageSize'] + ")"); }</pre>
+</div></div><p><strong>Command show the actual files associated with the collection</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">db.getCollection('fs.chunks').stats().wiredTiger.uri</pre>
+</div></div><p><strong>Command to shrink fs.chunks</strong></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">db.runCommand( { compact : 'fs.chunks' } )</pre>
+</div></div></div>
+</article></body></html>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Upgrade Increments for Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eJCAS" />
+    <meta name="Id" content="ka0Qk000000DU9xIAG" />
+    <meta name="LastPublishedDate" content="2025-04-29T15:51:13.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-29T15:51:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3679" />
+    <meta name="ArticleNumber" content="000003701" />
+    <meta name="description" content="Upgrade Increments for Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          When upgrading from old versions of Netwrix Auditor, you must do
+          that <strong>incrementally</strong>. Below is the list of approved upgrade paths up to the
+          version 10.5.
+        </p>
+        <h2 id="before_you_start">Before you start</h2>
+        <p>
+          To successfully access the download packages, ensure you are logged in with your customer
+          portal account at
+          <a href="https://www.netwrix.com/my_account.html" target="_blank">Netwrix.com</a>.
+        </p>
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>Make sure the free disk space in your SQL
+            server totals to at least 30% of the total size of all Netwrix Auditor-related
+            databases. This will allow for the database growth during the upgrade.
+          </p>
+        </blockquote>
+        <h2 id="upgrade_recommendations">Upgrade Recommendations</h2>
+        <h4 id="for_versions_older_than_95">For versions older than 9.5</h4>
+        <ul>
+          <li>
+            <strong>Upgrading from versions older than 9.5 is not recommended!</strong> Incremental
+            upgrades may cause error accumulation and cause issues with the product stability
+            post-upgrade. Best practices recommend that you leave your Netwrix Auditor as is for
+            historical reports and start a new server with the latest version installed. Proceed
+            only if you absolutely have to.
+          </li>
+          <li>
+            Make sure to wait at least 24 hours before upgrading to the next version, so that the
+            product has enough time time upgrade your databases.
+          </li>
+          <li>Contact Technical Support for download links for Netwrix Auditor 8.5 and 9.5</li>
+          <li>
+            Once 8.5 is installed, you will need to run the upgrade of your Audit Databases
+            manually. To do this, launch Netwrix Auditor Administrator Console, navigate to
+            <strong>Audit Archive </strong>&gt; <strong>Audit Database</strong> and then click
+            <strong>Upgrade</strong>.
+          </li>
+        </ul>
+        <h4 id="for_versions_95_and_newer">For Versions 9.5 and Newer</h4>
+        <ul>
+          <li>
+            <p>
+              Upgrading to Auditor v10.6 requires .NET 4.8 on the Auditor server and on any servers
+              included in a Windows Server or User Activity Monitoring Plan that have the
+              Compression Service enabled.
+            </p>
+            <blockquote>
+              <p>
+                <span class="Caution"><strong>IMPORTANT: </strong></span>Plan your upgrade
+                carefully. .NET 4.8 requires Windows Server 2016 or later and may require a server
+                reboot after installation.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            <p>
+              Starting from the version 9.9 Netwrix implemented the new license format. To reissue
+              the license:
+            </p>
+            <ul>
+              <li>
+                <p>
+                  If you upgrade incrementally, just follow steps given in the
+                  <strong>Upgrade Paths</strong> table below, and your license will upgrade
+                  automatically.
+                </p>
+              </li>
+              <li>
+                <p>
+                  If you leave your Netwrix Auditor as is and start a new server with the latest
+                  version, contact your Account Manager and request the newly formatted license.
+                </p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Do not pause the upgrade chain in the middle for a long time as this may leave your
+            system in a vulnerable state. The latest product version includes all functionality from
+            the previous versions, adds new features and includes important security updates.
+          </li>
+          <li>
+            After each incremental update, you must wait for the DBs to be upgraded. In large/busy
+            environments, this may take up to 24 hours. Check the Health Log to see if database was
+            upgraded successfully. Event IDs <b>4410 </b>and <b>4405 </b>indicate that upgrade was
+            done successfully, any other 44XX Event IDs indicate that there was an error.
+          </li>
+          <li>
+            If you have the capability to capture a snapshot of the server, we recommend doing so.
+            Before we begin, launch a PowerShell session as Administrator and execute the following
+            command:
+          </li>
+        </ul>
+        <pre class="ckeditor_codeblock">Stop-Service -Displayname Netwrix*</pre>
+        <p>This will stop all Netwrix Services and prevent complications during the upgrade.</p>
+        <h2 id="upgrade_paths">Upgrade Paths</h2>
+        <div class="table-wrap">
+          <table count-columns="3" border="1">
+            <thead>
+              <tr>
+                <th colspan="1" rowspan="1">Version </th>
+                <th colspan="1" rowspan="1">Can Upgrade To</th>
+                <th colspan="1" rowspan="1">
+                  <p>Additional Info</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">8.0</td>
+                <td colspan="1" rowspan="1">8.5</td>
+                <td colspan="1" rowspan="1">Not recommended!</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">8.5 / 9.0</td>
+                <td colspan="1" rowspan="1">9.5</td>
+                <td colspan="1" rowspan="1">Not recommended!</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">9.5</td>
+                <td colspan="1" rowspan="1">9.7</td>
+                <td colspan="1" rowspan="1">
+                  <a href="https://www.netwrix.com/my_products.html" target="_blank">Download</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">9.7 / 9.8</td>
+                <td colspan="1" rowspan="1">9.9</td>
+                <td colspan="1" rowspan="1">
+                  <a href="https://www.netwrix.com/my_products.html" target="_blank">Download</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">9.9</td>
+                <td colspan="1" rowspan="1">9.96</td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <a href="https://www.netwrix.com/my_products.html" target="_blank">Download</a>
+                  </p>
+                  <p>Refer to the following article for additional information:</p>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000HDkzCAG.html"
+                      target="_blank"
+                      >How to upgrade to from 9.9 to 9.96 if I get the error “Your Netwrix Auditor
+                      version cannot be upgraded”</a
+                    >)
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">9.96 / 10.0</td>
+                <td colspan="1" rowspan="1">10.5</td>
+                <td colspan="1" rowspan="1">
+                  <a href="https://www.netwrix.com/my_products.html" target="_blank">Download</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">10 / 10.5</td>
+                <td colspan="1" rowspan="1">10.6</td>
+                <td colspan="1" rowspan="1">
+                  <a href="https://www.netwrix.com/my_products.html" target="_blank">Download</a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">10.5 / 10.6</td>
+                <td colspan="1" rowspan="1">10.7</td>
+                <td colspan="1" rowspan="1">
+                  <a href="https://www.netwrix.com/my_products.html" target="_blank">Download</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h4 class="has-background has-very-light-gray-background-color" id="related_articles">
+          Related articles
+        </h4>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9ePCAS.html"
+            target="_blank"
+            >How To Upgrade Netwrix Auditor</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SA_8.1_021</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000JAOCA2"/><meta name="Id" content="ka04u000000Hd4IAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:52:01.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:15:11.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:52:01.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7854"/><meta name="ArticleNumber" content="000007854"/><meta name="description" content="360012217852"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> DEFEND - update the integration job to use the proper JWT settings</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <i><span><span><span><span>DEFEND - update the integration job to use the proper JWT settings</span></span></span></span></i><br/><i><span><span><span><span>Before we used NancyFX and it didn't want the bearer keyword in the authorization header</span></span></span></span></i><br/><i><span><span><span><span>Now we use ASP.NET core and it wants it</span></span></span></span></i><br/> </p><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> </p><ol><li>
+<i>Unblock the hotfix zip file in the windows property dialog, if an unblock button exists there. </i>
+</li><li>
+<i>Close all instances of StealthAUDIT (check task manager under processes for all users)</i>
+</li><li>
+<strong><i><span>Update all Action files in your %SAInstallDir%Actions folder</span></i></strong>
+</li><li>
+<strong><i><span>Update Instant Jobs in your %SAInstallDir%InstantJobs folder.</span></i></strong>
+</li><li>
+<strong><i><span>Launch StealthAUDIT. </span></i></strong>
+</li><li>Recreate StealthDEFEND job so it pulls the new files from instant jobs</li></ol>
+<div>
+<div class="table-wrap"><table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0"><tbody><tr height="38"><td colspan="1" rowspan="1" height="38" width="64"><a href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.0/SA_8.1_021.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAHotFixes/8.0/SA_8.1_021.zip</a></td></tr></tbody></table></div>
+</div><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> Internal<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 8.1<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> SAT-2853<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> Stealthbits.StealthAUDIT.Actions.WebRequest.dll v8.1.6 
+InstantJobs\IJ_File System\JOB_FS_DEFEND_SDD\ActionsTasks.xml
+InstantJobs\IJ_File System\JOB_FS_DEFEND_SDD\Description.htm<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 1860<br/></p></div>
+</article></body></html>

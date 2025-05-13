@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SAM_5.0_035</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000K9aCAE" />
+    <meta name="Id" content="ka04u000000HdCyAAK" />
+    <meta name="LastPublishedDate" content="2022-05-06T21:00:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-05-06T21:00:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8432" />
+    <meta name="ArticleNumber" content="000008432" />
+    <meta name="description" content="Retention procedure not working correctly" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i><span>Retention procedure not working correctly</span></i></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Behavior Before Fix:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >The retention procedure based its decisions on the content of the file, read from
+                  metadata.  This can cause issues and activity log can be accidentally
+                  removed.</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Behavior After Fix:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >The retention procedure now uses the timestamp extracted from the file name to
+                  decide if the file needs to be removed</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span><b>Changes Since Last Hotfix:</b></span></span
+          ></span
+        >
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  >84471<i><span>: Dell EMC. Allow to specify host aliases</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span>85087: Isilon. Too much noise and the timestamp does not change</span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >99518: SAM Console can't connect to the latest versions of Isilon</span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Kevin Duddy</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>STEALTHbits Activity Monitor 5.0</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>Agent</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>101261</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 5.0.959</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Modules Included:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 5.0.959</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup_unsigned.msi 5.0.959</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SBTService.exe 1.5.1694</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SI Version 7.1.521</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>YouTrack/Escalations</b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>101261 / 00343659</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-6668: SUVP 20-08 | 2012 &amp; 2012R2 Server | No NTLM events after applying
+                    KB4571736 or KB4571703</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5023, SFAM-5320: SAM conflict with IBM Spectrum Protect backups; SAM Agent
+                    conflict with ArcServe Backup Software</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5414: IPv6 Specifying FQDN as SVM fails to invoke Netapp ONTAP API</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5418, SFAM-5120, SFAM-5419, SFAM-4540, SFAM-5368: Search takes 8 minutes
+                    to complete; SAM Permissions "Failed Add" events when browsing folder; SAM
+                    Search displays ALT_HOST Values but doesn't allow searching against that value;
+                    CEE versions with SAM questions; Request to Confirm Support for EMC CEE
+                    8.7.7</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-5494: Nasuni Activity Collection Failure</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-5375: User filter doesn't work in Search</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5361, SFAM-5377: StealthAudit NetApp fPolicy; Syslog Splunk - Reported
+                    time is in wrong format</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5495, SFAM-4526: Logging service tries to send a huge message to Splunk;
+                    Syslog and AMQP - New Macro for File Size (NAS)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5615, SFAM-5619: Unable to translate UNIX IDs in SAM 5.0; Ability to
+                    search/filter Agents and Monitored host tabs</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-4773: Capture File Copy events</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5688: Report process name and client IP separately in syslog</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-5696: Sensitive Group Changes not working</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-6914: Kerberos auth. events may be lost or incomplete after applying MSFT
+                    updates, released 11/10/20</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5606: AD Agent (SI Agent) Settings Are not matching SAM Console
+                    Settings</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7014: SUVP 20-12 | 2016 Server | Kerberos auth. events may be incomplete
+                    after applying KB4593226</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>SFAM-5771: SAM Agent Inactivity Alerts Firing Without Cause</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5120: SAM Permissions "Failed Add" events when browsing folder</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-6016: No NFS activity from VNX</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-6016: No NFS activity from VNX</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5641: SAM - NetApp Configuration Issue (Vserver Tunneling)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7208: SUVP 2021-04| 2012 R2 Server | Kerberos auth. events may be lost or
+                    incomplete after applying KB5001382</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6410: multiple .VSS files being created on the root of every drive
+                    monitored by SAM</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5812: Sudden NetApp disconnections cause increased latency of user
+                    operations</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6751: Sharepoint Online - Not receiving new activity - Unexpected
+                    character encountered while parsing value</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>SFAM-6796: SAM 5 cannot find vserver from Netapp 9.7p8 fpolicy</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-5812: Sudden NetApp disconnections cause increased latency of user
+                    operations</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6776: NetApp: Fail to install certificate for TLS auth (tailing with
+                    0x1A)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>SFAM-6861: Stealthbits Nasuni Monitoring Service Crashing</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7358: 2019 Server only | LSASS may crash with KB5004244, released
+                    07/13/2021</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7376: 2016 Server | Kerberos auth. events may be lost or incomplete after
+                    applying KB5005393</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7405: 2019 Server only | Kerberos auth. events may be lost or incomplete with
+                    KB5005102 (August 26, 2021)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>SFAM-7246: SAM has stopped monitoring Netapp</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7470: SUVP 21-10 | 2019 Server Only | No NTLM events with KB5006672, release
+                    date: 10/12/2021</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7522; I-7501: 2019 Server | Kerberos events may be lost with Out-of-band
+                    KB5008602, published 11/14/2021; SUVP 21-11 | Kerberos, DCsync or LDAP events
+                    may be lost or incomplete after applying MSFT updates, release: 11/09/2021</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Run msi file on host that has the SBActivityMonitor.  (No need to uninstall
+                      previous version, msi will upgrade the monitor).</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>Upgrade all agents.</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <div>
+          https://downloads.stealthbits.com/access/files/SAMHotfixes/5.0/SAM_5.0_035.zip<br /> 
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

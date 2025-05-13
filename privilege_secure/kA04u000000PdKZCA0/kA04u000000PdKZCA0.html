@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Apply a New License</title><meta name="label" content="ct_administration"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000PdKZCA0"/><meta name="Id" content="ka04u000000HdF2AAK"/><meta name="LastPublishedDate" content="2021-11-05T18:52:00.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:48.000+0000"/><meta name="FirstPublishedDate" content="2021-07-12T11:50:01.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5883"/><meta name="ArticleNumber" content="000005883"/><meta name="description" content="Apply a New License"/></head><body><article class=" kb-articles"><div class="Content__c"><div class="ControlZone ControlZone--clean a_a_50a7110f" id="1212fc8d-dd6b-408a-8d5d-9f1cc787efbb">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<h2 id="summary">Summary</h2>
+
+<p>This article outlines how to apply a new license to the SbPAM server.</p>
+
+<h2 id="instructions">Instructions</h2>
+SbPAM comes with a 30-day trial license. Once this trial has expired, a new license key file will need to be imported.<br/><br/>First, log-in to the SbPAM web application as an account with the Administrator role. In SbPAM 3.5 or earlier, the built-in Admin account may be used. In SbPAM 3.7 or later, a local user with the Administrator role may be used.<br/><br/><span><i><b>IMPORTANT:</b> The "Domain" field must be set to "&lt;none&gt;" in order to log-in with the built-in Admin account.</i></span></div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="4051b306-ad54-498a-b1a1-69b305b5d69d">
+<div class="ControlZone--control">
+<div>
+<div class="n_e_9f38462c css-124">
+<div class="az_e_9f38462c">
+<div class="v_e_9f38462c"> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="aace69ba-0826-4e3c-b630-f2c065edb040">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">In the upper-right of the page, click your account name, and then <b>About SbPAM</b>.<br/><br/><img alt="The user settings dropdown menu in SbPAM." src="kA04u000000PdKZCA0_9d691295-e9e9-419b-b5cc-ead79f304351.png"/><br/><br/>The <b>About SbPAM</b> page will be displayed, including an <b>Import License</b> button that can be used to update SbPAM's license.<br/><br/><span><b><i>IMPORTANT: </i></b><i>If a new license key file is needed, please contract your Netwrix or Stealthbits Account Manager.</i></span><br/><br/><img alt="The About page in SbPAM's web application interface." height="550" src="kA04u000000PdKZCA0_c5559097-a9db-406a-b7d8-596429ceb2bd.png" width="500"/><br/><br/>The <b>Import License</b> button will open a Windows file dialog. Navigate to the location of the new license key file, select it, and click Open. The license will be imported to SbPAM, and the license information displayed will be updated.</div>
+
+<h2 class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80" id="alternate_instructions_powershell">Alternate Instructions (PowerShell)</h2>
+Open an elevated PowerShell window.<br/>Modify the following PowerShell script so that the second line contains the correct local path for your license file:
+<pre class="ckeditor_codeblock">Add-Type -AssemblyName System.Web
+$licenseFilePath = "path to license file" ## Change to match the local path to the license file
+$license = Get-Content $licenseFilePath
+$encoded = [System.Web.HttpUtility]::UrlEncode($license)
+$sbpamURI = "http://localhost:6501"
+Invoke-RestMethod -Method POST -URI "$($sbpamURI)/api/v1/LicenseInfo?License=$encoded"</pre>
+Copy and paste the modified script into PowerShell and execute it. Your license should now be imported into SbPAM.</div>
+</div>
+</div></div>
+</article></body></html>

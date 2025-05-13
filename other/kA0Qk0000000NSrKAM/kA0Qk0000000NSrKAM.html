@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Password Reset Link Is Missing</title><meta name="label" content="public_v"/><meta name="label" content="password_reset_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000NSrKAM"/><meta name="Id" content="ka0Qk0000001ObNIAU"/><meta name="LastPublishedDate" content="2024-01-12T16:13:19.000+0000"/><meta name="LastModifiedDate" content="2024-01-18T05:55:13.000+0000"/><meta name="FirstPublishedDate" content="2024-01-12T16:13:19.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9002"/><meta name="ArticleNumber" content="000009002"/><meta name="description" content="Password Reset Link Is Missing"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+
+<div>
+<p>The reset link is missing in the Netwrix Password Reset client computer.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>NPR integration has not been configured for third-party credential providers (e.g., DUO Security).</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Configure your third-party credential provider to work with NPR. Learn more about setting up Cisco DUO to work with NPR in <a href="https://help.duo.com/s/article/4041?language=en_US" target="_blank">Can I enable other credential providers after installing Duo Authentication for Windows Logon? ⸱ Cisco DUO 🡥</a>.</p>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Refer to the Password Reset Client GUID provided below:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">{407DAD37-1BA1-49BB-8401-45B22F5EF77C}</code></pre>
+</blockquote>
+</div>
+
+<div>
+<p><span><strong>IMPORTANT: </strong></span>In case adding NRP to the <code>ProvidersWhitelist</code> did not work, refer to the following steps:</p>
+
+<ol><li>
+	<p>In the Password Reset client, locate the following registry key in Registry Editor:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">HKEY_LOCAL_MACHINE\SOFTWARE\Policies\ANIXIS\Password Reset Client</code></pre>
+	</li><li>
+	<p>Add the following subkeys:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">"PreferredProvider"="{%third_party_GUID%}"
+"PreferredProviderUsernameField"=dword:00000001
+"PreferredProviderFriendlyNameField"=dword:00000000
+"PreferredProviderConfirmPasswordField"=dword:00000004
+"PreferredProviderResetPasswordLinkField"=dword:00000006
+"PreferredProviderLogOnToField"=dword:00000008</code></pre>
+
+	<p>Replace the GUID placeholder %third_party_GUID% with the third-party solution GUID.</p>
+	</li><li>
+	<p>Save the changes.</p>
+	</li></ol>
+</div></div>
+</article></body></html>

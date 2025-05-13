@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Make Netwrix Auditor Upload Data to SQL Using TLS 1.2</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dBCAS" />
+    <meta name="Id" content="ka04u00000117xMAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-27T16:40:06.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-27T16:40:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2719" />
+    <meta name="ArticleNumber" content="000003631" />
+    <meta
+      name="description"
+      content="How to make Netwrix Auditor upload data to SQL using TLS 1.2"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>NOTE:</strong></span> This KBA describes a process of configuring Netwrix
+            and SQL server to communicate via the secure channel - TLS version 1.2.
+          </p>
+        </blockquote>
+
+        <p>
+          Here is an example of an error you may encounter while using the Search function in
+          Netwrix Auditor
+        </p>
+
+        <pre class="ckeditor_codeblock">
+Sql Server error occurred (18, [DBNETLIB][ConnectionOpen (SECDoClientHandshake().]SSL Security error.)</pre
+        >
+        <img
+          alt="User-added image"
+          height="148"
+          src="kA00g000000H9dBCAS_2ad5cabd-b26f-42ad-b029-4c81eb97ef5c.jpg"
+          width="500"
+        /><br /> 
+        <ol>
+          <li>
+            <ol>
+              <li>
+                Make sure TLS 1.2 is enabled on both servers. Use this Microsoft guide to configure
+                it:
+                <a
+                  href="https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2"
+                  target="_blank"
+                  >How to enable TLS 1.2</a
+                >.
+              </li>
+              <li>
+                In order to find the version of Native Client start the ODBC Administrator on the
+                Netwrix Auditor host, right-click the <strong>Start </strong>button and then choose
+                <strong>Run</strong>, in the Run window, type the following, followed by Enter:
+                odbcad32.exe
+              </li>
+              <li>
+                Check the Version column under the Drivers tab.<br />
+                <img
+                  alt="ODBC.png"
+                  src="kA00g000000H9dBCAS_9c7041d8-d2bc-46ff-bb57-ee9b5e9a9676.png"
+                />
+              </li>
+              <li>
+                If the version is lower than "2011.110.7001.00" - download and install
+                <u><strong>64-bit version</strong></u> of <a
+                  href="https://www.microsoft.com/en-us/download/details.aspx?id=50402"
+                  target="_blank"
+                  >SQL Native Client</a
+                >
+                on the Netwrix Auditor host.
+              </li>
+              <li>Restart the Netwrix Auditor Audit Archive Service.</li>
+            </ol>
+          </li>
+          <li>
+            <hr />
+            More about SQL and TLS 1.2
+            <a
+              href="https://support.microsoft.com/en-us/help/3135244/tls-1-2-support-for-microsoft-sql-server"
+              target="_blank"
+              >TLS 1.2 support for Microsoft SQL Server</a
+            >.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Query File System Data Efficiently Using the UNC Path</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IzPCAU" />
+    <meta name="Id" content="ka04u000000ww1wAAA" />
+    <meta name="LastPublishedDate" content="2023-11-02T15:32:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-02T15:32:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:45:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7405" />
+    <meta name="ArticleNumber" content="000007405" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Running File System queries against text values can be very time consuming and
+            inefficient—how can this be fixed?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            We have indexed columns, such as HostID and Resource ID, that are a lot faster to search
+            against and built functions in to get these indexed values that can speed up queries
+            against FSAA tables and views.
+          </p>
+
+          <blockquote>
+            <p>
+              The script below is compared to text searches on Local Path as UNC path is not
+              available on SA_FSAA_DirectPermissionsView. This would be a realistic comparison if
+              the customer has both available.
+            </p>
+          </blockquote>
+
+          <p>Comparing the execution plan:</p>
+
+          <ul>
+            <li>
+              <p>
+                Against a single path − using this script below took up 2% of the Query Cost
+                compared to 98% using a text search against the local path directly against the
+                View, such as: <code>Where [ResourcePath] = 'C:\Shares\Test Share'</code>.
+              </p>
+
+              <div>
+                <img
+                  height="113"
+                  src="kA04u0000000IzPCAU_90fd895c-9b59-4638-b6b5-a2f73f601ac6.jpg"
+                  width="500"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Against a path and all of its subfolders − using this script below took up 11% of
+                the Query Cost compared to 89% using a text search with wild against the local path
+                directly against the View, such as:
+                <code>Where [ResourcePath] like 'C:\Shares\Test Share%'</code>.
+              </p>
+
+              <div>
+                <img
+                  height="147"
+                  src="kA04u0000000IzPCAU_7f09e7dc-805e-45aa-b83f-e6eadeba04c3.jpg"
+                  width="500"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="sql_script_−_instructions">SQL Script − Instructions</h2>
+
+        <div>
+          <p>
+            A SQL script was created to search File System tables using indexed values while being
+            supplied the UNC path.
+          </p>
+
+          <p>
+            Update Hosts and UNC Paths needed for Report. Rename SA_Custom_table to something
+            meaningful. If subfolders are needed, uncomment\comment out the sections marked. The SQL
+            script below will find the HostID and ResourceID of the UNC Paths for use later in the
+            SQL script. This example uses SA_FSAA_DirectPermissionsView, but this principle can be
+            applied to most FS Tables\Views.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The updated script eliminates the need to enter
+              the server name and changes the variable name to value which makes it easy to port
+              into StealthAUDIT/Enterprise Auditor and use the Configuration Variables available in
+              the Analysis. The Nested Level in the subfolder Temp table was also exposed.
+            </p>
+          </blockquote>
+
+          <pre
+            class="code-toolbar"
+          ><code class="language-sql">if OBJECT_ID('tempdb..#LookupPaths', 'u') is not null
+drop table #LookupPaths
+
+begin
+create table #LookupPaths ([Value] varchar(256) not null )
+insert into #LookupPaths values ('\\FS02\accounting')
+-- insert into #LookupPaths values ('\\UNCPath\Folder') --works with multiple UNC Paths
+end
+
+
+if OBJECT_ID('tempdb..#Lookupids', 'u') is not null
+drop table #Lookupids
+
+Select
+L.[Value]
+,L2.ResourceID AS ResourceID
+,L2.HostID AS HostID
+Into #Lookupids
+From #LookupPaths L
+outer apply SA_FSAA_LookupUncPath(L.[Value]) L2
+
+if OBJECT_ID('tempdb..#SubfolderPaths', 'u') is not null
+drop table #SubfolderPaths
+
+----Add this section in to include subfolders
+--Select HostID
+-- ,ID
+-- ,nestedlevel
+--INTO #SubfolderPaths
+--from #Lookupids L
+--cross apply dbo.SA_FSAA_RecurseFolders(l.HostID, l.ResourceID)
+
+IF OBJECT_ID('SA_Custom_table', 'U') IS NOT NULL
+DROP TABLE SA_Custom_table
+
+
+--This example uses SA_FSAA_DirectPermissionsView, but this principle can be applied to most FS Tables\Views
+SELECT [HostName]
+,[ResourceDeletedUSN]
+,[ResourcePath]
+,[ResourceTypeDescription]
+,[AllowRightsDescription]
+,[DenyRightsDescription]
+,[AllowMaskDescription]
+,[DenyMaskDescription]
+,[TrusteeSID]
+,[TrusteeTypeDescription]
+,[TrusteeDisplayName]
+,[TrusteeDomain]
+,[TrusteeNTName]
+Into SA_Custom_table
+FROM [SA_FSAA_DirectPermissionsView] D
+--Use this section to target just the target Path (Comment out to target Subfolders)
+inner join #Lookupids L
+on D.[HostID] = L.HostID
+and d.[ResourceID] = L.[ResourceID]
+----Use this section to include all subfolders
+--inner join #SubfolderPaths S
+--on D.[HostID] = S.HostID
+--and d.[ResourceID] = S.[ID]
+drop table #Lookupids
+drop table #LookupPaths
+----Add this section if including subfolders
+--drop table #SubfolderPaths</code></pre>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

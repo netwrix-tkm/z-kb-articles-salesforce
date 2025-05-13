@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_087</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I3fCAE" />
+    <meta name="Id" content="ka04u000000HceiAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:59:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:02:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:59:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6146" />
+    <meta name="ArticleNumber" content="000006146" />
+    <meta name="description" content="360012326391" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary:</strong></p>
+        <p>
+          - Lockouts not Running after adding service Account to Protected Users Group<strong
+            ><br /><br />Submitted by:
+          </strong>
+        </p>
+        <p>Justin Giemza</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>10.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – DCSmartLog</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>SAT-9062</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>DC\DCSmartLog.dll v. 10.0.141.0</p>
+        <p>DC\EventLogProcessor.dll v. 10.0.141.0</p>
+        <p>DC\FileChangeDetectionProcessor.dll v. 10.0.141.0</p>
+        <p>DC\IISLogProcessor.dll v. 10.0.141.0</p>
+        <p>DC\LogProcessorProxy.dll v. 10.0.141.0</p>
+        <p>DC\LogProcessorSrv.exe v. 10.0.141.0</p>
+        <p><strong> </strong></p>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong><br /><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p>         SAT-9026/58333</p>
+        <p><strong> </strong></p>
+        <p><strong>Instructions for implementing least privilege model:</strong></p>
+        <p><strong> </strong></p>
+        <ol>
+          <li>Create domain user or pick one to use</li>
+          <li>Enable access for the user to WMI and remote process launching</li>
+        </ol>
+        <p>               Add access to root\cimv2 via wmimgmt.msc</p>
+        <p>                              -Execute methods</p>
+        <p>                              -Enable account</p>
+        <p>                              -Remote enable</p>
+        <p>                              -Add them to the Builtin Distributed COM Users group</p>
+        <ol start="3">
+          <li>Enable remote registry access for the user</li>
+        </ol>
+        <p>
+                         Add read access to
+          HKLM\System\CurrentControlSet\Control\SecurePipeServers\winreg
+        </p>
+        <ol start="4">
+          <li>
+            Pre-deploy the LogProcessor folder to the target machine. This is necessary because we
+            deploy via the \machine\C$ administrative share and only Administrators can be granted
+            access to it.
+          </li>
+        </ol>
+        <p>
+                         -Create the folder
+          %PROGRAMFILES(X86)%\STEALTHbits\StealthAUDIT\LogProcessor
+        </p>
+        <p>               -Grant the user full control to that folder</p>
+        <p>               -Copy the following files to that folder:</p>
+        <p>                              -EventLogProcessor.dll</p>
+        <p>                              -FileChangeDetectionProcessor.dll</p>
+        <p>                              -IISLogProcessor.dll</p>
+        <p>                              -LogProcessorProxy.dll</p>
+        <p>                              -LogProcessorSrv.exe   </p>
+        <ol start="5">
+          <li>Enable access to event logs for the user</li>
+        </ol>
+        <p>               -Add them to the Builtin Event Log Readers group</p>
+        <p> </p>
+        <p><strong>Instructions for deploying HF files:</strong></p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog if an unblock button exists
+            there.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Exit StealthAUDIT console</li>
+          <li>
+            Copy and replace files from the folders in this hotfix to the corresponding folders in
+            SA Install dir.
+          </li>
+        </ol>
+        <p>
+          <strong
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_087.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_087.zip</a
+            ></strong
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to change the text of email notifications</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TICA0" />
+    <meta name="Id" content="ka04u00000116eEAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T15:58:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="607" />
+    <meta name="ArticleNumber" content="000003028" />
+    <meta
+      name="description"
+      content="How to change email notification templates, Notification templates, change body of the emails, text in notifications, text in emails, customize e-mails"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Is there a way for me to change the text in these emails that come out when a users signs up
+        to Netwrix Password Manager?
+
+        <hr />
+
+        There is a way to change the text of notifications. E-mail templates are stored in the
+        <strong>Templates </strong>subfolder of the Password Manager installation directory. There
+        are a lot of text files for different languages there. Some useful tips:
+        <ol>
+          <li>
+            We use clear titles for template text files. For example, the file
+            "change_body_template.txt" contains the body text of the email sent as a change password
+            notification.
+          </li>
+          <li>
+            There are 2 files for each type of notification: one for the subject of an email and one
+            for the body.
+          </li>
+          <li>
+            Files with "_adm" in the filename are templates for emails sent to administrators
+            (specified on Admin portal/Settings/Alerts), while files without "_adm" are sent to the
+            user(s).
+          </li>
+          <li>Languages are specified as additional postfix (for example "_de", "_fr")</li>
+        </ol>
+        Avaliable languages:
+        <div class="table-wrap">
+          <table count-columns="2" border="1">
+            <thead>
+              <tr>
+                <th colspan="1" rowspan="1">File</th>
+                <th colspan="1" rowspan="1">Language</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">cn.asp</td>
+                <td colspan="1" rowspan="1">Chinese</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">de.asp</td>
+                <td colspan="1" rowspan="1">German</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">en.asp</td>
+                <td colspan="1" rowspan="1">English</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">es.asp</td>
+                <td colspan="1" rowspan="1">Spanish</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">fr.asp</td>
+                <td colspan="1" rowspan="1">French</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">he.asp</td>
+                <td colspan="1" rowspan="1">Hebrew</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">it.asp</td>
+                <td colspan="1" rowspan="1">Italian</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">jp.asp</td>
+                <td colspan="1" rowspan="1">Japanese</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">ko.asp</td>
+                <td colspan="1" rowspan="1">Korean</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">pt.asp</td>
+                <td colspan="1" rowspan="1">Portuguese</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">ru.asp</td>
+                <td colspan="1" rowspan="1">Russian</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">sk.asp</td>
+                <td colspan="1" rowspan="1">Slovak</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">zh.asp</td>
+                <td colspan="1" rowspan="1">Traditional Chinese</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        However Password Manager uses only files without postfix in the name (for example
+        action_body_template.txt, not action_body_template_ko.txt ) to send notification. Here is
+        the full list of files used:
+        <ul>
+          <li>action_body_template.txt</li>
+          <li>action_subject_template.txt</li>
+          <li>change_body_template.txt</li>
+          <li>change_body_template_adm.txt</li>
+          <li>change_subject_template.txt</li>
+          <li>change_subject_template_adm.txt</li>
+          <li>enroll_body_template.txt</li>
+          <li>enroll_body_template_adm.txt</li>
+          <li>enroll_subject_template.txt</li>
+          <li>enroll_subject_template_adm.txt</li>
+          <li>reset_body_template.txt</li>
+          <li>reset_body_template_adm.txt</li>
+          <li>reset_subject_template.txt</li>
+          <li>reset_subject_template_adm.txt</li>
+          <li>unlock_body_template.txt</li>
+          <li>unlock_body_template_adm.txt</li>
+          <li>unlock_subject_template.txt</li>
+          <li>unlock_subject_template_adm.txt</li>
+          <li>verification_body_template.txt</li>
+          <li>verification_body_template_adm.txt</li>
+          <li>verification_subject_template.txt</li>
+          <li>verification_subject_template_adm.txt</li>
+        </ul>
+        To change the language of the template you should rename the respective templates to the
+        default name. For example, to switch text of notiication about password change to German,
+        <strong>change_body_template_de.txt </strong>should be renamed to
+        <strong>change_body_template.txt</strong>
+
+        Another option is just to edit the existing default English templates. To do it, edit the
+        .txt files located in the Templates subfolder of the Password Manager installation
+        directory.
+      </div>
+    </article>
+  </body>
+</html>

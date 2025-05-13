@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Incorrect Date and Time Format in Netwrix Auditor for Network Devices Logs</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="ct_troubleshooting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnlqCAA" />
+    <meta name="Id" content="ka0Qk000000D0TdIAK" />
+    <meta name="LastPublishedDate" content="2025-03-27T12:37:37.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-27T12:37:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-02T11:56:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8889" />
+    <meta name="ArticleNumber" content="000008889" />
+    <meta
+      name="description"
+      content="Incorrect Date and Time Format in Netwrix Auditor for Network Devices Logs"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <p>
+          Activity Records and logs collected by Netwrix Auditor for Network Devices contain
+          incorrect date and time values.
+        </p>
+        <h2 id="cause">Cause</h2>
+        <p>
+          The time zone of network devices might be different from the Auditor Server time zone.
+        </p>
+        <h2 id="resolution">Resolution</h2>
+        <ul>
+          <li>
+            <p>
+              Customize the time format in the events at the device end so it does not include UTC.
+            </p>
+            <p>
+              <code class="lang-Registry">Oct 27 10:51:05</code> instead of
+              <code class="lang-Registry">Oct 27 10:51:05 UTC</code>.
+            </p>
+            <p>
+              For Cisco devices, use the following instructions:
+              <a href="https://www.cisco.com" target="_blank">service timestamps ⸱ Cisco 🡥</a>
+            </p>
+          </li>
+          <li>
+            <p>Adjust the time zone settings in the Netwrix Auditor configuration file.</p>
+            <ol>
+              <li>
+                <p>
+                  On the Auditor Server, stop the
+                  <strong>Netwrix Auditor Configuration Server Service</strong>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Navigate to the <code class="lang-Registry">Configuration.xml</code> file and make
+                  a backup. (<code class="lang-Registry"
+                    >%Working Folder%\AuditCore\ConfigServer\Configuration.xml</code
+                  >)
+                </p>
+              </li>
+              <li>
+                <p>
+                  Open the <code class="lang-Registry">Configuration.xml</code> file in an editor
+                  and search for the name/IP address of your network device as it appears in your
+                  monitoring plan.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Locate the entry where <strong>audit_item_value</strong> is equal to your device’s
+                  identifier (name or IP).
+                </p>
+              </li>
+              <li>
+                <p>
+                  Adjust the time zone by modifying the <strong>v=" "</strong> parameter next to the
+                  <strong>tz</strong> attribute.
+                </p>
+                <img
+                  src="kA04u000000wnlqCAA_e10366dd-66df-402d-a879-d4c2987ec54b.png"
+                  alt="Screenshot of Configuration.xml file showing audit_item_value parameter"
+                />
+              </li>
+              <li>
+                <p>
+                  If you have multiple devices in the Network Devices plan, repeat these steps for
+                  each device.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Once complete, save the file and restart the
+                  <strong>Netwrix Auditor Configuration Server Service</strong>.
+                </p>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

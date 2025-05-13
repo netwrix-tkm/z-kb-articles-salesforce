@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Extra Low-Level Logging for Windows Activity Driver (ETW)</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I36CAE" />
+    <meta name="Id" content="ka04u000000HcdoAAC" />
+    <meta name="LastPublishedDate" content="2022-04-11T21:29:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:00:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:59:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6137" />
+    <meta name="ArticleNumber" content="000006137" />
+    <meta name="description" content="360008602431" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary:</strong>  Instructions on how to enable and collect windows driver
+          low-level logging.  Event Tracing for Windows (ETW)
+        </p>
+
+        <p> </p>
+
+        <p>
+          <strong>Issue:</strong>  Sometimes the SBTService (Windows File Monitoring Service) trace
+          logs are not enough to identify problems for certain situations. This can be useful for
+          problems related to…
+        </p>
+
+        <ul>
+          <li>Not getting events</li>
+          <li>Missing event attributes</li>
+          <li>Getting unexpected events</li>
+          <li>High RAM/CPU caused by SBTService</li>
+          <li>Issues caused by Antivirus or Backup software</li>
+        </ul>
+
+        <p> </p>
+
+        <p>
+          In general for troubleshooting windows monitoring we usually start with SBTService trace
+          logs. If we see that the root cause of the problem is going to be low-level functionality
+          in our driver we request the ETW logs.
+        </p>
+
+        <p> </p>
+
+        <p><strong>Instructions:</strong> </p>
+
+        <p> </p>
+
+        <ol>
+          <li>Disable Windows Monitoring.</li>
+        </ol>
+
+        <p> </p>
+
+        <p><strong>Make sure ETW is not enabled, and/or old ETW doesn’t exist.</strong></p>
+
+        <ol start="2">
+          <li>Try to Disable ETW Logging (may get warning if not enabled)</li>
+        </ol>
+
+        <pre><em>wevtutil sl SBTFSF/Debug /enabled:false /q</em></pre>
+
+        <ol start="3">
+          <li>Try to Unregister (may get warning if not registered)</li>
+        </ol>
+
+        <pre><em>wevtutil um %SYSTEMROOT%\System32\drivers\SBTFSFETW.man</em></pre>
+
+        <ol start="4">
+          <li>Remove Old ETW Log (if it exists)</li>
+        </ol>
+
+        <pre><em>del /F %SYSTEMROOT%\System32\winevt\Logs\SBTFSF%4Debug.etl</em></pre>
+
+        <p> </p>
+
+        <ol start="5">
+          <li>Register ETW Logging</li>
+        </ol>
+
+        <pre><em>wevtutil im %SYSTEMROOT%\System32\drivers\SBTFSFETW.man</em></pre>
+
+        <ol start="6">
+          <li>Enable ETW Logging</li>
+        </ol>
+
+        <pre><em>wevtutil sl SBTFSF/Debug /enabled:true /retention:false /maxsize 5368709120 /level:0 /q</em></pre>
+
+        <p><strong>*Using 5GB as maxsize</strong></p>
+
+        <p> </p>
+
+        <ol start="7">
+          <li>Enable Windows Monitoring</li>
+          <li>Reproduce issue</li>
+          <li>Disable Windows Monitoring</li>
+          <li>Disable ETW Logging</li>
+        </ol>
+
+        <pre>wevtutil sl SBTFSF/Debug /enabled:false /q</pre>
+
+        <ol start="11">
+          <li>Unregister ETW Logging</li>
+        </ol>
+
+        <pre>wevtutil um %SYSTEMROOT%\System32\drivers\SBTFSFETW.man</pre>
+
+        <p> </p>
+
+        <ol start="12">
+          <li>Please compress ETW log</li>
+        </ol>
+
+        <pre><em>%SYSTEMROOT%\System32\winevt\Logs\SBTFSF%4Debug.etl</em></pre>
+
+        <ol start="13">
+          <li>
+            Collect combo of SAM Trace Logs (SBTService), and this compressed ETW Log and send to
+            dev for review.
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p> </p>
+
+        <p>
+          <strong>*Also including a powershell script to make this process a lot easier…</strong>
+        </p>
+
+        <p> </p>
+
+        <p>https://downloads.stealthbits.com/access/files/KB_Attachments/etw.ps1</p>
+
+        <p>etw.ps1</p>
+
+        <p> </p>
+
+        <p>Requirements:</p>
+
+        <ul>
+          <li>Ran as Admin</li>
+          <li>SBTService Installed (From SAM Agent or SI)</li>
+        </ul>
+
+        <p><em>Usage</em>:</p>
+
+        <pre><em>etw.ps1 -Size 5368709120</em></pre>
+
+        <p>*default Size is 5GB, if -Size is omitted. </p>
+
+        <p>
+          *script also checks if ETW is already enabled, and if old ETW log exists.  It
+          automatically deletes old ETW log if it exists.
+        </p>
+
+        <pre><em>etw.ps1 -Path "C:\Test" </em></pre>
+
+        <p>*default Path is location of script, if -Path is omitted</p>
+
+        <p> </p>
+
+        <p><em>Optional</em></p>
+
+        <p>
+          Script can also be used to only enable or disable etw logging.  If not used it goes
+          through whole process listed below.
+        </p>
+
+        <pre><em>etw.ps1 -Enable</em></pre>
+
+        <pre><em>etw.ps1 -Disable</em></pre>
+
+        <p> </p>
+
+        <p>What script exactly does...</p>
+
+        <div>
+          <ol>
+            <li>waits for user to disable windows hosts in SAM (to include startup driver info)</li>
+            <li>tries to disable and unregister first (in case already registered)</li>
+            <li>if old etw log exists it deletes it</li>
+            <li>
+              register, and enable ETW Logging (can set size with -Size, but if not, it uses 5GB by
+              default)
+            </li>
+            <li>waits for user to enable and reproduce issue</li>
+            <li>
+              waits for user to disable windows hosts in SAM (to include shutdown driver info)
+            </li>
+            <li>disable and unregister ETW Logging</li>
+            <li>copies etw log to set -Path (if not used, it uses path where script is located)</li>
+            <li>remove etw log from original location</li>
+            <li>Opens folder where etw was copied to</li>
+          </ol>
+
+          <p>
+            <img
+              alt="mceclip0.png"
+              src="kA04u0000000I36CAE_8caf04e6-7c1b-43d4-8c85-03318f0f5d11.png"
+            />
+          </p>
+        </div>
+
+        <p> </p>
+
+        <p><strong>Channel:  </strong>Internal</p>
+
+        <p><strong>Submitted by:</strong>  Kevin Duddy</p>
+
+        <p><strong>Product:</strong>  SAM, SI (Windows Activity Monitoring)</p>
+
+        <p><strong>Affected Versions:</strong> 5.0+</p>
+
+        <p><strong>Affected Module:</strong> Windows / SBTService</p>
+
+        <p><strong>Dev Ticket:</strong> N/A</p>
+
+        <p><strong>Resolved In Version:</strong> N/A</p>
+
+        <p><strong>KB Type:</strong> How To</p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

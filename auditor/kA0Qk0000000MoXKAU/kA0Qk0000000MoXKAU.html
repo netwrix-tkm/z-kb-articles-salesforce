@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Feature You Are Trying to Use Is on Network Resource That Is Unavailable</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000MoXKAU" />
+    <meta name="Id" content="ka0Qk0000004U4LIAU" />
+    <meta name="LastPublishedDate" content="2024-05-08T10:32:14.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-04T07:20:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-09T13:36:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8995" />
+    <meta name="ArticleNumber" content="000008995" />
+    <meta
+      name="description"
+      content="Feature You Are Trying to Use Is on Network Resource That Is Unavailable"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A Netwrix product prompts the following error during uninstallation or installation
+            (upgrade):
+          </p>
+
+          <pre class="has-inner-focus">
+The feature you are trying to use is on a network resource that is unavailable.
+Click OK to try again, or enter an alternate path to a folder containing the installation package %.msi_file% in the box below.
+</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                A Windows system keeps a copy of a version-specific installation executable. The
+                operating system (OS) uses it during uninstallation or installation (upgrade). In
+                case no executable is available on the server, the error is prompted.
+              </p>
+            </li>
+            <li>
+              <p>
+                The registry entry for the affected Netwrix product is corrupted—no product code or
+                revision number is available for the current product deployment. The OS cannot
+                proceed with the upgrade as corresponding values mismatch.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>
+            There are two possible options to troubleshoot the issue—refer to the following two
+            subsections.
+          </p>
+        </div>
+
+        <h4 id="windows_install_and_uninstall_troubleshooter">
+          Windows Install and Uninstall Troubleshooter
+        </h4>
+
+        <div>
+          <p>
+            Windows published a dedicated troubleshooting solution to resolve any uninstallation or
+            installation (upgrade) issues related to this error. Refer to the following steps to
+            implement it in your environment:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the affected server, download and run the Windows Install and Uninstall
+                Troubleshooter. You can download it here:
+                <a
+                  href="https://support.microsoft.com/en-us/topic/fix-problems-that-block-programs-from-being-installed-or-removed-cca7d1b6-65a9-3d98-426b-e9f927e1eb4d"
+                  target="_blank"
+                  >Fix Problems that Block Programs from Being Installed or Removed · Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Proceed with the troubleshooter steps:</p>
+
+              <ol>
+                <li>
+                  <p>Click <strong>Next</strong>.</p>
+                </li>
+                <li>
+                  <p>Select <strong>Installing</strong> or <strong>Uninstalling</strong>.</p>
+                </li>
+                <li>
+                  <p>Select the affected program from the list.</p>
+                </li>
+                <li>
+                  <p>Select the suitable option.</p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+
+          <p>
+            If the affected program is missing from the list, or if the troubleshooter prompts the
+            <code>Troubleshooting couldn't identify the problem</code> error, proceed to the next
+            resolution.
+          </p>
+        </div>
+
+        <h4 id="manual_fix">Manual Fix</h4>
+
+        <div>
+          <p>Refer to the following steps to resolve the error:</p>
+
+          <ol>
+            <li>
+              <p>Establish the current version of the affected Netwrix product.</p>
+            </li>
+            <li>
+              <p>
+                Obtain the version-specific installation executable of the affected product. Open a
+                ticket to request an executable at
+                <a href="https://www.netwrix.com/tickets.html#/tickets/open" target="_blank"
+                  >My Tickets · Netwrix</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Extract the installation executable from the archive.</p>
+            </li>
+            <li>
+              <p>
+                When the wizard prompts the original error, link the new source in the
+                <strong>Use source</strong> field. Click <strong>OK</strong> to proceed.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="tips">Tips</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                In case you link an incorrectly named file, the installation wizard prompts the
+                following error:
+              </p>
+
+              <pre class="has-inner-focus">The path %path_to_.msi% cannot be found</pre>
+
+              <p>
+                Verify the name of the installation file—it should be named as specified in the
+                error prompt.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Netwrix Auditor installation wizard includes both server and client setup files.
+                Refer to the following option to extract the contents:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Extract the executable contents via Command Prompt. Refer to the following
+                    article for additional information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/ViaGroupPolicy.htm#extract_msi_file"
+                      target="_self"
+                      >Install Client via Group Policy — Extract MSI File · v10.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Extract the executable contents using 7-Zip or alternative software. Link the
+                    folder containing the extracted files to proceed with
+                    installation\uninstallation.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                When you upgrade your Netwrix Auditor instance, you might encounter the error during
+                the service upgrade procedure. Refer to the default locations of the service
+                installation files to provide the version-specific executable:
+              </p>
+
+              <p>User Activity Core Service:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\User Activity Video Recording\UACoreSvcSetup.msi</code></pre>
+
+              <p>Windows Server Compression Service:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\Windows Server Auditing\Netwrix.WSA.CompressionService.Setup.msi</code></pre>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://support.microsoft.com/en-us/topic/fix-problems-that-block-programs-from-being-installed-or-removed-cca7d1b6-65a9-3d98-426b-e9f927e1eb4d"
+                  target="_blank"
+                  >Fix Problems that Block Programs from Being Installed or Removed · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://www.netwrix.com/tickets.html#/tickets/open" target="_blank"
+                  >My Tickets · Netwrix</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Install/ViaGroupPolicy.htm#extract_msi_file"
+                  target="_self"
+                  >Install Client via Group Policy — Extract MSI File · v10.7</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring SSL Certificates with Event Log Manager</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbckCAC" />
+    <meta name="Id" content="ka0Qk000000DRgjIAG" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:51:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5044" />
+    <meta name="ArticleNumber" content="000003743" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="the_following_is_a_list_of_events_that_are_related_to_ssl_certificates">
+          The following is a list of events that are related to SSL Certificates:
+        </h3>
+
+        <ul>
+          <li><strong>1001 </strong>Certificate Replaced</li>
+          <li><strong>1002 </strong>Certificate Expired</li>
+          <li><strong>1003 </strong>Certificate Expiration Approaching</li>
+          <li><strong>1004</strong> Certificate Deleted</li>
+          <li><strong>1005</strong> Certificate Archived</li>
+          <li><strong>1006</strong> Certificate Installed</li>
+        </ul>
+
+        <p>
+          In order to audit these events, a new filter must be created in Event Log Manager<br /><br /><strong
+            >NOTE: </strong
+          >Please follow this
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Tools/EventLogManager/Overview.htm"
+            target="_blank"
+            >guide</a
+          >
+          for fundamental configurations of Event Log Manager. Failure to do so may result in a
+          delay or absence of audit data.<br /><br />Once the necessary fundamental configurations
+          have been set, proceed with creating filters for SSL Certificate Auditing.
+        </p>
+
+        <hr class="wp-block-separator" />
+        <img
+          class="wp-image-5053"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/1-Config-Filter.png"
+        />
+        <p class="has-background has-very-light-gray-background-color">
+          <strong>Note: </strong> If this is your first Event Log Manager plan, enter notification
+          recipients and target servers before continuing.
+        </p>
+
+        <hr class="wp-block-separator" />
+        <img
+          class="wp-image-5054"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/2-Add-new-Filter.png"
+        />
+        <p class="has-background has-very-light-gray-background-color">
+          When an SSL Certificate is added to a server, a new event log titled
+          <strong
+            >"Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational"</strong
+          >
+          is created. Enter this log into the <em>"Event Log"</em> text field and select to Write To
+          <strong>"Both"</strong>
+        </p>
+        <img
+          class="wp-image-5055"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/3-Event-Log-and-Both.png"
+        />
+        <p class="has-background has-very-light-gray-background-color">
+          Next, click the "Event Fields" tab and enter the event ID's you wish to audit.
+          <em>The provided example exhibits auditing of all SSL Certificate events.</em>
+        </p>
+        <img
+          class="wp-image-5056"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/4-Event-IDs.png"
+        />
+        <h4 id="click_ok_until_you_are_back_to_the_event_log_manager_homepage_and_then_click_save">
+          Click "OK" until you are back to the Event Log Manager Homepage and then click "Save".
+        </h4>
+
+        <p>
+          You will now receive reports for SSL Certificate event data. If you wish to receive Alerts
+          for this data, proceed with the following steps.<br />You will essential repeat the steps
+          above, only doing it via the Alert Filter Configuration.
+        </p>
+        <img
+          class="wp-image-5060"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/5-Alert.png"
+        />
+        <img
+          class="wp-image-5061"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/6-New-Alert.png"
+        />
+        <img
+          class="wp-image-5062"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/7-Alert-Filter.png"
+        />
+        <img
+          class="wp-image-5063"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/8-Alert-Filter-2.png"
+        />
+        <img
+          class="wp-image-5064"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/11/8-Alert-Filter-3.png"
+        />
+        <h4 id="click_ok_until_you_are_back_to_the_event_log_manager_homepage_and_then_click_save">
+          Click "OK" until you are back to the Event Log Manager Homepage and then click "Save".
+        </h4>
+
+        <p>The configured Monitoring Plan will now yield Reports and Alerts for SSL Auditing.</p>
+      </div>
+    </article>
+  </body>
+</html>

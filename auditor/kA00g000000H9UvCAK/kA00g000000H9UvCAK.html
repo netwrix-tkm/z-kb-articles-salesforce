@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How do I enable security log autobackups on each domain controller?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9UvCAK" />
+    <meta name="Id" content="ka04u000000HcOLAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="712" />
+    <meta name="ArticleNumber" content="000003129" />
+    <meta
+      name="description"
+      content="How do I enable security log autobackups on each domain controller?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How do I enable security log autobackups on each domain controller?
+
+        <hr />
+
+        To do this, use the Security Log Autobackup.adm file attached to this article. Perform the
+        following steps:
+        <div>
+          <div>
+            <ol>
+              <li>Download the attached file.</li>
+              <li>
+                Navigate to <b>Start</b> --&gt; <b>Administrative Tools</b> --&gt;
+                <b>Group Policy Management</b> and navigate to the effective domain controllers
+                policy (the Default Domain Controllers policy by default).
+              </li>
+              <li>Right-click the policy and select <b>Edit</b> from the popup menu.</li>
+              <li>
+                In the left pane, expand the <b>Computer Configuration</b> --&gt;
+                <b>Policies</b> node.
+              </li>
+              <li>
+                Right-click the <b>Administrative Templates</b> node and select
+                <b>Add/Remove Templates...</b> from the popup menu.
+              </li>
+              <li>
+                In the dialog that opens, browse to the downloaded file and add it. Then click
+                <b>Close</b>.
+              </li>
+              <li>
+                Expand the Administrative Templates --&gt; Classic Administrative Templates --&gt;
+                NetWrix node and click on the <b>Event Log</b> node.
+              </li>
+              <li>
+                In the right pane, double-click on
+                <b>Automatically enable backups of the security log file</b>.
+              </li>
+              <li>
+                Select <b>Enabled</b>, click the <b>Apply</b> button and then click <b>OK</b>.
+              </li>
+            </ol>
+          </div>
+
+          <div>
+            NOTE: If you are running Windows 2003, some nodes may not be displayed after you have
+            added an administrative template. To fix this, make sure that the
+            <b>Only show policy settings that can be fully managed</b> option is disabled. To do
+            this, perform the following steps:
+          </div>
+
+          <div></div>
+
+          <div>
+            <ol>
+              <li>
+                Navigate to <b>Start</b> --&gt; <b>Administrative Tools</b> --&gt;
+                <b>Group Policy Management</b> and navigate to the effective domain controllers
+                policy (the Default Domain Controllers policy by default).
+              </li>
+              <li>Right-click the policy and select <b>Edit</b> from the popup menu.</li>
+              <li>
+                In the left pane, expand the <b>Computer Configuration</b> --&gt;
+                <b>Policies</b> node and click on <b>Administrative Templates</b>.
+              </li>
+              <li>
+                In the main menu, select <b>View</b> --&gt; <b>Filtering </b>and deselect the
+                <b>Only show policy settings that can be fully managed</b> option.
+              </li>
+            </ol>
+
+            <div>Now you will be able to manage the imported administrative template.</div>
+          </div>
+        </div>
+
+        <div>
+          If you need to change the status of security log autobackupsretention'MaxSize', perform
+          the following steps:
+        </div>
+
+        <div></div>
+
+        <div>
+          <ol>
+            <li>Download the attached file.</li>
+            <li>
+              Navigate to <b>Start</b> --&gt; <b>Administrative Tools</b> --&gt;
+              <b>Group Policy Management</b> and navigate to the effective domain controllers policy
+              (the Default Domain Controllers policy by default).
+            </li>
+            <li>Right-click the policy and select <b>Edit</b> from the popup menu.</li>
+            <li>
+              In the left pane, expand the <b>Computer Configuration</b> --&gt;
+              <b>Policies</b> node.
+            </li>
+            <li>
+              Right-click the <b>Administrative Templates</b> node and select
+              <b>Add/Remove Templates...</b> from the popup menu.
+            </li>
+            <li>
+              In the dialog that opens, browse to the downloaded file and add it. Then click
+              <b>Close</b>.
+            </li>
+            <li>
+              Expand the Administrative Templates --&gt; Classic Administrative Templates --&gt;
+              NetWrix node and click on the <b>Event Log</b> node.
+            </li>
+            <li>
+              In the right pane, double-click on
+              <b>Automatically enable backups of the security log file</b>.
+            </li>
+            <li>
+              Select the <b>Disabled</b>/<b>Enable</b>, click the <b>Apply</b> button and then click
+              <b>OK</b>.
+            </li>
+            <li>
+              Double-click on "Automatically set the "MaxSize" filed for the security log backup".
+              Select the <b>Disabled</b>/<b>Enable</b>, click the <b>Apply</b> button and then click
+              <b>OK</b>.
+            </li>
+            <li>
+              Double-click the "Automatically set the "Retention" filed for the security log backup.
+              Select the <b>Disabled</b>/<b>Enable</b>, click the <b>Apply</b> button and then click
+              <b>OK</b>.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

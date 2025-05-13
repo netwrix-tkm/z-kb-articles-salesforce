@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Enterprise Auditor Logs, Jobs, and Dump Files</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IvcCAE" />
+    <meta name="Id" content="ka0Qk0000004BGDIA2" />
+    <meta name="LastPublishedDate" content="2024-06-11T15:27:01.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-11T15:27:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:42:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7329" />
+    <meta name="ArticleNumber" content="000007329" />
+    <meta name="description" content="Netwrix Enterprise Auditor Logs, Jobs, and Dump Files" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          To successfully troubleshoot issues with a solution, we must gather all the logs
+          associated with each solution. Please consult each solution below to determine which logs
+          you should gather if experiencing issues with it. You should always gather all the
+          corresponding logs to prevent multiple information requests.
+        </p>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="what_to_collect_logs_jobs_and_dump_files">
+          What to collect (logs, jobs, and dump files)
+        </h4>
+
+        <p><strong>Note:</strong> * means grab All logs</p>
+
+        <h4 id="core">Core</h4>
+
+        <ol>
+          <li><strong>SADebug:</strong> %sainstalldir%\SADatabase\Logs\Application</li>
+        </ol>
+
+        <h4 id="file_system">File System</h4>
+
+        <ol>
+          <li>
+            <strong>Process to get dumps of:</strong>
+
+            <ol>
+              <li>SDD Scans: DLPScanTask.exe</li>
+              <li>Applet Process: StealthAUDITRPC.exe</li>
+              <li>StealthAudit Process: StealthAUDIT.exe</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h4 id="data_collector_-_stealthaudit_console_local_scan">
+          Data Collector - StealthAUDIT Console Local Scan
+        </h4>
+
+        <ol>
+          <li><strong>Tier 2 Database (Local):</strong> %sainstalldir%\FSAA\*.fsaadb</li>
+          <li><strong>FSAA Logs (Local):</strong> %sainstalldir%\FSAA\fsaa_HostName_*.log</li>
+          <li><strong>Trace Log (Local):</strong> %sainstalldir%\FSAA\trace</li>
+          <li>
+            <strong>DLPScanTask Logs (Local):</strong> %sainstalldir%\FSAA\logs\DLPScanTask_*.txt
+          </li>
+          <li>
+            <strong>StealthAUDITRPC Logs (Local):</strong>
+            %sainstalldir%\FSAA\logs\StealthAUDITRPC_*.txt
+          </li>
+        </ol>
+
+        <h4 id="data_collector_-_remote_host_proxy_or_applet">
+          Data Collector - Remote Host (Proxy or Applet)
+        </h4>
+
+        <ol>
+          <li>
+            <strong>Tier 2 Database (Remote Host):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\FSAA\*.fsaadb
+          </li>
+          <li>
+            <strong>FSAA Logs (Remote Host):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\FSAA\*.log
+          </li>
+          <li>
+            <strong>Trace Log (Remote Host):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\FSAA\trace
+          </li>
+          <li>
+            <strong>DLPScanTask (Remote Host):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\FSAA\logs\DLPScanTask_*.txt
+          </li>
+          <li>
+            <strong>StealthAUDITRPC Logs (Remote Host):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\FSAA\logs\StealthAUDITRPC_*.txt
+          </li>
+        </ol>
+
+        <h4 id="jobs">Jobs</h4>
+
+        <ol>
+          <li>
+            <strong>FSAA Scan Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_FileSystem\GROUP_0.Collection\JOB_1-FSAA System
+            Scans\Output\1-FSAA System Scans_Log.tsv
+          </li>
+          <li>
+            <strong>FSAA Bulk Import Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_FileSystem\GROUP_0.Collection\
+          </li>
+          <li>
+            <strong>FSAC Scan Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_FileSystem\GROUP_0.Collection\JOB_1-FSAC System
+            Scans\Output\1-FSAC System Scans_Log.tsv
+          </li>
+          <li>
+            <strong>FSAC Bulk Import Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_FileSystem\GROUP_0.Collection\
+          </li>
+          <li>
+            <strong>SEEK Scan Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_FileSystem\GROUP_0.Collection\JOB_1-SEEK System
+            Scans\Output\1-SEEK System Scans_Log.tsv
+          </li>
+          <li>
+            <strong>SEEK Bulk Import Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_FileSystem\GROUP_0.Collection\JOB_2-SEEK Bulk
+            Import\Output\2-SEEK Bulk Import_Log.tsv
+          </li>
+        </ol>
+
+        <h4 id="sharepoint">SharePoint</h4>
+
+        <ol>
+          <li>
+            <strong>Process to get Dumps of:</strong>
+
+            <ol>
+              <li>SDD Scans: DLPScanTask.exe</li>
+              <li>Agent Scans: Stealthbits.StealthAUDIT.Agent.Service.exe</li>
+              <li>StealthAudit Process: StealthAUDIT.exe</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h4 id="data_collector">Data Collector</h4>
+
+        <ol>
+          <li>
+            <strong>SPAA StealthAUDIT Logs (Local):</strong> %sainstalldir%\logs\StealthAUDIT_*.txt
+          </li>
+          <li>
+            <strong>SPAA DLPScanTask Logs (Local):</strong> %sainstalldir%\logs\DLPScanTask_*.txt
+          </li>
+          <li>
+            <strong>Tier 2 SPAA Database (Local):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\Jobs\SA_CommonData\SHAREPOINTACCESS
+          </li>
+          <li>
+            <strong>Tier 2 SPAC Database (Local):</strong> C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\Jobs\SA_CommonData\SHAREPOINTACTIVITY
+          </li>
+          <li>
+            <strong>SPAA Logs (Remote Host for Agent Mode):</strong> \c$\Program
+            Files\STEALTHbits\StealthAUDIT\SPAA\*.log
+          </li>
+          <li>
+            <strong>Tier 2 Database (Remote):</strong> C:\Program
+            Files\STEALTHbits\StealthAUDIT\SPAA
+          </li>
+        </ol>
+
+        <h4 id="jobs">Jobs</h4>
+
+        <ol>
+          <li>
+            <strong>SPAA Scan Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_SharePoint\GROUP_0.Collection\JOB_1-SPAA_SystemScans\OUTPUT\1-SPAA_SystemScans_Log.tsv
+          </li>
+          <li>
+            <strong>SPAA Bulk Import Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_SharePoint\GROUP_0.Collection\JOB_2-SPAA_BulkImport\OUTPUT\2-SPAA_BulkImport_Log.tsv
+          </li>
+          <li>
+            <strong>SPAC Scan Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_SharePoint\GROUP_0.Collection\JOB_1-SPAC_SystemScans\OUTPUT\1-SPAC_SystemScans_Log.tsv
+          </li>
+          <li>
+            <strong>SPAC Bulk Import Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_SharePoint\GROUP_0.Collection\JOB_2-SPAC_BulkImport\OUTPUT\2-SPAC_BulkImport_Log.tsv
+          </li>
+          <li>
+            <strong>SP SEEK Scan Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_SharePoint\GROUP_0.Collection\JOB_1-SPSEEK_SystemScans\OUTPUT\1-SPSEEK_SystemScans_Log.tsv
+          </li>
+          <li>
+            <strong>SP SEEK Bulk Import Job Log:</strong>
+            %sainstalldir%\Jobs\GROUP_SharePoint\GROUP_0.Collection\JOB_2-SPSEEK_BulkImport\OUTPUT\2-SPSEEK_BulkImport_Log.tsv
+          </li>
+        </ol>
+
+        <h4 id="sharepoint_online_office365">SharePoint Online (Office365)</h4>
+
+        <ol>
+          <li>
+            <strong>Process to get Dumps of:</strong>
+
+            <ol>
+              <li>SDD Process: DLPScanTask.exe</li>
+              <li>SharePoint Online Process: SBSPOsvr.exe</li>
+              <li>StealthAudit Process: StealthAUDIT.exe</li>
+            </ol>
+          </li>
+        </ol>
+
+        <h4 id="data_collector">Data Collector</h4>
+
+        <ol>
+          <li><strong>SPOSvr Logs (Local):</strong> %sainstalldir%\logs\SBSPOSvr_*.txt</li>
+          <li><strong>DLPScanTask Logs (Local):</strong> %sainstalldir%\logs\DLPScanTask*.txt</li>
+        </ol>
+
+        <h4 id="jobs">Jobs</h4>
+
+        <ol>
+          <li>
+            <strong>O365 Permissions Job Log:</strong> %sainstalldir%\Jobs\GROUP_Office
+            365\GROUP_0.Collection\JOB_1.O365 - Permissions\Output\1.O365 - Permissions_Log.tsv
+          </li>
+          <li>
+            <strong>O365 Sensitive Data Job Log:</strong> %sainstalldir%\Jobs\GROUP_Office
+            365\GROUP_0.Collection\JOB_2.O365 - Sensitive Data\Output\2.O365 - Sensitive
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

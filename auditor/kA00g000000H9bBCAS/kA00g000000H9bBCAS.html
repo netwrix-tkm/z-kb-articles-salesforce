@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot connect to SQL Server instance. Reason: Server is in single user mode</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bBCAS" />
+    <meta name="Id" content="ka04u000000HcTwAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1342" />
+    <meta name="ArticleNumber" content="000003507" />
+    <meta
+      name="description"
+      content="Cannot connect to SQL Server instance. Login failed for user Reason: Server is in single user mode"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <ol>
+          <li>I am getting the following error when trying to configure database settings:</li>
+        </ol>
+        <div>
+          <strong
+            >Cannot connect to SQL Server instance '&lt;serverinstance&gt;':'Login failed for user
+            '&lt;domainuser&gt;'. Reason: Server is in single user mode. Only one administrator can
+            connect at this time.'.</strong
+          >
+
+          <img
+            src="kA00g000000H9bBCAS_6fb53959-74aa-442f-9a54-7b40ca2b666a.png"
+            alt="ELM - Error message"
+          />
+        </div>
+        <ol start="2">
+          <li>I am getting the following error in the summary daily reports:</li>
+        </ol>
+        <div>
+          <strong
+            >Error "Login failed for user '&lt;domainuser&gt;'. Reason: Server is in single user
+            mode. Only one administrator can connect at this time." occured &lt;N&gt; times.</strong
+          >
+
+          <img
+            src="kA00g000000H9bBCAS_2d450da0-688e-439a-b5e4-058e9b5dacb4.png"
+            alt="ELM - Error message"
+            width="500"
+            height="58"
+          />
+        </div>
+
+        <hr />
+
+        Your SQL Instance is running in <strong>Single-User mode</strong>. This makes
+        <strong>Netwrix Auditor</strong> unable to connect to <strong>SQL server</strong>.
+
+        <hr />
+
+        <div>Please perform the following steps to resolve your issue:</div>
+        <ol>
+          <li>
+            Launch <strong>SQL Server Configuration Manager</strong> and click on
+            <strong>SQL Server (2008/2012) Services</strong>.
+          </li>
+          <li>
+            In the right pane, right click on the desired SQL Server instance and select
+            <strong>Properties</strong>.
+          </li>
+          <li>
+            On the <strong>Advanced </strong>tab, make sure that
+            <strong>"Startup Parameters"</strong> does not contain the following parameter
+            <strong>'-m;'</strong>. If the parameter is there, remove it.
+          </li>
+        </ol>
+        <div>
+          <img
+            src="kA00g000000H9bBCAS_7539709c-f82d-475d-a809-88e107765511.png"
+            alt="ELM - SQL Startup parameters"
+            width="500"
+            height="392"
+          />
+        </div>
+        <ol start="4">
+          <li>Restart the SQL Server Instance service.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

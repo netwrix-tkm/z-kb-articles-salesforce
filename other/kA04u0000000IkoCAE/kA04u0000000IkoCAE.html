@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_5.2.0.287</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IkoCAE" />
+    <meta name="Id" content="ka04u000000Hcv3AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:29:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:29:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7048" />
+    <meta name="ArticleNumber" content="000007048" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Agents not
+          collecting events and "Member 'fqdnAgents' was not found" errors observed after upgrade to
+          5.2.0.266
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong>Agents not collecting events and "Member
+          'fqdnAgents' was not found" errors observed after upgrade to 5.2.0.266<br /><strong
+            ><span>Behavior before Fix: </span></strong
+          ><br />When new feature was implemented which allows to select between FQDN and NetBIOS
+          name for HOST parameter in the 'SBTFileMon.ini' file for 'File System StealthAUDIT' event
+          type it was needed to add new parameter ('fqdnAgent') into policy filter which contains a
+          list of Agents where HOST must be in FQDN format. Therefore if new Agent is running under
+          old EM it can't find this parameter and generates error.<br /><strong
+            ><span>Behavior after Fix: </span></strong
+          ><br />Now behavior in Agent changed to always use NetBIOS format if there is no
+          'fqdnAgents' parameter in the filter.<br /><b>Changes since Last Hotfix:</b><br />I-5018
+          [LINNK - Stephens] SI-3827 33129 - Agents not collecting events and "Member 'fqdnAgents'
+          was not found" errors observed after upgrade to 5.2.0.266<br /><strong
+            ><span>Submitted by:</span></strong
+          ><br />Maxim Sidarau  <br /><strong><span>Affected Versions:</span></strong
+          ><br />5.2.0      SIWindowsAgent_5.2.0.287_SI-3827<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Windows Agent<br /><strong><span>Dev Ticket:</span></strong
+          ><br /><em><span>I-5018</span></em
+          ><br /><strong><span>Resolved in Version:</span></strong
+          ><br />5.2.0.287<br /><strong><span>KB Type: </span></strong><br />Hotfix<br /> <br /><b
+            >Modules Included:</b
+          ><br />SI - Windows Agent<br /><b>YouTrack/Escalations: </b>SI-3827 / 33129<br /><b
+            >Customers:  </b
+          >Stephens<br /><b>Cumulative List of fixes included since Service Pack:</b><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Applying patch
+          for SI Windows Agent:
+        </p>
+        <ol>
+          <li>Stop SIWindowsAgent service</li>
+          <li>
+            Extract attached files to the " C:\Program Files
+            (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder
+          </li>
+        </ol>
+        3. Start SIWindowsAgent service<br /><br /> 
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="78" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="78">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIWindowsAgent_5.2.0.287_SI-3827.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIWindowsAgent_5.2.0.287_SI-3827.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.2.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3827<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.2.0.287<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2358<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

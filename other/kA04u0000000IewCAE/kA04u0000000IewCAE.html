@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_8.1_011</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IewCAE" />
+    <meta name="Id" content="ka04u000000HcsXAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6920" />
+    <meta name="ArticleNumber" content="000006920" />
+    <meta name="description" content="360012217852" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Improve DFS error
+          messages and diagnostic logging; only enumerate domain namespaces on domain controllers
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>YouTrack/Escalations</span></strong
+          ><br /> <br /><strong><span>-              SAFS-14757/23415</span></strong
+          ><br /> <br /><strong><span>Customers</span></strong
+          ><br /> <br /><strong><span>-              HVHC Inc.</span></strong
+          ><br /> <br /><strong
+            ><span>Cumulative List of fixes included since Service Pack:</span></strong
+          ><br /> <br />-              SAFS-14545 SDD Bulk Import clearing tier 1 data prior to
+          checking if DLPEX db exists<br />-              SAFS-14541 Remove Description in
+          FSAAConfig.xml<br />-              SAFS-14548 FSAC Bulk Import performance issue<br />-             
+          SAFS-2705 15281 - FSAA unspecified error<br />-              SAFS-14573 22741 - FSAA
+          Migration Query 7.2 to 8.0 Duplicate Column Error<br />-              SAFS-14598 22741 -
+          FSAA Migration Query 7.2 to 8.0 Could not convert variant of type (Null) into type
+          (Integer)<br />-              SAFS-14593 Update bulk import to not delete Activity and
+          DLPEX tier 2 dbs.<br />-              SAFS-2707 19757 - FSAC Bulk Import Rollback Due to
+          Unspecified Error<br />-              SAFS-14595 22840 - There is an error in XML document
+          (0, 0). ---&gt; System.OverflowException: Value was either too large or too small for an
+          Int32.<br /><strong
+            ><span
+              >-              SAFS-14633 Update FSAA to not delete DLPEX db when streaming</span
+            ></strong
+          ><br /><strong
+            ><span>-              SAFS-14566 Update FSAA to pass parameters to SDD</span></strong
+          ><br /><strong
+            ><span>-              SAFS-14672 FSAC Access Violation on scans</span></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14685 Access violation when cancelling streaming FSAA scan due to
+              timeout or DC-side streaming error</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14596 22751 - Access Violation with FSAA Scan v8.1</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14483 22116 - Do Not Delete Activity Data Automatically (8.1+
+              Implementation)</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14723 NFS Scans Don't Scan Subfolders when "Limit Subfolder
+              Depth" is checked</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14720 23415 - DFS Collection: FSAA.FSAAException: Unable to
+              determine domain: 5</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14670 23199 - FSAA doesn't throw error when service account
+              doesn't have enough permission to scan shares.</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14688 Applet log level of "None" sends all log messages to
+              StealthAUDITRPC.exe trace log file</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14677 22992/22994 - FSAA automatically clean up old files.</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-2771 20689 - Error during storing DailyActivity: '' is not a
+              valid integer value</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14735  Rename streaming database to include scan type</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14738 Error when scanning with System default profile.</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-2173 14049 - Downgrade/Eliminate NetApp OnTap 9 Warnings</span
+            ></strong
+          ><br /><strong
+            ><span
+              >-              SAFS-14757 Improve DFS error messages and diagnostic logging; only
+              enumerate domain namespaces on domain controllers</span
+            ></strong
+          ><br /><b>Comments:</b><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog, if an unblock button exists
+            there. 
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>
+            <strong><span>Update all DC files in your %SAInstallDir%DC folder</span></strong>
+          </li>
+          <li>
+            <strong
+              ><span
+                >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder.</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong
+              ><span
+                >Launch StealthAUDIT. Run the 'Update Proxy Service' query under the Maintenance tab
+                in the FSAA data collector against your proxy servers (if running proxy
+                service).</span
+              ></strong
+            >
+          </li>
+        </ol>
+        <div>
+           
+          <div class="table-wrap">
+            <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+              <tbody>
+                <tr height="269">
+                  <td colspan="1" rowspan="1" height="269" width="64">
+                    <a
+                      href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_011.zip"
+                      target="_blank"
+                      >https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_011.zip</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - DFS<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-14757<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          - DCFSAA.dll 8.1.905 - FSAASrv.dll 8.1.905 -
+          Stealthbits.StealthAUDIT.DataCollectors.FSAA.dll 8.1.905<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1823<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

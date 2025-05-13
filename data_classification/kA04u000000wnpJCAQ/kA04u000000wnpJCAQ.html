@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Warning: Indexer Service Has Been Improperly Shutdown</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnpJCAQ" />
+    <meta name="Id" content="ka0Qk0000002cXRIAY" />
+    <meta name="LastPublishedDate" content="2024-03-15T10:45:59.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-15T10:45:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-17T15:00:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8907" />
+    <meta name="ArticleNumber" content="000008907" />
+    <meta name="description" content="Warning: Indexer Service Has Been Improperly Shutdown" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following warning appears in Netwrix Data Classification:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Indexer service has been improperly shutdown.</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This message occurs if the Indexer service has been forcibly stopped, such as by
+            <b>Task Manager</b> -&gt; <b>End Task, </b>or via a machine restart.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            To identify the root cause of the issue, open the lock files in the lock archive and
+            check the date and time of the last recorded activity:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts Netwrix Data Classification, navigate to the lock archive
+                location.
+              </p>
+
+              <p>
+                The location of the lock archive should be called out in the warning message, but
+                the default location is
+                <em>C:\Program Files\Netwrix\Data Classification\Index\LockArchive</em>.
+              </p>
+            </li>
+            <li>
+              <p>Open the Lock Archive with a text editor, such as <b>Notepad</b>.</p>
+            </li>
+            <li>
+              <p>
+                Find the date and time of the last recorded activity. This will help you to
+                understand when the indexer was shutdown improperly.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the <b>Windows Application</b> logs to look for potential causes, such as a
+                machine reboot, and speak to any users who were logged on to the machine at that
+                time and may know what was happening.
+              </p>
+            </li>
+            <li>
+              <p>
+                When the cause has been identified, you can resolve the issue. Use suspended
+                services if your machine did automatic Windows updates.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

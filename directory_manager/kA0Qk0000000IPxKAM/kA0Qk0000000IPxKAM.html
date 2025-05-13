@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Best Practices for Preventing Accidental Data Leakage</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000IPxKAM" />
+    <meta name="Id" content="ka0Qk00000016RZIAY" />
+    <meta name="LastPublishedDate" content="2023-12-18T14:19:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-21T11:05:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-07T11:22:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8946" />
+    <meta name="ArticleNumber" content="000008946" />
+    <meta name="description" content="Best Practices for Preventing Accidental Data Leakage" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+
+        <div>
+          <p>GroupID 10 or above</p>
+        </div>
+
+        <h2 id="business_scenario">Business Scenario:</h2>
+
+        <div>
+          <p>
+            Our objective is to establish and enforce best practices to prevent external and
+            internal data breaches while using GroupID, ensuring the security and confidentiality of
+            sensitive information.
+          </p>
+        </div>
+
+        <h2 id="best_practices">Best Practices:</h2>
+
+        <div>
+          <p>
+            Following are some of the Best Practices to avoid any kind of external/internal Data
+            breaches while using GroupID.
+          </p>
+        </div>
+
+        <h3 id="using_security_roles_to_limit_scope_of_search">
+          Using Security Roles to Limit Scope of Search
+        </h3>
+
+        <div>
+          <p>
+            GroupID uses RBAC model through which you can define Security Roles and can delegate
+            permissions accordingly to different users. We can set GroupID search in such a way that
+            AD objects (e.g., Groups, Users, Contacts) can only be searched within a specific OU and
+            filtered based on Active Directory attributes.
+          </p>
+
+          <p>
+            For more information on how to setup a limit on the search scope for a particular
+            Security Role, visit the following KB Article:
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HQfKAM.html"
+              target="_blank"
+              >Walkthrough Search Policy - Define Scope and Filter Results</a
+            >.
+          </p>
+        </div>
+
+        <h3
+          id="using_security_roles_to_specify_specific_area_where_groups_can_be_created_or_have_a_fixed_and_hidden_path"
+        >
+          Using Security Roles to Specify Specific Area Where Groups Can be Created or Have a Fixed
+          and Hidden Path.
+        </h3>
+
+        <div>
+          <p>
+            In GroupID, you can apply policies to security roles, so that role members can use
+            GroupID in keeping with the policy restrictions. GroupID’s New Object policy enables you
+            to restrict role members to create new groups in a specific OU only.  
+          </p>
+
+          <p>
+            For more information on how to setup a New Object policy for specific security roles,
+            visit the following KB Article.
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+              target="_blank"
+              >How To Enforce Users to Create Groups in a Specific OU</a
+            >.
+          </p>
+        </div>
+
+        <h3 id="importing_membership_via_groupid_bulk_membership_import_feature_for_groups">
+          Importing Membership via GroupID Bulk Membership Import Feature for Groups
+        </h3>
+
+        <div>
+          <p>
+            Many times, organizations create groups (Security and Distributions) in advance i.e.,
+            before the actual usage of groups. To avoid any critical information being leaked out,
+            it is recommended that such groups be created without populating membership upon its
+            creation.
+          </p>
+
+          <p>
+            Instead, you can use the <b>Bulk Import Membership</b> feature of GroupID to update
+            groups with the correct memberships just before their actual usage starts. Bulk import
+            allows for external source files like a CSV or an Excel Sheet to import membership when
+            it is needed.
+          </p>
+
+          <p>
+            In GroupID, bulk import of memberships is possible using the Import Wizard available in
+            GroupID Portal. Following KB Article provides step-by-step instructions to bulk import
+            members in a group.
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HthKAE.html"
+              target="_blank"
+              >How To Import Members to a Group Using Self-Service Import Wizard</a
+            >.
+          </p>
+        </div>
+
+        <h3 id="creating_smart_group_without_updating_memberships">
+          Creating Smart Group Without Updating Memberships
+        </h3>
+
+        <div>
+          <p>
+            Another way to ensure that the group memberships do not update beforehand, if a group
+            has been created in advance, is by just previewing the query results of a Smart group
+            without updating the group memberships. 
+          </p>
+
+          <p>
+            A query based dynamic "<em>smart group</em>" is one whose membership is determined by
+            the supplied criteria. The results can be previewed but not acted upon until needed.
+             Keeping out of update schedule ensures only when manually updated that membership is
+            updated. 
+          </p>
+
+          <p>
+            <img
+              alt="User-added image"
+              height="261"
+              src="kA0Qk0000000IPxKAM_d2b2d6a6-6014-423e-b08e-cce25ff3f467.png"
+              width="500"
+            />
+          </p>
+        </div>
+
+        <h3 id="keep_group_hidden_from_gal_until_it_is_ready_to_be_used">
+          Keep Group Hidden from GAL Until it is Ready to be Used
+        </h3>
+
+        <div>
+          <p>
+            Keeping a group and its membership hidden from discoverability from external tools like
+            Outlook can also help comply to organizational policies for ensuring secrecy.
+          </p>
+
+          <p>
+            Using GroupID Portal, if a mail-enabled group is created, we can hide the Group and its
+            membership from Address Book and GAL in the following way.
+          </p>
+
+          <p>
+            <img
+              alt="User-added image"
+              height="222"
+              src="kA0Qk0000000IPxKAM_c221c3f5-f4f0-4468-a625-44de2e5c39d1.png"
+              width="500"
+            />
+          </p>
+        </div>
+
+        <h3 id="selecting_appropriate_security_type_for_groups">
+          Selecting Appropriate Security Type for Groups
+        </h3>
+
+        <div>
+          <p>
+            During the creation of a group via GroupID Portal, the security type can be designated
+            as Private, Semi-Private, or Public. This classification, serving as a pseudo attribute
+            within GroupID, governs the permission levels for joining the group. It is always
+            recommended to choose Private as the Security Type for Sensitive Groups.
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <b>Private</b> – A closed group where the group owner solely determines group
+                membership.
+              </p>
+            </li>
+            <li>
+              <p>
+                <b>Semi-Private</b> – The group owner approves users' requests to join or leave the
+                group.
+              </p>
+            </li>
+            <li>
+              <p><b>Public</b> – An open group that anyone can join or leave.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h3 id="setting_up_delivery_restrictions_on_mail-enabled_groups">
+          Setting up Delivery Restrictions on Mail-Enabled Groups
+        </h3>
+
+        <div>
+          <p>
+            It is always recommended to ensure/limit the inflow of Email Messages received by the
+            critical groups with the production environment. GroupID allows you to set Delivery
+            Restrictions on such groups by leveraging the <b>AuthOrig</b> and
+            <b>UnAuthOrig</b> attributes from Active Directory. Both Self-Service and Automate give
+            Group Owners and Administrators the ability to set rules for Accepting/Rejecting Emails
+            from certain users for a particular group.
+          </p>
+
+          <p>
+            To set Delivery Restrictions via GroupID portal, simply search for the Group and
+            navigate to <b>Delivery Restriction</b> tab in <b>Group Properties</b>.
+          </p>
+
+          <p>
+            <img
+              alt="User-added image"
+              height="295"
+              src="kA0Qk0000000IPxKAM_77856631-28a9-49c3-abde-cb698a5d0bdb.png"
+              width="500"
+            />
+          </p>
+        </div>
+
+        <h3 id="setting_up_approver_workflows_for_the_creation_of_new_groups">
+          Setting up Approver Workflows for the Creation of New Groups
+        </h3>
+
+        <div>
+          <p>
+            One of the most efficient methods to effectively manage the number/quality of groups
+            being created by end users is the implementation of a continuous monitoring process
+            where Admins can approve the group being created.
+          </p>
+
+          <p>
+            GroupID allows you to setup customized workflow approval processes with tailored filters
+            to cater to use case specific triggering. This process ensures that whenever a group is
+            created an approval request is sent to concerned Authorities for approval.  
+          </p>
+
+          <p>
+            For more information of implementing such workflows, visit the following KB Article.
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HwvKAE.html"
+              target="_blank"
+              >How to Trigger a workflow When a User Сreates a Group</a
+            >.
+          </p>
+        </div>
+
+        <h3 id="setting_up_message_moderators_for_mail-enabled_groups">
+          Setting up Message Moderators for Mail-Enabled Groups
+        </h3>
+
+        <div>
+          <p>
+            Another way to ensure that no unauthorized message is sent to critical groups,
+            administrators can setup moderator approval processes for Microsoft Exchange. GroupID
+            can be easily customized to provide the necessary attributes in the Group Properties
+            visible on the portal to initiate a Message Approval process and assign moderators for
+            certain critical DLs.  
+          </p>
+
+          <p>
+            For more information on customization to the portal, visit the following KB Article.   
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HyXKAU.html"
+              target="_blank"
+              >How To Add Message Approvers in Group Properties in Self-Service</a
+            >.
+          </p>
+        </div>
+
+        <h3 id="other_best_practices_to_improve_compliance">
+          Other Best Practices to Improve Compliance.
+        </h3>
+
+        <div>
+          <p>
+            In addition to the above-mentioned best practices for making sure the production
+            environment is secure and comply to the company policy, visit the following KB Article
+            to know about the best practices for controlling changes to group memberships after
+            creation.
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000I4zKAE.html"
+              target="_blank"
+              >Best Practices for Controlling Changes to Group Membership</a
+            >.
+          </p>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HQfKAM.html"
+                  target="_blank"
+                  >Walkthrough Search Policy - Define Scope and Filter Results</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >How To Enforce Users to Create Groups in a Specific OU</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HthKAE.html"
+                  target="_blank"
+                  >How To Import Members to a Group Using Self-Service Import Wizard</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HwvKAE.html"
+                  target="_blank"
+                  >How to Trigger a workflow When a User Сreates a Group</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HyXKAU.html"
+                  target="_blank"
+                  >How To Add Message Approvers in Group Properties in Self-Service</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >Best Practices for Controlling Changes to Group Membership</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

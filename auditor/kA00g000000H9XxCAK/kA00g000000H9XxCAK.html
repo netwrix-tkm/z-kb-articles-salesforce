@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Installation fails with the "Category does not exist" message</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XxCAK" />
+    <meta name="Id" content="ka04u000000HcR2AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1157" />
+    <meta name="ArticleNumber" content="000003312" />
+    <meta
+      name="description"
+      content="Netwrix Auditor, Installation fails with the &amp;quot;Category does not exist&amp;quot; message,"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The product installation fails, and the user is presented with the "<strong
+          >Category does not exist</strong
+        >" message.
+
+        <hr />
+
+        The issue may be caused by the <strong>User Account Control</strong> performance.
+
+        <hr />
+
+        There are two ways to resolve the issue: Change the
+        <strong>elevation prompt behavior for administrators</strong>:
+        <ol>
+          <li>
+            Open the<strong> Start</strong> menu, navigate to
+            <strong>All Programs / Accessories / Run</strong>, type in
+            <strong>secpol.msc</strong> and click OK.
+          </li>
+          <li>
+            In the <strong>Local Security Policy</strong> left pane, navigate to
+            <strong>Local Policies / Security Options</strong>.
+          </li>
+          <li>
+            In the right pane, double-click the following policy:
+            <strong
+              >User Account Control: Behavior of the elevation prompt for administrators.</strong
+            >
+          </li>
+          <li>
+            On the <strong>Local Security Settings</strong> tab, select
+            <strong>Elevate without prompting</strong> and click <strong>OK</strong>. The tasks that
+            request elevation will automatically run as elevated without prompting administrator.
+          </li>
+          <li>Close the <strong>Local Security Settings </strong>window.</li>
+          <li>Restart the system, if you are notified that it is needed to apply the changes.</li>
+        </ol>
+        or disable <strong>User Account Control (UAC)</strong>.
+        <ul>
+          <li>
+            For <strong>Windows 2008</strong> and <strong>Windows 7</strong>, do the following:
+          </li>
+        </ul>
+        <ol>
+          <li>
+            Open the <strong>Start</strong> menu, navigate to
+            <strong>Control Panel / User Accounts / Change User Account Control setting</strong>s.
+          </li>
+          <li>
+            In the <strong>User Accounts Control Settings</strong> window, switch to
+            <strong>Never notify</strong>.
+          </li>
+          <li>Restart your server to apply the changes.</li>
+        </ol>
+        <ul>
+          <li>For <strong>Windows Vista</strong>, do the following:</li>
+        </ul>
+        <ol>
+          <li>
+            Open the <strong>Start</strong> menu, navigate to
+            <strong>Control Panel / User Accounts</strong>.
+          </li>
+          <li>
+            In the <strong>User Accounts</strong> window, click <strong>User Accounts</strong>.
+          </li>
+          <li>
+            In the <strong>User Accounts</strong> tasks window, click
+            <strong>Turn User Account Control</strong> off.
+          </li>
+          <li>
+            If <strong>UAC</strong> is currently configured in <strong>Admin Approval Mode</strong>,
+            the <strong>User Account Control message appears</strong>. Click
+            <strong>Continue</strong>.
+          </li>
+          <li>
+            Clear the<strong> Use User Account Control (UAC) to help protect your computer</strong>
+            check box, and then click <strong>OK</strong>.
+          </li>
+          <li>
+            Click <strong>Restart Now</strong> to apply the change right away, or click
+            <strong>Restart Later</strong>, and then close the
+            <strong>User Accounts tasks</strong> window.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

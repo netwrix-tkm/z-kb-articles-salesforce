@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Сonnection Issue when TLS 1.2 Is Required</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eOCAS" />
+    <meta name="Id" content="ka04u00000117uNAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-25T12:39:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-25T12:39:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3648" />
+    <meta name="ArticleNumber" content="000003706" />
+    <meta
+      name="description"
+      content="Netwrix SharePoint Online Audit Service TLS1.2 issue: The underlying connection was closed: The client and server cannot communicate, because they do not possess a common algorithm."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to set up connections between the internal environment and Microsoft (Office) 365
+            with mismatched TLS versions and limited ciphers?
+          </p>
+        </div>
+
+        <h2 id="answers">Answers</h2>
+
+        <h4 id="option_1_for_up-to-date_environments">Option 1: For up-to-date environments</h4>
+
+        <div>
+          <p>
+            For up-to-date environments, refer to the following KB article for additional
+            information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+              target="_self"
+              >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+              Algorithm</a
+            >. You can also use this registry key to run it to achieve the same results:
+            <a
+              href="https://netwrix.com/download/products/KnowledgeBase/TLSRegkey.reg"
+              target="_blank"
+              >https://netwrix.com/download/products/KnowledgeBase/TLSRegkey.reg</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="option_2_for_pre-windows_server_2019_environments_and_earlier">
+          Option 2: For pre-Windows Server 2019 environments and earlier
+        </h4>
+
+        <div>
+          <blockquote>
+            <div>
+              <p>
+                <span><strong>NOTE: </strong></span>For additional information, refer to the
+                following Microsoft articles:
+                <a
+                  href="https://learn.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client"
+                  target="_blank"
+                  >How to enable TLS 1.2. on clients ⸱ Microsoft 🡥</a
+                >
+                and
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-the-windows-registry"
+                  target="_blank"
+                  >TLS best practices — Configuring security via the Windows Registry ⸱ Microsoft
+                  🡥</a
+                >.
+              </p>
+            </div>
+          </blockquote>
+        </div>
+
+        <h5 id="step_1_update_windows_and_winhttp">Step 1: Update Windows and WinHTTP</h5>
+
+        <div>
+          <p>
+            Earlier versions of Windows (e.g. Windows 7, Windows Server 2012, etc.) do not enable
+            TLS 1.1 or TLS 1.2 by default for secure communications using WinHTTP. For earlier
+            versions of Windows, install
+            <a
+              href="https://support.microsoft.com/topic/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-winhttp-in-windows-c4bd73d2-31d7-761e-0178-11268bb10392"
+              target="_blank"
+              >Update 3140245 ⸱ Microsoft Support 🡥</a
+            >
+            to enable the registry value below, which can be set to add TLS 1.1 and TLS 1.2 to the
+            default secure protocols list for WinHTTP. With the patch installed, create the
+            following registry values:
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Enable these settings for all clients running
+              earlier versions of Windows <strong>before</strong> enabling TLS 1.2 and disabling the
+              older protocols in the Configuration Manager servers. Otherwise, you can inadvertently
+              orphan them.
+            </p>
+          </blockquote>
+
+          <p>Verify the value of the <strong>DefaultSecureProtocols</strong> registry setting:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp\
+DefaultSecureProtocols = (DWORD): 0xAA0
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp\
+DefaultSecureProtocols = (DWORD): 0xAA0</code></pre>
+
+          <p>
+            The Microsoft article
+            <a
+              href="https://support.microsoft.com/topic/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-winhttp-in-windows-c4bd73d2-31d7-761e-0178-11268bb10392"
+              target="_blank"
+              >Update to enable TLS 1.1 and TLS 1.2 as default secure protocols in WinHTTP in
+              Windows ⸱ Microsoft 🡥</a
+            >
+            lists hexadecimal values for each protocol. By default in Windows, the value
+            <strong>0x0A0</strong> is used to enable SSL 3.0 and TLS 1.0 for WinHTTP. The example
+            provided above allows to keep default values and enable TLS 1.1 and TLS 1.2 for WinHTTP.
+            This configuration ensures the change doesn't affect any other application that might
+            still rely on SSL 3.0 or TLS 1.0. You can use the <strong>0xA00</strong> value to only
+            enable TLS 1.1 and TLS 1.2. Configuration Manager supports the most secure protocol
+            supported by both Windows devices.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>If you change this value, make sure to reboot your
+              computer to apply these changes.
+            </p>
+          </blockquote>
+        </div>
+
+        <h5
+          id="step_2_ensure_that_tls_12_is_enabled_as_a_protocol_for_schannel_at_the_operating_system_level"
+        >
+          Step 2: Ensure that TLS 1.2 is enabled as a protocol for SChannel at the operating system
+          level
+        </h5>
+
+        <div>
+          <p>
+            Verify the
+            <code
+              >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols</code
+            >
+            registry subkey setting, as specified in the following article:
+            <a
+              href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-the-windows-registry"
+              target="_blank"
+              >TLS best practices — Configuring security via the Windows Registry ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h5 id="step_3_update_and_configure_the_net_framework_to_support_tls_12">
+          Step 3: Update and configure the .NET Framework to support TLS 1.2
+        </h5>
+
+        <h5 id="step_31_install_net_updates">Step 3.1: Install .NET updates</h5>
+
+        <div>
+          <p>
+            Install .NET updates to enable strong cryptography. Some versions of .NET Framework
+            might require updates to enable strong cryptography, refer to the following guidelines:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                NET Framework 4.6.2 and later supports TLS 1.1 and TLS 1.2. Confirm the registry
+                settings, no additional changes are required.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Starting version 2107, Configuration Manager
+                  requires Microsoft .NET Framework version 4.6.2 for site servers, specific site
+                  systems, clients, and the console. If possible in your environment, install the
+                  latest version of .NET version 4.8.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Update NET Framework 4.6 and earlier versions to support TLS 1.1 and TLS 1.2. For
+                additional information, refer to the following article:
+                <a
+                  href="https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/versions-and-dependencies"
+                  target="_blank"
+                  >.NET Framework versions and dependencies ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                If you're using .NET Framework 4.5.1 or 4.5.2 on Windows 8.1, Windows Server 2012
+                R2, or Windows Server 2012, it is strongly recommended to install the latest
+                security updates for .Net Framework 4.5.1 and 4.5.2 to ensure TLS 1.2 can be
+                enabled.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>TLS 1.2 was first introduced into .Net
+                  Framework 4.5.1 and 4.5.2 with the following hotfix rollups:
+                </p>
+
+                <ul>
+                  <li>
+                    <p>
+                      For Windows 8.1 and Server 2012 R2:
+                      <a
+                        href="https://support.microsoft.com/topic/hotfix-rollup-3099842-for-the-net-framework-4-5-2-and-the-net-framework-4-5-1-on-windows-7b629c7e-bea4-4838-2512-e22e8bad368a"
+                        target="_blank"
+                        >Hotfix rollup 3099842 ⸱ Microsoft 🡥</a
+                      >.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      For Windows Server 2012:
+                      <a
+                        href="https://support.microsoft.com/topic/hotfix-rollup-3099844-for-the-net-framework-4-5-2-4-5-1-and-4-5-on-windows-ee48ac0d-79be-28f7-563d-e7bd46040dd3"
+                        target="_blank"
+                        >Hotfix rollup 3099844 ⸱ Microsoft 🡥</a
+                      >.
+                    </p>
+                  </li>
+                </ul>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+
+        <h5 id="step_32_configure_for_strong_cryptography">
+          Step 3.2: Configure for strong cryptography
+        </h5>
+
+        <p>
+          Configure .NET Framework to support strong cryptography. Set the
+          <strong>SchUseStrongCrypto</strong> registry setting to <strong>DWORD:00000001</strong>.
+          This value disables the RC4 stream cipher and requires a restart. For additional
+          information on the setting, refer to the following article
+          <a
+            href="https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/2960358"
+            target="_blank"
+            >Microsoft Security Advisory 296038 ⸱ Microsoft 🡥</a
+          >.
+        </p>
+
+        <p>
+          Make sure to set the following registry keys on any computer that communicates across the
+          network with a TLS 1.2-enabled system. For example, Configuration Manager clients, remote
+          site system roles not installed on the site server, and the site server itself.
+        </p>
+
+        <p>
+          For 32-bit applications that are running on 32-bit OSs and for 64-bit applications that
+          are running on 64-bit OSs, update the following subkey values:
+        </p>
+
+        <pre
+          class="has-inner-focus"
+        ><code class="lang-Registry">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727]
+      "SystemDefaultTlsVersions" = dword:00000001
+      "SchUseStrongCrypto" = dword:00000001
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]
+      "SystemDefaultTlsVersions" = dword:00000001
+      "SchUseStrongCrypto" = dword:00000001
+</code></pre>
+
+        <p>
+          For 32-bit applications that are running on 64-bit OSs, update the following subkey
+          values:
+        </p>
+
+        <pre
+          class="has-inner-focus"
+        ><code class="lang-Registry">[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v2.0.50727]
+      "SystemDefaultTlsVersions" = dword:00000001
+      "SchUseStrongCrypto" = dword:00000001
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319]
+      "SystemDefaultTlsVersions" = dword:00000001
+      "SchUseStrongCrypto" = dword:00000001
+</code></pre>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> The <code>SchUseStrongCrypto</code> setting allows
+            .NET to use TLS 1.1 and TLS 1.2. The <strong>SystemDefaultTlsVersions</strong> setting
+            allows .NET to use the OS configuration. For additional information, refer to the
+            following article:
+            <a
+              href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls"
+              target="_blank"
+              >TLS best practices ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </blockquote>
+
+        <h4 id="attached_files">Attached files</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://netwrix.com/download/products/KnowledgeBase/TLSRegkey.reg"
+              target="_blank"
+              >TLS Registry Key</a
+            >
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+              target="_self"
+              >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+              Algorithm</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client"
+              target="_blank"
+              >How to enable TLS 1.2. on clients ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-the-windows-registry"
+              target="_blank"
+              >TLS best practices — Configuring security via the Windows Registry ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://support.microsoft.com/topic/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-winhttp-in-windows-c4bd73d2-31d7-761e-0178-11268bb10392"
+              target="_blank"
+              >Update 3140245 ⸱ Microsoft Support 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://support.microsoft.com/topic/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-winhttp-in-windows-c4bd73d2-31d7-761e-0178-11268bb10392"
+              target="_blank"
+              >Update to enable TLS 1.1 and TLS 1.2 as default secure protocols in WinHTTP in
+              Windows ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#configuring-security-via-the-windows-registry"
+              target="_blank"
+              >TLS best practices — Configuring security via the Windows Registry ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/versions-and-dependencies"
+              target="_blank"
+              >.NET Framework versions and dependencies ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://support.microsoft.com/topic/hotfix-rollup-3099842-for-the-net-framework-4-5-2-and-the-net-framework-4-5-1-on-windows-7b629c7e-bea4-4838-2512-e22e8bad368a"
+              target="_blank"
+              >Hotfix rollup 3099842 ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://support.microsoft.com/topic/hotfix-rollup-3099844-for-the-net-framework-4-5-2-4-5-1-and-4-5-on-windows-ee48ac0d-79be-28f7-563d-e7bd46040dd3"
+              target="_blank"
+              >Hotfix rollup 3099844 ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/2960358"
+              target="_blank"
+              >Microsoft Security Advisory 296038 ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls"
+              target="_blank"
+              >TLS best practices ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

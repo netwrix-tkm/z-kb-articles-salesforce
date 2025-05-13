@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring Microsoft SQL - Log Tracker vs. Change Tracker</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JWACA2" />
+    <meta name="Id" content="ka04u000000Hd8rAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:41:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8157" />
+    <meta name="ArticleNumber" content="000008157" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Do you want to monitor Microsoft SQL Servers? Are you not quite sure how NNT can help you
+          achieve that? <span>- GREAT! All the information you need is displayed below.</span>
+        </p>
+        <p><br /></p>
+        <p>
+          Using <strong>NNT</strong> <strong>Log</strong> <strong>Tracker</strong> will enable you
+          to keep track of and report on SQL database audit events such as successful or failed
+          logins, user account changes or schemas being created, just to name a few. All of these
+          SQL audit events can either be written to the normal Windows event logs which an NNT Log
+          Tracker agent monitors and forwards through events to the Log Tracker server as they are
+          seen. If the SQL audit events were written to a custom log file stored elsewhere, we can
+          configure the NNT Log Tracker agent to tail the log file and forward through syslog events
+          whenever new entries are seen within the file. Once the events are on the Log Tracker
+          server, we can configure correlation threads to group together different types of events
+          depending on their contents. Once grouped together you can configure alerts and ticketing
+          for when different scenario’s occur – one example may be that a ticket is created and
+          emailed through to a member of staff when a certain number of failed SQL login attempts
+          are made within a short period time, which may signify a brute force attack.
+        </p>
+        <p>
+          Once the SQL audit events are on the NNT Log Tracker server you can also run queries
+          looking for specific events, from specific dates or users and then create reports using
+          the results which can be saved in .PDF/.CSV/.TXT/.HTML formats.
+        </p>
+        <p>
+          Just so you are aware, different versions of SQL offer different levels of auditing. I’ve
+          pasted a graph below which shows what auditing is available in each version and how the
+          server and database auditing differs.
+        </p>
+        <div class="table-wrap">
+          <table count-columns="3" class="wrapped confluenceTable">
+            <colgroup>
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><br /></p>
+                  <p> <strong>Edition</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><br /></p>
+                  <p> <strong>SQL Server 2008 and 2008 R2</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><br /></p>
+                  <p> <strong>SQL Server 2012 and 2014</strong></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Enterprise</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Evaluation</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Developer</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Datacentre</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p> Server- and database-level</p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> N/A</p></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Business Intelligence</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> None</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Server-level</p></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Standard</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> None</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Server-level</p></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Web</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> None</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Server-level</p></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Express</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> None</p></td>
+                <td colspan="1" rowspan="1" class="confluenceTd"><p> Server-level </p></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>
+            <strong>Server-level auditing</strong> consists of server-level audit action groups,
+            which include server operations, such as security operations involving logins, roles and
+            permissions, logon and logoff operations, database backup and restore, manipulation of
+            certain database-, server-, and schema objects.
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <strong>Database-level auditing</strong> is auditing at the database scope, and it is
+            set on each database individually. This feature is not available in all editions of SQL
+            Server, only in Enterprise editions. Database-level auditing utilizes database-level
+            audit action groups, and database-level audit actions.
+          </li>
+          <ul>
+            <li>
+              The <em>database-level audit action groups</em> cover some similar areas as the
+              server-level audit groups, if applicable, but at the database level.
+            </li>
+            <li>
+              Additionally to auditing action groups, database-level auditing also enables auditing
+              certain individual actions, such as SELECT, INSERT, UPDATE, DELETE, EXECUTE, RECEIVE,
+              and REFERENCES. These database-level audit actions can be restricted to a specific
+              database, an object (such as table, view, stored procedure), or a schema.<br /><br />
+            </li>
+          </ul>
+        </ul>
+        <p>
+          Using <strong>NNT</strong> <strong>Change</strong> <strong>Tracker</strong> will enable
+          you to check the integrity of a database stored on an SQL server in line with the CIS
+          standard. This is achieved using our SQL compliance reports and this enables us to run
+          specific queries against the database to see if it is configured in a way which the CIS
+          deem ‘secure’. I’ve listed a number of different rules/checks that we make against the
+          database to check its integrity:
+        </p>
+        <p>---</p>
+        <p>Rule 1 - Revoke Execute on 'xp_regwrite' to PUBLIC"</p>
+        <p>Description: Writes key values to the server's registry.</p>
+        <p>
+          Rationale: Ensuring this procedure is disabled will prevent a SQL Server user from writing
+          to the Windows registry via SQL Server.
+        </p>
+        <p>---</p>
+        <p>Rule 2 - Set the 'CHECK_POLICY' Option to ON for All SQL Authenticated Logins</p>
+        <p>
+          Description: Applies the same password complexity policy used in Windows to passwords used
+          inside SQL Server.
+        </p>
+        <p>
+          Rationale: Ensuring SQL logins comply with the secure password policy applied by the
+          Windows Server Benchmark will ensure SQL logins are not blank and cannot be easily
+          compromised via brute force attack.
+        </p>
+        <p>---</p>
+        <p>
+          Rule 3 - Revoke CONNECT permissions on the 'guest user' within all SQL Server databases
+          excluding the master, msdb and tempdb
+        </p>
+        <p>
+          Description: Removes the right of guest users to connect to SQL Server user databases.
+        </p>
+        <p>
+          Rationale: A login assumes the identity of the guest user when a login has access to SQL
+          Server but does not have access to a database through its own account and the database has
+          a guest user account. Revoking the connect permission for the guest user will ensure that
+          a login is not able to access database information without explicit access to do so.
+        </p>
+        <p>--- </p>
+        <p>
+          As you can see from above, the use of a compliance report within Change Tracker will not
+          enable you to keep track of audit logs and report when changes are made to a database. We
+          are simply making checks on the database and configuring it in a way that is secure. Using
+          CIS standards will ensure that inside/outside attackers will not be able to exploit well
+          known vulnerabilities within SQL, which they could use to access a database and from there
+          either create, edit or delete data.
+        </p>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

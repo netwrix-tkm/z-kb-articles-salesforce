@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Error: Database Maintenance Failing with Error Code 0x5 (Error 15404)</title><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="label" content="employees_v"/><meta name="label" content="threat_prevention"/><meta name="KnowledgeArticleId" content="kA0Qk0000001YndKAE"/><meta name="Id" content="ka0Qk0000006fmrIAA"/><meta name="LastPublishedDate" content="2024-12-13T19:19:22.000+0000"/><meta name="LastModifiedDate" content="2024-12-13T19:19:22.000+0000"/><meta name="FirstPublishedDate" content="2024-12-13T19:19:22.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9303"/><meta name="ArticleNumber" content="000009303"/><meta name="description" content="Database maintenance constant failing"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+<p>The Netwrix Threat Prevention Database Maintenance job fails with this error:</p>
+<p><span>The job failed. Unable to determine if the owner ("Domain/User") of job SiDbMainJob has server access (reason: Could not obtain information about Windows NT group/user 'Domain/User', error code 0x5 [SQLSTATE42000] (Error 15404))</span></p>
+<h2 id="cause">Cause</h2>
+<p>The account running the SQL Server Service on the SQL server does not have access to Active Directory, i.e., a local account.</p>
+<h2 id="resolution">Resolution</h2>
+<ol><li>
+<p>On SQL server, <strong>launch SQL Server Configuration Manager</strong>.</p>
+</li><li>
+<p>Select <strong>SQL Server Services</strong> in the navigation pane.</p>
+</li><li>
+<p>Right-click <strong>SQL Server (Instance name)</strong> &gt; Click <strong>Properties &gt; </strong>Click <strong>Log</strong> <strong>On</strong> Tab &gt; Select <strong>Built-in account</strong> &gt; Select <strong>Network Service</strong> from the drop-down menu.</p>
+</li><li>
+<p>Click<strong> Apply </strong>to save<strong> </strong>the change and click <strong>Restart</strong>.</p>
+</li><li>
+<p>Repeat steps 1-4 for <strong>SQL Server Agent (Instance name)</strong>.</p>
+</li></ol>
+<p><img src="kA0Qk0000001YndKAE_c498fe88-8f94-4617-a184-113e77e67362.png" alt="Error - Database Maintenance Failing with Error Code 0x5 (Error 15404).png" width="724" height="481"/></p></div>
+</article></body></html>

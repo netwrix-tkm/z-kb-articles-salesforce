@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Update Ransomware Extension List with No Internet</title><meta name="label" content="public_v"/><meta name="label" content="threat_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HuTCAU"/><meta name="Id" content="ka0Qk0000001HzhIAE"/><meta name="LastPublishedDate" content="2024-01-10T09:20:43.000+0000"/><meta name="LastModifiedDate" content="2024-01-10T09:21:44.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T17:51:59.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6005"/><meta name="ArticleNumber" content="000006005"/><meta name="description" content="360008304072"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to update the ransomware extension list without internet connection in Netwrix Threat Manager (formerly StealthDEFEND)?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<h4 id="netwrix_threat_manager_v27">Netwrix Threat Manager v2.7</h4>
+
+<div>
+<ol><li>
+	<p>Run the following PowerShell script: <a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LcUfB&amp;d=%2Fa%2F4u000000Ly8z%2FBWWIN1cqaVSUfxtQhMUTFbwAY2nmLS_5qol2iKblLXM&amp;asPdf=false" target="_blank">Ransomware.ps1</a>.</p>
+	</li><li>
+	<p>Copy the output <code>resp.json</code> file to the following directory:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\STEALTHbits\StealthDEFEND\JobService\Python\pydefend\pydefend\data</code></pre>
+	</li></ol>
+</div>
+
+<h4 id="netwrix_threat_manager_v27_sp1">Netwrix Threat Manager v2.7 SP1</h4>
+
+<div>
+<ol><li>
+	<p>Save or copy the raw data from the following link to a file named <code>filters.json</code>: <a href="https://fsrm.experiant.ca/api/v1/get" target="_blank">Anti-Ransomware File System Resource Manager Lists · Experiant 🡥</a>.</p>
+	</li><li>
+	<p>Copy the <code>filters.json</code> file to the following directory:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\STEALTHbits\StealthDEFEND\JobService\Python\pydefend\pydefend\data</code></pre>
+	</li><li>
+	<p>Increment the version number in the <code>filters.metadata</code> file in <code>pydefend\data</code> for old files to be reprocessed.</p>
+	</li></ol>
+</div>
+
+<h4 id="netwrix_threat_manager_v28">Netwrix Threat Manager v2.8</h4>
+
+<div>
+<ol><li>
+	<p>Copy the raw data from the following link to a file named <code>filters.json</code>: <a href="https://raw.githubusercontent.com/DFFspace/CryptoBlocker/master/KnownExtensions.txt" target="_blank">CryptoBlocker − Known Extensions · GitHub 🡥</a>.</p>
+	</li><li>
+	<p>Copy the <code>filters.json</code> file to the following directory:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\STEALTHbits\StealthDEFEND\JobService\Python\pydefend\pydefend\data</code></pre>
+	</li><li>
+	<p>Increment the version number in the <code>filters.metadata</code> file in <code>pydefend\data</code> for old files to be reprocessed.</p>
+	</li></ol>
+</div>
+
+<h2 id="related_links">Related links</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LcUfB&amp;d=%2Fa%2F4u000000Ly8z%2FBWWIN1cqaVSUfxtQhMUTFbwAY2nmLS_5qol2iKblLXM&amp;asPdf=false" target="_blank">Ransomware.ps1</a></p>
+	</li><li>
+	<p><a href="https://fsrm.experiant.ca/api/v1/get" target="_blank">Anti-Ransomware File System Resource Manager Lists · Experiant 🡥</a></p>
+	</li><li>
+	<p><a href="https://raw.githubusercontent.com/DFFspace/CryptoBlocker/master/KnownExtensions.txt" target="_blank">CryptoBlocker − Known Extensions · GitHub 🡥</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

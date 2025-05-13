@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Configure Windows Remote Assistance Integration</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HSKCA2"/><meta name="Id" content="ka04u000000HcZwAAK"/><meta name="LastPublishedDate" content="2021-10-14T11:09:23.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T09:57:41.000+0000"/><meta name="FirstPublishedDate" content="2021-10-14T11:09:23.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5919"/><meta name="ArticleNumber" content="000005919"/><meta name="description" content="How to Configure Windows Remote Assistance Integration"/></head><body><article class=" kb-articles"><div class="Content__c"><div id="spPageCanvasContent">
+<div class="SPCanvas">
+<div class="SPCanvas-canvas">
+<div class="CanvasComponent">
+<div class="a_b_50a7110f Canvas grid Canvas--withLayout">
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="1212fc8d-dd6b-408a-8d5d-9f1cc787efbb">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<div>
+<h2 id="summary">Summary</h2>
+</div>
+
+<p>This document provides an outline and guide for SbPAM integration with Microsoft Remote Assistance.</p>
+
+<div>
+<h2 id="enrollment">Enrollment</h2>
+</div>
+
+<ul><li>SbPAM Server</li><li>RDS Server with RemoteApp – single machine CAL license</li></ul>
+
+<div>
+<h2 id="pre-requisites">Pre-requisites</h2>
+</div>
+
+<ul><li>Group Policy to configure ‘Offer Remote Assistance’</li><li>Domain group to be mapped to Configure Offer Remote Assistance policy</li><li>Domain group that will be member of RDS server local Administrator group</li><li>Remote Assistance Feature added to RDS server</li></ul>
+
+<div>
+<h2 id="instructions">Instructions</h2>
+</div>
+
+<div>
+<h3 id="group-policy">Group Policy</h3>
+</div>
+
+<p>Enable <strong>Configure Offer Remote Assistance</strong> policy.</p>
+
+<pre class="ckeditor_codeblock">Policies &gt; Administrative Templates &gt; System &gt; Remote Assistance &gt; Configure Offer Remote Assistance</pre>
+</div>
+</div>
+<br/><img alt="User-added image" height="183" src="kA04u0000000HSKCA2_d4a519bd-5bce-4554-9967-ae62467b7e19.png" width="500"/>
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="b3e6efc1-2535-44fb-baea-a010b0c5dceb"> 
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<p>Enable the policy and assign a domain group to control access.<br/><br/><img alt="User-added image" height="415" src="kA04u0000000HSKCA2_16ed8dff-91cf-4a01-98c2-34551c2af410.png" width="500"/></p>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="43ba17ff-c0bb-4d8a-b45c-235e1671ec55">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div>
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<div>
+<h3 id="activity-setup">Activity Setup</h3>
+</div>
+
+<p>Create an Interactive App Launch Activity making note of the highlighted areas below.</p>
+
+<p><strong>NOTE:</strong> The Domain groups for Group Policy and RDS server local admin will have been created in the previous steps.<br/><br/><img alt="User-added image" height="596" src="kA04u0000000HSKCA2_e6bd4a85-f5e0-450f-bdb2-10db070835c0.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="1af4e294-76d8-4840-8066-06ce49c55c9b">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div>
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<div>
+<h3 id="use-case">Use Case</h3>
+</div>
+
+<p>Via SbPAM UI or DirectConnect, the helpdesk admin selects the Remote Assistance Activity and chooses resource to which is to be provided remote assistance.<br/><br/><img alt="User-added image" height="423" src="kA04u0000000HSKCA2_d72c9c7e-c833-4f7e-8cd4-c22d845a45eb.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="49528aee-829c-4fae-aab9-5c6a817372ce">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<p>When the Activity has been provisioned, the session is launched, and the target users’ desktop displays a message asking permission for the helpdesk admin to connect.<br/><br/><img alt="User-added image" height="217" src="kA04u0000000HSKCA2_16af1295-0361-470f-ab76-7e6c06643e44.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="08f2cd66-8d69-48ea-91f0-bd29b4ec4bda">
+<div class="ControlZone--control">
+<div>
+<div>
+<div class="b_a_b8d6211c e_a_b8d6211c"> </div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="43537f6f-10d2-4a7a-927b-b70cb010eb11">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<p>The helpdesk admin can now view the target users’ desktop and can establish a chat session.<br/><br/><img alt="User-added image" height="218" src="kA04u0000000HSKCA2_86ac6642-6a2a-485b-bdb7-16601f0f9612.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="201f5b1a-7522-4dbb-9735-40f02a4881fe">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<p>If the helpdesk admin needs to take control of the remote system, they select <strong>Request Control </strong>and the end user is prompted for permission.<br/><br/><img alt="User-added image" height="221" src="kA04u0000000HSKCA2_6b420d73-55f2-443c-b18a-978a53503c5b.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="c8f73595-3415-449b-b8a9-e931790599f8">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<p>Once shared, control can be terminated at any time by the helpdesk admin or the end user.<br/><br/><img alt="User-added image" height="217" src="kA04u0000000HSKCA2_8adf1873-6e80-4bde-9e2a-f5c282a5120a.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="74a55db8-d050-4b4b-b071-5e9e42b5c2b5">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox blockQuoteFont rteEmphasis root-80">
+<p>The live session may be viewed via the SbPAM administrator dashboard or reviewed later as a recording at any time.<br/><br/><img alt="User-added image" height="417" src="kA04u0000000HSKCA2_e100e03b-cc19-4e4e-9906-6949cbd57e4b.png" width="500"/></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</article></body></html>

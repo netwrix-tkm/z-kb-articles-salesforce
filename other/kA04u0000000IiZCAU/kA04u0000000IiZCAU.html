@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_9.0_082</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IiZCAU" />
+    <meta name="Id" content="ka04u000000HcuEAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:48:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:48:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7601" />
+    <meta name="ArticleNumber" content="000007601" />
+    <meta name="description" content="360012217872" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary: </strong> This is a fix for out of memory exceptions that happen during
+          scanning large columns.  Also included is a new SDD setting that allows the user to choose
+          whether they scan large columns.
+        </p>
+        <p>
+          <strong
+            >Before Fix:  During SDD scan, warning occurs: "'SensitiveDataCollector' encountered an
+            error on database 'DATABASE'. It will be skipped. Message: 'Exception of type
+            'System.OutOfMemoryException' was thrown.'"</strong
+          >
+        </p>
+        <p>
+          <strong
+            >After fix:  Some data types that are likely to cause OOM exceptions are skipped in the
+            scan.  New table SA_SQLServer_SDD_SupportedDataTypes can be referenced to find the
+            supported data types.  Large columns can now be scanned without OOM errors. 
+            Additionally, the user now has the ability to choose whether large columns are
+            scanned.</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>Changes Since Last Service Pack</strong></p>
+        <p>
+          SMPDB-522  50758 – SA SQL Server Reports can fail when multiple users have the same
+          principal ID.
+        </p>
+        <p>SMPDB-7  40536 – Fix for Specified Cast is Not Valid error when using custom query</p>
+        <p>SMPDB-510  SDD job fails with ‘System.OutOfMemoryException’.</p>
+        <p>
+          SMPDB-30  Fix for missing data in the Object column in the SA_SQL_DomainUserPermissions
+          table
+        </p>
+        <p>
+          SMPDB-58 Fix for Audit log collection when audits on multiple servers have the same name,
+          same path, and same GUID.
+        </p>
+        <p>
+          SAT-6990  Fix for SQL role members job when multiple role members have the same well known
+          SID
+        </p>
+        <p>SAT-6096  Fix to Allow the validation of customer queries that return no results</p>
+        <p>SAT-6880  Fix to allow larger commandtimeout values in SDD scans</p>
+        <p>SAT-6585  duplicate data in SQL database principals report</p>
+        <p>
+          SAT-6467  SQL Role membership report should expand AD Group membership to show effective
+          group members
+        </p>
+        <p>SAT-6385  SQL Instance discovery does not detect dynamic port assignments</p>
+        <p>SAT-6318  SQL solution set: Control Share Permissions has thousands of entries</p>
+        <p>
+          SAT-6309 SQL solution set collection job failing with "invalid column name
+          'is_Fixed_Role'"
+        </p>
+        <p>SAT-6349 Slow SQL Effective Access scans not scalable for large environments</p>
+        <p>SAT-6346  SQL Permission jobs not checking for 'Grant with Grant Option'</p>
+        <p>
+          SAT-6391  Domain User appearing as Grantee Type SERVER_ROLE on the
+          SQLServer_ControlServer_Details report
+        </p>
+        <p>SAT-6388  Members of Server Roles are not Appearing in Permissions Reports</p>
+        <p>
+          SAT-6266  Improve the performance of the Oracle - 5.Permissions -
+          Oracle_DomainUserPermissions job
+        </p>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Rob Evert</p>
+        <p><strong> </strong></p>
+        <p><strong>Affected Versions:</strong></p>
+        <p> 9.0</p>
+        <p><strong> </strong></p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – SQL – DC</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>
+          SMPDB-613  51260 - System.OutOfMemory Exception when scanning SQL server for sensitive
+          data
+        </p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>SQL DC 9.0.140</p>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong>Files:</strong></p>
+        <p><strong> </strong></p>
+        <p>\Licensed for both SQL and Oracle</p>
+        <p> \DC\DCSQL.dll  9.0.140</p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  9.0.140</p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll  9.0.140</p>
+        <p>
+           \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll  9.0.140
+        </p>
+        <p>
+           \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll  9.0.140
+        </p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Oracle.dll  9.0.140</p>
+        <p>
+           \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Oracle.dll  9.0.140
+        </p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll  9.0.140</p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_0.Collection\JOB_0-SQL_InstanceDiscovery\JOB_SQL_InstanceDiscovery.XML
+        </p>
+        <p> \jobs\GROUP_SQL\GROUP_1.Users and Roles\JOB_SQL_RoleMembers\DataAnalysisTasks.XML</p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_1.Users and Roles\JOB_SQL_DatabasePrincipals\DataAnalysisTasks.XML
+        </p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_ControlServer\DataAnalysisTasks.XML</p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DirectPermissions\DataAnalysisTasks.XML</p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DirectPermissions\JOB_SQL_DirectPermissions.XML
+        </p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DomainUserPermissions\DataAnalysisTasks.XML
+        </p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DomainUserPermissions\JOB_SQL_DomainUserPermissions.XML
+        </p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_PublicPermissions\DataAnalysisTasks.XML</p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_ServerPermissions\DataAnalysisTasks.XML</p>
+        <p> </p>
+        <p>\Licensed for SQL only</p>
+        <p> \DC\DCSQL.dll  9.0.140</p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  9.0.140</p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll  9.0.140</p>
+        <p>
+           \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll  9.0.140
+        </p>
+        <p>
+           \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll  9.0.140
+        </p>
+        <p> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll  9.0.140</p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_0.Collection\JOB_0-SQL_InstanceDiscovery\JOB_SQL_InstanceDiscovery.XML
+        </p>
+        <p> \jobs\GROUP_SQL\GROUP_1.Users and Roles\JOB_SQL_RoleMembers\DataAnalysisTasks.XML</p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_1.Users and Roles\JOB_SQL_DatabasePrincipals\DataAnalysisTasks.XML
+        </p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_ControlServer\DataAnalysisTasks.XML</p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DirectPermissions\DataAnalysisTasks.XML</p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DirectPermissions\JOB_SQL_DirectPermissions.XML
+        </p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DomainUserPermissions\DataAnalysisTasks.XML
+        </p>
+        <p>
+           \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_DomainUserPermissions\JOB_SQL_DomainUserPermissions.XML
+        </p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_PublicPermissions\DataAnalysisTasks.XML</p>
+        <p> \jobs\GROUP_SQL\GROUP_3.Permissions\JOB_SQL_ServerPermissions\DataAnalysisTasks.XML</p>
+        <p> </p>
+        <p><strong>Prior Hotfixes</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>SA_9.0_072</strong></p>
+        <p><strong>  - Fix for reports when multiple users have the same principal_id</strong></p>
+        <p><strong>SA_9.0_041</strong></p>
+        <p><strong>  - </strong>Specified Cast is Not Valid Error when using custom query</p>
+        <p><strong>SA_9.0_039</strong></p>
+        <p>
+          <strong
+            >  - Fix for missing data in the Object column in the SA_SQL_DomainUserPermissions
+            table</strong
+          >
+        </p>
+        <p><strong>SA_9.0_036</strong></p>
+        <p>
+          <strong
+            >   - Fix for Audit log collection when audits on multiple servers have the same name,
+            same path, and same GUID</strong
+          >
+        </p>
+        <p><strong>SA_9.0_034</strong></p>
+        <p>
+          <strong
+            >   - Fix for SQL role members job when multiple role members have the same well known
+            SID</strong
+          >
+        </p>
+        <p><strong>SA_9.0_032</strong></p>
+        <p>
+          <strong
+            >  - Fix to Custom Queries to allow them to be validated when the query returns no
+            results</strong
+          >
+        </p>
+        <p><strong>SA_9.0_031</strong></p>
+        <p>
+          <strong
+            >   - Fix to properly use the setting in the SDD job XML.  Includes fix for timeouts
+            when scanning large rows in views.</strong
+          >
+        </p>
+        <p><strong> SA_9.0_019</strong></p>
+        <p>
+          <strong>   - Added a database column to the DatabasePrincipals_Details report</strong>
+        </p>
+        <p><strong> SA_9.0_015</strong></p>
+        <p>
+          <strong
+            >   - Additional fixes for Control Share permissions report where some database CONTROL
+            permissions were being reported as CONTROL SERVER permissions</strong
+          >
+        </p>
+        <p>
+          <strong
+            >   - SQL Role Membership report now expands AD group membership to be more
+            complete</strong
+          >
+        </p>
+        <p><strong>   - Instance discovery now collects dynamic port assignments</strong></p>
+        <p><strong> SA_9.0_010</strong></p>
+        <p>
+          <strong
+            >  - Fix for invalid column name error when scanning SQL 2008 with permission
+            scans</strong
+          >
+        </p>
+        <p><strong> SA_9.0_004</strong></p>
+        <p>
+          <strong>  - Fix for a bad join causing duplicates in effective access computation</strong>
+        </p>
+        <p><strong>  - Performance enhancements for the domain user enhancement job</strong></p>
+        <p><strong>  - Fix for grant with grant option permissions collection</strong></p>
+        <p><strong>  - Fix for server role membership effective access calculations</strong></p>
+        <p><strong>  - Fix for grantee type being inaccurate on some reports</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <ul>
+          <li><strong>SMPDB-613/51260</strong></li>
+        </ul>
+        <p><strong> </strong></p>
+        <p><strong>Customers</strong></p>
+        <p><strong>               </strong></p>
+        <ul>
+          <li><strong>Fay Servicing</strong></li>
+        </ul>
+        <p><strong> </strong></p>
+        <p><strong>Instructions:</strong></p>
+        <p>**This hotfix has a prerequisite of SA_9.0_018**</p>
+        <p>
+          **This hotfix uses the Solution Set numbering from SMP build 9.0.0.94 and newer.  If using
+          an older version of the solution set, you will have to copy the solution set files to the
+          renumbered folder manually**
+        </p>
+        <p>
+          **Please review the changes you have made to the SQL_DirectPermissions and
+          SQL_DomainUserPermissions jobs.  The Job.change file in the job folder may prevent the
+          reports from running correctly after the analysis is changed.  Removing the Job.change
+          file should correct any invalid column errors if observed, but will remove prior
+          customization of the job.**
+        </p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog if an unblock button exists
+            there.
+          </li>
+          <li>
+            Check the customer's licensed features (help --&gt; about) and determine if the customer
+            is licensed for SQL or Oracle and SQL.
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>
+            Copy and replace files from correct folder, depending on the licensing, to the
+            corresponding folders in SA Install dir.
+          </li>
+        </ol>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/9.0/SA_9.0_082.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/9.0/SA_9.0_082.zip</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

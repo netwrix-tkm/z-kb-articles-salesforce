@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SA Survey Implementation</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HwkCAE" />
+    <meta name="Id" content="ka04u000000HcbyAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:20:08.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:59:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6540" />
+    <meta name="ArticleNumber" content="000006540" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong>
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> The most common issue
+          in Survey implementation is configuration for the Web interface to locate the SA Database.
+        </p>
+        <p>
+          If the database is on a different machine than the Tomcat Server (SA Console) the Apache
+          Service must have sufficient credentials to access the SQL Server. <br /><br />The Service
+          will use the default Storage Profile to obtain credentials. It locates the SPProfiles by
+          looking up the SA InstallDir in the registry. If Windows credentials are specified in the
+          profile and Apache is running under a local system account it will fail to connect. Either
+          change the Service to run under Domain credentials or use SQL credentials in the default
+          Storage Profile. <br /><br /><strong
+            ><span class="wysiwyg-font-size-large">Instructions:</span></strong
+          >
+        </p>
+        <p>
+          These are the Survey test steps performed during the action configuration and what to look
+          for when they fail:
+        </p>
+        <p><strong>Create DB Tables</strong> </p>
+        <p>This failure is most often due to the SA Install path registry entry being invalid.  </p>
+        <p><strong>Deploy to Web Server</strong></p>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1">
+          The path to the SA Reporting Service is incorrect or files have been marked as "read only"
+          in the SA Dashboard folder structure. When a survey is created all of the Web parts are
+          moved to this location by the Wizard. This error usually requires a stop of Apache to fix
+          and then restart.
+        </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1"> </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1"><strong>SMTP connection</strong></div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1">
+          The SA Notification settings are in error. The "send from" address must be in the local
+          domain or the test will fail (although Execute will actually run). Another possibility is
+          that the email targeting property selected in the Wizard is invalid.
+        </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1"> </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1">
+          <strong>DB Connectivity on Web </strong>
+        </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1">
+          This occurs when the DB is on a separate machine and SA is configured to use Windows
+          authentication. To fix either change to SQL authentication or change the Apache service to
+          run under a Domain Admin account. Then delete the survey in error and re-create it. This
+          may also be caused by Tomcat Service being down.
+        </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1">
+          <div>
+            If you are running VMWare Server in your console, you need to stop the 'VMware Server
+            Web Access' service to be able to start Apache TomCat.
+          </div>
+        </div>
+        <div class="ms-rteThemeFontFace-1 ms-rteFontSize-1"> </div>
+        <p class="ms-rteThemeFontFace-1 ms-rteFontSize-1"><strong>Other:</strong></p>
+        <p class="ms-rteThemeFontFace-1 ms-rteFontSize-1">
+          The java path has to be added to the 'Path' Environment Variable. Example: in a 64 bits
+          machine the path is usually:
+        </p>
+        <p>C:\Program Files (x86)\Java\jre6\bin</p>
+        <div>
+          Add the path at the beginning of the string and separate from the rest with a ;.<br /><br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SA - Action Module - Survey;SA - Core<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000001093
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

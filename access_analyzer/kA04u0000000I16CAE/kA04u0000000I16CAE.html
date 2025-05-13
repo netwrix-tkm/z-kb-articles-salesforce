@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Enable Registry Auditing in Windows</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I16CAE" />
+    <meta name="Id" content="ka0Qk0000004IMXIA2" />
+    <meta name="LastPublishedDate" content="2024-07-18T19:34:36.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-18T19:34:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:22:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6583" />
+    <meta name="ArticleNumber" content="000006583" />
+    <meta name="description" content="How to Enable Registry Auditing in Windows" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          Netwrix Enterprise Auditor cannot snapshot and track changes to the Windows registry with
+          its native collectors. However, by enabling auditing on the Windows registry, Enterprise
+          Auditor can collect the events in the Windows security event logs.
+        </p>
+
+        <h2 id="instructions">Instructions</h2>
+        <p>
+          Windows Registry audit permissions must be configured on each Windows server you want to
+          audit so that the "Who" and "When" values are reported correctly for each change.
+        </p>
+
+        <h3 id="step_1_enable_the_audit_policy">Step 1: Enable the audit policy</h3>
+        <p>Run the following in the command prompt as an admin:</p>
+        <pre>auditpol /set /subcategory:"Registry" /success:enable</pre>
+
+        <h3 id="step_2_configure_windows_registry_audit_settings">
+          Step 2: Configure Windows registry audit settings
+        </h3>
+        <h4 id="for_pre-windows_server_2012_versions">For pre-Windows Server 2012 versions</h4>
+        <ol>
+          <li>
+            On your target server, open Registry Editor: navigate to <strong>Start</strong> &gt;
+            <strong>Run</strong> and type "regedit".
+          </li>
+          <li>
+            In the registry tree, expand the <strong>HKEY_LOCAL_MACHINE</strong> key, right-click
+            the Registry Hive you want to monitor (e.g., SOFTWARE) and select
+            <strong>Permissions</strong> from the pop-up menu.
+          </li>
+          <li>In the Permissions for SOFTWARE dialog, click <strong>Advanced</strong>.</li>
+          <li>
+            In the Advanced Security Settings for SOFTWARE dialog, select the
+            <strong>Auditing</strong> tab and click <strong>Add</strong>.
+          </li>
+          <li>Select the <strong>Everyone</strong> group.</li>
+          <li>
+            In the Auditing Entry for SOFTWARE dialog, select "Successful" for the following access
+            types:
+          </li>
+          <ul>
+            <li>Set Value</li>
+            <li>Create Subkey</li>
+            <li>Delete</li>
+            <li>Write DAC</li>
+            <li>Write Owner</li>
+          </ul>
+        </ol>
+
+        <h4 id="for_windows_server_2012_and_above">For Windows Server 2012 and above</h4>
+        <ol>
+          <li>
+            On your target server, open Registry Editor: navigate to <strong>Start</strong> &gt;
+            <strong>Run</strong> and type "regedit".
+          </li>
+          <li>
+            In the registry tree, expand the <strong>HKEY_LOCAL_MACHINE</strong> key, right-click
+            the Registry Hive you want to monitor (e.g., SOFTWARE) and select
+            <strong>Permissions</strong> from the pop-up menu.
+          </li>
+          <li>In the Permissions for SOFTWARE dialog, click <strong>Advanced</strong>.</li>
+          <li>
+            In the Advanced Security Settings for SOFTWARE dialog, select the
+            <strong>Auditing</strong> tab and click <strong>Add</strong>.
+          </li>
+          <li>
+            Click <strong>Select a principal</strong> link and specify the
+            <strong>Everyone</strong> group in the Enter the object name to select field.
+          </li>
+          <li>Set Type to "Success" and Applies to "This key and subkeys".</li>
+          <li>
+            Click <strong>Show advanced permissions</strong> and select the following access types:
+          </li>
+          <ul>
+            <li>Set Value</li>
+            <li>Create Subkey</li>
+            <li>Delete</li>
+            <li>Write DAC</li>
+            <li>Write Owner</li>
+          </ul>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

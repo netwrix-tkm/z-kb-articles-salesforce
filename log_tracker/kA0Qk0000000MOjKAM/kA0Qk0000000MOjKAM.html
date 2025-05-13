@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Move Log Tracker Catalogs to Another Drive?</title>
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000MOjKAM" />
+    <meta name="Id" content="ka0Qk0000001GAnIAM" />
+    <meta name="LastPublishedDate" content="2024-01-08T15:50:12.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-08T15:50:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-04T15:33:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8991" />
+    <meta name="ArticleNumber" content="000008991" />
+    <meta name="description" content="How to Move Log Tracker Catalogs to Another Drive?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            The <b>Catalogs</b> folder increasing in size and consumes disk space. How to move this
+            folder to another disk?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Follow the procedure below to move the <b>Catalogs</b> folder to another disk. The
+            procedure below assumes that the
+            <em>C:\Program Files (x86)\NNT Log Tracker Suite\catalogs</em> folder (the default
+            location for catalog files) is to be moved to the
+            <em>E:\NNT Log Tracker Suite\catalogs</em> folder to free up disk space on the
+            <em>"C:"</em> drive of the system.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> Before proceeding with the steps below,
+              please ensure that you take a backup/snapshot of the server hosting Log Tracker.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                Copy the <em>C:\Program Files (x86)\NNT Log Tracker Suite\catalogs</em> folder to
+                the <em>E:\NNT Log Tracker Suite\catalogs</em> folder in its entirety. Note that
+                this operation can take an hour or more to accomplish, depending on the number of
+                indexes on the system.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the copy operation is finished, stop the <b>CorreLog Framework</b> service with
+                the Windows Service Manager (or via the <code>net stop correlog</code> command at a
+                command prompt.)
+              </p>
+            </li>
+            <li>
+              <p>
+                Rename the <em>C:\Program Files (x86)\NNT Log Tracker Suite\catalogs</em> folder to
+                some other name, such as
+                <em>C:\Program Files (x86)\NNT Log Tracker Suite\catalogs.delete</em>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE:</strong></span> if this operation fails, you have the
+                  <b>catalogs</b> folder locked. Make sure you close all windows and command prompts
+                  and verify all <b>CO-</b> processes have been stopped.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Create a hard link in the
+                <em>C:\Program Files (x86)\NNT Log Tracker Suite</em> folder to point to the
+                <em>E:\NNT Log Tracker Suite\catalogs</em> folder, using the Windows
+                <code>mklink</code> command.
+              </p>
+
+              <p>
+                At an administrative command prompt, change working directory to
+                <em>C:\Program Files (x86)\NNT Log Tracker Suite</em> and issue the following
+                command:
+              </p>
+              <code>mklink /D catalogs E:\NNT Log Tracker Suite\catalogs</code>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE:</strong></span> The above command creates a hard link to the
+                  directory. After creating the above link, you can easily verify that the link was
+                  made correctly by changing working directories (via the
+                  <code>cd catalogs</code> command) or by using File Explorer to access the catalogs
+                  folder.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Restart the <b>CorreLog Framework</b> service with the Windows Service Manager (or
+                via the <code>net start correlog</code> command at a command prompt.) Verify that
+                the system starts correctly, and all indexed data has been retained. You can check
+                the various index via the <b>Messages &gt; Catalogs</b> and
+                <b>Correlation &gt; Threads</b> screens of the system. Verify that multiple days
+                worth of data exist for the various catalogs on the system.
+              </p>
+            </li>
+            <li>
+              <p>
+                After verifying the success of the operation in steps 4 and 5 above, delete the
+                <em>C:\Program Files (x86)\NNT Log Tracker Suite\catalogs.delete</em> folder renamed
+                on step 3 above.
+              </p>
+            </li>
+          </ol>
+
+          <p>No other steps are necessary.</p>
+
+          <p>
+            Please note that the above procedure assumes that the <em>E:\</em> drive has sufficient
+            space to contain the catalogs and that the <em>E:\</em> drive is present on the system,
+            please select the correct drive letter.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

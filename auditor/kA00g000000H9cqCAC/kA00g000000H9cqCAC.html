@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1274 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cqCAC" />
+    <meta name="Id" content="ka0Qk0000001AgTIAU" />
+    <meta name="LastPublishedDate" content="2023-12-28T10:36:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T10:36:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2390" />
+    <meta name="ArticleNumber" content="000003610" />
+    <meta name="description" content="Troubleshooting SharePoint Audit connectivity issues." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1274 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+The following error occurred when trying to launch the component responsible for collecting AD group membership,
+because the product is unable to detect the forest where the audited SharePoint farm is located.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Cause #1 − Netwrix Auditor was unable to detect the forest where your SharePoint
+                farm is hosted. There is no network connection to your SharePoint farm.
+              </p>
+            </li>
+            <li>
+              <p>Cause #2 − Event ID 1274 could be prompted along with other errors:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    EventID 1204 −
+                    <code>Unable to establish connection to the remote WebService</code>
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    EventID 1205 − <code>The following unexpected error has occurred: %error%</code>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Cause #3 − The global catalog domain controller of the SharePoint farm domain was
+                unreachable during the scheduled data collection process.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Cause #1 − Verify the SharePoint Central Administration site is reachable by opening
+                the URL in a browser.
+              </p>
+            </li>
+            <li>
+              <p>Cause #2 − Refer to the following articles for additional information:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9dKCAS.html"
+                      target="_self"
+                      >Event ID 1204 in Health Log</a
+                    >
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9dGCAS.html"
+                      target="_self"
+                      >Event ID 1205 in Health Log</a
+                    >
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Cause #3 − Verify the global catalog domain controller is reachable.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9dKCAS.html"
+                  target="_self"
+                  >Event ID 1204 in Health Log</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9dGCAS.html"
+                  target="_self"
+                  >Event ID 1205 in Health Log</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

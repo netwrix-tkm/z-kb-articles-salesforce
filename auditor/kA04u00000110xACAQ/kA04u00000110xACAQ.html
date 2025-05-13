@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could Not Locate End of Event Log Error</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="File_Server" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110xACAQ" />
+    <meta name="Id" content="ka0Qk0000001KBBIA2" />
+    <meta name="LastPublishedDate" content="2024-01-09T11:05:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-12T10:56:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-27T12:20:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8694" />
+    <meta name="ArticleNumber" content="000008694" />
+    <meta
+      name="description"
+      content="Could not locate the end of the event log for . The event log might have been overwritten."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is indicated in your Health Log for a File Servers monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID: 6141 
+Description: Monitoring plan: %monitoring_plan_name%.
+Item: %item_name%. 
+
+Could not locate the end of the event log for '%item_name%'. The event log might have been overwritten. 
+</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>The maximum log size of the target event log is configured incorrectly.</p>
+            </li>
+            <li>
+              <p>
+                Insufficient hardware resources of your Netwrix Auditor server affect the data
+                collection process.
+              </p>
+            </li>
+            <li>
+              <p>Network traffic compression option is disabled.</p>
+            </li>
+            <li>
+              <p>
+                Event log settings are not propagated in the corresponding registry key − the
+                settings are reverted after each edit.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <h4 id="cause_1_−_incorrectly_configured_maximum_log_size">
+          Cause #1 − Incorrectly configured maximum log size
+        </h4>
+
+        <div>
+          <p>
+            Review retention settings for the target logs − refer to the following article for
+            additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+              target="_blank"
+              >Windows Server − Adjusting Event Log Size and Retention Settings · v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="cause_2_−insufficient_hardware_resources">
+          Cause #2 −Insufficient hardware resources
+        </h4>
+
+        <div>
+          <p>
+            Review the hardware resources of your Netwrix Auditor server − refer to the following
+            article for for additional information on sample deployment scenarios depending on the
+            enivornment size:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/DeploymentScenarios.htm"
+              target="_blank"
+              >Requirements − Sample Deployment Scenarios · v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="cause_3_−_network_traffic_compression_option_is_disabled">
+          Cause #3 − Network traffic compression option is disabled
+        </h4>
+
+        <div>
+          <p>
+            Enable the network traffic compression option − refer to the following article for
+            additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/NetworkTrafficCompression.htm"
+              target="_blank"
+              >Netwrix Auditor Operations and Health − Network Traffic Compression · v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="cause_4_−_settings_are_reverted">Cause #4 − Settings are reverted</h4>
+
+        <div>
+          <p>Specify the maximum log size and action settings for the affected event log:</p>
+
+          <ol>
+            <li>
+              <p>
+                In the target server, open Registry Editor and navigate to
+                <code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EventLog\</code>.
+              </p>
+            </li>
+            <li>
+              <p>Select the subkey for the affected event log.</p>
+            </li>
+            <li>
+              <p>
+                Review the <strong>AutoBackupLogFiles</strong> and <strong>Retention</strong> values
+                of the subkey − modify both values to state <code>0</code>. Right-click a value,
+                select <strong>Modify</strong>, edit the <strong>Value data</strong> field to state
+                <code>0</code>, and click <strong>OK</strong> to save changes. Repeat these actions
+                for the second value.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+                  target="_blank"
+                  >Windows Server − Adjusting Event Log Size and Retention Settings · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/DeploymentScenarios.htm"
+                  target="_blank"
+                  >Requirements − Sample Deployment Scenarios · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/NetworkTrafficCompression.htm"
+                  target="_blank"
+                  >Netwrix Auditor Operations and Health − Network Traffic Compression · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

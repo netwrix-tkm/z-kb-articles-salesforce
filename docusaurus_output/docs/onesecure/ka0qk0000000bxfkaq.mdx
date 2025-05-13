@@ -1,0 +1,72 @@
+---
+id: "ka0qk0000000bxfkaq"
+title: "1Secure Troubleshooting Workflow"
+description: "1Secure Troubleshooting Workflow"
+sidebar_position: 1
+last_update: "2025-05-13"
+---
+
+## Overview
+
+This article outlines the general troubleshooting workflow for Netwrix 1Secure. The article is split into six sections: 
+
+  1. [Analyze AgentCore node](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000byrKAA.html)
+
+  2. [Analyze ManagedObjects node](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c0TKAQ.html)
+
+  3. [Analyze Status.xml](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html)
+
+  4. [Successful data collection − Analyze the Cache folder](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c5JKAQ.html)
+
+  5. [Unsuccessful data collection − Analyze data collection](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html)
+
+  6. [Escalation to R&D team](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c8XKAQ.html)
+
+See Figure 1 for a reference.
+
+![Figure 1: General troubleshooting workflow for 1Secure](/img/ka0qk0000000bxfkaq/kA0Qk0000000bxFKAQ_d32b17c9-9fbd-4dcf-9845-524a411cb0d6.png)
+
+## Important locations
+
+Refer to the important locations of various 1Secure files:
+
+  * `Configuration.xml` file:
+    
+        C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer
+
+  * `Status.xml` file:
+    
+        C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer
+
+  * `Cache` folder:
+    
+        C:\ProgramData\Netwrix Cloud Agent\NAProcessor\Cache
+
+> **NOTE:** For information on the escalation procedure and relevant files, refer to the following article: [1Secure − Escalation to R&D](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c8XKAQ.html). 
+
+## Locations of service-specific logs
+
+Refer to the locations of data collection logs for specific services:
+
+  * Active Directory Activity logs:
+    
+        C:\ProgramData\Netwrix Cloud Agent\Logs\ActiveDirectory\ — ADA logs
+    C:\ProgramData\Netwrix Cloud Agent\Logs\DataCollectionCore\AgentDataCollectionCoreSvc\ — 1Secure task manager logs
+    C:\ProgramData\Netwrix Cloud Agent\ShortTerm\AD Changes\STA\ — short-term storage
+
+  * Active Directory Logons logs:
+    
+        C:\ProgramData\Netwrix Cloud Agent\Logs\DataCollectionCore\NetwrixCloudNLASvc\ — NLA logs
+    C:\ProgramData\Netwrix Cloud Agent\NLA\Data\ — short-term storage
+
+  * File Server Activity logs:
+    
+        C:\ProgramData\Netwrix Cloud Agent\Logs\DataCollectionCore\NetwrixCloudFSASvc\ — FSA logs
+    C:\ProgramData\Netwrix Cloud Agent\FileStorageAuditor\Data\ — short-term storage
+
+  * Common infrastructure
+    
+        C:\ProgramData\Netwrix Cloud Agent\Logs\CloudAgentCoreSvc\ — logs
+    C:\ProgramData\Netwrix Cloud Agent\Logs\Archive\ — all archive logs
+    C:\ProgramData\Netwrix Cloud Agent\AgentCore\MetricsStorage\ — internal risk counters database 
+

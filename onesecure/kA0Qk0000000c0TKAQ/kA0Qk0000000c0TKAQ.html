@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>1Secure − Analyze ManagedObjects Node</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000c0TKAQ" />
+    <meta name="Id" content="ka0Qk0000004ZgjIAE" />
+    <meta name="LastPublishedDate" content="2024-04-17T14:14:49.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:10:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-17T14:14:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9141" />
+    <meta name="ArticleNumber" content="000009141" />
+    <meta name="description" content="1Secure − Analyze ManagedObjects node" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> Return to the main workflow page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+              target="_self"
+              >1Secure Troubleshooting Workflow</a
+            >.
+          </p>
+
+          <p>
+            Return to the previous page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000byrKAA.html"
+              target="_self"
+              >1Secure − Analyze AgentCore Node</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html"
+              target="_self"
+              >1Secure − Analyze Status.xml</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          This article covers the <code>ManagedObjects</code> node legend in the 1Secure
+          <code>Configuration.xml</code> file. This article also includes an example of the
+          <code>ManagedObjects</code> node. Refer to the following
+          <code>Configuration.xml</code> location:
+        </p>
+
+        <pre
+          class="has-inner-focus"
+        >    <code class="lang-Registry">C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</code></pre>
+
+        <h2 id="1_managedobjects_legend">1. ManagedObjects legend</h2>
+
+        <div>
+          <p>
+            The <code>ManagedObjects</code> node allows you to determine the source configuration
+            applied. Refer to the following subnodes:
+          </p>
+
+          <ul>
+            <li>
+              <p><code>ManagedObject</code>. A connector configuration.</p>
+            </li>
+            <li>
+              <p>
+                <code>AuditedSystems</code>. A connector-specific value, refer to the possible
+                GUIDs:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <code>da7c0b3d-63ad-ff26-fe75-ac0712a1835d</code>. Active Directory connector.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>7e498d0b-3592-4d0e-9629-c16be845f4e0</code>. Logon Activity connector.
+                  </p>
+                </li>
+                <li>
+                  <p><code>850fe1da-0ea6-c1a8-9810-0c1cece30698</code>. File Server connector.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                <code>AutoAudit</code>. The
+                <strong>Adjust audit settings automaticaly</strong> option. Available in the 1Secure
+                UI.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>DataCollectionPeriodInSeconds</code>. The amount of time between data
+                collections. It is set to 10 minutes by default. Unavailable in the 1Secure UI.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>Agents</code>. The <strong>Network compression</strong> option. Available in
+                the 1Secure UI.
+              </p>
+            </li>
+            <li>
+              <p><code>ScopeItems</code>. The source configuration.</p>
+            </li>
+            <li>
+              <p>
+                <code>Reference</code>. An internal unique identifier for the source
+                configuration—used to identify the source in 1Secure.
+              </p>
+            </li>
+            <li>
+              <p><code>MonitorHiddenShare</code>. Option to audit hidden shares.</p>
+            </li>
+            <li>
+              <p><code>audit_item_value</code>. The monitored source.</p>
+            </li>
+            <li>
+              <p><code>AccountInfo</code>. Credentials for the crawling account.</p>
+            </li>
+            <li>
+              <p><code>CollectedActions</code>. Actions collected in the file server.</p>
+            </li>
+            <li>
+              <p>
+                <code>OmitObject</code>. Options to filter activities. These depend on the 1Secure
+                configuration.
+              </p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Some subnodes are missing from the legend—they do
+              not play a major part in the troubleshooting process. They are inherited from Netwrix
+              Auditor.
+            </p>
+          </blockquote>
+
+          <h2 id="11_outdated_attributes">1.1 Outdated attributes</h2>
+
+          <p>
+            In case <code>ManagedObjects</code> attributes are outdated or inconsistent, refer to
+            the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>Stop the main agent service—<code>CloudAgentCoreSvc</code>.</p>
+            </li>
+            <li>
+              <p>
+                Delete the <code>Status.xml</code> file. It is located in
+                <code>C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</code>.
+              </p>
+            </li>
+            <li>
+              <p>Start the main agent service—<code>CloudAgentCoreSvc</code>.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="12_analyze_managedobjects_node">1.2 Analyze ManagedObjects node</h2>
+
+        <div>
+          <p>
+            The source is configured for crawling after the successful agent authorization. You can
+            verify whether the source is configured by looking through the
+            <code>NetwrixAuditor\ManagedObjects</code> node. Refer to the following code block for a
+            structure reference:
+          </p>
+
+          <pre class="has-inner-focus">
+    &lt;n n="ManagedObjects"&gt;
+        &lt;n n="f72cb7b7-98b8-4610-b761-aaf93096566e" t="ManagedObject"&gt;
+            …
+            &lt;n n="AuditedSystems"&gt;
+                &lt;n n="da7c0b3d-63ad-ff26-fe75-ac0712a1835d" t="AuditedSystemNodeType"&gt;
+                    &lt;a n="AutoAudit" t="7" v="True"/&gt;
+    …
+                    &lt;n n="Agents" t="Agents"&gt;
+                        &lt;a n="Enabled" t="7" v="False"/&gt;
+                    &lt;/n&gt;
+    …
+                    &lt;n n="ScopeItems" t="ScopeItems"&gt;
+                        &lt;n n="e51b7528-ab32-4b88-863d-95480782e9b9" t="domain"&gt;
+                            &lt;a n="Reference" t="2" v="80c5cc57-…"/&gt;
+                            &lt;a n="audit_item_value" t="2" v="AIS.test"/&gt;
+                            &lt;n n="AccountInfo" t="AccountInfo"&gt;
+                                &lt;a n="DefaultAccount" t="7" v="False"/&gt;
+                                &lt;a n="Password" t="12" v="HEX:cd…"/&gt;
+                                &lt;a n="UserName" t="2" v="AIS\admin"/&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                    …
+                &lt;/n&gt;
+            &lt;/n&gt;
+        &lt;/n&gt;
+        &lt;n n="04f062ba-5ab4-446d-8eb9-0e7e0ccbf521" t="ManagedObject"&gt;
+            …
+            &lt;n n="AuditedSystems"&gt;
+                &lt;n n="7e498d0b-3592-4d0e-9629-c16be845f4e0" t="AuditedSystemNodeType"&gt;
+                    &lt;a n="AutoAudit" t="7" v="True"/&gt;
+    …
+                    &lt;a n="DataCollectionPeriodInSeconds" t="3" v="600"/&gt;
+                    &lt;n n="Agents" t="Agents"&gt;
+                        &lt;a n="Enabled" t="7" v="False"/&gt;
+                    &lt;/n&gt;
+                    &lt;n n="ScopeItems" t="ScopeItems"&gt;
+                        &lt;n n="fc92c61e-402e-414c-8867-643e8e470436" t="domain"&gt;
+                            &lt;a n="Reference" t="2" v="80c5cc57-…"/&gt;
+                            &lt;a n="audit_item_value" t="2" v="AIS.test"/&gt;
+                            &lt;n n="AccountInfo" t="AccountInfo"&gt;
+                                &lt;a n="DefaultAccount" t="7" v="False"/&gt;
+                                &lt;a n="Password" t="12" v="HEX:cd…"/&gt;
+                                &lt;a n="UserName" t="2" v="AIS\admin"/&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                    …
+                &lt;/n&gt;
+            &lt;/n&gt;
+        &lt;/n&gt;
+        &lt;n n="85844122-5a19-4bc8-beb1-6922d4209b82" t="ManagedObject"&gt;
+            …
+            &lt;n n="AuditedSystems"&gt;
+    &lt;n n="850fe1da-0ea6-c1a8-9810-0c1cece30698" t="…"&gt;
+                &lt;a n="AutoAudit" t="7" v="True"/&gt;
+                &lt;a n="DataCollectionPeriodInSeconds" t="3" v="600"/&gt;
+                …
+                &lt;n n="Agents" t="Agents"&gt;
+                    &lt;a n="Enabled" t="7" v="False"/&gt;
+                &lt;/n&gt;
+                &lt;n n="CollectedActions"&gt;
+                    &lt;a n="FailedModificationsEnabled" t="7" v="False"/&gt;
+                    &lt;a n="FailedReadsEnabled" t="7" v="False"/&gt;
+                    &lt;a n="SuccessfulModificationsEnabled" t="7" v="True"/&gt;
+                    &lt;a n="SuccessfulReadsEnabled" t="7" v="False"/&gt;
+                &lt;/n&gt;
+                &lt;n n="ScopeItems" t="ScopeItems"&gt;
+                    &lt;n n="328bfbc6-…" t="computer"&gt;
+                        &lt;a n="MonitorHiddenShare" t="7" v="False"/&gt;
+                        &lt;a n="Reference" t="2" v="…"/&gt;
+                        &lt;a n="audit_item_value" t="2" v="ais-dc-win…"/&gt;
+                        &lt;n n="AccountInfo" t="AccountInfo"&gt;
+                            &lt;a n="DefaultAccount" t="7" v="False"/&gt;
+                            &lt;a n="Password" t="12" v="HEX:cd…"/&gt;
+                            &lt;a n="UserName" t="2" v="AIS\admin"/&gt;
+                        &lt;/n&gt;
+                        &lt;n n="OmitObject"&gt;
+                            &lt;a n="UseExclude" t="7" v="True"/&gt;
+                            &lt;n n="ExcludeList"&gt;
+                                &lt;n n="7b94ee9d-…"&gt;
+                                    &lt;a n="Actions" t="258"&gt;
+                                        &lt;v v="Read"/&gt;
+                                        &lt;v v="Copy"/&gt;
+                                        &lt;v v="Added (F…)"/&gt;
+                                        &lt;v v="Removed (F…)"/&gt;
+                                        &lt;v v="Modified (F…)"/&gt;
+                                        &lt;v v="Read (F…)"/&gt;
+                                        &lt;v v="Renamed (F…)"/&gt;
+                                        &lt;v v="Moved (F…)"/&gt;
+                                    &lt;/a&gt;
+                                    &lt;a n="Path" t="2" v="\*"/&gt;
+                                    &lt;a n="Type" t="2" v="us…"/&gt;
+                                    &lt;a n="Users" t="258"&gt;
+                                        &lt;v v="(All users)"/&gt;
+                                    &lt;/a&gt;
+                                &lt;/n&gt;
+                            &lt;/n&gt;
+                        &lt;/n&gt;
+                    &lt;/n&gt;
+                &lt;/n&gt;
+                &lt;n n="OmitUsers"&gt;
+                    &lt;a n="UseExclude" t="7" v="False"/&gt;
+                    &lt;a n="UseInclude" t="7" v="False"/&gt;
+                    &lt;n n="IncludeList"/&gt;
+                    &lt;n n="ExcludeList"/&gt;
+                &lt;/n&gt;
+            &lt;/n&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+    &lt;/n&gt;</pre
+          >
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+                  target="_self"
+                  >1Secure Troubleshooting Workflow</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000byrKAA.html"
+                  target="_self"
+                  >1Secure − Analyze AgentCore Node</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html"
+                  target="_self"
+                  >1Secure − Analyze Status.xml</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

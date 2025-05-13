@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Errors: "Database '...' cannot be opened because it is offline", "Database '...' is already
+      open and can only have one user at a time".
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dQCAS" />
+    <meta name="Id" content="ka04u000000HcWBAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2754" />
+    <meta name="ArticleNumber" content="000003646" />
+    <meta
+      name="description"
+      content="Troubleshooting issues with Netwrix Auditor failing to access databases in offline/single-user state."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You get the following error(s) in summary emails and in the Netwrix Auditor System Health
+        log:
+
+        <em>"Database 'DatabaseName' cannot be opened because it is offline"</em>
+
+        or
+
+        <em>"Database 'DatabaseName' is already open and can only have one user at a time".</em>
+
+          If you want to stop receiving such errors, you need to exclude the offline / single-user
+        access database(s) from monitoring. Please add them to omitstorelist.txt in
+        <i>%Netwrix Auditor install folder%SQL Server Auditing</i> (by default, C:Program Files
+        (x86)Netwrix AuditorSQL Server Auditing) using the following syntax:
+
+        <strong>ServerInstanceName:DatabasesDatabaseName</strong>
+
+        For example: SQLSRVSQLEXPRESS:Databases mpdb IMPORTANT! Please note, that if you bring the
+        database back online / change its access mode to multi-user later, it will stay excluded
+        from monitoring until you comment out or remove the corresponding line from
+        omitstorelist.txt.
+      </div>
+    </article>
+  </body>
+</html>

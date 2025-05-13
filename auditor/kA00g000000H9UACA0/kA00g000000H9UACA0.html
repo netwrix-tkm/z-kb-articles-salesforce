@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>What load does SQL audit generate for a SQL server?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9UACA0" />
+    <meta name="Id" content="ka04u000000HcNvAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="653" />
+    <meta name="ArticleNumber" content="000003082" />
+    <meta name="description" content="Impact on your SQL Server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        What load does SQL audit generate for audited SQL servers?
+        <hr />
+        The most noticeable impact on your SQL servers would be during the initial data collection.
+        Netwrix Auditor runs several SQL scripts to build and store a ‘baseline’ of data against
+        which it will compare future collections. However, even this initial collection will result
+        in very little performance impact unless you are already running your servers at capacity.
+        During subsequent data collections the impact will be even lower.<br />With daily
+        collections running at 03.00 AM by default and SIT collections running at 4:00 AM, there may
+        be a conflict with maintenance tasks running at the same time. If you are planning to run
+        heavy maintenance jobs on your SQL servers during off-hours, please consider doing that
+        before 03:00 AM.
+      </div>
+    </article>
+  </body>
+</html>

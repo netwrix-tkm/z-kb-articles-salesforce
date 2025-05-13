@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>1Secure Troubleshooting Workflow</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000bxFKAQ" />
+    <meta name="Id" content="ka0Qk0000004ZdVIAU" />
+    <meta name="LastPublishedDate" content="2024-04-17T15:05:02.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:09:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-17T15:05:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9139" />
+    <meta name="ArticleNumber" content="000009139" />
+    <meta name="description" content="1Secure Troubleshooting Workflow" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article outlines the general troubleshooting workflow for Netwrix 1Secure. The
+            article is split into six sections:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000byrKAA.html"
+                  target="_self"
+                  >Analyze AgentCore node</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c0TKAQ.html"
+                  target="_self"
+                  >Analyze ManagedObjects node</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html"
+                  target="_self"
+                  >Analyze Status.xml</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c5JKAQ.html"
+                  target="_self"
+                  >Successful data collection − Analyze the Cache folder</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html"
+                  target="_self"
+                  >Unsuccessful data collection − Analyze data collection</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c8XKAQ.html"
+                  target="_self"
+                  >Escalation to R&amp;D team</a
+                >
+              </p>
+            </li>
+          </ol>
+
+          <p>See Figure 1 for a reference.</p>
+
+          <div>
+            <img
+              alt="Figure 1: General troubleshooting workflow for 1Secure"
+              height="412"
+              src="kA0Qk0000000bxFKAQ_d32b17c9-9fbd-4dcf-9845-524a411cb0d6.png"
+              width="742"
+            />
+          </div>
+        </div>
+
+        <h2 id="important_locations">Important locations</h2>
+
+        <div>
+          <p>Refer to the important locations of various 1Secure files:</p>
+
+          <ul>
+            <li>
+              <p><code>Configuration.xml</code> file:</p>
+
+              <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</pre
+              >
+            </li>
+            <li>
+              <p><code>Status.xml</code> file:</p>
+
+              <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</pre
+              >
+            </li>
+            <li>
+              <p><code>Cache</code> folder:</p>
+
+              <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\NAProcessor\Cache</pre
+              >
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>For information on the escalation procedure and
+              relevant files, refer to the following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c8XKAQ.html"
+                target="_blank"
+                >1Secure − Escalation to R&amp;D</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="locations_of_service-specific_logs">Locations of service-specific logs</h2>
+
+        <p>Refer to the locations of data collection logs for specific services:</p>
+
+        <ul>
+          <li>
+            <p>Active Directory Activity logs:</p>
+
+            <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\Logs\ActiveDirectory\ — ADA logs
+C:\ProgramData\Netwrix Cloud Agent\Logs\DataCollectionCore\AgentDataCollectionCoreSvc\ — 1Secure task manager logs
+C:\ProgramData\Netwrix Cloud Agent\ShortTerm\AD Changes\STA\ — short-term storage</pre
+            >
+          </li>
+          <li>
+            <p>Active Directory Logons logs:</p>
+
+            <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\Logs\DataCollectionCore\NetwrixCloudNLASvc\ — NLA logs
+C:\ProgramData\Netwrix Cloud Agent\NLA\Data\ — short-term storage</pre
+            >
+          </li>
+          <li>
+            <p>File Server Activity logs:</p>
+
+            <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\Logs\DataCollectionCore\NetwrixCloudFSASvc\ — FSA logs
+C:\ProgramData\Netwrix Cloud Agent\FileStorageAuditor\Data\ — short-term storage</pre
+            >
+          </li>
+          <li>
+            <p>Common infrastructure</p>
+
+            <pre class="has-inner-focus">
+C:\ProgramData\Netwrix Cloud Agent\Logs\CloudAgentCoreSvc\ — logs
+C:\ProgramData\Netwrix Cloud Agent\Logs\Archive\ — all archive logs
+C:\ProgramData\Netwrix Cloud Agent\AgentCore\MetricsStorage\ — internal risk counters database </pre
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

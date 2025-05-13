@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Current Site Is Not a Tenant Administration Site—Internal</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="SharePoint" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000018RlKAI" />
+    <meta name="Id" content="ka0Qk00000050tpIAA" />
+    <meta name="LastPublishedDate" content="2024-08-19T11:21:29.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-19T11:22:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-30T06:43:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9188" />
+    <meta name="ArticleNumber" content="000009188" />
+    <meta
+      name="description"
+      content="Current Site Is Not a Tenant Administration Site — Internal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            A Microsoft 365-based monitoring plan in Netwrix Auditor prompts the following error in
+            the Health Log:
+          </p>
+
+          <pre class="has-inner-focus">
+Source: SharePoint Online Audit Service
+Event ID: 3229
+Description: Monitoring plan: %Monitoring_plan_name%
+Item: %item_name%
+Failed to collect state-in-time data due to the following error:
+Error get responce for GetTenant: Current site is not a tenant administration site</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Refer to the following possible causes:</p>
+
+          <ol>
+            <li>
+              <p>
+                The Microsoft 365 tenant was recently renamed. The monitoring plan is trying to
+                access the older tenant admin URL.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Microsoft 365 tenant was recently renamed. The user kept the older tenant admin
+                URL. The monitoring plan is trying to access the new tenant admin URL.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> To establish the current admin website URL, refer
+            to the <strong>All Admin Centers</strong> section in the Microsoft 365 Admin Center in
+            <a href="https://admin.microsoft.com/#/alladmincenters" target="_blank"
+              >All Admin Centers — Microsoft 365 Admin Center · Microsoft 🡥</a
+            >.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>Refer to the following steps to force the correct admin URL reading:</p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The tenant admin website URLs follow the provided
+              structure:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">https://yourdomain-admin.sharepoint.com</code></pre>
+
+            <p>
+              The <code>nwxsupport</code> admin website looks like
+              <code>https://nwxsupport-admin.sharepoint.com</code>.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                On the Auditor server, stop the
+                <code>Netwrix Auditor Configuration Server Service</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate and back up the <code>Configuration.xml</code> file—refer to the following
+                default path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%Working_Folder%\AuditCore\ConfigServer\</code></pre>
+            </li>
+            <li>
+              <p>
+                Open the original configuration file and locate the node under
+                <code
+                  >\NetwrixAuditor\ManagedObjects\{ContainerId}\AuditedSystems\8cb12207-84d0-46ef-a246-5f59fcdc390c\ScopeItems\{ItemId}</code
+                >. Add the following node to the configuration file to force read the correct URL:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="SPOConfiguration"&gt;
+    &lt;n n="StateInTimeReporting"&gt;
+        &lt;n n="ConnectionConfiguration"&gt;
+            &lt;a n="AdminUrl" t="2" v="correct_admin_url"/&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+&lt;/n&gt;</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>You can use this node in other Microsoft
+                  365-based monitoring plans. To force read the admin URL in another Microsoft
+                  365-based monitoring plan, replace the
+                  <code>8cb12207-84d0-46ef-a246-5f59fcdc390c</code> GUID with another Microsoft
+                  365-based GUID.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Start the <code>Netwrix Auditor Configuration Server Service</code>.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a href="https://admin.microsoft.com/#/alladmincenters" target="_blank"
+                  >All Admin Centers — Microsoft 365 Admin Center · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

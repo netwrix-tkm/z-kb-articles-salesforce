@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SI Admin Console will not Open After Upgrade</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IE6CAM" />
+    <meta name="Id" content="ka04u000000Hci5AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:34:15.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:34:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7209" />
+    <meta name="ArticleNumber" content="000007209" />
+    <meta name="description" content="360008304132" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI Admin console
+          won't open after an upgrade
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>  In the EM startup
+          log:  Incoming events queue wasn't created<br />In the enterprise manager log:  EM is not
+          in running state, refusing incoming events
+        </p>
+        <p>
+          <br /><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+           <br />In SQL Management Studio:<br />SELECT * FROM
+          [NVMonitorConfig].[dbo].[EventConsumer]<br />Check [config] column for reference of
+          'MySQL'<br /> <br />If this Exists Follow these steps:
+        </p>
+        <ol>
+          <li> Stop Enterprise Manager</li>
+          <li>Find [PolicyEventConsumer] value for row where 'MySQL' is referenced</li>
+          <li>
+             Delete row from [NVMonitorConfig].[dbo].[EventConsumer] where  'MySQL' is referenced
+          </li>
+        </ol>
+        <p />
+        <ol>
+          <li>
+            Start the Enterprise Manager this will create a MSSQL row in
+            [NVMonitorConfig].[dbo].[EventConsumer]
+          </li>
+          <li>Find [PolicyEventConsumer] value for MSSQL row</li>
+          <li>Stop the Enterprise Manager</li>
+          <li>
+            Replace the old [PolicyEventConsumer] in [NVMonitorConfig].[dbo].[EventConsumer] with
+            the new MSSQL value
+          </li>
+        </ol>
+        <p />
+        <ol>
+          <li> Start the Enterprise Manager</li>
+        </ol>
+        <p>
+          Note:  collections with type 11 and 9 which are not supported by StealthINTERCEPT should
+          be resolved in 5.1<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Module:</span></strong> SI - Admin
+          Console<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2032
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot logon to the system - no options on the logon screen.</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9a0CAC" />
+    <meta name="Id" content="ka04u00000116enAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T16:08:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1282" />
+    <meta name="ArticleNumber" content="000003436" />
+    <meta
+      name="description"
+      content="Netwrix Password manager client (Logon prompt extension) it is not possible to log on to the system. Cannot log in. Netwrix Assistant. Restore the logon screen"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        After installation of Netwrix Password manager client (Logon prompt extension) it is not
+        possible to log on to the system. There are no options on the logon screen except Netwrix
+        assistant
+        <img
+          src="kA00g000000H9a0CAC_46a586ac-f21e-4127-b355-464a935e7535.png"
+          alt="User-added image"
+          width="500"
+          height="443"
+        />
+
+        <hr />
+
+        To allow users reset passwords from the logon screen, Password Manager client adds its own
+        credential providers. There are two options for this - a link under the logon field, or an
+        additional icon available after 'Other credentials' is pressed. During the deployment of the
+        link to the logon screen, default password providers get disabled and replaced with the
+        Netwrix provider. More details on this can be found in the
+        <a href="https://kb.netwrix.com/2090" target="_blank">KB2090</a>
+
+        Such issue can occur when some third-party software blocks the Netwrix credential provider
+        from successful deployment.
+
+        <hr />
+
+        To restore the logon screen, you will need to access the computer registry, for example, by
+        means of the Remote Registry service
+        <ol>
+          <li>
+            Run <strong>regedit</strong> on another machine with credentials of an account that has
+            local admin permissions on the problematic machine.
+          </li>
+          <li>Select <strong>File - Connect network registry</strong></li>
+          <li>Specify the problematic computer name</li>
+          <li>
+            When remote registry is connected, expand %servername%<strong
+              >HKEY_LOCAL_MACHINESOFTWAREMicrosoftWindowsCurrentVersionAuthenticationCredential
+              Providers{6f45dc1e-5384-457a-bc13-2cd81b0d28ed}</strong
+            >
+          </li>
+          <li>Change the <strong>Disabled </strong>DWORD value to 0, or simply delete the value</li>
+        </ol>
+        <img
+          src="kA00g000000H9a0CAC_dba88978-fe3a-4e5b-85a7-8cddd05aa7ac.png"
+          alt="User-added image"
+          width="500"
+          height="295"
+        />
+
+        Alternatively you can restart the computer in safe mode. The most common reason for Netwrix
+        credential provider deployment to fail is Credential provider Filters installed by
+        third-party vendors. The list of filters can be found at the
+        <strong
+          >HKEY_LOCAL_MACHINESOFTWAREMicrosoftWindowsCurrentVersionAuthenticationCredential Provider
+          Filters </strong
+        >registry key
+      </div>
+    </article>
+  </body>
+</html>

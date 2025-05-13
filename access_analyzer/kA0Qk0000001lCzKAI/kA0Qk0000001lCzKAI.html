@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Reset the AIC Admin Password</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001lCzKAI" />
+    <meta name="Id" content="ka0Qk000000BugPIAS" />
+    <meta name="LastPublishedDate" content="2024-12-13T18:28:18.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-23T21:58:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-13T18:28:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9344" />
+    <meta name="ArticleNumber" content="000009344" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span class="Caution"><strong>IMPORTANT: </strong></span>This is a work-in-progress
+            article. The product R&amp;D team has yet to review some or all of the information
+            below.
+          </p>
+        </blockquote>
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            How can you reset the password for the Access Information Center (AIC) Built-In
+            Administrator account?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <h4 id="with_access_to_another_admin_in_aic">With Access to Another Admin in AIC</h4>
+          <p>
+            If you have access to another Admin within the AIC, then follow the steps below to reset
+            the Built-In Admin password:
+          </p>
+          <ol>
+            <li>
+              <p>Log in to the AIC.</p>
+            </li>
+            <li>
+              <p>Navigate to <strong>Configure Console</strong>.</p>
+            </li>
+            <li>
+              <p>Modify the Built-In Admin, as shown below:</p>
+              <img
+                src="kA0Qk0000001lCzKAI_3fd5d3f3-b94c-4e56-8e57-9a6a039a8272.png"
+                width="968"
+                height="593"
+              />
+            </li>
+          </ol>
+          <h4 id="without_access_to_another_admin_in_aic">
+            Without Access to Another Admin in AIC
+          </h4>
+          <p>
+            If you do not have access to another AIC Admin account, then perform the following steps
+            to reset the password using the AIC Configuration file:
+          </p>
+          <blockquote>
+            <p>
+              <span class="Note"><strong>NOTE: </strong></span>The default AIC Configuration file
+              path is
+              <code
+                >\Program Files\STEALTHbits\Access Information
+                Center\AccessInformationCenter.Service.exe.Config</code
+              >.
+            </p>
+          </blockquote>
+          <ol>
+            <li>
+              <p>
+                Open the file as an administrator and remove the
+                <strong>hash between " "</strong> for the
+                <strong>AuthBuiltinAdminPassword3 key</strong>:
+              </p>
+              <img
+                src="kA0Qk0000001lCzKAI_870b7ec2-c7fc-4f4c-8f10-36fae39939cf.png"
+                width="968"
+                height="496"
+              />
+            </li>
+            <li>
+              <p>
+                Restart the Netwrix AIC service in <code><strong>Services.msc</strong></code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Open the AIC and log in using the default AIC Built-in Admin credentials:</p>
+              <ul>
+                <li><strong>Username</strong>: <code>Admin</code></li>
+                <li><strong>Password:</strong> <code>sb</code></li>
+              </ul>
+            </li>
+            <li>
+              <p>You will then be prompted to enter a new password for the AIC Built-in Admin.</p>
+              <blockquote>
+                <p>
+                  <span class="Note"><strong>NOTE: </strong></span>Prior to v11.6, a password reset
+                  will not be prompted. It is recommended that you change the password or disable
+                  this account.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

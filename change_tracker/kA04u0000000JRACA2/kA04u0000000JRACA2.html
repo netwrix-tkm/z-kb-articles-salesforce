@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to send Log Tracker Messages to UNIX Rsyslog</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JRACA2" />
+    <meta name="Id" content="ka04u000000Hd7XAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:52:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8241" />
+    <meta name="ArticleNumber" content="000008241" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Log Tracker Windows Agents a can easily forward messages to the UNIX "rsyslogd" processes
+          (and other syslog receivers) running on UNIX or Linux platforms. This is accomplished
+          rather simply, as described here:
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <ol>
+          <li>
+            <p>
+              <span
+                >First, the UNIX administrator configures the "/etc/rsyslog.conf" file to permit UDP
+                syslog message reception and logging to a file The following directives are used in
+                the "rsyslog.conf" configuration file:</span
+              >
+            </p>
+            <div class="">
+              <div class="">
+                <pre class="">
+# Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514</pre
+                >
+              </div>
+            </div>
+            <p class="">
+              T<em
+                >hese directives frequently exist in the file within the "GLOBAL DIRECTIVES"
+                section, and the administrator can simply uncomment these directives to have the
+                "rsyslogd" process listen for messages at UDP port 514. Or the UNIX administrator
+                can simply add these directives in the "GLOBAL DIRECTIVES" section of the file.</em
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <span
+                >Next, the UNIX administrator configures (if needed) "rsyslogd" logging to a file
+                using the RULES section of the "rsyslog.conf" file. The following directives are
+                sufficient to log all messages received by the "rsyslogd" process to the
+                /var/log/all.log file:</span
+              >
+            </p>
+            <div class="">
+              <div class="">
+                <pre class="">
+# Log all messages
+*.* /var/log/all.log</pre
+                >
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class=""
+              ><span
+                ><span
+                  >When finished with the above configuration, the UNIX administrator restarts the
+                  "rsyslogd" process. (Note that it may or may not be sufficient to execute a "kill
+                  -HUP" command; the administrator should actually restart the process for these
+                  particular changes to take effect.) Once the"rsyslogd" process has resumed
+                  execution, the process should create the /var/logs/all.log" file created in step 2
+                  above.</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span class=""
+              ><span
+                ><span
+                  >At a Windows platform that is running the Log Tracker Windows Agent program, the
+                  MS Windows administrator can test the message reception of the "rsyslogd" process
+                  using the "sendlog.exe" program. The "sendlog.exe" program is a standard command
+                  line utility that comes with the Log Tracker Windows Tool Set (WTS) programs. The
+                  "sendlog.exe" program can be used to send arbitrary test messages to the
+                  "rsyslogd" process. These messages will then appear in the "/var/log/all.log" file
+                  on the UNIX platform configured above.<br /><br /><em
+                    >If no messages are received at the UNIX platform, check for the existence of
+                    firewalls between the client and the "rsyslogd" process, and verify that the
+                    "rsyslogd" process is listening on UDP port 514. Also check the "all.log" file
+                    for any other messages that may indicate an incorrect configuration of the
+                    "/etc/rsyslog.conf" file. Finally, note that AV software can block transmission
+                    of messages.</em
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <p>
+              Finally, the MS Windows administrator configures the Log Tracker client software to
+              send messages to the IP address where the "rsyslog" rocess is executing. This can be
+              accomplished by specifying the "DestinationAddress" value (or "AuxAddress" value)
+              within the Windows agent "CO-sysmsg.cnf" file, and then restarting the CO-sysmsg.exe
+              program.
+            </p>
+            <span class=""
+              ><span
+                ><span
+                  ><em
+                    ><em
+                      >In addition to having the agent program send messages to the "rsyslogd"
+                      process, the </em
+                    >Log Tracker<em>
+                      Server itself has multiple ways of forwarding messages to the process, such as
+                      via the "Messages &gt; Config &gt; Forwarding" screen, or via "Ticket Actions"
+                      or "Correlation Actions' configured at the server. Also, note that the above
+                      procedure applies to the </em
+                    >Log Tracker<em>
+                      UNIX Tool Set (UTS) programs, which can send syslog messages to </em
+                    >Log Tracker<em> Server or the "rsyslogd" process as described above.</em></em
+                  ></span
+                ></span
+              ></span
+            ><span class="" /><span class="" />
+          </li>
+        </ol>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to delete a device in Log Tracker</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker - Types of Authentication</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker Tags Facility</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to use CloseTicket.exe to Immediately Close Log Tracker Tickets</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

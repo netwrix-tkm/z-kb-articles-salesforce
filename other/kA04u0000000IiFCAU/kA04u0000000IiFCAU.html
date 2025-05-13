@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Get Row Counts Quickly</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IiFCAU" />
+    <meta name="Id" content="ka04u000000Hcu1AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:36:08.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:36:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7238" />
+    <meta name="ArticleNumber" content="000007238" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to retrieve
+          table row counts from SQL quicker than count(*).
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> select count(*) or
+          other similar statements can take a long time to execute.  <br /><br />the following
+          script will help you to get row counts much quicker.  <br /><br />this example's where
+          clause would get you everything returned by the FSAA dc<br /><br />information is from
+          here<br />http://stackoverflow.com/questions/2221555/how-to-fetch-the-row-count-for-all-tables-in-a-sql-server-database<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              ><span>-- Shows all user tables and row counts for the current database </span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span>-- Remove is_ms_shipped = 0 check to include system objects </span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >-- i.index_id &lt; 2 indicates clustered index (1) or hash table (0)
+              </span></span
+            ></span
+          ><br /><span
+            ><span><span>SELECT</span></span></span
+          ><span
+            ><span> o<span>.</span>name<span>,</span></span></span
+          ><br /><span><span>  ddps<span>.</span>row_count </span></span><br /><span
+            ><span><span>FROM</span></span></span
+          ><span
+            ><span>
+              <span>sys</span><span>.</span><span>indexes</span> <span>AS</span> i</span
+            ></span
+          ><br /><span
+            ><span
+              >  <span>INNER</span> <span>JOIN</span> <span>sys</span><span>.</span
+              ><span>objects</span> <span>AS</span> o <span>ON</span> i<span>.</span
+              ><span>OBJECT_ID</span> <span>=</span> o<span>.</span><span>OBJECT_ID</span></span
+            ></span
+          ><br /><span
+            ><span
+              >  <span>INNER</span> <span>JOIN</span> <span>sys</span><span>.</span
+              ><span>dm_db_partition_stats</span> <span>AS</span> ddps <span>ON</span> i<span
+                >.</span
+              ><span>OBJECT_ID</span> <span>=</span> ddps<span>.</span><span>OBJECT_ID</span></span
+            ></span
+          ><br /><span
+            ><span
+              >  <span>AND</span> i<span>.</span>index_id <span>=</span> ddps<span>.</span>index_id
+            </span></span
+          ><br /><span
+            ><span><span>WHERE</span></span></span
+          ><span
+            ><span>
+              i<span>.</span>index_id <span /> 2  <span>AND</span> o<span>.</span>is_ms_shipped
+              <span>=</span> 0
+            </span></span
+          ><br /><span
+            ><span><span>and</span></span></span
+          ><span
+            ><span> o<span>.</span>name <span>like</span> <span>'sa_fsa%'</span></span></span
+          ><br /><span
+            ><span><span>ORDER</span></span></span
+          ><span
+            ><span> <span>BY</span> o<span>.</span>NAME </span></span
+          ><br /> <br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          Database/SQL<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1516<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

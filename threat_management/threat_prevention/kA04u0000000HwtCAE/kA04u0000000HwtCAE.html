@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Change StealthINTERCEPT Credentials</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HwtCAE"/><meta name="Id" content="ka04u000000Hcc0AAC"/><meta name="LastPublishedDate" content="2022-02-22T13:22:10.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T09:59:08.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T17:53:16.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6042"/><meta name="ArticleNumber" content="000006042"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><p>StealthINTERCEPT uses credentials to one or more other resources, depending on configuration and the use of certain features. This document describes the steps for changing the passwords for each account and how to update StealthINTERCEPT.</p>
+
+<ul><li>
+	<p>StealthINTERCEPT has uses credentials to connect to <a href="#sql-server-credentials">SQL Server</a> for its production and archive databases.</p>
+	</li><li>
+	<p>The <a href="#auto-deploy-credentials">Auto Deploy</a> feature require credentials to deploy agents on domain controllers.</p>
+	</li><li>
+	<p>Enabling email notifications requires credentials for the <a href="#smtp-server-credentials">SMTP server</a>.</p>
+	</li><li>
+	<p>The StealthDEFEND integration requires a <a href="#stealthdefend-credentials">StealthDEFEND API key</a>.</p>
+	</li></ul>
+
+<h2 id="sql-server-credentials">SQL Server Credentials</h2>
+
+<h3 id="events-database">Events Database</h3>
+
+<h4 id="during-a-stealthintercept-enterprise-manager-upgrade">During a StealthINTERCEPT Enterprise Manager Upgrade</h4>
+
+<ol><li>Uninstall StealthINTERCEPT Enterprise Manager</li><li>Reset the password of the service account in SQL Server if using SQL Server Authentication or Active Directory if using Windows Authentication</li><li>Run the installer for the new version of StealthINTERCEPT Enterprise Manager</li><li>When prompted to enter the SQL Connection information, supply the new password</li><li>Continue with the remainder of the installation</li></ol>
+
+<h4 id="on-a-running-instance-of-stealthintercept">On a running instance of StealthINTERCEPT</h4>
+
+<ol><li>Stop the SIEnterpriseManager service, and if installed SIReportingService and SISchedulerService services</li><li>Reset the password of the service account in SQL Server if using SQL Server Authentication or Active Directory if using Windows Authentication</li><li>Open the StealthINTERCEPT Database Connection Manager (SIDBConfigMgr.exe located in SIEnterpriseManager installation folder)</li><li>Update the SQL Connection Settings section with the updated username and password
+	<ol><li>If Windows Authentication is used then check the Windows Authentication checkbox</li></ol>
+	</li><li>Click the Update button to apply the settings</li></ol>
+
+<h3 id="archive-database">Archive Database</h3>
+
+<ol><li>Open the StealthINTERCEPT Database Connection Manager (SIDBConfigMgr.exe located in SIEnterpriseManager installation folder)</li><li>Check the box "Update Archiving Connection Settings"</li><li>Ensure the Archive server name, database and port are filled in correctly</li><li>Reset the password of the service account in SQL Server if using SQL Server Authentication or Active Directory if using Windows Authentication</li><li>Update the SQL Connection Settings section with the updated username and password
+	<ol><li>If Windows Authentication is used then check the Windows Authentication checkbox</li></ol>
+	</li></ol>
+
+<h2 id="auto-deploy-credentials">Auto Deploy Credentials</h2>
+
+<p>If you are using the StealthINTERCEPT Auto Deploy feature then you'll need to update the credentials in the StealthINTERCEPT Console by:</p>
+
+<ol><li>Opening the StealthINTERCEPT Console</li><li>Clicking on the "Agents" menu option in the Policy Center</li><li>Click on the "Configure Auto Deploy" button</li><li>Reset the service account's password in Active Directory</li><li>Replace the password with the updated password</li><li>Click on Apply to save the settings</li></ol>
+
+<h2 id="smtp-server-credentials">SMTP Server Credentials</h2>
+
+<p>If you are using SMTP credentials to send authenticated emails from the StealthINTERCEPT Server you can replace these by:</p>
+
+<ol><li>Open the StealthINTERCEPT Console</li><li>Open the Alerts options by clicking on Configuration on the top menu bar followed by Alerts</li><li>Click on the Email tab in the StealthINTERCEPT System Alerting window</li><li>Click on Configure</li><li>Reset the password for the user account</li><li>Enter the updated password in the Password field</li><li>Click Ok</li></ol>
+
+<h2 id="stealthdefend-credentials">StealthDEFEND Credentials</h2>
+
+<p>Sometimes it may be required to update the StealthDEFEND App Token. When this is required you can replace this by:</p>
+
+<ol><li>Generate a new app token in StealthDEFEND, shown <a href="https://stealthbits.com/jdownloads/Documentation-Website/StealthDEFEND_2.7/Content/StealthDEFEND/User%20Guide/Configuration%20Menu/Integrations%20Page/App%20Tokens.htm" target="_blank">here</a>, and copy it to the clipboard</li><li>Open the StealthINTERCEPT Console</li><li>Open the StealthDEFEND Configuration by clicking on Configuration in the top menu bar and clicking StealthDEFEND Configuration</li><li>Paste the StealthDEFEND App Token into the App Token</li><li>Click Save</li></ol></div>
+</article></body></html>

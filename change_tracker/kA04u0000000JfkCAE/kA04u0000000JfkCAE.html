@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>HTTP Error 500.19 - Internal Server Error - Error Code 0x8007007e</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JfkCAE" />
+    <meta name="Id" content="ka04u000000QmbnAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-25T15:01:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T01:00:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8300" />
+    <meta name="ArticleNumber" content="000008300" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="">Problem and Cause</h2>
+
+        <p>
+          <span
+            ><span
+              >The requested page cannot be accessed because the related configuration data for the
+              page is invalid.This problem is related to the XPress compression schema module <span
+                >(suscomp.dll) which gets installed with WSUS. Compression schemes are defined
+                globally and they try to load in every Application Pool. It will result in this
+                error when the 64 Bit version of suscomp.dll attempts to load in an Application Pool
+                which is running in 32 Bit mode <code>[enable32BitAppOnWin64]</code
+                ><span>. 32 Bit mode is needed for SafeGuard Enterprise Server to run.</span></span
+              ></span
+            ></span
+          ><br /><img
+            alt="500.19 ERROR.PNG"
+            src="kA04u0000000JfkCAE_2d62802a-b55b-46d0-9700-7ad3dde2a50a.png"
+          />
+        </p>
+        Operating Systems:<br />Windows Server 2008 (R2)<br />Windows Server 2012 (R2)
+        <h2 id="">Resolution</h2>
+
+        <ol>
+          <li>
+            <span>Navigate to <span>%WINDIR%\system32\inetsrv\config\</span></span>
+          </li>
+          <li>
+            <span>Create a backup copy of the file </span
+            ><span><strong>applicationhost.config </strong></span
+            ><span>and save it to a different location</span>
+          </li>
+          <li>
+            <span>Open the </span><span><strong>applicationhost.config </strong></span
+            ><span>in the Notepad</span>
+          </li>
+          <li>
+            <span><span>Search for the following entry:</span></span>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Remove / Disable the XPress compression schema line from the configuration<span
+                      >file</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span>Save the </span><strong><span>applicationhost.config </span></strong
+                      ><span>and restart IIS services.</span></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        For more information, read the <a
+          href="https://learn.microsoft.com/ru-ru/archive/blogs/webtopics/troubleshooting-http-500-19-errors-in-iis-7"
+          target="_blank"
+          ><span
+            ><span
+              ><span
+                ><span
+                  ><span><span>Troubleshooting HTTP 500.19 Errors in IIS 7</span></span></span
+                ></span
+              ></span
+            ></span
+          ></a
+        >
+        <span
+          ><span
+            ><span
+              ><span
+                ><span><span> article. </span></span></span
+              ></span
+            ></span
+          ></span
+        >
+
+        <h3 id="">
+          <span
+            ><span
+              ><span
+                ><span
+                  ><span><span>Related articles</span></span></span
+                ></span
+              ></span
+            ></span
+          >
+        </h3>
+        <span
+          ><span
+            ><span
+              ><span
+                ><span><span> </span></span></span></span></span
+        ></span>
+
+        <ul>
+          <li>
+            <div>
+              <span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          ><a
+                            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JWTCA2.html"
+                            target="_blank"
+                            >How to Backup / Restore / Move your MongoDB Database</a
+                          ></span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          ><a
+                            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JfVCAU.html"
+                            target="_blank"
+                            >How to Configure The FAST Cloud Integration With Proxy Internet
+                            Settings</a
+                          ></span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          ><a
+                            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JemCAE.html"
+                            target="_blank"
+                            >How to move your Linux Server MongoDB Database to a Windows server?</a
+                          ></span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          ><a
+                            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JgJCAU.html"
+                            target="_blank"
+                            >How to Change the Admin Password of your Mongo Database</a
+                          ></span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              >
+            </div>
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><span
+                ><span><span> </span></span></span></span></span
+        ></span>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Update the Compression Service</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001114BCAQ" />
+    <meta name="Id" content="ka0Qk00000030LFIAY" />
+    <meta name="LastPublishedDate" content="2024-04-05T13:26:52.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-23T09:53:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-21T12:12:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8750" />
+    <meta name="ArticleNumber" content="000008750" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the EventID 2009 for Windows Server monitoring plan."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A monitoring plan in Netwrix Auditor has the <em>Take Action</em> status, and the
+            Netwrix Auditor Health Log contains EventID 2009:
+          </p>
+
+          <pre class="has-inner-focus">
+The Compression Service has encountered an internal error:
+Unable to update the Compression Service on the following server (%affected_server_name%).</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <p>One of the following causes may lead to this error:</p>
+
+        <div>
+          <ul>
+            <li>
+              <p>The Windows Server Compression Service was not installed on the target server.</p>
+            </li>
+            <li>
+              <p>The Windows Server Compression Service cannot be updated on the target server.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Verify the rights and permissions for the Data Collecting Account in the affected
+                Windows Server monitoring plan. For additional information on the rights and
+                permissions of Data Collecting Accounts, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Permissions.htm"
+                  target="_self"
+                  >Windows Server – Permissions for Windows Server Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify that the ports required to audit the target server are open. For additional
+                information on required ports and protocols, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Ports.htm"
+                  target="_self"
+                  >Windows Server – Windows Server Ports ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Install the Windows Server Compression Service manually on the affected server.
+                Refer to the following steps:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    On the Auditor server, navigate to
+                    <code>C:\Program Files (x86)\Netwrix Auditor\Windows Server Auditing</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Locate the <code>Netwrix.WSA.CompressionService.Setup.msi</code> installation
+                    file.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Copy the file to the affected target server (the server referenced in the error
+                    message).
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Run the installation on the target server and follow the installation prompts.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    When done, click the <b>Update</b> button beside the required monitoring plan.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Permissions.htm"
+                  target="_self"
+                  >Windows Server – Permissions for Windows Server Auditing ⸱ v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Ports.htm"
+                  target="_self"
+                  >Windows Server – Windows Server Ports ⸱ v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

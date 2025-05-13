@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Troubleshoot Failed Action Service Connections to Windows Resources (PSRemoting/WinRM)</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HiICAU"/><meta name="Id" content="ka04u000000wwElAAI"/><meta name="LastPublishedDate" content="2023-11-24T09:50:10.000+0000"/><meta name="LastModifiedDate" content="2023-11-24T10:30:28.000+0000"/><meta name="FirstPublishedDate" content="2022-01-12T14:48:41.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5940"/><meta name="ArticleNumber" content="000005940"/><meta name="description" content="Troubleshooting Failed Action Service Connections to Windows Resources (PSRemoting/WinRM)"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>NPS Action Service is used for various workflows, including host scans and performing pre- and post-session actions. The Action Service has to establish a connection via PowerShell Remoting (PSRemoting) for Windows target resources. PSRemoting is a PowerShell implementation of WinRM (Windows Remote Management).</p>
+
+<p>There are several variables that could affect the successful connection of the NPS Action Service to the target Windows resource via PSRemoting. This article outlines some of those variables, ways to troubleshoot and resolve them to establish a connection.</p>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<div>
+<p>Before running tests, complete the following steps in the target resource:</p>
+</div>
+
+<h4 id="verify_psremoting_and_winrm_are_enabled">Verify PSRemoting and WinRM are enabled</h4>
+
+<div>
+<p>In PowerShell, run the following line:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">Test-WSMan</code></pre>
+
+<p>The following lines will be output if both PSRemoting and WinRM are enabled:</p>
+
+<pre class="has-inner-focus">wsmid: http://schemas.dmtf.org/wbem/wsman/identity/1/wsmanidentity.xsd
+ProtocolVersion : http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd
+ProductVendor   : Microsoft Corporation
+ProductVersion  : OS: 0.0.0 SP: 0.0 Stack: 3.0</pre>
+
+<p>If PSRemote and/or WinRM are not enabled in the target resource, the following lines will be output:</p>
+
+<pre class="has-inner-focus">Test-WSMan : &lt;f:WSManFault xmlns:f="http://schemas.microsoft.com/wbem/wsman/1/wsmanfault" Code="2150858770"
+Machine="%machine_name%"&gt;&lt;f:Message&gt;The client cannot connect to the destination specified in the request. Verify that
+the service on the destination is running and is accepting requests. Consult the logs and documentation for the
+WS-Management service running on the destination, most commonly IIS or WinRM. If the destination is the WinRM service,
+run the following command on the destination to analyze and configure the WinRM service: "winrm quickconfig".
+&lt;/f:Message&gt;&lt;/f:WSManFault&gt;
+At line:1 char:1
++ Test-WSMan
++ ~~~~~~~~~~
++ CategoryInfo          : InvalidOperation: (:) [Test-WSMan], InvalidOperationException
++ FullyQualifiedErrorId : WsManError,Microsoft.WSMan.Management.TestWSManCommand</pre>
+
+<p><strong>Resolution:</strong> Run the following command in elevated PowerShell to enable PSRemoting/WinRM:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">Enable-PSRemoting</code></pre>
+
+<p>The following lines will be output:</p>
+
+<pre class="has-inner-focus">WinRM has been updated to receive requests.
+WinRM service type changed successfully.
+WinRM service started.
+    
+WinRM has been updated for remote management.
+Created a WinRM listener on HTTP://* to accept WS-Man requests to any IP on this machine.
+WinRM firewall exception enabled.</pre>
+
+<ol/>
+</div>
+
+<h4 id="verify_ports">Verify ports</h4>
+
+<div>
+<p>Verify ports 5985 (HTTP) and/or 5986 (HTTPS) are open in the Windows firewall and any network firewalls. These ports are used for WinRM communications for HTTP and HTTPS respectively.</p>
+</div>
+
+<h4 id="review_group_policy_settings">Review Group Policy settings</h4>
+
+<div>
+<p>There are Group Policy settings used to filter the origin of WinRM requests via both IPv4 and IPv6 filters. If issues with PSRemoting/WinRM communications persist even after enabling PSRemoting/WinRM and verifying firewall settings, it's possible the IP filter in Group Policy is affecting the communication.</p>
+
+<p>Learn more about the <strong>Allow remote server management through WinRM</strong> Group Policy setting in <a href="https://learn.microsoft.com/en-us/windows-server/administration/server-manager/configure-remote-management-in-server-manager#enabling-or-disabling-remote-management" target="_blank">Configure Remote Management in Server Manager − Enabling or Disabling Remote Management ⸱ Microsoft 🡥</a>.</p>
+
+<div><img alt="Windows Group Policy: Allow remote server management through WinRM" height="464" src="kA04u0000000HiICAU_69806183-ba88-4fa5-be6c-4e6af7ae3273.png" width="500"/></div>
+</div>
+
+<h4 id="allow_full_control_to_remote_management_users">Allow full control to Remote Management Users</h4>
+
+<div>
+<p>Review the access permissions set up for Remote Management Users − run the following line in elevated PowerShell:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">Get-PSSessionConfiguration -Name Microsoft.PowerShell</code></pre>
+
+<p>Review the permissions of the <strong>BUILTIN\Remote Management Users</strong> group under the <strong>Permission</strong> section. If set to <strong>AccessDenied</strong>, then authenticated network users (i.e., remote PSRemoting requests) will be denied access even if credentials and other variables are correct.</p>
+
+<p><strong>Solution:</strong> Run the following command in evelated PowerShell to review and change permissions for Remote Management Users:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI -Force</code></pre>
+
+<p>Select <strong>Remote Management Users</strong> and change <strong>Full Control</strong> from <strong>Deny</strong> to <strong>Allow</strong>, then click <strong>Apply</strong> and <strong>OK</strong>.</p>
+</div>
+
+<h2 id="testing">Testing</h2>
+
+<div>
+<p>Test the ability of NPS Action Service to connect to a target resource via PowerShell Remoting − run the following PowerShell line in the server running Action Service:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">Invoke-Command -ComputerName %target_resource% -Credential (Get-Credential) -ScriptBlock { whoami }</code></pre>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Replace %target_resource% with the target FQDN.</p>
+</blockquote>
+
+<p>When prompted for credentials, use the credentials of the service account assigned to the target resource in NPS. If the remote request succeeds, it will return the username used for authentication.</p>
+
+<pre class="has-inner-focus">PS C:\Users\admin&gt; Invoke-Command -ComputerName TEST-DC -Credential (Get-Credential) -ScriptBlock { whoami }
+
+cmdlet Get-Credential at command pipeline position 1
+Supply values for the following parameters:
+Credential
+test\admin</pre>
+
+<p>The output indicates the credentials used can run remote PowerShell commands on the target resource from the Action Service server via WinRM.</p>
+</div>
+
+<h2 id="related_articles">Related articles</h2>
+
+<div>
+<p><a href="https://learn.microsoft.com/en-us/windows-server/administration/server-manager/configure-remote-management-in-server-manager#enabling-or-disabling-remote-management" target="_blank">Configure Remote Management in Server Manager − Enabling or Disabling Remote Management ⸱ Microsoft 🡥</a></p>
+</div></div>
+</article></body></html>

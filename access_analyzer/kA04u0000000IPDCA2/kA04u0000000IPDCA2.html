@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Remove Servers from Host Lists</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IPDCA2" />
+    <meta name="Id" content="ka0Qk0000001J73IAE" />
+    <meta name="LastPublishedDate" content="2024-01-11T13:28:47.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-11T13:28:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6552" />
+    <meta name="ArticleNumber" content="000006552" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Delete servers no longer in the environment from host lists, as these lists contain
+            machines that have been removed from the network.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="remove_a_machine_from_the_host_management">
+          Remove a machine from the Host Management
+        </h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>Select the <strong>Host Management</strong> node in the top-left corner.</p>
+            </li>
+            <li>
+              <p>Search for the required machine.</p>
+
+              <blockquote>
+                <p>
+                  <strong>TIP:</strong> The name column can be sorted alphabetically by clicking the
+                  Name column header (once for ascending, a second time for descending), or filtered
+                  for a specific host by clicking on the drop-down option on the right hand side of
+                  the column header. Additionally you may search for hosts with an offline status in
+                  the same manner using the <strong>HostStatus</strong> column.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Right click the machine, and select <strong>Delete Host(s)</strong>. Multiple
+                sequential hosts can be selected by holding down the 'shift' key while selecting
+                hosts or multiple non-sequential hosts can be selected by holding down the 'ctrl'
+                key while selecting hosts.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="removed_machine_is_still_in_the_list">Removed machine is still in the list</h4>
+
+        <div>
+          <p>
+            If you have removed the machine from the host management, and the next day you see it in
+            the list again, it is possible that the machine is still in AD. During an AD host
+            discovery query, all computers in AD will be added to the host list. Once the machine is
+            removed from AD, and then removed from the host list, it should no longer show on the
+            host lists.
+          </p>
+        </div>
+
+        <div>
+          <p><strong>Module:</strong> SA - DC - Active Directory; SA - DC - ADInventory<br /> </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WHO changed is showing "System" in Netwrix Auditor for SQL Server reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VyCAK" />
+    <meta name="Id" content="ka04u000000HcPDAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:21.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="762" />
+    <meta name="ArticleNumber" content="000003189" />
+    <meta
+      name="description"
+      content="WHO changed is showing &#34;System&#34; in Netwrix Auditor for SQL Server reports"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor for SQL Server changes have "System" reported in the WHO field.
+        <hr />
+        Netwrix Auditor for SQL Server <span>is using two sources of data for analysis: </span>
+
+        <ul>
+          <li>
+            <span
+              ><a
+                href="http://technet.microsoft.com/en-us/library/dd392015(v=sql.100).aspx"
+                target="_blank"
+                >SQL Server native auditing</a
+              >
+              - </span
+            ><span>used for retrieving change details</span>
+          </li>
+          <li>
+            <span
+              >SQL Server configuration snapshot - used for determining what has changed since the
+              previous data collection.</span
+            >
+          </li>
+        </ul>
+        <span>For example: </span>
+        <span
+          >You have changed the column parameters. This action must be captured by SQL Server native
+          auditing and logged into the auditing log on the SQL Server (with information on Who made
+          the change and When the change was made).
+        </span>
+        Netwrix Auditor for SQL Server w<span
+          >ill detect that change during the snapshot comparison (the column parameter has been
+          changed) and then search the SQL Server native auditing logs for corresponding events to
+          add WHO CHANGED and WHEN CHANGED information. If the corresponding event cannot be found,
+          the product reports WHO as SYSTEM.
+        </span>
+        You can always prove the system changes by reviewing the SQL Server native auditing logs. In
+        order to do that please open the SQL Server Profiler application and open SQL traces from
+        <a target="_blank"><span>C:\Program</span></a
+        ><span> </span>Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\Log<br />Note: the
+        path above may vary depending on the version of SQL Server you have installed.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SR 1.3 HF 001</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IIrCAM" />
+    <meta name="Id" content="ka04u000000HcjoAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:35.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6827" />
+    <meta name="ArticleNumber" content="000006827" />
+    <meta name="description" content="360012021052" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> StealthRECOVER
+          Duplicate key error
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+        </p>
+        <h2 id="detailed_summary_of_issue">Detailed Summary of issue</h2>
+        <br />Some logs are failing with messages that another backup running, which is fine.<br /><br />Other
+        logs show errors related to duplicate key values, will these messages affect the integrity
+        of the backup?<br /><br />StealthRECOVER.Logs(1).zip are from the initial run<br /><br />00030804.7z
+        are from secondary run after disabling scheduled jobs, stopping the services, and starting
+        the initial backup again.<br /> 
+        <h2 id="steps_to_reproduce_issue">Steps to reproduce issue</h2>
+        <br />Unclear. Only reproducible in customer environment.<br /><br />Customer was initially
+        running a long backup that appeared to be stepped on by a scheduled run. Customer disabled
+        scheduled jobs, stopped the services, and started the initial backup again. This looks like
+        it has failed. It has been on the same object for a number of hours. The logs showed
+        2019-01-23 11:16:35.323 +01:00 [Error] [StealthRECOVER.Backup.ProcessorThread] [17]
+        SyncWithAd() Error Exception: '"23505: duplicate key value violates unique constraint
+        \"directory_object_attribute_pkey\""'
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Download
+          the installer<br />2. Double click to begin the upgrade process<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="582" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="582">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SRHotfixes/1.3/StealthRECOVER-1.3-HF-001.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SRHotfixes/1.3/StealthRECOVER-1.3-HF-001.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthRECOVER<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          StealthRECOVER - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          1.3<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SR-4673<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          1.3.5.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2232<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

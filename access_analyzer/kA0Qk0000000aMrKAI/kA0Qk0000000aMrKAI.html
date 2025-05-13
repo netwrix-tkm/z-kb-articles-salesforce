@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Several SQL Database Servers Experience Failed Scans</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000aMrKAI" />
+    <meta name="Id" content="ka0Qk00000030bNIAQ" />
+    <meta name="LastPublishedDate" content="2024-04-08T16:48:37.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-23T12:09:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-08T16:48:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9121" />
+    <meta name="ArticleNumber" content="000009121" />
+    <meta name="description" content="Several SQL DB Servers are Experiencing Failed Scans" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Several SQL database servers are experiencing failed scans, with collection jobs showing
+            the following error:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+(0x80131904): Cannot insert the value NULL into column 'member_principal', table column does not allow nulls. INSERT fails. The statement has been terminated.</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>Refer to the possible causes:</p>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Insufficient privileges of the service account (e.g., the service account lacks
+                <b>VIEW ANY DEFINITION</b> permission on the master database), particularly when SQL
+                servers are added dynamically to host lists.
+              </p>
+            </li>
+            <li>
+              <p>
+                Some SQL servers being dynamically added to host lists, leading to errors possibly
+                caused by service account privileges not being properly configured. These errors
+                occur intermittently, which is expected given the dynamic nature of the environment.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Ensure that the service account has the necessary privileges, including
+            <b>VIEW ANY DEFINITION</b> on the master database. This permission allows the account to
+            view the definition of any object in the SQL server instance.
+          </p>
+
+          <p>
+            While permissions requirements are outlined in existing documentation, for further
+            guidance and troubleshooting, please refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/StealthAUDIT_11.5/page/Content/StealthAUDIT/Solutions/SQL_Solution.htm#permissions"
+              target="_blank"
+              >Solutions — SQL Solution — v11.5</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <ul>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/StealthAUDIT_11.5/page/Content/StealthAUDIT/Solutions/SQL_Solution.htm#permissions"
+                target="_blank"
+                >Solutions — SQL Solution — v11.5</a
+              >
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

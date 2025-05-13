@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: 8.1 SDD HF 004</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IjWCAU" />
+    <meta name="Id" content="ka04u000000HcueAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:29:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:29:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7009" />
+    <meta name="ArticleNumber" content="000007009" />
+    <meta name="description" content="360012217852" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SDD was timing out
+          and failing to reinitialize correctly which led to some items being skipped in scans.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:</span></strong
+          ><br /><span
+            >SDD was timing out and failing to reinitialize correctly which led to some items being
+            skipped in scans.</span
+          ><br /> <br /><strong><span>Submitted by: </span></strong><br />Rich Quiroz<br /><strong
+            ><span>Affected Versions:</span></strong
+          ><br />8.1<br /><strong><span>Affected Module:</span></strong
+          ><br />SA - DC - SPAA - Sensitive Data<br /><strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ul>
+          <li><span>SAFS -16263</span></li>
+        </ul>
+        <strong><span>Resolved in Version:</span></strong>
+        <ul>
+          <li>SDD 8.1.0.42</li>
+        </ul>
+         <br /><strong><span>KB Type: </span></strong><br />               Hotfix<br /><strong
+          ><span>Modules Included</span></strong
+        ><br /><i>SensitiveDataAddon.msi 8.1.0.42</i><br /> <br /><b>YouTrack/Escalations</b
+        ><br /><strong><span>32708</span></strong
+        ><br /><b>Customers</b><br /><strong
+          ><span>-              Vanguard and Service Benefit Plan</span></strong
+        ><br /> <br /><b>Cumulative List of fixes included since Service Pack:</b>
+        <ul>
+          <li>SMPC-3911 Update SEEK Components to accept all configuration settings</li>
+          <li>
+            SMPC-3855 SDD: When 'Store Discovered Sensitive Data' is unchecked, don't return values
+            with asterisks
+          </li>
+          <li>SMPC-3928 SDD: File cutoff warnings</li>
+          <li>
+            SMPC-4030
+            <strong><span>Secure .NET remoting API with ACL for current user</span></strong>
+          </li>
+          <li>
+            <strong
+              ><span
+                >SMPC-4243 SDD: Remove German/French/Spain Age keywords from criteria</span
+              ></strong
+            >
+          </li>
+          <li>
+            <a
+              title="Belongs to project 'StealthAUDIT - Core, SG, Reporting, AIC'"
+              href="https://stealthbits.myjetbrains.com/youtrack/issue/SMPC-4229"
+              target="_blank"
+              ><span><span>SMPC-4229</span></span></a
+            > 24160 - DLP Custom Criteria Failing if File Names not Checked
+          </li>
+          <li>- SAFS-16263 - 32708 - SDD fails to pick up new documents after initial scan</li>
+        </ul>
+         <br /> <br /><b>Comments:</b><br /><b
+          ><span
+            >THIS HOTFIX REQUIRES AT LEAST FSAA HOTFIX SA_8.1_006 TO BE INSTALLED IF USING
+            FSAA.</span
+          ></b
+        ><br />https://na55.salesforce.com/articles/General/Hotfix-SA-8-1-006<br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            Unblock the hotfix zip file in the windows property dialog, if an unblock button exists
+            there. 
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>Uninstall previous version of SDD Add-on from local SA Console (if applicable).</li>
+          <li>Install SensitiveDataAddon.msi on your local SA Console from x86 folder.</li>
+          <li>Update all SensitiveData files in your %SAInstallDir%SensitiveData folder</li>
+          <li>
+            <strong
+              ><span
+                >Launch StealthAUDIT. Run the 'Update Proxy Service' query under the Maintenance tab
+                in the FSAA data collector against your proxy servers (if running proxy
+                service).</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong
+              ><span
+                >Uninstall previous version of SDD Add-on from target SharePoint farm (if
+                applicable)</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong
+              ><span
+                >Install SensitiveDataAddon.msi on the target SharePoint application server from
+                folder x64 (if applicable)
+              </span></strong
+            >
+          </li>
+        </ol>
+        <div>
+          <div class="table-wrap">
+            <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+              <tbody>
+                <tr height="38">
+                  <td colspan="1" rowspan="1" height="38" width="64">
+                    <a
+                      href="http://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SDD_8.1_004.zip"
+                      target="_blank"
+                      >http://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SDD_8.1_004.zip</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-16263<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          8.1.0.42<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2344<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

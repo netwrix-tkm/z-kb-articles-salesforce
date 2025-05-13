@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Group Policy Fake Changes</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9c9CAC" />
+    <meta name="Id" content="ka04u000000HcUuAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1403" />
+    <meta name="ArticleNumber" content="000003567" />
+    <meta
+      name="description"
+      content="Explains why you are getting fake changes and how it can be fixed."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You received Group Policy Change Report showing some changes you do not believe you made.
+        <hr />
+        By default the product is using the most available domain controller for the data
+        collection. On some of the domain controllers Group Policy replication may not occur
+        correctly. The product may connect to the domain controller that has a replication issue
+        with regards to Group Policies, hence the outdated information, and gather GPOs that contain
+        outdated policy settings. The outdated information in gathered GPOs will be considered as a
+        change when comparing to the previous snapshot.
+        <hr />
+        To prevent this from happening, we recommend using a single domain controller for collecting
+        Group Policy changes. In order to check which domain controller is currently used for Group
+        Policy changes collection, see this file:
+        <strong>%Working Folder%\AD Change Reporter\Omitlists\%domain.name%\dclist.txt</strong>. By
+        default %Working Folder% is C:\ProgramData\Netwrix Auditor. If there is more than one DC
+        listed in that file, it means that the first DC in the list didn't respond at some point and
+        Netwrix had to pick a new one. This could be the reason for fake changes. If you know a DC
+        which is highly available and stable, feel free to put its FQDN into that file instead of
+        the current ones.
+      </div>
+    </article>
+  </body>
+</html>

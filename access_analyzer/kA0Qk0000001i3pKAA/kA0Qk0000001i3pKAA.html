@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PowerShell Modules Required for O365 Configuration in NEA</title>
+    <meta name="label" content="ct_hostconfig" />
+    <meta name="label" content="ct_productconfig" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001i3pKAA" />
+    <meta name="Id" content="ka0Qk000000BKxtIAG" />
+    <meta name="LastPublishedDate" content="2025-01-28T19:25:43.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-28T19:25:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-01-28T19:25:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9330" />
+    <meta name="ArticleNumber" content="000009330" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>
+          What PowerShell Modules and PackageProviders are required to use the below instant jobs
+          for setting up Entra, Exchange Online, and SharePoint Online auditing with NEA:
+        </p>
+        <ul>
+          <li>AADI_RegisterAzureAppAuth</li>
+          <li>SP_RegisterAzureAppAuth</li>
+          <li>EX_RegisterAzureAppAuth</li>
+        </ul>
+        <h2 id="answer">Answer</h2>
+        <p>
+          The following PowerShell Modules and PackageProviders are required for their respective
+          Instant Job:
+        </p>
+        <p> </p>
+        <p><strong>AADI_RegisterAzureAppAuth</strong></p>
+        <ul>
+          <li>PowerShellGet</li>
+          <li>NuGet</li>
+          <li>Az.Accounts</li>
+          <li>Microsoft.Graph</li>
+        </ul>
+        <p><strong>EX_RegisterAzureAppAuth</strong></p>
+        <ul>
+          <li>AzureAD</li>
+          <li>ExchangeOnlineManagement</li>
+        </ul>
+        <p><strong>SP_RegisterAzureAppAuth</strong></p>
+        <ul>
+          <li>AzureAD</li>
+        </ul>
+        <p> </p>
+        <p>
+          <strong
+            >To install these modules and package providers, the below can be run in an Admin
+            PowerShell:</strong
+          >
+        </p>
+        <blockquote>
+          <p><code>Install-Module -Name PowerShellGet -Force</code><br /><code /></p>
+          <p><code>Install-PackageProvider -Name NuGet -Force</code><br /><code /></p>
+          <p><code>Install-Module -Name Az.Accounts -Force</code><br /><code /></p>
+          <p><code>Install-Module -Name Microsoft.Graph -Force</code><br /><code /></p>
+          <p><code>Install-Module -Name AzureAD -Force</code></p>
+          <p><code>Install-Module -Name ExchangeOnlineManagemen -Force</code></p>
+        </blockquote>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_032</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IJdCAM" />
+    <meta name="Id" content="ka04u000000HckCAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:14:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:14:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6419" />
+    <meta name="ArticleNumber" content="000006419" />
+    <meta name="description" content="360012326391" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary: </strong>  FS scans do not respect scoping rules when folder is a
+          substring of filter
+        </p>
+        <p>
+          <strong>Before Fix: </strong>FS scans would include resources that matched a substring of
+          the scope itself. Ex: Scoping to C:\Test would include ‘C:\Test’, ‘C:\Tes’, &amp; ‘C:\Te’
+        </p>
+        <p>
+          <strong>After Fix: </strong>FS scans no longer include resources that only match a
+          substring of the scope itself
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Michael Burrofato</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>10.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SA – DC – FSAA</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ul>
+          <li>SAFS-19693</li>
+        </ul>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>
+          DCFSAA.dll                                                                                                    
+          10.0.1254
+        </p>
+        <p>
+          FSAASrv.dll                                                                                                   
+          10.0.1254
+        </p>
+        <p>
+          Stealthbits.StealthAUDIT.DataCollectors.FSAA.dll                               10.0.1254
+        </p>
+        <p>Stealthbits.StealthAUDIT.DataCollectors.FSAA.UI.dll                         10.0.1254</p>
+        <p><strong>Other dependencies included:</strong></p>
+        <p>AIPHelper.dll</p>
+        <p>FSAAnetApp.dll</p>
+        <p>FSAATagHelper.exe</p>
+        <p>libnfs.dll</p>
+        <p>SDDScanAPI32.dll</p>
+        <p>sqlite3.dll</p>
+        <p>StealthAUDITRPC.exe</p>
+        <p>StealthAUDITRPCClient.dll</p>
+        <p>UpdateFSAAService.exe</p>
+        <p>Stealthbits.StealthAUDIT.DataCollectors.FSAA.RPCClient.dll</p>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>-              SAFS-19693/53538</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>Customers</strong></p>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p>
+          <strong>-              SAFS-18439 42338 - Update FSAC to support UCS2 encoding</strong>
+        </p>
+        <p>
+          <strong
+            >-              SAFS-18737 471 - FSAA Unable to start scan: Could not initialize scan
+            session for "SERVER" with "SCANNER"</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-18771 50592 - FSAA Bulk import errors "UNIQUE constraint failed" on
+            Turkish console.</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-18795 50703/50855 - FSAA "...not a valid date and time" Error
+            scanning after Upgrading to 10.0</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-18975 Add logging to the FSAA repair tool in maintenance
+            wizard</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19025 51346 - FSAA Bulk Import error: SqlDateTime overflow</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19092 SDD: Dont start file extractor when only text extractor is
+            needed (10.0 Implementation)</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19100 FSAA: Improve performance in bulk import around
+            SetDeletedUSN</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19180 FSAA: T2 Query for resources can result in fragmented IDs
+            importing, hurting performance</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19211 51931 - Unable to upgrade FSAA proxy using maintenance
+            query</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19009 Update FSAA to store null values in the SA_FSAA_FileAges
+            table for folders that do not have files in them. (10.0+)</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19375 Update duplicate removal tool to fix GatesProxyMap (10.0
+            Merge)</strong
+          >
+        </p>
+        <p>
+          -              SAFS-19370 FSAA DC: Repair tool looking in wrong location for Suspend.xml
+        </p>
+        <p>
+          -              SAFS-19270 51453 - FSAC: Impersonation issue when targeting Windows
+          Clusters
+        </p>
+        <p>
+          -              SAFS-18990 FSAA: Repair tool throws SQL logic error if multiple DLPEX
+          databases exist
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19358 52688 - FSAA DC: Repair tool timeout is hardcoded to 30
+            minutes</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-18786 FS DC: Maintenace task 'RESET' on a host in T1 that has no T2
+            folder shows obscure error</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19498 Error after Repair Tool 10.0 - SQL logic error database
+            DLPEX0 is already in use</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19499 FSAA Repair Tool: Saying path doesn't exist when it
+            does</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19280 1164 - FS DC: Improve proxy host list selection in FSAA DC
+            scan config.</strong
+          >
+        </p>
+        <p><strong>-              SAFS-19488 Update FSAA to support IPv6 for NFS scans.</strong></p>
+        <p>
+          <strong
+            >-              SAFS-19425 52817 - PK_SA_FSAC_PermissionChanges after Dup
+            Removal</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19553 FSAA: Remove reference to HostStatus.pas in FSAA
+            Project</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19671 FSAA Repair tool: SQL logic error no such table:
+            TBL_FSAC_PermissionChanges</strong
+          >
+        </p>
+        <p>
+          <strong
+            >-              SAFS-19353 52576 - Add tool to mark children of deleted parents as
+            deleted in tier 1 to the repair tool</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>List of changes since last Hotfix</strong></p>
+        <p>
+          <strong
+            >-              SAFS-19693 53538 - FS scans do not respect scoping rules when folder is
+            a substring of filter</strong
+          >
+        </p>
+        <p> </p>
+        <p><strong>Comments:</strong></p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            <strong
+              >Unblock the hotfix zip file in the windows property dialog, if an unblock button
+              exists there. </strong
+            >
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li><strong>Update all DC files in your %SAInstallDir%DC folder</strong></li>
+          <li>
+            <strong
+              >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder.</strong
+            >
+          </li>
+          <li>
+            <strong
+              >Run the ‘Update Proxy Service’ query under the Maintenance tab in the FSAA data
+              collector against your proxy servers (if running proxy service).</strong
+            >
+            <ol>
+              <li>
+                <strong
+                  >PLEASE NOTE THAT THIS HOTFIX INCLUDES A CHANGE THAT MAY REQUIRE YOU TO RUN THE
+                  UPDATE PROXY SERVICE TWICE TO UPDATE SDD COMPONENTS ON THE PROXY SERVER. YOU
+                  SHOULD RECEIVE A WARNING ON THE FIRST RUN INDICATING THIS.</strong
+                >
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          <strong
+            > <a
+              href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_032.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_032.zip</a
+            ></strong
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot access the Help-Desk portal</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9U1CAK" />
+    <meta name="Id" content="ka04u000000HcNmAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="651" />
+    <meta name="ArticleNumber" content="000003073" />
+    <meta
+      name="description"
+      content="I keep getting prompted for a password after I type in the correct one in the NetWrix Account Lockout Examiner Web portal. Even if I enter a correct password I cannot log in"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When using the web portal for Netwrix Account Lockout Examiner, I keep getting prompted for
+        a password after I type in the correct one. Why does the password never get accepted?
+
+        <hr />
+
+        This error indicates your authentication settings need to be adjusted to comply with the
+        following:
+        <ol>
+          <li>
+            The account you are using to access the Help-Desk portal is added to the local
+            Administrators group or at least granted the
+            <strong>Help-desk operator security role</strong>. For detailed information on the
+            security roles, refer to the following Netwrix KB article:
+            <a href="https://kb.netwrix.com/2735" target="_blank"
+              >How to restrict access to the Help-Desk portal and the Administrative Console</a
+            >.
+          </li>
+          <li>
+            All authentication types excepting <strong>Windows authentication </strong>or
+            <strong>Basic authentication </strong>are disabled in the
+            <strong>Internet Information Services (IIS) Manager</strong>, and either Windows or
+            Basic authentication is enabled. To ensure the required settings are enabled in
+            <strong>IIS6,</strong> do the following: a) In the <strong>IIS Manager </strong>left
+            pane, navigate to <strong>ALE</strong> virtual directory (by default &lt;your computer
+            name&gt; -&gt; Web Sites -&gt; Default Web Site -&gt; ALE). b) Right-click the
+            <strong>ALE</strong> folder and select <strong>Properties</strong>. c) In the<strong>
+              Properties </strong
+            >dialog, open the <strong>Directory Security </strong>tab, and select
+            <strong>Edit </strong>for <strong>Authentication and Access Control</strong>. d) In the
+            <strong>Authentication Methods </strong>dialog, select either the
+            <strong>Integrated Windows authentication </strong>box or
+            <strong>Basic authentication </strong>(password is sent in clear text), and clear all
+            other authentication options for Authentication access.
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9U1CAK_944bb37c-f784-47f4-a774-8628d0a73871.png"
+          alt="User-added image"
+          width="325"
+          height="375"
+        />
+        <p>
+          To ensure the required settings are enabled in<strong> I<strong>IS7</strong>,</strong> do
+          the following: a) In the <strong>IIS Manager </strong>left pane, navigate to ALE virtual
+          directory (by default &lt;your computer name&gt; -&gt; Sites -&gt; Default Web Site -&gt;
+          ALE). b) In the Manager central pane, double-click the
+          <strong>Authentication o</strong>ption. c) In the Authentication list, enable either the
+          <strong>Windows Authentication </strong>option or <strong>Basic Authentication</strong>,
+          and disable all other authentication options.
+        </p>
+        <img
+          src="kA00g000000H9U1CAK_d7bd6202-1f73-4ab0-b37e-2096c6d708e7.png"
+          alt="User-added image"
+          width="500"
+          height="379"
+        />
+        <ol start="3">
+          <li>
+            Your proxy server is disabled or bypassed. To check the proxy settings, do the
+            following: a) Go to <strong>Control panel -&gt; Internet options</strong>. b) In the
+            <strong>Internet Properties </strong>dialog, open the <strong>Connections</strong> tab
+            and click the <strong>LAN settings </strong>button. c) Make sure the
+            <strong>Use a proxy server for your LAN </strong>option is not enabled. Otherwise, make
+            sure the <strong>Bypass proxy server for local addresses </strong>option is enabled too;
+            in this case the Help-Desk portal must be a member of the
+            <strong>Local intranet zone</strong>, or specified as exception.
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9U1CAK_86379032-1d7a-4ffe-98f5-96dd3537f531.png"
+          alt="User-added image"
+          width="500"
+          height="481"
+        />
+        <ol start="4">
+          <li>
+            The account you are using has READ access to the physical directory of the Web-portal
+            (by default C:Program Files (x86)NetWrixAccount Lockout ExaminerWeb)
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

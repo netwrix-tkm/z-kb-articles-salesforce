@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to create a load balanced CEWS environment</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9e6CAC" />
+    <meta name="Id" content="ka04u000000HcWoAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3493" />
+    <meta name="ArticleNumber" content="000003688" />
+    <meta name="description" content="How to create a load balanced CEWS environment" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        This article describes how to configure a basic load balanced environment for the
+        <b>Netwrix Data Classification CEWS</b> product. In this configuration each server will run
+        both the:
+        <ul>
+          <li>
+            <strong>Netwrix Data Classification <b>QS</b> </strong><b>Administration Interface</b>
+          </li>
+          <li><strong>Netwrix Data Classification CEWS </strong><b>Web Service Endpoint</b></li>
+        </ul>
+        With the CEWS endpoint leveraging the local <strong>conceptQS.asmx </strong>web service
+        endpoint on each server.
+
+        <b
+          ><em
+            >This article assumes that the environment is currently a single server instance - not a
+            <strong>DQS </strong>configuration.</em
+          ></b
+        >
+        <ol>
+          <li>
+            Access the current <strong>conceptCEWS </strong>server via RDP (mstsc) and perform the
+            following actions:
+            <ol>
+              <li>
+                Locate your <strong>conceptDB </strong>directory (default location of C:Program
+                FilesConceptSearching)
+              </li>
+              <li>
+                <strong>Share </strong>the <strong>conceptDB </strong>folder with an appropriate
+                service account (we will be mapping this to each of the other servers)
+              </li>
+              <li>
+                Locate your <strong>conceptQS/conceptCEWS </strong>directory (default location of
+                C:inetpubwwwroot)
+              </li>
+              <li><strong>Copy </strong>both directories</li>
+            </ol>
+          </li>
+          <li>
+            Access the new server via RDP and perform the following actions:
+            <ol>
+              <li>Map a shared drive to the share created in <strong>1(a) </strong></li>
+              <li>Navigate to the default <strong>IIS</strong> location (C:inetpubwwwroot)</li>
+              <li><strong>Paste</strong> the copied applications</li>
+              <li>Navigate into the conceptQSin folder</li>
+              <li><strong>Open</strong> conceptConfig.exe</li>
+              <li>Amend the <strong>CSE </strong>files location to the mapped network drive</li>
+              <li><strong>Open IIS Manager (Run + inetmgr)</strong></li>
+              <li>
+                Right-click each of the two new folders and select "<strong>Convert</strong>
+                <strong>to Application</strong>"
+              </li>
+              <li>
+                Validate that the configured <strong>Application</strong> <strong>Pool</strong> is
+                configured for both the correct account and the correct .<strong>NET</strong>
+                version (4.0)
+              </li>
+            </ol>
+          </li>
+          <li>
+            Configure your <strong>Load Balancer </strong>to point to the two servers, typically:
+            <em>http://servername/conceptQS/ContentEnrichmentWebService.svc</em>
+          </li>
+          <li>
+            Amend the <strong>SharePoint </strong>CEWS configuration to point to the
+            <strong>Load </strong><strong>Balancer </strong>rather than the new server. An example
+            script is shown below for reference:
+          </li>
+        </ol>
+        <pre class="ckeditor_codeblock">
+$ssa = Get-SPEnterpriseSearchServiceApplication
+$config = New-SPEnterpriseSearchContentEnrichmentConfiguration
+$config.Endpoint = "http://loadbalancer/conceptCEWS/ContentProcessingEnrichmentService.svc"
+$config.InputProperties = "Body", "Title", "OriginalPath", "&lt;CustomField1&gt;", "&lt;CustomField2&gt;", ....
+$config.OutputProperties = "&lt;OutputFieldName1&gt;", "&lt;OutputFieldName2&gt;", ....
+$config.SendRawData = $True
+$config.MaxRawDataSize = 8192
+$config.Timeout = 30000
+Set-SPEnterpriseSearchContentEnrichmentConfiguration -SearchApplication $ssa -ContentEnrichmentConfiguration $config</pre
+        >
+      </div>
+    </article>
+  </body>
+</html>

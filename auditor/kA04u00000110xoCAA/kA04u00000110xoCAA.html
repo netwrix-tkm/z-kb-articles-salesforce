@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Migrate Event Log Manager Monitoring Plans</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110xoCAA" />
+    <meta name="Id" content="ka04u00000116yJAAQ" />
+    <meta name="LastPublishedDate" content="2023-07-28T16:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-31T13:18:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-28T16:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8699" />
+    <meta name="ArticleNumber" content="000008699" />
+    <meta name="description" content="Migrate Event Log Manager Monitoring Plans" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to migrate a monitoring plan for Event Log Manager (ELM) to a different server?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <div class="table-wrap">
+            <table count-columns="2" border="1">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">On your prior Netwrix Auditor server</td>
+                  <td colspan="1" rowspan="1">
+                    <div>
+                      <ol>
+                        <li>
+                          <p>
+                            Copy the folders located in
+                            <code>%Working Folder%\Event Log Management\Rules\</code>. Each folder
+                            represents a single monitoring plan in Event Log Manager.
+                          </p>
+                        </li>
+                        <li>
+                          <p>Export the Event Log Manager tasks from Task Scheduler:</p>
+
+                          <ol>
+                            <li>
+                              <p>
+                                Open your Task Scheduler either via the Search bar or
+                                <code>taskschd.msc</code> in the Run command window.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Locate all tasks related to Event Log Manager. They will have the
+                                following line in the description under the
+                                <strong>General</strong> tab:
+                              </p>
+
+                              <pre class="has-inner-focus">
+Starts Netwrix Auditor data collection on Event Log for '%monitoring_plan_name%'</pre
+                              >
+                            </li>
+                            <li>
+                              <p>
+                                To export a task, right-click a task and click
+                                <strong>Export</strong>. Perform these steps for all tasks.
+                              </p>
+                            </li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">On your new Netwrix Auditor server</td>
+                  <td colspan="1" rowspan="1">
+                    <div>
+                      <ol>
+                        <li>
+                          <p>
+                            Create a monitoring plan in Event Log Manager using the name of the
+                            prior monitoring plan.
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            Copy the folder from your prior server to the new one to
+                            <code>%Working Folder%\Event Log Management\Rules\</code>.
+                          </p>
+                        </li>
+                        <li>
+                          <p>Import the tasks for Task Scheduler:</p>
+
+                          <ol>
+                            <li>
+                              <p>
+                                On your new server, open Task Scheduler, and click
+                                <strong>Action</strong> in the top row &gt;
+                                <strong>Import...</strong>.
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                Select the previously exported tasks and import them to your new
+                                server.
+                              </p>
+                            </li>
+                          </ol>
+                        </li>
+                      </ol>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

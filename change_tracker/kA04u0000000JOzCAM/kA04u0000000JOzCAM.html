@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>5. Gen 7 Settings Pages - Configuration Templates - Processes and Services</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JOzCAM" />
+    <meta name="Id" content="ka04u000000Hd6xAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:32:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8085" />
+    <meta name="ArticleNumber" content="000008085" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-5.Gen7SettingsPages-ConfigurationTemplates-ProcessesandServices-_Toc484003730"
+            ><span class="confluence-anchor-link" id="_Toc484003730"> </span></span
+          ><span>Configuration Templates: Processes and Services</span><br />
+          The Processes and Services tab allows Processes and/or Services (Windows only) and their
+          states to be defined within your Configuration Policy as either Whitelisted/Blacklisted. A
+          key indicator of breach or malware activity is the existence of new processes or services.
+          Likewise configuration hardening and vulnerability mitigation always requires unnecessary
+          services and daemons to be removed or disabled. Therefore it is important to track process
+          lists and services and their states.
+        </p>
+        <p>
+          <br />
+          Process/Service names can be defined manually or imported from a donor device. Select a
+          'donor' device on which to base your policy then press 'merge' to harvest the current
+          services list and their state from the device. Define the desired state for the Services
+          in the Policy, and then click 'Save Settings to Device' to finish and update the policy.
+        </p>
+        <p>
+          <br />
+          Any non-necessary Services or Services you are generally unconcerned about should be
+          marked as 'Ignore State'.
+        </p>
+        <p>
+          <br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="334"
+              width="625"
+              src="kA04u0000000JOzCAM_a5bf9658-58ea-419b-ad33-cdf264705b59.png"
+          /></span>
+        </p>
+        <ol>
+          <li>
+            Uncategorized Process/Service Action: Use this option if you want to be alerted to the
+            presence of any new, uncategorized processes or services. This is an option as in some
+            situations it may be convenient to be alerted to missing, key processes.
+          </li>
+          <li>Polling Frequency: See previous tracker notes</li>
+          <li>
+            Define Process (Service) Name: Processes/Services can be defined as either Required,
+            Blacklisted, Whitelisted or Graylisted.
+            <ol>
+              <li>
+                Required: The Process/Service must be in the state required and an alert will be
+                raised if this is not the case
+              </li>
+              <li>
+                Whitelisted: The Process/Service is allowed to be present but this is not mandatory
+              </li>
+              <li>
+                Blacklisted: The Process/Service is never allowed to be present and an alert will be
+                raised if this is not the case
+              </li>
+              <li>
+                Graylisted: The process/service has not yet been allocated to another category
+              </li>
+            </ol>
+          </li>
+          <li>
+            Pick Device: A list of Devices will be presented and one of these can be selected to act
+            as the 'Donor' for a Process/Service list. This is useful for capturing a 'known good'
+            device state in terms of its running processes/services.
+          </li>
+          <li>
+            Augment existing template definition: An existing template specification can be used as
+            a base for a new, device-specific customized template to avoid repeated re-defining of
+            process/service states
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

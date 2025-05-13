@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>0x80040605 Error − Connection Failed</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YWCA0" />
+    <meta name="Id" content="ka0Qk0000001CtZIAU" />
+    <meta name="LastPublishedDate" content="2024-01-03T14:54:42.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-03T14:54:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1191" />
+    <meta name="ArticleNumber" content="000003344" />
+    <meta
+      name="description"
+      content="You see the following error &amp;quot;Failed to process a request because the target server is unreachable&amp;quot; when loading the Netwrix console, or in the Health Log, when referring to email notifications."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Either of the following error messages is prompted in your Health Log or upon the
+            Netwrix Auditor launch:
+          </p>
+
+          <pre class="has-inner-focus">
+Connection failed
+0x80040605 Failed to process a request because the target server is unreachable</pre
+          >
+
+          <pre class="has-inner-focus">
+An error occurred while sending email:
+0x80040605 Failed to process a request because the target server is unreachable</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>One (or more) of the following services has stopped in the Netwrix Auditor server:</p>
+
+          <ul>
+            <li>
+              <p>Netwrix Auditor Archive Service</p>
+            </li>
+            <li>
+              <p>Netwrix Auditor Configuration Server Service</p>
+            </li>
+            <li>
+              <p>Netwrix Auditor Core Service</p>
+            </li>
+            <li>
+              <p>Netwrix Auditor Data Collection Service</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Review the services running in the Auditor server − make sure the services are running
+            with their startup type set to <strong>Automatic</strong>.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If the disk storing Long-Term Archive is
+              running out of space, you'll corresponding events in Health Log. When the free disk
+              space is below 3GB, the Netwrix services responsible for audit data collection will be
+              stopped, preventing the data collection. For additional information on reducing disk
+              space consumption, refer to the following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111I3CAI.html"
+                target="_self"
+                >Netwrix Auditor Consumes Disk Space — Recommendations</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111I3CAI.html"
+                  target="_self"
+                  >Netwrix Auditor Consumes Disk Space — Recommendations</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

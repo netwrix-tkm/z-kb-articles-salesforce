@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WMI Classes Data Provider Failed to Get the Information on Win32_Printer Error</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bkCAC" />
+    <meta name="Id" content="ka0Qk0000001f7ZIAQ" />
+    <meta name="LastPublishedDate" content="2023-09-06T08:56:27.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-02T08:17:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1372" />
+    <meta name="ArticleNumber" content="000003542" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when the email contains the following error:The WMI Classes data provider failed to get the information on &amp;#039;Win32_Printer&amp;#039;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>The Netwrix Auditor Health Log contains the following error:</p>
+
+        <pre class="ckeditor_codeblock">
+Event ID 1016: &lt;server&gt;: Error: The WMI Classes data provider failed to get the information on "Win32_Printer" due to the following error: 'Generic failure'
+</pre
+        >
+
+        <h2 id="cause">Cause</h2>
+
+        <p>The Print Spooler service is stopped or disabled on the monitored server.</p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <ol>
+          <li>
+            <p>Log on to the problematic server.</p>
+          </li>
+          <li>
+            <p>
+              Start the <strong>Services</strong> snap-in (Click <strong>Start</strong> &gt;
+              <strong>Run</strong>, type <code>services.msc</code> and press Enter).
+            </p>
+          </li>
+          <li>
+            <p>Locate the <strong>Print Spooler</strong> service and double-click it.</p>
+          </li>
+          <li>
+            <p>
+              In the <strong>General</strong> tab, review the <strong>Startup type</strong> value −
+              switch it to <strong>Automatic</strong> and click <strong>Start</strong>.
+            </p>
+          </li>
+          <li>
+            <p>Click <strong>Apply</strong>.</p>
+          </li>
+        </ol>
+        <img
+          alt="User-added image"
+          src="kA00g000000H9bkCAC_b1449d06-1e8f-43ef-9d15-1db6f5c8a3cb.png"
+        />
+        <hr class="wp-block-separator" />
+        <p>
+          Both of the alternative resolutions are aimed at removing the error from reports. The
+          downside is that the collector will not report any information regarding printers in
+          omitted servers. Use the alternative resolutions if you would like to disable Printer
+          Spooler Service monitoring in selected servers.
+        </p>
+
+        <h4 id="alternative_resolution_1">Alternative Resolution 1</h4>
+        You may choose to omit this error using the <b>omitcollectlist.txt</b><strong> </strong>(for
+        Activity Records) or <b>omitsitcollectlist.txt</b> (for State-in-Time data). <br />Use the
+        following syntax:
+        <pre class="ckeditor_codeblock">monitoring plan name, server name, WIN32_PRINTER</pre>
+
+        <p>
+          Refer to the following article for additional information:
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm#exclude_monitored_objects"
+            target="_blank"
+            >Configuration − Windows Server − Exclude Monitored Objects · v10.6</a
+          >.<br /><br />This method can be used to exclude the error by excluding the Print Spooler
+          events from the monitoring scope. Refer to the following article for the full list of
+          objects monitored on Windows Servers: <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm#monitored_objects"
+            target="_blank"
+            >Configuration − Windows Server − Monitored Objects · v10.6</a
+          >. Scroll down to <b>Object type</b> &gt; <b>Printing</b>.<br />The <b>Printer Changes</b>
+          report for Windows Server also will show only events collected before this resolution.
+        </p>
+
+        <h4 id="alternative_resolution_2">Alternative Resolution 2</h4>
+
+        <p>
+          You may omit the error itself from being displayed in the Netwrix Auditor Health Log using
+          the omiterrors.txt file.<br />Use the following syntax:
+        </p>
+
+        <pre class="ckeditor_codeblock">
+monitoring plan name, server name,*The WMI Classes data provider failed to get information on Win32_Printer due to the following error: Generic failure*
+</pre
+        >
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm#exclude_monitored_objects"
+                  target="_blank"
+                  >Configuration − Windows Server − Exclude Monitored Objects · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm#monitored_objects"
+                  target="_blank"
+                  >Configuration − Windows Server: Monitored Objects · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

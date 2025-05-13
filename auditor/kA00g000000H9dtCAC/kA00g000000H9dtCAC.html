@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Response Action Example: Moving User Account to the Quarantine OU</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dtCAC" />
+    <meta name="Id" content="ka04u00000117eAAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T11:05:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T11:05:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3343" />
+    <meta name="ArticleNumber" content="000003675" />
+    <meta
+      name="description"
+      content="Response Action Example: Moving User Account to the Quarantine OU"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        This article explains how to set up a response action in Netwrix Auditor alert to move an AD
+        user account to the quarantine Organizational Unit (OU). Read more about alert response
+        action settings in the
+        <a
+          href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/AlertSettings/ResponseAction.htm"
+          target="_blank"
+          >Administration – Alerts – Configure a Response Action for Alert ⸱ v10.6</a
+        > article.<br />A quarantine OU is an OU with restrictive policies applied, used to limit
+        access to sensitive and business-critical resources. Removal of a significant number of
+        files from a file server within a short period of time may indicate potentially harmful user
+        activity. To mitigate the risks of account usage with malicious intent, it is recommended to
+        move suspicious user accounts to the quarantine OU. With this measure, you can limit user
+        privileges without deleting the account from Active Directory. With Netwrix Auditor alerting
+        and response action feature, you can automate and verify this course of action. To simulate
+        suspicious activity and trigger the response action, you can do the following:
+        <blockquote>
+          <div>
+            <span><strong>IMPORTANT</strong></span
+            >. It is strongly recommended that before implementing this course of action in your
+            production environment, you perform these steps in your test lab. Please also note that
+            we are only performing the moving action, creating/designating a Quarantine OU is not
+            included in this procedure.
+          </div>
+        </blockquote>
+        <strong>Step 1.</strong> Check prerequisites and take preparatory steps, as described
+        below.<br /><strong>Step 2.</strong> Modify the PowerShell script provided later in this
+        document and save it to Netwrix Auditor server.<br /><strong>Step 3.</strong> Enable the
+        <strong>Mass Data Removal from File Servers</strong> alert in Netwrix Auditor and configure
+        response action for this alert to run the PowerShell script.<br /><strong>Step 4.</strong>
+        On your file server, create 10+ files, then remove these files using test AD user
+        account.<br /><strong>Step 5.</strong> Wait for notification on the alert triggering and
+        check response action results in the Active Directory Users and Computers.
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="step_1_check_prerequisites">Step 1. Check Prerequisites</h4>
+        Make sure the following is present in the test AD domain:
+
+        <ul>
+          <li>Test AD user account</li>
+          <li>Quarantine OU</li>
+          <li>
+            A privileged account with sufficient rights to move AD users to the quarantine OU " you
+            may need a domain administrator account for that purpose.
+          </li>
+        </ul>
+        On Netwrix Auditor server, check the following:
+
+        <ul>
+          <li>
+            <strong>Active Directory Module for Windows PowerShell</strong> is installed and
+            enabled. For example, to enable this module on Windows Server 2016:
+          </li>
+        </ul>
+
+        <ol>
+          <li>Go to Server Manager, click <strong>Manage</strong>.</li>
+          <li>
+            Select <strong>Features</strong> &gt;
+            <strong>Remote Server Administration Tools</strong> &gt;
+            <strong>Role Administration Tools</strong> &gt;
+            <strong>AD DS &amp; AD LDS Tools</strong> &gt;
+            <strong>Active Directory module for Windows PowerShell</strong>.
+          </li>
+          <li>Complete the wizard to save the settings.</li>
+        </ol>
+
+        <ul>
+          <li>
+            The file server you want to monitor for file deletions is included in the corresponding
+            monitoring plan; data collection is enabled, and audit data is stored to the database.
+          </li>
+        </ul>
+
+        <h4 id="step_2_prepare_a_powershell_script">Step 2. Prepare a PowerShell Script</h4>
+
+        <ol>
+          <li>
+            With a plain text editor (e.g. Notepad), copy the script content provided below; in the
+            <strong>$OUTargetPath</strong> parameter specify the distinguished name of your
+            quarantine OU (the name to modify is colored <span>red</span>).
+
+            <pre><span><span><span><span>#Target OU
+$OUTargetPath = "<span>OU=q,DC=DC11,DC=Loc</span>"
+$PathToCSV = "$Args"
+$scriptdir=$PSScriptRoot
+$PathToResultFile = Join-Path $scriptdir "result"
+$PathToResultFile = (Copy-Item -Path $PathToCSV -Destination $PathToResultFile -PassThru)
+$csv = Import-Csv -Path $PathToResultFile -Delimiter "`t"
+
+$Who = $csv | Select Who| Sort-Object -Property Who -Unique
+
+foreach ($item in $Who)
+{
+  Move-ADObject (Get-ADUser -Identity ((New-Object System.Security.Principal.NTAccount($item."Who")).Translate([System.Security.Principal.SecurityIdentifier])).Value).DistinguishedName -TargetPath $OUTargetPath
+}</span></span></span></span>
+</pre>
+          </li>
+          <li>
+            Save the customized script as a <em>.PS1</em> file in a folder on Netwrix Auditor
+            server.
+          </li>
+        </ol>
+
+        <h4 id="step_3_configure_the_alert">Step 3. Configure the Alert</h4>
+
+        <ol>
+          <li>
+            In Netwrix Auditor, go to <strong>Alerts</strong> and select
+            <strong>Mass Data Removal from File Servers</strong>
+          </li>
+          <li>On the <strong>General</strong> tab, turn alerting on.</li>
+          <li>
+            On the <strong>Recipients</strong> tab, specify your email address to get a notification
+            on the alert triggering.
+          </li>
+          <li>
+            On the <strong>Filters</strong> tabs, in the <strong>Where</strong> field, specify the
+            name of file server you will be monitoring:<br />
+            <img
+              alt="response_action_filter.png"
+              src="kA00g000000H9dtCAC_eff61e07-edc3-4ed1-bdb4-9cd73d589970.png"
+            />
+          </li>
+          <li>
+            On the <strong>Thresholds</strong> tab, leave the default values " the alert will be
+            triggered if <em>10+</em> files are created by the same user within
+            <em>600</em> seconds.
+          </li>
+          <li>
+            On the <strong>Response Action</strong> tab, do the following:
+            <ul>
+              <li>Enable the response action by switching the slider ON.</li>
+              <li>
+                In the <strong>Run</strong> field, specify the path to the executable file as in
+                your system " in our example this is
+                <em>C:WindowsSystem32WindowsPowerShell1.0powershell.exe</em>.
+              </li>
+              <li>
+                In the <strong>With parameters</strong> field, enter: -command
+                &lt;path_to_PS1_file&gt; here path_to_PS1_file is the path to PowerShell script you
+                prepared at Step 2.
+              </li>
+              <li>Leave the <strong>Working directory</strong> field as is.</li>
+              <li>
+                Select <strong>Write data to CSV file</strong> option, leave
+                <strong>Limit row count</strong> as is.
+              </li>
+              <li>
+                Select <strong>Use custom credentials</strong> and enter the account that will be
+                used to move the suspicious user to the quarantine OU (see Step 1, #3). In our
+                example, this is <em>dc11administrator</em>.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h4 id="step_4_create_and_delete_files">Step 4. Create and Delete Files</h4>
+
+        <ol>
+          <li>
+            On the file server, create 10 or more files. (To access the file server, use any account
+            with sufficient rights - (other than test AD user account).
+          </li>
+          <li>
+            On Netwrix Auditor server, update the related monitoring plan to collect the latest
+            audit data (alternatively, you can wait about 10 minutes for automatic data collection
+            to complete).
+          </li>
+          <li>
+            Then use test AD user account to delete these files; this operation should not take more
+            than 600 seconds (for the alert to be triggered).
+          </li>
+          <li>
+            Back on the Netwrix Auditor server, update the related monitoring plan to collect the
+            latest audit data. After it is collected, monitoring plan status will change from
+            <em>Working</em> to <em>Enabled</em>.
+          </li>
+        </ol>
+
+        <h4 id="step_5_verify_response_action_results">Step 5. Verify Response Action Results</h4>
+
+        <ol>
+          <li>
+            Open the mailbox of the alert recipient you specified at Step 3 and make sure the
+            notification on the "Mass Data Removal from File Servers" alert was received.
+          </li>
+          <li>
+            Use the domain admin account to log on to domain controller, open
+            <strong>Users and Computers</strong> snap-in and check that test AD user account is now
+            in the quarantine OU.
+          </li>
+        </ol>
+
+        <blockquote>
+          <div>
+            <span><strong>NOTE</strong></span
+            >. You may need to wait several minutes until moving to the quarantine OU completes.
+            After verifying this course of action in your lab, you can implement it in the
+            production environment, skipping Step 4 (simulation of suspicious actions).
+          </div>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

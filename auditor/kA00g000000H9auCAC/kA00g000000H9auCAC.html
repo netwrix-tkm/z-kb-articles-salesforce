@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Data gathering task has not been scheduled</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9auCAC" />
+    <meta name="Id" content="ka04u000000HcTgAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1322" />
+    <meta name="ArticleNumber" content="000003490" />
+    <meta
+      name="description"
+      content="Something is blocking the creation of the Windows Scheduled Task Status shows as Not Scheduled after creation. Data gathering task has not been scheduled"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The status of your collections show as Not Scheduled after creation. Following the
+        instructions in the description does not help.
+
+        <hr />
+
+        Something is blocking the creation of the Windows Scheduled Task. This could be permissions
+        of some kind, group policy or UAC.
+
+        <hr />
+
+        To ensure that the following KB will be helpful please verify the following: 1) There is a
+        scheduled task created in the C:WindowsTasks folder however the Windows Task Scheduler GUI
+        does not show this task. Once that is confirmed please try the following. After each step
+        where a change was made, refresh Windows Task Scheduler to see if the task shows up. 1)
+        Ensure the Data Processing Account is a local admin and/or disable UAC on the Netwrix
+        Server. 2) Ensure that credentials that are entered in <strong>Settings -&gt; </strong
+        ><strong>Data Collection -&gt; Modify Button </strong>are not blank. 3)
+        <strong>Right click </strong>each of your managed objects and for each one that is using
+        <strong>custom credentials</strong> also make sure that those are not blank. 4) Ensure that
+        the following <strong>Group Policy</strong> is not applied to the Netwrix server -<strong>
+          Network access: Do not allow storage of passwords and credentials for network
+          authentication</strong
+        >. You can see if it is by opening <strong>Local Security Policy</strong> and navigating to
+        <strong>Security Settings -&gt; Local Policies -&gt; Security Option</strong>s. Note #2 and
+        #3 are more likely to occur after a migration as the credentials are encrypted specifically
+        for the original computer and need to be entered manually.
+      </div>
+    </article>
+  </body>
+</html>

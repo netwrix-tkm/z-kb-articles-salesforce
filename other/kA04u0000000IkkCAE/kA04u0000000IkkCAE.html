@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Generate Activity in Box for demoing Box Activity scans in test environments</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IkkCAE" />
+    <meta name="Id" content="ka04u000000Hcv1AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:36:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:36:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7237" />
+    <meta name="ArticleNumber" content="000007237" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Coming in version
+          8.3 of StealthAUDIT will be the ability to collect Box Activity, for the purpose of
+          demoing this especially in test environments there is an Activity Generation script that
+          can be run to generate some activity.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> When demoing the
+          StealthAUDIT for Box Activity you're going to want a decent amount of data to demo and
+          during a POC it's common that you'll be scanning a test environment which may or may not
+          have a sufficient amount of activity. This tool will generate a good amount of activity
+          which our DC can go ahead and scan providing a solid data set for StealthAUDIT to report
+          on.  <br />This script will take approximately 2 minutes to run and will create and
+          subsequently delete everything it has created, all activity that is generated will be done
+          by the test user which was created. Everything this script does is described in PowerShell
+          while it's running. See screenshots below of entirety of script actions:<br /><img
+            src="kA04u0000000IkkCAE_e3244da1-5d35-4466-a173-362ad0a38dc6.png"
+            alt="User-added image"
+            width="500"
+            height="641"
+          /><br /> <br /><img
+            src="kA04u0000000IkkCAE_c72b30e2-8676-40c6-96d8-73c3ce37402a.png"
+            alt="User-added image"
+            width="500"
+            height="405"
+          /><br /><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <strong><span>Configuring the json.config file: </span></strong>
+        </p>
+        <ul>
+          <li>
+            <strong
+              ><span
+                >Account with Box enterprise admin or co-admin. Requires access to the dev console
+                of the Box enterprise.
+              </span></strong
+            >
+          </li>
+          <li>
+            <strong><span>Register a new Custom App in Box here: </span></strong
+            ><a href="https://app.box.com/developers/console" target="_blank">Link</a
+            ><strong
+              ><span>
+                (Name doesn't matter but whatever it is named will need to be replaced in the
+                instructions piece of this document below, we named our BoxCLI)
+              </span></strong
+            >
+          </li>
+        </ul>
+        <p>
+          <img
+            src="kA04u0000000IkkCAE_06925fae-3c67-4c12-bbac-29a437e60916.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <ul>
+          <li>
+            <strong><span>Do not use a developer token. Choose Custom Application</span></strong>
+          </li>
+          <li>
+            <strong
+              ><span
+                >Authentication Method: OAuth 2.0 credentials (Should be generated
+                automatically)</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong><span>Application Access: Enterprise</span></strong>
+          </li>
+        </ul>
+        <p>
+          <strong
+            ><span
+              ><img
+                src="kA04u0000000IkkCAE_7b283335-6491-4ead-b3a8-d417303cfcda.png"
+                alt="mceclip1.png" /></span
+          ></strong>
+        </p>
+        <ul>
+          <li>
+            <strong
+              ><span
+                >Application Scopes: (Everything except: "Manage webhooks", "Manage retention
+                policies", and "enable integrations".)</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong><span>Advanced features: Both </span></strong><strong><span>�</span></strong
+            ><strong><span>Perform actions as users and Generate user access tokens.</span></strong>
+          </li>
+          <li>
+            <strong
+              ><span
+                >Add and manage public keys: Generate a public/private keypair (Sometimes when
+                clicking generate the json file will be created here, that's fine just grab it from
+                wherever it's downloaded and copy it into the BoxCLI folder.</span
+              ></strong
+            >
+          </li>
+          <li>
+            <strong><span>CORS Domains: Leave blank/at defaults</span></strong>
+          </li>
+          <li>
+            <strong
+              ><span
+                >App settings: Generate and download a json document with the config here.</span
+              ></strong
+            >
+          </li>
+        </ul>
+        <p>Once you've generated the config.json file follow these steps:</p>
+        <ol>
+          <li>
+            Grab the powershell script from
+            <a
+              href="https://downloads.stealthbits.com/access/files/Utilities/Apps/BoxActivityTest.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/Utilities/Apps/BoxActivityTest.zip</a
+            >
+          </li>
+          <li>
+            Install the MSI in the zip.  This is a box command line tool, which is a PowerShell
+            extension.  Try and leave the default installation path if you can, which is: C:\Program
+            Files\BoxCLI\
+          </li>
+        </ol>
+        <p>Once it's installed you can control box from powershell</p>
+        <ol>
+          <li>
+            Extract all the files from the zip into their own folder, the main components are a
+            PowerShell script (BoxAct.ps1), and a test file (test.txt). You will also need the
+            configuration file (config.json file that the customer generates) Copy both the test.txt
+            and config.json files into C:\Program Files\BoxCLI\ folder.
+          </li>
+        </ol>
+        <p>
+          The script does the bulk of the work, the test file is just what gets uploaded for
+          activity, and the config file describes which box enterprise to operate on.
+        </p>
+        <ol>
+          <li>
+            Once it's installed open up an administrative powershell command shell and enter the
+            following command: cd "C:\Program Files\BoxCLI"
+          </li>
+        </ol>
+        <p>
+          This command adds the box CLI to the shell Path (so that PowerShell can find it).  If you
+          changed the path that the BoxCLI tool was installed to, then change this command to
+          reflect the new path.  (This is the only command which requires Admin rights, so after
+          this you can theoretically just use a regular powershell command prompt)
+        </p>
+        <ol>
+          <li>
+            Enter the following command to configure the box CLI tool to know the Box Enterprise.
+          </li>
+        </ol>
+        <p>
+          Command: box configure environments add .\config.json --name CLI<br />After that all that
+          remains is to manually edit the BoxAct.ps1 script file to change a few optional settings
+          at the top of the file to use the credentials with Box Enterprise admin or co-admin.<br />The
+          line looks like this:<br />$BoxUserEmail = "chris.admin@stealthbits.com" #
+          "activity.one@stealthbits.com"<br /> <br />edit the account name in the first " "
+          section.  (Everything after the # is just a comment)<br />Once that is done, run the test
+          script by entering the following into powershell: BoxAct.ps1<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - DropboxAccess<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.3+<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2202
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

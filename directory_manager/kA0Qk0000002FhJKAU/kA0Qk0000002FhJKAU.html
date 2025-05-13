@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Trigger a Workflow When a User Creates a Group</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002FhJKAU" />
+    <meta name="Id" content="ka0Qk000000DGYPIA4" />
+    <meta name="LastPublishedDate" content="2025-04-15T20:31:02.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-16T18:32:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-28T23:25:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10115" />
+    <meta name="ArticleNumber" content="000010115" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 11 or above</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to implement a workflow approval process for group creation
+          using Netwrix Directory Manager (formerly Netwrix GroupID). By configuring workflow
+          routes, administrators can ensure that all new groups created via the Self-Service portal
+          are subject to approval before being committed to Active Directory.
+        </p>
+        <p>The workflow route consists of the following components:</p>
+        <ul>
+          <li>The object the workflow applies to (e.g., group)</li>
+          <li>The event that initiates the workflow (e.g., create)</li>
+          <li>A filter condition that defines when the workflow is triggered (e.g., user role)</li>
+          <li>The approver(s) responsible for reviewing and approving the request</li>
+        </ul>
+        <p>
+          If the workflow conditions are met, a request is generated and sent to the approvers. Once
+          approved, the group creation takes effect in Active Directory.
+        </p>
+        <blockquote>
+          <span class="Note"><strong>NOTE:</strong></span> You must configure notifications for an
+          identity store for workflows to work.
+        </blockquote>
+        <h2 id="instructions">Instructions</h2>
+        <ol>
+          <li>
+            <p>
+              In the <strong>Directory Manager Admin Center</strong>, click the
+              <strong>Identity Stores</strong> node from the Navigation Bar.
+            </p>
+          </li>
+          <li>
+            <p>
+              On the <strong>Identity Stores</strong> tab, click the three-dot icon and click the
+              <strong>Edit</strong> button of an identity store to open its properties.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000002FhJKAU_a7f8bf9f-c02d-42ff-aa0a-72c9d2266096.png"
+                alt="Identity Store Edit Screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Click the <strong>Workflow</strong> tab.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FhJKAU_a3af4cd5-3321-42a8-9ca0-bc687ef6bb74.png"
+                alt="Workflow Tab Screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Click <strong>Add Workflow</strong>.</p>
+          </li>
+          <li>
+            <p>In the <strong>Object(s)</strong> list, select <em>Group</em>.</p>
+          </li>
+          <li>
+            <p>
+              Enter a name for the workflow in the <strong>Name</strong> box. For example,
+              <em>Group Creation</em>.
+            </p>
+          </li>
+          <li>
+            <p>In the <strong>Events</strong> drop-down list, select <em>Create</em>.</p>
+          </li>
+          <li>
+            <p>
+              Make sure the <strong>Enabled</strong> check box is selected for the workflow to
+              apply.
+            </p>
+          </li>
+          <li>
+            <p>
+              Select the <strong>Enable mail approval</strong> check box to enable the approver to
+              approve or deny a workflow request from within the workflow email notification.
+            </p>
+          </li>
+          <li>
+            <p>
+              The <strong>Enable approver acceleration</strong> check box applies if approver
+              acceleration has been enabled for the identity store. To exempt this workflow route
+              from approver acceleration, clear this check box.
+            </p>
+          </li>
+          <li>
+            <p>
+              In the <strong>Description</strong> box, enter a brief description of the workflow.
+              For example,
+              <em>This workflow tracks creation of groups by people from User Security Role.</em>
+            </p>
+          </li>
+          <li>
+            <p>
+              In the <strong>Portal URL</strong> drop-down list, select a Self-Service portal URL to
+              include in the workflow email notifications. The URL would redirect the recipients to
+              the portal for acting on the respective request, such as approve or deny it.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000002FhJKAU_4b4048af-4ef3-4a55-97af-7c849c7830cc.png"
+                alt="Add Workflow Screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Use the <strong>Filters</strong> area to define a condition that must be met for the
+              workflow to trigger. Leave the filter blank to apply the workflow to all users. If a
+              condition is set and not met, the workflow will not initiate. For example, the
+              following filter targets users in the User security role:
+            </p>
+            <div class="table-wrap">
+              <table count-columns="3">
+                <thead>
+                  <tr>
+                    <th colspan="1" rowspan="1">Field</th>
+                    <th colspan="1" rowspan="1">Condition</th>
+                    <th colspan="1" rowspan="1">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="1" rowspan="1">Role</td>
+                    <td colspan="1" rowspan="1">Equals</td>
+                    <td colspan="1" rowspan="1">User</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              With this filter, when a user from the User role creates a group via the Self-Service
+              portal, the workflow is triggered and the changes are held for approval. Users outside
+              this role can create groups without triggering the workflow.
+            </p>
+          </li>
+          <li>
+            <p>In the <strong>Approvers</strong> area, click <strong>Add</strong>.</p>
+            <div>
+              <img
+                src="kA0Qk0000002FhJKAU_a4bccf32-11a3-4aae-886f-84f825308524.png"
+                alt="Add Approver Screenshot"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Select the user or group responsible for approving requests generated by this
+              workflow. For best results, assign an administrator or helpdesk member rather than
+              group owners.
+            </p>
+          </li>
+          <li>
+            <p>Click <strong>OK</strong> to save the approver configuration.</p>
+          </li>
+          <li>
+            <p>
+              Click <strong>OK</strong> on the <strong>Workflow Route</strong> dialog box and then
+              on the <strong>Workflow</strong> tab to finalize the configuration.
+            </p>
+          </li>
+        </ol>
+        <p>
+          Once these steps are complete, this configuration ensures that group creation requests
+          submitted via Directory Manager by User security role members are subject to approval
+          before being finalized.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

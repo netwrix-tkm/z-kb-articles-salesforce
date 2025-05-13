@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor Event Log Manager shows SMTP authentication errors while configuring a
+      monitoring plan
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110xFCAQ" />
+    <meta name="Id" content="ka04u00000116xfAAA" />
+    <meta name="LastPublishedDate" content="2023-07-31T08:49:54.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-31T10:30:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-27T13:15:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8695" />
+    <meta name="ArticleNumber" content="000008695" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the following error when specifying credentials for the Netwrix Auditor Event Log Manager monitoring plan: The specified account cannot be verified. The user name or password is incorrect."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Netwrix Auditor Event Log Manager does not collect logs and shows the following
+                error while trying to 'verify' if the messages were being sent in the Event Log
+                Manager monitoring plan.<br />
+                <img
+                  alt="User-added image"
+                  height="366"
+                  src="kA04u00000110xFCAQ_6f42bb20-9f58-4482-9001-4d54143f1072.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>
+                When providing credentials for the Netwrix Auditor Event Log Manager monitoring
+                plan, the following dialog appears:
+              </p>
+
+              <pre class="has-inner-focus">
+The specified account cannot be verified. The user name or password is incorrect. </pre
+              >
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <h2 id="cause">Cause</h2>
+
+          <div>
+            <p>
+              This error occurs when using o365 SMTP Server that requires TLS 1.2 enabled on the
+              computer that hosts Netwrix Auditor Server and on the target server(s).
+            </p>
+          </div>
+
+          <h2 id="resolution">Resolution</h2>
+
+          <div>
+            <p>Follow the steps below to resolve the issue:</p>
+
+            <ol>
+              <li>
+                <p>Make sure that TLS 1.2 enabled on the target server:</p>
+
+                <ul>
+                  <li>
+                    <p>
+                      Open <b>Registry Editor</b> and navigate to
+                      HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+                      1.2\Client\Enabled.
+                    </p>
+                  </li>
+                  <li>
+                    <p>If enabled, the key value should be <em>"1"</em>.</p>
+                  </li>
+                  <li>
+                    <p>
+                      For additional information about TLS enabling, refer to the following article:
+                      <a
+                        href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                        target="_blank"
+                        >Сonnection Issue when TLS 1.2 Is Required</a
+                      >.
+                    </p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p>
+                  Configure all Net.Framework keys on the Netwrix Auditor and target server(s). Use
+                  the
+                  <a
+                    href="https://netwrix.com/download/products/KnowledgeBase/TLSRegkey.reg"
+                    target="_blank"
+                    >download link</a
+                  >
+                  to configure registry keys automatically. Run the file on your Auditor Server and
+                  all target servers.
+                </p>
+              </li>
+              <li>
+                <p>
+                  On the target server, open <b>Registry Editor</b> and navigate to
+                  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL.
+                  Change the <b>EventLogging</b> value to <em>"7"</em>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  If the settings listed above are configured correctly, but the issue persists also
+                  consider checking the <b>WinHTTP</b> settings. On the target server, open
+                  <b>Registry Editor</b> and check the following registry keys:
+                </p>
+
+                <p>
+                  Learn more in
+                  <a
+                    href="https://support.microsoft.com/en-us/topic/update-to-enable-tls-1-1-and-tls-1-2-as-default-secure-protocols-in-winhttp-in-windows-c4bd73d2-31d7-761e-0178-11268bb10392"
+                    target="_blank"
+                    >Update to enable TLS 1.1 and TLS 1.2 as default secure protocols in WinHTTP in
+                    Windows ⸱ Microsoft 🡥</a
+                  >
+                </p>
+
+                <ul>
+                  <li>
+                    <p>
+                      HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet
+                      Settings\WinHttp\DefaultSecureProtocols = (DWORD): 0xAA0
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet
+                      Settings\WinHttp\DefaultSecureProtocols = (DWORD): 0xAA0
+                    </p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p>Restart both: Netwrix Auditor and target server(s).</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

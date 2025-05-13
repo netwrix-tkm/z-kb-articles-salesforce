@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SAM_6.0_018</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000K59CAE" />
+    <meta name="Id" content="ka04u000000HdCgAAK" />
+    <meta name="LastPublishedDate" content="2022-04-12T21:13:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-04-12T21:13:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8413" />
+    <meta name="ArticleNumber" content="000008413" />
+    <meta
+      name="description"
+      content="1. Will doing an in-place upgrade of WS2012R2 to WS2019 have any adverse effects on SAM or SI 2. Retention procedure not working correctly 3. SI to SAM not posting to SD 4. Stealthbits Activity Monitor (SAM) agents crashing after upgrade to 6.0.865"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary:</span></strong></span
+            ></span
+          ></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Will doing an in-place upgrade of WS2012R2 to WS2019 have any adverse effects
+                      on SAM or SI</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>Retention procedure not working correctly</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>SI to SAM not posting to SD</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Stealthbits Activity Monitor (SAM) agents crashing after upgrade to
+                      6.0.865</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><strong><span>Behavior Before Fix:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >After OS upgrade from 2012R2 to 2019 registry entry for INI file is removed. 
+                      As a results config can be lost.</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><i
+                      ><span
+                        ><span
+                          >The retention procedure based its decisions on the content of the file,
+                          read from metadata.  This can cause issues and activity log can be
+                          accidentally removed.</span
+                        ></span
+                      ></i
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><i
+                      ><span
+                        ><span
+                          >During upgrades SAM was not setting AMQP settings correctly. Also if
+                          master DC was set to have wrong AMQP settings, this would also be synced
+                          to set incorrect AMQP settings to all other DCs.</span
+                        ></span
+                      ></i
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><i
+                      ><span
+                        ><span
+                          >In some cases Console and Agents would crash after upgrade.</span
+                        ></span
+                      ></i
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><strong><span>Behavior After Fix:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >SAM now searches for existence of INI file and preserving config if registry
+                      entry is lost or removed.</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >The retention procedure now uses the timestamp extracted from the file name
+                      to decide if the file needs to be removed</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>SAM now sets correct AMQP settings during upgrade.</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Implemented potential fix.  Console and Agents should not crash after
+                      upgrade.</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span><b>Changes Since Last Hotfix:</b></span></span
+          ></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span><span>100803: Linux agent version 0.0</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >100392: Changing APP Token(password) for AMQP output require restart</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >99518: SAM Console can't connect to the latest versions of Isilon</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>85063: ApiServer.log DOMAIN UNHANDLED EXCEPTION</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>100781: Linux RPM package unsigned</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>66190: SBTService crash 1.5.0.1540(2008r2)</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>69043: Improve AD resolution &amp; caching</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >95468: Upgrade from 5.0 to 6.0 does not set AMQP parameters if they were
+                    empty</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>95525: Retention log removes all TSV</span></span></span
+              ></span
+            >
+          </li>
+        </ul>
+        <br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Kevin Duddy</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>STEALTHbits Activity Monitor 6.0</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>AD, Linux, Windows, Console</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/66233"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/66233</a
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101261"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101261</a
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/100976"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/100976</a
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101816"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101816</a
+                  >
+                </span></span
+              ></span
+            >
+          </li>
+        </ul>
+        <br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 6.0.895</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Modules Included:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 6.0.895</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup_unsigned.msi 6.0.895</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SBTService.exe 1.5.1690</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SI Version 7.2.316</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>DevOps/Escalations</b></span></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/66233"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/66233</a
+                  ><span class="MsoSubtleEmphasis"><span>  / 00329033</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101261"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101261</a
+                  ><span class="MsoSubtleEmphasis"><span>  / 00343659</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/100976"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/100976</a
+                  ><span class="MsoSubtleEmphasis"><span>  /  00343281</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><a
+                    href="https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101816"
+                    target="_blank"
+                    >https://dev.azure.com/NetwrixCorporation/SAM/_workitems/edit/101816</a
+                  ><span class="MsoSubtleEmphasis"><span>  /  00344026</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br /><span
+          ><span
+            ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning
+                    (previous fix)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning
+                    (corrected hotfix)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6977: SAM Nasuni Activity is Collecting but when importing to SA it is not
+                    matching share mapping</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7358: 2019 Server only | LSASS may crash with KB5004244, released
+                    07/13/2021</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-7041: After upgrade SAM Console crashes when editing agents</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7376: 2016 Server | Kerberos auth. events may be lost or incomplete after
+                    applying KB5005393</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>SFAM-7052: SAM 6.0 - can't set access zone per output</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>SFAM-7168: SAM not receiving all events from SI</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7405: 2019 Server only | Kerberos auth. events may be lost or incomplete
+                        with KB5005102 (August 26, 2021)</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-7270: After install of SAM agent 6.0.690 or a few days into running "Agent
+                    services may have recently crashed" message is seen</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>SFAM-7211: Improve AD resolution &amp; caching</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7470: SUVP 21-10 | 2019 Server Only | No NTLM events with KB5006672,
+                        release date: 10/12/2021</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>SFAM-7450: SQL - Certain events not being reported</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >SFAM-7447: SAM not collecting events from DC with updated SI agent</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>SFAM-7369: Agents.ini is available to unprivileged users</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >SFAM-6836: SAM is not receiving activity from SP online - Failed to
+                        authenticate Tennant</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7522: 2019 Server | Kerberos events may be lost with Out-of-band
+                        KB5008602, published 11/14/2021</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7501: SUVP 21-11 | Kerberos, DCsync or LDAP events may be lost or
+                        incomplete after applying MSFT updates, release: 11/09/2021</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >62962: SQL performance issues with XEvents enabled, After XEvent sessions
+                    disabled we cannot re-enable from SAM</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>66190: SBTService crash 1.5.0.1540(2008r2)</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >69447: SAM agent 6.0.0.798 upgrade has caused service to restart constantly and
+                    is blue screening devices</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >69066: SAM not archiving events properly so SA cannot retrieve them</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>84607: SAM is not receiving events from SI Agent</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>99271: SAM Nasuni Activity Not Being Reported (previous fix)</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>99271:  SAM Nasuni Activity Not Being Reported</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >62962: SQL performance issues with XEvents enabled, After XEvent sessions
+                    disabled we cannot re-enable from SAM</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Run msi file on host that has the SBActivityMonitor installed. (No need to
+                      uninstall previous version, msi will upgrade the monitor).</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>Upgrade all agents.</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <div>
+          https://downloads.stealthbits.com/access/files/SAMHotfixes/6.0/SAM_6.0_018.zip<br /> 
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

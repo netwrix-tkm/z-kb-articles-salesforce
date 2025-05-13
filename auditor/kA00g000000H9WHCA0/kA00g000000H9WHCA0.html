@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How are collections handled after a network outage?</title>
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WHCA0" />
+    <meta name="Id" content="ka04u000000HcPTAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:24.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="791" />
+    <meta name="ArticleNumber" content="000003208" />
+    <meta
+      name="description"
+      content="network outage, domain controllers offline, unable to connect"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How are collections handled after a network outage on the Netwrix server or when Domain
+        Controllers are offline for some time?
+        <hr />
+        Active Directory data collections run every minute. At the end of each collection the
+        product saves the position of the last collected event and starts the next collection from
+        the same place. Assuming that the Domain Controller's security log is not overwritten while
+        the server is inaccessible, the data will be collected and processed as soon as the server
+        is turned back on or network connectivity is restored and no data loss will happen.<br />Note
+        that Security Log events are not required for determining most of the changes - they are
+        mostly used as the source of When and Who information. If the Security log overwrites while
+        the DC is inaccessible, or the disconnect time exceeds 6 hours, the product may report some
+        changes with "System" in the 'Who Changed' field. At the same time a warning will be logged
+        informing that the event log overwrites occurred.
+      </div>
+    </article>
+  </body>
+</html>

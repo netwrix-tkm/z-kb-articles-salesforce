@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Certificate-related and unauthorized errors occur when trying to review Netwrix Auditor
+      reports
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110wCCAQ" />
+    <meta name="Id" content="ka04u000001173iAAA" />
+    <meta name="LastPublishedDate" content="2023-08-07T10:44:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-07T10:44:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-26T09:29:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8688" />
+    <meta name="ArticleNumber" content="000008688" />
+    <meta
+      name="description"
+      content="This article contains symptoms, cause, and resolution for the certificate-related error and unauthorized error that occur while trying to review reports."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Symptom 1. You tried to run an Auditor report and got the following error:</p>
+
+              <pre class="has-inner-focus">
+An error occurred while enrolling for a certificate, the certificate request could not be submitted to the certificate authority. RPC server is unavailable.</pre
+              >
+            </li>
+            <li>
+              <p>
+                Symptom 2. Unauthorized error while accessing a report.<br />
+                <img
+                  alt="User-added image"
+                  src="kA04u00000110wCCAQ_7eac80ed-5556-4cee-ad6e-8ac675e27ce0.png"
+                />
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <h2 id="causes">Causes</h2>
+
+          <div>
+            <p>Here are the possible causes for the issue:</p>
+
+            <ul>
+              <li>
+                <p>
+                  For symptom 1. Microsoft lists multiple causes of this error, please use the link
+                  to the Microsoft troubleshooting article below for the full list of possible
+                  causes and resolution steps.
+                </p>
+              </li>
+              <li>
+                <p>
+                  For symptom 2. Unauthorized error occurs if the account used to run Netwrix
+                  Auditor does not belong to a trusted domain.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <h2 id="resolutions">Resolutions</h2>
+
+          <div>
+            <p>Here are possible options to resolve the issue:</p>
+
+            <ol>
+              <li>
+                <p>
+                  For the symptom 1, learn more about the error causes and possible resolution steps
+                  in
+                  <a
+                    href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/identity/error-0x800706ba-certificate-enrollment"
+                    target="_blank"
+                    >Error 0x800706ba "The RPC Server is unavailable" when you enroll a certificate
+                    ⸱ Microsoft 🡥</a
+                  >
+                </p>
+              </li>
+              <li>
+                <p>For the symptom 2, do the following:</p>
+              </li>
+            </ol>
+
+            <ul>
+              <li>
+                <p>Check how many domains you have.</p>
+              </li>
+              <li>
+                <p>
+                  Check that the account used for data collection is on the same domain as the
+                  Netwrix Auditor Server or another domain.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Check if those domains are trusted. If not, add the Netwrix Site to the trusted
+                  list.
+                </p>
+              </li>
+            </ul>
+            <img
+              alt="User-added image"
+              height="201"
+              src="kA04u00000110wCCAQ_6a1033c8-bdd5-4c47-8036-34c73dec4ee5.png"
+              width="500"
+            />
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

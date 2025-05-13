@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Password Manager architecture</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dVCAS" />
+    <meta name="Id" content="ka04u00000116OfAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T16:15:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2767" />
+    <meta name="ArticleNumber" content="000003651" />
+    <meta
+      name="description"
+      content="Explains Netwrix Password Manager architecture (Core Service, Web Service, Local Client)."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Password Manager is a web-based application that actually consists of 3 parts:
+        <ol>
+          <li>Core service</li>
+          <li>Web service</li>
+          <li>Local client</li>
+        </ol>
+        <ol>
+          <li>
+            <strong>Password Manager Service:</strong> executes the operations in AD requested
+            through the web portals. It communicates with Active Directory via encrypted LDAP and
+            RPC channels.
+          </li>
+        </ol>
+        <div>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KRf&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000052QT"
+            target="_blank"
+            ><img
+              src="kA00g000000H9dVCAS_6201286e-fbc1-4194-b7aa-a4ed1f41c0de.png"
+              alt="User-added image"
+              width="500"
+              height="157"
+          /></a>
+        </div>
+        <div>
+          Password Manager Service holds a secure profile database in the local file system.
+        </div>
+        <ol start="2">
+          <li>
+            <strong>Web-service </strong>provides GUI to work with the service through the browser.
+            It includes 3 portals:
+          </li>
+        </ol>
+        <ul>
+          <li>
+            <strong>Administrative Portal:</strong> allows configuring password policies and user
+            options, importing user account data for batch enrollment, etc.
+          </li>
+        </ul>
+        <p>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KRf&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000052QY"
+            target="_blank"
+            ><img
+              src="kA00g000000H9dVCAS_a86e2982-ac7a-4100-bead-72b0050a92b4.png"
+              alt="User-added image"
+              width="500"
+              height="282"
+          /></a>
+        </p>
+
+        <ul>
+          <li>
+            <strong>Help-Desk Portal:</strong> allows centralized management and reporting on the
+            enrolled users" accounts.
+          </li>
+        </ul>
+        <p>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KRf&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000052Qi"
+            target="_blank"
+            ><img
+              src="kA00g000000H9dVCAS_142ba864-721f-4f5f-b583-3650dd09efa0.png"
+              alt="User-added image"
+              width="500"
+              height="295"
+          /></a>
+        </p>
+
+        <ul>
+          <li>
+            <strong>Self-Service Portal:</strong> a web-interface for end users to perform password
+            management operations without contacting the help-desk.
+          </li>
+        </ul>
+        <p>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KRf&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000052Qn"
+            target="_blank"
+            ><img
+              src="kA00g000000H9dVCAS_afc0d055-5662-4358-ac25-6554032b427a.png"
+              alt="User-added image"
+              width="500"
+              height="238"
+          /></a>
+        </p>
+
+        <div>
+          Web-service is based on IIS services and can be accessed via the HTTP or HTTPS protocol.
+          The web service, in turn, connects to the Password Manager Service via the RPC protocols.
+        </div>
+        <ol start="3">
+          <li>
+            <strong>Password Manager client</strong> is deployed to workstation and allows to access
+            self-service password management without logging on. It is also referred as Windows
+            Logon Prompt Extension because it extends the standard Windows logon prompt and pops up
+            a dialog box that allows end users to perform self-service password management
+            operations.
+          </li>
+        </ol>
+        <div>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KRf&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000052QE"
+            target="_blank"
+            ><img
+              src="kA00g000000H9dVCAS_d2a7913e-9cb7-4c43-948f-0eae5839eb11.png"
+              alt="User-added image"
+              width="456"
+              height="345"
+          /></a>
+        </div>
+        <div>
+          It also supports the enrollment wizard.
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g0000004KRf&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000052QO"
+            target="_blank"
+            ><img
+              src="kA00g000000H9dVCAS_b57d71c1-eb37-4d9f-90b4-88259ea4518d.png"
+              alt="User-added image"
+              width="500"
+              height="391"
+          /></a>
+          The client part uses web-requests (IE engine) to connect to the Password Manager
+          web-service via the HTTP or HTTPS protocol.
+        </div>
+        Summary: Both Password Manager Client and Web Clients connect to the web service via the
+        HTTP or HTTPS protocol. The web service, in turn, connects to Password Manager Service via
+        the RPC protocol. The password Manager Service holds a secure profile database in the local
+        file system, and communicates with Active Directory via encrypted LDAP and RPC channels.
+      </div>
+    </article>
+  </body>
+</html>

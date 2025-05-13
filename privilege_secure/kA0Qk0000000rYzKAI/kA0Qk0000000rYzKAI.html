@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Configure Encryption Keys in Multiple NPS Server Environments</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000rYzKAI"/><meta name="Id" content="ka0Qk000000AqyDIAS"/><meta name="LastPublishedDate" content="2025-03-27T18:40:33.000+0000"/><meta name="LastModifiedDate" content="2025-03-27T18:40:33.000+0000"/><meta name="FirstPublishedDate" content="2024-04-30T13:49:23.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9154"/><meta name="ArticleNumber" content="000009154"/><meta name="description" content="How to Configure Encryption Keys in Multiple NPS Server Environments"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<div>
+<p>This article covers the steps to configure encryption keys in environments with multiple Netwrix Privilege Secure (NPS) servers. Apply these steps when setting up high availability (HA) in your environment. Refer to the following article for additional information on establishing active/passive HA with PostgreSQL backend: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HfOCAU.html" target="_self">How to Use NPS.HaMgr.exe</a>.</p>
+</div>
+<h2 id="instructions">Instructions</h2>
+<div>
+<blockquote>
+<p><span class="Note"><strong>NOTE: </strong></span>The following steps apply to SbPAM v3.6, v3.7, and higher and to NPS v.4.0 and higher.</p>
+</blockquote>
+<p>Refer to the following steps to verify that NPS encryption keys are configured on all NPS servers:</p>
+<blockquote>
+<p><span class="Caution"><strong>IMPORTANT: </strong></span>For the following steps, if the application was installed to a dedicated drive, change the drive letter from <strong>X</strong> to the appropriate letter.</p>
+</blockquote>
+<ol><li>
+<p>Install NPS on the primary and secondary servers. Apply your license file to both NPS instances. Refer to the following article for additional information on applying a license: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PdKZCA0.html" target="_self">Apply a New License</a>.</p>
+</li><li>
+<p>On your primary server, run the following lines in elevated Command Prompt:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">cd "X:\Program Files\Stealthbits\PAM\KeyTools"
+.\SbPAM.RotateKey.exe export -n keys.exp</code></pre>
+</li><li>
+<p>Command Prompt prompts a password used to protect the NPS encryption keys. Take note of the password to use it later.</p>
+</li><li>
+<p>Copy the exported file to the following path on the secondary server:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">X:\Program Files\Stealthbits\PAM\KeyTools</code></pre>
+</li><li>
+<p>On your secondary server, run the following lines in elevated Command Prompt:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">cd "X:\Program Files\Stealthbits\PAM\KeyTools"
+.\SbPAM.RotateKey.exe import -n keys.exp</code></pre>
+</li><li>
+<p>Enter the password when prompted.</p>
+</li><li>
+<p>Delete the exported keys file and any saved passwords from both servers.</p>
+</li></ol>
+</div>
+<h2 id="related_articles">Related articles</h2>
+<div>
+<ul><li>
+<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HfOCAU.html" target="_self">How to Use NPS.HaMgr.exe</a></p>
+</li><li>
+<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PdKZCA0.html" target="_self">Apply a New License</a></p>
+</li></ul>
+</div></div>
+</article></body></html>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Set Up a Custom SSL Certificate for the Windows Server Compression Service</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000XVRKA2" />
+    <meta name="Id" content="ka0Qk0000002hnFIAQ" />
+    <meta name="LastPublishedDate" content="2024-03-27T10:49:40.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-27T10:49:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-27T10:49:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9092" />
+    <meta name="ArticleNumber" content="000009092" />
+    <meta
+      name="description"
+      content="How to Set Up Custom SSL Certificate for WSA Compression Service"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            The Netwrix Auditor for Windows Server Compression Service defaults to a self-signed SSL
+            certificate. However, a custom SSL certification can be implemented. This article covers
+            the steps to implement a custom SSL certificate in a Windows Server monitoring plan.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="installing_a_custom_certificate">Installing a Custom Certificate</h4>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Make sure to comply with the following steps:
+            </p>
+
+            <ol>
+              <li>
+                <p>Request approval from a Tier 2 engineer.</p>
+              </li>
+              <li>
+                <p>Add a note in the client TS notes mentioning the custom SSL certificate.</p>
+              </li>
+              <li>
+                <p>Perform these steps every time a custom WSA certificate expires.</p>
+              </li>
+            </ol>
+          </blockquote>
+
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Stop both the <code>Netwrix Auditor Configuration Server Service</code> and the
+                <code>Netwrix Auditor for Windows Server Audit Service</code> in the Auditor server.
+                To do so, you can run the following lines in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Stop-Service -DisplayName "Netwrix Auditor for Windows Server Audit Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate the <code>Configuration.xml</code> file and create a backup. Refer to the
+                following default path for the file:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer\</code></pre>
+            </li>
+            <li>
+              <p>
+                In the Auditor server, open the local Certificate Manager tool − either run or
+                search for the line containing <code>certlm.msc</code>.
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Locate the <strong>Netwrix Auditor for Windows Server</strong> &gt; the
+                    <strong>Certificates</strong> store.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Move the default <strong>Netwrix Auditor</strong> certificate to the
+                    <strong>Personal</strong> store or delete it.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Move the custom SSL certificate to the
+                    <strong>Netwrix Auditor for Windows Server</strong> store. Verify that it's the
+                    only certificate in the store.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Edit the <code>Configuration.xml</code> file located in
+                <code>C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer\</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate the <code>&lt;n n="CollectorsSettings"/&gt;</code> node and replace it with
+                the following node:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="CollectorsSettings"&gt;
+    &lt;n n="e11241d0-26cf-088a-89eb-26f92fee6a1d" t="AuditedSystemNodeType"&gt;
+        &lt;n n="CustomCertificateInfo" t="CustomCertificateType"&gt;
+            &lt;a n="Thumbprint" t="2" v="INSERT_THUMBPRINT_OF_YOUR_CERTIFICATE"/&gt; 
+            &lt;a n="StoreName" t="2" v="Netwrix Auditor for Windows Server"/&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+&lt;/n&gt;</code></pre>
+
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>
+                Start both the <code>Netwrix Auditor Configuration Server Service</code> and the
+                <code>Netwrix Auditor for Windows Server Audit Service</code> in the Auditor server.
+                To do so, you can run the following lines in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Start-Service -DisplayName "Netwrix Auditor for Windows Server Audit Service"</code></pre>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="reverting_to_a_self-signed_certificate">Reverting to a Self-Signed Certificate</h4>
+
+        <div>
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Stop both the <code>Netwrix Auditor Configuration Server Service</code> and the
+                <code>Netwrix Auditor for Windows Server Audit Service</code> in the Auditor server.
+                To do so, you can run the following lines in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Stop-Service -DisplayName "Netwrix Auditor for Windows Server Audit Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate the <code>Configuration.xml</code> file and create a backup. Refer to the
+                following default path for the file:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer\</code></pre>
+            </li>
+            <li>
+              <p>
+                In the Auditor server, start the local Certificate Manager tool — either run or
+                search for the line containing <code>certlm.msc</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate the <strong>Netwrix Auditor for Windows Server</strong> store &gt; the
+                <strong>Certificates</strong> store.
+              </p>
+            </li>
+            <li>
+              <p>
+                Move the custom WSA certificate to the <strong>Personal</strong> store or delete it.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If the default
+                  <strong>Netwrix Auditor</strong> certificate is still available on your server,
+                  move it to the <strong>Netwrix Auditor for Windows Server</strong> store &gt; the
+                  <strong>Certificates</strong> store. If the default certificate is missing,
+                  proceed to the following step.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Replace the entire <code>&lt;n n="CollectorsSettings"&gt;</code> node with an empty
+                node line:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="CollectorsSettings"/&gt;</code></pre>
+
+              <p>If unsure, refer to the following custom WSA node to be replaced:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="CollectorsSettings"&gt;
+    &lt;n n="e11241d0-26cf-088a-89eb-26f92fee6a1d" t="AuditedSystemNodeType"&gt;
+        &lt;n n="CustomCertificateInfo" t="CustomCertificateType"&gt;
+            &lt;a n="Thumbprint" t="2" v="INSERT_THUMBPRINT_OF_YOUR_CERTIFICATE"/&gt; 
+            &lt;a n="StoreName" t="2" v="Netwrix Auditor for Windows Server"/&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+&lt;/n&gt;</code></pre>
+
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>
+                Start <code>Netwrix Auditor Configuration Server Service</code> and
+                <code>Netwrix Auditor for Windows Server Audit Service</code> in the Auditor server.
+                You can run the following lines in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Start-Service -DisplayName "Netwrix Auditor for Windows Server Audit Service"</code></pre>
+            </li>
+          </ol>
+
+          <p>The started services will generate a self-signed certificate.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

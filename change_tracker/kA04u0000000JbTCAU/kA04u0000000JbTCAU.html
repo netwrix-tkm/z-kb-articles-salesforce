@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Retransmit Messages With Log Tracker CLI-BIN Tools</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JbTCAU" />
+    <meta name="Id" content="ka04u000000HdAAAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:51:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8233" />
+    <meta name="ArticleNumber" content="000008233" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            >When forwarding messages from Log Tracker Server to a third-party SIEM system, there
+            may be situations or times that you need to resend and retransmit messages that were not
+            forwarded. This may occur if, for example, the third-party SIEM was down or inaccessible
+            to Log Tracker Server for an extended period of time.</span
+          >
+        </p>
+        <p>
+          <span
+            >You can retransmit any or all Log Tracker Server messages using the command line tools
+            residing in the CLI-BIN folder of the Log Tracker Server.</span
+          >
+        </p>
+        <p>
+          <span
+            >Specifically, to retransmit all the messages for a specific date and time range, you
+            can execute the following at a command prompt or within a batch file:</span
+          >
+        </p>
+        <div class="">
+          <div class="">
+            <pre class="">
+cd C:\Program Files (x86)\NNT Log Tracker Suite\cli-bin
+.\CatMsg -date YYYY/MM/DD -time HH:MM:SS -maxcount N &gt; messages.txt
+type messages.txt | ..\system\sendlog N.N.N.N -stdin
+
+</pre
+            >
+          </div>
+        </div>
+        <p>
+          <span
+            >The above command sequence first creates a file "messages.txt" that contain all the
+            messages for the date YYYY/MM/DD starting at the time HH:MM:SS, to a maximum of N
+            messages. This is done by the CatMsg.exe program, which is one of several ways of
+            listing messages from the message archive.</span
+          >
+        </p>
+        <p>
+          <span
+            >Once the "messages.txt" file is created, the user can send this data to the third-party
+            SIEM or syslog collector at the IP address "N.N.N.N" using the "sendlog" command,</span
+          >
+        </p>
+        <p>
+          <span
+            >Depending on how many messages you are sending, the "sendlog.exe" program can take a
+            few minutes to a few hours to execute.</span
+          >
+        </p>
+        <p>
+          <span
+            >If only certain messages are to be forwarded, you can use any of the other "cli-bin"
+            tools to filter the messages, or send messages associated with just a single device or
+            user.</span
+          >
+        </p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to delete a device in Log Tracker</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker - Types of Authentication</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >What Change Tracker Gen7 Objects to Monitor Using Application Performance
+                Monitoring (APM) Tools</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Log Tracker Tags Facility</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to use CloseTicket.exe to Immediately Close Log Tracker Tickets</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

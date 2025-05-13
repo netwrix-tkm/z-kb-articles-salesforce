@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error Generating a Report in SSRS − HTTP Error 401 − Unauthorized</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eACAS" />
+    <meta name="Id" content="ka0Qk00000031IvIAI" />
+    <meta name="LastPublishedDate" content="2023-09-06T09:48:52.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-24T07:29:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3543" />
+    <meta name="ArticleNumber" content="000003692" />
+    <meta name="description" content="Error generating a report: HTTP Error 401 - Unauthorized" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>You've encountered the following error:</p>
+
+          <pre class="has-inner-focus">
+HTTP Error 401 - Unauthorized. Provide another credentials or change security settings in Internet Explorer.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Misconfigured Internet Explorer security settings.</p>
+            </li>
+            <li>
+              <p>IE Enhanced Security Configuration enabled on the SQL Server end.</p>
+            </li>
+            <li>
+              <p>Incorrect SSRS account permissions.</p>
+            </li>
+            <li>
+              <p>SSRS account is included in the Protected Users security group.</p>
+            </li>
+            <li>
+              <p>Your SQL Server is not added to the Local Intranet group as a trusted host.</p>
+            </li>
+            <li>
+              <p>You account has insufficient permissions to access the Report Server.</p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span
+              ><span><strong> </strong></span>Unless configured otherwise, SQL Server Reporting
+              Services require NTLM authentication to be enabled to operate. Learn more in
+              <a
+                href="https://learn.microsoft.com/en-us/sql/reporting-services/security/configure-windows-authentication-on-the-report-server?view=sql-server-ver16"
+                target="_blank"
+                >Configure Windows Authentication on the Report Server ⸱ Microsoft 🡥</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Review the Internet Explorer security settings.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the affected server, proceed to <strong>Control Panel</strong> and select
+                    <strong>Internet Options</strong>. Alternatively, type
+                    <strong>Internet Options</strong> in the <strong>Search</strong> bar.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the <strong>Security</strong> tab, select the
+                    <strong>Internet</strong> zone, and click <strong>Custom level</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Locate the <strong>User Authentication</strong> subnode, and select the
+                    <strong>Automatic logon with current user name and password</strong> option.
+                    Click <strong>OK</strong> to save the changes.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Disable IE Enhanced Security Configuration.</p>
+
+              <ol>
+                <li>
+                  <p>Launch <strong>Server Manager</strong>.</p>
+                </li>
+                <li>
+                  <p>In the left pane, click <strong>Local server</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>On</strong> to the right from
+                    <strong>IE Enhanced Security Configuration</strong>.
+                  </p>
+
+                  <div>
+                    <img
+                      height="304"
+                      src="kA00g000000H9eACAS_a583e557-6d47-44ae-85d8-1df089f603ec.png"
+                      width="651"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>
+                    In the configuration window, switch both <strong>Administrators</strong> and
+                    <strong>Users</strong> categories to <strong>Off</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <strong>OK</strong> to save changes.</p>
+
+                  <div>
+                    <img
+                      height="356"
+                      src="kA00g000000H9eACAS_8418657f-9aac-447a-b4f9-b93a2abb4c44.png"
+                      width="330"
+                    />
+                  </div>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Review your SSRS account permissions. For additional information, refer to the
+                following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServerReportingService.htm#configure_ssrs_account"
+                  target="_blank"
+                  >SQL Server Reporting Services: Configure SSRS Account · v10.6 </a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Remove the SSRS account from the Protected Users security group. Learn more on
+                Protected Users in
+                <a
+                  href="https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group"
+                  target="_blank"
+                  >Protected Users Security Group ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Add your SQL Server to the Local Intranet group locally on every server used to
+                access SSRS reports via Netwrix Auditor administrative console. If setting at GPO
+                level, the settings should be <strong>Level 1</strong>.
+              </p>
+
+              <ol>
+                <li>
+                  <p>In the Run command, open <code>inetcpl.cpl</code>.</p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Security</strong> tab, select the
+                    <strong>Local intranet</strong> zone and click the
+                    <strong>Sites</strong> button.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click the <strong>Advanced</strong> button and enter the SQL Server address to
+                    add it to the Local Intranet zone.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Make sure your account has the <strong>Browser</strong> role assigned.</p>
+
+              <ol>
+                <li>
+                  <p>Log in the Report Manager under the administrator account.</p>
+                </li>
+                <li>
+                  <p>
+                    Click the three horizontal dots menu for the
+                    <strong>Netwrix Auditor</strong> reports folder and click
+                    <strong>Manage</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select <strong>Security</strong>, and either click
+                    <strong>Edit</strong> next to the corresponding user to select a different role
+                    or add a new user by clicking <strong>Add group or user</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Once you've assigned the <strong>Browser</strong> role to the account, save the
+                    changes and try accessing the reports logged in under your usual account.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Rebuild the <strong>Reports</strong> folder.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In elevated PowerShell, execute the following command to stop the corresponding
+                    service:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Management Service"</code></pre>
+                </li>
+                <li>
+                  <p>Open Report Manager in your browser.</p>
+
+                  <ul>
+                    <li>
+                      <p>
+                        You can find the Report Manager URL in your main Netwrix Auditor menu &gt;
+                        <strong>Settings</strong> &gt; <strong>Audit Database</strong> tab &gt;
+                        <strong>Report Manager URL</strong>.
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>
+                    In the main SQL Server Reporting Services window, locate the
+                    <strong>Netwrix Auditor</strong> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click the meatball <strong>⸱⸱⸱</strong> button, and select
+                    <strong>Delete</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Follow the path provided:</p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\Reports</code></pre>
+                </li>
+                <li>
+                  <p>Delete the contents of the <strong>Reports</strong> folder.</p>
+                </li>
+                <li>
+                  <p>
+                    Once deleted, follow the path provided to find the
+                    <strong>Reports.zip</strong> archive in the root of the folder:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Extract the contents of the <strong>Reports.zip</strong> archive to the
+                    <code>C:\ProgramData\Netwrix Auditor\Reports</code> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In elevated PowerShell, execute the following command to start the corresponding
+                    service:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Management Service"</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Wait for about 10 minutes for reports to upload to your Report Manager. You can
+                    track the progress by following the Report Manager URL and entering the
+                    <strong>Netwrix Auditor</strong> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>Once the affected report is uploaded, run the report again.</p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/Investigations.htm"
+              target="_self"
+              >Netwrix Auditor Settings − Investigations · v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

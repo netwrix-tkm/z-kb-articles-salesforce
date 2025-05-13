@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>HTTP Error 401.2 on the Help-Desk Portal</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XqCAK" />
+    <meta name="Id" content="ka04u000000HcQvAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1149" />
+    <meta name="ArticleNumber" content="000003305" />
+    <meta
+      name="description"
+      content="Netwrix Auditor, Account Lockout Examiner, Error 401.2 on the Help-Desk Portal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        HTTP Error: 401.2 while trying to open Account Lockout Examiner Help-Desk Portal (installed
+        on Windows 7)
+
+        <hr />
+
+        The issue occurs because authentication to the Help-Desk portal fails. Usually it happens
+        beause of invalid authentication settings in Windows 7.
+
+        <hr />
+
+        In order to resolve the issue configure Windows authentication. Step 1:
+        <strong>Turn on the Windows Authentication </strong>feature:
+        <ol>
+          <li>Open <strong>Control Panel</strong>.</li>
+          <li>
+            Click <strong>Programs and Features </strong>and then click
+            <strong>Turn Windows features on or off.</strong>
+          </li>
+          <li>
+            Expand the
+            <strong
+              >Internet Information Services -&gt; World Wide Web Services -&gt; Security
+              node</strong
+            >.
+          </li>
+          <li>
+            Select the <strong>Windows Authentication </strong>check box. Click
+            <strong>OK</strong> to save the changes.
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9XqCAK_5079bc01-42ac-4794-8f17-c726e5958430.png"
+          alt="User-added image"
+        />
+
+        Step 2:
+        <strong>Add the Integrated Windows authentication module to IIS Manager </strong>(however,
+        this step is usually perfromed automatically after enabling Windows authentication feature)
+        <ol>
+          <li>
+            Click <strong>Start </strong>and type <em>Inetmgr</em> in the Start Search box. Click
+            <strong>Inetmgr</strong> in the Programs list (you can be prompted to specify the
+            administrator's password).
+          </li>
+          <li>
+            In the <strong>Connections</strong> pane, expand the computer that is running IIS 7.0.
+            Then expand <strong>Web Sites </strong>and click <strong>Default Web Site</strong>.
+          </li>
+          <li>On the page that opens, double-click <strong>Modules</strong>.</li>
+          <li>In the Actions pane, click<strong> Add Native Module</strong>.</li>
+          <li>
+            In the Add Native Module dialog box select the
+            <strong>Windows Authentication Module </strong>check box. Click <strong>OK</strong> to
+            save the changes.
+          </li>
+        </ol>
+        Step 3: <strong>Enable WIndows authentication </strong>for ALE virtual directory
+        <ol>
+          <li>Run <strong>IIS Manager </strong>(<em>Inetmgr</em>)</li>
+          <li>
+            In the Connections pane, expand the computer that is running IIS 7.0. Then expand
+            <strong>Web Sites - Default Web Site </strong>and select <strong>ALE</strong> virtual
+            directory
+          </li>
+          <li>
+            In the central pane under IIS section double-click <strong>Authenticatio</strong>n
+          </li>
+          <li>Highligh <strong>Windows authentication </strong>and <strong>Enable</strong> it.</li>
+          <li>Disable other types of authentication</li>
+        </ol>
+        <img
+          src="kA00g000000H9XqCAK_3bc45f31-24cd-48d7-8c95-219beeb99fbe.png"
+          alt="User-added image"
+        />
+      </div>
+    </article>
+  </body>
+</html>

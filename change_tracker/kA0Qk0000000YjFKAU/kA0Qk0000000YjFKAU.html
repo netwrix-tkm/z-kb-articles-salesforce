@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Pages in Report Exceed 250 Error</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000YjFKAU" />
+    <meta name="Id" content="ka0Qk0000003eLtIAI" />
+    <meta name="LastPublishedDate" content="2024-05-08T10:13:17.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-08T10:13:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-08T10:13:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9105" />
+    <meta name="ArticleNumber" content="000009105" />
+    <meta name="description" content="Pages in Report Exceed 250 Error" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When you attempt to run a report in Netwrix Change Tracker, the following error is
+            prompted:
+          </p>
+
+          <pre class="has-inner-focus">
+TemplateId: %template_name%
+Results State: QueryError
+Number of pages in the report will exceed 250 - Estimated Total Page Count %page_count%</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The estimated page count for the report exceeds the predefined limit.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Introduce a new limit for report pages:</p>
+
+          <ol>
+            <li>
+              <p>
+                In Change Tracker, proceed to <strong>Settings</strong> &gt;
+                <strong>System Settings</strong> &gt; <strong>Show Advanced Options</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Configuration Settings</strong> section, click
+                <strong>Add Config Item</strong>. In the <strong>Description</strong> field, specify
+                <strong>MaxPagesInReport</strong>. In the <strong>Value</strong> field, specify
+                <strong>2000</strong>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>You can introduce any value to cover the
+                  required target page count. The value <strong>2000</strong> is used as an example.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Click <strong>Update</strong>. Run the affected report again.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

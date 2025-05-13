@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Whitelisting Quarantined Items</title><meta name="label" content="threat_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000wnnDCAQ"/><meta name="Id" content="ka04u000000ww9WAAQ"/><meta name="LastPublishedDate" content="2023-11-07T16:54:02.000+0000"/><meta name="LastModifiedDate" content="2023-11-20T15:36:59.000+0000"/><meta name="FirstPublishedDate" content="2023-11-07T16:54:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8892"/><meta name="ArticleNumber" content="000008892"/><meta name="description" content="Whitelisting Quarantined Items"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>A file was quarantined and flagged as a high severity by Crowdstrike (file location: <code>E:\Program Files\STEALTHbits\StealthDEFEND\ActionService\PowerShell</code>) . How can I fix it?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<p>Crowdstrike quarantined and flagged the Description as a high severity:</p>
+
+<pre>ACTIONS TAKEN
+Operation blocked
+File quarantined
+SEVERITY
+High
+OBJECTIVE
+Follow Through
+TACTIC &amp; TECHNIQUE
+Execution via Command and Scripting Interpreter
+TECHNIQUE ID
+T1059
+IOA NAME
+ScriptReverseShell
+IOA DESCRIPTION
+A script launched that appears to be related to a reverse shell established with a remote system. Review the script and investigate the process tree.
+    </pre>
+</div>
+
+<div>
+<p>Based on the following details, this will be submitted to Crowdstrike for whitelisting:</p>
+
+<pre>Clear-Host
+$string1 = '97025086755692615c76db942a6cc51ed99b7715faad3090307b23af5c3d26ef' #Hash noted in Crowdstrike
+$string2 = '97025086755692615c76db942a6cc51ed99b7715faad3090307b23af5c3d26ef'
+&lt;# $string2 Hash from my 2.7.1865 lab via Get-FileHash "C:\Program Files\STEALTHbits\StealthDEFEND\ActionService\PowerShell\StealthDEFEND.psm1"
+Algorithm Hash Path
+--------- ---- ----
+SHA256 97025086755692615C76DB942A6CC51ED99B7715FAAD3090307B23AF5C3D26EF C:\Program Files\STEALTHbits\StealthDEFEND\ActionService\PowerShell\StealthDEFEND.psm1
+#&gt;
+# Compare the two strings
+if ($string1 -eq $string2) {
+Write-Host "The two strings are equal."
+} else {
+Write-Host "The two strings are not equal."
+}
+    </pre>
+</div></div>
+</article></body></html>

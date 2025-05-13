@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Configuring Stealthbits Activity Monitor to Send to StealthDEFEND</title>
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="threat_manager" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I5DCAU" />
+    <meta name="Id" content="ka04u000000HcfEAAS" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:24:02.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:02:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:05:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6262" />
+    <meta name="ArticleNumber" content="000006262" />
+    <meta name="description" content="360008602431" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The Stealthbits Activity Monitor (SAM) can be configured to send events to StealthDEFEND
+          (SD). If StealthINTERCEPT (SI) is configured to send events to SAM, those events will be
+          passed on to whatever applications SAM is configured to send events to.
+        </p>
+
+        <p>
+          <strong><u>To send events to StealthDEFEND:</u></strong>
+        </p>
+
+        <ol>
+          <li>
+            In StealthDEFEND:
+            <ul>
+              <li>Navigate to the <strong>Integrations</strong> page.</li>
+              <li>Click the <strong>Add New Integration</strong> button.</li>
+              <li>
+                Set the Type field to <strong>App Token</strong>, enter a <strong>Name</strong>, and
+                (optionally) a Description.
+              </li>
+              <li>Click the <strong>Add</strong> button.</li>
+              <li>
+                Expand the <strong>App Tokens</strong> node on the Integrations tree and select the
+                App Token you just generated.
+              </li>
+              <li>Click the <strong>Copy Token</strong> button.</li>
+            </ul>
+          </li>
+          <li>
+            In the Stealthbits Activity Monitor:
+            <ul>
+              <li>
+                Go to the Monitored Domains tab, click <strong>Add Output</strong> and select the
+                <strong>StealthDEFEND</strong> option.
+              </li>
+              <li>
+                Set the value of the <strong>Server</strong> in SERVER[:PORT] format field to
+                [DEFENDHOST]:10001, where [DEFENDHOST] is the hostname or IP address of the
+                StealthDEFEND host.
+              </li>
+              <li>
+                Paste the <strong>App Token</strong> generated in StealthDEFEND into the App Token
+                field.
+              </li>
+              <li>Click the <strong>OK</strong> button.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <p><strong>Channel:  </strong>Customer-Facing / Public</p>
+
+        <p>
+          <strong>Submitted by:</strong><span class="diff-removed-string"> </span
+          ><span class="diff-added-string"> Michael Olig</span>
+        </p>
+
+        <p><strong>Product:</strong> Stealthbits Activity Monitor, StealthDEFEND</p>
+
+        <p><strong>KB Type:</strong> How To</p>
+
+        <p> </p>
+
+        <ol>
+          <li> </li>
+        </ol>
+
+        <p>  </p>
+      </div>
+    </article>
+  </body>
+</html>

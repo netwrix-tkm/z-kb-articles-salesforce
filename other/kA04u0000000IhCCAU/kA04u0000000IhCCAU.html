@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Emulate IPC$ check in FSAA</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IhCCAU" />
+    <meta name="Id" content="ka04u000000HctaAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:32:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:32:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7183" />
+    <meta name="ArticleNumber" content="000007183" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to run a check
+          to emulate use in FSAA system scan CIFS/SMB
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Assist with
+          troubleshooting FSAA scans..
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> The script was
+          written to emulate the IPC$ check in FSAA system scan when CIFS/SMB are targeted. We are
+          utilizing the windows API to call the CREATEFILE windows function in order to open a file
+          or I/O device.<br /> <br /><strong>Steps to run script</strong> 
+        </p>
+        <ul>
+          <li>Launch PowerShell with Admin rights</li>
+          <li>Run the script</li>
+          <li>Input the desired File or path</li>
+          <li>
+            Result should reflect whether file or path is valid or invalid. (
+            <em
+              >If the result is Valid, it means that the File or path exist and we can read from
+              it</em
+            >
+            )
+          </li>
+        </ul>
+        <p>
+          <strong>File Link</strong> :
+          <span
+            ><a
+              href="http://downloads.stealthbits.com/access/files/StealthTOOLS/AUDIT/CreateFile%20Script/CreateFile-FSAA.ps1"
+              target="_blank"
+              >http://downloads.stealthbits.com/access/files/StealthTOOLS/AUDIT/CreateFile%20Script/CreateFile-FSAA.ps1</a
+            ></span
+          > <br /><br />*** Additional Information ***<br /> <br /><strong
+            ><em>Information regarding ISCLOSED message in the result of the scrip: </em> </strong
+          >ISCLOSED value relates to the file handle closing. TRUE = handle is closed  , FALSE =
+          Handle Open.<br /> <br /><em
+            >When an application is finished using the object handle returned by
+            <strong>CreateFile</strong>, use the
+            <a
+              href="https://msdn.microsoft.com/9b84891d-62ca-4ddc-97b7-c4c79482abd9"
+              target="_blank"
+              >CloseHandle</a
+            >
+            function to close the handle. This not only frees up system resources, but can have
+            wider influence on things like sharing the file or device and committing data to disk. </em
+          ><br /> <br />For more information regarding the file and I/O devices supported please
+          check<br /><a
+            href="https://docs.microsoft.com/en-us/windows/desktop/api/fileapi/nf-fileapi-createfilea"
+            target="_blank"
+            >https://docs.microsoft.com/en-us/windows/desktop/api/fileapi/nf-fileapi-createfilea</a
+          ><br /><br /><span>I have attached screenshots from a valid and not valid returns. </span
+          ><br /><br /><img
+            src="kA04u0000000IhCCAU_3490dcae-023a-4ff8-943d-97c1d88e0de0.png"
+            alt="mceclip0.png"
+          /><br /><br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1+<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2094
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

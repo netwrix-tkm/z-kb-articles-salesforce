@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Audit a Non-Trusted Domain</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PcsaCAC" />
+    <meta name="Id" content="ka04u00000117fIAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T11:49:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T12:46:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-07-30T17:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5809" />
+    <meta name="ArticleNumber" content="000005809" />
+    <meta name="description" content="How to Audit a Non-Trusted Domain" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to audit a non-trusted domain in Netwrix Auditor?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>A remote domain should be accessible and
+              reachable via nslookup from domain controllers of your primary domain and from Netwrix
+              server.
+            </p>
+          </blockquote>
+
+          <p>
+            Refer to the following steps to audit a remote domain that does not have any trust
+            relationship with the Netwrix server or your primary domain:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In any of domain controllers of your primary domain, open
+                <strong>DNS Manager</strong> console.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane under the domain controller, right-click
+                <strong>Forward Lookup Zones</strong>, and select <strong>New zone</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the New Zone Wizard window, click next, select <strong>Stub zone</strong> and
+                check the <strong>Store the zone in Active Directory</strong> checkbox. Click
+                <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Select the
+                <strong>To all DNS servers running on domainc controllers in this domain</strong>
+                option for replication, and click <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enter the remote domain FQDN in the <strong>Zone name</strong> field. Click
+                <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Add IP addresses for all domain controllers of the remote domain.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>It is recommended to provide multiple domain
+                  controllers to ensure redundancy.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Click <strong>Next</strong>, and then click <strong>Finish</strong> to complete the
+                setup.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the setup is completed, restart the DNS server. Right-click the server, and
+                select <strong>Restart</strong> under <strong>All Tasks</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In your Netwrix Auditor server and domain controller, run the following command in
+                elevated Command Prompt to flush DNS:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">ipconfig /flushdns</code></pre>
+            </li>
+            <li>
+              <p>
+                In your Netwrix Auditor server, run the following command in elevated Command
+                Prompt:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">nslookup</code></pre>
+
+              <ul>
+                <li>
+                  <p>
+                    Once prompted, enter the remote domain FQDN you've previously specified to make
+                    sure the newly added domain is reachable from your Netwrix Auditor server.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Enable <strong>NetBIOS over TCP/IP</strong> support in the Netwrix Auditor server
+                network interface:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Proceed to <strong>Network Connections</strong> — you can reach the menu either
+                    via your Control Panel, or by searching by
+                    <strong>View network connections</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Right-click the current connection, and click <strong>Properties</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Select <strong>Internet Protocol Version 4 (TCP/IPv4)</strong>, and click
+                    <strong>Properties</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <strong>Advanced</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Select the <strong>WINS</strong> tab, and select
+                    <strong>Enable NetBIOS over TCP/IP</strong>. Click <strong>OK</strong> to save
+                    changes.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If the domain still fails to get audited after
+            completing all the steps provided, you can also specify the domainc controller name as
+            domain.<b>tld</b>\user or user@domain.<b>tld</b> in Netwrix Auditor.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

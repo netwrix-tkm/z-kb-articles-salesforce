@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWinConsole_SIEntManager_SIWindowsAgent_6.0.0.375</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IFNCA2" />
+    <meta name="Id" content="ka04u000000HciYAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:30:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:30:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7076" />
+    <meta name="ArticleNumber" content="000007076" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI-don't alert on
+          inherited permission changes
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong>SI-don't alert on inherited permission changes<br /><strong
+            ><span>Behavior before Fix: </span></strong
+          ><br />SI reports permission changes for parent and all child objects<br /><strong
+            ><span>Behavior after Fix: </span></strong
+          ><br />Now it can set FQDN or NetBIOS name of the host depending from the 'File System
+          StealthAUDIT' Policy settings. This setting can be configured on the 'File System Agents'
+          tab.<br /><b>Changes since Last Hotfix:</b><br />SI Console: added new option in the
+          Configuration/File Monitor Settings: 'FS inherited permissions filtering'<br />This option
+          will change the 'DISCARD_INHERITED_ACL' key in .INI files.<br /> Enable 'FS inherited
+          permissions filtering' - SI will report only initial permission change and filter out
+          inherited changes.<br /><strong><span>Submitted by: </span></strong><br />Maxim
+          Sidarau  <br /><strong><span>Affected Versions:</span></strong
+          ><br />6.0.0      SIWinConsole_SIEntManager_SIWindowsAgent_6.0.0.375_SI-3766<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Windows Console<br />SI - Enterprise Manager<br />SI - Windows Agent<br /><strong
+            ><span>Dev Ticket:</span></strong
+          ><br /><em><span>I-4612</span></em
+          ><br /><strong><span>Resolved in Version:</span></strong
+          ><br />6.0.0.375<br /><strong><span>KB Type: </span></strong><br />Hotfix<br /> <br /><b
+            >Modules Included:</b
+          ><br /> SI - Windows Console<br />SI - Enterprise Manager<br />SI - Windows Agent<br /> <br /><b
+            >YouTrack/Escalations: </b
+          >SI-3766 / 30997<br /><b>Customers:  </b>Municipal Property Assessment Corporation
+          (MPAC)<br /><b>Cumulative List of fixes included since Service Pack:</b><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Applying patch
+          for Enterprise Manager:<br />1. Stop 'SIEnterpriseManager' service.<br />2. Extract files
+          from attached 'SIEnterpriseManager' folder to the C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIEnterpriseManager folder<br />3. Start
+          'SIEnterpriseManager' service<br /> <br />Applying patch for SI Windows Console:<br />1.
+          Close the SI Win Console<br />2. Extract files from attached 'SIWinConsole' folder to the
+          C:\Program Files (x86)\STEALTHbits\StealthINTERCEPT\SIWinConsole folder<br />3. Start SI
+          Win Console.<br /> <br />Applying patch for SI Windows Agent:<br />1. Stop SIWindowsAgent
+          service<br />2. Extract files from attached 'SIWindowsAgent' to the "C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Extract files from
+          attached 'SBFileMonitor' folder:<br />  - SBTService.exe C:\Program
+          Files\STEALTHbits\StealthAUDIT\FSAC\<br />  - SBTFSF.sys to the
+          'C:\Windows\System32\drivers' folder<br />4. Start SIWindowsAgent serviceservice<br /> <br /><u
+            >Please note that applying 'FS inherited permissions filtering' option may take up to 10
+            minutes.</u
+          ><br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="484" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="484">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWinConsole_SIEntManager_SIWindowsAgent_6.0.0.375_SI-3766.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWinConsole_SIEntManager_SIWindowsAgent_6.0.0.375_SI-3766.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Admin Console;SI - Enterprise Manager;SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          6.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3766<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          6.0.0.375<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2326<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

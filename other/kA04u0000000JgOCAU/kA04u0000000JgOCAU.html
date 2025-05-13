@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Vulnerability Tracker - How to Change a Task's Status through the GSM Database</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000JgOCAU"/><meta name="Id" content="ka04u000000HdBLAA0"/><meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:18:20.000+0000"/><meta name="FirstPublishedDate" content="2022-02-07T01:01:18.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8311"/><meta name="ArticleNumber" content="000008311"/><meta name="description" content="HELPDESK"/></head><body><article class=" kb-articles"><div class="Content__c"><p>This article will give you a step-by-step guide on how to change a Task‚Äôs status through the GSM‚Äôs database using the Command Line Interface and WebUI. This article will be helpful if one of you or your clients tasks is stuck at a certain status and can not be deleted. Below is an example of a task that is stuck in the ‚Äú<strong>Stop Requested</strong>‚Äù status:</p><span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" width="680" src="kA04u0000000JgOCAU_f7bcbe33-82ee-401d-af83-fede7bee8652.png"/></span><h2 id="VulnerabilityTracker-HowtoChangeaTask'sStatusthroughtheGSMDatabase-Instructions">Instructions</h2><p>Step-by-Step Instructions:</p><ol><li><p>Open the detailed task view of the stuck task via the Web UI: <br/>         <strong>Scans &gt; Tasks &gt; Click the name of the Task &gt; Click the Magnifier</strong><br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JgOCAU_916af7ea-4106-4413-9daa-e3cedd7e1e7c.jpg"/></span><p/></li><li><p>In the Task Detail, you'll find on the top right the ID of the task. It will look something like this: "<em>f1893e96-ee2d-42d4-ba26-05da7fe2cf47</em>". Copy and save the Task ID. Below is a screenshot as an example:<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JgOCAU_7e1e8efb-bc51-4385-9d9f-537ceeea8254.jpg"/></span><p/></li><li><p>Open the currently scanned report via (if applicable, there may not be a report):<br/> <strong>detailed task view &gt; Current Report</strong> (Top Left)<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JgOCAU_7452ec01-d6c3-4d7d-b3ea-7d9cbf302d98.jpg"/></span><p/></li><li><p>Going into the report, you‚Äôll find the ID of the current report in the same place as the task ID in 2) Copy and save the report ID (if applicable, there may not be a report)<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JgOCAU_e5881535-6565-4568-9d46-c11ed3d323dc.jpg"/></span><p/></li><li><p>Log in to the GSM as <strong>admin </strong>via console/SSH and enable the superuser 'root' in the menu <strong>Advanced &gt; Support &gt; Superuser</strong>. Set to [<strong>enabled</strong>], provide a password and <strong>Save</strong>.</p></li><li><p>Open the GOS shell Menu<strong> </strong>and navigate to<strong> Advanced &gt; Support &gt; Shell</strong></p></li><li><p>Become the superuser by entering:<br/> <strong>su</strong><br/> then the corresponding password</p></li><li><p>Become the database user by entering:<br/> <strong>su ‚Äì postgres</strong></p></li><li><p>Open the database edit shell by entering:<br/>    <strong>psql gvmd</strong></p></li><li><p>Set the Task to status done by entering<br/>   <strong>UPDATE tasks SET run_status = 1 WHERE uuid = '';</strong></p><p><span> NOTE: replace </span><strong><span/></strong><span> with the ID from </span><strong><span>Step 2</span></strong></p></li><li><p>Set the corresponding report to "done" by<br/> <strong>UPDATE reports SET scan_run_status = 1 WHERE uuid = '';</strong></p><p> <span>NOTE: replace </span><strong><span/></strong><span> with the ID from </span><strong><span>Step 4</span></strong></p></li><li><p>Leave the database shell with<br/> <strong>/q</strong></p></li><li><p>Leave the shell with 3x <strong>Ctrl+D</strong></p></li><li><p>Below is an example output after running the commands below:<br/></p><span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JgOCAU_468e1d7f-12f7-4359-b62e-d1d6b283372f.png"/></span><p/></li><li><p>Deactivate the superuser again.</p></li></ol><p>You then should be able to go into the WebUI and see that the task status is ‚ÄúDone‚Äù. This task can now be deleted/modified if needed</p><div class="confluence-information-macro confluence-information-macro-information conf-macro output-block"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"> </span><div class="confluence-information-macro-body"><p>The value of ‚Äúscan_run_status‚Äù within the commands in Steps 10 and 11 is what modifies the status of each of the tasks. The value of 1 changes this to ‚ÄúDone‚Äù, I have asked Greenbone for more information on the different statuses and will upload them here once I‚Äôve got more information.</p></div></div><h2 id="VulnerabilityTracker-HowtoChangeaTask'sStatusthroughtheGSMDatabase-Relatedarticles">Related articles</h2><p/>
+
+
+
+
+
+
+
+
+
+
+
+<ul class="content-by-label conf-macro output-block"><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8150" target="_blank">How to Backup / Restore / Move your MongoDB Database</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8283" target="_blank">How to move your Linux Server MongoDB Database to a Windows server?</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8164" target="_blank">How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker Gen7</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8311" target="_blank">Vulnerability Tracker - How to Change a Task's Status through the GSM Database</a>
+                        
+                        
+                    </div>
+    </li><li>
+        <div>
+                <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>        </div>
+
+        <div class="details">
+                                    <a href="https://kb.netwrix.com/8310" target="_blank">How to Change the Admin Password of your Mongo Database</a>
+                        
+                        
+                    </div>
+    </li></ul> <br/><b>Attachments:</b><br/><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKdr&amp;d=%2Fa%2F4u000000M0AD%2F1770uSMBJcWHiled8XrQ_rnq5XiRuucc3IfEV9fq0qo&amp;asPdf=false" target="_blank">CLI_Commands.PNG</a> <br/><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKdw&amp;d=%2Fa%2F4u000000M0AI%2FzpM9J5sqzcUIqZcSnh2KY26KiryvtbXVFsScHmKkjhM&amp;asPdf=false" target="_blank">StuckTask.png</a> <br/><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK3v&amp;d=%2Fa%2F4u000000Lzp3%2Fw2qNHKuJZ0QapMn66KNZl.2OCWRXcTj0wMFZDBeLThw&amp;asPdf=false" target="_blank">ReportID.jpg</a> <br/><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKJy&amp;d=%2Fa%2F4u000000M0AN%2FJIK1ADexkuB7hKGSnpJQhzs76GuskmrG6ubL0CVv7JY&amp;asPdf=false" target="_blank">Report.jpg</a> <br/><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKYe&amp;d=%2Fa%2F4u000000Lzmd%2Fzr28SQidAW_ti5rB5UTfinxWK.lqD7Uci7iiUusjkrY&amp;asPdf=false" target="_blank">TaskID.jpg</a> <br/><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKcL&amp;d=%2Fa%2F4u000000M083%2FihN3fI7DmCuyVq6iJ4i24WLbFPI5J2NABNF4TWfr0FM&amp;asPdf=false" target="_blank">Task.jpg</a> <br/></div>
+</article></body></html>

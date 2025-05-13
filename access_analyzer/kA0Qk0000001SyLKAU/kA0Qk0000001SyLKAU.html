@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Enterprise Auditor Upgrade Workflow—Post-Upgrade</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_installupgrade" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001SyLKAU" />
+    <meta name="Id" content="ka0Qk0000005oCHIAY" />
+    <meta name="LastPublishedDate" content="2024-09-26T08:46:57.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-27T07:32:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-26T08:46:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9289" />
+    <meta name="ArticleNumber" content="000009289" />
+    <meta name="description" content="Enterprise Auditor Upgrade Workflow—Post-Upgrade" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span> Return to the main workflow page via
+            this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001T1ZKAU.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow</a
+            >.
+          </p>
+
+          <p>
+            Return to the previous section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001SwjKAE.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow—Upgrade</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001SzxKAE.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow—Access Information Center</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="ovrvw">Overview</h2>
+
+        <div>
+          <p>This article lists the steps to complete the Enterprise Auditor upgrade procedure.</p>
+        </div>
+
+        <h2 id="instr">Instructions</h2>
+
+        <div>
+          <p>Refer to the following steps to complete the NEA Console upgrade:</p>
+
+          <ol>
+            <li>
+              <p>After the Netwrix Upgrade Wizard finishes the upgrade, open the NEA Console.</p>
+            </li>
+            <li>
+              <p>Verify the global settings to match the initial settings.</p>
+            </li>
+            <li>
+              <p>
+                If licensed for the File System auditing, run the
+                <strong>File System\0-CreateSchema</strong> job. The job updates the schema for the
+                tables, views, and functions used by the rest of the File System Solution.
+              </p>
+            </li>
+            <li>
+              <p>
+                Run the <strong>.Active Directory Inventory</strong> group from the
+                <strong>Schedules</strong> node to confirm the operability.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the published reports configuration matches the backed up version. Migrate
+                the <code>&lt;AppSettings&gt;</code> node, if necessary—refer to the default
+                configuration path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%Web\WebServer.exe.config</code></pre>
+            </li>
+            <li>
+              <p>
+                If you are using the Windows authentication method to connect to the SQL database,
+                set up the <code>Netwrix Enterprise Auditor Web Server</code> service to log on as a
+                service account with the <strong>db_owner</strong> permissions for the NEA database.
+              </p>
+            </li>
+            <li>
+              <p>
+                Have a user with correct permissions login to the Published Reports site to confirm
+                the operability.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

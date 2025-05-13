@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Netwrix Privilege Secure for Discovery Best Practices</title><meta name="label" content="skb"/><meta name="label" content="privilege_secure_discovery"/><meta name="KnowledgeArticleId" content="kA04u00000110owCAA"/><meta name="Id" content="ka04u00000116XrAAI"/><meta name="LastPublishedDate" content="2023-07-07T10:00:51.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T10:00:51.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T10:00:51.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8641"/><meta name="ArticleNumber" content="000008641"/><meta name="description" content="Netwrix Privilege Secure for Discovery Best Practices"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span><br/> 
+<h2 id="overview">Overview</h2>
+This article will help you to understand SecureONE best practices.
+
+<blockquote>
+<div><span><strong>NOTE:</strong></span> Implementations can vary for organizational specifics</div>
+</blockquote>
+
+<ul><li><a href="#netwrix_privilege_secure_for_discovery_main_accounts">Netwrix Privilege Secure for Discovery Main Accounts</a></li><li><a href="#service_accounts">Service Accounts</a></li><li><a href="#local_administrator_rid500_account">Local Administrator, RID500, Account</a></li><li><a href="#ad_cleanup">AD Cleanup</a></li><li><a href="#groups_for_access">Groups for Access</a></li><li><a href="#gpo_changes">GPO Changes</a></li><li><a href="#firewall_requirements">Firewall Requirements</a></li><li><a href="#vpn_access">VPN Access</a></li><li><a href="#dmz_access">DMZ Access</a></li><li><a href="#multiple_domains">Multiple Domains</a></li><li><a href="#dr_instance">DR Instance</a></li><li><a href="#test_environments">Test Environments</a></li><li><a href="#load_balancing">Load Balancing</a></li><li><a href="#jita_vs_deny">JITA vs Deny</a></li></ul>
+
+<h2 id="netwrix_privilege_secure_for_discovery_main_accounts"><a id="ma" name="ma">Netwrix Privilege Secure for Discovery Main Accounts</a></h2>
+Netwrix Privilege Secure for Discovery utilizes three main accounts to operate. These are set specific to the domain being managed. The protect mode account is the most sensitive of these accounts. It is suggested that the password for this account is rotated periodically (update AD then update through Netwrix Privilege Secure for Discovery during a maintenance window).
+
+<h2 id="service_accounts"><a id="sa" name="sa">Service Accounts</a></h2>
+When rolling Netwrix Privilege Secure for Discovery out, attention must be paid to service accounts. These need to be made persistent within the product inventory, otherwise they will be ingested into Netwrix Privilege Secure for Discovery as a JITA account and removed from the machine's local admin group. This can be updated through the UI, but is often updated en-mass using the Quickstart process.<br/>Persistence should be minimized to a minimum (zero standing privilege), ideally only the protect mode account and the local administrator, RID 500, account. In certain circumstances local processes or software requires the existence of a local administrator account. These specific accounts need to be set as persistent. Review and approval of these accounts, to reduce persistence, should be part of an AD cleanup. This can be performed during or after the initial rollout of the product.
+<h2 id="local_administrator_rid500_account"><a id="RID500" name="RID500">Local Administrator, RID500, Account</a></h2>
+The local administrator account should be disabled on all windows machines. This is account cannot be removed and is a large target for compromise. Disabling the account removes this vulnerability. An alternate should be created in its place using the OAM capability of Netwrix Privilege Secure for Discovery. The name of this account can be randomized using the <code>?</code> wildcard. A determination on who should have access to the Netwrix Privilege Secure for Discovery managed passwords needs to be made, either restricted to administrators or also available to all users that have JITA access. Enabling access to JITA users can be especially useful for service desk and workstation support teams.
+
+<h2 id="ad_cleanup"><a id="adc" name="adc">AD Cleanup</a></h2>
+When Netwrix Privilege Secure for Discovery is installed, visibility to Active Directory becomes much clearer. On the dashboard for Netwrix Privilege Secure for Discovery the amount of machines that are scanned is shown. This can often show as much more than would, perhaps, be expected. This can be due to old data that still exists within AD. This can include many accounts that do not exist anymore. A general cleanup of AD is highly advised. This can include the removal of defunct data, as well as revisiting access by OU, machine or other suitable breakdown. This data can be pulled using Quickstart and then disseminated across the organization to get review and approval of access to machines.
+
+<h2 id="groups_for_access"><a id="groups" name="groups">Groups for Access</a></h2>
+It is recommended to have an AD group for administrators and also a group for users. These should groups should not be (or include) Domain Admins or Domain Users. These groups are not enumerated by Netwrix Privilege Secure for Discovery.
+
+<h2 id="gpo_changes"><a id="gpo" name="gpo">GPO Changes</a></h2>
+GPO updates are used for two purposes with most Netwrix Privilege Secure for Discovery installations:
+
+<ul><li>Providing scan capabilities on newer Windows operating systems</li><li>Adding the Protect Mode account to machines as a local administrator. This is used to update the local administrators on end points providing JITA, Just In Time Access</li></ul>
+It is suggested to start the GPO process early to ensure that scan details are available early in the setup of the environment. This can also require approvals that could slow the implementation if not requested early on in the rollout.
+
+<h2 id="firewall_requirements"><a id="firewall" name="firewall">Firewall Requirements</a></h2>
+Read about firewall and datacenter requirements in the <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110ohCAA.html" target="_blank">Port/Firewall and Datacenter Requirements</a> article.
+
+<h2 id="vpn_access"><a id="vpn" name="vpn">VPN Access</a></h2>
+SecureONE can manage machines over VPN connections, provided the three following items are updated via VPN:
+
+<ul><li>IP address</li><li>Fully qualified DNS name</li></ul>
+If issues are being experienced via DNS, determining if any of these are incorrect over VPN can help with resolution.
+
+<h2 id="dmz_access"><a id="dmz" name="dmz">DMZ Access</a></h2>
+Netwrix Privilege Secure for Discovery can access machines with in a DMZ provided the correct access is provided (see port and firewall requirements). The product is not expected to be installed within a DMZ. This would require firewall changes that would defeat the purpose of a DMZ.
+
+<h2 id="multiple_domains"><a id="Domains" name="Domains">Multiple Domains</a></h2>
+A single Netwrix Privilege Secure for Discovery instance can manage many AD domains. The configuration of these domains is done through the server configuration page. The three main accounts that Netwrix Privilege Secure for Discovery relies upon are required for each domain.
+
+<h2 id="dr_instance"><a id="DR" name="DR">DR Instance</a></h2>
+It is recommended to have a DR instance that matches that of the production instance in a separate location. Typically a nightly backup is made of the primary database and securely copied over to the DR instance. A rolling copy of 5 or 7 versions are made. In the event of the DR instance being required the latest of these are rehydrated to the DR instance. Avoid the worker, scanner, expire and LDAP sync services from running in the DR environment during daily activity. If these are running they will overwrite changes that have been made in the production environment.
+
+<h2 id="test_environments"><a id="env" name="env">Test Environments</a></h2>
+Test environments are most usually used for regression testing. These should be pointed to a test AD environment.
+
+<h2 id="load_balancing"><a id="bal" name="bal">Load Balancing</a></h2>
+Docker internally manages and distributes load. Due to this the API entry point can start on any of the nodes within the cluster and therefore basic round robin load balancing is required. The pool is set with the DNS name and a HTTP response check of 200 for success. These shows that the node is online and responding.
+
+<h2 id="jita_vs_deny"><a id="jita" name="jita">JITA vs Deny</a></h2>
+Netwrix Privilege Secure for Discovery has two levels of protection, JITA and Deny. Deny provides a higher level of security by removing any administrator accounts that added to the machine. In JITA mode these are added to the Netwrix Privilege Secure for Discovery inventory in deny mode these are not added to the inventory. To add additional accounts to the local inventory of a machine in deny mode, an administrator needs to switch the machine to JITA mode, followed by adding the required accounts and returning the machine back to deny mode. You can still add an account to an endpoint with Deny using the API or the UI.</div>
+</article></body></html>

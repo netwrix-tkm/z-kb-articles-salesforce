@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: HTTP 400 Bad Request: Request Header Too Long</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000020ITKAY" />
+    <meta name="Id" content="ka0Qk000000CexlIAC" />
+    <meta name="LastPublishedDate" content="2025-03-04T15:24:14.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-04T16:42:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-04T15:24:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9400" />
+    <meta name="ArticleNumber" content="000009400" />
+    <meta name="description" content="Request Header Too Long" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            When attempting to use SSO for the <strong>Published Reports</strong> web console (port
+            8082), you encounter the following error:
+          </p>
+          <pre class="has-inner-focus">
+HTTP 400 Bad Request (Request Header too long) responses to HTTP requests
+  </pre
+          >
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>This issue may occur if the user is a member of many Active Directory user groups.</p>
+          <p>
+            The HTTP request to the server contains the Kerberos token in the
+            <code>WWW-Authenticate</code> header. The header size increases together with the number
+            of user groups. If the HTTP header or packet size increases past the limits configured
+            on the server, the server may reject the request and send an error message as the
+            response.
+          </p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>To resolve this error, follow the steps below:</p>
+          <ol>
+            <li>
+              <p>
+                For IIS 6.0 and later, the <code>MaxFieldLength</code> and
+                <code>MaxRequestBytes</code> registry keys are located at the following subkey:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    <code
+                      >HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\HTTP\Parameters</code
+                    >
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Set the key values as shown in the following table:</p>
+              <div class="table-wrap">
+                <table count-columns="3">
+                  <thead>
+                    <tr>
+                      <th colspan="1" rowspan="1">Name</th>
+                      <th colspan="1" rowspan="1">Value Type</th>
+                      <th colspan="1" rowspan="1">Value Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="1" rowspan="1">MaxFieldLength</td>
+                      <td colspan="1" rowspan="1">DWORD</td>
+                      <td colspan="1" rowspan="1">(4/3 * T bytes) + 200</td>
+                    </tr>
+                    <tr>
+                      <td colspan="1" rowspan="1">MaxRequestBytes</td>
+                      <td colspan="1" rowspan="1">DWORD</td>
+                      <td colspan="1" rowspan="1">(4/3 * T bytes) + 200</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+                
+            </li>
+            <li>
+              <p>
+                You can also set the registry keys to their maximum values, as shown in the table
+                below. Consider all potential security ramifications before making any changes to
+                the registry settings:
+              </p>
+              <div class="table-wrap">
+                <table count-columns="3">
+                  <thead>
+                    <tr>
+                      <th colspan="1" rowspan="1">Name</th>
+                      <th colspan="1" rowspan="1">Value Type</th>
+                      <th colspan="1" rowspan="1">Value Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="1" rowspan="1">MaxFieldLength</td>
+                      <td colspan="1" rowspan="1">DWORD</td>
+                      <td colspan="1" rowspan="1">65536 (Decimal) or 10000 (Hexadecimal)</td>
+                    </tr>
+                    <tr>
+                      <td colspan="1" rowspan="1">MaxRequestBytes</td>
+                      <td colspan="1" rowspan="1">DWORD</td>
+                      <td colspan="1" rowspan="1">16777216 (Decimal) or 1000000 (Hexadecimal)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ol>
+          <p>
+            For detailed information on this error message, refer to the full Microsoft
+            documentation:
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/www-authentication-authorization/http-bad-request-response-kerberos#workaround-1-decrease-the-number-of-active-directory-groups"
+              target="_blank"
+            >
+              Troubleshooting HTTP 400 Bad Request Responses — Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+        <h2 id="related_article">Related Article</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/www-authentication-authorization/http-bad-request-response-kerberos#workaround-1-decrease-the-number-of-active-directory-groups"
+                target="_blank"
+              >
+                Troubleshooting HTTP 400 Bad Request Responses — Microsoft 🡥</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

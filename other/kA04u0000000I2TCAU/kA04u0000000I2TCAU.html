@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthINTERCEPT Users</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I2TCAU" />
+    <meta name="Id" content="ka04u000000HcdaAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:04:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:00:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:04:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6251" />
+    <meta name="ArticleNumber" content="000006251" />
+    <meta name="description" content="360008304132" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Some of you may be asking yourselves: <em
+            >"Where does StealthINTERCEPT store Users and permission data?" </em
+          >If so, I'm here to drop some knowledge. That information is tucked away in the SQL
+          database. You can check it our for yourself using this query:
+        </p>
+        <pre>SELECT [Folder].[securityDescriptor]<br/>FROM [NVMonitorConfig].[dbo].[Folder]<br/>WHERE [Folder].[name] = 'Policies';</pre>
+        <p>That will return a lovely string of awesomeness that looks like this:</p>
+        <pre>
+O:S-1-0-0G:S-1-0-0D:(A;;0x100001;;;S-1-5-21-3495653907-1112175037-4283663441-1106)(A;;FA;;;S-1-5-21-3495653907-1112175037-4283663441-1107)(A;;0x100021;;;S-1-5-21-3495653907-1112175037-4283663441-1137)</pre
+        >
+        <p>
+          The thing to focus on are those sections in parenthesis. The user is identified by their
+          SID. You can resolve those using PowerShell like this:
+        </p>
+        <pre>Get-ADUser S-1-5-21-3495653907-1112175037-4283663441-1106</pre>
+        <p>
+          The other important part for purposes of this KB is the third chunk, which describes the
+          user's rights in the Console:
+        </p>
+        <div>
+          <div>
+            <div class="table-wrap">
+              <table count-columns="2" border="1">
+                <tbody>
+                  <tr>
+                    <td colspan="1" rowspan="1">FA</td>
+                    <td colspan="1" rowspan="1">Admin</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0x100021</td>
+                    <td colspan="1" rowspan="1">Console Operator</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0x100001</td>
+                    <td colspan="1" rowspan="1">Report User</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div> </div>
+        </div>
+        <p>Now you know where that stuff is hiding and how to make sense of it. Hooray!</p>
+      </div>
+    </article>
+  </body>
+</html>

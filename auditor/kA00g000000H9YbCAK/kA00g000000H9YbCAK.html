@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Status shows "Logon auditing is disabled"</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YbCAK" />
+    <meta name="Id" content="ka04u000000HcRcAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1199" />
+    <meta name="ArticleNumber" content="000003349" />
+    <meta
+      name="description"
+      content="Account Lockout Examiner (ALE) Audit Status shows &amp;quot;Logon auditing is disabled&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Audit status of some Domain controllers in the list shows that some auditing is disabled,
+        for example "Logon Auditing is disabled, some funcionality will be unavailable for this DC.
+        Please turn on auditing of invalid logons in audit policy for this DC"<br /><img
+          src="kA00g000000H9YbCAK_fbc7b621-8199-4e09-a88c-7de90657e6e4.png"
+          alt="User-added image"
+          width="500"
+          height="105"
+        />
+
+        <hr />
+
+        This message can occur if audit policies in your domain are not set. In this case product
+        will not work because no lockout events will be present. But the message can also occur even
+        if correct audit policy is set in your domain. It can happen because in Windows
+        XP/2003/Vista/2008 Account Lockout Examiner checks only if 3 policies under Local policy -
+        Audit policies node of Group policy are configured, but in Windows 7/2008R2 Account Lockout
+        Examiner checks if Advanced Audit Policies are configured, so you might get such warning
+        even if default 3 Audit policies are set, but advanced are not. .
+
+        <hr />
+
+        To resolve the issue configure audit policies/ advanced audit policies. For Windows
+        2003/2008 domain:
+        <ol>
+          <li>On any DC, launch the <strong>Group Policy Management </strong>console.</li>
+          <li>
+            Right-click the appropriate <strong>Group Policy Object </strong>linked to the<strong>
+              D<strong>omain Controllers </strong>c</strong
+            >ontainer and select<strong> Edit</strong>.
+          </li>
+          <li>
+            Expand the<strong> Computer Configuration </strong>-&gt;
+            <strong>Windows Setting </strong>-&gt; <strong>Security Settings </strong>-&gt;
+            <strong>Local Policies </strong>-&gt; <strong>Audit Policy </strong>node.
+          </li>
+          <li>Configure audit policies as follows:</li>
+        </ol>
+        <ul>
+          <li><strong>Account Management: Success </strong></li>
+          <li><strong>Audit account logon events: Failure </strong></li>
+          <li><strong>Audit logon events: Failure</strong></li>
+        </ul>
+        <p>
+          <img
+            src="kA00g000000H9YbCAK_c5d66522-47aa-40e1-a0d3-6dcea60d0a08.png"
+            alt="User-added image"
+            width="500"
+            height="356"
+          />
+        </p>
+
+        <ol start="5">
+          <li>
+            Update group policy an all monitored DCs (for example run <em>gpupdate /force</em>)
+          </li>
+        </ol>
+        For Windows 2008R2 or above domain:
+        <ol>
+          <li>On any DC, launch the <strong>Group Policy Management </strong>console.</li>
+          <li>
+            Right-click the appropriate <strong>Group Policy Object </strong>linked to the D<strong
+              >omain Controllers c</strong
+            >ontainer and select<strong> Edit</strong>.
+          </li>
+          <li>
+            Expand the <strong>Computer Configuration </strong>-&gt; <strong>Policies</strong> -&gt;
+            <strong>Windows Settings </strong>-&gt;<strong> Security Settings </strong>-&gt;
+            <strong>Advanced Audit Policy Configuration </strong>node.
+          </li>
+          <li>
+            Configure audit policies according to page Page 12, Section 4.2: Enabling Audit Policy,
+            of the
+            <a
+              href="https://www.netwrix.com/download/documents/NetWrix_Account_Lockout_Examiner_Administrator_Guide.pdf?_ga=2.126161166.2092059225.1569427026-1766003445.1557946744"
+              target="_blank"
+              >Account Lockout Examiner Administrator Guide.</a
+            >
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9YbCAK_0f883f10-941d-4070-a70a-da1311930a5c.png"
+          alt="User-added image"
+          width="500"
+          height="473"
+        />
+        <img
+          src="kA00g000000H9YbCAK_5f4c48c5-646a-4369-baed-0ddd21dcfe0d.png"
+          alt="User-added image"
+          width="500"
+          height="458"
+        />
+        <img
+          src="kA00g000000H9YbCAK_557a5cf7-4a31-473e-bb00-764bf8bfc048.png"
+          alt="User-added image"
+          width="500"
+          height="415"
+        />
+        <ol start="5">
+          <li>
+            Update group policy an all monitored DCs (for example run <em>gpupdate /force</em>)
+          </li>
+        </ol>
+        However, Windows 2008R2 and above allows to configure audit policy in the same way as it was
+        in Windows 2003 and 2008. In this case some of required events will be generated and Account
+        Lockout Examiner will work, however the Auditing is disabled message will be shown. If you
+        don`t want to configure Advanced audit policies, there is an option to disable Audit status
+        check in Account Lockout Examiner. In this case Audit status will always be shown as OK. In
+        order to do this:
+        <ol>
+          <li>Run Registry Editor (Start - Run - <em>regedit</em>)</li>
+          <li>
+            Navigate to
+            <strong>HKEY_LOCAL_MACHINESoftware[Wow6432Node]NetWrixAccount Lockout Examiner </strong
+            >(Wow6432Node is present only in 64-bit OS)
+          </li>
+          <li>Change the value of <strong>UseWMI_Audit </strong>to 0,</li>
+          <li>
+            In the Account Lockout Examiner console go to <strong>File - Settings </strong>and click
+            <strong>OK</strong> to apply registry changes.
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9YbCAK_d51263f3-e914-4b54-a0b0-4dfc2f97d14d.png"
+          alt="User-added image"
+          width="500"
+          height="212"
+        />
+      </div>
+    </article>
+  </body>
+</html>

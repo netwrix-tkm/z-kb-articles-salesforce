@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Why Does the Netwrix Auditor Application Deployment Service Not Start or Is Terminated upon
+      Launch?
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Ne9KAE" />
+    <meta name="Id" content="ka0Qk0000001h1JIAQ" />
+    <meta name="LastPublishedDate" content="2024-02-05T16:26:35.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-05T16:26:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-16T13:34:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9005" />
+    <meta name="ArticleNumber" content="000009005" />
+    <meta
+      name="description"
+      content="Why Does the Netwrix Auditor Application Deployment Service Not Start or is Terminated upon Launch?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why does the Netwrix Auditor Application Deployment Service not start or is terminated
+            upon launch?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            There are some Netwrix services that are not shown in <b>services.msc</b> snap-in. They
+            run as processes and disappear when finished. For example, the processes to audit
+            <b>Windows File Server</b> and <b>Logon Activity</b>.
+          </p>
+
+          <p>
+            A parent service called <b>Netwrix Auditor Application Deployment Service</b> manages
+            them. When you enable a compression service, the Application Deployment service is
+            installed on the target server. Then, the Application Deployment service helps deploying
+            the compression services ("processes") and manages them. Once the Application Deployment
+            service completes its tasks, such as installing the compression service on the target,
+            it goes into idle mode. When needed again, it starts automatically.
+          </p>
+
+          <p>
+            Therefore, there is no need to manually start this service or worry if the service gets
+            stopped.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Non-owner mailbox access attempts are not reflected in reports.</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SQCA0" />
+    <meta name="Id" content="ka0Qk000000DS1iIAG" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:40.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:55:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="225" />
+    <meta name="ArticleNumber" content="000002974" />
+    <meta
+      name="description"
+      content="No access attempts report empty native audit Exchange configuration"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Perform the following configuration steps on your monitored Exchange servers (depending of
+        the Exchange server version):
+
+        <strong>For Exchange server 2003</strong>:
+        <div>
+          <ol>
+            <li>
+              <ol>
+                <li>
+                  Start the Microsoft Management Console (MMC) Exchange System Management snap-in.
+                </li>
+                <li>Expand your administrative group --&gt; <b>Servers</b>.</li>
+              </ol>
+            </li>
+          </ol>
+          <ol>
+            <li>Right-click the Exchange Server and select <b>Properties</b>.</li>
+            <li>Open the <b>Diagnostics Logging</b> tab.</li>
+            <li>
+              Under the <b>Services List</b>, expand the <b>MSExchangeIS Service</b> and select
+              <b>Mailbox</b>.
+            </li>
+            <li>
+              In the <b>Categories</b> list, select <b>Logons</b>, set logging level to
+              <b>Minimum</b> and click <b>Apply</b>.
+            </li>
+            <li>Click <b>OK</b>.</li>
+            <li>
+              Navigate to <b>Start</b> --&gt; <b>Administrative Tools</b> --&gt; <b>Services</b>.
+              Click <b>Microsoft Exchange Information Store</b> and restart the service.
+            </li>
+          </ol>
+        </div>
+        <div>
+          <b>For Exchange 2007/2010</b>:
+          <ol>
+            <li>Start the Exchange Management Shell.</li>
+            <li>
+              Run the following command: 'Set-EventLogLevel "MSExchangeIS9000 PrivateLogons" -Level
+              Low'
+            </li>
+            <li>
+              Navigate to <b>Start</b> --&gt; <b>Administrative Tools</b> --&gt; <b>Services</b>.
+              Click <b>Microsoft Exchange Information Store</b> and restart the service.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

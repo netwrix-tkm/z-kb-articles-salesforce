@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Configure File System Activity Events for StealthDEFEND with Stealthbits Activity Monitor v4.0+</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IzoCAE"/><meta name="Id" content="ka04u000000HczxAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:45:51.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:13:09.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:45:51.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7411"/><meta name="ArticleNumber" content="000007411"/><meta name="description" content="360008304072"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary: </strong>How to Configure Stealthbits Activity Monitor to send file system events to StealthDEFEND</p>
+<p><strong>Submitted by: </strong>Andy Muschlewski</p>
+<p><strong>Product:</strong> StealthDEFEND</p>
+<p><strong>Affected Versions:</strong> 2.0+</p>
+<p><strong>Affected Module:</strong> StealthDEFEND file system events</p>
+<p><strong>Dev Ticket:</strong> N/A</p>
+<p><strong>Resolved In Version: N/A</strong></p>
+<p><strong>KB Type:</strong> How to</p>
+<p><strong>Issue:</strong> How to Configure Stealthbits Activity Monitor to send file system events to StealthDEFEND</p>
+<p><strong>Instructions: </strong>     In order for StealthDEFEND to receive the event stream data, the Stealthbits Activity Monitor must be configured to do so. For file system activity events, use the StealthDEFEND Syslog template for the desired monitored host configuration.</p>
+<p>Follow the steps to integrate with Stealthbits Activity Monitor v4.0+ for file system activity events:</p>
+<p>Step 1 – Deploy the Stealthbits Activity Monitor activity agent and configure it to monitor the desired target host.</p>
+<p>Step 2 – On the Monitored Hosts tab, select the host and click Edit to open the host’s properties window. Select the Syslog tab.</p>
+<p>Step 3 – Select the UDP option for the Syslog protocol from the drop-down menu.</p>
+<p>Step 4 – Type the StealthDEFEND server name in a SERVER:Port format in the textbox. The default port is 10000.</p>
+<p>Step 5 – Click the ellipsis (…) to open the Syslog Message Template window.</p>
+<p>Step 6 – Select StealthDEFEND for the Template.</p>
+<p>Step 7 – Click OK to save the selection and close the Syslog Message Template window.</p>
+<p>RECOMMENDED: Select the Comments tab and identify this output as being configured for StealthDEFEND.</p>
+<p>Step 8 – Click OK to save the changes and close the host’s properties window.</p>
+<p>The StealthDEFEND template will be assigned as the Syslog message template for the selected monitored host. StealthDEFEND will begin receiving event stream data.</p>
+<p>The StealthDEFEND template contains the following information:</p>
+<p>%SYSLOG_DATE%|StealthDEFEND|%HOST%|%PRODUCT%|%PRODUCT_VERSION%|cat=% EVENT_NAME% setting=%SETTING_NAME% iotype=Filesystem domain=%EVENT_SOURCE_NAME% time=%TIME_STAMP_UTC% username=%PERPETRATOR% process=%ORIGINATING_CLIENT% filename=%FILE_PATH% sourcehost=%ORIGINATING_SERVER% success=%SUCCESS% blocked=%BLOCKED_EVENT% attrname=%ATTRIBUTE_NAME% attrnewvalue=%ATTRIBUTE_VALUE% attroldvalue=%OLD_ATTRIBUTE_VALUE% sddl=%PERMISSIONS_SDDL_DIFF% uncpath=%UNCPATH% renameuncpath=%RENAMEUNCPATH% client=%ORIGINATING_CLIENT_HOST%</p>
+<p><strong><u>Additional considerations:</u></strong></p>
+<p>Stealth DEFEND can only see the events that the agent sending them is configured to capture. Be sure to check that the agent is configured to capture all file system events to be monitored by StealthDEFEND. (I.E. if the file operation “rename” is not enabled, StealthDEFEND might not see a Ransomware Threat).</p>
+<p>RansomWare Identifies files created or renamed with filename patterns, prefixes or suffixes that match known ransomware patterns by user for a 24 hour period.</p>
+<p><img src="kA04u0000000IzoCAE_67878263-7b3b-41f8-b106-998724456524.png" alt="mceclip0.png"/></p>
+<p>Firewall: StealthDEFEND uses UDP Port 10000 for Incoming File Events (Syslog)</p></div>
+</article></body></html>

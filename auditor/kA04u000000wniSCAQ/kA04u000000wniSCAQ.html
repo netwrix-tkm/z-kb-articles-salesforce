@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Backup Recommendations</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wniSCAQ" />
+    <meta name="Id" content="ka04u000000wvwNAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-27T16:35:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-27T16:35:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-24T14:14:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8871" />
+    <meta name="ArticleNumber" content="000008871" />
+    <meta name="description" content="Backup Recommendations" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            What are the recommended Netwrix Auditor components to be backed up on a regular basis?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The minimum components to be backed up in Netwrix Auditor are the Long-Term Archive and
+            configuration file.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Create a separate folder for the Auditor backups − the
+                <code>C:\NA_Backups\</code> path is used to reference the process, and it can be
+                altered.
+              </p>
+            </li>
+            <li>
+              <p>Back up the entire Long-Term Archive folder to <code>C:\NA_Backups\</code>.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Long-Term Archive is located in
+                  <code>%ProgramData%\Netwrix Auditor\Data</code> by default. You can establish the
+                  LTA location by following the main Netwrix Auditor menu &gt; the
+                  <strong>Settings</strong> button &gt; <strong>Long-Term Archive</strong> tab &gt;
+                  <strong>Write audit data to</strong>.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Export the configuration file by running the following lines in elevated Command
+                Prompt in your Netwrix Auditor server:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">cd C:\Program Files (x86)\Netwrix Auditor\Audit Core
+configserverDbProcessor.exe export -target "C:\NA_Backups\naconfig.xml"</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>You can use any target path to export the
+                  config file to. Make sure to add the file name and extension (e.g.,
+                  <strong>naconfig.xml</strong>) to the end of the export path.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Once the components are backed up, you can store them in any location to use once
+                needed.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            For additional information on import, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9ebCAC.html"
+              target="_self"
+              >Migrating Netwrix Auditor to New Server</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9ebCAC.html"
+              target="_self"
+              >Migrating Netwrix Auditor to New Server</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SSCA0.html"
+              target="_self"
+              >How to Move Long-Term Archive to a New Location</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

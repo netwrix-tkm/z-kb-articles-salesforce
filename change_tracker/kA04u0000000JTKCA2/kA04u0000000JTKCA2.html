@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>31Registry Inclusion/Exclusion Match Rules</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JTKCA2" />
+    <meta name="Id" content="ka04u000000Hd85AAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:34:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8104" />
+    <meta name="ArticleNumber" content="000008104" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Similar to Folder/File Match Rules, Registry Key/Value Match Rules can be defined and used
+          to precisely track only keys and values of interest.
+        </p>
+        <p>
+          For example, tracking the ‘WinLogon’ registry key and values is important because there
+          are a number of session management security controls defined in this key. However, in
+          certain environments, the ‘DCacheUpdate’ values may change causing spurious alerts that
+          are not significant from a security perspective (DCacheUpdate stores domain names in
+          binary form for internal Winlogon programming code to use). Therefore the ability to
+          easily track all keys and values below the Winlogon key, but exclude DCacheUpdate changes
+          may be desirable.
+        </p>
+        <p>
+          The ‘All Registry Values’ Match Rule is available by default but to define the
+          <em>‘Isolate DCacheUpdate Value Changes’ </em>exclusion, the following Custom PathMatch
+          Definition would be added:
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JTKCA2_fccf67d0-3cde-499a-bbc4-78c151fd4dea.png"
+          /></span>
+        </p>
+        <ol>
+          <li>
+            KeyMatchType  - Options here are  <strong><em>(All|Exact|Wildcards|Regex)</em></strong>
+          </li>
+          <li>
+            KeyMatchExpression - Options are: 
+            <ol>
+              <li>
+                If using ‘All’, then use <strong><em>“”</em></strong
+                > 
+              </li>
+              <li>
+                If using ‘Exact’, then specify an exact <strong><em>“keyname”</em></strong>
+              </li>
+              <li>
+                If using ‘Wildcards’, then specify a separated wildcards list eg
+                <strong><em>“key_abc*|key_def*”</em></strong>
+              </li>
+              <li>
+                If using ‘Regex’, then specify a regular expression eg
+                <strong
+                  ><em
+                    >“^S-1-5-21-[0-9]+-[0-9]+-[0-9]+-[0-9]{4,}\\Software\\Policies\\Microsoft\\Windows\\Control
+                    Panel\\Desktop”</em
+                  ></strong
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            ValueMatchType – options the same as for the ‘foldermatchtype’
+            <strong><em>(All|Exact|Wildcards|Regex</em></strong
+            >)
+          </li>
+          <li>
+            ValueMatchExpression– Options are  
+            <ol>
+              <li>
+                If using ‘All’, then use <strong><em>“”</em></strong
+                > 
+              </li>
+              <li>
+                If using ‘Exact’, then specify an exact <strong><em>“filename”</em></strong>
+              </li>
+              <li>
+                If using ‘Wildcards’, then specify a separated wildcards list eg
+                <strong><em>“*.exe|*.dll”</em></strong>
+              </li>
+              <li>
+                If using ‘Regex’, then specify a regular expression eg
+                <strong><em>“^audit[0-9]*\.(log|txt)$”</em></strong>
+              </li>
+            </ol>
+          </li>
+          <li>
+            SkipRootKey – options are <strong><em>true</em></strong> or
+            <strong><em>false</em></strong>
+          </li>
+          <li>
+            Subkey Recursion
+            <ol>
+              <li>Unlimited</li>
+              <li>None (operate on specified folder only)</li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          <strong><em>“n”</em></strong> = recurse through
+          <strong><em>1, 2 or 3 </em></strong>subfolders
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

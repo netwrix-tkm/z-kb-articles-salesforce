@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      What Are Log Rotation Parameters for HubService, SyncConnector and Windows Agents in Change
+      Tracker?
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000QQjKAM" />
+    <meta name="Id" content="ka0Qk0000001cjBIAQ" />
+    <meta name="LastPublishedDate" content="2024-02-01T11:33:25.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-01T11:33:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-31T20:07:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9035" />
+    <meta name="ArticleNumber" content="000009035" />
+    <meta
+      name="description"
+      content="What are the Log Rotation Parameters for HubService, SyncConnector and Windows Agents in Change Tracker?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            What is the log rotation values for HubService, SyncConnector and Windows Agents in
+            Change Tracker and where to configure them?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The <b>HubService-log</b> file begins when service is started and stops at when exceeds
+            the <code>maximumFileSiz</code> value specified in
+            <b>C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub\log4net.config</b> file.
+          </p>
+
+          <p>Specifically in the following rows:</p>
+
+          <div><code>maxSizeRollBackups value="1"</code></div>
+
+          <div><code>maximumFileSize value="10MB"</code></div>
+
+          <p>
+            The <code>maxSizeRollBackups</code> parameter indicates how many hubservice-logs will be
+            stored. After hitting the <code>maximumFileSize</code> limit, it creates a copy with a
+            copy number at the end.
+          </p>
+
+          <p>
+            The <code>maximumFileSize</code> is how big a hubservice-log can grow to before a new
+            hubservice log will be created.
+          </p>
+
+          <p>Default configuration here is 1 backup copy per 10MB.</p>
+
+          <p>
+            For <b>SyncConnector</b>, the configuration file is located here:
+            <b
+              >C:\Program Files\NNT Change Tracker
+              Suite\Gen7SyncService\Gen7SyncService.exe.Config</b
+            >.
+          </p>
+
+          <p>It shares the same parameters as the HubService config file.</p>
+
+          <p>
+            For <b>Windows Agents</b>, the default location of the configuration file is:
+            <b>C:\Program Files\NNT Change Tracker Suite\Gen7Agent (NetCore)\log4net.config</b>. It
+            also shares the same parameters.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

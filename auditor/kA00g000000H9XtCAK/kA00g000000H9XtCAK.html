@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Warning: "(53) The network path was not found"</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XtCAK" />
+    <meta name="Id" content="ka04u000000HcQyAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1154" />
+    <meta name="ArticleNumber" content="000003308" />
+    <meta
+      name="description"
+      content="Netwrix Auditor, File Server, Warning: &amp;quot;The network path was not found&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The audit report from Netwrix File Server Change Reporter contains the following warning:
+        "(53) The network path was not found. Path: servershare" If you have the "Network traffic
+        compression" option enabled, grant the local System account the appropriate permissions:
+        <ol>
+          <li>Select the required shared folder and right-click it.</li>
+          <li>
+            In the pop-up menu, select <strong>Properties</strong> and open the
+            <strong>Security</strong> tab.
+          </li>
+          <li>On the <strong>Security</strong> tab, click the <strong>Advanced</strong> button.</li>
+          <li>
+            In the
+            <strong>Advanced Security Settings for &lt;shared_folder_name&gt;</strong> dialog,
+            select the SYSTEM permission entry and click <strong>Change Permissions</strong>.
+          </li>
+          <li>
+            In the next dialog, select the SYSTEM permission entry and click <strong>Edit</strong>.
+          </li>
+          <li>
+            In the <strong>Permission Entry for &lt;shared_folder_name&gt; </strong>dialog, allow
+            the following permissions: &lt;Traverse folder / execute file&gt; &lt;Read
+            attributes&gt; &lt;Read extended attributes&gt; &lt;Read permissions&gt; In the
+            <strong>Advanced Security Settings for &lt;shared_folder_name&gt;</strong> dialog, open
+            the<strong> Effective Permissions</strong> tab and check all the permissions for the
+            SYSTEM service account. Click <strong>OK</strong>.
+          </li>
+          <li>
+            In the <strong>&lt;shared_folder_name&gt; Properties</strong> dialog, open the
+            <strong>Sharing</strong> tab and click <strong>Share</strong>.
+          </li>
+          <li>
+            In the <strong>File Sharing</strong> dialog, add the SYSTEM service account and select
+            "Read/Write" permission level for it.
+          </li>
+          <li>To save the changes, click <strong>Share</strong> and then <strong>Done</strong>.</li>
+        </ol>
+        If you do not use the "Network traffic compression" option, make sure that the account
+        configured to run the Netwrix File Server Change Reporter scheduled task has the following
+        rights and permissions on the monitored file server:
+        <ul>
+          <li>The local administrator rights</li>
+          <li>Read access to the monitored shared folder</li>
+        </ul>
+        If the steps provided do not resolve your issue, please
+        <a href="https://www.netwrix.com/support_ticket.html" target="_blank"
+          >contact Netwrix Technical Support</a
+        >.
+      </div>
+    </article>
+  </body>
+</html>

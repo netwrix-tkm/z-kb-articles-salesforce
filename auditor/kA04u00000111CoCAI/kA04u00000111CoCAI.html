@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor Widgets Show the SQL Server Error 18452, Login Failed</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111CoCAI" />
+    <meta name="Id" content="ka0Qk0000001jfpIAA" />
+    <meta name="LastPublishedDate" content="2023-10-06T10:52:57.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-08T08:06:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-13T13:56:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8805" />
+    <meta name="ArticleNumber" content="000008805" />
+    <meta
+      name="description"
+      content="This article provides resolution steps for issue when the SQL Server error occurred (18452, Login failed. The login is from an untrusted domain and cannot be used with Windows authentication.)."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When attempting to specify the default SQL instance, the following error is prompted:
+          </p>
+
+          <pre class="has-inner-focus">
+SQL Server error occurred (18452, Login failed. The login is from an untrusted domain and cannot be used with Windows authentication.).</pre
+          >
+        </div>
+
+        <div>
+          <h2 id="causes">Causes</h2>
+
+          <div>
+            <p>
+              An SQL Server instance is refusing the connection and Netwrix Auditor is just passing
+              the message along. The below are possible causes of the error:
+            </p>
+
+            <ol>
+              <li>
+                <p>
+                  The default <b>Windows Authentication</b> mode may cause issues when connecting to
+                  the SQL Server
+                </p>
+              </li>
+              <li>
+                <p>
+                  Unrecognized Windows Principal used when trying to connect to SQL Server. In this
+                  case, Windows can’t verify the login. This might be because the Windows login is
+                  from an untrusted domain.
+                </p>
+              </li>
+              <li>
+                <p>
+                  The <b>SQL Server Authentication</b> connection mode used, however, the login does
+                  not exist on SQL Server
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <h2 id="resolutions">Resolutions</h2>
+
+          <div>
+            <p>Review the possible resolution scenarios:</p>
+
+            <ol>
+              <li>
+                <p>For cause 1. Switch to the <b>Mixed</b> authentication mode.</p>
+
+                <ul>
+                  <li>
+                    <p>Open <b>SQL Server Management Studio</b>.</p>
+                  </li>
+                  <li>
+                    <p>Right-click your server and select <b>Properties</b>.</p>
+                  </li>
+                  <li>
+                    <p>In the <b>Server Properties</b> dialog, select the <b>Security</b> tab.</p>
+                  </li>
+                  <li>
+                    <p>Enable the <b>SQL Server and Windows Authentication mode</b> checkbox.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p>For cause 2. Make sure that you are logged in to the correct domain.</p>
+              </li>
+              <li>
+                <p>For cause 3. Verify that this SQL login exists.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

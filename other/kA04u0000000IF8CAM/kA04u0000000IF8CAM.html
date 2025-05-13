@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to review FSAA Data Collector scan settings over time</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IF8CAM" />
+    <meta name="Id" content="ka04u000000HciTAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:16:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:16:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6466" />
+    <meta name="ArticleNumber" content="000006466" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong
+          > How to tell what settings were in place for a given target host during any FSAA, FSAC,
+          FSDLP, or FSDFS scan job
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong
+          > You need to see what a scan job's data collection settings were for a given scan and
+          host, or see if/how they've changed over time.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong
+          > 
+        </p>
+        <p>
+          <strong
+            ><span class="wysiwyg-color-pink"
+              >Note: This is an advanced feature used for troubleshooting only when advised by a
+              Stealthbits Engineer.</span
+            ></strong
+          >
+        </p>
+        <p>
+          Usually when a StealthAUDIT job runs, there's a single query configuration that's
+          applicable to all hosts targeted by that job. That configuration is stored in the Job XML
+          in the Jobs folder in the StealthAUDIT installation directory.
+        </p>
+        <p>
+          Because of the advanced, per-host scan configuration capabilities in the File System
+          Access Auditor (FSAA) data collector, it's useful to track query configurations on a
+          per-host basis. Because it's possible to have table-driven configurations, the query
+          configuration for each host is generated at runtime and cannot be stored in the main job
+          XML file. Because StealthAUDIT is capable of targeting many hosts at a time and scans are
+          typically recurring, it's not practical to store these in individual files over time in
+          the job's output directory, either.
+        </p>
+        <p>
+          Instead, the FSAA data collector stores each host's effective query XML in the
+          SA_FSAA_ScanHistory table. 
+        </p>
+        <p>
+          It can be useful to understand how these settings have changed over time (e.g., when new
+          sensitive data criteria are added or when file level scanning was enabled). In the
+          following example, we look at how to review the Probable Owner configuration over time. 
+        </p>
+        <pre>SELECT<br/>     ConsoleHost<br/>,    ScanHost<br/>,    JobGUID<br/>,    RunTime<br/>,    SUBSTRING(CONVERT(nvarchar(max),FSAAConfigXML),CHARINDEX('ProbableOwners=',CONVERT(nvarchar(max),FSAAConfigXML),1),18) as ConfigData<br/>FROM SA_FSAA_ScanHistory WHERE ScanType='FSAA' AND ScanHost='<strong>YourTargetHost1</strong>'</pre>
+        <p>
+          Because the FSAAConfigXML column is an <code>XML</code> data type, you can either search
+          is using XPath, or convert to a string and search
+          using <code>charindex()</code> and <code>substring()</code>. This example uses the latter
+          technique.
+        </p>
+        <p>That should give you results back that look like the following:<br /><br /></p>
+        <div class="table-wrap">
+          <table count-columns="5" width="718">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>ConsoleHost</strong></td>
+                <td colspan="1" rowspan="1"><strong>ScanHost</strong></td>
+                <td colspan="1" rowspan="1"><strong>JobGUID</strong></td>
+                <td colspan="1" rowspan="1"><strong>RunTime</strong></td>
+                <td colspan="1" rowspan="1"><strong>ConfigData</strong></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">SAAPP01</td>
+                <td colspan="1" rowspan="1">YourTargetHost1</td>
+                <td colspan="1" rowspan="1">2d9b30cd-abe7-4cae-add5-32e92011ace6</td>
+                <td colspan="1" rowspan="1">2/26/2020 18:28:25.840</td>
+                <td colspan="1" rowspan="1">ProbableOwners="0"</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <span class="wysiwyg-font-size-small"
+            >Note: most of the columns above are intuitive enough, but the JobGUID is actually a way
+            to map the job configuration captured in the SA_FSAA_ScanHistory table back to the
+            StealthAUDIT Job Tree.</span
+          >
+        </p>
+        <p>
+          You can do this for almost any FSAA setting that's visible in the query XML, which is
+          embedded in the Job XML as
+          <code>JOB.PARTITIONS.PARTITION.TASKS.TASK.FSAA_SETTINGS</code>), as well as other settings
+          that are generated at runtime from other input, like sensitive data criteria in global
+          settings or a database table being used to define host-specific settings, like shares to
+          target. You simply need to update the pattern being searched for in the <code
+            >charindex()</code
+          >
+          function and the number of characters you wish to return with the
+          <code>substring()</code> function once the pattern is found. 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          FSAA<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 9.0+
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

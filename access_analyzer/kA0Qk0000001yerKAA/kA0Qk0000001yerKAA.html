@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Disabling the Server Header</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001yerKAA" />
+    <meta name="Id" content="ka0Qk000000DUhpIAG" />
+    <meta name="LastPublishedDate" content="2025-04-24T18:36:05.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-30T00:42:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-24T18:36:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9391" />
+    <meta name="ArticleNumber" content="000009391" />
+    <meta name="description" content="Vulnerability Assessment" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to disable the server header in Netwrix Access Analyzer to
+          prevent banner grabbing, which can expose server information. Banner grabbing can be
+          caused by incorrectly configuring the Windows registry <code>DisableServerHeader</code>
+          setting on the host.
+        </p>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>Banner grabbing is the process of
+            capturing banner information, such as application type and version, that is transmitted
+            by a remote port when a connection is initiated. More details can be found here: <a
+              href="https://csrc.nist.gov/glossary/term/banner_grabbing"
+              target="_blank"
+              >Banner Grabbing ⸱ NIST 🡥</a
+            >
+          </p>
+          <p>
+            <img
+              src="kA0Qk0000001yerKAA_977a6440-48a2-4d59-8999-064387c22507.png"
+              width="469"
+              height="416"
+              alt="Screenshot showing server information revealed through banner grabbing"
+            />
+          </p>
+        </blockquote>
+        <h2 id="instructions">Instructions</h2>
+        <p>Follow the steps below to disable the Server header in Access Analyzer.</p>
+        <ol>
+          <li>
+            <p>Add or update the following registry key:</p>
+            <p>
+              <code
+                >HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\HTTP\Parameters\DisableServerHeader</code
+              >
+            </p>
+            <p>Set the value to:</p>
+            <p><code>DWORD: 000002</code></p>
+          </li>
+          <li>
+            <p>Reboot the server to apply the changes.</p>
+            <blockquote>
+              <p>
+                <span class="Caution"><strong>IMPORTANT: </strong></span>Modifications to this
+                registry setting may occur due to the following reasons:
+              </p>
+              <ul>
+                <li>
+                  Access Analyzer and Access Information Center will not modify this setting during
+                  patching.
+                </li>
+                <li>
+                  Microsoft may release a patch that changes its behavior, or internal
+                  configurations may enforce changes to the OS, altering this setting.
+                </li>
+                <li>
+                  Operating system configurations, such as group policy settings, may impact this
+                  setting or product functionality. Configuring the operating system is the
+                  customer's responsibility.
+                </li>
+              </ul>
+            </blockquote>
+            <ul>
+              <li>
+                <p>If needed, refer to the following image.</p>
+                <div>
+                  <img
+                    src="kA0Qk0000001yerKAA_06423274-e0a8-436e-8744-28f77123531b.png"
+                    alt="disabled server header"
+                    width="629"
+                    height="148"
+                  />
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              After the reboot, the result should resemble the Edge example below, in which the
+              Server Node is no longer listed.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000001yerKAA_c688ea3a-9830-434e-83e0-238ae1d0ffc0.png"
+                width="469"
+                height="439"
+                alt="Screenshot showing browser developer tools with no server header information displayed"
+              />
+            </div>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

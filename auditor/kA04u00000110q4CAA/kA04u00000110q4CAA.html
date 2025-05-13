@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Following Event Log Settings May Lead to Incorrect or Incomplete Data in Reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110q4CAA" />
+    <meta name="Id" content="ka04u00000116b0AAA" />
+    <meta name="LastPublishedDate" content="2023-07-11T10:23:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T10:24:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-11T10:23:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8655" />
+    <meta name="ArticleNumber" content="000008655" />
+    <meta
+      name="description"
+      content="Application, Security, or System event log retention method."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom_and_cause">Symptom and Cause</h2>
+
+        <div>
+          <p>
+            You've encountered the following Windows Server Audit Service error for the Application,
+            Security, or System event log:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID: 1016
+The following event log settings may lead to incorrect or incomplete data in reports:
+The Application event log retention method.</pre
+          >
+
+          <p>
+            This error is caused by incorrect event log retention settings, specifically by
+            <strong>Do not overwrite events (clear log manually)</strong>.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            It is required to have <strong>Overwrite events as needed</strong> option selected in
+            order to allow for newer events to be audited. Check your Group Policy retention
+            settings for the affected event log — refer to the following article for additional
+            information on adjusting event log retention settings:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+              target="_self"
+              >Adjusting Security Event Log Size and Retention Settings</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

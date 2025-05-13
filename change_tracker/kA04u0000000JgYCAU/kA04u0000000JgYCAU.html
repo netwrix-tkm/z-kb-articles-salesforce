@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to fix "Error, the requested event counts summary size cannot be smaller than the system
+      event count window size" message
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JgYCAU" />
+    <meta name="Id" content="ka04u000000HdBNAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T01:02:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8313" />
+    <meta name="ArticleNumber" content="000008313" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="">Problem</h2>
+        <div class="">
+          <span class=""> </span>
+          <div class="">
+            <p>
+              When any Change Tracker user is browsing to the Change Tracker Dashboard tab or the
+              Device tab, a red error message box appears on screen stating - "<strong
+                >Error, the requested event counts summary size cannot be smaller than the system
+                event count window size</strong
+              >"
+            </p>
+          </div>
+        </div>
+        <h2 id="">Solution</h2>
+        <p>
+          To resolve the issue, the user will need to ensure that the Change Tracker
+          <strong>EventStatsUnitSeconds configuration item</strong> is to set to a factor of 86400.
+        </p>
+        <p>
+          The <strong>default value </strong>is set to <strong>1800</strong>. If the error message
+          is seen, this implies that the current value <strong>is not </strong>a whole number
+          multiple of 86400 and the value will need to be corrected. To check and correct the value,
+          please follow the steps below:
+        </p>
+        <ol>
+          <li>
+            <p>Login to Change Tracker</p>
+          </li>
+          <li>
+            <p>Browse to <strong>Settings Tab</strong></p>
+          </li>
+          <li>
+            <p>Browse to <strong>System Settings</strong></p>
+          </li>
+          <li>
+            <p>Scroll to the <strong>bottom </strong>of the page</p>
+          </li>
+          <li>
+            <p>Select ‚Äú<strong>Show Advanced Options</strong>‚Äù</p>
+          </li>
+          <li>
+            <p>
+              Under ‚Äú<strong>Configuration Settings</strong>‚Äù look for the Description:
+              <strong>EventStatsUnitSeconds</strong>
+            </p>
+          </li>
+          <li>
+            <p>
+              If the config item cannot be found, use the ‚Äú<strong>Add Config Item</strong>‚Äù to
+              create it.
+            </p>
+          </li>
+          <li>
+            <p>
+              If Value is <strong>not set</strong> or value is <strong>not 1800</strong>, select the
+              <strong>Edit </strong>button next to <strong>EventStatsUnitSeconds </strong>and change
+              value accordingly.
+            </p>
+          </li>
+          <li>
+            <p>Press <strong>Update</strong>.</p>
+          </li>
+          <li>
+            <p>Log out and login to Change Tracker.</p>
+          </li>
+        </ol>
+        <h2 id="">Related articles</h2>
+        <p />
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to fix "Error, the requested event counts summary size cannot be smaller than
+                the system event count window size" message</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">The NNT FAST™ Cloud Usage Considerations</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >HTTP Error 500.19 - Internal Server Error - Error Code 0x8007007e</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >Redis - QFork.dat Files Taking Up Large Amounts Of Disk Space?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >NNT Gen 7 Agent - Hub Connection Test Error (WinHttp.WinHttpRequest)</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

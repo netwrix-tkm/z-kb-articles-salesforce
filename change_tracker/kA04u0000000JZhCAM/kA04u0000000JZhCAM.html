@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "AgentTaskRunner - task execution failed for task 11 -
+      TrackerPollTask-Baseline-processtracker-88"
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JZhCAM" />
+    <meta name="Id" content="ka04u000000Hd9iAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:49:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8201" />
+    <meta name="ArticleNumber" content="000008201" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article will assist with clearing the error below from showing up in your Rolling
+          Log.
+        </p>
+
+        <p> </p>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#                                                                                          Example Message:																										  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2018-04-10 10:56:26,887 [7] ERROR AgentTaskRunner - task execution failed for task 11 - TrackerPollTask-Baseline-processtracker-88
+NNT.Agent.Tracking.TrackerException: no data collector registered for: processtracker-local
+      at NNT.Agent.Core.Tracking.TrackerBase.GetDataCollector (System.String collectorName, System.Boolean throwException) [0x0002e] in :0
+      at NNT.Agent.Core.Tracking.TrackerBase.PollInternal (NNT.Agent.Core.Tracking.PollControl pollControl, NNT.Agent.Core.Interfaces.IDevice device, NNT.Agent.Core.Interfaces.ITrackerConfiguration 
+			configuration, NNT.Agent.Core.Interfaces.IItemStoragePipeline queue, NNT.Agent.Core.Tracking.PollType pollType, System.DateTime pollStartTimeUtc) [0x0004c] in:0
+      at NNT.Agent.Core.Tracking.TrackerBase.Poll (NNT.Agent.Core.Tracking.PollControl pollControl, NNT.Agent.Core.Interfaces.IDevice device, NNT.Agent.Core.Interfaces.IItemStoragePipeline queue, 
+			NNT.Agent.Core.Tracking.PollType pollType, System.DateTime pollStartTimeUtc) [0x00075] in :0
+      at NNT.Agent.Core.Tasks.TrackerPollTask.Execute (NNT.Agent.Core.Queue.AgentTaskQueue queueContext) [0x00279] in :0
+      at NNT.Agent.Core.Application.AgentTaskRunner.ExecuteTask (System.Int32 runnerId, NNT.Agent.Core.Interfaces.IAgentTask task, System.DateTime nowUtc, NNT.Agent.Core.Queue.AgentTaskQueue queue) 
+			[0x00050] in :0
+
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="Rolling-LogFix:">Step-by-step guide</h2>
+
+        <p>
+          This error is usually caused due to the process tracker in change tracker being enabled,
+          but no specified processes are set to be tracked. To stop this error from occuring, you
+          will need to edit the configuration template assigned to the device that the error is
+          occuring on, and either input at least one process to track, or disable the tracker
+        </p>
+
+        <ol>
+          <li>
+            Log Into Change Tracker and Navigate to Devices &gt; Select Device Experiencing Error
+            &gt; Select the Configuration Template that is causing the issue
+          </li>
+          <li>
+            Either Uncheck the "Track processes and services in this template" box, or add some
+            services to be tracked. See example below:
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JZhCAM_3e7f2684-1624-4bd2-a5e7-277dbe82a62b.png"
+          /></span>
+        </p>
+
+        <p> </p>
+
+        <h2 id="Rolling-LogFix:">
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JZhCAM_95212a3c-0d2d-43d5-a6c4-fb39a0c5d79f.png"
+          /></span>
+        </h2>
+
+        <h2 id="Rolling-LogFix:">Related articles</h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8368" target="_blank"
+                >Change Tracker Gen 7 Change Log / Update Log / ReadMe.txt Documents for
+                Agent/Hub</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKEk&amp;d=%2Fa%2F4u000000LzlV%2FizlMPEs23Jzy9BoSzZdCpVnwL4BI03fjqLxug9Ylads&amp;asPdf=false"
+          target="_blank"
+          >image2018-4-17_14-21-50.png</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKMZ&amp;d=%2Fa%2F4u000000LzwM%2FsyO0l9blw01WX_0xquxvVJgglPcJdhRNNPs87Es3Va0&amp;asPdf=false"
+          target="_blank"
+          >image2018-4-17_14-21-32.png</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

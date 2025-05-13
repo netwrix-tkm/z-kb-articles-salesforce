@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Changed Service Principle Name Attribute</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SlCAK" />
+    <meta name="Id" content="ka04u00000116U4AAI" />
+    <meta name="LastPublishedDate" content="2023-07-03T11:27:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-03T11:28:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="268" />
+    <meta name="ArticleNumber" content="000002995" />
+    <meta
+      name="description"
+      content="Active Directory change Service Principle Name by server computer account"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why was a Service Principle Name attribute change reported as made by System or a user
+            account?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            A Kerberos Service Principle Name attribute allows a service on a specific server to be
+            associated with an account responsible for management of the service. Once associated, a
+            mutual Kerberos authentication is permitted. Changes to this attribute are usually made
+            by System in response to the operating system changes on a specific computer, e.g.
+            installation of operating system updates, name changes, installation of SQL Server,
+            etc.<br />The WHO field for changes related to the Service Principle Name attribute may
+            contain the following:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                Made by a computer account with $ prefix (<strong>DOMAINXVISIO$</strong>) — the
+                Service Principle Name attribute was changed by a local system service of the
+                computer.
+              </p>
+            </li>
+            <li>
+              <p>
+                Made by a domain controller account with $ prefix (<strong>DOMAINXPTDC$</strong>) —
+                the Service Principle Name attribute was changed by a local system service on the
+                domain controller.
+              </p>
+            </li>
+            <li>
+              <p>
+                Made by the <strong>System</strong> account — the Service Principle Name attribute
+                was changed by Active Directory represented by System in response to the operating
+                system changes on computer, but the corresponding security event wasn't generated
+                for this system change.
+              </p>
+            </li>
+            <li>
+              <p>
+                Made by an actual user account — the Service Principle Name attribute was modified
+                manually.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            Since the Service Principle Name attribute is changed only for system purpose, you can
+            exclude this attribute from the monitoring scope:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                In %Netwrix Auditor installation folder%\Active Directory Auditing, add the
+                following line to the omitproplist.txt file:
+              </p>
+
+              <pre class="has-inner-focus">*.ServicePrincipleName</pre>
+            </li>
+            <li>
+              <p>In the same folder, remove the following line from the unomitproplist.txt file:</p>
+
+              <pre class="has-inner-focus">*.ServicePrincipleName</pre>
+            </li>
+          </ul>
+
+          <p>
+            For additional information on Service Principal Name attribute, refer to the following
+            articles:
+            <a
+              href="https://learn.microsoft.com/en-us/windows/win32/adschema/a-serviceprincipalname?redirectedfrom=MSDN"
+              target="_blank"
+              >Service-Principal-Name Attribute</a
+            >,
+            <a
+              href="https://learn.microsoft.com/en-us/windows/win32/ad/service-principal-names?redirectedfrom=MSDN"
+              target="_blank"
+              >Service Principal Names</a
+            >
+            and
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc961723(v=technet.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >Service Principal Names</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

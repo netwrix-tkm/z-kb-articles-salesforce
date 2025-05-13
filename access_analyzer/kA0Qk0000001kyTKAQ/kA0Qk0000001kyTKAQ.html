@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>stealthaudit-sdd-hotfix-11.6.0.002 </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001kyTKAQ" />
+    <meta name="Id" content="ka0Qk000000BRrJIAW" />
+    <meta name="LastPublishedDate" content="2024-12-04T17:08:55.000+0000" />
+    <meta name="LastModifiedDate" content="2024-12-04T17:08:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-04T17:08:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9340" />
+    <meta name="ArticleNumber" content="000009340" />
+    <meta name="description" content="stealthaudit-sdd-hotfix-11.6.0.002 " />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div class="OutlineElement Ltr SCXW98097971 BCX0"> </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0"> </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0"> </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Summary:</span
+              ><span class="NormalTextRun SCXW98097971 BCX0"> </span></span
+            ><span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0"> </span
+              ><span class="NormalTextRun SCXW98097971 BCX0"> </span
+              ><span class="NormalTextRun SCXW98097971 BCX0"
+                >FS SEEK: FS memory leak with new SDD API</span
+              ></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Submitted by: </span
+              ><span class="NormalTextRun SCXW98097971 BCX0"> </span></span
+            ><span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Michael Burrofato</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Affected Versions:</span
+              ><span class="NormalTextRun SCXW98097971 BCX0"> </span></span
+            ><span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">11.6</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Affected Module:</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">SDD</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Dev Ticket:</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">365787</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Resolved in Version:</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">SynchronousSDDScanAPI.dll</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">KB Type: </span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="OutlineElement Ltr SCXW98097971 BCX0">
+          <p class="Paragraph SCXW98097971 BCX0">
+            <span class="TextRun SCXW98097971 BCX0"
+              ><span class="NormalTextRun SCXW98097971 BCX0">Hotfix</span></span
+            ><span class="EOP SCXW98097971 BCX0"> </span>
+          </p>
+        </div>
+        <div class="SCXW98097971 BCX0">
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0">Escalations</span></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0">394274/425927</span></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0">Comments:</span></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun Underlined SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun Underlined MacChromeBold SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0"
+                  >PLEASE APPLY THIS HOTFIX ALONG WITH STEALTHAUDIT-HOTFIX-11.6.0.059</span
+                ></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0">Instructions:</span></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="ListContainerWrapper SCXW98097971 BCX0">
+            <ol start="1" class="NumberListStyle1 SCXW98097971 BCX0">
+              <li class="OutlineElement Ltr SCXW98097971 BCX0">
+                <p class="Paragraph SCXW98097971 BCX0">
+                  <span class="TextRun SCXW98097971 BCX0"
+                    ><span class="NormalTextRun SCXW98097971 BCX0"
+                      >Unblock the hotfix zip file in the windows property dialog, if an unblock
+                      button exists there. </span
+                    ></span
+                  ><span class="EOP SCXW98097971 BCX0"> </span>
+                </p>
+              </li>
+            </ol>
+          </div>
+          <div class="ListContainerWrapper SCXW98097971 BCX0">
+            <ol start="2" class="NumberListStyle1 SCXW98097971 BCX0">
+              <li class="OutlineElement Ltr SCXW98097971 BCX0">
+                <p class="Paragraph SCXW98097971 BCX0">
+                  <span class="TextRun SCXW98097971 BCX0"
+                    ><span class="NormalTextRun SCXW98097971 BCX0">Close all instances of </span
+                    ><span class="NormalTextRun SpellingErrorV2Themed SCXW98097971 BCX0"
+                      >StealthAUDIT</span
+                    ><span class="NormalTextRun SCXW98097971 BCX0">
+                      (check task manager under processes for all users)</span
+                    ></span
+                  ><span class="EOP SCXW98097971 BCX0"> </span>
+                </p>
+              </li>
+            </ol>
+          </div>
+          <div class="ListContainerWrapper SCXW98097971 BCX0">
+            <ol start="3" class="NumberListStyle1 SCXW98097971 BCX0">
+              <li class="OutlineElement Ltr SCXW98097971 BCX0">
+                <p class="Paragraph SCXW98097971 BCX0">
+                  <span class="TextRun MacChromeBold SCXW98097971 BCX0"
+                    ><span class="NormalTextRun SCXW98097971 BCX0"
+                      >Update all DC files in your %</span
+                    ><span class="NormalTextRun SpellingErrorV2Themed SCXW98097971 BCX0"
+                      >SAInstallDir%</span
+                    ><span class="NormalTextRun SpellingErrorV2Themed SCXW98097971 BCX0"
+                      >SensitiveData</span
+                    ><span class="NormalTextRun SCXW98097971 BCX0"> folder.</span></span
+                  ><span class="EOP SCXW98097971 BCX0"> </span>
+                </p>
+              </li>
+            </ol>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0">
+                <a
+                  href="https://releases.netwrix.com/products/auditor-enterprise/11.6/auditor-enterprise-sdd-hotfix-11.6.0.002.zip"
+                  target="_blank"
+                  >https://releases.netwrix.com/products/auditor-enterprise/11.6/auditor-enterprise-sdd-hotfix-11.6.0.002.zip</a
+                ></span
+              >
+            </p>
+          </div>
+          <div class="OutlineElement Ltr SCXW98097971 BCX0">
+            <p class="Paragraph SCXW98097971 BCX0">
+              <span class="TextRun SCXW98097971 BCX0"
+                ><span class="NormalTextRun SCXW98097971 BCX0" /></span
+              ><span class="EOP SCXW98097971 BCX0"> </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

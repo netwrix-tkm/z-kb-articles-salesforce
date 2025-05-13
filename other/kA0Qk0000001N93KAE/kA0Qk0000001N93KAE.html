@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Error: Cannot Create File when That File Already Exists in AIC</title><meta name="label" content="employees_v"/><meta name="label" content="access_info_center"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001N93KAE"/><meta name="Id" content="ka0Qk0000005DuHIAU"/><meta name="LastPublishedDate" content="2024-08-30T07:31:11.000+0000"/><meta name="LastModifiedDate" content="2024-08-30T07:31:11.000+0000"/><meta name="FirstPublishedDate" content="2024-08-30T07:25:08.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9256"/><meta name="ArticleNumber" content="000009256"/><meta name="description" content="Error: Cannot Create File when That File Already Exists in AIC"/></head><body><article class=" kb-articles"><div class="Content__c"><blockquote>
+<p><span><strong>IMPORTANT: </strong></span>This is a work-in-progress article. The product R&amp;D team has yet to review some or all of information below.</p>
+</blockquote>
+
+<h2 id="symptom">Symptom</h2>
+
+<div>
+<p>You receive the following error when creating or issuing a new certificate to use with Netwrix Access Information Center and when trying to bind it to the AIC port:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">SSL Certificate add failed, error: 183 
+Cannot create a file when that file already exists.</code></pre>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>There is already a certificate in place.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Refer to the following steps to resolve the issue:</p>
+
+<ol><li>
+	<p>Clear out the current certificate from the port using the following PowerShell command:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">netsh http delete sslcert ipport=0.0.0.0:481</code></pre>
+
+	<p> </p>
+
+	<blockquote>
+	<p><span><strong>NOTE: </strong></span>This command assumes that you are using the port 481 for your Access Information Center. Alter the value if you use a different port in your environment.</p>
+	</blockquote>
+	</li><li>
+	<p>Copy the new certificate thumbprint. Put the value into the following PowerShell script to bind it to the port:</p>
+
+	<blockquote>
+	<p><span><strong>NOTE: </strong></span> Use the following PowerShell command to list the new certificate:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">dir cert:\localmachine\my</code></pre>
+
+	<p>Add the value to the <code>$certHash</code> variable below.</p>
+	</blockquote>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">$guid = "bdd5710f-7cbe-4f85-b8c1-da4bddf485a8" 
+$certHash = "%new_thumbprint_value%" # the 'Thumbprint' value 
+$ip = "0.0.0.0" # this means all IP addresses 
+$port = "481" # the default HTTPS port 
+#build command and pipe to the netsh command 
+"http add sslcert ipport=$($ip):$port certhash=$certHash appid={$guid}" | netsh </code></pre>
+	</li></ol>
+
+<p>The output message should confirm the successful application of the certificate. Your AIC port is now ready for use with HTTPS.</p>
+</div></div>
+</article></body></html>

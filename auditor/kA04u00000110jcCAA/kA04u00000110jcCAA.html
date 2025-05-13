@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Workstations Cloned with Windows Server Auditing Service Pre-installed</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110jcCAA" />
+    <meta name="Id" content="ka04u000001177uAAA" />
+    <meta name="LastPublishedDate" content="2023-08-09T09:55:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-10T15:10:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-21T08:26:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8620" />
+    <meta name="ArticleNumber" content="000008620" />
+    <meta
+      name="description"
+      content="monitoring VMs, troubleshooting WSA on VMs, cloned monitored templates"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Multiple VM instances have the same
+                <code
+                  >Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Netwrix Auditor\Windows Server
+                  Change Reporter Agent\AgentID</code
+                >
+                registry key.
+              </p>
+            </li>
+            <li>
+              <p>Servers or events for specific VM servers are missing from reports.</p>
+            </li>
+            <li>
+              <p>
+                Events in VM server reports are replicated in reports for other irrelevant servers.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            When a newly created VM server template is monitored via Netwrix Auditor, it will have
+            Windows Server Compression Service instance installed for monitoring and data collection
+            purposes. Every instance of Windows Server Compression Service is supposed to have a
+            unique AgentID to allow Netwrix Auditor to differentiate the collected data in terms of
+            its source.
+          </p>
+
+          <p>
+            In case a monitored VM template is duplicated, Agent IDs are duplicated as well. If
+            Agent IDs match for two or more VMs, the collection process will be hindered — Netwrix
+            Auditor will be satisfied with a single response instead of the actual number of
+            responses it is supposed to get as in one response per machine. Subsequently, this leads
+            to monitoring data losses and inconsistent monitoring data.
+          </p>
+        </div>
+
+        <h2 id="affected_servers">Affected servers</h2>
+
+        <div>
+          <p>To establish the affected servers, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Choose a single server you suspect to be affected and navigate to the following
+                registry key in Registry Editor:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Netwrix Auditor\Windows Server Change Reporter Agent</code></pre>
+
+              <p>Copy the <strong>AgentID</strong> value.</p>
+
+              <div>
+                <img
+                  height="543"
+                  src="kA04u00000110jcCAA_9d452743-1140-4922-a99d-52a254d84b32.png"
+                  width="650"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                In your Netwrix Auditor host, navigate to the
+                <code>C:\ProgramData\Netwrix Auditor\ShortTerm\WSA\Agents\</code> folder. Look for a
+                folder named after
+                <strong>AgentID</strong> (e.g.,52656fc3-d325-424d-9bef-fb68d14bc919). The
+                <strong>RemoteAgentState.xml</strong> file contains a list of affected servers.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <div class="table-wrap">
+            <table count-columns="2" border="0.5">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Target</p>
+                  </th>
+                  <th colspan="1" rowspan="1">
+                    <p>Steps</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Netwrix Auditor host</p>
+                  </th>
+                  <td colspan="1" rowspan="1">
+                    <ol>
+                      <li>
+                        <p>Stop Netwrix Auditor for Windows Server Audit Service:</p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              In the search bar, type <strong>Services</strong> and open the
+                              application.<br />
+                              You can also launch Services.msc via Run command window.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Scroll down the <strong>Services (Local)</strong> list to find the
+                              Netwrix Auditor for Windows Server Audit Service.
+                            </p>
+                          </li>
+                          <li>
+                            <p>Right-click the service and select <strong>Stop</strong>.</p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>Stop Windows Server monitoring plans with affected servers:</p>
+
+                        <ol>
+                          <li>
+                            <p>Open your Netwrix Auditor application.</p>
+                          </li>
+                          <li>
+                            <p>
+                              In the main screen, open the <strong>Monitoring Plans</strong> menu.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Select a Windows Server monitoring plan and click
+                              <strong>Edit</strong>.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Select the appropriate data source and click
+                              <strong>Edit data source</strong> in the right pane.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Switch the
+                              <strong>Monitor this data source and collect activity data</strong>
+                              switch to <strong>Off</strong>.
+                            </p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>Add the template server to exclusions:</p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              In the main Netwrix Auditor screen, open the
+                              <strong>Monitoring Plans</strong> menu.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Select a Windows Server monitoring plan and click
+                              <strong>Edit</strong>.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Select the Active Directory container containing the template server
+                              and click <strong>Edit item</strong> in the right pane.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              In the left pane, select Containers and Computers and check the
+                              <strong>Exclude these objects</strong> checkbox.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Click <strong>Add Computer</strong> to add your template server to
+                              exclusions.
+                            </p>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Affected servers</p>
+                  </th>
+                  <td colspan="1" rowspan="1">
+                    <div>
+                      <blockquote>
+                        <p>
+                          <span><strong>NOTE: </strong></span>These steps should be applied to the
+                          template VM as well.
+                        </p>
+                      </blockquote>
+                    </div>
+
+                    <ol>
+                      <li>
+                        <p>
+                          Uninstall Netwrix Auditor for Windows Server Compression Service on
+                          affected servers.
+                        </p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              In your <strong>Start</strong> menu, open <strong>Settings</strong>.
+                            </p>
+                          </li>
+                          <li>
+                            <p>Open the <strong>Apps</strong> menu.</p>
+                          </li>
+                          <li>
+                            <p>
+                              Select Netwrix Auditor for Windows Server Compression Service
+                              application and click <strong>Uninstall</strong>.
+                            </p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>Remove the following folders from affected servers:</p>
+
+                        <ul>
+                          <li>
+                            <p>
+                              <code
+                                >C:\ProgramData\Netwrix Auditor\Windows Server Compression
+                                Service</code
+                              >
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              <code
+                                >C:\Program Files (x86)\Netwrix Auditor\Windows Server Compression
+                                Service</code
+                              >
+                            </p>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Delete
+                          <code
+                            >HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Netwrix Auditor\Windows Server
+                            Change Reporter Agent</code
+                          >
+                          registry keys from affected servers.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Launch Netwrix Auditor for Windows Server Audit Service in your Netwrix
+                          Auditor host. Refer to the prior steps for additional information.
+                        </p>
+                      </li>
+                      <li>
+                        <p>Start the previously disabled monitoring plans with affected servers.</p>
+                      </li>
+                      <li>
+                        <p>
+                          Netwrix Auditor for Windows Server Audit Service should automatically
+                          launch during the next data collection to reinstall Windows Server
+                          Compression Service applications. In case they won't, refer to the
+                          following steps:
+                        </p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              Open the folder C:\Program Files (x86)\Netwrix Auditor\Windows Server
+                              Auditing in the Netwrix server.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Copy the Netwrix.WSA.CompressionService.Setup.msi file to each
+                              affected server.
+                            </p>
+                          </li>
+                          <li>
+                            <p>Install it manually.</p>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span> User Activity service will be affected as well.
+              Refer to the following steps for troubleshooting:
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <div class="table-wrap">
+            <table count-columns="2">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Target</p>
+                  </th>
+                  <th colspan="1" rowspan="1">
+                    <p>Steps</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Netwrix Auditor host</p>
+                  </th>
+                  <td colspan="1" rowspan="1">
+                    <ol>
+                      <li>
+                        <p>Stop Netwrix Auditor User Activity Core Service:</p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              In the search bar, type <strong>Services</strong> and open the
+                              application.<br />
+                              You can also launch Services.msc via Run command window.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Scroll down the <strong>Serivces (Local)</strong> list to find the
+                              Netwrix Auditor User Activity Core Service.
+                            </p>
+                          </li>
+                          <li>
+                            <p>Right-click the service and select <strong>Stop</strong>.</p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>Stop User Activity monitoring plans with affected servers:</p>
+
+                        <ol>
+                          <li>
+                            <p>Open your Netwrix Auditor application.</p>
+                          </li>
+                          <li>
+                            <p>
+                              In the main screen, open the <strong>Monitoring Plans</strong> menu.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Select the User Activity monitoring plan and click
+                              <strong>Edit</strong>.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Select the data source and click <strong>Edit data source</strong> in
+                              the right pane.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              In the left pane, select the <strong>General</strong> tab, and toggle
+                              the
+                              <strong>Monitor this data source and collect activity data</strong>
+                              off.
+                            </p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>Remove the VM template from the monitoring plan.</p>
+
+                        <ol>
+                          <li>
+                            <p>Open your Netwrix Auditor application.</p>
+                          </li>
+                          <li>
+                            <p>In the main screen, open the Monitoring Plans menu.</p>
+                          </li>
+                          <li>
+                            <p>Select the User Activity monitoring plan and click Edit.</p>
+                          </li>
+                          <li>
+                            <p>
+                              Select the VM template item in the list and click
+                              <strong>Remove item</strong> in the right pane.
+                            </p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>
+                          Navigate to <code>C:\ProgramData\Netwrix Auditor</code>, back up and
+                          delete the <strong>User Activity Video Reporter</strong> folder.
+                        </p>
+                      </li>
+                    </ol>
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Affected servers</p>
+                  </th>
+                  <td colspan="1" rowspan="1">
+                    <blockquote>
+                      <p>
+                        <span><strong>NOTE: </strong></span>These steps should be applied to the
+                        template VM as well.
+                      </p>
+                    </blockquote>
+
+                    <ol>
+                      <li>
+                        <p>
+                          Uninstall Netwrix Auditor User Activity Core Service on affected servers.
+                        </p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              In your <strong>Start</strong> menu, open <strong>Settings</strong>.
+                            </p>
+                          </li>
+                          <li>
+                            <p>Open the <strong>Apps</strong> menu.</p>
+                          </li>
+                          <li>
+                            <p>
+                              Select Netwrix Auditor User Activity Core Service and click
+                              <strong>Uninstall</strong>.
+                            </p>
+                          </li>
+                        </ol>
+                      </li>
+                      <li>
+                        <p>Delete the following folders from affected servers:</p>
+
+                        <ul>
+                          <li>
+                            <p>
+                              <code>C:\ProgramData\Netwrix Auditor\User Activity Core Service</code>
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              <code
+                                >C:\Program Files (x86)\Netwrix Auditor\User Activity Core
+                                Service</code
+                              >
+                            </p>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p>
+                          Delete
+                          <code
+                            >HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Netwrix\User Activity Video
+                            Reporter Agent</code
+                          >
+                          from affected servers.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Launch Netwrix Auditor User Activity Core Service in your Netwrix Auditor
+                          host. Refer to the prior steps for additional information.
+                        </p>
+                      </li>
+                      <li>
+                        <p>Start the previously disabled monitoring plans with affected servers.</p>
+                      </li>
+                      <li>
+                        <p>
+                          Netwrix Auditor User Activity Core Service should automatically launch
+                          during the next data collection to reinstall User Activity applications.
+                          In case it won't, refer to the following steps:
+                        </p>
+
+                        <ol>
+                          <li>
+                            <p>
+                              Open the folder
+                              <code
+                                >C:\Program Files (x86)\Netwrix Auditor\User Activity Video
+                                Recording</code
+                              >
+                              in the Netwrix server.
+                            </p>
+                          </li>
+                          <li>
+                            <p>
+                              Copy the <strong>UACoreSvcSetup.msi</strong> file to each cloned
+                              server.
+                            </p>
+                          </li>
+                          <li>
+                            <p>Install it manually.</p>
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

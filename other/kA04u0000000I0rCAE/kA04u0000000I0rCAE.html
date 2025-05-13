@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SDD OOM/Broken Pipe errors</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I0rCAE" />
+    <meta name="Id" content="ka04u000000Hcd6AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:02:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:00:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:02:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6193" />
+    <meta name="ArticleNumber" content="000006193" />
+    <meta name="description" content="360012217892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Before Fix:</strong></p>
+        <p>
+          When running FSAA SDD scans, the FSAA scanners would allocate a certain amount of memory
+          per scanner to scan the file. The amount allocated was based on a variety of factors (file
+          type, file size, available RAM, etc.). In a situation where the allocated heap size was
+          exceeded for a particular file, a broken pipe error would occur which had downward effects
+          on the rest of the scan, resulting in incomplete/failed SDD scans.
+        </p>
+        <p><strong>After Fix:</strong></p>
+        <p>
+          The allocated memory per scanner is now configurable thru the job xml. By default, SDD
+          scans will have a max heap size of 1500 MB per scanner. If the amount of memory required
+          to scan a particular file exceeds this amount, a broken pipe error will still occur.
+          However, this will no longer have any downward effects on the rest of the scan. The rest
+          of the scan should proceed as normal, and the broken pipe error will be limited to that
+          file. <br /><br />To scan files that require more memory, you can modify the Max Heap Size
+          in the Job XML:<br /><br /><img
+            src="kA04u0000000I0rCAE_47969c65-ff41-4c35-8a2a-428617b9d2fe.png"
+            alt="mceclip0.png"
+          /><br /><br />Please note that this value is in MB and it applies on a per scanner basis. 
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Michael Burrofato</p>
+        <p><strong>Affected Versions:</strong></p>
+        <div>
+          <div>SDD 10.0.0.84</div>
+        </div>
+        <p>SDD 11.0.0.82</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>DC – FSAA – SDD</p>
+        <p><em> </em></p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

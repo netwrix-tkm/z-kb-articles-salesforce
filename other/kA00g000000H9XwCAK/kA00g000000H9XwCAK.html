@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Automatic enrollment failed: Unknown error</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XwCAK" />
+    <meta name="Id" content="ka04u00000116c4AAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:17:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1152" />
+    <meta name="ArticleNumber" content="000003311" />
+    <meta
+      name="description"
+      content="Netwrix Auditor, Password Manager, Automatic enrollment, Unknown error"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I get the following error in Enrollment wizard.
+        <img
+          src="kA00g000000H9XwCAK_c159b091-df23-4181-83d9-2ba2f2e9d69d.png"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        The error occurs when Enrollment wizard is not able to connect to the Password Manager
+        server. Error code can be different - 12037, 12038, 12029, 12044 It can happen due to
+        several reasons but the most common reasons for this error are an incorrect path to the
+        Password Manager Self-Service Portal or incorrect SSL-settings if you are using HTTPS.
+
+        <hr />
+
+        To resolve the issue: 1. Check that URL of the Password Manager Server is specified
+        correctly. The URL of the server is determined by the registry value called
+        <strong>PRM_Server</strong>. There are two registry keys containing this value:
+        <ol>
+          <li>HKEY_LOCAL_MACHINESOFTWARE[Wow6432Node]PoliciesNetwrixPassword Manager</li>
+          <li>
+            HKEY_LOCAL_MACHINESOFTWARE[Wow6432Node]NetwrixPassword Manager Self-service Client
+          </li>
+        </ol>
+        <strong>NOTE.</strong> Wow6432Node for 64-bit OS only The key 1 is determined by Group
+        policy. If there is no PRM_Serer value in the key 1, then the value from the key 2 is used.
+        Make sure that the specified value has correct URL.
+        <img
+          src="kA00g000000H9XwCAK_4f54f1a7-182c-4853-b65a-02374b049a62.png"
+          alt="User-added image"
+          width="500"
+          height="304"
+        />
+
+        2. Verify SSL settings.
+        <ul>
+          <li>
+            Make sure you are able to browse to the Password Manager Self-service portal without any
+            warnings. Please refer to
+            <a href="https://kb.netwrix.com/610" target="_blank">this article</a> if there are
+            warnings.
+          </li>
+          <li>
+            Make sure that SSL settings for PM virtual directory are set to
+            <strong>Ignore client certificates</strong>
+          </li>
+        </ul>
+        <img
+          src="kA00g000000H9XwCAK_405bebff-1a6c-41c8-84f2-5d40b6530e20.png"
+          alt="User-added image"
+          width="500"
+          height="242"
+        />
+      </div>
+    </article>
+  </body>
+</html>

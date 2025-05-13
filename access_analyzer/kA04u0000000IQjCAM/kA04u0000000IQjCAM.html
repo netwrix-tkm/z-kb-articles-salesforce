@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      When attempting to schedule a task, "Unable to access Scheduler: Could not load task
+      scheduler" is shown.
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IQjCAM" />
+    <meta name="Id" content="ka0Qk00000045ltIAA" />
+    <meta name="LastPublishedDate" content="2024-06-07T09:27:52.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-07T09:28:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6550" />
+    <meta name="ArticleNumber" content="000006550" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong>
+          <span class="wysiwyg-font-size-medium"
+            >How to resolve the scheduled task error "Unable to access Scheduler: Could not load
+            task scheduler"</span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span class="wysiwyg-font-size-medium"
+            >When creating a scheduled task in StealthAUDIT or Windows Task scheduler, a pop-up
+            "Unable to access Scheduler: Could not load task scheduler" appears</span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span class="wysiwyg-font-size-medium">How to configure Task Scheduler permissions</span
+          ><br /><br /><span class="wysiwyg-font-size-medium"
+            >1: Check if UAC is turned on, if it is, disable it</span
+          ><br /><span class="wysiwyg-font-size-medium"
+            >2: The account configured under Settings &gt; Schedule in StealthAUDIT should be a
+            local administrator, or have the appropriate minimum permissions to schedule a
+            task</span
+          >
+        </p>
+
+        <ul>
+          <li>
+            <span class="wysiwyg-font-size-medium"
+              >Minimum permissions would require that the account be granted "Logon as a batch job"
+              under the StealthAUDIT server's Local Security Policy.</span
+            >
+
+            <ol>
+              <li>
+                <span class="wysiwyg-font-size-medium"
+                  >Perform a Windows search for secpol, or right-click Start &gt; Run secpol.msc
+                  &gt; OK, and open the Local Security Policy</span
+                >
+              </li>
+              <li>
+                <span class="wysiwyg-font-size-medium"
+                  >Expand Local Policies &gt; User Rights Assignment</span
+                >
+              </li>
+              <li>
+                <span class="wysiwyg-font-size-medium"
+                  >Scroll down to the "Logon as a batch job" policy and double-click to edit the
+                  properties</span
+                >
+              </li>
+              <li>
+                <span class="wysiwyg-font-size-medium"
+                  >On the Properties window, click the Add User or Group button and add the desired
+                  user or group accounts</span
+                >
+              </li>
+              <li><span class="wysiwyg-font-size-medium">Click Apply</span></li>
+            </ol>
+          </li>
+        </ul>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

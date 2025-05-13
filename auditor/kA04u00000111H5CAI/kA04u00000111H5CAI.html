@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Logon Failed for Unattended Execution Account Running Netwrix Auditor Reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111H5CAI" />
+    <meta name="Id" content="ka04u00000117zSAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-28T15:23:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-29T10:04:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-28T15:23:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8829" />
+    <meta name="ArticleNumber" content="000008829" />
+    <meta
+      name="description"
+      content="Logon Failed for Unattended Execution Account Running Netwrix Auditor Reports"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error occurres when trying to run Netwrix Auditor reports:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">The report server has encountered a configuration error.
+Logon failed for the unattended execution account. (rsServerConfigurationError)
+Log on failed. Ensure the user name and password are correct. (rsLogonFailed)
+The user name or password is incorrect</code></pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Credentials for the execution account used in your Report Server Configuration
+                Manager instance are incorrect.
+              </p>
+            </li>
+            <li>
+              <p>
+                Incorrect credentials for an execution account are saved in the
+                <code>rsreportserver.config</code> file and are prompted upon a login.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>
+            To verify credentials for an execution account in Report Server Configuration Manager,
+            refer to the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In <strong>Start</strong> menu in your SQL server, select the
+                <strong>Microsoft SQL Server Reporting Services</strong> folder &gt;
+                <strong>Report Server Configuration Manager</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Connect to the server.</p>
+            </li>
+            <li>
+              <p>In the left pane, select the <strong>Execution Account</strong> tab.</p>
+            </li>
+            <li>
+              <p>Review the credentials provided, and click <strong>Apply</strong>.</p>
+            </li>
+          </ol>
+
+          <p>
+            If no credentials are visible in Report Server Configuration Manager, refer to the
+            following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Locate the <code>rsreportserver.config</code> file. Refer to the following path for
+                SQL Server Reporting Services (2016):
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files\Microsoft SQL Server\MSRS13.MSSQLSERVER\Reporting Services\ReportServer</code></pre>
+
+              <p>Refer to the following path for SQL Server Reporting Services (2017 and later):</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer</code></pre>
+            </li>
+            <li>
+              <p>
+                Open the <code>rsreportserver.config</code> file in a text editor, and locate the
+                <code>&lt;UnattendedExecutionAccount&gt;</code> node.
+              </p>
+
+              <div>
+                <img
+                  height="661"
+                  src="kA04u00000111H5CAI_f653c9e3-f446-4a56-a83d-3a827e1f5378.png"
+                  width="746"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Delete the credentials specified in <code>&lt;UserName&gt;</code>,
+                <code>&lt;Password&gt;</code>, and <code>&lt;Domain&gt;</code> fields.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

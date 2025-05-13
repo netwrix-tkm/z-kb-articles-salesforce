@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Configuring a Custom RADIUS Authentication Connector</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000Tt8tCAC"/><meta name="Id" content="ka0Qk000000B1aHIAS"/><meta name="LastPublishedDate" content="2022-08-25T13:56:19.000+0000"/><meta name="LastModifiedDate" content="2024-11-11T15:03:55.000+0000"/><meta name="FirstPublishedDate" content="2022-08-25T13:56:19.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8476"/><meta name="ArticleNumber" content="000008476"/><meta name="description" content="Configuring a Custom RADIUS Authentication Connector"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<p>Netwrix Privilege Secure (NPS) supports the configuration of Authentication Connectors for any RADIUS server.</p>
+<blockquote>
+<p><span class="note">NOTE: </span>In this article, the screenshots will illustrate how to configure an Authentication Connector for Azure MFA, but the same process generally applies.</p>
+</blockquote>
+<h2 id="before_you_begin">Before You Begin</h2>
+<p>Ensure that you have a RADIUS server installed and configured in your environment. ​​​​For Azure MFA, refer to <a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfa-nps-extension" target="_blank">the relevant documentation</a> on configuring the NPS extension. In general, refer to the appropriate product-specific documentation for your RADIUS server.</p>
+<h2 id="instructions">Instructions</h2>
+<div>
+<ol><li>
+<p>In NPS, navigate to <strong>Configuration &gt; Authentication</strong>. Select the <strong>green plus sign</strong> to create a new Authentication Connector.</p>
+</li><li>
+<p>Provide a name for the Connector and select the <strong>MFA</strong> Connector Type. <br/><img src="kA04u000000Tt8tCAC_756046a5-dcbe-4690-9e9b-1cb6f2c0beba.png" alt="rtaImage.jpg" width="926" height="295"/> </p>
+</li><li>
+<p>Click <strong>Save</strong>, and then configure the connector with the appropriate values for your RADIUS server. <br/><img src="kA04u000000Tt8tCAC_310a95e8-277d-4029-bd7f-5466296f1129.png" alt="rtaImage 2.jpg" width="926" height="332"/> </p>
+</li><li>
+<p>Open the <strong>appsettings.json</strong> file. On a default installation, it will be located in the following path:</p>
+<pre class="has-inner-focus"><code class="lang-Registry"> C:\ProgramData\Stealthbits\PAM\WebService\appsettings.json</code></pre>
+</li><li>
+<p>Add the following line before the <strong>closing }</strong>.</p>
+<pre class="has-inner-focus"><code class="lang-Registry">"StrictExternalAuth": "False"</code></pre>
+<blockquote>
+<p><span class="note">NOTE: </span>If there are other properties before the <strong>closing }</strong>, ensure that they are all separated by a single comma.</p>
+</blockquote>
+</li><li>
+<p>You may now assign the new RADIUS authentication connector to users and groups in SbPAM.</p>
+</li></ol>
+</div></div>
+</article></body></html>

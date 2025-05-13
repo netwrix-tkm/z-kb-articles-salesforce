@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Can any additional attribites be displayed in the modification reports?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VrCAK" />
+    <meta name="Id" content="ka04u000000HcP8AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:19.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="752" />
+    <meta name="ArticleNumber" content="000003182" />
+    <meta
+      name="description"
+      content="Display additional attributes in the particular Modification/Created/Deleted with details SSRS based reports."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How do I get the values of the additional attributes to be displayed in any particular SSRS
+        based report.<br /><br />
+
+        <hr />
+
+        It is possible to make some the following reports display the values of the additional
+        attributes. Usually the reports are called Modification/Created/Deleted with details. The
+        most popular are the following:<br />- All User Changes with Advanced Attributes;<br />-
+        User Created with Details;<br />- User Deleted with Details;<br /><br />To do that please
+        follow the steps:<br />1. Determine the report you want to show the additional information
+        in:<br />a. If you want the "Modification" report to show the additional attributes you need
+        - processmodifiedprops.txt file located in the installation folder;<br />b. For "Created"
+        reports - processaddedprops.txt;<br />c. For "Deleted" reports - processdeletedprops.txt;<br /><br />2.
+        Find out the AD object you are interested in. For example: user, computer, group, etc.<br /><br />3.
+        Find out the attribute name you want to be displayed. Like: mail, employeeID, etc. The
+        attribute can be found in the Attribute editor in Active Directory Users and Computers
+        snap-in. <strong>Note:</strong> it is case sensitive.<br /><br />4. Open the text file
+        according to the first step and put the following line: objectType:Attribute:<br />Examples:<br /><img
+          alt="Attr"
+          src="kA00g000000H9VrCAK_03b43719-5f1d-4d20-968b-0d047659365f.png"
+        /><br />NOTE: Each attribute should be put in a separate line. The pound key at the
+        beginning of a line means exclusion of the line.
+      </div>
+    </article>
+  </body>
+</html>

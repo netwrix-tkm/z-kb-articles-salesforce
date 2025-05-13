@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Regenerate All The Threads From Log Data (Log Tracker)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JV2CAM" />
+    <meta name="Id" content="ka04u000000QmcHAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-25T17:14:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:51:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8232" />
+    <meta name="ArticleNumber" content="000008232" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        It may be necessary to regenerate all the thread catalogs from existing log data. This might
+        be important to recover from a crash, or prior to conducting a reporting session or forensic
+        investigation.<br />The <strong>cli-bin</strong> <strong>tools</strong> include a program
+        called <strong>CGenx.exe</strong>, which can be used to regenerate a catalog of any type.
+        This tool requires administrative access to the system, and can be run at a command prompt
+        to regenerate a catalog from an existing log file.
+
+        <h2 id="instructions">Instructions</h2>
+        To regenerate all thread catalogs for all log data, you can compose a simple batch file as
+        follows, and place this file in the cli-bin folder.<br /><span
+          ><strong>IMPORTANT.</strong></span
+        >
+        T<span
+          >he batch file may take many hours or even days to complete (depending on the amount of
+          data on the system.) </span
+        ><br />For example, a simple <strong>REGEN_ALL_THREADS.bat</strong> batch, which iterates
+        across all existing log files in the C:\Program Files (x86)\NNT Log Tracker Suite\logs
+        folder, and regenerates all threads, might look like the following:
+
+        <div>
+          <div>
+            <pre>
+REM: # # # # # # # # # # # # # # # # # # # # # # # # #
+
+REM: REGEN_ALL_THREADS.bat
+REM: Regenerate all thread catalogs from the files
+REM: found in the C:\Program Files (x86)\NNT Log Tracker Suite\logs folder
+
+for %%F in (C:\Program Files (x86)\NNT Log Tracker Suite\logs\*.log) do (
+cgenx -threads %%~nF
+)</pre
+            >
+          </div>
+        </div>
+
+        <ol>
+          <li>
+            <span
+              >Cut and paste the above batch file into the
+              <strong>REGEN_ALL_THREADS.bat</strong> file</span
+            >
+          </li>
+          <li>
+            <span>Place this in the <strong>cli-bin </strong>folder</span>
+          </li>
+          <li>
+            <span
+              >To regenerate all threads from all log data, execute the file (as an
+              Administrator)</span
+            >
+          </li>
+          <li>
+            If your log data is contained in a non-standard location on your system, you may need to
+            change the value of<br />
+            C:\Program Files (x86)\NNT Log Tracker Suite\logs
+          </li>
+        </ol>
+        The above batch file uses standard Windows Batch File syntax to run the
+        <strong>CGenx.exe</strong> program for each log file in the <strong>logs</strong> folder.
+        The batch file syntax may seem a little obscure to you, but has been around for fifteen
+        years, works perfectly on all Windows platforms. See the article below for assistance with
+        this batch file syntax:
+
+        <p>
+          <a
+            href="https://stackoverflow.com/questions/39615/how-to-loop-through-files-matching-wildcard-in-batch-file"
+            target="_blank"
+            >http://stackoverflow.com/questions/39615/how-to-loop-through-files-matching-wildcard-in-batch-file</a
+          >
+        </p>
+        You can change the <strong>-thread </strong>option to <strong>-all </strong>(or some other
+        CGenx option) to regenerate all catalogs (or some other specific catalog, such as devices,
+        facilities, severities, users, etc.)
+
+        <h3 id="">Related articles</h3>
+
+        <ul>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JVQCA2.html"
+                target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JfHCAU.html"
+                target="_blank"
+                >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                returned an error: (403) Forbidden.)"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000Jf1CAE.html"
+                target="_blank"
+                >Rolling-Log Fix: ERROR "HubDetails - Crypto error. Has the agent process account
+                changed since the password data was entered?"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JdQCAU.html"
+                target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

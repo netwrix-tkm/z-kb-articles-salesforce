@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Replace the Security Service Certificate</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001rWvKAI" />
+    <meta name="Id" content="ka0Qk000000DSRVIA4" />
+    <meta name="LastPublishedDate" content="2025-04-15T20:32:47.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:23:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-01-14T17:06:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9369" />
+    <meta name="ArticleNumber" content="000009369" />
+    <meta
+      name="description"
+      content="How To: Replace the Directory Manager Security Service Certificate"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <div>
+          <p>Directory Manager 10SR2</p>
+        </div>
+        <h2 id="overview">Overview</h2>
+        <div>
+          <p>
+            The Netwrix Directory Manager (formerly Netwrix GroupID) Security Service relies on an
+            SSL certificate to function properly. This certificate, which expires on January 15,
+            2025, is essential for secure operations such as user authentication, authorization, and
+            encryption of data between clients and the SQL Server database. This article provides
+            step-by-step instructions for replacing the certificate when it expires.
+          </p>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <div>
+          <h4 id="replace_the_security_service_certificate">
+            Replace the Security Service Certificate
+          </h4>
+          <p>Follow the steps below to replace the Security Service certificate:</p>
+        </div>
+        <ol>
+          <li>
+            <p>
+              Open the <strong>Directory Manager Updates</strong> tool then click on
+              <strong>Settings</strong>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Select Version as <strong>10.2</strong> and download patch #<strong>370874</strong>,
+              but DO NOT apply it yet.
+            </p>
+          </li>
+          <li>
+            <p>
+              If you do not have the Directory Manager Updates tool, you can download it from
+              <a href="https://www.netwrix.com/my_products.html" target="_blank"
+                >https://www.netwrix.com/my_products.html</a
+              >.
+            </p>
+            <div>
+              <img
+                src="kA0Qk0000001rWvKAI_6d3254a5-4d50-46a2-9989-df12bbce8426.png"
+              /><br /><br /><img
+                src="kA0Qk0000001rWvKAI_5d8f9200-1e26-41af-8c6f-4111a1a75d45.png"
+              /><br /><img src="kA0Qk0000001rWvKAI_128f51f7-0241-490a-821b-442016962fa6.png" />
+            </div>
+          </li>
+          <li>
+            <p>
+              Once downloaded, navigate to the patch download folder. Rename the file
+              <code>370874.gpb</code> to <code>370874.zip</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Once renamed, right-click the zip file and click <strong>Properties</strong>. In the
+              <strong>General</strong> tab, uncheck <strong>Unblock</strong> and apply the changes.
+            </p>
+            <div><img src="kA0Qk0000001rWvKAI_4c03faa2-aa7a-4e36-af9e-46f90dd1f096.png" /></div>
+          </li>
+          <li>
+            <p>
+              After the zip file is unblocked, extract the contents of the ZIP file to access the
+              utility. Run the <strong>GroupIDSecurityServiceCertificateUpdate.exe</strong> as an
+              <strong>Administrator</strong>.
+            </p>
+            <div>
+              <img
+                alt="A screenshot of a computerDescription automatically generated"
+                src="kA0Qk0000001rWvKAI_12642bc3-c704-40ca-8f64-edc63f72fd2a.png"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Verify that the <strong>DataService</strong> path and
+              <strong>Service Account</strong> are correct.
+            </p>
+          </li>
+          <li>
+            <p>
+              Enter the information for the <strong>Service Account</strong> (e.g.,
+              Domain\Account_Name).
+            </p>
+          </li>
+          <li>
+            <p>
+              Click <strong>Replace Security Service</strong>. This action assigns the necessary
+              permissions to the new certificate, replaces the existing one, and updates the
+              thumbprints across all integrated applications.
+            </p>
+            <div>
+              <img
+                alt="A screenshot of a computerDescription automatically generated"
+                src="kA0Qk0000001rWvKAI_e24aa0f0-94e9-4013-9415-7229fdd4f10b.png"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Perform an <strong>IISReset </strong> by launching Windows PowerShell/Command Prompt
+              as an Administrator and typing <code>IISRESET</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Verify the expiry date for the Security Service certificate by launching
+              <strong>IIS Manager Home</strong> then clicking <strong>Server Certificates</strong>.
+              The new expiration date should show <strong>1/13/2045</strong>.
+            </p>
+            <div>
+              <img
+                alt="A screenshot of a computerDescription automatically generated"
+                src="kA0Qk0000001rWvKAI_c57ff5e4-7024-4707-962c-96fa6a696483.png"
+              />
+            </div>
+          </li>
+        </ol>
+        <div>
+          <h4 id="update_or_recreate_scheduled_jobs">Update or Recreate Scheduled Jobs</h4>
+          <p>
+            Once the Directory Manager Security Service Certificate has been updated, you have two
+            options for handling scheduled jobs.
+          </p>
+        </div>
+        <ul>
+          <li>
+            <p>
+              Recreate Existing Schedules (Recommended): Existing schedules will need to be
+              recreated to ensure proper functionality after the certificate update. New schedules
+              created after the certificate update will not require any changes.
+            </p>
+          </li>
+          <li>
+            <p>
+              Update Existing Schedules (Advanced): If you prefer to update the existing schedules
+              instead of recreating them, follow the steps below:
+            </p>
+            <ol>
+              <li>
+                <p>
+                  Create a backup of the Directory Manager Scheduled Job task files located at
+                  <code>\Program Files\Imanami\GroupID 10.0\Schedules</code>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Create a new scheduled job in the Directory Manager Management Console. Any job
+                  type is acceptable, but the SmartGroup Update Job is recommended.
+                </p>
+              </li>
+            </ol>
+            <div>
+              <img
+                alt="Screenshot of the task creation interface"
+                src="kA0Qk0000001rWvKAI_b1c77ccf-e198-48e1-8bb2-83c51c399490.png"
+              />
+            </div>
+            <ol>
+              <li>
+                <p>
+                  Navigate to <code>\Program Files\Imanami\GroupID 10.0\Schedules</code> and open
+                  the newly created task file. Sort by <strong>Modified Date</strong> to identify
+                  it.
+                </p>
+              </li>
+              <li>
+                <p>Open the task file in Notepad.</p>
+              </li>
+              <li>
+                <p>Click at the beginning of the first line and press <strong>CTRL + F</strong>.</p>
+              </li>
+              <li>
+                <p>
+                  Search for <strong>&lt;#!#&gt;</strong>. On the second occurrence, copy everything
+                  afterward to the end of the file.
+                </p>
+              </li>
+            </ol>
+            <div>
+              <img
+                alt="Screenshot of token extraction in Notepad"
+                src="kA0Qk0000001rWvKAI_4111e9f0-b419-4fcf-bb0f-d7ffbd01ebfa.png"
+              />
+              <p> </p>
+              <p>
+                <img
+                  alt="Screenshot showing token pasted into a second Notepad window"
+                  src="kA0Qk0000001rWvKAI_da877dd2-df8f-4583-b402-e7635a9ab459.png"
+                />
+              </p>
+            </div>
+            <ol>
+              <li>
+                <p>
+                  Open another Notepad file and save the copied information. You will use this in
+                  the next step.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Open each remaining task file in the same directory and replace the content after
+                  the second occurrence of <strong>&lt;#!#&gt;</strong> with the copied token.
+                </p>
+              </li>
+              <li>
+                <p>Save and close each updated task file.</p>
+              </li>
+              <li>
+                <p>
+                  Open each schedule in the Directory Manager Management Console and reauthenticate.
+                </p>
+              </li>
+            </ol>
+          </li>
+        </ul>
+        <h4 id="automating_steps_39_using_powershell">Automating Steps (3–9) Using PowerShell</h4>
+        <p>
+          Instead of manually completing steps 3–9, you can use the PowerShell script below to
+          automate the process. This script extracts the token from the most recently modified task
+          file and applies it to all other task files in the directory.
+        </p>
+        <pre><code># Define the folder containing the schedule files
+$folderPath = "C:\Program Files\Imanami\GroupID 10.0\Schedules"
+
+# Get the list of task files, sorted by Last Write Time (newest first)
+$txtFiles = Get-ChildItem -Path $folderPath -Filter "*.txt" | Sort-Object LastWriteTime -Descending
+
+# Get the content of the newest task file
+$latestFile = $txtFiles[0]
+$latestContent = Get-Content -Path $latestFile.FullName -Raw
+
+# Split content to locate the token
+$splitContent = $latestContent -split "&lt;#!#&gt;"
+
+# Verify token structure
+if ($splitContent.Count -ge 3) {
+    $replacementContent = $splitContent[2]
+} else {
+    Write-Host "The latest file does not contain two '&lt;#!#&gt;' markers."
+    exit
+}
+
+# Apply the token to other task files
+foreach ($file in $txtFiles[1..($txtFiles.Count - 1)]) {
+    $content = Get-Content -Path $file.FullName -Raw
+    $parts = $content -split "&lt;#!#&gt;"
+    if ($parts.Count -ge 3) {
+        $newContent = $parts[0] + "&lt;#!#&gt;" + $parts[1] + "&lt;#!#&gt;" + $replacementContent
+        Set-Content -Path $file.FullName -Value $newContent -NoNewline
+        Write-Host "Updated file: $($file.Name)"
+    } else {
+        Write-Host "Skipped file (less than two '&lt;#!#&gt;' markers): $($file.Name)"
+    }
+}</code></pre>
+        <blockquote>
+          <span class="Note"><strong>NOTE:</strong></span> In a primary–secondary server
+          environment, the above process must be implemented first on the primary server and then on
+          the secondary servers.
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

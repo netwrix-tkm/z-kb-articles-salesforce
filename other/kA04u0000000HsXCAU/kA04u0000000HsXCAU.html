@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_7.3.5.133</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HsXCAU" />
+    <meta name="Id" content="ka04u000000HcacAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:51:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:58:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:51:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5980" />
+    <meta name="ArticleNumber" content="000005980" />
+    <meta name="description" content="360012021532" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong></p>
+        <p>61581: 63109 - SI agents go into lost connection randomly</p>
+        <p><strong>Behavior before Fix: </strong></p>
+        <p>
+          - no special logic for checking 'Idle' =‌&gt; 'Idle' state transition on attempt to
+          reconnect
+        </p>
+        <p>- exceptions from queued async writes were propagated</p>
+        <p>
+          - RequestStream.WriteAsync could result in exception which would be silently suppressed
+          without breaking async read/write loop
+        </p>
+        <p><strong>Behavior after Fix: </strong></p>
+        <p><em>- added logic for reconnecting on 'Idle' =‌&gt; 'Idle' state transition</em></p>
+        <p><em>- stop exceptions propagation from queued async writes to grpc</em></p>
+        <p>
+          <em
+            >- ensure any exception from RequestStream.WriteAsync can break async read/write loop
+          </em>
+        </p>
+        <p><strong>Changes since Last Hotfix:</strong></p>
+        <p>61581: 63109 - SI agents go into lost connection randomly</p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Maxim Sidarau  </p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>7.3.5</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SI - Windows Agent</p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>61581</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>7.3.5.133</p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>Modules Included: </strong></p>
+        <p>SI - Windows Agent</p>
+        <p> </p>
+        <p><strong>YouTrack/Escalations: </strong>63109</p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <p><strong>Instructions:</strong></p>
+        <p>Upgrade SI Agents to the latest 7.3.5 version</p>
+        <p> </p>
+        <p> </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

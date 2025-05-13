@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Detecting and Blocking ZeroLogon Exploitation with StealthINTERCEPT</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IHJCA2"/><meta name="Id" content="ka04u000000HcjFAAS"/><meta name="LastPublishedDate" content="2022-02-22T13:34:06.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:04:53.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:13:16.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6382"/><meta name="ArticleNumber" content="000006382"/><meta name="description" content="360011001571"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<p>This document will guide you though the process of setting up StealthINTERCEPT policies to detect and block password change events that may occur when an attempt to exploit ZeroLogon is successful.</p>
+
+<p> </p>
+
+<h2 id="who_will_this_help">Who will this help?</h2>
+
+<p>This will help customers who have domain controllers which have not yet applied the patches by Microsoft or have specific known exclusions which allow vulnerable netlogon connections.</p>
+
+<p> </p>
+
+<h2 id="the_zerologon_detection_policy">The ZeroLogon Detection Policy</h2>
+
+<p>StealthINTERCEPT can be used for detection for the actual exploit running and resetting the password of a Domain Controller where the source host is not another domain controller. This can be done by setting up a policy for Active Directory Changes with the following settings:</p>
+
+<ul><li>AD Event: Object Modified</li><li>AD Context: Domain Controllers container with 'Sub Tree' selected (include)</li><li>AD Classes: computer (include)</li><li>AD Attributes: unicodePwd (include)</li><li>Hosts (from): all domain controllers (exclude).</li></ul>
+
+<p>Here are some step by step instructions on setting up the StealthINTERCEPT ZeroLogon Detection policy for Active Directory Changes.</p>
+
+<p><img alt="mceclip0.png" src="kA04u0000000IHJCA2_1e3d0a51-e508-40c2-bdad-cbb775c25a03.png"/></p>
+
+<p><img alt="mceclip1.png" src="kA04u0000000IHJCA2_1437ae9d-28f3-4fca-a437-12e3fc19d97e.png"/></p>
+
+<p><img alt="mceclip2.png" src="kA04u0000000IHJCA2_6c010c48-a157-4ad7-b504-186e3b869ddb.png"/></p>
+
+<p><img alt="mceclip3.png" src="kA04u0000000IHJCA2_028014db-d208-4d09-af71-10ace36620cf.png"/></p>
+
+<p><img alt="mceclip4.png" src="kA04u0000000IHJCA2_25a6fb10-55ba-4eb0-86fe-b6d4a89ac606.png"/></p>
+
+<p><img alt="mceclip5.png" src="kA04u0000000IHJCA2_5e360c30-7c18-48fd-a31b-39e410d8d588.png"/></p>
+
+<p><img alt="mceclip6.png" src="kA04u0000000IHJCA2_f9dbf088-aba7-4e51-a7e5-760ea8e57c26.png"/></p>
+
+<p><img alt="mceclip7.png" src="kA04u0000000IHJCA2_5a6ff605-c492-4b86-880b-d415d966d4cb.png"/></p>
+
+<h2 id="the_zerologon_lockdown_policy">The ZeroLogon Lockdown Policy</h2>
+
+<p>You can also setup an Active Directory Lockdown policy in StealthINTERCEPT but this requires you and your team to be fully on top of it whenever new domain controllers are added. Here is what the settings look like,</p>
+
+<ul><li>AD Event: Object Modified</li><li>AD Objects and Containers: Domain Controllers container with 'Sub Tree' selected (block)</li><li>AD Classes: computer (block)</li><li>AD Attributes: unicodePwd (block)</li><li>Hosts (from): all domain controllers (allow).</li></ul>
+
+<p><span class="wysiwyg-color-red"><strong>Important:</strong> The list of domain controllers, Hosts (from), is maintained manually. If domain controllers are added or removed from the environment this list MUST be updated. Any domain controller not on this list may encounter problems, including an inability to replicate from the domain.</span></p>
+
+<p> </p>
+
+<p>To prevent the possibility of one compromised domain being used to compromise another trusted domain, we recommend deploying policies per domain so the list of domain allowed domain controllers for each domain is limited to the domain controllers in that domain.</p>
+
+<p> </p>
+
+<p>Here are some step by step instructions on setting up the StealthINTERCEPT ZeroLogon Lockdown policy for Active Directory Changes.</p>
+
+<p><img alt="mceclip8.png" src="kA04u0000000IHJCA2_e555681d-f7fb-4d92-a3b8-82a8df62a137.png"/></p>
+
+<p><img alt="mceclip9.png" src="kA04u0000000IHJCA2_ff2e9faa-ca19-4f7f-89a6-468c67dfa573.png"/></p>
+
+<p><img alt="mceclip10.png" src="kA04u0000000IHJCA2_3eb838bd-6c33-455c-b0cc-f56fd980e636.png"/></p>
+
+<p><img alt="mceclip11.png" src="kA04u0000000IHJCA2_20c23501-0de2-447a-8578-42d45d8da522.png"/></p>
+
+<p><img alt="mceclip12.png" src="kA04u0000000IHJCA2_8b8babe3-6d10-4bb5-82ec-51dc2648bf08.png"/></p>
+
+<p><img alt="mceclip13.png" src="kA04u0000000IHJCA2_ae1eb69f-c01c-41ea-99a9-599c7b2a91b9.png"/></p>
+
+<p><img alt="mceclip14.png" src="kA04u0000000IHJCA2_09937767-59e0-4f8a-9b15-85b205c7f27b.png"/></p>
+
+<p> </p></div>
+</article></body></html>

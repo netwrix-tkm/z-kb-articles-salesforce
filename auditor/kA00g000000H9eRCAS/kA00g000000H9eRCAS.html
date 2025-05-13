@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The attempt to search the administrator audit log failed. Please try again later.</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eRCAS" />
+    <meta name="Id" content="ka04u000000HcXAAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3691" />
+    <meta name="ArticleNumber" content="000003709" />
+    <meta
+      name="description"
+      content="The attempt to search the administrator audit log failed. Please try again later."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <strong>Scenario:</strong> Cannot execute <em>Search-AdminAuditLog</em> after applying the
+        Exchange Cumulative Update.  
+
+        <strong>Cause:</strong> The update disables TLS 1.1 and older and then enables TLS 1.2. The
+        .NET framework remains configured to use 1.1 or older, leading to the inability to run the
+        Search-AdminAuditLog cmdlet.  
+
+        <strong>Resolution:</strong>
+        <a
+          href="https://docs.microsoft.com/en-us/sccm/core/plan-design/security/enable-tls-1-2#update-net-framework-to-support-tls-12"
+          target="_blank"
+          >This Microsoft article</a
+        >
+        explains how to update .NET Framework to use TLS 1.2 and disable TLS 1.1 and older.  
+
+        <em
+          >If the issue is not resolved, we suggest reviewing
+          <a href="https://kb.netwrix.com/173" target="_blank">this article</a> for configuration
+          validation and contextual information.</em
+        >
+      </div>
+    </article>
+  </body>
+</html>

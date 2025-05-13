@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Monitor Log Tracker Device Offline</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JY5CAM" />
+    <meta name="Id" content="ka04u000000Hd9MAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:45:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8177" />
+    <meta name="ArticleNumber" content="000008177" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          A common requirement of Log Tracker users is to detect and report when devices go "red" on
+          the Log Tracker Server "Devices" screen,
+        </p>
+
+        <p> </p>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <div class="confluence-information-macro-body">
+            <p>
+              <strong
+                >Log Tracker - Detecting Device Offline Events with Device Idle Time Setting</strong
+              >
+            </p>
+
+            <p> </p>
+
+            <p>
+              A common requirement of Log Tracker users is to detect and report when devices go
+              "red" on the Log Tracker Server "Devices" screen, indicating that a device is no
+              longer sending messages.
+            </p>
+
+            <p>You can easily configure an alert to detect this condition as follows:</p>
+
+            <ol>
+              <li>
+                Create a new correlation thread that detects the key phrase "message source is
+                idle".
+              </li>
+              <li>
+                Create an alert that opens a ticket if the above thread increments by one count in
+                zero seconds. (This sets an alert for any and all occurrences of this message.)
+              </li>
+              <li>
+                Optionally, create a daily e-mail report that lists the raw messages for the thread
+                created in step 1 above. This report will be sent each day at midnight (only if at
+                least one device has been reported offline during the previous day.)
+              </li>
+              <li>
+                Optionally, drill down into the "Devices &gt; Advanced" screen, and set the "Message
+                Idle Time" threshold to be 1-Day, or 1-Hour, or 4-Hours, or some other value.
+              </li>
+            </ol>
+
+            <p>
+              The above configuration relies on the internal message that is sent by Log Tracker
+              when a device transitions from green to red. The specific text of this message (which
+              is generated for each and every occurrence of this situation) is as follows:
+            </p>
+
+            <p>
+              <em
+                >Log Tracker Network Monitor: Message source is idle. No messages received from
+                '(device)' address during last (threshold). Message source is no longer sending
+                periodic messages, and may be offline.</em
+              >
+            </p>
+
+            <p> </p>
+
+            <p>
+              The thread created in step 1 above captures these messages. The alert configured in
+              step 2 will open a ticket when this condition exists (which can send e-mail by
+              triggering a "Ticket Action".)
+            </p>
+
+            <p>
+              See attached screenshot for additional notes on the "Message Idle Time" setting, found
+              on the "Messages &gt; Catalogs &gt; Devices &gt; Advanced" screen.
+            </p>
+
+            <p>
+              Finally, note that a good alternative to using the above thread and alert is to simply
+              send e-mail when a Log Tracker advisory is generated. (The "Advisory" facility sets a
+              system advisory when one or more devices are not sending messages, among many other
+              advisories that can be generated.) The operator can configure e-mail for advisories
+              using the "System &gt; Prefs &gt; Modify Advisories" screen -- scroll down to the
+              bottom of the "Modify Advisories" screen (aka "Advisory Preferences Screen) to enable
+              and configure the Advisory e-mail notifications.
+            </p>
+
+            <p> </p>
+          </div>
+        </div>
+
+        <h2 id="HowtoMonitorLogTrackerDeviceOffline-Relatedarticles">Related articles</h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8368" target="_blank"
+                >Change Tracker Gen 7 Change Log / Update Log / ReadMe.txt Documents for
+                Agent/Hub</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

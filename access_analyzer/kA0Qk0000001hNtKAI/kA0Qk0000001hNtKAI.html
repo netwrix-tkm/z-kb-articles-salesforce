@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to Confirm Permissions for Active Directory &gt; 5. Domains &gt; 0.Collection &gt;
+      AD_DomainControllers
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="ct_datacollection" />
+    <meta name="label" content="ct_troubleshooting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001hNtKAI" />
+    <meta name="Id" content="ka0Qk000000Bui1IAC" />
+    <meta name="LastPublishedDate" content="2024-12-02T15:28:59.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-23T21:27:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-02T15:28:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9325" />
+    <meta name="ArticleNumber" content="000009325" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            How can you verify if the account used in Netwrix Enterprise Auditor (NEA) for this job
+            has the correct access?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            The AD_DomainControllers job for the NEA Active Directory module uses the below
+            permissions for a least privilege model:
+          </p>
+          <ul>
+            <li>
+              <p>
+                <a href="#testcnsiteandchild"
+                  >Read access to CN=Servers, %SITEDN% and its children</a
+                >
+              </p>
+            </li>
+            <li>
+              <p><a href="#testpartandchild">Read access to %PARTITIONDNS% and its children</a></p>
+            </li>
+            <li>
+              <p><a href="#testschem">Read access to %SCHEMADN%</a></p>
+            </li>
+            <li>
+              <p><a href="#testsiteandchild">Read access to %SITESDN% and its children</a></p>
+            </li>
+          </ul>
+          <h5 id="general_steps_to_start_with_ldpexe">General Steps to Start with ldp.exe</h5>
+          <ol>
+            <li>
+              <p>
+                Launch <strong><code>ldp.exe</code></strong
+                >.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Press <strong><code>Win + R</code></strong
+                    >, type <strong><code>ldp.exe</code></strong
+                    >, and hit <strong><code>Enter</code></strong
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Connect to a <strong>Domain Controller</strong>.</p>
+            </li>
+            <ul>
+              <li>Navigate to <strong>Connection &gt; Connect</strong>.</li>
+              <li>
+                <p>
+                  Enter the Domain Controller name used by the
+                  <strong>AD_DomainControllers job and port</strong> (default is <code>389</code>636
+                  for LDAPS).
+                </p>
+              </li>
+              <li>
+                <p>Click <strong>OK</strong>.</p>
+              </li>
+            </ul>
+            <li>
+              <p>Bind Using the <strong>User Account</strong>.</p>
+              <ul>
+                <li>
+                  <p>Go to <strong>Connection &gt; Bind</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Enter the <strong>credentials</strong> for the
+                    <strong>user account</strong> whose access you want to test.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <strong>OK</strong>.</p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h5 id="testcnsiteandchild">
+            Testing Read Access to CN=Servers, %SITEDN% and Its Children
+          </h5>
+          <ol>
+            <li>
+              <p>
+                Navigate to <strong><code>CN=Servers,%SITEDN%</code></strong
+                >.
+              </p>
+              <ul>
+                <li>
+                  <p>Click <strong>View &gt; Tree</strong>.</p>
+                </li>
+                <li>
+                  <p>Enter the Base DN:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">CN=Servers,CN=‌&lt;SiteName&gt;,CN=Sites,CN=Configuration,DC=‌&lt;DomainComponent&gt;,DC=‌&lt;DomainComponent&gt;</code></pre>
+                  <ul>
+                    <li>
+                      <p>
+                        Replace <strong><code>&lt;SiteName&gt;</code></strong> with the site name
+                        (e.g., <code>Default-First-Site-Name</code>).
+                      </p>
+                      <ul>
+                        <li>
+                          <p>
+                            If unsure, run <strong><code>nltest /dsgetsite</code></strong> from
+                            AdminPS on the DC to get the SiteName.
+                          </p>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p>
+                        Replace <strong><code>&lt;DomainComponent&gt;</code></strong> with your
+                        domain components (e.g., <code>example,DC=com</code>).
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>Click <strong>OK</strong>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Verify <strong>Access</strong>.</p>
+              <ul>
+                <li>
+                  <p>
+                    Expand <strong><code>CN=Servers</code></strong> and check if you can browse and
+                    view its children.
+                  </p>
+                </li>
+                <li>
+                  <p>If successful, then the user has <strong>Read access</strong>.</p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h5 id="testpartandchild">Testing Read Access to %PARTITIONDNS% and Its Children</h5>
+          <ol>
+            <li>
+              <p>Navigate to the <strong>Partition DN</strong>.</p>
+              <ul>
+                <li>
+                  <p>Click <strong>View &gt; Tree</strong>.</p>
+                </li>
+                <li>
+                  <p>Enter the Base DN:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">DC=‌&lt;DomainComponent&gt;,DC=‌&lt;DomainComponent&gt;</code></pre>
+                  <ul>
+                    <li>
+                      <p>
+                        Use your domain's <strong>distinguished name</strong> (e.g.,
+                        <code>DC=example,DC=com</code>).
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>Click <strong>OK</strong>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Verify <strong>Access</strong>.</p>
+              <ul>
+                <li>
+                  <p>
+                    Expand the <strong>domain node</strong> and check if you can view objects and
+                    attributes within it.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If you can browse the structure, then the user has <strong>Read access</strong>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h5 id="testschem">Testing Read Access to %SCHEMADN%</h5>
+          <ol>
+            <li>
+              <p>Navigate to the <strong>Schema DN</strong>.</p>
+              <ul>
+                <li>
+                  <p>Click <strong>View &gt; Tree</strong>.</p>
+                </li>
+                <li>
+                  <p>Enter the Base DN:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">CN=Schema,CN=Configuration,DC=‌&lt;DomainComponent&gt;,DC=‌&lt;DomainComponent&gt;</code></pre>
+                  <ul>
+                    <li>
+                      <p>
+                        Replace <strong><code>&lt;DomainComponent&gt;</code></strong> with your
+                        domain components.
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>Click <strong>OK</strong>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Verify <strong>Access</strong>.</p>
+              <ul>
+                <li>
+                  <p>
+                    Expand <strong><code>CN=Schema</code></strong> and check if you can view its
+                    objects and attributes.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If successful, then the user has <strong>Read access</strong> to the schema.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h5 id="testsiteandchild">Testing Read Access to %SITESDN% and Its Children</h5>
+          <ol>
+            <li>
+              <p>Navigate to the <strong>Sites DN</strong>.</p>
+              <ul>
+                <li>
+                  <p>Click <strong>View &gt; Tree</strong>.</p>
+                </li>
+                <li>
+                  <p>Enter the Base DN:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">CN=Sites,CN=Configuration,DC=‌&lt;DomainComponent&gt;,DC=‌&lt;DomainComponent&gt;</code></pre>
+                  <ul>
+                    <li>
+                      <p>
+                        Replace <strong><code>&lt;DomainComponent&gt;</code></strong> with your
+                        <strong>domain components</strong>.
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>Click <strong>OK</strong>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Verify <strong>Access</strong>.</p>
+              <ul>
+                <li>
+                  <p>
+                    Expand <strong><code>CN=Sites</code></strong> and check if you can browse
+                    through the sites and view their child objects.
+                  </p>
+                </li>
+                <li>
+                  <p>If successful, then the user has <strong>Read access</strong> to the sites.</p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

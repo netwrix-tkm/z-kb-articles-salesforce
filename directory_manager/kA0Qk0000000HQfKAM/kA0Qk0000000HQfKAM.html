@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Walkthrough Search Policy - Define Scope and Filter Results</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000HQfKAM" />
+    <meta name="Id" content="ka0Qk00000016JVIAY" />
+    <meta name="LastPublishedDate" content="2023-12-18T14:30:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-21T10:44:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-05T15:25:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8936" />
+    <meta name="ArticleNumber" content="000008936" />
+    <meta
+      name="description"
+      content="Walkthrough Search Policy - Define Scope and Filter Results"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+
+        <div>
+          <p>GroupID 11</p>
+        </div>
+
+        <h2 id="business_requirement">Business Requirement:</h2>
+
+        <div>
+          <p>
+            Set GroupID search in such a way that AD objects (e.g.,
+            <em>Groups, Users, Contacts</em>) can only be searched within a specific OU and filtered
+            based on Active Directory attributes.
+          </p>
+        </div>
+
+        <h2 id="solution">Solution:</h2>
+
+        <div>
+          <p>
+            This business requirement can be achieved by configuring the Search Policy for security
+            roles in an identity store.
+          </p>
+        </div>
+
+        <h2 id="more_information">More Information:</h2>
+
+        <div>
+          <p>Use the Search policy to:</p>
+
+          <ul>
+            <li>
+              <p>Limit the search scope to a particular container for role members.</p>
+            </li>
+            <li>
+              <p>Designate an LDAP criterion that uses AD attributes to add a search filter.</p>
+            </li>
+          </ul>
+
+          <p>
+            Let's assume you specify a container and set the LDAP filter to (<em>Country</em>=<em
+              >United States</em
+            >*). When a role member performs a search, GroupID looks up the container and displays
+            objects that have the <em>United States</em> as a value for the
+            <em>Country</em> attribute.
+          </p>
+
+          <p>Now consider these scenarios:</p>
+
+          <ul>
+            <li>
+              <p>
+                If you only specify a container, a search performed by role members returns all
+                matching objects residing in that container.
+              </p>
+            </li>
+            <li>
+              <p>
+                If you only specify an LDAP filter, a search performed by role members displays only
+                those objects with the Country attribute set to the United States from all
+                containers in the identity store.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            By default, or in the absence of this policy, any search performed by role members
+            returns objects from all containers in the identity store.
+          </p>
+        </div>
+
+        <h2 id="apply_the_search_policy">Apply the Search Policy:</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>In GroupID Admin Center, click the <b>Identity Stores</b> node.</p>
+            </li>
+            <li>
+              <p>
+                On the <b>Identity Stores</b> tab, click on the <b>Triple Dot</b> button, and then
+                click on the <b>Edit</b> button to go to the properties of the required identity
+                store.
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="354"
+                  src="kA0Qk0000000HQfKAM_ea48f761-40f5-45d5-aa18-a840dba9cf6a.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>
+                On the <b>Security Roles</b> tab, select a role to define a search policy for it,
+                and click <b>Edit</b>.
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="171"
+                  src="kA0Qk0000000HQfKAM_e101306a-01ea-4fa1-92a3-e5fe402e721c.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>
+                On the <b>Role Properties</b> page, click the <b>Policies</b> tab and then click
+                <b>Search</b> in the left pane.
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="185"
+                  src="kA0Qk0000000HQfKAM_09c8e43c-5775-42f7-a3af-24f0addaf72b.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>
+                Click the <b>Plus</b> button and select a container. A search performed by role
+                members would return objects that reside in this container.
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  src="kA0Qk0000000HQfKAM_f56db393-9200-46d7-a90f-f8a14634c0bb.png"
+                />
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 id="choose_a_search_filter">Choose a Search Filter:</h3>
+
+        <div>
+          <p>
+            When you apply an LDAP filter, a search performed by role members only shows objects
+            that match the specified criterion.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In the <b>Filter</b> area on the <b>Search</b> page, click on <b>+Add Filter</b>,
+                and select a schema attribute from the drop-down list (for example,
+                <em>Company</em>).
+              </p>
+            </li>
+            <li>
+              <p>
+                Select an operator from the second drop-down list (for example,
+                <em>Is Exactly</em>).
+              </p>
+            </li>
+            <li>
+              <p>Enter a value concerning the selected schema attribute in the third box.</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="72"
+                  src="kA0Qk0000000HQfKAM_d41eb42c-8510-49f3-b497-0340ec930dc9.png"
+                  width="500"
+                />
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            You can define multiple queries by clicking on the <b>+Add More Filters</b> and using
+            the <b>AND</b> or <b>OR</b> operator to group all rows that make up a query.
+          </p>
+
+          <p>
+            A down arrow appears in the applied operator's icon. Click it to display the context
+            menu with the following options:
+          </p>
+
+          <ul>
+            <li>
+              <p><b>Select Group</b> to select all rows that make up the query.</p>
+            </li>
+            <li>
+              <p><b>Ungroup</b> to remove the operator and ungroup the rows.</p>
+            </li>
+            <li>
+              <p><b>Change</b> to change the AND operator to OR and vice versa.</p>
+            </li>
+            <li>
+              <p>
+                <b>Add Clause</b> to add a new row for specifying an additional clause for the
+                query.
+              </p>
+            </li>
+            <li>
+              <p><b>Delete</b> to delete the query with all its rows.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="some_useful_examples">Some Useful Examples:</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>To limit searches to mail-enabled distribution groups and all users:</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="169"
+                  src="kA0Qk0000000HQfKAM_fc8b4837-ffe4-400b-93a5-31bcca6cc64a.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Limit searches to all global security groups and all users:</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="140"
+                  src="kA0Qk0000000HQfKAM_2e144c50-abce-425b-b7ea-dae175c5357d.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Limit searches to mail-enabled groups and mail-enabled users:</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="167"
+                  src="kA0Qk0000000HQfKAM_aba8a60d-4f9f-4f59-a0bf-1ca83a977452.png"
+                  width="500"
+                />
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="reference">Reference:</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/AdminCenter/SecurityRole/Policy/Search.htm"
+              target="_blank"
+              >Admin Center — Security Roles — Search Policy for Security Roles — v11.0</a
+            >
+          </p>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >How To Enforce Users to Create Groups in a Specific OU</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HthKAE.html"
+                  target="_blank"
+                  >How To Import Members to a Group Using Self-Service Import Wizard</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HwvKAE.html"
+                  target="_blank"
+                  >How to Trigger a workflow When a User Сreates a Group</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HyXKAU.html"
+                  target="_blank"
+                  >How To Add Message Approvers in Group Properties in Self-Service</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >Best Practices for Controlling Changes to Group Membership</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000IPxKAM.html"
+                  target="_blank"
+                  >Best Practices for Preventing Accidental Data Leakage</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

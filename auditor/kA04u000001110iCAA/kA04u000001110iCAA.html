@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>User and Workstation Do Not Match</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000001110iCAA" />
+    <meta name="Id" content="ka04u00000117AAAAY" />
+    <meta name="LastPublishedDate" content="2023-08-09T13:14:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-15T08:58:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-09T13:14:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8720" />
+    <meta name="ArticleNumber" content="000008720" />
+    <meta name="description" content="User and Workstation Do Not Match" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            The fields <strong>Who</strong> (User) and <strong>Workstation</strong> mismatch in File
+            Server-related reports. The <strong>Workstation</strong> specified does not belong to
+            the user in question. Should this be considered a malicious user activity?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor for File Servers collects certain events to allow data audit. These
+            events do not contain any information on originating workstations, but they have a
+            distinct Logon ID field that can be matched to the Logon ID in local logon events (ID
+            4624). These logon events include the Source Network Address for the originating
+            workstation to be resolved to FQDN and be displayed in Netwrix Auditor.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                When a user logs on to the file server using a certain account via the machine
+                <strong>A</strong>, the Logon ID <strong>A</strong> is assigned to the session
+                <strong>A</strong>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The Logon ID along with the IP address of the
+                  machine are picked from the Event ID 4624.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                If the user disconnects without logging off to close the Logon ID
+                <strong>A</strong> session, no logoff event is created for the session
+                <strong>A</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once another person logs on using the same account via the machine
+                <strong>B</strong>, a new Logon ID <strong>B</strong> and another IP address
+                (belonging to the machine <strong>B</strong>) are logged to a new logon event (ID
+                4624).
+              </p>
+            </li>
+            <li>
+              <p>
+                Since the session <strong>A</strong> was not closed and did not generate a logoff
+                event, the session <strong>B</strong> is perceived to be the same session as session
+                <strong>A</strong> by the OS.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If the second person makes any changes on the
+                  file server, the corresponding events ID 4663 and others will contain the initial
+                  Logon ID <strong>A</strong> to match the machine <strong>A</strong> logon.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

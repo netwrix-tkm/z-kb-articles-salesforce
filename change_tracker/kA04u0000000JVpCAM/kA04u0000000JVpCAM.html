@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Convert your MongoDB from MMAPv1 to WiredTiger for Change Tracker</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JVpCAM" />
+    <meta name="Id" content="ka04u000000Hd8lAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:39:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8139" />
+    <meta name="ArticleNumber" content="000008139" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The MMAPv1 MongoDB storage engine pre-allocates hard drive space to accommodate for
+          expansion. This can lead to a large amount of space reserved, when the database itself is
+          actually quite small. The WiredTiger storage engine has built in compression, and does not
+          need to reserve space ahead of time, making it a much leaner storage engine, and much
+          faster to search indexed information in as well.
+        </p>
+
+        <p> </p>
+
+        <p>
+          <span
+            ><strong
+              >WARNING: IT IS HIGHLY RECOMMENDED TO DO THIS WITH AN NNT SUPPORT MEMBER. INCORRECT
+              IMPLEMENTATION COULD LEAD TO LOSS OF DATA! IF POSSIBLE, PLEASE CONTACT US SO THAT WE
+              MAY ASSIST YOU WITH THIS CONVERSION!</strong
+            ></span
+          >
+        </p>
+
+        <h2
+          id="HowtoConvertyourMongoDBfromMMAPv1toWiredTigerforChangeTracker-BackingUptheCurrentDatabase"
+        >
+          <strong><span>Backing Up the Current Database</span></strong>
+        </h2>
+
+        <p>
+          This is very important in case something goes wrong. You want to have a backup of the
+          database. The backup is also where you will be restoring the database from into the new
+          storage engine. Make sure you have slightly more space than the size of your database for
+          this backup.
+        </p>
+
+        <ol>
+          <li>Connect to the server which hosts the Change Tracker software</li>
+          <li>Open IIS</li>
+          <li>Stop the IIS Server</li>
+          <li>
+            <p>Open Command Prompt (Run as Administrator)</p>
+          </li>
+          <li>
+            <p>Browse to the location of the MongoDB Folder</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <strong
+                    >cd
+                    <span>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</span></strong
+                  >
+                </p>
+
+                <p>
+                  <span
+                    ><span
+                      ><em
+                        >This is the default location but if Change Tracker is installed on a
+                        different partition, please make the necessary changes to the </em
+                      ><span
+                        ><strong><em>folder path</em></strong></span
+                      ><em>.</em></span
+                    ></span
+                  >
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p>Run the following command to start the MongoDB Backup</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <strong>mongodump -d NNTHubService -o</strong
+                  ><span><strong>C:\MongoBackup</strong></span>
+                </p>
+
+                <p>
+                  <em
+                    >The location in which you store the backup may differ, so you will need to
+                    change the <span><strong>folder path</strong></span> accordingly.</em
+                  >
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            Wait for the MongoDB backup to complete. As mentioned previously this may take hours due
+            to the size of the current database.
+          </li>
+          <li>
+            Once you have confirmed that the MongoDB backup has finished successfully, open another
+            Command Prompt (Run as administrator).
+          </li>
+          <li>
+            <p class="auto-cursor-target">Stop the MongoDB Service</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p><strong>net stop MongoDB</strong></p>
+
+                <p><em>The following command will stop the MongoDB Service</em></p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <h2 id="HowtoConvertyourMongoDBfromMMAPv1toWiredTigerforChangeTracker-"> </h2>
+
+        <h2
+          id="HowtoConvertyourMongoDBfromMMAPv1toWiredTigerforChangeTracker-MakingtheDatabaseConfigurationChanges"
+        >
+          <strong><span>Making the Database Configuration Changes</span></strong>
+        </h2>
+
+        <p>
+          This will make the changes to the necessary configuration files for the Mongo database
+          that will convert the storage engine to WiredTiger when we restore the backed up database
+          in the future steps.
+        </p>
+
+        <p> </p>
+
+        <ol>
+          <li>
+            <p class="auto-cursor-target">Browse to the following folder using Windows Explorer</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">File Location:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <strong
+                    ><span>C:\Program Files\NNT ChangeTracker Suite\Gen7\MongoDB\conf</span></strong
+                  >
+                </p>
+
+                <p>
+                  This is the default location but if Change Tracker is installed on a different
+                  partition, please make the necessary changes to the
+                  <strong><span>folder path</span></strong
+                  >.
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>Locate the <strong>mongod.conf</strong> file.</li>
+          <li>
+            <p>
+              Right click the <strong>mongod.conf</strong> file and press <strong>Edit</strong>.
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">mongod.conf:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  Change the <strong><span>storageEngine</span></strong> parameter to the following:
+                </p>
+
+                <p>
+                  <br />
+                  <strong>storageEngine</strong>=<strong><span>wiredTiger</span></strong>
+                </p>
+
+                <p>
+                  <span
+                    ><em
+                      >This is case sensitive so ensure that your
+                      <strong><span>configuration</span></strong> matches what is shown above.</em
+                    ></span
+                  >
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p>
+              <strong>Save</strong> and <strong>Close</strong> the
+              <strong>mongod.conf</strong> file.
+            </p>
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <h2 id="HowtoConvertyourMongoDBfromMMAPv1toWiredTigerforChangeTracker-.1"> </h2>
+
+        <h2
+          id="HowtoConvertyourMongoDBfromMMAPv1toWiredTigerforChangeTracker-PreparingforandRestoringtheMongoDatabase"
+        >
+          <span><strong>Preparing for and Restoring the Mongo Database</strong></span>
+        </h2>
+
+        <p>
+          This section will make all of the necessary preparations for the restoration of the
+          database; as well as restore the database - converting it to the new storage engine.
+        </p>
+
+        <ol>
+          <li>Open Command Prompt (Run as administrator)</li>
+          <li>
+            <p class="auto-cursor-target">
+              You will now need to delete or move the existing Mongo <strong>db</strong> folder to
+              another directory. You can use the following command to move the directory:
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <span
+                    ><strong
+                      >move <span>"C:\Program Files\NNT Change Tracker Suite\MongoDB\DB"</span>
+                      <span
+                        >"C:\Program Files\NNT Change Tracker Suite\MongoDB\DB.old‚Äù</span
+                      ></strong
+                    ></span
+                  >
+                </p>
+
+                <p>
+                  <span
+                    ><span
+                      ><em
+                        >We recommend moving the folder temporarily, and then deleting it once it
+                        has been verified that the data was converted successfully. Note that you
+                        will need to accommodate</em
+                      ></span
+                    ><span><em> the proper hard drive space to do this.</em></span></span
+                  >
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Create a new Mongo <strong>db</strong> folder using the following command:
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <span
+                    ><strong
+                      >mkdir
+                      <span>"D:\Program Files\NNT Change Tracker Suite\MongoDB\db‚Äù</span></strong
+                    ></span
+                  ><span
+                    ><strong
+                      ><span><em> </em></span></strong
+                  ></span>
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p>Open Command Prompt (Run as Administrator)</p>
+          </li>
+          <li>
+            <p class="auto-cursor-target">Start the MongoDB Service</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <span
+                    ><strong>net start <span>MongoDB</span></strong></span
+                  >
+                </p>
+
+                <p>
+                  <span><em>This will start the MongoDB service</em></span>
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">Start the MongoDB Restore</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command:</p>
+
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p>
+                  <span
+                    ><strong
+                      >mongorestore -d NNTHubService
+                      <span>C:\MongoBackup\NNTHubService</span></strong
+                    ></span
+                  >
+                </p>
+
+                <p>
+                  <span
+                    ><span
+                      ><em
+                        ><em
+                          >The location in which you stored the backup may differ, so you will need
+                          to change the
+                          <span><strong>folder</strong> <strong>path</strong></span> accordingly</em
+                        >.</em
+                      ></span
+                    ><strong
+                      ><span><em> </em></span></strong
+                  ></span>
+                </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            Wait for the MongoDB restore to complete. As mentioned previously this may take hours
+            due to the size of the current database.
+          </li>
+          <li>
+            Once you have confirmed that the MongoDB backup has finished successfully, open IIS.
+          </li>
+          <li>Restart the IIS server.</li>
+        </ol>
+
+        <p> </p>
+
+        <p> </p>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <p class="title">You're Done!</p>
+
+          <div class="confluence-information-macro-body">
+            <p> </p>
+
+            <p>Your MongoDB should now be converted.</p>
+
+            <p> </p>
+          </div>
+        </div>
+
+        <h2 id="HowtoConvertyourMongoDBfromMMAPv1toWiredTigerforChangeTracker-Relatedarticles">
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8150" target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

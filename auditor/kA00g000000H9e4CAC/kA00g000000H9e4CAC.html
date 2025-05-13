@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to automatically apply Office Classification Labels</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9e4CAC" />
+    <meta name="Id" content="ka04u000000HcWmAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3495" />
+    <meta name="ArticleNumber" content="000003686" />
+    <meta name="description" content="How to automatically apply Office Classification Labels" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The below steps can be followed to ensure that Office Classification Labels will be
+        automatically applied at the time of classification. There are two methods of applying
+        labels, both of which are described below:
+        <ul>
+          <li>
+            <strong>Taxonomy Mapping </strong>- For a simple automated experience it is possible to
+            assign labels to existing Term Set structures within <strong>Taxonomy Manager</strong>
+          </li>
+          <li>
+            <strong>Workflow</strong> <strong>Action</strong> - For a more complex assignment
+            experience it is also possible to both add, and remove labels via
+            <strong>Workflow Actions</strong>
+          </li>
+        </ul>
+        <h2 id="taxonomy_mapping">Taxonomy Mapping</h2>
+        <ol>
+          <li>Log into the <b>QS Administration interface</b></li>
+          <li>Navigate to the "<strong>Taxonomies</strong>" area</li>
+          <li>
+            Navigate to the <strong>Term</strong> that is to be used to define when the
+            <strong>Classification Label </strong>should be applied (please note, the
+            <strong>taxonomy </strong>in question should be an auto-classified
+            <strong>SharePoint Term Set.</strong>
+          </li>
+          <li>Select the "<strong>Settings</strong>" tab</li>
+          <li>Scroll to the "<strong>Microsoft Office Classification Labels" </strong>section</li>
+          <li>
+            Select "<strong>Add</strong>" and choose the label that you wish to apply (if the site
+            collection has only recently been added then the label may not yet have been
+            synchronised down)
+          </li>
+        </ol>
+        <b>How does this work?</b>
+
+        At the time of classification the Classifier process will identify any terms that have both
+        met their threshold and also contain mappings to Office Classification Labels. The engine
+        will then select the highest scoring term, and automatically apply the mapped label to the
+        document in SharePoint (taking into account which labels are available per site collection
+        as well as the setting specified at the term level).
+        <h2 id="workflow_action"><strong>Workflow Action</strong></h2>
+        <ol>
+          <li>Log into the <b>QS Administration interface</b></li>
+          <li>Navigate to the "<strong>Workflows</strong>" area</li>
+          <li>
+            Create a <strong>Workflow, </strong>either selecting a
+            <strong>SharePoint</strong> source - or creating the workflow against the generic
+            <strong>SharePoint</strong> type
+          </li>
+          <li>Configure the <strong>Workflow </strong>conditions</li>
+          <li>Select <strong>"Add" </strong>to add a new "<strong>Rule Action</strong>"</li>
+          <li>
+            Under "<strong>SharePoint</strong>", select either: "<strong>Write O365 Label</strong>"
+            or "<strong>Remove O365 Label</strong>"
+          </li>
+          <li>
+            Specify the <strong>label</strong> that should be <strong>written</strong> or
+            <strong>removed</strong> and then select "<strong>Save</strong>"
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

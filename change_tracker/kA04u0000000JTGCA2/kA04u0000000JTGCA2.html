@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>d. Agentless File Integrity Monitoring</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JTGCA2" />
+    <meta name="Id" content="ka04u000000Hd84AAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:37:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8121" />
+    <meta name="ArticleNumber" content="000008121" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="d.AgentlessFileIntegrityMonitoring-AgentlessFileIntegrityMonitoring">
+          Agentless File Integrity Monitoring
+        </h2>
+        <p>
+          In order to facilitate system-wide file integrity monitoring, tracking both file
+          attributes and a cryptographic hash value for each file, it is necessary to deploy the
+          NNT_FILEHASH binary to the target host. There is a library of NNT_FILEHASH binary files
+          for a wide range of Linux, Unix and Windows platforms pre-packed within your Change
+          Tracker Gen 7 installation, accessible via the
+          <a href="https://kb.netwrix.com/8098" target="_blank"
+            >Settings -&gt; System Settings page</a
+          >.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JTGCA2_639bf86b-3496-44e1-820c-f52933e4fab7.png"
+          /></span>
+        </p>
+        <p align="center"><br /></p>
+        <p>
+          Download the appropriate binary and copy the file to your target host - general best
+          practice for Linux/Unix is to deploy the file to the /usr/bin folder and set execute
+          permissions for an assigned Change Tracker user account/group. For Windows, best practice
+          is to create a Program Files folder ‚ÄúC:\Program Files\NNT Change Tracker
+          Suite\Filehash‚Äù and place the Windows NNT.Filehash.exe within it. The NNT ProxyAgent
+          service will also need to be granted suitable permissions to operate beyond the bounds of
+          the ProxyAgent platform -
+          <strong
+            ><em
+              >See Appendix I: Agentless FIM for Windows in the Change Tracker Gen 7 Admin Guide</em
+            ></strong
+          >.
+        </p>
+        <p>
+          The path for the NNT_FILEHASH binary needs to be specified within the Credentials Key used
+          for the host using the attribute ‚ÄòFileHashPath‚Äô
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="150"
+              src="kA04u0000000JTGCA2_5fccfa24-6e30-4eb1-a11d-0eca38c46a7e.png"
+          /></span>
+        </p>
+        <p>
+          Agentless FIM Configuration Templates are then constructed in the same way as Agent-based
+          Configuration Templates.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="400"
+              src="kA04u0000000JTGCA2_2c82cb7b-4c59-4b68-b425-154f74bf01e9.png"
+          /></span>
+        </p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK2S&amp;d=%2Fa%2F4u000000LzQg%2FCod9skLRRvfswOQ_r5BhQ81k0xDw3lkI8IjfSiXYU10&amp;asPdf=false"
+          target="_blank"
+          >image2017-6-2_16-0-49.png</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKEI&amp;d=%2Fa%2F4u000000LzjC%2FMWa4V_F0kK.7hqvFiJvS0iVYkGfP7vKpbWjQ9C1iR.c&amp;asPdf=false"
+          target="_blank"
+          >image2017-6-2_15-59-0.png</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKEN&amp;d=%2Fa%2F4u000000LzfV%2FnsGIyGbWh8WEdqRR6VtraR_62A5a.B4o5XFBpwsBNz4&amp;asPdf=false"
+          target="_blank"
+          >image2017-6-2_15-58-15.png</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

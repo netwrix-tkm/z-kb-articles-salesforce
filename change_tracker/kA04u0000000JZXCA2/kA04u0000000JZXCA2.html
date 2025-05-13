@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Modify Change Tracker Port on RHEL/CentOS Linux after Install</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JZXCA2" />
+    <meta name="Id" content="ka04u000000Hd9gAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:49:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8199" />
+    <meta name="ArticleNumber" content="000008199" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article can be used when you've already installed change tracker on a RHEL/CentOS
+          Linux OS and need to change the port it uses.
+        </p>
+
+        <p> </p>
+
+        <p>
+          <strong><span>NOTICE: THIS CHANGE REQUIRES A REBOOT OF YOUR NNT SERVER!</span></strong>
+        </p>
+
+        <h2 id="HowtoModifyChangeTrackerPortonRHEL/CentOSLinuxafterInstall-Step-by-stepguide">
+          Step-by-step guide
+        </h2>
+
+        <p>These steps will help you change the port</p>
+
+        <ol>
+          <li>
+            <p class="auto-cursor-target">Stop nnt-hubservice</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  # service nnt-hubservice stop
+                </p>
+
+                <p>or</p>
+
+                <p># systemctl stop nnt-hubservice</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">Stop nginx service</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  # service nginx stop
+                </p>
+
+                <p>or</p>
+
+                <p># systemctl stop nginx</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">Stop mongodb service</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  # service mongod stop
+                </p>
+
+                <p>or</p>
+
+                <p># systemctl stop mongod</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Edit <strong>/etc/</strong><strong>nginx/conf.d/nnt.conf</strong>Using a text editor
+              (This requires root permissions)
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  # sudo vi/etc/nginx/conf.d/nnt.conf
+                </p>
+
+                <p>or</p>
+
+                <p>#sudo nano /etc/nginx/conf.d/nnt.conf</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Edit the portion of the file that looks like this below:
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Text to be Edited</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  <strong>server { </strong>
+                </p>
+
+                <p><strong>listen 443 ssl; </strong></p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Change the number to the desired port (In our example, we are changing port 443 to
+              port 3443)
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Edited Text</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  <strong>server { </strong>
+                </p>
+
+                <p>
+                  <strong>listen <span>3443</span> ssl; </strong>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p>
+              It is likely that you will also need to update SELinux settings to allow this new port
+              to be used. To do this, run the following command with your new port number being
+              specified
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  #semanage port -a -t http_port_t -p tcp 3443
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              You will need to reboot your Linux server for these changes to take effect. To do so
+              run the following command.
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Command</p>
+
+              <div class="confluence-information-macro-body">
+                <p>
+                  <br />
+                  # reboot
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <p>
+          When your server has finished rebooting. You may need to start the services stopped above.
+          Simply use the same command, but replace "stop" with "start".
+        </p>
+
+        <h2 id="HowtoModifyChangeTrackerPortonRHEL/CentOSLinuxafterInstall-Relatedarticles">
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

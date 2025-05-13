@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: "The operation you are attempting requires a secure connection (HTTPS)".</title>
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9Y5CAK" />
+    <meta name="Id" content="ka04u000000HcRAAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:21.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1163" />
+    <meta name="ArticleNumber" content="000003320" />
+    <meta
+      name="description"
+      content="Netwrix Auditor, Reporting, Error: &amp;quot;The operation you are attempting requires a secure connection (HTTPS)&amp;quot;."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario">Scenario</h3>
+
+        <p>
+          The following error occurs while report generation:
+          "System.Web.Services.Protocols.SoapException: The operation you are attempting requires a
+          secure connection (HTTPS) ... See the log for details".
+        </p>
+
+        <p>Report Manager URL works when set to HTTPS and does not if set to HTTP.</p>
+
+        <h3 id="cause">Cause</h3>
+
+        <p>
+          This issue appears because the version of Netwrix Auditor you are running does not support
+          secured connection for SQL Reporting Service Reports (SSRS).
+        </p>
+
+        <h3 id="solution">Solution</h3>
+
+        <p>To resolve this issue, please disable secure connection:</p>
+
+        <ol>
+          <li>
+            Navigate to the <strong>RSReportServer.config</strong> file located (By Default)
+            at"C:Program FilesMicrosoft SQL Server Reporting ServicesSSRSReportServer
+            sreportserver.config")
+          </li>
+          <li>Backup the <strong>RSReportServer.config</strong></li>
+          <li>
+            Open <strong>RSReportServer.config </strong>and find the following string:
+            <em>&lt;Add Key="SecureConnectionLevel" Value="2"/&gt; </em>
+          </li>
+          <li>
+            <em>Set </em><strong>SecureConnectionLevel</strong> value to <em>0</em> and save it.
+            <ul>
+              <li>
+                Alternatively, if you have stumbled upon this article and <em>need </em>to
+                communicate over a secure connection, change the value to 2 and save it.
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <p>
+          Review the following for additional information: The secure connection level varies,
+          depending on its value:
+        </p>
+
+        <ul>
+          <li>3 - Most secure: use SSL for absolutely everything.</li>
+          <li>
+            2 - Secure: use SSL for rendering and methods that pass credentials but do not insist on
+            using it for all SOAP calls.
+          </li>
+          <li>
+            1 - Basic Security: accepts http but rejects any calls that might be involved in
+            credentials transfer.
+          </li>
+          <li>0 - Least Secure: do not use SSL at all.</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

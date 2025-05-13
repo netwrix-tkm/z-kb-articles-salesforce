@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SA_8.1_031</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IZvCAM"/><meta name="Id" content="ka04u000000HcqcAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:25:28.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:08:36.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:25:28.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6746"/><meta name="ArticleNumber" content="000006746"/><meta name="description" content="360012217852"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> PDF Significantly Larger After Upgrade</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <strong><i><span>Summary</span></i><span>: </span></strong>PDF Significantly Larger After Upgrade?<br/><b><i>Issue</i>/<i>Request</i>:</b> After upgrading to StealthAUDIT 8.1 PDFs are approximately 6 times larger in emailed reports (in the e-mail and reports folder). The size of the new PDF is preventing the customer from getting them.<br/><b><i>Fix</i>/<i>Enhancement</i>: </b>PDFs sizes are now smaller, back to the size they used to be in 7.2.<br/><br/><strong><span>Other dependencies Included:</span></strong><br/>-              StealthAUDIT.exe                                                          8.1.814<br/>-              SAJobEngine.dll                                                              8.1.311<br/>-              Stealthbits.StealthAUDIT.JobChanges.dll                8.1.11<br/>-              WebModules.dll                                                            8.1.13<br/>-              SPSQLServer.dll                                                              8.1.90<br/>-              Templates<br/><br/> <br/><br/><strong><span>Customers:</span></strong><br/><strong><span>-              Independent Bank</span></strong><br/> <br/><strong><span>Cumulative List of fixes included since Release:</span></strong> 
+</p><ul><li>
+<strong><span>SMPC-2277 10902 - SQL built in variable doesn't return hosts from ad hoc host list</span></strong>
+</li><li>
+<strong><span>SMPC-1138 8727 - Remove "StealthAUDIT Report:" in Emailed Reports</span></strong>
+</li><li>
+<strong><span>SMPC-3875 Change tracking: Jobs with locked change tracking can undo changes</span></strong>
+</li><li>
+<strong><span>SMPC-3862 Host Inventory: EMC File Servers (8.1 Implementation)</span></strong>
+</li><li>
+<strong><span>SMPC-2165 Embedded HTML emailed reports with Interactive grid is not working correctly</span></strong>
+</li><li>
+<strong><span>SMPC-3843 ChangeTracking: UI showing the addition and removal of the same item</span></strong>
+</li><li>
+<strong><span>SMPC-3560 21130 - Report CSV Boolean True False</span></strong>
+</li><li>
+<strong><span>SMPC-3947 Reporting: Emailed reports with Web Link have incorrect link</span></strong>
+</li><li>
+<strong><span>SMPC-4029 StealthAUDIT core: Default value of Global Website URL should match with consolidated logon URL</span></strong>
+</li><li>
+<strong><span>SMPC-3787 SA Reporting: "Edit Report" (right click option), which is on published report, is not working after report gets renamed</span></strong>
+</li><li>
+<strong><span>SMPC-2981 SDD Core Settings - Typo in Guidance window text</span></strong>
+</li><li>
+<strong><span>SMPC-4134 Error setting TXMLParse.XPath, The data necessary to complete this operation is not yet available. (merging)</span></strong>
+</li><li>
+<strong><span>SMPC-4108 Bug: jobs can be scheduled without having a schedule service account</span></strong>
+</li><li>
+<strong><span>SMPC-4042 23167 - SA Core | Connection Profile Override Doesn't Work</span></strong>
+</li><li>
+<strong><span>SMPC-4126 23551 - Host Lists Selected Counter not updating</span></strong>
+</li><li>
+<strong><span>SMPC-4149 23708 - Web console access without role</span></strong>
+</li><li>
+<strong><span>SMPC-4179 23904 - Cross Domain RBA Not Working</span></strong>
+</li><li>
+<strong><span>SMPC-4133 23602 - FSAA Permissions (SA_Messages) Table Not Setting Message in Proper Column</span></strong>
+</li><li>
+<strong><span>SMPC-4254 #SA_LogMessage not writing to SA_Messages table</span></strong>
+</li><li>
+<strong><span>SMPC-4295 Reporting: Space in group name causes reports to not have their names updated in Published Reports node</span></strong>
+</li><li><b><span><span>SMPC-4350: 24623 - PDF Significantly Larger After Upgrade</span></span></b></li></ul><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1.            Unblock the hotfix zip file in the windows property dialog, if an unblock button exists there.<br/>2.            Close all instances of StealthAUDIT (check task manager under processes for all users)<br/>3.            Stop the "StealthAUDIT Web Server" service (if running).<br/>4.            Run UnregisterAll.bat as an administrator in %SAInstallDir%. Ensure that SAJobEngine.dll unregistered successfully.<br/>5.            Update StealthAUDIT.exe in the %SAInstallDir%<br/>6.            Update all Web files in your %SAInstallDir%Web folder<br/>7.            Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder.<br/>8.            Update all Templates in your %SAInstallDir%Templates folder.<br/>9.            Update all SP files in your %SAInstallDir%SP folder.<br/>10.         Run RegisterAll.bat as an administrator in %SAInstallDir%. Ensure that SAJobEngine.dll registered successfully.<br/>11.         Restart the "StealthAUDIT Web Server" service.<br/><br/>  
+</p><div class="table-wrap"><table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0"><tbody><tr height="38"><td colspan="1" rowspan="1" height="38" width="64"><a href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_031.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_031.zip</a></td></tr></tbody></table></div><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 8.1<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> SMPC-4350<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> Stealthbits.StealthAUDIT.Reporting.dll	8.0.202<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 1904<br/></p></div>
+</article></body></html>

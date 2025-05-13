@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Root Cause Analysis: Device Driver Conflict with Trend Microsystems’ ApexOne, Encountered in a Customer Environment</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000ILFCA2"/><meta name="Id" content="ka04u000000HckxAAC"/><meta name="LastPublishedDate" content="2022-02-22T13:47:00.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:05:47.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:16:24.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6445"/><meta name="ArticleNumber" content="000006445"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="contents">Contents</h2>
+
+<p>Executive Summary</p>
+
+<p>Issue Overview</p>
+
+<p>Detailed analysis of TmPreFlt</p>
+
+<p>File Access from InstanceSetupCallback</p>
+
+<p>Steps to reproduce</p>
+
+<p>Conclusion</p>
+
+<p><strong> </strong></p>
+
+<h2 id="executive_summary"><a name="_Toc41036592" id="_Toc41036592"/>Executive Summary</h2>
+
+<p>In the process of upgrading StealthINTERCEPT for File Systems (“SI”) from version 6.x to 7.0.1, it was observed that the SolidWorks CAD system license wizard UI was not operating.  Upon investigating this, the Stealthbits team realized this was a side effect of a more general problem at the device driver / kernel level due to a deadlock between File System device drivers.  This deadlock prevented management of system volumes and partitions, but did not impact file services (i.e. share access), meaning end-user impact was not widespread.  In some cases, the deadlock prevented stopping of the Stealthbits files activity monitoring service and rebooting of the server requiring it to be powered off to recover.</p>
+
+<p>Additional investigation and analysis of dump files revealed that the root cause of the deadlock was due to improper operations performed by drivers that are part of the Trend Microsystems ApexOne product (“Trend issue”).  This product and its predecessor, OfficeScan, include “TmXPFlt.sys” and other device drivers.  Based on our analysis, described in detail below, we conclude that the Trend driver TMXPFlt uses thread synchronization in the InstanceSetupCallback callstack, which is prohibited by Microsoft, resulting in a deadlock.</p>
+
+<p>Stealthbits was able to obtain a copy of the ApexOne software and a license key from Trend, whom we thank for their cooperation.  With ApexOne running in our QA lab, we were able to demonstrate that the deadlock can be reproduced using a generic sample driver, written by Microsoft, on the same machine as the Trend product with no Stealthbits software installed.</p>
+
+<p>Based on our understanding of the problem, the Stealthbits development team created an interim version (build 1.5.0.776) of our SBTFSF.sys driver that works around the Trend issue by avoiding the code path that triggers the Trend issue.  This is only effective if the SI Policies enabled do not include VSS monitoring, a feature not currently used by this particular customer.  This workaround for the Trend issue was sent to the customer on May 7<sup>th</sup>.  Once verified as effective, the Driver was added to an updated SI Agent installer (build 7.0.1.615) and sent to the customer so that SI Agent deployment could continue without waiting for Trend to release a solution.</p>
+
+<p>Our testing and analysis was performed using ApexOne version 14.0.1071 and Office Scan XG version 12.0.1315.  Both use tmxpflt.sys build 12.0.0.1008.  The deadlock was reproduced using either Trend product.  We do not know what other versions may behave in the same way.  This issue was not exposed when using previous versions of StealthINTERCEPT (e.g., 6.1) because Stealthbits added new code to StealthINTERCEPT SI 7.x related to improved VSS activity monitor support, which requires reading of a file on VSS volumes during volume enumeration.</p>
+
+<h2 id="issue_overview"><a name="_Toc41036593" id="_Toc41036593"/>Issue Overview</h2>
+
+<ol><li>Customer found an issue on some of their servers - Device Manager would hang, OS was failing to reboot. We identified this was due to a deadlock.</li><li>The problem was scoped down to Stealthbits and Trend Micro products and kernel dump files were collected for further analysis</li><li>Dump analysis showed a deadlock involving SBTFSF and TMXPFlt drivers</li><li>The typical callstack is depicted in the screenshot below:<br/>	<br/>	<img alt="issue_overview_1.png" src="kA04u0000000ILFCA2_accb2ffc-5670-4858-a25e-22981bca46b8.png"/></li><li>At the top of the callstack, we see TmXPFlt inside PreCreate callback and in the middle we see the SBTFSF driver inside InstanceSetup</li><li>Further analysis showed the following:</li></ol>
+
+<ul><li>
+	<p>Inside InstanceSetup callback SBTFSF reads data from the volume for identification</p>
+	</li><li>
+	<p>TmPreFilter/TmXPFlt intercepts the read attempt, posts some work to its thread pool, and uses thread synchronization waiting for work completion, which gets stuck in a deadlock.</p>
+	</li></ul>
+
+<p> </p>
+
+<h2 id="detailed_analysis_of_tmxpflt"><a name="_Toc41036594" id="_Toc41036594"/>Detailed analysis of TmXPFlt</h2>
+
+<p>Crash dump analysis revealed behavior of Trend Micro driver (TmXPFlt) that causes the deadlock. </p>
+
+<p>In response to Stealthbits's attempt to open a file from InstanceSetupCallback, TmXPFlt creates a task and passes it for execution to its own thread pool. TmXPFlt includes a newly created Synchronization Event into the task and waits for it. A thread from the thread pool is supposed to signal that event when the task is complete. </p>
+
+<p>Here's a typical call stack:</p>
+
+<p>nt!KeWaitForSingleObject+0x520</p>
+
+<p><strong>TmXPFlt+0x13713 </strong></p>
+
+<p>TmXPFlt+0x43c3</p>
+
+<p>TmPreFlt!TmpQueryFullName+0x12a4</p>
+
+<p>FLTMGR!FltpPerformPreCallbacks+0x2fd</p>
+
+<p>FLTMGR!FltpPassThroughInternal+0x8c</p>
+
+<p>FLTMGR!FltpCreate+0x2e5</p>
+
+<p>nt!IofCallDriver+0x59</p>
+
+<p>nt!IoCallDriverWithTracing+0x34</p>
+
+<p>nt!IopParseDevice+0x632</p>
+
+<p>nt!ObpLookupObjectName+0x719</p>
+
+<p>nt!ObOpenObjectByNameEx+0x1df</p>
+
+<p>nt!IopCreateFile+0x822</p>
+
+<p>nt!NtCreateFile+0x79</p>
+
+<p>nt!KiSystemServiceCopyEnd+0x25</p>
+
+<p>nt!KiServiceLinkage</p>
+
+<p><strong>SBTFSF!SBTInstanceSetup+0x69c </strong></p>
+
+<p>FLTMGR!FltpDoInstanceSetupNotification+0x8c</p>
+
+<p>FLTMGR!FltpInitInstance+0x357</p>
+
+<p>FLTMGR!FltpCreateInstanceFromName+0x1c4</p>
+
+<p>FLTMGR!FltpEnumerateRegistryInstances+0x15d</p>
+
+<p><strong>FLTMGR!FltpDoFilterNotificationForNewVolume </strong></p>
+
+<p>FLTMGR!FltpCreate+0x42e</p>
+
+<p>nt!IofCallDriver+0x59</p>
+
+<p>nt!IoCallDriverWithTracing+0x34</p>
+
+<p>nt!IopParseDevice+0x632</p>
+
+<p>nt!ObpLookupObjectName+0x719</p>
+
+<p>nt!ObOpenObjectByNameEx+0x1df</p>
+
+<p>nt!IopCreateFile+0x822</p>
+
+<p>nt!NtCreateFile+0x79</p>
+
+<p><strong>Note Key:</strong></p>
+
+<p><strong/>  - Filter Manager acquired an exclusive lock on the global synchronization  resource "X" in FltpDoFilterNotificationForNewVolume.</p>
+
+<p><b>- Stealthbits driver opens a file in the InstanceSetupCallback. </b></p>
+
+<p><b> - TmXPFlt posted a task to the thread pool along with a synchronization event and waits for the task to complete (waits for the event to become signaled).</b></p>
+
+<p><b>A thread from the thread pool, or a "worker thread", cannot complete the task, because it's trying to acquire an exclusive lock for the same synchronization resource, "X".</b></p>
+
+<p><b>nt!KeWaitForSingleObject+0x520</b></p>
+
+<p><b>nt!ExpWaitForResource+0x6d</b></p>
+
+<p><b>nt!ExAcquireResourceExclusiveLite+0x18d</b></p>
+
+<p><b><strong>FLTMGR!FltpDoFilterNotificationForNewVolume+0x52 </strong></b></p>
+
+<p><b>FLTMGR!FltpCreate+0x42e</b></p>
+
+<p><b>nt!IofCallDriver+0x59</b></p>
+
+<p><b>nt!IoCallDriverWithTracing+0x34</b></p>
+
+<p><b>nt!IopParseDevice+0x632</b></p>
+
+<p><b>nt!ObpLookupObjectName+0x719</b></p>
+
+<p><b>nt!ObOpenObjectByNameEx+0x1df</b></p>
+
+<p><b>nt!IopCreateFile+0x822</b></p>
+
+<p><b>nt!NtCreateFile+0x79</b></p>
+
+<p><b>nt!KiSystemServiceCopyEnd+0x25</b></p>
+
+<p><b>nt!KiServiceLinkage</b></p>
+
+<p><b>VSApiNt!VSSwapShortTable+0xa9a</b></p>
+
+<p><b>VSApiNt!VSKDZwCreateFile+0x5a</b></p>
+
+<p><b>TmXPFlt+0x97ea</b></p>
+
+<p><b>TmXPFlt+0xf355</b></p>
+
+<p><b>TmXPFlt+0x10022</b></p>
+
+<p><b>TmXPFlt+0x10c44</b></p>
+
+<p><b>TmXPFlt+0x10f68</b></p>
+
+<p><b>nt!PspSystemThreadStartup+0x55</b></p>
+
+<p><b>nt!KiStartSystemThread+0x1c</b></p>
+
+<p><b><strong>Note Key:</strong></b></p>
+
+<p><b> - The worker thread tries to acquire an exclusive lock on the global synchronization resource "X" in FltpDoFilterNotificationForNewVolume.</b></p>
+
+<p><b>The worker thread induces a deadlock. Later, more and more threads get stuck on the same  FltpDoFilterNotificationForNewVolume.</b></p>
+
+<p><b>We determined the problem is the use of the thread pool by TmXPFlt driver in this code path. Per the documentation for InstanceSetupCallback, this behavior is prohibited by Microsoft (<a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/fltkernel/nc-fltkernel-pflt_instance_setup_callback#remarks" target="_blank">https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/fltkernel/nc-fltkernel-pflt_instance_setup_callback#remarks</a>):</b></p>
+
+<p><b><strong>Note</strong>   Do not perform any thread synchronization or inter-process communication in the PFLT_INSTANCE_SETUP_CALLBACK implementation. Performing such operations can lead to deadlock conditions.</b></p>
+
+<p><b>Based on what we have observed TmXPFlt is acting in direct contradiction to this prohibition.</b></p>
+
+<h2 id="file_access_from_instancesetupcallback"><b><a name="_Toc41036595" id="_Toc41036595"/>File Access from InstanceSetupCallback</b></h2>
+
+<p><b>Stealthbits has ensured that the Stealthbits driver does not violate any driver rules by accessing a file from the InstanceSetupCallback. </b></p>
+
+<p><b>Moreover, Microsoft's sample driver, Metadata Manager File System Minifilter Driver (<a href="https://us-east-2.protection.sophos.com?d=github.com&amp;u=aHR0cHM6Ly9naXRodWIuY29tL21pY3Jvc29mdC9XaW5kb3dzLWRyaXZlci1zYW1wbGVzL3RyZWUvbWFzdGVyL2ZpbGVzeXMvbWluaUZpbHRlci9NZXRhZGF0YU1hbmFnZXI=&amp;e=bWF4aW0ucnlraGxpa0BzdGVhbHRoYml0cy5jb20=&amp;h=d4702ece913541c5b663424bf7898339&amp;t=WnUyVEFYZDVtUE9xcEw4bzY3ZVBweTg0Q25LS0dZenhkRDk3aUlIcTVEOD0=" target="_blank">https://github.com/microsoft/Windows-driver-samples/tree/master/filesys/miniFilter/MetadataManager</a>) does the same thing in the InstanceSetupCallback: it reads a file. </b></p>
+
+<p><b> </b></p>
+
+<p><b>We reproduced the same deadlock on the system with TmXPFlt and Metadata Manager (fmm) drivers, without Stealthbits software at all</b></p>
+
+<h2 id="steps_to_reproduce"><b><a name="_Toc41036596" id="_Toc41036596"/>Steps to reproduce</b></h2>
+
+<p><b>Expected result: all commands execute successfully</b></p>
+
+<p><b>Observed result: commands hang</b></p>
+
+<h2 id="conclusion"><b><a name="_Toc41036597" id="_Toc41036597"/>Conclusion</b></h2>
+
+<p><b>After thorough analysis, Stealthbits came to the conclusion that the deadlock was caused by a defect in the Trend Micro's TmXPFlt driver. The driver uses thread synchronization in the InstanceSetupCallback callstack, which is prohibited by Microsoft.</b></p>
+
+<p><b>The problem is not specific to Trend Micro and Stealthbits compatibility. It affects any driver accessing the file system when it attaches to a volume. We were able to successfully demonstrate that using Microsoft's Metadata Manager driver.</b></p>
+
+<p><b> </b></p>
+
+<p><b> </b></p>
+
+<ul><li>The deadlock seems to be around the Filter Manager lock (FltpDoFilterNotificationForNewVolume) which interferes with a thread from TmXPFlt thread pool. The thread calls FltpDoFilterNotificationForNewVolume again, causing the deadlock. As a workaround we removed Reads from InstanceSetup</li><li>
+	<p>FltCreateFile calls are not restricted inside InstanceSetup callback. One of the MS samples (Metadata Manager File System Minifilter Driver, “FMM”) performs similar Reads inside its InstanceSetup , and a similar deadlock can be reproduced with FMM instead of SBTFSF</p>
+
+	<p> <img alt="issue_overview_2.png" src="kA04u0000000ILFCA2_48bd22c8-06ca-4b05-9724-48a7454b8028.png"/></p>
+	</li><li>
+	<p>A very similar problem is discussed in:</p>
+
+	<p><a href="http://fsfilters.blogspot.com/2011/03/how-file-system-filters-attach-to_17.html" target="_blank">http://fsfilters.blogspot.com/2011/03/how-file-system-filters-attach-to_17.html</a></p>
+	</li><li>As a workaround, Stealthbits updated SBTFSF to no longer work in the “permissible” way it was before because that led to the TmXPFlt causing the system instability described above. Specifically, Stealthbits changed the SBTFSF to do “delayed Reads”. That is, the Driver does not Read from InstanceSetupCallback. The effect of this is that it can no longer identify Volumes upon attach. To work around this without limiting SBTFSF’s ability to identify Volumes, Reads from other callbacks, like PostCreate, were implemented. This required significant additions to thread synchronization code, but the result is that the improper TmXPFlt locks no longer interfere with FilterManager
+	<ol><li><b>Download and build Microsoft Metadata Manager File System Minifilter Driver  (FMM) (<a href="https://github.com/microsoft/Windows-driver-samples/tree/master/filesys/miniFilter/MetadataManager" target="_blank">https://github.com/microsoft/Windows-driver-samples/tree/master/filesys/miniFilter/MetadataManager</a>)</b></li><li><b>Install FMM and Apex One on the same system.</b><br/>		 </li><li><b>Load FMM and attach to volumes in an elevated command prompt:<br/>		<br/>		fltmc load fmm<br/>		fltmc attach fmm c:/d:/e:</b><br/>		 </li><li><b>Since FMM does not auto-attach, remove a volume from the system (for example d: ) and then attach volume back</b><br/>		 </li><li><b>Optionally execute the following commands (it may be necessary to repeat several times): </b>
+		<p><b>fltmc volumes<br/>		echo list volume | diskpart<br/>		diskmgmt.msc<br/>		Restart-Service VDS</b></p>
+		<b> </b></li></ol>
+	</li></ul></div>
+</article></body></html>

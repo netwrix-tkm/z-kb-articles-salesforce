@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Large SSD Extractor Logs Issue in Netwrix Enterprise Auditor</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000b2nKAA" />
+    <meta name="Id" content="ka0Qk0000002tTRIAY" />
+    <meta name="LastPublishedDate" content="2024-04-17T09:53:19.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-17T09:53:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-12T09:31:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9132" />
+    <meta name="ArticleNumber" content="000009132" />
+    <meta name="description" content="Large Extractor Logs Issue in Netwrix Enterprise Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The Extractor logs significally grows each time SDD runs for a specific host. This is
+            causing disk space to fill up and attempts to reduce logging levels for these files have
+            been unsuccessful. The logs are primarily comprised of INFO level entries.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The root cause of this issue is the default logging level configuration in Netwrix
+            Enterprise Auditor, which generates large Extractor logs containing a significant number
+            of INFO level entries during SDD operations.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>To resolve the issue, follow these steps:</p>
+
+          <ol>
+            <li>
+              <p>Access the Netwrix Enterprise Auditor server.</p>
+            </li>
+            <li>
+              <p>Open the <b>1-SEEK System Scans</b> query properties.</p>
+            </li>
+            <li>
+              <p>Hit <b>View XML</b> to view the XML configuration of the query.</p>
+            </li>
+            <li>
+              <p>Locate the section around line <code>305</code> of the XML configuration.</p>
+            </li>
+            <li>
+              <p>
+                Add the following line between <code>&lt;FileScanningTimeout&gt;</code> and
+                <code>&lt;ExtendedConfig&gt;</code>:
+                <code>&lt;SDDLogLevel&gt;ERROR&lt;/SDDLogLevel&gt;</code>
+              </p>
+            </li>
+            <li>
+              <p>Save the changes to the XML configuration.</p>
+            </li>
+            <li>
+              <p>
+                Rerun the SDD operation to generate new Extractor logs with reduced logging levels.
+              </p>
+            </li>
+            <li>
+              <p>
+                Monitor the new Extractor logs to ensure that they are no longer excessively large
+                and that they contain fewer INFO level entries.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Error: 4Domain Only Applies with Name</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110qOCAQ"/><meta name="Id" content="ka04u00000116daAAA"/><meta name="LastPublishedDate" content="2023-07-11T14:51:29.000+0000"/><meta name="LastModifiedDate" content="2023-07-11T14:51:29.000+0000"/><meta name="FirstPublishedDate" content="2023-07-11T14:51:29.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8659"/><meta name="ArticleNumber" content="000008659"/><meta name="description" content="Error: 4Domain Only Applies with Name"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom_and_cause">Symptom and Cause</h2>
+
+<div>
+<p>Error message:</p>
+</div>
+
+<pre>4Domain only applies with name</pre>
+
+<div>
+<p>UI error message in upper right corner of Grant Access page.</p>
+
+<p>Checking this can be done via powershell command below:</p>
+
+<pre>Get-LocalGroupMember -SID S-1-5-32-544 | ConvertTo-JSON</pre>
+</div>
+
+<div><img alt="GetLocalGroupMember.png" height="250" src="kA04u00000110qOCAQ_cbe12ac2-046b-4449-8a58-847c04667e0e.png" width="500"/></div>
+
+<div>
+<p>The <strong>AccountDomainSid</strong> value showing incomplete. The example shows the <strong>Name</strong> value as <strong>CSTEST\\</strong> when the complete value should have an account associated with is such as <strong>CSTEST\\s1protect</strong>.</p>
+</div>
+
+<div>
+<p>This causes the return of incomplete data for an account/member within the Local Administrators group.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>The offending record/member will need to be removed from the local administrator group, once it is determine it is not needed, via the below command:</p>
+
+<pre>Remove-LocalGroupMember -Group Administrators -member &lt; DOMAIN &gt; </pre>
+
+<p>After the removal of the offending account a rescan of the system should result in a successful message.</p>
+</div></div>
+</article></body></html>

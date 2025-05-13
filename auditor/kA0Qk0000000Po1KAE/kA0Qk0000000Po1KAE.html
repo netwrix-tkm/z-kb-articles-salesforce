@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why A Registry Key is Missing in Both: GPMC and Local?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Po1KAE" />
+    <meta name="Id" content="ka0Qk0000001VD3IAM" />
+    <meta name="LastPublishedDate" content="2024-01-25T17:07:53.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-25T17:07:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-25T14:03:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9025" />
+    <meta name="ArticleNumber" content="000009025" />
+    <meta name="description" content="Why A Registry Key is Missing in Both: GPMC and Local?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why a registry key is missing in both: Group Policy Management Console and Local Audit
+            Policies?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Registry audit settings are required for some data sources, for example, for Logon
+            Activity Auditing. In some cases, the required registry keys might be missing. Follow
+            the steps below to create the key(s) manually via Group Policy Management Console:
+          </p>
+
+          <ol>
+            <li>
+              <p>Open <b>Group Policy Management Console</b>.</p>
+            </li>
+            <li>
+              <p>
+                Navigate to <b>Computer Configuration</b> -&gt; <b>Policies</b> -&gt;
+                <b>Windows Settings</b> -&gt; <b>Security Settings</b> -&gt; <b>Registry</b>.
+              </p>
+            </li>
+            <li>
+              <p>Click <b>Add key</b>.</p>
+            </li>
+            <li>
+              <p>Add the key you are trying to add permissions to, then click <b>OK</b>.</p>
+            </li>
+            <li>
+              <p>On this screen that pops up, add the required permissions.</p>
+            </li>
+            <li>
+              <p>
+                On the next screen, you'll be prompted to configure the key, then how you want the
+                settings to be applied; or not allow permission to be replaced.
+              </p>
+            </li>
+            <li>
+              <p>
+                Manually add the path to the Registry Key in the <b>Selected Key</b> dialog.<br />
+                <img
+                  alt="User-added image"
+                  src="kA0Qk0000000Po1KAE_8cf056c5-6929-4826-8e87-caf33fb6ad0d.png"
+                />
+              </p>
+            </li>
+          </ol>
+
+          <p>This will apply the key settings to the GPO, and all computers affected by the GPO.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

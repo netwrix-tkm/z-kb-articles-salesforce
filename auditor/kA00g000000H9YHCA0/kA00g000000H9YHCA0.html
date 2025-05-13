@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Images Are not Shown</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YHCA0" />
+    <meta name="Id" content="ka04u00000117dvAAA" />
+    <meta name="LastPublishedDate" content="2023-09-07T10:48:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T10:48:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1177" />
+    <meta name="ArticleNumber" content="000003332" />
+    <meta
+      name="description"
+      content="Web Portal shows no images, just red boxes. The issue occurs because IIS cannot display images due to configuration settings."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        Web Portal shows no images just red boxes. Whats the case?
+
+        <div>
+          <img
+            alt="User-added image"
+            height="249"
+            src="kA00g000000H9YHCA0_8f908bc2-3541-425e-9035-306b6e316eba.png"
+            width="500"
+          />
+        </div>
+
+        <h2 id="answer">Answer</h2>
+        The issue occurs because IIS cannot display images because of configuration.<br />To address
+        the issue, enable the Static content feature within IIS. <strong>In Windows 7:</strong>
+
+        <ol>
+          <li>Go to Control panel - Programs and features - Turn Windows features on or off.</li>
+          <li>
+            Navigate to Internet Information Services (IIS) - World Wide Web Services - Common HTTP
+            features.
+          </li>
+          <li>Make sure that the checkbox in front of the Static content is enabled.</li>
+        </ol>
+        <strong>In Windows 2008</strong>:
+
+        <ol>
+          <li>
+            Navigate to Server manager - Roles - Web server, find the Role services in the right
+            pane, click Add role services.
+          </li>
+          <li>Enable Static content under Common HTTP features.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

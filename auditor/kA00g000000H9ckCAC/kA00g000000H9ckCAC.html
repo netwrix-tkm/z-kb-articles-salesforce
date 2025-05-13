@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1255 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ckCAC" />
+    <meta name="Id" content="ka0Qk0000001LGvIAM" />
+    <meta name="LastPublishedDate" content="2024-01-15T12:03:31.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T12:03:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2425" />
+    <meta name="ArticleNumber" content="000003604" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues caused by inaccessible Site Collections."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1255 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">Site collection %URL% cannot be found.</pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                An invalid site collection URL was specified during the monitoring plan creation.
+              </p>
+            </li>
+            <li>
+              <p>
+                The affected site collection has the <strong>Locked — No Access</strong> status.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Cause #1 − Navigate to <strong>Monitoring Plans</strong> &gt; select the
+                <strong>%affected_SP_monitoring_plan%</strong> and click <strong>Edit</strong> &gt;
+                click <strong>Edit item</strong> in the right pane. In the
+                <strong>Changes</strong> tab, verify the affected collection URL under the
+                <strong>Specific SharePoint objects</strong> section.
+              </p>
+            </li>
+            <li>
+              <p>
+                Cause #2 − In SharePoint Central Administration, navigate to
+                <strong>Application Management</strong> &gt;
+                <strong>Configure Quotas and Locks</strong> &gt;
+                <strong>%affected_collection%</strong>, and change the status to
+                <strong>Not locked</strong>.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

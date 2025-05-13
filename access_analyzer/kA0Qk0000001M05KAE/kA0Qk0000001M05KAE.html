@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Ini Section Does Not Exist in SBTFileMon.ini</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001M05KAE" />
+    <meta name="Id" content="ka0Qk00000056w1IAA" />
+    <meta name="LastPublishedDate" content="2024-08-26T13:44:25.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-26T13:44:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-08-21T07:09:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9249" />
+    <meta name="ArticleNumber" content="000009249" />
+    <meta name="description" content="Error: Ini Section Does Not Exist in SBTFileMon.ini" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Enterprise Auditor prompts the following warning message during the File Server
+            Activity auditing (FSAC) scan:
+          </p>
+
+          <pre class="has-inner-focus">
+Error during processing:  GetFSACIniAttributeValue: 
+Error: Ini section for %hostname% does not exist in ini file  C:\Program Files\STEALTHbits\StealthAUDIT\FSAC\SBTFileMon.ini.</pre
+          >
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>This article references the %hostname% variable as
+            the expected name.
+          </p>
+        </blockquote>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                The name of the monitored host in Netwrix Activity Monitor mismatches the expected
+                name.
+              </p>
+            </li>
+            <li>
+              <p>The echo ping is disabled in your environment.</p>
+            </li>
+            <li>
+              <p>
+                The affected server is missing the <code>OSType</code> value in the
+                <strong>Host Management</strong> settings.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Refer to the appropriate resolution steps to resolve the issue in your environment:</p>
+
+          <ol>
+            <li>
+              <p>
+                Set up the <strong>Report Hostname As</strong> parameter of the affected output to
+                match the expected host name. Refer to the following steps:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    In Netwrix Activity Monitor, select the target output and click
+                    <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Additional Properties</strong> tab, specify the expected host
+                    name in the <strong>Report Hostname As</strong> field. Click
+                    <strong>OK</strong> to save changes.
+                  </p>
+                </li>
+              </ol>
+
+              <p>
+                Alternatively, in Netwrix Activity Monitor, select the target host, click
+                <strong>Edit</strong>, and alter the <strong>Report the Host Name As</strong> value
+                to reflect the expected name.
+              </p>
+            </li>
+            <li>
+              <p>
+                Disable the <strong>Stop on Failed Ping</strong> rule via
+                <strong>Host Inventory</strong>. Refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Settings/HostInventory.htm"
+                  target="_blank"
+                  >Global Settings — Host Inventory · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Manually specify the <code>OSType</code> value for the affected server. Refer to the
+                values for the corresponding systems:
+              </p>
+
+              <ul>
+                <li>
+                  <p>Specify <code>Windows</code> for any Windows File System.</p>
+                </li>
+                <li>
+                  <p>
+                    Specify <code>NAS</code> for any NetApp, Isilon, Nasuni, Qumolo, and other
+                    systems.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Settings/HostInventory.htm"
+                  target="_blank"
+                  >Global Settings — Host Inventory · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

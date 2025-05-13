@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Subscription Attachments Exceeding the Size Limit Are Missing from LostAndFound</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111CUCAY" />
+    <meta name="Id" content="ka04u00000117mYAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-11T15:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-14T13:11:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-11T15:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8802" />
+    <meta name="ArticleNumber" content="000008802" />
+    <meta
+      name="description"
+      content="Subscription Attachments Exceeding the Size Limit Are Missing from LostAndFound"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Subscription attachments exceeding the 50MB size are missing from your
+            <code>\\&lt;NAservername&gt;\Netwrix_Auditor_Subscriptions$\LostAndFound</code> folder.
+          </p>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Misconfigured permissions for the service account.</p>
+            </li>
+            <li>
+              <p>Misconfigured share path.</p>
+            </li>
+            <li>
+              <p>
+                Maximum attachment size limitation defined in your mail server conflicts with the
+                maximum attachment size defined by Netwrix Auditor.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Review the share access permissions for the data collecting account.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If you have multiple data collecting accounts
+                  set up, review the affected subscription to establish the corresponding monitoring
+                  plan and data collecting account.
+                </p>
+              </blockquote>
+
+              <ol>
+                <li>
+                  <p>Open the <strong>Computer Management</strong> tool.</p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, expand the <strong>System Tools</strong> tree. Expand the
+                    <strong>Shared Folders</strong> folder, and click <strong>Shares</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the <strong>Netwrix_Auditor_Subscriptions$</strong> share, right-click
+                    it, and select <strong>Properties</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Share Permissions</strong> tab, review the users added. Make sure
+                    the serivce account for the affected monitoring plan is included with
+                    <strong>Full Control</strong> permissions.
+                  </p>
+                </li>
+                <li>
+                  <p>Apply the changes, and close the window.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Review the share folder path.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The location of your
+                  <strong>Working Folder</strong> can be established by following main Netwrix
+                  Auditor menu &gt; <strong>Health Status</strong> &gt; clicking
+                  <strong>Open diagnostic logs folder</strong> button under
+                  <strong>Working Folder</strong> tab &gt; switching to the parent folder.
+                </p>
+              </blockquote>
+
+              <ol>
+                <li>
+                  <p>Open the <strong>Computer Management</strong> tool.</p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, expand the <strong>System Tools</strong> tree. Expand the
+                    <strong>Shared Folders</strong> folder, and click <strong>Shares</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the <strong>Netwrix_Auditor_Subscriptions$</strong> share, right-click
+                    it, and select <strong>Properties</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>General</strong> tab, review the
+                    <strong>Folder path</strong> field. It should point to
+                    <code>%Working Folder%\Data\Subscriptions</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>Apply the changes, and close the window.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Review the maximum attachment size defined by your mail server. The maximum
+                attachment size defined by Netwrix Auditor is 50MB. In case the maximum attachment
+                size setting for your mail server is less than 50MB, your subscription reports may
+                be rejected by the mail server with no reports saved to the share folder.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Subscriptions/Create.htm#:~:text=The%20maximum%20size%20of%20the%20attachment%20file%20is%2050%20MB.%20Attachments%20larger%20than%2050MB%20will%20be%20uploaded%20to%20%5C%5C"
+              target="_self"
+              >Subscriptions — Create Subscriptions ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

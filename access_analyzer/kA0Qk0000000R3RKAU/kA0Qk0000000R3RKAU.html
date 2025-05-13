@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Remove Domain Audit Data from Reports − Drop Domains</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000R3RKAU" />
+    <meta name="Id" content="ka0Qk000000CYE1IAO" />
+    <meta name="LastPublishedDate" content="2024-02-06T10:07:44.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-26T15:11:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-02-06T10:07:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9042" />
+    <meta name="ArticleNumber" content="000009042" />
+    <meta name="description" content="Drop Domains" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="related_query">Related Query</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                “Why is data from an old, removed domain still appearing in tables and reports?”
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="overview">Overview</h2>
+        <div>
+          <p>
+            In case a domain was decommissioned or excluded from the monitoring scope, the Netwrix
+            Eterprise Auditor reports may still contain audit data for the domain. This article
+            lists the steps to implement the <strong>Drop Domain</strong> task to remove the related
+            domain data from your SQL Server.
+          </p>
+        </div>
+        <h2 id="instructions">Instructions</h2>
+        <div>
+          <blockquote>
+            <p>
+              <strong>TIP:</strong> You can create a separate folder (e.g., called
+              <strong>Sandbox</strong>) for custom Jobs.
+            </p>
+          </blockquote>
+          <ol>
+            <li>
+              <p>
+                Right-click the custom or <strong>Jobs</strong> folder and select
+                <strong>Create Job</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Navigate to the <strong>Configure</strong> node and select the
+                <strong>Queries</strong> node.
+              </p>
+            </li>
+            <li>
+              <p>Click the <strong>Create Query</strong> button.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>General</strong> tab, specify the
+                <strong>AD Domain Drop</strong> name in the <strong>Name</strong> field.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Data Source</strong> tab, specify <code>ADINVENTORY</code> in the
+                <strong>Data Collector</strong> drop-down menu.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Configure</strong> to launch Active Directory Inventory DC Wizard.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Category</strong> page, select the <strong>Drop Domain</strong> task
+                and click <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Domains</strong> page, select the domains you would like to drop the
+                AD data from.
+              </p>
+            </li>
+            <li>
+              <p>Proceed with the wizard steps and save the configuration.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Hosts</strong> node, select the <strong>Local host</strong> checkbox
+                to save the changes.
+              </p>
+            </li>
+            <li>
+              <p>Run the job to drop the target domains.</p>
+            </li>
+          </ol>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To update the AD reports results, re-run the
+              reports.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

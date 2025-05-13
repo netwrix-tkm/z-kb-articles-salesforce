@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Cisco AMP V6 Affecting StealthINTERCEPT</title><meta name="label" content="employees_v"/><meta name="label" content="threat_prevention"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IJ5CAM"/><meta name="Id" content="ka0Qk000000DWuvIAG"/><meta name="LastPublishedDate" content="2022-02-22T13:26:24.000+0000"/><meta name="LastModifiedDate" content="2025-05-01T20:17:54.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:45:53.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7413"/><meta name="ArticleNumber" content="000007413"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary:</strong>  When Cisco AMP V6 is deployed StealthINTERCEPT deploys however silently fails</p>
+
+<p> </p>
+
+<p><strong>Issue:</strong>  When StealthINTERCEPT is deployed to a domain controller that has Cisco AMP V6.X installed SI will install OK and start the AD modules, however they will silently fail within a few minutes, the agent logs will show an error similar to the below:</p>
+
+<p class="wysiwyg-indent4">2019-09-24 03:45:08,359 8232:[12] WARN  SI.SIMonitor.ClientServices.Master.MasterClient [(null)] - Register(), will retry: URI = tcp:3739/IMasterManager.tcp, socket exception: No connection could be made because the target machine actively refused it 10.50.122.16:3739, ErrorCode: 10061</p>
+
+<p class="wysiwyg-indent4">2019-09-24 03:45:08,625 8232:[12] ERROR SI.SIMonitor.ClientServices.Master.MasterClient [(null)] - The agent failed to register</p>
+
+<p class="wysiwyg-indent4">2019-09-24 03:45:10,687 8232:[12] WARN  SI.SIMonitor.ClientServices.Master.MasterClient [(null)] - GetPoliciesRevision(): URI = tcp://10.50.122.16:3739/IMasterManager.tcp, socket exception: No connection could be made because the target machine actively refused it 10.50.122.16:3739, ErrorCode: 10061</p>
+
+<p class="wysiwyg-indent4">2019-09-24 03:45:12,750 8232:[12] WARN  SI.SIMonitor.ClientServices.Master.MasterClient [(null)] - GetCollectionsRevisionSet: URI = tcp://10.50.122.16:3739/IMasterManager.tcp, socket exception: No connection could be made because the target machine actively refused it 10.50.122.16:3739, ErrorCode: 10061</p>
+
+<p class="wysiwyg-indent4">2019-09-24 03:45:14,812 8232:[12] WARN  SI.SIMonitor.ClientServices.Master.MasterClient [(null)] - GetLdapPoliciesRevision(): URI = tcp://10.50.122.16:3739/IMasterManager.tcp, socket exception: No connection could be made because the target machine actively refused it 10.50.122.16:3739, ErrorCode: 10061</p>
+
+<p class="wysiwyg-indent4"> </p>
+
+<p><strong>Instructions:</strong>  Even if the client has used previous versions of Cisco AMP 5.X etc, they will need to re-add the exception for LSASS and Active Directory. The recommended exclusions are:</p>
+
+<p><strong>Executables:</strong> SIWindowsAgent.exe, SIGPOAgent.exe</p>
+
+<p><span class="wysiwyg-color-red">SI 6.x</span> <strong>File Paths:</strong> C:\Program Files (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent</p>
+
+<p><span class="wysiwyg-color-red">SI 7.x <strong>File Paths:</strong> C:\Program Files\STEALTHbits\StealthINTERCEPT\SIWindowsAgent</span></p>
+
+<p><strong>Services: </strong> SBTActiveDirectoryService, SBTLoggingSVC (If doing file logging also)</p>
+
+<p><span class="wysiwyg-color-red">If upgrading agent from 6.x to 7.x ensure moved from ‘Program Files (x86)’ to ‘Program Files’ and configure AMP exclude path accordingly</span></p>
+
+<p> </p>
+
+<p><strong>Channel:</strong>   Customer-Facing</p>
+
+<p><strong>Submitted by: </strong>Matt Johnson</p>
+
+<p><strong>Product:</strong> SI</p>
+
+<p><strong>Affected Versions:</strong> 6.X <span class="wysiwyg-color-red">and 7.x</span></p>
+
+<p><strong>Affected Module:</strong>  AD Protection</p>
+
+<p><strong>Dev Ticket:</strong> N/A Outside of Stealthbits control</p>
+
+<p><strong>Resolved In Version:</strong> N/A Outside of Stealthbits control</p>
+
+<p><strong>KB Type:</strong> Known Issue / Solution</p></div>
+</article></body></html>

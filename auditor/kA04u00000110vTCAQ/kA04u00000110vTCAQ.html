@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to figure out where a user account was locked out?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110vTCAQ" />
+    <meta name="Id" content="ka04u00000116qUAAQ" />
+    <meta name="LastPublishedDate" content="2023-07-25T13:35:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-25T13:35:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-24T14:55:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8684" />
+    <meta name="ArticleNumber" content="000008684" />
+    <meta
+      name="description"
+      content="This article contains instruction on how to find out where a user account was locked out."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to figure out where a user account was locked out with Netwrix Auditor?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            There are several root causes for account being locked, like wrong password provided by
+            user, when several attempts been made and the user is locked. Also, there might be some
+            services or applications running via the locked out account. The stored credentials
+            become expired and when a service or application attempts to authenticate via the
+            account, it causes failed logon events.
+          </p>
+        </div>
+
+        <div>
+          <p>
+            With Netwrix Auditor, try the following to learn more about the locked account and find
+            out a reason:
+          </p>
+
+          <ol>
+            <li>
+              <p>Review the User Accounts - Locked report. For that:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    On Netwrix Auditor Client home page, click the <b>REPORTS</b> tile in the upper
+                    left corner.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Expand <b>Predefined</b> <b>Active Directory</b>
+                    <b>Active Directory - State-in-Time</b>.
+                  </p>
+                </li>
+                <li>
+                  <p>Run the <b>User Account - Locked</b> report.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Run search to see how many failed logons were performed by this user before the
+                account has been locked. For that:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    On Netwrix Auditor Client home page, click the
+                    <b>SEARCH ACTIVITY RECORDS</b> tile in the upper left corner.
+                  </p>
+                </li>
+                <li>
+                  <p>Switch to the <b>Advanced</b> view.</p>
+                </li>
+                <li>
+                  <p>Apply filters as follows:</p>
+
+                  <p>Monitoring plan - Equals -Logon Activity</p>
+
+                  <p>Who -Contains - Account Name</p>
+
+                  <p>Action - Equals -Failed logon</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Netwrix also suggest searching for the related event ID on the Domain Controller the
+                account was locked from. For example, Event ID 4740 is generated on domain
+                controllers, Windows servers, and workstations every time an account gets locked
+                out, and view the Caller Computer Name in the event details.
+              </p>
+            </li>
+            <li>
+              <p>
+                To track the source of failed logons, enable failed logon auditing on the
+                workstations from which these failed logons were originating. For that:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    On the workstation where failed logons occurred, open the
+                    <b>Local Security Policy</b> snap-in.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Expand <b>Local Policies</b> &gt; <b>Security Options</b> and set the
+                    <b>Audit: Force audit policy</b> subcategory settings to <em>Enabled</em>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Navigate to <b>Advanced Audit Policy Configuration</b> &gt;
+                    <b>System Audit Policy Configuration</b> <b>Logon\Logoff</b> and set the
+                    <b>Audit Logon</b> to Failure.
+                  </p>
+
+                  <p>
+                    <span><strong>NOTE: </strong></span> If this workstation is subject to a Group
+                    Policy configuration, configure audit policies via the
+                    <b>Group Policy Configuration</b> snap-in.
+                  </p>
+
+                  <p>
+                    When done, look up failed logon events (typically, Event ID 4625) under the
+                    corresponding account in the <b>Security log</b> on these workstations,
+                    correlating for date and time of the failed logons seen in Netwrix Auditor
+                    reports and/or search results.
+                  </p>
+
+                  <p>Learn more about failed logon events:</p>
+
+                  <ul>
+                    <li>
+                      <a
+                        href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4625"
+                        target="_blank"
+                        >Windows Security Log Event ID 4625🡥</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4648"
+                        target="_blank"
+                        >Windows Security Log Event ID 4648🡥</a
+                      >
+                    </li>
+                  </ul>
+
+                  <p> </p>
+
+                  <p>
+                    Review the events. They might contain information about the process generating
+                    the failed logins for a particular user account.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

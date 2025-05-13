@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Upgrade the Change Tracker Hub from v7.5.x.x -&gt; v7.6?</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnp4CAA" />
+    <meta name="Id" content="ka04u000000ww9gAAA" />
+    <meta name="LastPublishedDate" content="2023-11-20T15:03:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-20T16:46:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-16T12:11:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8904" />
+    <meta name="ArticleNumber" content="000008904" />
+    <meta
+      name="description"
+      content="How to Upgrade the Change Tracker Hub from v7.5.x.x -&gt; v7.6?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            If you want to upgrade the Change Tracker hub from v7.5.x.x -&gt; v7.6, you need
+            <strong>.Net Core 6 Hosting</strong> to be installed and perform several upgrade steps
+            described below.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>To upgrade Change Tracker hub from v7.5.x.x -&gt; v7.6, do the following:</p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> Please be sure to take a backup of the Change
+              Tracker server/Mongo Database prior to performing these steps in case there are any
+              issues.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>Connect to your Change Tracker Server using RDP.</p>
+            </li>
+            <li>
+              <p>Run the v7.6.1 Change Tracker Hub Installer from the Netwrix Customer Portal.</p>
+            </li>
+            <li>
+              <p>
+                Once the upgrade has completed, uninstall all .NET Core v3 from the Change Tracker
+                Hub Server.
+              </p>
+            </li>
+            <li>
+              <p>
+                Download and install
+                <a
+                  href="https://download.visualstudio.microsoft.com/download/pr/34343c71-eb52-4537-b2b9-f25bc8b6c894/c6a39b3b387ad3f9662cd77c220902f5/dotnet-hosting-6.0.23-win.exe"
+                  target="_blank"
+                  >dotnet-hosting-6.0.23-win ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the hosting bundle installation has completed, Open Command Prompt as
+                Administrator and run the following command:
+              </p>
+
+              <div><code>isreset /stop </code></div>
+
+              <div><code>iisreset /start </code></div>
+            </li>
+          </ol>
+
+          <p>The Change Tracker hub has been upgraded successfully.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Refused to Connect in Web Console</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001LDhKAM" />
+    <meta name="Id" content="ka0Qk0000005DxVIAU" />
+    <meta name="LastPublishedDate" content="2024-08-27T08:35:33.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-30T07:58:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-08-19T11:55:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9245" />
+    <meta name="ArticleNumber" content="000009245" />
+    <meta name="description" content="Error: Refused to Connect in Web Console" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Refer to the following symptoms present in your Netwrix Enterprise Auditor environment:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                When you attempt to access reports via Web Reports, the following error appears:
+              </p>
+
+              <pre class="has-inner-focus">Refused to connect</pre>
+            </li>
+            <li>
+              <p>
+                The <code> %sainstalldir%SADatabase\Logs\Web\Service.log</code> file in Enterprise
+                Auditor contains the following entry:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%time_stamp% ERROR - Inner Exception
+%time_stamp% ERROR - System.Net.HttpListenerException (0x80004005): Failed to listen on prefix 'https://+:8082/' 
+because it conflicts with an existing registration on the machine.</code></pre>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The prefix may differ in your environment. Alter
+              the prefix as necessary in the following instruction steps.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            An existing application on the Enterprise Auditor host is actively listening on the
+            affected port. Web Reports cannot be bound to the same port.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If the <code>BindingURL</code> node does not contain
+            a port, refer to the default values of 80 and 443 for HTTP and HTTPS correspondingly.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>Unbind the port from the application. Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Verify the Web Reports port—review the <code>BindingURL</code> node contents in the
+                following document:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%sainstalldir%Web\WebServer.exe.config</code></pre>
+
+              <p>
+                The <code>BindingURL</code> includes the port number and the protocol (HTTP or
+                HTTPS).
+              </p>
+
+              <div>
+                <img
+                  alt="Config file"
+                  height="455"
+                  src="kA0Qk0000001LDhKAM_f4c0e076-a8aa-44ab-9ad4-20a575548731.png"
+                  width="649"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                On your Enterprise Auditor host, run the following line in an elevated Command
+                Prompt instance to retrieve all reserved URLs:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh http show urlacl</code></pre>
+            </li>
+            <li>
+              <p>
+                Review the list to find the affected port. Run the following line to unbind the
+                reserved URL:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh http delete urlacl url="%Reserved_URL_value%"</code></pre>
+
+              <p>The output should read <code>URL reservation successfully deleted</code>.</p>
+            </li>
+            <li>
+              <p>
+                Run the following line to verify that the affected port has a bound SSL certificate:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh http show sslcert</code></pre>
+
+              <p>
+                If the output does not include the affected port, refer to the following article to
+                learn more about the SSL binding:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/Application/Reports/Secure.htm"
+                  target="_self"
+                  >Reports via the Web Console — Securing the Web Console · v11.6</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <ul>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/Application/Reports/Secure.htm"
+                target="_self"
+                >Reports via the Web Console — Securing the Web Console · v11.6</a
+              >
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

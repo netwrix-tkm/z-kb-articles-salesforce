@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Find Destination of Failed NTLM Logons?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111KxCAI" />
+    <meta name="Id" content="ka04u000000wvxfAAA" />
+    <meta name="LastPublishedDate" content="2023-10-30T09:59:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-30T09:59:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-12T16:22:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8855" />
+    <meta name="ArticleNumber" content="000008855" />
+    <meta
+      name="description"
+      content="This article explains how to find origin (destination) of the failed logons occurred through NTL authentication."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to identify the origin (destination) of the failed logons occurring through NTLM
+            instead of Kerberos? For example, if a system administrator set up some process on a
+            file server that was trying to authenticate over NTLM, which is hitting the Domain
+            Controllers to authenticate and failing to perform said process.
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Because failed logons occurred through NTLM, the Domain Controllers were not documenting
+            the details of the login attempts origin via event ID 4776 (not 4768/4769/4771), thus
+            there is no information on failed logons' details in logs, such as the originating
+            workstation name or IP address.
+          </p>
+
+          <p>
+            To find the actual source of failed logons, enable NTLM auditing temporarily. For that:
+          </p>
+
+          <ol>
+            <li>
+              <p>On the Domain Controller, open the <b>Group Policy</b> snap-in.</p>
+            </li>
+            <li>
+              <p>
+                Expand the <b>Computer Configuration</b> <b>Policies</b> -&gt;
+                <b>Windows Settings</b> -&gt; <b>Security Settings</b> -&gt;
+                <b>Local Policies</b> -&gt; <b>Security Options</b> -&gt;
+                <b>Network Security: Restrict NTLM: Audit NTLM authentication</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set it to <em>enable all</em>, which only enables auditing of NTLM attempts, does
+                not allow or restrict NTLM traffic.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open command prompt as an elevated <em>user/administrator</em> and run the
+                <b>gpupdate /force</b> command so the policy change takes effect on the Domain
+                Controller.
+              </p>
+            </li>
+            <li>
+              <p>The actual NTLM login attempts on the DC are logged here:</p>
+
+              <p>
+                <b>Applications</b> -&gt; <b>Microsoft</b> -&gt; <b>Windows</b> -&gt;
+                <b>NTLM</b> -&gt; <b>Operational</b>
+              </p>
+
+              <p>
+                Which contains information about the failed logon origin. For example, the name (and
+                I think IP, but cannot guarantee) of a file server.
+              </p>
+            </li>
+            <li>
+              <p>
+                Disable NTLM authentication by unselecting <em>enable all</em> checkbox enabled on
+                the step 3.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the command prompt, run the <b>gpupdate /force</b> command again to turn off the
+                extra auditing on the Domain Controller.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles:</h2>
+        <a
+          href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HNFCA2.html"
+          target="_blank"
+          >Why Do I Have Incomplete Information on Failed Logons?</a
+        >.
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

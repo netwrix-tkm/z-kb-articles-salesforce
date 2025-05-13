@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to remove old Oracle Database audit events</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9T3CAK" />
+    <meta name="Id" content="ka04u000000HcMqAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="588" />
+    <meta name="ArticleNumber" content="000003013" />
+    <meta name="description" content="Remove Oracle Database audit events" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to remove old audit events when auditing Oracle Database?
+        <hr />
+        Netwrix recommends removing old audit events periodically to reduce load on the database
+        server while auditing. You can use the following Oracle Database packages:
+        <ul>
+          <li>
+            <b>DBMS_SCHEDULER</b>—Refer to the following Oracle Database online documentation:
+            <a
+              href="https://docs.oracle.com/database/121/ARPLS/d_sched.htm#ARPLS72235"
+              target="_blank"
+              >https://docs.oracle.com/database/121/ARPLS/d_sched.htm#ARPLS72235
+            </a>
+          </li>
+          <li>
+            <b>DBMS_AUDIT_MGMT</b>—Refer to the following Oracle Database online documentation:
+            <a
+              href="https://docs.oracle.com/database/121/ARPLS/d_audit_mgmt.htm#ARPLS241"
+              target="_blank"
+              >https://docs.oracle.com/database/121/ARPLS/d_audit_mgmt.htm#ARPLS241</a
+            >
+          </li>
+        </ul>
+        The example below describes how to create the job to remove audit events by the following
+        criteria:
+
+        <ul>
+          <li><b>Audit type</b>—Unified Auditing</li>
+          <li><b>Event Age</b>—Older than one day</li>
+        </ul>
+        The job is triggered once a day. <i><b>Review the example:</b></i
+        ><br /><br /><span>BEGIN</span>
+        <span>
+          DBMS_SCHEDULER.create_job( job_name =‌&gt; 'cleanup_unified_audit_job', job_type =‌&gt;
+          'PLSQL_BLOCK', job_action =‌&gt; 'BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(
+          audit_trail_type =‌&gt; DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, last_archive_time =‌&gt;
+          TRUNC(SYSDATE)-1); DBMS_AUDIT_MGMT.CLEAN_AUDIT_TRAIL( audit_trail_type =‌&gt;
+          DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED, use_last_arch_timestamp =‌&gt; TRUE); END;',
+          start_date =‌&gt; SYSTIMESTAMP, auto_drop =‌&gt; FALSE, enabled =‌&gt; TRUE,
+          repeat_interval =‌&gt; 'FREQ=DAILY;INTERVAL=1'); END;</span
+        ><br /><br /><i><b>Run the following queries to review results:</b></i>
+
+        <ul>
+          <li>
+            <span
+              ><span
+                >SELECT * FROM USER_SCHEDULER_JOB_RUN_DETAILS where JOB_NAME =
+                'CLEANUP_UNIFIED_AUDIT_JOB';</span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                >SELECT * FROM DBA_SCHEDULER_JOBS WHERE JOB_NAME =
+                'CLEANUP_UNIFIED_AUDIT_JOB';</span
+              ></span
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

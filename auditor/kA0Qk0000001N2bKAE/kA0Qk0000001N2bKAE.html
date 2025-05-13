@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Given Key Was Not Present in Dictionary</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001N2bKAE" />
+    <meta name="Id" content="ka0Qk000000DS89IAG" />
+    <meta name="LastPublishedDate" content="2025-04-24T18:55:17.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:27:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-08-29T15:51:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9255" />
+    <meta name="ArticleNumber" content="000009255" />
+    <meta name="description" content="Error: Given Key Was Not Present in Dictionary" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>The following symptoms are present in your environment:</p>
+
+          <ul>
+            <li>
+              <p>The Windows Server Compression Service logs contain the following error:</p>
+
+              <pre class="has-inner-focus">
+%time_stamp% INF: Error in TaskMonitor thread: System.Collections.Generic.KeyNotFoundException: 
+The given key was not present in the dictionary.</pre
+              >
+            </li>
+            <li>
+              <p>The Health Log contains the following error:</p>
+
+              <pre class="has-inner-focus">
+Monitoring plan: %MP name% 
+Item: %Item name% 
+The following error has occurred while processing '%target_Server_name%': 
+Data collection failed due to timeout.</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Refer to the possible causes:</p>
+
+          <ul>
+            <li>
+              <p>
+                The following file is corrupted, incorrect, or cannot be overwritten by the agent in
+                the target server:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\Windows Server Compression Service\Plans\%MP ID%\PlanConfig.xml</code></pre>
+            </li>
+            <li>
+              <p>
+                The <code>Windows Server Compression Service</code> was not upgraded during the
+                Netwrix host upgrade from v10 to v10.7.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                Uninstall the compression service using <strong>Settings</strong> &gt;
+                <strong>Apps &amp; Features</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Delete the following folders:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\Windows Server Compression Service
+C:\Program Files (x86)\Netwrix Auditor\Windows Server Compression Service</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If you are unable to delete the folders,
+                  verify that the compression service <code>WscrAgent</code> is deleted and that the
+                  files are not blocked by any processes.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Remove the following registry key branch:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Netwrix Auditor\Windows Server Change Reporter Agent</code></pre>
+            </li>
+            <li>
+              <p>
+                In the affected monitoring plan, click the <strong>Update</strong> button to force
+                data collection. This should initiate compression service installation.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span> Verify the
+              <code>Windows Server Compression Service</code> folders are excluded from the
+              antivirus checks. Refer to the following article for additional information:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                target="_self"
+                >Antivirus Exclusions for Netwrix Auditor</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

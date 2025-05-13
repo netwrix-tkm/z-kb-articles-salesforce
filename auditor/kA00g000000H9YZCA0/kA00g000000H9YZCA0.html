@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: There are no more endpoints available from the endpoint mapper.</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YZCA0" />
+    <meta name="Id" content="ka04u000000HcRaAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1195" />
+    <meta name="ArticleNumber" content="000003347" />
+    <meta
+      name="description"
+      content="Version(s) 7.0-8.5, 9.0-9.7 Error: &amp;quot;There are no more endpoints available from the endpoint mapper. (Exception from HRESULT: 0x800706D9)&amp;quot;."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Data collection for a Monitoring Plan for auditing Windows Server completed with the
+        following error:
+        <i
+          >"There are no more endpoints available from the endpoint mapper. (Exception from HRESULT:
+          0x800706D9)".</i
+        >
+        <hr />
+        Incorrect RpcProtocol settings on your DNS Server.
+        <hr />
+        To resolve this issue, enable the <b>TCP/IP</b> protocol. You can do it<i> </i>using
+        Registry Editor or Windows PowerShell.
+        <i>To enable the <b>TCP/IP</b> protocol using Registry Editor:</i>
+
+        <ol>
+          <li>
+            On the audited Windows Server, navigate to <b>Start </b>-&gt; <b>Run </b>and type
+            "<i>regedit</i>".
+          </li>
+          <li>In the <b>Registry Editor </b>snap-in, navigate to:</li>
+        </ol>
+
+        <div>HKEY_LOCAL_MACHINESYSTEMCurrentControlSetServicesDNSParameters.</div>
+
+        <ol start="3">
+          <li>
+            Edit the <b>RpcProtocol </b>registry key according to the regulations below.
+
+            <ul>
+              <li>The value of this entry is a bitmap.</li>
+              <li>
+                You can set multiple bits by adding the bits together and setting the value of this
+                entry to that sum:
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <div>
+          <div class="table-wrap">
+            <table count-columns="2" border="1">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1"><b>Bit</b></td>
+                  <td colspan="1" rowspan="1"><b>Meaning</b></td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">0x0</td>
+                  <td colspan="1" rowspan="1">No protocols (disables RPC for DNS)</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">0x1 (001 binary)</td>
+                  <td colspan="1" rowspan="1">TCP/IP</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">0x2 (010 binary)</td>
+                  <td colspan="1" rowspan="1">Named pipes</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">0x4 (100 binary)</td>
+                  <td colspan="1" rowspan="1">LPC</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">0xFFFFFFFF</td>
+                  <td colspan="1" rowspan="1">All protocols</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div><b>Note</b>: When completed, restart the <b>DNS Server</b> service.</div>
+
+        <div> </div>
+        <i>To enable the <b>TCP/IP</b> protocol using Windows PowerShell:</i>
+
+        <ol>
+          <li>
+            On the audited Windows Server, navigate to <b>Start </b>-&gt; <b>All Apps</b> -&gt;
+            <b>Windows PowerShell </b>and run it as an Administrator.
+          </li>
+          <li>Execute the following command:</li>
+        </ol>
+
+        <div>
+          <span
+            ><span><span>$Server</span></span></span
+          >
+          <span
+            ><span><span>=</span></span></span
+          >
+          <span
+            ><span><span>"SERVERNAME"</span></span></span
+          >
+          <span
+            ><span><span>$Setting</span></span></span
+          >
+          <span
+            ><span><span>=</span></span></span
+          >
+          <span
+            ><span><span>"RpcProtocol"</span></span></span
+          >
+          <span
+            ><span><span>$Value</span></span></span
+          >
+          <span
+            ><span><span>=</span></span></span
+          >
+          <span
+            ><span><span>""</span></span></span
+          >
+          <span
+            ><span><span>$SettingsObject</span></span></span
+          >
+          <span
+            ><span><span>=</span></span></span
+          >
+          <span
+            ><span><span>Get-DnsServerSetting</span></span></span
+          >
+          <span
+            ><span><span>-ComputerName</span></span></span
+          >
+          <span
+            ><span><span>$Server</span></span></span
+          >
+          <span
+            ><span><span>-All</span></span></span
+          >
+          <span
+            ><span><span>$SettingsObject</span></span></span
+          ><span
+            ><span><span>.</span></span></span
+          ><span
+            ><span><span>$Setting</span></span></span
+          >
+          <span
+            ><span><span>=</span></span></span
+          >
+          <span
+            ><span><span>$Value</span></span></span
+          >
+          <span
+            ><span><span>Set-DnsServerSetting</span></span></span
+          >
+          <span
+            ><span><span>$SettingsObject</span></span></span
+          >
+          <span
+            ><span><span>-ComputerName</span></span></span
+          >
+          <span
+            ><span><span>$Server</span></span></span
+          >
+          Where
+          <span
+            ><span><span>$Server </span></span></span
+          >is your DNS Server name and
+          <span
+            ><span><span>$Value </span></span></span
+          >is the RcpProtocol registry key value. Specify the value according to the regulations
+          below.
+
+          <ul>
+            <li>The value of this entry is a bitmap.</li>
+            <li>
+              You can set multiple bits by adding the bits together and setting the value of this
+              entry to that sum:
+            </li>
+          </ul>
+
+          <div>
+            <div class="table-wrap">
+              <table count-columns="2" border="1">
+                <tbody>
+                  <tr>
+                    <td colspan="1" rowspan="1"><b>Bit</b></td>
+                    <td colspan="1" rowspan="1"><b>Meaning</b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0x0</td>
+                    <td colspan="1" rowspan="1">No protocols (disables RPC for DNS)</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0x1 (001 binary)</td>
+                    <td colspan="1" rowspan="1">TCP/IP</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0x2 (010 binary)</td>
+                    <td colspan="1" rowspan="1">Named pipes</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0x4 (100 binary)</td>
+                    <td colspan="1" rowspan="1">LPC</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">0xFFFFFFFF</td>
+                    <td colspan="1" rowspan="1">All protocols</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div><b>Note</b>: When completed, restart the <b>DNS Server</b> service.</div>
+          ​
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

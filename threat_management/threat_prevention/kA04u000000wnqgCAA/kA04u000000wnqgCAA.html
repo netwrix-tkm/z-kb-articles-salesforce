@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Unable to Upgrade SI Agents</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="label" content="public_v"/><meta name="KnowledgeArticleId" content="kA04u000000wnqgCAA"/><meta name="Id" content="ka04u000000wwDtAAI"/><meta name="LastPublishedDate" content="2023-11-23T10:20:59.000+0000"/><meta name="LastModifiedDate" content="2023-11-23T11:44:28.000+0000"/><meta name="FirstPublishedDate" content="2023-11-23T10:20:59.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8917"/><meta name="ArticleNumber" content="000008917"/><meta name="description" content="Unable to Upgrade SI Agents"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+
+<div>
+<ul><li>
+	<p>When attempting to upgrade a SI Agent, no updates are available.</p>
+	</li><li>
+	<p>The message <code>You're using the latest version</code> is prompted while an upgrade is expected to occur.</p>
+	</li></ul>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The upgrade will fail for previous versions of SI Agents in servers without required certificates.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Refer to the following steps to allow SI Agents to self-upgrade to future versions:</p>
+
+<ol><li>
+	<p>Uninstall the previous version of installed SI Agent.</p>
+	</li><li>
+	<p>Install the latest SI Agent.</p>
+	</li><li>
+	<p>Install required certificates.</p>
+	</li></ol>
+</div>
+
+<h4 id="install_required_certificates_−_preparation">Install required certificates − Preparation</h4>
+
+<div>
+<ol><li>
+	<p>Download the following certificates:</p>
+
+	<pre class="has-inner-focus"><a href="https://cacerts.digicert.com/DigiCertAssuredIDRootCA.crt.pem" target="_blank">https://cacerts.digicert.com/DigiCertAssuredIDRootCA.crt.pem</a>
+<a href="https://cacerts.digicert.com/DigiCertTrustedRootG4.crt.pem" target="_blank">https://cacerts.digicert.com/DigiCertTrustedRootG4.crt.pem</a>
+<a href="https://cacerts.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt.pem" target="_blank">https://cacerts.digicert.com/DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt.pem</a></pre>
+	</li><li>
+	<p>Put the certificates in a shared folder.</p>
+	</li></ol>
+</div>
+
+<h4 id="install_required_certificates_−_manually_import_certificates_to_the_local_certificate_store">Install required certificates − Manually import certificates to the local certificate store</h4>
+
+<div>
+<ol><li>
+	<p>Launch Microsoft Management Console (e.g., via <strong>Run</strong> &gt; <strong>mmc.exe</strong>).</p>
+	</li><li>
+	<p>Select <strong>File</strong> &gt; <strong>Add/Remove Snap-ins</strong>.</p>
+	</li><li>
+	<p>Select <strong>Certificates</strong> &gt; <strong>Add</strong>.</p>
+	</li><li>
+	<p>Select <strong>Computer account</strong> &gt; <strong>Local computer</strong> &gt; <strong>Finish</strong> &gt; <strong>OK</strong>.</p>
+	</li><li>
+	<p>Expand the <strong>Certificates (Local Computer)</strong> node in the left pane.</p>
+	</li><li>
+	<p>Right-click <strong>Trusted Root Certification Authorities</strong> &gt; <strong>All tasks</strong> &gt; <strong>Import...</strong>.</p>
+	</li><li>
+	<p>Click <strong>Next</strong> &gt; <strong>Browse</strong> to locate the certificates downloaded previously, and select the appropriate certificate.</p>
+
+	<blockquote>
+	<p><span><strong>IMPORTANT: </strong></span>In case the certificates are not showing in the target folder, switch the extension filter to show <strong>All files</strong>, and select the certificate.</p>
+	</blockquote>
+	</li><li>
+	<p>Select the <strong>Place all certificates in the following store</strong> option with the certificate store being <strong>Trusted Root Certification Authorities</strong>. Click <strong>Next</strong> &gt; <strong>Finish</strong>.</p>
+	</li><li>
+	<p>Wait for the <strong>The import was successful</strong> message to pop up.</p>
+	</li><li>
+	<p>Repeat the steps for all certificates in all servers.</p>
+	</li></ol>
+</div>
+
+<h4 id="install_required_certificates_−_gpo">Install required certificates − GPO</h4>
+
+<div>
+<ol><li>
+	<p>In your domain controller, launch the <strong>Group Policy Management</strong> snap-in.</p>
+	</li><li>
+	<p>Locate an existing Group Policy Object (GPO) or create a new GPO to specify the certificate settings.</p>
+	</li><li>
+	<p>Right-click the GPO, and click <strong>Edit</strong>.</p>
+	</li><li>
+	<p>In the left pane, locate <strong>Computer Configuration</strong> &gt; <strong>Policies</strong> &gt; <strong>Windows Settings</strong> &gt; <strong>Security Settings</strong> &gt; <strong>Public Key Policies</strong>.</p>
+	</li><li>
+	<p>Right-click <strong>Trusted Root Certification Authorities</strong>, and click <strong>Import...</strong>.</p>
+	</li><li>
+	<p>Click <strong>Next</strong> &gt; <strong>Browse</strong> to locate the certificates downloaded previously, and select the appropriate certificate.</p>
+
+	<blockquote>
+	<p><span><strong>IMPORTANT: </strong></span>In case the certificates are not showing in the target folder, switch the extension filter to show <strong>All files</strong>, and select the certificate.</p>
+	</blockquote>
+	</li><li>
+	<p>Select the <strong>Place all certificates in the following store</strong> option with the certificate store being <strong>Trusted Root Certification Authorities</strong>. Click <strong>Next</strong> &gt; <strong>Finish</strong>.</p>
+	</li><li>
+	<p>Wait for the <strong>The import was successful</strong> message to pop up.</p>
+	</li><li>
+	<p>Repeat the steps for all certificates.</p>
+	</li></ol>
+
+<blockquote>
+<p><strong>TIP: </strong>Force GPO update in remote servers using the GPO Management console or scripts.</p>
+</blockquote>
+</div></div>
+</article></body></html>

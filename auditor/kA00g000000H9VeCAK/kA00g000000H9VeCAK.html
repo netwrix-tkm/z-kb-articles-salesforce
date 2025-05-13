@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to omit warnings in Netwrix Auditor for Active Directory when audit is properly
+      configured?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VeCAK" />
+    <meta name="Id" content="ka04u000000HcOwAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:17.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="746" />
+    <meta name="ArticleNumber" content="000003169" />
+    <meta name="description" content="omit warning agent.ini audit properly configured" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I recieve warnings about some of my domain controllers while they are properly configured
+        and do not have any issues. How can I omit warnings in Netwrix Auditor for Active Directory?
+
+        <hr />
+
+        Netwrix Auditor may throw warnings about some of your domain controllers. This article
+        should be used when the audit is properly configured and/or the connection between the
+        Netwrix server and the affected domain controller is not stable (RPC errors).
+
+        <strong>Caution! </strong>This article should not be used when "<em>System</em>" is shown in
+        "<strong>Who Changed</strong>" column of the daily summary report. To omit the warnings:
+        <ol>
+          <li>Navigate <em>C:Program Files (x86)Netwrix AuditorActive Directory Auditing </em></li>
+          <li>Open <strong>agent.ini</strong>.</li>
+          <li>
+            Add FQDN's in the following format:
+            <strong><em>&lt;domain_controller&gt;=suppresswarnings</em></strong>
+          </li>
+        </ol>
+        <div>
+          <strong><em>For example: </em></strong> DC1.contoso.com=suppresswarnings
+          DC2.contoso.com=suppresswarnings
+        </div>
+        Each DC should be entered on a separate line.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to configure two different Self-Service portals</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WpCAK" />
+    <meta name="Id" content="ka04u00000116crAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:06:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="822" />
+    <meta name="ArticleNumber" content="000003242" />
+    <meta
+      name="description"
+      content="Create a Second instance for Password Manager Self-service Portal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span class="TEXT" id="articleDetail:j_id228:j_id229:summary"
+          >How to create the second instance of Self-Service portal? I have two domains and whant to
+          have a separate portal for each domain.</span
+        >
+
+        <hr />
+
+        To create the second instance of Self-Service portal, do the following:
+        <ol>
+          <li>In the NetWrix Password Manager installation directory, create a new folder.</li>
+          <li>Copy the entire content of Web_SS folder to the new folder.</li>
+          <li>Run Internet Information Services (IIS) Manager.</li>
+          <li>
+            Create a new virtual directory in the same site, where the <strong>PM</strong> virtual
+            directory is located (by default it is %ComputerName%/Sites/Default Web Site/PM).
+          </li>
+          <li>
+            In the <strong>Add Virtual Directory </strong>dialog, populate the
+            <strong>Physical path </strong>field with the new folder full name, for example
+            C:Program files (x86)Netwrix Password ManagerWeb_SS_2. Click <strong>OK</strong>.
+          </li>
+        </ol>
+        <strong>NOTE</strong>: In this case all the Branding settings (logo, support phone/link,
+        prdefined domaine, etc) will be copied too. However changing of these settings via the
+        Administrative portal will only affect the original Self-Service portal. Refer to the
+        following KB for instructions on hiding domain list and setting predefined domain for
+        portals:
+        <a href="https://kb.netwrix.com/2062" target="_blank">https://kb.netwrix.com/2062</a>
+      </div>
+    </article>
+  </body>
+</html>

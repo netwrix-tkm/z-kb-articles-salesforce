@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Failed to Collect Logons — Forbidden Error in Entra ID Monitoring Plan</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000001116gCAA" />
+    <meta name="Id" content="ka0Qk000000CGH7IAO" />
+    <meta name="LastPublishedDate" content="2025-02-14T20:36:37.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-14T20:36:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-28T10:37:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8767" />
+    <meta name="ArticleNumber" content="000008767" />
+    <meta
+      name="description"
+      content="Failed to Collect Azure Logons — Forbidden Error in Azure AD Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            The following error is prompted in Health Log for your Microsoft Entra ID monitoring
+            plan (formerly Azure AD monitoring plan):
+          </p>
+          <pre class="has-inner-focus">
+Source:Azure AD Audit Service
+Event ID:2002
+Computer: %Auditor_server_name%
+User:N/A
+Description:Monitoring Plan: %Azure_AD_monitoring_plan_name% 
+    
+The following error has occurred while processing %tenant%:   
+    
+Failed to collect Azure Logons audit data due to the following error: The remote server returned an error: (403) Forbidden.</pre
+          >
+        </div>
+        <h2 id="causes">Causes</h2>
+        <div>
+          <ul>
+            <li>
+              <p>App was incorrectly configured.</p>
+            </li>
+            <li>
+              <p>Admin consent was not granted to the Azure app.</p>
+            </li>
+            <li>
+              <p>API permissions were not granted neither manually, nor via the app manifest.</p>
+            </li>
+            <li>
+              <p>
+                Logon activity collection is enabled without a purchased Premium Plan (P1 or P2)
+                license for the Microsoft Entra ID tenant.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="resolutions">Resolutions</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review the app setup procedure for your monitoring plan. Refer to the following
+                articles for additional information on Microsoft Entra ID, SharePoint Online,
+                Exchange Online, and Teams correspondingly:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+                  target="_blank"
+                  >Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+                  target="_self"
+                  >SharePoint Online — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+                  target="_self"
+                  >Exchange Online — Permissions for Exchange Online Auditing ⸱ v10.6</a
+                >, and
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+                  target="_self"
+                  >Teams — Permissions for Teams Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Disable logon activity for your monitored Microsoft 365 (Office 365) tenant.</p>
+              <ol>
+                <li>
+                  <p>In the main Netwrix Auditor menu, click <strong>Monitoring Plans</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select your Microsoft Entra ID monitoring plan, and click
+                    <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the right pane, click <strong>Edit data source</strong> under
+                    <strong>Data source</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Uncheck <strong>Failed logons</strong> and
+                    <strong>Successful logons</strong> under the
+                    <strong>Monitor Microsoft Entra ID</strong
+                    ><strong> logon activity</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>Save the changes.</p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Learn more about Microsoft Entra ID licenses in
+            <a
+              href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/get-started-premium"
+              target="_blank"
+              >Sign up for Microsoft Entra ID P1 or P2 Editions ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </blockquote>
+        <h4 id="related_articles">Related articles</h4>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+            target="_blank"
+            >Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+          >
+        </p>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+            target="_self"
+            >SharePoint Online — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+          >
+        </p>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+            target="_self"
+            >Exchange Online — Permissions for Exchange Online Auditing ⸱ v10.6</a
+          >
+        </p>
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+            target="_self"
+            >Teams — Permissions for Teams Auditing ⸱ v10.6</a
+          >
+        </p>
+        <p>
+          <a
+            href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/get-started-premium"
+            target="_blank"
+            >Sign up for Microsoft Entra ID P1 or P2 Editions ⸱ Microsoft 🡥</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

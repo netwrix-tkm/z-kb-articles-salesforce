@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_8.0_003</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IbrCAE" />
+    <meta name="Id" content="ka04u000000HcrKAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6792" />
+    <meta name="ArticleNumber" content="000006792" />
+    <meta name="description" content="360012326291" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Update Rollup for
+          8.0 SPAA issues. Contains fixes for: . Domain groups not being collected in agent mode
+          from SP 2010 servers. . Agent memory usage and communication interruption logic . Tag
+          collection in agent and local mode . Tag parsing error handling and logging tweaks .
+          Queries not handling files w/o authors
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong
+            ><span
+              ><span><span>Modules Included</span></span></span
+            ></strong
+          ><br />SP 2010 agent:<br />\Agent\NET35\Stealthbits.StealthAUDIT.Agent.dll <br />\Agent\NET35\Stealthbits.StealthAUDIT.Agent.Host.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.DataCollectors.DLP.Common.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Agent.Common.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Agent.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Common.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.Server2010.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Storage.dll<br />\Agent\NET35\Stealthbits.StealthAUDIT.Agent.Service.exe <br /> <br />SP2013
+          agent:<br />\Agent\NET40\Stealthbits.StealthAUDIT.Agent.dll<br />\Agent\NET40\Stealthbits.StealthAUDIT.Agent.Host.dll<br />\Agent\NET40\Stealthbits.StealthAUDIT.DataCollectors.DLP.Common.dll <br />\Agent\NET40\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Agent.Common.dll<br />\Agent\NET40\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Agent.dll<br />\Agent\NET40\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Common.dll<br />\Agent\NET40\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.Server.dll <br />\Agent\NET40\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Storage.dll<br />\Agent\NET40\Stealthbits.StealthAUDIT.Agent.Service.exe<br /> <br /> <br />\DC\DCSPAA.dll
+          8.0.134<br />\DC\SPAAConfig.xml<br />\PrivateAssemblies\Microsoft.Online.SharePoint.Client.Tenant.dll 
+          15.0.4569<br />\PrivateAssemblies\Microsoft.SharePoint.Client.dll  15.0.4569<br />\PrivateAssemblies\Microsoft.SharePoint.Client.Runtime.dll 
+          15.0.4561<br />\PrivateAssemblies\Microsoft.SharePoint.Client.UserProfiles.dll 
+          15.0.4567<br />\PrivateAssemblies\Stealthbits.SharePoint.dll  1.2.79<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.dll 
+          8.0.159<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.UI.dll 
+          8.0.139<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.dll  8.0.55<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.UI.dll 
+          8.0.52<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.DLP.Common.dll 
+          8.0.18 <br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Agent.Common.dll 
+          8.0.7<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Common.dll 
+          8.0.18<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Storage.dll 
+          8.0.19<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.CSOM.dll 
+          8.0.19<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.Database.dll 
+          8.0.10<br />\PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SPAA.Query.CSOM.dll.config<br /><strong
+            ><span
+              ><span><span>YouTrack/Escalations</span></span></span
+            ></strong
+          ><br /><strong
+            ><span
+              ><span><span>SASP-1835   17070</span></span></span
+            ></strong
+          ><br /> <br /><b>Customers</b><br />VillNova<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <strong
+            ><span
+              ><span
+                ><span
+                  >1.            Update all DC files in your StealthAUDIT\DC directory</span
+                ></span
+              ></span
+            ></strong
+          ><br /><strong
+            ><span
+              ><span
+                ><span
+                  >2.            Update all PrivateAssemblies files in your
+                  StealthAUDIT\PrivateAssemblies directory</span
+                ></span
+              ></span
+            ></strong
+          ><br /><strong
+            ><span
+              ><span
+                ><span
+                  >3.            If updating an agent on SharePoint 2010: update the files in Agent
+                  installation directory with the DLLs in the NET35 Folder</span
+                ></span
+              ></span
+            ></strong
+          ><br /><strong
+            ><span
+              ><span
+                ><span
+                  >                If updating an agent on SharePoint 2013: update the files in
+                  Agent installation directory with the DLLs in the NET40 Folder</span
+                ></span
+              ></span
+            ></strong
+          ><br /><strong
+            ><span
+              ><span
+                ><span>4.  Restart the Agent service on the SharePoint Server</span></span
+              ></span
+            ></strong
+          ><br /><br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <colgroup>
+              <col width="64" />
+            </colgroup>
+            <tbody>
+              <tr height="20">
+                <td colspan="1" rowspan="1" class="xl65" height="20" width="64">
+                  <a
+                    href="http://downloads.stealthbits.com/access/files/SAHotFixes/8.0/SA_8.0_003.zip"
+                    target="_blank"
+                    >http://downloads.stealthbits.com/access/files/SAHotFixes/8.0/SA_8.0_003.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Activity;SA - DC - SPAA - Permissions;SA - DC - SPAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SASP-1835<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          8.0.0.570<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1584<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

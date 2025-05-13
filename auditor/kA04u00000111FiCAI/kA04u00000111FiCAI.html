@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Account and Password Expiration Mismatch in Netwrix Auditor Password Expiration Notifier
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111FiCAI" />
+    <meta name="Id" content="ka04u00000117wOAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-26T08:38:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-27T07:06:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-26T08:38:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8818" />
+    <meta name="ArticleNumber" content="000008818" />
+    <meta
+      name="description"
+      content="Account and Password Expiration Mismatch in Netwrix Auditor Password Expiration Notifier"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Reports in Netwrix Auditor Password Expiration Notifier (PEN) state users are to expire
+            sooner than what is stated in Active Directory. What could be causing this?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Password Expiration Notifier may include data on expiring accounts, if enabled. If the
+            account is to expire sooner than the password, the account expiration date will be
+            stated in the report instead of the password expiration date. Refer to the following
+            steps to either track both expiring passwords and accounts or disable the option to
+            track expiring accounts:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In your <strong>Start</strong> menu, select <strong>Netwrix Auditor</strong> &gt;
+                <strong>Netwrix Auditor Password Expiration Notifier</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Select the monitoring plan, and click <strong>Edit</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select the <strong>Advanced</strong> tab, and either check or uncheck the
+                <strong>Include data on expiring accounts</strong>.
+              </p>
+            </li>
+            <li>
+              <p>The next report will be affected.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <img
+            height="511"
+            src="kA04u00000111FiCAI_744c65a7-5fa8-4295-be55-626de89abbcd.png"
+            width="580"
+          />
+        </div>
+
+        <div>
+          <p>To verify the account expiration date, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Open <strong>Active Directory Users and Computers</strong> either via
+                <strong>Server Manager</strong> &gt; Tools, or the Search bar.
+              </p>
+            </li>
+            <li>
+              <p>Right-click the user, and select <strong>Properties</strong>.</p>
+            </li>
+            <li>
+              <p>
+                The account expiration date is provided in the <strong>Account</strong> tab &gt;
+                <strong>Account expires</strong>, and the <strong>Attribute Editor</strong> tab &gt;
+                <strong>accountExpires</strong> attribute.
+              </p>
+
+              <div>
+                <img
+                  height="460"
+                  src="kA04u00000111FiCAI_84e2a7cf-950b-49be-ba30-99b323b94d0e.png"
+                  width="750"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/scripting-articles/ms974598(v=msdn.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >How Long Until My Password Expires? ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

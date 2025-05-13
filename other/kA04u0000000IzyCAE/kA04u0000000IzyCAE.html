@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Enable Diagnostic Logging and Debug Mode for the Access Information Center (AIC)</title><meta name="label" content="employees_v"/><meta name="label" content="access_info_center"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IzyCAE"/><meta name="Id" content="ka0Qk0000004ggbIAA"/><meta name="LastPublishedDate" content="2024-07-18T19:44:04.000+0000"/><meta name="LastModifiedDate" content="2024-07-18T19:44:04.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:45:57.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7415"/><meta name="ArticleNumber" content="000007415"/><meta name="description" content="360008944451"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary:</strong> The information provided enables Diagnostic Logging and Debug Mode for the Access Information Center (AIC). Both are used to gather additional troubleshooting information.</p>
+
+<p><strong>Issue:</strong> How to Enable Diagnostic Logging and Debug Mode for the Access Information Center (AIC)</p>
+
+<p><strong>Instructions:</strong></p>
+
+<p>To enable Debug Mode and Diagnostic Logging for the AIC, the Web.config file must be altered prior to restarting the StealthAUDIT Compliance Site (via IIS).</p>
+
+<p>Default Web.config location: C:\inetpub\wwwroot\StealthAUDIT Compliance\Web.config</p>
+
+<p>In some environments this location may have been changed. If so, the location can be found in IIS Manager / / Sites / StealthAUDIT Compliance / Basic Settings / Physical path</p>
+
+<p><img alt="mceclip0.png" src="kA04u0000000IzyCAE_4e94ed5d-adc0-45dc-bf9b-c063ce3d99a4.png"/></p>
+
+<p>To enable Debug Mode and Diagnostic Logging, change the following values in Web.config:</p>
+
+<ul><li>Enable Debug Mode:
+	<ul><li>Change “0” to “3” in “”</li></ul>
+	</li><li>Enable Diagnostic Logging:
+	<ul><li>Delete “” on the line after “”</li><li>Change “false” to “true” in “”
+		<ul><li>NOTE: targetFramework’s value may be different depending on your AIC version, but the change to “compilation debug” remains the same (“false” to “true”)</li></ul>
+		</li></ul>
+	</li><li>Save/close Web.config and restart IIS (which will automatically restart the StealthAUDIT Compliance Site)
+	<ul><li>To restart IIS, open Command Prompt (search “cmd” in the Start Menu) and run: iisreset</li></ul>
+	</li></ul>
+
+<p>After IIS has been reset, you can verify Debug Mode and Diagnostic Logging are enabled in: C:\inetpub\wwwroot\StealthAUDIT Compliance\App_Data\</p>
+
+<p>First open and log-in to the AIC, and you’ll then see TracingAndLogging-service.svclog appear in the aforementioned App_Data folder. You can also verify Debug Mode has been enabled in aic.log, located in the same folder.</p>
+
+<p>Once debugging is completed, it is recommended to disable Debug Mode and Diagnostic Logging:</p>
+
+<ul><li>Disable Debug Mode:
+	<ul><li>Change “3” to “0” in “”</li></ul>
+	</li><li>Disable Diagnostic Logging:
+	<ul><li>Add “” (without quotes) to the line after “”</li><li>Change “true” to “false” in “”
+		<ul><li>NOTE: targetFramework’s value may be different depending on your AIC version, but the change to “compilation debug” remains the same (“true” to “false”)</li></ul>
+		</li></ul>
+	</li><li>Save/close Web.config and restart IIS (which will automatically restart the StealthAUDIT Compliance Site)
+	<ul><li>To restart IIS, open Command Prompt (search “cmd” in the Start Menu) and run: iisreset</li></ul>
+	</li></ul>
+
+<p> </p>
+
+<p><strong>Submitted by: </strong>Alex Buchta (previously submitted by Carlos Mejia)</p>
+
+<p><strong>Product:</strong> AIC</p>
+
+<p><strong>Affected Versions:</strong> All</p>
+
+<p><strong>Affected Module:</strong> AIC - Entitlement Review; AIC - Installer; AIC - Manage Resource Ownership AIC - Reporter</p>
+
+<p><strong>Dev Ticket:</strong></p>
+
+<p><strong>Resolved In Version:</strong></p>
+
+<p><strong>KB Type:</strong> How To</p></div>
+</article></body></html>

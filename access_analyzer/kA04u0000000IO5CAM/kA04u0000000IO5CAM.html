@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Connect to Office 365 Exchange Online</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IO5CAM" />
+    <meta name="Id" content="ka0Qk00000044HxIAI" />
+    <meta name="LastPublishedDate" content="2024-06-05T20:46:11.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-05T20:46:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:19:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6532" />
+    <meta name="ArticleNumber" content="000006532" />
+    <meta name="description" content="How to Connect to Office 365 Exchange Online" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          This article describes how to connect to Office 365 Exchange Online using a PowerShell
+          script.
+        </p>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <ol>
+          <li>Remark the first five lines and run it like an on-premise server:</li>
+        </ol>
+
+        <pre>
+##$password = convertto-securestring "%HIDDEN PASSWORD%!" -asplaintext -force
+##$userid = "%HIDDEN USERID%"
+##$cred = New-Object System.Management.Automation.PSCredential $userid,$password 
+##$global:session365 = New-PSSession -configurationname Microsoft.Exchange -connectionuri https://ps.outlook.com/powershell/ -credential $cred -authentication Basic -AllowRedirection 
+##Import-PSSession $global:session365
+
+add-pssnapin microsoft.exchange.management.powershell.e2010 
+get-mailbox -ResultSize Unlimited | where-object {$_.litigationholdenabled -eq $true} | fl LegacyExchangeDN, ServerName, Database, LitigationHoldEnabled, LitigationHoldDate, LitigationHoldOwner, DisplayName
+##Remove-PSSession $global:session365
+</pre
+        >
+
+        <p>
+          Validate the script and select the columns which now show up defined as expected. Then
+          after the Wizard closes, go into the XML and un-remark the above 6 lines in a text editor.
+        </p>
+
+        <h2 id="additional_comments">Additional Comments</h2>
+
+        <p>
+          When asked why not just use the connection profile instead of un-remarking the
+          impersonation lines from the code, the response was this:
+        </p>
+
+        <p>
+          The connection profile authenticates against our Active Directory, while the top lines run
+          a session using admin credentials specific for Office 365 Exchange Online on their server.
+          Remarking the top lines returns on-premise mailboxes.
+        </p>
+
+        <p>
+          <strong>Note:</strong> The PowerShell DC has been updated to support UPN for 7.1 but is
+          not included in the December 2015 release.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

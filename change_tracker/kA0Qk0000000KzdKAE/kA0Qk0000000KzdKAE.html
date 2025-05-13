@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Create a User on MongoDB with Administrative Access?</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000KzdKAE" />
+    <meta name="Id" content="ka0Qk00000017kDIAQ" />
+    <meta name="LastPublishedDate" content="2023-12-22T14:27:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-22T14:27:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-18T15:05:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8970" />
+    <meta name="ArticleNumber" content="000008970" />
+    <meta
+      name="description"
+      content="How to Create a User on MongoDB with Administrative Access?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Sometimes, companies need to create a dedicated user with some level of admin access to
+            perform MongoDB administrative activities like backup and support in cases of issues.
+            This article explains how to create a user of such type.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>Follow the steps below to create a user with admin level access:</p>
+
+          <ul>
+            <li>
+              <p>
+                Please ensure that during the creation of the user that you specify a unique and
+                secure username and password.
+              </p>
+
+              <ol>
+                <li>
+                  <p>RDP to the server hosting Change Tracker.</p>
+                </li>
+                <li>
+                  <p>
+                    Browse to the folder:
+                    <em>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</em>.
+                  </p>
+                </li>
+                <li>
+                  <p>Open a <b>Command Prompt</b> window.</p>
+                </li>
+                <li>
+                  <p>Open up mongo shell executing the following command: <code>mongo.exe</code></p>
+                </li>
+                <li>
+                  <p>Enter the commands below:</p>
+
+                  <p><code>use admin</code></p>
+
+                  <p><code>db.createUser(</code></p>
+
+                  <p><code>{</code></p>
+
+                  <p><code>user: "admin",</code></p>
+
+                  <p><code>pwd: "password",</code></p>
+
+                  <p><code>roles: [ { role: "root", db: "admin" } ]</code></p>
+
+                  <p><code>}</code></p>
+
+                  <p><code>);</code></p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                If an admin user has been created on the Mongo database previously and the password
+                for that user needs to be changed, follow the steps below:
+              </p>
+
+              <p>
+                The ‘<em>user</em>’ and ‘<em>new_password</em>’ values will need to be set to match
+                the customers environment.
+              </p>
+
+              <ol>
+                <li>
+                  <p>RDP to the server hosting Change Tracker.</p>
+                </li>
+                <li>
+                  <p>
+                    Browse to the folder:
+                    <em>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</em>
+                  </p>
+                </li>
+                <li>
+                  <p>Open a <b>Command Prompt</b> window.</p>
+                </li>
+                <li>
+                  <p>Open up mongo shell executing the following command: <code>mongo.exe</code></p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>IMPORTANT:</strong></span> If authentication is enabled already,
+                      include these details as part of the command:
+                      <code>mongo.exe -u admin -p password --authenticationDatabase admin</code>
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>Enter the commands below:</p>
+
+                  <p><code>use admin</code></p>
+
+                  <p><code>db.changeUserPassword(‘user’,’new_password’)</code></p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

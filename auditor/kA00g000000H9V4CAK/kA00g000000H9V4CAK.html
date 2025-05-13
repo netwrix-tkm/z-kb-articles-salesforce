@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to apply the license to Virtual Appliance</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_administration" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9V4CAK" />
+    <meta name="Id" content="ka04u000000HcORAA0" />
+    <meta name="LastPublishedDate" content="2022-05-13T11:56:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="715" />
+    <meta name="ArticleNumber" content="000003138" />
+    <meta name="description" content="Upgrade your Virtual Appliance to full Windows version" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="scenario">Scenario</h2>
+        I have downloaded the Netwrix Virtual Appliance but when I am trying to apply a Windows
+        product key, I get the following message: "<b
+          >That key can't be used to activate this edition of Windows. Please try a different
+          key.</b
+        >" or "<b>This edition cannot be upgraded</b>"
+
+        <h2 id="solution">Solution</h2>
+        The Netwrix Virtual Appliance is distributed with a 180-day evaluation version of Windows
+        Server. You have to use your own product key purchased from Microsoft for activation. The
+        Key must be of <b>Retail </b>version, Volume Licensed keys follow a different procedure.
+        Prior to applying the key, evaluation version must be converted to a Standard or Datacenter
+        version. In order to do that, please perform the following steps:
+
+        <ol>
+          <li>Launch command prompt <b>as administrator</b></li>
+          <li>
+            Execute the following command:
+            <strong>DISM /online /Get-CurrentEdition.</strong> Confirm that the Current Edition
+            includes the word 'Eval'
+          </li>
+          <li>
+            Execute the command <strong>DISM /online /Get-TargetEditions </strong>to get the list of
+            possible upgrade options
+          </li>
+          <li>
+            Execute
+            <strong
+              >DISM /online /Set-Edition:&lt;edition ID&gt; /ProductKey:[enter your product key
+              here] /AcceptEula</strong
+            >, providing the edition ID from the previous step and a retail product key.
+          </li>
+        </ol>
+        <br />The server will restart twice.<br /><strong>NOTE</strong>, the process might take some
+        time. Do not terminate it - wait until it completes. Afterward, you can apply the product
+        key as usual.
+
+        <h3 id="volume-licensed_activation">Volume-Licensed Activation</h3>
+        If you have <b>Volume Licensed </b>key, you can convert your Evaluation version to Retail
+        version, after conversion, you can apply any product key.<br />To convert you need to select
+        an appropriate Generic Volume License Key (GVLK) from
+        <a
+          href="https://docs.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys"
+          target="_blank"
+          >Microsoft Webiste</a
+        >
+        that matches your version of Windows Server.<br /><br />Conversion Example for Windows
+        Server 2019 Standard:<br /> 
+        <div class="table-wrap">
+          <table count-columns="2" class="Table" height="147" width="1048">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <h2 id="command">Command</h2>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <h2 id="description">Description</h2>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <b
+                    >dism /online /set-edition:ServerStandard
+                    /productkey:N69G4-B89J2-4G8F4-WWYCC-J464C /accepteula</b
+                  >
+                </td>
+                <td colspan="1" rowspan="1">
+                  Applies GVLK and converts to an appropriate ver. of OS.<br />
+                  The Execution of Command might take up to 30 minutes
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><b>slmgr.vbs /upk </b></td>
+                <td colspan="1" rowspan="1">Removes GVLK from OS</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><b>slmgr.vbs /cpky</b></td>
+                <td colspan="1" rowspan="1">Removes GVLK from OS</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><b>slmgr.vbs /ipk XXXXX-XXXXX-XXXX-XXXXX-XXXXX</b></td>
+                <td colspan="1" rowspan="1">Applies VL key</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><b>slmgr.vbs /ato</b></td>
+                <td colspan="1" rowspan="1">forced activation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        XXXXX-XXXXX-XXXX-XXXXX-XXXXX - is a VL key.<br /><br /> 
+      </div>
+    </article>
+  </body>
+</html>

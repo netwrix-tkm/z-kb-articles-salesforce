@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How To Increase File Hash Max for Extension</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcbCAE" />
+    <meta name="Id" content="ka04u000000HdASAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:52:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8250" />
+    <meta name="ArticleNumber" content="000008250" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article will help you in increasing your FileHash Max for extension when you receive
+          the error below
+        </p>
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   															Example Message:																										  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+Hash attribute not calculated, file lenght is bigger than the current filehashmaxforextension limit: C:\folder\subfolder\myfile.exe (171758423 bytes)
+
+</pre
+            >
+          </div>
+        </div>
+        <h2 id="HowToIncreaseFileHashMaxforExtension-HowtoIncreasetheDefaultFileHashMaximum">
+          How to Increase the Default File Hash Maximum
+        </h2>
+        <p>To increase the maximum filehash size:</p>
+        <ol>
+          <li>Stop the Gen7Agent Service<br /><br /></li>
+          <li>
+            Navigate to and edit C:\Program Files\NNT Change Tracker Suite\Gen7Agent\<strong
+              ><span>Gen7Agent.Service.exe.config<br /><br /></span
+            ></strong>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Look for the following lines of code - Generally this will be in line 13 and 14:
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p><strong /></p>
+                <p><strong /></p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Edit the value to represent the number which you want to increase it to. Note that the
+              higher the number, the more resources and time it takes to hash the file. Example
+              (500MB):
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p><strong /></p>
+                <p><strong>524288000" /&gt;</strong></p>
+              </div>
+            </div>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>
+                  Note that this website is good for conversions. We are looking to convert
+                  Megabytes to Bytes:
+                </p>
+                <p>
+                  <a
+                    class="external-link"
+                    href="http://www.matisse.net/bitcalc/?input_amount=135&amp;input_units=megabytes&amp;notation=legacy"
+                    target="_blank"
+                    >http://www.matisse.net/bitcalc/?input_amount=135&amp;input_units=megabytes&amp;notation=legacy</a
+                  >
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>Save the file and close the word processor used to make the changes<br /><br /></li>
+          <li>Start the Gen7Agent Service</li>
+        </ol>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            You may find that you need to do this on multiple agents. If this is the case, this file
+            can be copied and pasted on agents that have the same version number, and are in default
+            state, but a service stop and start is needed in order for the changes to take affect.
+          </div>
+        </div>
+        <h2 id="HowToIncreaseFileHashMaxforExtension-Relatedarticles">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8302" target="_blank"
+                >Support for TLS 1.2 in the .NET Framework 3.5.1</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8285" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8265" target="_blank"
+                >Change Tracker ‚Äì How to Create a Custom Tracked Attributes Filter Within a
+                Configuration Template</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8261" target="_blank"
+                >How To Increase File Content Max for Extension</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8253" target="_blank"
+                >Rolling-Log Fix: "Script error executing line 6: ExecuteAndCaptureChunked -
+                /NNT_FILEHASH_LINUX_X64: Permission denied‚Äù (AGENTLESS LINUX)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

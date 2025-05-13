@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to count number of CPU cores on your Oracle Database deployment?</title>
+    <meta name="label" content="ct_administration" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9V9CAK" />
+    <meta name="Id" content="ka04u000000HcOWAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="717" />
+    <meta name="ArticleNumber" content="000003143" />
+    <meta
+      name="description"
+      content="Find out how many Netwrix Auditor Licenses you need for your Oracle instance"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to count number of CPU cores on your Oracle Database deployment?
+
+        <hr />
+
+        The licensing for Netwrix Auditor for Oracle Database is based on the number of CPU cores
+        utilized by the entire Oracle Database deployment (the CPU_CORE_COUNT_CURRENT parameter). To
+        find the overall core count, you will need to retrieve the number of CPU cores on each
+        Oracle Database instance and put the numbers together. Perform the following steps:
+        <ol>
+          <li>On the computer where your database is deployed, run the <b>sqlplus </b>tool.</li>
+          <li>
+            Connect to your Oracle Database instance—use Oracle account with the SYSDBA privilege.
+            For example:
+          </li>
+        </ol>
+        <div>OracleUser as sysdba</div>
+        <div>Enter your password.</div>
+        <ol start="3">
+          <li>Execute the following SQL query:</li>
+        </ol>
+        <div>select CPU_CORE_COUNT_CURRENT from V$LICENSE;</div>
+        <div>
+          Repeat these steps for every Oracle Database instance and then sum up the results to
+          receive the number of CPU cores for the entire deployment.
+        </div>
+        <div>For details on the Oracle Database commands mentioned in this article, refer to</div>
+        <div>
+          <a
+            href="https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_1144.htm#REFRN30116"
+            target="_blank"
+            >https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_1144.htm#REFRN30116</a
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

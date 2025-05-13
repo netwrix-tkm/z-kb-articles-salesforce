@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      StealthAUDIT 9.0 scoping still scans all folders even though an explicit inclusion filter has
+      been applied
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IPwCAM" />
+    <meta name="Id" content="ka04u000000HcmeAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:48:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:06:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:22:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6581" />
+    <meta name="ArticleNumber" content="000006581" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong>
+          <span class="wysiwyg-font-size-medium"
+            >You've set up your scoping options to scan only specific folders (as folder includes),
+            however the job still scans everything on your Share.</span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              >You've set up the scoping options to only scan a few folders, however you notice that
+              scans are taking excessively long for only scanning a folder that doesn't have many
+              sub folders or files in it. Upon scan completion or log inspection you've noticed that
+              the scan has scanned the entire share and not honored the scoping settings.</span
+            ></span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              >Make sure that if you only want to scan a certain folder that you exclude everything
+              else. Just because you explicitly include a folder to be scanned doesn't automatically
+              exclude everything else (as was the case in versions prior to SA v9.0). Instead,
+              manually add the entry as a wild card (*) and make it a folder exclusion.</span
+            ></span
+          ><br /><br /><span><span>Example:</span></span
+          ><br /><span
+            ><span>You want to scan folder c:\Test on FileServer1 and nothing else.</span></span
+          ><br /><br /><span
+            ><span>First add a global exclusion, and then add an explicit inclusion:</span></span
+          ><br /><img
+            alt="mceclip0.png"
+            src="kA04u0000000IPwCAM_d3d6d54c-1cee-49e3-b666-c6e3dc42a76d.png"
+          /><br /><span
+            ><span class="wysiwyg-font-size-medium"
+              >The following shows an ineffective direct folder inclusion.</span
+            ></span
+          ><br /><img
+            alt="mceclip1.png"
+            src="kA04u0000000IPwCAM_0fd7ce52-f125-465c-92b2-f3493db5aa7d.png"
+          /><br /> 
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA - Permissions;SA - DC - FSAA -
+          Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          SA 9.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          24050 /SAFS-1621<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000002479
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

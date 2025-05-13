@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Exclude/Edit Information from Process Output Tracking (Agentless)</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdjCAE" />
+    <meta name="Id" content="ka04u000000HdAlAAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:55:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8270" />
+    <meta name="ArticleNumber" content="000008270" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This is useful when you are receiving several change events in process output that you
+          want to exclude. Examples of unwanted information that will always change include
+          <strong>"uptime"</strong> and <strong>"Time Source"</strong> information.
+        </p>
+
+        <p><u>See Screenshot for an example of a Change we'd want to exclude:</u></p>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JdjCAE_f2e6902c-8852-46d5-9af6-f4627293871c.jpg"
+          /></span>
+        </p>
+
+        <h2 id="HowtoExclude/EditInformationfromProcessOutputTracking(Agentless)-Step-by-stepguide">
+          Step-by-step guide
+        </h2>
+
+        <p>
+          Please follow the steps below to Exclude/Edit Information from Process Output Tracking:
+        </p>
+
+        <ol>
+          <li>First go to <strong>"Settings"</strong></li>
+          <li>On the sidebar, click <strong>"Credentials"</strong></li>
+          <li>
+            S<span
+              >elect the credentials that fall under this device and click
+              <strong>"Edit"</strong></span
+            >
+          </li>
+          <li>
+            <span
+              ><span>See Screenshots Below:</span><br />
+              <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+                ><img
+                  class="confluence-embedded-image"
+                  height="250"
+                  src="kA04u0000000JdjCAE_87b6a0f9-78d1-4681-b48a-8371e4cfcdce.png" /></span
+            ></span>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Next, we will need to edit the login script to exclude this line from appearing
+                  in the .</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      >Please enter the text below above everything in the login script:</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            ><br />
+            <br />
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      >ExcludeMatchesWithComment,**<span>Variable One</span>**,<span
+                        >Variable Two</span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            ><br />
+             
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><u><strong>Variable One: </strong></u>Edit this text andEnter what you
+                        would like the edited message to be.</span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><strong><u>Variable Two:</u></strong
+                    >Edit this text andEnter the first few words in the line you wish to
+                    exclude/edit</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span>See Screenshot below for Example:</span><br />
+                    <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+                      ><img
+                        class="confluence-embedded-image"
+                        height="250"
+                        src="kA04u0000000JdjCAE_d5a5e2d7-8b84-4795-9cca-084d163084cf.png" /></span></span></span></span></span
+            ><br />
+             
+          </li>
+          <li>
+            After adding this line, click update and start the process output tracker from the
+            devices screen<br />
+            <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JdjCAE_787e700c-fadd-4f03-892b-ec3afd613992.png" /></span
+            ><br />
+            <br />
+            <u><strong>Please see an example ofcorrectly configured exclusion:</strong></u
+            ><br />
+            Edited Login Script<br />
+            <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JdjCAE_6f4cc2a7-615a-4902-899c-dced63460da3.png" /></span
+            ><br />
+            <br />
+            Post Edit and Baseline:<br />
+            <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JdjCAE_8e7732f7-54d2-4661-b9f7-47705c239527.png"
+            /></span>
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <div class="confluence-information-macro-body">
+            <p>
+              <strong
+                ><span
+                  >NOTE: THIS WILL NOT EDIT THE INFORMATION ON THE MACHINE ITSELF, ONLY WHAT IS
+                  BEING SENT TO CHANGE TRACKER</span
+                ></strong
+              >
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <div class="confluence-information-macro-body">
+            <p>
+              <span
+                ><span
+                  ><span
+                    ><span
+                      ><strong><span>NOTE</span> </strong>Multiple Exclusions can be added to the
+                      Login Script, See Screenshot below for Example:<br /><span
+                        class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+                        ><img
+                          class="confluence-embedded-image"
+                          height="250"
+                          src="kA04u0000000JdjCAE_8d27db1f-2d53-407a-b187-98c218322b54.png" /></span></span></span></span
+              ></span>
+            </p>
+          </div>
+        </div>
+
+        <h2 id="HowtoExclude/EditInformationfromProcessOutputTracking(Agentless)-Relatedarticles">
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8282" target="_blank"
+                >Monitoring Oracle Databases using Change Tracker</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK92&amp;d=%2Fa%2F4u000000M04e%2FnzK0brZIwDuJ09l3Cq8FMDygWxUkOSDYmh8kjpTLg_I&amp;asPdf=false"
+          target="_blank"
+          >Event1.jpg</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKOU&amp;d=%2Fa%2F4u000000M04j%2FSADAH1GJTv_DUgjS1goMKSLZf1RSH9i2WOpQBhntsy8&amp;asPdf=false"
+          target="_blank"
+          >5.PNG</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKYm&amp;d=%2Fa%2F4u000000Lzrl%2FYLFEw5qbtmwArhlQDSneDWrI.zbfQKndX2hT22vCAuw&amp;asPdf=false"
+          target="_blank"
+          >6.PNG</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKRJ&amp;d=%2Fa%2F4u000000M04o%2FiVJpxO3YrPTa9X0MTE8mZhrlOcWCqLjR.nIXSu1NnDs&amp;asPdf=false"
+          target="_blank"
+          >4.PNG</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKYd&amp;d=%2Fa%2F4u000000LzXy%2Fezvm_bOHsNkdOJ6YijGyYRj5WpVz8aiJOcNizjaF12Y&amp;asPdf=false"
+          target="_blank"
+          >3.PNG</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdJql&amp;d=%2Fa%2F4u000000LzpH%2FTvAmqcACsmiyTcTBZLrlZPdCqdvY8OXWAA345DjrNW4&amp;asPdf=false"
+          target="_blank"
+          >2.PNG</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKWI&amp;d=%2Fa%2F4u000000M04t%2FpADpXSgEiZu2rVywwSO6WJgQNBZaVCiiVqAz8hK.W9s&amp;asPdf=false"
+          target="_blank"
+          >1.PNG</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

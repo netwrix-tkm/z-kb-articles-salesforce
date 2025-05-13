@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Enterprise Auditor Upgrade Workflow—Preparations</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_installupgrade" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001Sv7KAE" />
+    <meta name="Id" content="ka0Qk0000005lkfIAA" />
+    <meta name="LastPublishedDate" content="2024-09-26T08:46:18.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-26T08:46:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-26T08:46:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9287" />
+    <meta name="ArticleNumber" content="000009287" />
+    <meta name="description" content="Enterprise Auditor Upgrade Workflow—Preparations" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span> Return to the main workflow page via
+            this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001T1ZKAU.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001SwjKAE.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow—Upgrade</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="ovrvw">Overview</h2>
+
+        <div>
+          <p>
+            This article lists the steps to prepare for the Enterprise Auditor upgrade procedure.
+          </p>
+        </div>
+
+        <h2 id="consid">Upgrade Considerations</h2>
+
+        <div>
+          <p>Refer to the following points to learn more about the upgrade scope:</p>
+
+          <ul>
+            <li>
+              <p>The Access Information Center should be upgraded along with NEA.</p>
+            </li>
+            <li>
+              <p>
+                If you run SharePoint on-premise scans, the SharePoint agent must be updated on the
+                SP server.
+              </p>
+            </li>
+            <li>
+              <p>
+                When upgrading from v11.5 to v11.6, any scheduled Azure jobs should be re-scheduled
+                due to the Entra ID rebranding.
+              </p>
+            </li>
+            <li>
+              <p>
+                When upgrading from v11.5 to v11.6, your must manually upgrade each proxy service
+                instead of running the <strong>FS_UpdateProxy</strong> job.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="refScr">Reference Screenshots</h2>
+
+        <div>
+          <p>Refer to the following list of reference screenshots to take before the upgrade:</p>
+
+          <ul>
+            <li>
+              <p>Installed programs (<strong>Programs and Features</strong>) via Control Panel:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">appwiz.cpl</code></pre>
+            </li>
+            <li>
+              <p><strong>License</strong> (<strong>Help</strong> &gt; <strong>About</strong>)</p>
+            </li>
+            <li>
+              <p>Each of the global <strong>Settings</strong> subnodes</p>
+            </li>
+            <li>
+              <p>The <strong>Schedules</strong> node</p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>When upgrading from SA
+                  v11.5 to NEA v11.6 and newer, pay attention to any Azure-related tasks. These
+                  tasks should be recreated under the new Entra ID naming after the upgrade.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>The job tree structure with contents of each module</p>
+            </li>
+            <li>
+              <p>
+                Query settings of the <strong>Active Directory Inventory</strong>/<strong
+                  >1-AD_Scan</strong
+                >
+                job, including the <strong>Options</strong> page and the
+                <strong>Custom Attributes</strong> page
+              </p>
+            </li>
+            <li>
+              <p>
+                Upload the <strong>Active Directory Inventory</strong> &gt;
+                <strong>1-AD_Scan</strong> &gt; <strong>Active Directory Summary</strong> report to
+                SalesForce (Customer Account &gt; Related &gt; Notes &amp; Attachments)
+              </p>
+
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>Upload the screenshot to
+                  SalesForce—<strong>Customer Account</strong> &gt; Related &gt;
+                  <strong>Notes &amp; Attachments</strong>.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Every page of the FSAA, FSAC, SEEK, SPAC, SPAA/SPSEEK scans query settings</p>
+            </li>
+            <li>
+              <p>Every page of the AIC settings</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="flBckp">File Backups</h2>
+
+        <div>
+          <p>
+            Create a separate <code>NEAUpgrade_%date%</code> folder to store related backup files.
+            Refer to the following list of files to be backed up:
+          </p>
+
+          <ul>
+            <li>
+              <p>The NEA license file:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%StealthAUDIT.lic</code></pre>
+            </li>
+            <li>
+              <p>Host list definitions:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%SADatabase\Views</code></pre>
+            </li>
+            <li>
+              <p>All connection profiles:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%SecurityMap</code></pre>
+            </li>
+            <li>
+              <p>Global Options/Settings:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%GlobalOptions.xml</code></pre>
+            </li>
+            <li>
+              <p>Connection profiles:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%SPProfiles.xml</code></pre>
+            </li>
+            <li>
+              <p>RBA configuration:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%rba.conf</code></pre>
+            </li>
+            <li>
+              <p>Reporting RBA configuration:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%rba-reporting.conf</code></pre>
+            </li>
+            <li>
+              <p>Published reports configuration:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%Web\WebServer.exe.config</code></pre>
+            </li>
+            <li>
+              <p>Custom SDD criteria:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%DC\MyPatternsDef.xml</code></pre>
+            </li>
+            <li>
+              <p>Configured SDD criteria:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%DC\PatternsDef.xml</code></pre>
+            </li>
+            <li>
+              <p>Back up customized jobs:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%Jobs</code></pre>
+            </li>
+            <li>
+              <p>
+                Certificates on the server and the ports they are bound to. Refer to the following
+                steps:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Create an <code>ssl.txt</code> file in the
+                    <code>NEAUpgrade_%date%</code> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Hold <kbd>Shift</kbd>, right-click the text file, and select
+                    <strong>Copy as path</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In an elevated PowerShell instance, run the following line to save the
+                    <code>netsh</code> output to the file:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">netsh http show ssl &gt; %ssl.txt_location%</code></pre>
+
+                  <p>See the following line for an example:</p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">netsh http show ssl &gt; "C:\Users\agradmin\Desktop\testfolder\ssl.txt"</code></pre>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                AIC configuration—refer to the corresponding default location based on your AIC
+                version. In AIC v11.5:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\inetpub\wwwroot\StealthAUDIT Compliance\</code></pre>
+
+              <p>In AIC v11.6:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files\STEALTHbits\Access Information Center</code></pre>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

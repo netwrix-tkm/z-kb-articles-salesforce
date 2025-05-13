@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_4.1.0.703_5.0.0.735</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IeNCAU" />
+    <meta name="Id" content="ka04u000000HcsKAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6877" />
+    <meta name="ArticleNumber" content="000006877" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Active Directory
+          group lockdown policy not blocking consistently
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong>Active Directory group lockdown policy not
+          blocking consistently<br /><b><i>Before fix: </i></b>it happens because list of objects
+          for this policy is too big. Semicolon separated list of values in blocking rule can have
+          not more than 1024 characters but in this policy it is more than 7000 characters.
+          Therefore this list passed to AdMonitor as truncated and therefore some groups are blocked
+          and some are not.<br /><strong
+            ><i><span>After fix: </span></i></strong
+          >Increased buffer size of INI-parser to 30MB<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Maxim Sidarau<br /><strong><span>Affected Versions:</span></strong
+          ><br />3.4.0      No Patch created at this time<br />3.4.1      No Patch created at this
+          time<br />3.4.2      No Patch created at this time<br />4.0.0      No Patch created at
+          this time<br />4.1.0      WindowsAgent_4.1.0.703_SI-3446<br />5.0.0     
+          WindowsAgent_5.0.0.735_SI-3446<br /><strong><span>Affected Module:</span></strong
+          ><br />SI - Windows Agent<br /> <br /><strong><span>Dev Ticket:</span></strong
+          ><br />I-3286<br /><strong><span>Resolved in Version:</span></strong
+          ><br />4.1.0.703<br />5.0.0.735<br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><b>Escalations: </b>22758<br /><b>Customers:  </b>Charles Schwab
+          &amp; Co., Inc.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Stop
+          SIWindowsAgent service<br />2. Extract attached archive to the "C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Start SIWindowsAgent
+          service<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI4.1.0/WindowsAgent_4.1.0.703_SI-3446.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI4.1.0/WindowsAgent_4.1.0.703_SI-3446.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/WindowsAgent_5.0.0.735_SI-3446.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/WindowsAgent_5.0.0.735_SI-3446.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          4.1.0, 5.0.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          SI-3446<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          4.1.0.703; 5.0.0.735<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1799<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

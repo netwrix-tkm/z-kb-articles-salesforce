@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to exclude Smart Card users from monitoring by Password Expiration Notifier?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cZCAS" />
+    <meta name="Id" content="ka04u000000HcVKAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2277" />
+    <meta name="ArticleNumber" content="000003593" />
+    <meta
+      name="description"
+      content="The KB provides how to exclude Smart Card users of being monitored by Password Expiration Notifier."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to exclude Smart Card users from Password Expiration Notifier monitoring scope?
+        <hr />
+        Perform the following steps:
+        <ol>
+          <li>
+            On the computer where Netwrix Auditor Server resides, open Registry Editor: navigate to
+            Start &gt; Run and type "regedit";
+          </li>
+          <li>
+            In the Registry Editor, create a new registry key:
+            HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Netwrix Auditor\Password Expiration
+            Notifier\&lt;Monitoring plan GUID&gt;.
+          </li>
+          <li>
+            Create the new DWORD "IgnoreUsersWithSmartCardsSettings" value under this key and set it
+            to 1.
+          </li>
+        </ol>
+        Note: The shortest way to learn the Monitoring plan GUID would be looking up the trace file
+        for the following line: Profile: {0}
+      </div>
+    </article>
+  </body>
+</html>

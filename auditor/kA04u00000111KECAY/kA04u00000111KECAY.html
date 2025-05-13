@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Subscription Generation Fails Due To Incorrect Date_From Value</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111KECAY" />
+    <meta name="Id" content="ka04u000001189SAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-11T08:27:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-11T08:27:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-09T16:52:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8849" />
+    <meta name="ArticleNumber" content="000008849" />
+    <meta
+      name="description"
+      content="This article contains resolution for the &#34;value provided for the report parameter 'Date_From' is not valid for its type&#34; error."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The subscription generation fails and the subscription history contains the following
+            error:
+          </p>
+
+          <pre class="has-inner-focus">
+The value provided for the report parameter 'Date_From' is not valid for its type.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The issue occurs for the subscriptions based on the reports with date and time fields
+            when a non-English locate has been enabled in the OS on the computer that hosts Auditor
+            Server.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Change the system locale to English (United States). For that:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts Auditor Server, navigate to <b>Control Panel</b>
+                <b>Region</b> <b>Administrative tab</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click the <b>Change system locale ...</b> button and select
+                <b>English (United States)</b> in the <em>Current system locale:</em> field.
+              </p>
+            </li>
+            <li>
+              <p>Change the system locale for the system accounts. For that:</p>
+
+              <ul>
+                <li>
+                  <p>Navigate to <b>Control Panel</b> <b>Region</b> <b>Administrative tab</b>.</p>
+                </li>
+                <li>
+                  <p>
+                    Click <b>Copy settings ...</b> and tick
+                    <em>Welcome screen and system accounts'</em>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Reboot Auditor Server.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

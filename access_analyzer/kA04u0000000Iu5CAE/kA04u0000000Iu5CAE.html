@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scripting for the PowerShell Data Collector</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Iu5CAE" />
+    <meta name="Id" content="ka04u000000Hcy5AAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:49:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:12:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:40:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7302" />
+    <meta name="ArticleNumber" content="000007302" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Provides an
+          explanation and example of how to create custom PowerShell scripts for StealthAUDIT's
+          PowerShell data collector.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Provides an
+          explanation and sample script describing how to create a custom object in PowerShell so
+          that StealthAUDIT's PowerShell data collector returns the data as expected.   
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            >The parser takes whatever object it's passed <u>first</u> and attempts to enumerate the
+            members to get the columns, then looks at the object definition to translate the
+            object's properties into columns in SQL.  The following is a simplified example of how
+            the data collector would parse an object.  </span
+          >
+        </p>
+
+        <div>
+          <span>$objectFromScript</span><span> | </span><span>select-object</span
+          ><span> -first 1 | </span><span>get-member </span><span>| </span><span>where-object</span
+          ><span> {</span><span>$_</span><span>.membertype -like </span><span>'*property*'</span
+          ><span> -and </span><span>$_</span><span>.membertype -ne </span
+          ><span>'parameterizedProperty'</span><span>}</span>
+        </div>
+
+        <p>
+           <br /><span
+            >Here's a simple PowerShell command, that doesn't return a very clear object.
+          </span>
+        </p>
+
+        <div>
+          <span>gci</span> <span>c:\</span><span> | </span><span>foreach</span><span>{</span
+          ><span>$_</span><span>.name,</span><span>$_</span><span>.versioninfo.FileVersion,</span
+          ><span>$_</span><span>.fullname}</span>
+        </div>
+
+        <p>
+           <br /><span
+            >In fact, if pipe it to the get-member command above, all you get is "Length"</span
+          >
+        </p>
+
+        <p>
+          <img
+            alt="mceclip2.png"
+            src="kA04u0000000Iu5CAE_88be00ee-202c-470d-9637-86a93ff72fc3.png"
+          /><br /> <br /><span
+            >Which is the same as what the PowerShell DC gets when you run the validation.</span
+          ><br /> <br /><img
+            alt="mceclip1.png"
+            src="kA04u0000000Iu5CAE_74ce73c2-e1ac-4c93-b071-e2f92d0f029d.png"
+          /><br /> <br /><span
+            >In order to get this to parse, we need to pass the DC an object (or a series of
+            objects, only the first of which will generally be parsed). </span
+          ><span
+            >I usually use the following format, which defines and populates an "<span
+              ><span>$output</span></span
+            >" variable and then displays its contents.</span
+          >
+        </p>
+
+        <div>
+           <span><span>$folders</span></span
+          ><span><span> = </span></span><span><span>get-childitem</span></span>
+          <span><span>-Path</span></span> <span><span>C:\</span></span
+          ><br /><br /><span><span>foreach</span></span> <span>(<span>$obj</span></span>
+          <span><span>in</span></span
+          ><span> (<font color="#0000ff">$folders</font></span
+          ><span>))</span><br /><span>{</span><br /><span
+            ><span>#instantiate the object and its properties</span></span
+          ><br /><span><span>$output</span></span
+          ><span>= </span><span><span>""</span></span> <span><span>|</span></span>
+          <span><span>select </span></span
+          ><span><span>Name, FileVersion,</span> <span>FullName</span></span
+          ><br /> <br /><span><span>#assign values to the properties</span></span
+          ><br /><span><span>$output</span></span
+          ><span>.</span><span>Name<span>=</span><span>$obj</span></span
+          ><span>.</span><span>Name</span><br /><span><span>$output</span></span
+          ><span>.</span><span>FileVersion<span>=</span><span>$obj</span></span
+          ><span>.</span><span>VersionInfo.FileVersion</span><br /><span><span>$output</span></span
+          ><span>.</span><span>FullName<span>=</span><span>$obj</span></span
+          ><span>.</span><span>FullName</span><br /> <br /><span
+            ><span>#pass the object to the Data Collector</span></span
+          ><br /><span><span>$output</span></span
+          ><br /><span>}</span>
+        </div>
+
+        <p>
+          <br /><br />Note: If you want to, you could run the following line to have PowerShell
+          parse this $output object back out, similar to how StealthAUDIT would.  
+        </p>
+
+        <div>
+          <span>$</span><span><span>output </span></span
+          ><span>| </span><span>select-object</span><span> -first 1 | </span><span>get-member </span
+          ><span>| </span><span>where-object</span><span> {</span><span>$_</span
+          ><span>.membertype -like </span><span>'*property*'</span><span> -and </span><span>$_</span
+          ><span>.membertype -ne </span><span>'parameterizedProperty'</span><span>}</span>
+        </div>
+
+        <div><br /><br /><br /><br /><strong>Important note about memory consumption</strong></div>
+
+        <div>
+          The above example stores the immediate subfolders of C:\ to the $folders variable.  <br />This
+          could result in out of memory errors on larger systems, if you added -recurse, for
+          example.  <br />The proper way to handle that would be to stream the data into the loop,
+          rather than storing it into a variable first.  <br /> 
+        </div>
+
+        <div>
+          <strong
+            >This is a slightly more complex example, combining multiple data points into a single
+            custom object, as well as streaming the data into the output object loop: </strong
+          >
+        </div>
+
+        <div>
+          <br /><span>$OSInfo</span>=(<span>get-wmiobject</span>
+          <span>win32_operatingsystem</span> -computername<span> [SAHOSTNAME]</span>)<br /><span
+            >get-wmiobject</span
+          >
+          <span>win32_logicaldisk</span> -computername <span>[SAHOSTNAME]</span> |
+          ?{<span>$_</span>.drivetype <span>-eq</span> <span>3</span>}) | <span>foreach-object</span
+          ><br />{<br />    <span>$output</span>="" | select<span>
+            SerialNumber, Version, DeviceID, FreeSpace, Size, RowGUID</span
+          ><br />   <span> $output</span>.SerialNumber=<span>$OSInfo</span>.SerialNumber<br />   
+          <span>$output</span>.Version=<span>$OSInfo</span>.Version<br />   
+          <span>$output</span>.DeviceID=<span>$_</span>.DeviceID<br />   
+          <span>$output</span>.FreeSpace_GB=<span>$_</span>.FreeSpace / <span>1GB</span><br />   
+          <span>$output</span>.Size_GB=<span>$_</span>.Size / 1GB<br />   
+          <span>$output</span>.RowGUID=<span>[guid]</span>::NewGUID()<br />    <br />    <span
+            >$output</span
+          ><br />}
+        </div>
+
+        <div>
+          <br />Protip: If your validation passes, but it doesn't return the columns you're
+          expecting, it's because there's another object that's being returned before yours. This
+          happens sometimes with action cmdlets, like new-item or connect-PSSession that return
+          output (sometimes silently). The solution here is to either save to a variable (if you
+          want to use the output object later), or pipe to out-null. 
+        </div>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - PowerShell<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          all<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          1865
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Information about SQLite version in AUDIT 9.0</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IL6CAM" />
+    <meta name="Id" content="ka04u000000HcktAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:28:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:18:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6506" />
+    <meta name="ArticleNumber" content="000006506" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Details on
+          issues/situations with SQLite version updates in AUDIT 9.0
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                >Details about SQLite version update in AUDIT 9.0, in Q&amp;A/FAQ format.</span
+              ></span
+            ></span
+          ><br /><span><strong> </strong></span
+          ><br /><span
+            ><strong
+              ><span><span>Instructions:</span></span></strong
+            > </span
+          ><br /><span> </span><br /><span
+            ><span
+              ><span
+                >Q:
+                <strong
+                  >Why was the version of SQLite (which is what handles T2 data files in AUDIT)
+                  updated to a newer version</strong
+                >?</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>A: </span></span
+            ><span
+              >We updated the version of SQLite with the original 9.0 release to try and stay on the
+              latest and greatest of our 3rd party components (which customers usually request we
+              do). This addressed potential security concerns, allows us to leverage new features if
+              we choose to, and has the potential to increases performance.
+            </span></span
+          ><br /><span
+            ><span
+              >An additional update was was required in a hotfix early in the 9.0 lifecycle
+              <span
+                >to address intermittent file system scanning errors that resulted in the following
+                error (or similar) being displayed.  "code = Misuse (21), message =
+                System.Data.SQLite.SQLiteException: bad parameter or other API misuse. Failed to
+                configure managed assembly logging."  (The newer version was needed to turn off
+                assembly logging, which we do not leverage, and was required to suppress the
+                error.)  This second update in the hotfix does have some minor risk of affecting the
+                product if somehow the older DLL is used, however.</span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                >Q:
+                <strong
+                  >When was this hotfix SQLite version change made, and what components of
+                  StealthAUDIT are affected?</strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >A: This change was made in StealthAUDIT hotfix SA_9.0_018, and are present in
+                StealthAUDIT cumulative update 9.0.0.108 and higher.  If you are using this version
+                or later, you must also use updated versions of the Sensitive Data Add-On (version
+                9.0.0.27 or higher) and the SPAA Agent (version 9.0.0.24 or higher).</span
+              ></span
+            ></span
+          ><br /><span> </span><br /><span
+            ><span
+              ><span
+                >Q:
+                <strong
+                  >What are the old and new versions of the SQLite DLLs that are affected?</strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >A:   The old version is 1.0.110, and the new version is 1.0.112.0.   The affected
+                files are System.Data.SQLite.dll and SQLite.Interop.dll.  (Note that
+                System.Data.SQLite.dll.config is also added, and must exist anywhere
+              </span></span
+            ><span
+              >System.Data.SQLite.dll exists.  The prior 1.0.110.0 version did not have this file
+              included.)</span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span>Q: <strong>Where might these affected files be found?</strong></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >A: If there are questions about the version of the DLLs, they should be checked in
+                in (Root of) %SAINSTALLDIR% and the Private Assemblies folder.  If the files appear
+                in the root %SAINSTALLDIR% folder, the versions there will generally be used in
+                preference to files in the specific folders.  Be aware that the Sensitive Data
+                Add-on puts new copies of the files in the root %SAINSTALLDIR% on purpose to address
+                prior conditions that may have caused the files to be present there. 
+              </span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >(Informational note: The main StealthAUDIT installer updates the files in the
+                Private Assemblies folder.  Jobs will copy the needed files from the Private
+                Assemblies if they are newer, so only the root %SAINSTALLDIR% and Private Assembly
+                folders need to be checked for updated files.  For example, the FSAA DC copies the
+                DLLs from Private Assemblies to the FSAA folder if needed.  The Web folder will also
+                potentailly contain the older version of the file, which does not affect product
+                functionality.)</span
+              ></span
+            ></span
+          ><br /><span> </span><br /><span
+            ><span
+              ><span
+                >Q:
+                <strong
+                  >If I try to run with the wrong version of the files, what will happen?</strong
+                > 
+              </span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >A: File system scans will likely fail, generally with an error that says
+                "System.IO.FileLoadException:
+              </span></span
+            >Could not load file or assembly 'System.Data.SQLite, Version=1.0.110.0,
+            Culture=neutral, PublicKeyToken=db937bc2d44ff139' or one of its dependencies. The
+            located assembly's manifest definition does not match the assembly reference. (Exception
+            from HRESULT: 0x80131040)"</span
+          ><br /> 
+        </p>
+
+        <p> </p>
+
+        <p>
+          <strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>Submitted by: </span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span>Robert Parsons</span></span></span
+            ></span
+          ><br /><strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>Product:</span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span> AUDIT (and Sensitive Data Add-on, when in use)</span></span></span
+            ></span
+          ><br /><strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>Affected Versions:</span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span> AUDIT 9.0</span></span></span
+            ></span
+          ><br /><strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>Affected Module:</span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span>mostly file system scanning, possibly others</span></span></span
+            ></span
+          ><br /><strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>Dev Ticket:</span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span> NA</span></span></span
+            ></span
+          ><br /><strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>Resolved In Version:</span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span>NA</span></span></span
+            ></span
+          ><br /><strong
+            ><span class="wysiwyg-font-size-large"
+              ><span
+                ><span><span>KB Type:</span></span></span
+              ></span
+            ></strong
+          ><span class="wysiwyg-font-size-large"
+            ><span
+              ><span><span> FAQ</span></span></span
+            ></span
+          >
+        </p>
+
+        <p> </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          9.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000002591
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

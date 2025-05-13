@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_8.1_037</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IauCAE" />
+    <meta name="Id" content="ka04u000000Hcr3AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6799" />
+    <meta name="ArticleNumber" content="000006799" />
+    <meta name="description" content="360012217852" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> This is a fix for
+          SQL DC using the connection profile credentials to attempt to connect to StealthAUDIT
+          database that the console is using.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:</span></strong
+          ><br />This is a fix for SQL DC using the connection profile credentials to attempt to
+          connect to StealthAUDIT database that the console is using.<br /><br /><strong
+            ><span>Behavior Before Fix: </span></strong
+          ><br />The logs indicate that there is an error using [connection profile username] to
+          connect to [SMP database hostname] and access was denied.  The scan fails.<br /><br /><strong
+            ><span>Behavior After Fix: </span></strong
+          ><br />The SQL DC uses the system account to connect to the SA database<br /><br /><b
+            >Changes Since Last Hotfix:</b
+          ><br /><a
+            href="http://stealthbits.myjetbrains.com/youtrack/issue/SAT-2976"
+            target="_blank"
+            ><span
+              ><span
+                ><span><span>SAT-2976</span></span></span
+              ></span
+            ></a
+          > <span
+            ><span
+              ><span
+                ><span> SQL DC jobs do not correctly cycle through multiple credential </span></span
+              ></span
+            ></span
+          ><br /><br /><b>Modules Included:</b><br />-
+          Stealthbits.StealthAUDIT.DataCollectors.SQL.dll 8.1.127<br />-
+          Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll 8.1.127<br />- DCSQL.dll 8.1.127<br /> <br /><b
+            >YouTrack/Escalations</b
+          ><br />SAT-3143/24910<br /><br /><b>Customers</b><br />Science Museum Groups<br /><br /><b
+            >Cumulative List of fixes included since Service Pack:</b
+          ><br /><i
+            >               - SAT-2905  SQL DC: Impersonation Issues 1-SQL_ServerSettings job has
+            two queries - </i
+          ><br /><i
+            >               - SAT-2779  Permissions / SDD will not work if the instance contains an
+            offline db</i
+          ><br /><i
+            >               - SAT-2619  SQL SDD: UAC for File Operations causes scan failure</i
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>               
+          1.  Unblock the hotfix zip file in the windows property dialog, if an unblock button
+          exists there.<br />               2.  Close all instances of StealthAUDIT.<br />              
+          3.  Update the files in the StealthAUDIT\PrivateAssemblies and StealthAUDIT\DC
+          directory.<br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="77">
+                <td colspan="1" rowspan="1" height="77" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_037.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_037.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SQL<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          8.1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAT-3143<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          DCSQL.dll 8.1.127<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1922<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

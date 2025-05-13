@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to update Password Manager</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9V1CAK" />
+    <meta name="Id" content="ka04u00000116OzAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T16:31:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="716" />
+    <meta name="ArticleNumber" content="000003135" />
+    <meta name="description" content="Update Netwrix Password Manager" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        What is the procedure to update Password Manager?
+
+        <hr />
+
+        Prior to upgrade backup the following files from the product installation directory (on
+        backend in case of DMZ setup). This is done for emergency and normally these files will not
+        be required later.
+        <ul>
+          <li><strong>alinfo.bin</strong></li>
+          <li><strong>secrets.bin</strong></li>
+          <li><strong>Predefined Questions.txt</strong></li>
+          <li><strong>Templates folder</strong></li>
+        </ul>
+        <div>
+          <img
+            src="kA00g000000H9V1CAK_70231290-7189-4b11-8600-9ccaf3180484.png"
+            alt="User-added image"
+            width="500"
+            height="533"
+          />
+        </div>
+        <ol start="1">
+          <li>Procedure for single server setup</li>
+        </ol>
+        <ol>
+          <li>
+            Run the installer and follow the instructions of the wizard. All settings will be saved
+            so there is no additional configuration or re-configuration required
+          </li>
+        </ol>
+        <ol start="2">
+          <li>Procedure for DMZ installation</li>
+        </ol>
+        <ol>
+          <li>
+            Run the installer on the backend server under an account with local admin permissions.
+            Setup will update all product files but will not change any product settings (or IIS
+            settings if it is installed on BE)
+          </li>
+          <li>
+            Run the installer on the frontend server under an account with local admin permissions.
+            Setup will update all product files, including PRMService.exe (this file will be
+            recreated if you removed it previously)
+          </li>
+          <li>
+            Make sure the Netwrix Password manager service is still disabled on the frontend server
+          </li>
+          <li>
+            Navigate to the product installation directory and rename
+            <strong>PRMService.exe</strong> to <strong>PRMService.exe.old</strong>
+          </li>
+          <li>
+            Run Task Manager and make sure there is no PRMService.exe process running on the
+            frontend server
+          </li>
+          <li>Check that DCOM settings for Password Manager didn't change:</li>
+        </ol>
+        <ul>
+          <li>
+            Run Component Services configuration (<strong>Start - Run</strong> - <em>dcomcnfg</em>),
+          </li>
+          <li>
+            Navigate to Component services - Computers - My computer - DCOM config - Netwrix
+            Password Manager
+          </li>
+          <li>Right click Netwrix Password Manager node and select Properties</li>
+          <li>
+            Go to Location tab and make sure that
+            <strong>Run application on this computer </strong>checkbox is disabled and
+            <strong>Run application on the following computer</strong> is enabled and points to the
+            backend
+          </li>
+        </ul>
+        <div>
+          <img
+            src="kA00g000000H9V1CAK_13f39769-f45b-4b54-b36f-8d0d5b47a913.png"
+            alt="User-added image"
+            width="500"
+            height="357"
+          />
+        </div>
+        <div>
+          <strong>NOTE</strong>. For the update it is possible to use both the Identity Management
+          installer or explicit installer <strong>prm_setup.exe</strong> that you may get from
+          support
+
+          <strong>NOTE.</strong> Though all new versions of the server are backward compatible with
+          older versions of clients, it is recommended to update Password Manager clients on
+          workstations as well. It can be done with help of<strong> prm_client.msi </strong
+          >installer that can be either found in the product installation directory or received from
+          support.
+
+          <b>NOTE. </b>It may be required to restart the Netwrix Password Manager service upon
+          completion of the upgrade.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

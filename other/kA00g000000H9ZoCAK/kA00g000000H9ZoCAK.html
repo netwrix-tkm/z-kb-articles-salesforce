@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Windows authentication doesn`t work - HTTP error 401</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZoCAK" />
+    <meta name="Id" content="ka04u000000ww3TAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-06T16:04:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1275" />
+    <meta name="ArticleNumber" content="000003424" />
+    <meta
+      name="description"
+      content="Netwrix. Admin and Helpdesk portal getting HTTP error 401 due to windows authentication. Configure windows providers via IIS"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I configured Admin and Helpdesk portal per the
+        <a href="https://kb.netwrix.com/1162" target="_blank">KB1162</a> to use Windows
+        authentication, however I keep getting HTTP error 401. If I switch to Basic, everything
+        works fine, but I don`t want to use Basic authentication.
+
+        <hr />
+
+        Windows authentication in IIS depends on the providers it uses. If providers are configured
+        incorrectly, Windows authentication won`t work.
+
+        <hr />
+
+        Make sure Providers for Windows authentication are configured correctly.
+        <ol>
+          <li>launch <strong>IIS manager</strong></li>
+          <li>
+            Navigate to <strong>admin</strong> virtual directory (by default it is %Server name% -
+            Sites - Default Web Site - PM - admin)
+          </li>
+          <li>Go to<strong> Authentication</strong> configuration</li>
+          <li>Select (highlight) <strong>Windows authentication</strong></li>
+          <li>In the right pane click <strong>Providers</strong></li>
+          <li><strong>NTLM </strong>should be present. Add if needed.</li>
+          <li>Click <strong>OK </strong>to apply changes</li>
+        </ol>
+        <img
+          src="kA00g000000H9ZoCAK_3e9cea05-b860-4596-abd8-7f97f19e7b9a.jpg"
+          alt="User-added image"
+          width="500"
+          height="353"
+        />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Old or Duplicate Events Reported as New in Syslogs</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000ODdKAM" />
+    <meta name="Id" content="ka0Qk0000001R2zIAE" />
+    <meta name="LastPublishedDate" content="2024-01-18T07:46:24.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-22T07:07:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-18T07:46:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9014" />
+    <meta name="ArticleNumber" content="000009014" />
+    <meta name="description" content="Old or Duplicate Events Reported as New in Syslogs" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Old events appear in syslogs as new events. Upon further investigaton, these are
+                confirmed to be duplicates of previously reported events.
+              </p>
+            </li>
+            <li>
+              <p>The affected events have not been resubmitted.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The pending notifications queue in the MongoDB contains notifications for older events.
+            When the outdated notifications are released, they are reported as new events or
+            duplicates of previously reported events.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Install MongoDB Shell − download the MongoDB Shell <code>.zip</code> and place the
+                contents to <code>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</code>.
+                Download MongoDB Shell in
+                <a href="https://www.mongodb.com/try/download/shell" target="_blank"
+                  >MongoDB Shell Download · MongoDB 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once copied, run the <code>mongosh.exe</code> application to connect to your Mongo
+                database. Run the following line:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">mongodb://localhost:27017</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Make sure to replace the
+                  <code>27017</code> port in case MongoDB in your environment uses a different port.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Once connected to your Mongo Database, run the following commands to confirm whether
+                notifications are queued:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">use NNTHubService
+db.IncomingEventQueue.count()
+db.NotificationQueue.count()
+db.PendingNotifications.count()
+db.BackgroundTaskQueue.count()</code></pre>
+            </li>
+            <li>
+              <p>To clean up the queued notifications, run the following commands:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">use NNTHubService
+db.NotificationQueue.deleteMany({})</code></pre>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_links">Related links</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a href="https://www.mongodb.com/try/download/shell" target="_blank"
+                  >MongoDB Shell Download · MongoDB 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

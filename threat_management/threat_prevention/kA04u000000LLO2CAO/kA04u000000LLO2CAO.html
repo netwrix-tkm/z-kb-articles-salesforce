@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>StealthINTERCEPT Agent Returns No Results for Active Directory</title><meta name="label" content="skb"/><meta name="label" content="public_v"/><meta name="label" content="threat_prevention"/><meta name="KnowledgeArticleId" content="kA04u000000LLO2CAO"/><meta name="Id" content="ka0Qk0000004w8fIAA"/><meta name="LastPublishedDate" content="2024-07-17T09:42:23.000+0000"/><meta name="LastModifiedDate" content="2024-08-09T07:43:15.000+0000"/><meta name="FirstPublishedDate" content="2022-10-20T11:20:15.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8506"/><meta name="ArticleNumber" content="000008506"/><meta name="description" content="SI Agent Returns no Results for Active Directory"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>You have encountered the following error in the StealthINTERCEPT logs:</p>
+
+<pre class="has-inner-focus">Failed loading monitor dll:
+C:\Program Files\STEALTHbits\StealthINTERCEPT\SIWindowsAgent\SI.ActiveDirectoryMonitor.dll, status: CannotFindProcess</pre>
+
+<p>When attempting to create a dump of <code>LSASS.exe</code> via Task Manager on the affected domain controller, it fails or creates a 0-kb file. If the dump creation succeeds, it does not indicate that <code>SIWindowsAgent.exe</code> is not blocked, only that <code>Taskmgr.exe</code> is allowed to access <code>LSASS.exe</code>.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>Endpoint protection is hiding the <code>LSASS.exe</code> process from <code>SIWindowsagent.exe</code> or otherwise blocking the hook into the LSASS API. Common EPP solutions include CarbonBlack, Cylance, and CrowdStrike.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>In the EPP configuration, allow <code>SIWindowsAgent.exe</code> and the contents of the SIAgent install directory access to <code>LSASS.exe</code>. Refer to the following default folder:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\STEALTHBits\StealthINTERCEPT\SIWindowsAgent</code></pre>
+
+<p>Refer to the following article for additional information on recommended exclusions for your antivirus and endpoint protection solutions: <a href="https://helpcenter.netwrix.com/bundle/StealthINTERCEPT_7.3/page/Content/StealthINTERCEPT/Installation_and_Upgrade_User_Guide/AntivirusConsiderations.htm" target="_self">Installation — Antivirus Software Considerations · v7.3</a>.</p>
+</div>
+
+<h2 id="related_articles">Related Articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/StealthINTERCEPT_7.3/page/Content/StealthINTERCEPT/Installation_and_Upgrade_User_Guide/AntivirusConsiderations.htm" target="_self">Installation — Antivirus Software Considerations · v7.3</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

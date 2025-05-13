@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Resolving Index and License Key-Related Errors in Windows Services</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dsCAC" />
+    <meta name="Id" content="ka0Qk0000001LDhIAM" />
+    <meta name="LastPublishedDate" content="2024-01-15T11:41:20.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T11:41:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3491" />
+    <meta name="ArticleNumber" content="000003674" />
+    <meta name="description" content="How to troubleshoot &#34;Invalid Key&#34; scenarios" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            During the initial installation process or in case of configuration changes, you may
+            encounter one of the following errors prompted in Windows Services indicating an invalid
+            license key:
+          </p>
+
+          <pre class="has-inner-focus">The registered license key is invalid.</pre>
+
+          <pre class="has-inner-focus">The index files key is invalid.</pre>
+
+          <pre class="has-inner-focus">Index keys do not match.</pre>
+
+          <p>
+            These errors may be accompanied by the following errors in
+            <strong>ConceptSearching</strong> event logs:
+          </p>
+
+          <pre class="has-inner-focus">The registered license key is invalid.</pre>
+
+          <pre class="has-inner-focus">
+The Index files (CSE) key does not match the connected SQL database identifier.</pre
+          >
+
+          <p>To troubleshoot the issue, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>Validate the configuration.</p>
+            </li>
+            <li>
+              <p>Restart the Windows Services.</p>
+            </li>
+            <li>
+              <p>Reset the key validation.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="step_1_−_validate_the_configuration">Step 1 − Validate the configuration</h4>
+
+        <div>
+          <p>Validate the configuration is as expected for all services/applications:</p>
+
+          <ol>
+            <li>
+              <p>
+                Open each of the service/application config locations. Refer to the following
+                default locations:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files\ConceptSearching\Services\ConceptCollectorService</code></pre>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files\ConceptSearching\Services\ConceptIndexer</code></pre>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\inetpub\wwwroot\conceptQS\bin</code></pre>
+            </li>
+            <li>
+              <p>Run <strong>conceptConfig.exe</strong> in each location.</p>
+            </li>
+            <li>
+              <p>Verify and validate each location to point to the following items:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Correct CSE file location, located in
+                    <code>C:\Program Files\ConceptSearching\conceptDB</code> by default. In a DQS
+                    environment, the CSE file location might differ in each separate server.
+                  </p>
+                </li>
+                <li>
+                  <p>Correct SQL database.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                If you're using Windows Authentication, ensure the services and application pools
+                are configured to run under the correct user. You can verify this via
+                <code>services.msc</code> and <code>inetmgr</code> respectively.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="step_2_−_restart_the_windows_services">Step 2 − Restart the Windows Services</h4>
+
+        <div>
+          <p>
+            After validating the configuration, restart the related services and confirm if the
+            issue is resolved. If not − proceed to the Step 3.
+          </p>
+        </div>
+
+        <h4 id="step_3_−_reset_the_key_validation_check">
+          Step 3 − Reset the key validation check
+        </h4>
+
+        <div>
+          <p>The key validation check should be reset in case CSE files were:</p>
+
+          <ul>
+            <li>
+              <p>Manually replaced.</p>
+            </li>
+            <li>
+              <p>Moved from another system.</p>
+            </li>
+            <li>
+              <p>Updated manually.</p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>The validation check should be reset only
+              after you've confirmed the configuration is correct. While resetting the validation
+              will allow the services to begin processing files, it may lead to the index corruption
+              (if services are pointing to wrong files).
+            </p>
+          </blockquote>
+
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>Stop all services.</p>
+            </li>
+            <li>
+              <p>Run the following SQL statement:</p>
+
+              <ul>
+                <li>
+                  <p>In a single server (non-DQS) environment:</p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Environment: UPDATE Config SET LicenseKey = NULL</code></pre>
+                </li>
+                <li>
+                  <p>In a DQS environment:</p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">UPDATE DQS SET LicenseKey = NULL</code></pre>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Restart the services.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

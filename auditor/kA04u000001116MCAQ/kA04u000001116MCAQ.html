@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Invalid Pointer Error in Logon Activity Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001116MCAQ" />
+    <meta name="Id" content="ka0Qk0000000rdpIAA" />
+    <meta name="LastPublishedDate" content="2023-08-25T10:07:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-06T15:28:57.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-25T10:07:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8766" />
+    <meta name="ArticleNumber" content="000008766" />
+    <meta name="description" content="Invalid Pointer Error in Logon Activity Monitoring Plan" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The following error is prompted in Health Log for your Logon Activity monitoring
+                plan:
+              </p>
+
+              <pre class="has-inner-focus">
+Source:Active Directory Logon Activity Audit Service
+Event ID:5002
+Computer: %name%
+User:N/A
+Description:Monitoring plan: %Logon_Activity_Monitoring_Plan_name%.
+Domain: %name%
+Unable to process the following item: Invalid pointer.
+Item: %item_name%</pre
+              >
+            </li>
+            <li>
+              <p>
+                Your Working Folder (located by default in
+                <code>C:\ProgramData\Netwrix Auditor\NLA\Settings</code>) is missing the folder
+                named after the item.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>In case your Working Folder was moved and is not
+            located in the default path, click the <strong>Health Status</strong> menu in the main
+            Netwrix Auditor screen, and click <strong>Open diagnostic logs folder</strong> under the
+            <strong>Working folder</strong> tab. Once the <strong>Logs</strong> folder opens, go to
+            the parent folder, and follow the required path.
+          </p>
+        </blockquote>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                In your Working Folder in the Netwrix Auditor host, run the search for a folder
+                named after the <code>Item</code> specified in the error message.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once found, close <strong>Netwrix Auditor</strong>, and run the following command in
+                elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Logon Activity Audit Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Copy the <code>Item</code> folder to <code>%Working_Folder%\NLA\Settings</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Rename the original <code>Item</code> folder discovered previously to
+                <code>Item_old</code>.
+              </p>
+            </li>
+            <li>
+              <p>Run the following command in elevated PowerShell:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Logon Activity Audit Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Open Netwrix Auditor, open <strong>Monitoring Plans</strong> &gt; select your
+                <strong>Logon Activity monitoring plan</strong> and click <strong>Edit</strong> &gt;
+                in the right pane, click <strong>Update</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

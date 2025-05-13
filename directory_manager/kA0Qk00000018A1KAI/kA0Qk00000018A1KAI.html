@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Restrict Users from Accessing the Admin Portal</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000018A1KAI" />
+    <meta name="Id" content="ka0Qk000000DGyDIAW" />
+    <meta name="LastPublishedDate" content="2025-04-15T19:34:30.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-16T19:57:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-24T13:04:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9187" />
+    <meta name="ArticleNumber" content="000009187" />
+    <meta name="description" content="How To: Resctict the users from accessing the Admin Portal" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>
+          Is it possible to restrict end users from accessing the Netwrix Directory Manager Admin
+          Portal/Center?
+        </p>
+        <h2 id="answer">Answer</h2>
+        <p>
+          Yes, you are capable of limiting access to the Admin Portal/Center. To prevent end users
+          from accessing the Admin Center and reduce the risk of unauthorized access, follow the
+          steps below:
+        </p>
+        <ol>
+          <li>
+            Log in to the <strong>Directory Manager Admin Center</strong> and navigate to the
+            <strong>Identity Store</strong> tab.
+          </li>
+          <li>
+            Open the settings for the Identity Store and go to the
+            <strong>Security Roles</strong> section.
+          </li>
+          <li>Edit the security role for which you want to restrict access.</li>
+          <li>
+            Click the <strong>Add Criteria</strong> button then the
+            <strong>Show Advanced</strong> button to display advanced filtering options.
+          </li>
+          <li>
+            Click <strong>Add Criteria</strong> again and configure the following:
+            <div class="table-wrap">
+              <table count-columns="3">
+                <tbody>
+                  <tr>
+                    <th colspan="1" rowspan="1">Field</th>
+                    <th colspan="1" rowspan="1">Condition</th>
+                    <th colspan="1" rowspan="1">Value</th>
+                  </tr>
+                  <tr>
+                    <td colspan="1" rowspan="1">Client Name</td>
+                    <td colspan="1" rowspan="1">is not</td>
+                    <td colspan="1" rowspan="1">Admin Center</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </li>
+          <li>Click <strong>Save</strong> 3 times to apply your changes.</li>
+        </ol>
+        <p>
+          After completing these steps, users assigned to that security role will no longer be able
+          to access the Admin Center.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

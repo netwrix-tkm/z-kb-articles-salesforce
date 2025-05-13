@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SAM_4.1_016</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000J5hCAE"/><meta name="Id" content="ka04u000000Hd2OAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:47:58.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:14:16.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:47:58.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7555"/><meta name="ArticleNumber" content="000007555"/><meta name="description" content="360012124711"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> 1.	Defend and SAM only showing events for 1 of 6 DCs
+2.	Logging successful folder list actions for VNX devices
+3.	C-mode NetApp: Monitor NFSv4 by default
+4.	NetApp C-mode: Office filtering must not affect NFS activity
+5.	NetApp: No NFS Read events when a file is copied outside of the volume</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <span><span><span><strong><span>Summary:</span></strong></span></span></span> 
+</p><ol><li>
+<span><span><span><i><span>Defend and SAM only showing events for 1 of 6 DCs</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>Logging successful folder list actions for VNX devices</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>C-mode NetApp: Monitor NFSv4 by default</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>NetApp C-mode: Office filtering must not affect NFS activity</span></i></span></span></span>
+</li><li><span><span><span><i><span>NetApp: No NFS Read events when a file is copied outside of the volume</span></i></span></span></span></li></ol><span><span><span><strong><span>Behavior Before Fix:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span><i><span>Under certain conditions SAM would not upgrade AD Module.  Causing loss of AD activity.</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>Folder list actions / Folder Read events were not implemented for EMC Devices.</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>SAM didn't monitor NFSv4 by default for CMode Netapp.</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>Office filtering was effecting CMode Netapp NFS Activity, causing loss or delay of activity.</span></i></span></span></span>
+</li><li><span><span><span><i><span>NFS Read events were not logged copying to local filesystem.</span></i></span></span></span></li></ol><span><span><span><strong><span>Behavior After Fix:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span><i><span>Implemented fix that would upgrade AD Module correctly.</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>Implemented Folder list actions / Folder Read events for EMC devices.</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>SAM now monitors NFSv4 events by default for CMode Netapp.</span></i></span></span></span>
+</li><li>
+<span><span><span><i><span>Now office filtering does not effect NFS Activtiy.</span></i></span></span></span>
+</li><li><span><span><span><i><span>We now include 'close' in fpolicy nfsv4 events to report reads more accurately.</span></i></span></span></span></li></ol><span><span><span><b>Changes Since Last Hotfix:</b></span></span></span> 
+<ul><li>
+<span><span><span><span>SFAM-4649: Bulk Agent Deployment Problems</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4658: Driver installation. File In Use: Server</span></span></span></span>
+</li><li><span><span><span><span>SFAM-4683: Driver reports internal counters incorrectly</span></span></span></span></li></ul><br/><span><span><span><strong><span>Submitted by: </span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>Kevin Duddy</span></span></span></span></span><br/><span><span><span><strong><span>Affected Versions:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>STEALTHbits Activity Monitor 4.1</span></span></span></span></span><br/><span><span><span><strong><span>Affected Module:</span></strong></span></span></span><br/><span><span><span class="MsoSubtleEmphasis"><span>Activity Monitor</span></span></span></span><br/><br/><span><span><span><strong><span>Dev Ticket:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span>SFAM-4539</span></span></span>
+</li><li>
+<span><span><span>SFAM-4328</span></span></span>
+</li><li>
+<span><span><span>SFAM-3430</span></span></span>
+</li><li>
+<span><span><span>SFAM-4690</span></span></span>
+</li><li><span><span><span>SFAM-4695</span></span></span></li></ol><span><span><span><strong><span>Resolved in Version:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBActivityMonitorSetup.msi 4.1.0.392</span></span></span></span></span><br/><br/><span><span><span><strong><span>KB Type: </span></strong></span></span></span><br/><span><span><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span></span><br/><br/><span><span><span><strong><span>Modules Included:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBActivityMonitorSetup.msi 4.1.0.392</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBActivityMonitorSetup_unsigned.msi 4.1.0.392</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SBTService.exe 1.5.0.745</span></span></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>SI Version 6.1.0.258</span></span></span></span></span><br/><br/><span><span><span><b>YouTrack/Escalations</b></span></span></span> 
+<ol><li>
+<span><span><span><i><span>SFAM-4539 / 616</span></i></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4328 / 347</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3430 / 1024</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4690 / 1024</span></span></span></span>
+</li><li><span><span><span><span>SFAM-4695 / 1024</span></span></span></span></li></ol><br/><span><span><span><b>Customers</b></span></span></span> 
+<ol><li>
+<span><span><span><strong><span><span>Jones Family Office</span></span></strong></span></span></span>
+</li><li>
+<span><span><span><strong><span><span>Amdocs Management Ltd.</span></span></strong></span></span></span>
+</li><li><span><span><span><strong><span><span>MDRC</span></span></strong></span></span></span></li></ol><br/><span><span><span><b>Cumulative List of fixes included since Service Pack:</b></span></span></span> 
+<ul><li>
+<span><span><span><span>SFAM-3434: SAM/Nasuni Error Collecting Events</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3765: SAM capture chgrp and chown on NETAPP</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3637: SFAM SBTService crashing Azure VM server</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3687: Unable to collect events from Windows 2012 R2 Servers</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3464: Human Readable Permission Changes (New Syslog Macro)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3534: Activity sync for ISILON is a week behind</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-2726: SFAM Falling Behind - Isilon</span></span></span></span>
+</li><li>
+<span><span><span><span>I-5693: 2019 Server Only | No LDAP events after applying 19-11 MS update (release: 11/12/19)</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4039: collect logs interface: can't select if list is long and you scroll</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-3987,I-5979: Sporadic disconnects from SAM agent and NETAPP, No Kerberos auth. events after applying MS updates for 2016 and 2019 Servers released January 23 2020</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4398: VDM_NAMES setting not being respected</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4406: SFAM Windows Crashes</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4542, I-6137: FSAC error Log Corrupt, GPO link changes policy events have "Not found" values in details grid</span></span></span></span>
+</li><li>
+<span><span><span><span>SFAM-4465, SFAM-4111: Unable to perform search in SAM for user in different domain, Account Exclusions limitation</span></span></span></span>
+</li><li><span><span><span><span>SFAM-4541, I-6165, I-6170: Add comment field on SAM console "agent" screen, Exchange | Add support for Exchange 2016 CU16 and 2019 CU5 (release 03/17/20), 2016 &amp; 2019 Servers | No NTLM events; Kerberos events may be lost or incomplete after applying MS Updates, released 03/17/20</span></span></span></span></li></ul><br/><span><span><span><strong><span>Instructions:</span></strong></span></span></span> 
+<ol><li>
+<span><span><span><i><span>Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall previous version, msi will upgrade the monitor).</span></i></span></span></span>
+</li><li><span><span><span><i><span>Upgrade all agents.</span></i></span></span></span></li></ol><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> <span><span><span><strong><span>Instructions:</span></strong></span></span></span> 
+</p><ol><li>
+<span><span><span><i><span>Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall previous version, msi will upgrade the monitor).</span></i></span></span></span>
+</li><li><span><span><span><i><span>Upgrade all agents.</span></i></span></span></span></li></ol>
+<div><a href="https://downloads.stealthbits.com/access/files/SAMHotfixes/4.1/SAM_4.1_016.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAMHotfixes/4.1/SAM_4.1_016.zip</a></div><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> STEALTHbits File Activity Monitor<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> File Activity Monitor - EMC/Celerra;File Activity Monitor - NetApp;File Activity Monitor - Windows<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> STEALTHbits Activity Monitor 4.1<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> 1.	SFAM-4539
+2.	SFAM-4328
+3.	SFAM-3430
+4.	SFAM-4690
+5.	SFAM-4695<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> SBActivityMonitorSetup.msi 4.1.0.392<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 000002659<br/></p></div>
+</article></body></html>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LDAP Encryption in Active Directory Auditing—Signing and Sealing</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001KO5KAM" />
+    <meta name="Id" content="ka0Qk0000005bYPIAY" />
+    <meta name="LastPublishedDate" content="2024-09-19T13:20:41.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-19T13:20:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-08-08T08:59:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9239" />
+    <meta name="ArticleNumber" content="000009239" />
+    <meta
+      name="description"
+      content="LDAP Encryption in Active Directory Auditing—Signing and Sealing"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            The Active Directory (ADA) collector in Netwrix Auditor supports the
+            <strong>Signing and Sealing</strong> encryption method for LDAP. This article covers the
+            steps to enable encryption.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                In the Auditor server, run the following line in an elevated PowerShell instance to
+                stop the Configuration Server Service:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"</code></pre>
+            </li>
+            <li>
+              <p>In the <code>Configuration.xml</code> file, locate the following node:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="CollectorsSettings"/&gt;</code></pre>
+            </li>
+            <li>
+              <p>Replace the node with the following node:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="CollectorsSettings"&gt;
+    &lt;a n="SigningAndSealing" t="7" v="True"/&gt;
+&lt;/n&gt;</code></pre>
+
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>Run a registry entry containing the following lines in the Auditor server:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\AD Change Reporter]
+"EnableSignAndSealing"=dword:00000001</code></pre>
+            </li>
+            <li>
+              <p>
+                Run the following line in an elevated PowerShell instance to start the Configuration
+                Server Service:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

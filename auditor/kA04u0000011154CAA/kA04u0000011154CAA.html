@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Upgrading SQL Server Instance</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="SQL_Server" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000011154CAA" />
+    <meta name="Id" content="ka0Qk000000Bt2nIAC" />
+    <meta name="LastPublishedDate" content="2023-12-14T12:26:41.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-22T15:27:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-23T13:19:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8758" />
+    <meta name="ArticleNumber" content="000008758" />
+    <meta name="description" content="Upgrading SQL Server Instance" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            SQL Server upgrade is required in our environment—are there any special requirements or
+            prerequisites to comply with when upgrading a SQL Server instance?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                Prior to the upgrade, stop <strong>Netwrix Auditor Archive Service</strong> and
+                <strong>Netwrix Auditor Management Service</strong> in your Netwrix Auditor server.
+                Refer to the following commands to run in elevated PowerShell:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Archive Service"
+Stop-Service -DisplayName "Netwrix Auditor Management Service"</code></pre>
+            </li>
+            <li>
+              <p>Once stopped, proceed with the upgrade procedure as recommended by Microsoft.</p>
+            </li>
+            <li>
+              <p>
+                After the upgrade is complete, start the previously stopped services in your Netwrix
+                Auditor server. You can use the following commands in elevated PowerShell:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Archive Service"
+Start-Service -DisplayName "Netwrix Auditor Management Service"</code></pre>
+              <p>
+                Learn more about SQL Server upgrades in
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/database-engine/install-windows/upgrade-sql-server?view=sql-server-ver16#upgrade-documentation"
+                  target="_blank"
+                  >Upgrade SQL Server ⸱ Upgrade documentation ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h4 id="post-upgrade_verification">Post-upgrade verification</h4>
+        <div>
+          <p>
+            Refer to the following steps to verify Netwrix Auditor has detected the change after the
+            SQL Server upgrade:
+          </p>
+          <ol>
+            <li>
+              <p>
+                In the main Auditor menu, select <strong>Health Status</strong> &gt; click
+                <strong>View details</strong> under the <strong>Database Statistics</strong> pane.
+                The top <strong>SQL Server instance</strong> line should reflect the server FQDN and
+                the current SQL Server version. For additional information on the SQL Server setup,
+                refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Admin/Settings/AuditDatabase.htm"
+                  target="_self"
+                  >Netwrix Auditor Settings − Audit Database · v10.7</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify SQL Server Reporting Services operate as intended—in the main Auditor menu,
+                select <strong>Settings</strong> &gt; <strong>Audit Database</strong> &gt; verify
+                both the <strong>Report Server URL</strong> and
+                <strong>Report Manager URL</strong> are operational. For additional information on
+                the SSRS setup, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+                  target="_self"
+                  >Requirements − SQL Server Reporting Services · v10.7</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Admin/Settings/AuditDatabase.htm"
+                  target="_self"
+                  >Netwrix Auditor Settings − Audit Database · v10.7</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+                  target="_self"
+                  >Requirements − SQL Server Reporting Services · v10.7</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/database-engine/install-windows/upgrade-sql-server?view=sql-server-ver16#upgrade-documentation"
+                  target="_blank"
+                  >Upgrade SQL Server ⸱ Upgrade documentation ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

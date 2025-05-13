@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitor File and Folder Attribute Changes in FSA Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000IOLKA2" />
+    <meta name="Id" content="ka0Qk0000000uwfIAA" />
+    <meta name="LastPublishedDate" content="2023-12-07T07:54:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-08T16:32:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-07T07:54:56.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8945" />
+    <meta name="ArticleNumber" content="000008945" />
+    <meta name="description" content="Monitor File Attributes in FSA MP" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            While it is possible to monitor file attributes in a File Server monitoring plan, it is
+            disabled by default. Otherwise, this would lead to a great amount of related events
+            generated. Refer to the following steps to enable the attribute monitoring. Refer to the
+            following list of monitored attributes:
+          </p>
+
+          <ul>
+            <li>
+              <p>FILE_ATTRIBUTE_HIDDEN</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_NORMAL</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_NOT_CONTENT_INDEXED</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_OFFLINE</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_READONLY</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_SYSTEM</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_TEMPORARY</p>
+            </li>
+            <li>
+              <p>FILE_ATTRIBUTE_NO_SCRUB_DATA</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>The setting applies to the specific monitoring
+            plan and does not propagate to other FSA monitoring plans.
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>To verify the correct operation, create a separate
+            monitoring plan to test the setting in.
+          </p>
+        </blockquote>
+
+        <div>
+          <ol>
+            <li>
+              <p>Run the following lines in elevated PowerShell:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Stop-Service -DisplayName "Netwrix Auditor for File Servers Audit Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate the <code>configuration.xml</code> file located by default in
+                <code>%Working_Folder%\AuditCore\ConfigServer</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <code>configuration.xml</code> file, locate the FSA monitoring plan − locate
+                the following node:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;n n="850fe1da-0ea6-c1a8-9810-0c1cece30698" t="AuditedSystemNodeType"&gt;</code></pre>
+
+              <p>
+                Make sure the FSA monitoring plan is the intended one − you can search for the
+                corresponding FSA MP via <strong>Ctrl-F</strong> &gt;
+                <strong>%monitoring_plan_name%</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Add the following line to the top of the
+                <code>&lt;n n="CollectedActions"&gt;</code> subnode under the monitoring plan to
+                enable the attrbute changes monitoring:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;a n="AttributeModificationsEnabled" t="7" v="True"/&gt;</code></pre>
+            </li>
+            <li>
+              <p>Save the changes, and run the following lines in elevated PowerShell:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"
+Start-Service -DisplayName "Netwrix Auditor for File Servers Audit Service"</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

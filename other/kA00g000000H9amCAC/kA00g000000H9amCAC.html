@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>404.0 on Password Manger portals</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9amCAC" />
+    <meta name="Id" content="ka04u00000116bZAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T11:53:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1311" />
+    <meta name="ArticleNumber" content="000003482" />
+    <meta name="description" content="Password manager error 404.0 error 404.0" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        After installation of Password manager I cannot get to any portal and am receiving Error
+        404.0
+
+        <img
+          src="kA00g000000H9amCAC_2080beca-48d1-4e6e-b4b3-4c5568e18192.png"
+          alt="User-added image"
+          width="500"
+          height="273"
+        />
+
+        <hr />
+
+        Error 404.0 means that there is no requested resource available, in other words URL that you
+        entered points to nowhere. It can happen because of different reasons, but the most common
+        are:
+        <ol>
+          <li>
+            There is not virtual directory in IIS structure that corresponds to the entered URL
+          </li>
+          <li>Permissions issues within IIS.</li>
+        </ol>
+
+        <hr />
+
+        First of all please make sure that the virtual directory you specified during Password
+        Manager isntallation (by default called PM) exists in IIS.
+        <img
+          src="kA00g000000H9amCAC_5291b542-7c42-4bc5-8a52-a4d5874ca975.png"
+          alt="User-added image"
+          width="351"
+          height="555"
+        />
+
+        If not, then please check that all requirements are fulfilled per
+        <a href="https://kb.netwrix.com/2125" target="_blank">KB2125</a>, and reinstall Password
+        Manager under a local administrator account. If the virtual directory is in place, then it
+        might be some security issues. Please make sure that NTFS permission to Password manager
+        installation directory allows IIS to view it.
+      </div>
+    </article>
+  </body>
+</html>

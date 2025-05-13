@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to get Database Content Audit working</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9aYCAS" />
+    <meta name="Id" content="ka04u000000HcTKAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1300" />
+    <meta name="ArticleNumber" content="000003468" />
+    <meta
+      name="description"
+      content="Database Content Audit in SQL Server Change Reporter (Data Changes), configured as per our guide and do not get report data. No errors."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You have enabled Data changes Audit in Netwrix Auditor for SQL Servers data source,
+        configured as per our guide, but do not get data in reports without any errors, while you
+        are sure some changes to data in the audited table were made.
+        <hr />
+        The owner of the target database must have the "sysadmin" role on your SQL Server. It is
+        needed for cross-database write.
+        <hr />
+        Please open MSSQL Management Console, connect to your SQL Server, select properties of the
+        target database, pick an owner, then go to Security-&gt;Logins and grant that account with
+        the sysadmin role.
+      </div>
+    </article>
+  </body>
+</html>

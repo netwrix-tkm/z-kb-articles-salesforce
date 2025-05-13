@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Verifying SAM API Server</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HudCAE" />
+    <meta name="Id" content="ka04u000000HcbIAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:52:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:58:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:52:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6007" />
+    <meta name="ArticleNumber" content="000006007" />
+    <meta name="description" content="360008602431" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary:</strong> Verifying SAM API Server</p>
+        <p> </p>
+        <p>
+          <strong>Issue:</strong> It can be difficult to troubleshoot or verify that SAM API Server
+          is working correctly when other products / components are in use.  This will take SA and
+          other components out of the picture to verify SAM API Server alone.
+        </p>
+        <p> </p>
+        <p>
+          <strong>Instructions:</strong>  I'm including 2 powershell scripts that will help
+          troubleshoot and verify SAM API server issues...
+        </p>
+        <ul>
+          <li>
+            1.API-GetTokens.ps1
+            <ul>
+              <li>
+                This script invokes SAM API to generate a refresh token. It asks for API URL, Client
+                ID, and Client Secret. Can be used for API on local or remote agents.
+              </li>
+              <li>Script will output refresh token.</li>
+            </ul>
+          </li>
+          <li>
+            2.API-Test.ps1
+            <ul>
+              <li>This invokes SAM API and outputs hosts and agents data from SAM API.</li>
+            </ul>
+          </li>
+        </ul>
+        <ol>
+          <li>Install SAM Agent.</li>
+          <li>Enable API Server for installed agent and Add New Application for API Testing.</li>
+          <li>Copy Client ID and Secret.</li>
+          <li>
+            Execute 1.API-GetTokens.ps1
+            <ul>
+              <li>Enter API URL ( https://localhost:4494 ), Client ID, and Client Secret.</li>
+            </ul>
+          </li>
+          <li>Execute 2.API-Test.ps1</li>
+          <li>
+            Global variables are used and can be manipulated after script execution
+            <ul>
+              <li>$agents</li>
+              <li>$hosts</li>
+              <li>$domains</li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p><img src="kA04u0000000HudCAE_40897318-cc3b-49f6-9d44-81410a1b69cd.png" alt="1.png" /></p>
+        <p> </p>
+        <p><img src="kA04u0000000HudCAE_ce53144a-ca6d-424c-b8e2-d456b6cfd9ed.png" alt="2.PNG" /></p>
+        <p><img src="kA04u0000000HudCAE_00b1f47b-9e1f-4e73-89bc-7016dc74e2bd.png" alt="3.PNG" /></p>
+        <p> </p>
+        <p>API-GetTokens.ps1</p>
+        <pre>param (<br/>[parameter(Mandatory=$false)][string]$url<br/>,[parameter(Mandatory=$false)][int]$clientId<br/>,[parameter(Mandatory=$false)][string]$clientSecret<br/>)<br/><br/><br/>Set-StrictMode -Version Latest<br/>$ErrorActionPreference = "Stop"<br/><br/><br/><br/>if(!($url)) { $url = Read-Host -Prompt "Enter API URL (Leave blank for default: 'https://localhost:4494')" }<br/>if(!($url)) { $url = "https://localhost:4494" }<br/><br/>if(!($clientId)) { $clientId = Read-Host -Prompt "Enter API Client ID" }<br/>if(!($clientSecret)) { $clientSecret = Read-Host -Prompt "Enter API Client Secret" }<br/><br/>if(!($clientId) -or !($clientSecret)) { throw "Client ID and Client Secret required." }<br/><br/><br/>class TrustAll : System.Net.ICertificatePolicy {<br/>[bool] CheckValidationResult([System.Net.ServicePoint] $point,<br/>[System.Security.Cryptography.X509Certificates.X509Certificate] $cert,<br/>[System.Net.WebRequest] $req,<br/>[int] $problem) {<br/>return $true<br/>}<br/>}<br/>[System.Net.ServicePointManager]::CertificatePolicy = [TrustAll]::new()<br/><br/><br/><br/><br/>function Authenticate($baseUrl, $clientId, $secret) {<br/><br/><br/><br/><br/>$body = @{<br/>client_id = $clientId<br/>client_secret = $secret<br/>grant_type = "client_credentials"<br/>};<br/><br/><br/><br/><br/>Invoke-RestMethod "$baseUrl/api/v1/token" -Method Post -Body $body<br/>}<br/><br/><br/><br/><br/>$tokens = Authenticate $url $clientId $clientSecret<br/><br/><br/><br/><br/>Write-Host "Here's your refresh token: "<br/>$global:refreshToken = $($tokens.refresh_token)<br/>$global:url = $url<br/>echo $refreshToken</pre>
+        <p> </p>
+        <p>2.API-Test.ps1</p>
+        <pre>Set-StrictMode -Version Latest<br/>$ErrorActionPreference = "Stop"<br/><br/><br/>Write-Host "Here's your refresh token: "<br/>echo $refreshToken<br/><br/><br/><br/>class TrustAll : System.Net.ICertificatePolicy {<br/>[bool] CheckValidationResult([System.Net.ServicePoint] $point,<br/>[System.Security.Cryptography.X509Certificates.X509Certificate] $cert,<br/>[System.Net.WebRequest] $req,<br/>[int] $problem) {<br/>return $true<br/>}<br/>}<br/>[System.Net.ServicePointManager]::CertificatePolicy = [TrustAll]::new()<br/><br/><br/><br/><br/><br/>function RefreshToken($baseUrl, $refreshToken) {<br/><br/><br/><br/><br/>$body = @{<br/>refresh_token = $refreshToken<br/>grant_type = "refresh_token"<br/>};<br/><br/><br/><br/><br/>Invoke-RestMethod "$baseUrl/api/v1/token" -Method Post -Body $body<br/>}<br/><br/><br/><br/><br/>$tokens = RefreshToken $url $refreshToken<br/><br/><br/><br/><br/>$headers = @{<br/>Authorization = "Bearer $($tokens.access_token)"<br/>};<br/><br/><br/><br/><br/>$global:agents = Invoke-RestMethod "$url/api/v1/agents" -Headers $headers<br/>$global:hosts = Invoke-RestMethod "$url/api/v1/hosts" -Headers $headers<br/>$global:domains = Invoke-RestMethod "$url/api/v1/domains" -Headers $headers<br/><br/><br/>echo "`n`n`$agents:"<br/>$agents<br/><br/>echo "`n`n`n"<br/>echo "`n`n`$hosts:"<br/><br/>$hosts<br/><br/>echo "`n`n`n"<br/>echo "`n`n`$domains:"<br/><br/>$domains</pre>
+        <p> </p>
+        <p><strong>Channel:  </strong>Internal</p>
+        <p><strong>Submitted by:</strong>  Kevin Duddy</p>
+        <p><strong>Product:</strong> SAM</p>
+        <p><strong>Affected Versions:</strong> SAM 5.0+</p>
+        <p><strong>Affected Module:</strong> SAM API</p>
+        <p><strong>Dev Ticket:</strong> N/A</p>
+        <p><strong>Resolved In Version:</strong> N/A</p>
+        <p><strong>KB Type:</strong> How To</p>
+      </div>
+    </article>
+  </body>
+</html>

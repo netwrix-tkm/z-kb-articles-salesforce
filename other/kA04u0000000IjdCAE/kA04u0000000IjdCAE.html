@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scope FSAA SDD Scans by File Type</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IjdCAE" />
+    <meta name="Id" content="ka04u000000HcuhAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:36:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:36:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7246" />
+    <meta name="ArticleNumber" content="000007246" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> FSAA SDD Scans can
+          be scoped by file type to improve performance
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> FSAA scans can be
+          scoped by file type, which can be particularly useful when doing things like OCR scans.
+          Currently, this can only be done through the job xml, but a UI will be added with
+          SAFS-2426.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Modify the
+          SelectedTypesList parameter in the job xml to remove particular file types or whole key
+          values.<br /><br />DOCUMENTS*.doc;*.docx;*.msg;*.odt;*.pages;*.rtf;*.wpd;*.wps;*.abw;*.bib;*.dotx;*.eml;*.fb2;*.fdx;*.gdoc;*.lit;*.sig;*.sty;*.wps;*.wpt;*.yml;*.tex;*.pdf;<br /><br />SPREADSHEETS*.csv;*.xlr;*.xls;*.xlsx;*.gsheet;*.nb;*.numbers;*.ods;*.qpw;*.sdc;*.wks;*.xlsb;*.xltm;*.xltx;*.aws;*.fods;*.ots;*.rdf;*.sxc;*.uos;*.xlsm;<br />TEXT
+          FILES<br />*.txt;<br /><br />IMAGE FILES<br />*.jpg;*.jpeg;*.png;*.bmp;*.gif;<br /><br /> <br />For
+          example, if you wanted to do an SDD scan of only image files, you would enable the OCR
+          option in the FSAA query configuration, and then modify this parameter as displayed
+          below:<br /><br />IMAGE FILES<br />*.jpg;*.jpeg;*.png;*.bmp;*.gif;<br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.0+<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-2426<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1560
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

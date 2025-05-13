@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor for File Servers reports excessive file read attempts that did not actually
+      occur
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WqCAK" />
+    <meta name="Id" content="ka04u000000HcQ2AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1092" />
+    <meta name="ArticleNumber" content="000003243" />
+    <meta
+      name="description"
+      content="Netwrix Auditor for File Servers reports excessive file read attempts that did not actually occur."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor search, alerts and/or summary emails contain excessive file read attempts.
+        If the thumbnail previews option is enabled for an account in File Explorer, each time the
+        user opens a folder, internal icons cache is overwritten.
+
+        <hr />
+
+        In order to reduce the number of such read attempts, you should configure the following
+        policies:
+        <ol>
+          <li>
+            Open the Local Group Policy Editor snap-in on any domain controller in the target
+            domain: navigate to Start &gt; Run and type "gpedit.msc".
+          </li>
+          <li>
+            In the Local Group Policy Editor snap-in, navigate to User Configuration &gt;
+            Administrative Templates &gt; Windows Components &gt; File Explorer.
+          </li>
+          <li>Enable the following policies:</li>
+        </ol>
+        <ul>
+          <li>Turn off the display of thumbnails and only display icons;</li>
+          <li>Turn off the display of thumbnails and only display icons on network folders;</li>
+          <li>Turn off the caching of thumbnails in hidden thumbs.db files;</li>
+          <li>Turn off caching of thumbnail pictures.</li>
+        </ul>
+        Note: You should be signed in as an administrator to perform this operation.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SAM_5.0_007</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000II1CAM" />
+    <meta name="Id" content="ka04u000000HcjWAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:13:21.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:13:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6390" />
+    <meta name="ArticleNumber" content="000006390" />
+    <meta name="description" content="360012124731" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary:</strong></p>
+        <ol>
+          <li><em>StealthAudit NetApp fPolicy</em></li>
+          <li><em>Syslog Splunk - Reported time is in wrong format</em></li>
+        </ol>
+        <p><strong>Behavior Before Fix:</strong></p>
+        <ol>
+          <li><em>Newly added netapps are not connecting and causing slow response times.</em></li>
+          <li><em>Time stamp format is incorrect in syslog splunk template.</em></li>
+        </ol>
+        <p><strong>Behavior After Fix:</strong></p>
+        <ol>
+          <li><em>Added better logging to troubleshoot netapp disconnections better.</em></li>
+          <li>
+            <em
+              >%TIME_STAMP% macro in splunk syslog template has been replaced with
+              %SYSLOG_DATE%.</em
+            >
+          </li>
+        </ol>
+        <p><strong>Changes Since Last Hotfix:</strong></p>
+        <ul>
+          <li>SFAM-4105: Improve NetApp/FPolicy debug logs</li>
+          <li>SFAM-4823: C-mode FPolicy Improvements</li>
+          <li>SFAM-4531: Include PerfCounters.man into agent's setup</li>
+          <li>SFAM-313: Fix FPolicy-simulator tool</li>
+          <li>SFAM-5504: SAM - SPO Activity Not Working (issue with Application Data symlink)</li>
+        </ul>
+        <p><strong>Submitted by: </strong></p>
+        <p>Kevin Duddy</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>STEALTHbits Activity Monitor 5.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>Activity Monitor</p>
+        <p> </p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ol>
+          <li>SFAM-5361</li>
+          <li>SFAM-5377</li>
+        </ol>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>SBActivityMonitorSetup.msi 5.0.0.804</p>
+        <p><em> </em></p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p>
+          <strong><em> </em></strong>
+        </p>
+        <p><strong>Modules Included:</strong></p>
+        <p>SBActivityMonitorSetup.msi 5.0.0.804</p>
+        <p>SBActivityMonitorSetup_unsigned.msi 5.0.0.804</p>
+        <p>SBTService.exe 1.5.0.989</p>
+        <p>SI Version 7.1.0.404</p>
+        <p> </p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <ol>
+          <li><em>SFAM-5361 / 53070</em></li>
+          <li>SFAM-5377 / 53330</li>
+        </ol>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <ol>
+          <li>
+            I-6668: SUVP 20-08 | 2012 &amp; 2012R2 Server | No NTLM events after applying KB4571736
+            or KB4571703
+          </li>
+          <li>
+            SFAM-5023, SFAM-5320: SAM conflict with IBM Spectrum Protect backups; SAM Agent conflict
+            with ArcServe Backup Software
+          </li>
+          <li>SFAM-5414: IPv6 Specifying FQDN as SVM fails to invoke Netapp ONTAP API</li>
+          <li>
+            SFAM-5418, SFAM-5120, SFAM-5419, SFAM-4540, SFAM-5368: Search takes 8 minutes to
+            complete; SAM Permissions "Failed Add" events when browsing folder; SAM Search displays
+            ALT_HOST Values but doesn't allow searching against that value; CEE versions with SAM
+            questions; Request to Confirm Support for EMC CEE 8.7.7
+          </li>
+          <li>SFAM-5494: Nasuni Activity Collection Failure</li>
+          <li>SFAM-5375: User filter doesn't work in Search</li>
+        </ol>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            <em
+              >Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall
+              previous version, msi will upgrade the monitor).</em
+            >
+          </li>
+          <li><em>Upgrade all agents.</em></li>
+        </ol>
+        <p>
+          <em
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAMHotfixes/5.0/SAM_5.0_007.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAMHotfixes/5.0/SAM_5.0_007.zip</a
+            ></em
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Users access their own mailboxes</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9buCAC" />
+    <meta name="Id" content="ka04u000000HcUfAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1388" />
+    <meta name="ArticleNumber" content="000003552" />
+    <meta
+      name="description"
+      content="The KB provides how to configure Netwrix Auditor to exclude information of users accessing their own mailboxes."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The Non-owner Mailbox Access Reporter shows that users access their own mailboxes.
+        <hr />
+        There is a Mailbox Archive option in Microsoft Exchange that creates a linked mailbox with
+        the same name as the user's own mailbox. The user is not an owner of that linked archive
+        mailbox. Each time the user runs Outlook, it reads the archive mailbox content, basically
+        performing non-owner access.
+        <hr />
+        In order to omit such events perform the following steps:
+        <ol>
+          <li>
+            On the Exchange server, run the Exchange Management Shell and perform the following
+            cmdlet 'Get-Mailbox | %{$mailboxstring = ""; $mailboxstring += "%domain
+            name%";$mailboxstring += "";$mailboxstring += $_.samaccountname; $mailboxstring += "=";
+            $mailboxstring += $_.emailaddresses[0].addressstring; echo $mailboxstring &gt;&gt;
+            C:\usermailboxesomitlist.txt}' (without quotes and replace the %domain name% with
+            netbios name of your domain name).
+          </li>
+          <li>
+            Copy the usermailboxesomitlist.txt from the Exchange server to the Non-owner Mailbox
+            Access Reporter installation folder, by default it is C:\Program Files (x86)\Netwrix
+            Auditor\Non-owner Mailbox Access Reporter for Exchange
+          </li>
+        </ol>
+        NOTE: If you create a new user with mailbox, you should add it to the existing
+        usermailboxesomitlist.txt file located at the Non-owner Mailbox Access Reporter home folder
+        using the following format: domainusername=mailbox (E.g.: CORPjsmith=jsmith@corp.com).
+      </div>
+    </article>
+  </body>
+</html>

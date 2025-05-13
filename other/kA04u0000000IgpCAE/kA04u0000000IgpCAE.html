@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SPAA DC: Error 403 Forbidden</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IgpCAE" />
+    <meta name="Id" content="ka04u000000HctRAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:35:47.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:35:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7233" />
+    <meta name="ArticleNumber" content="000007233" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Error 403 implies
+          that access to a web-application is being denied, despite having the proper permissions.
+          This can happen when the claims on a web-app or site collection are mis-configured or
+          otherwise not supported by SPAA.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            >SPAA gets a "403 Forbidden" error while attempting to negotiate site collection or web
+            app connections.</span
+          ><br /><span
+            >Try to manually browse to the site collection or site reported in the error through IE.
+            Typically Error 403 implies that SharePoint is being blocked by IE, check this by trying
+            to log into SharePoint on from the server StealthAUDIT is on through the browser. If
+            it's blocked, add it to the Trusted Sites list found in IE, in the Internet Options </span
+          ><span>�</span><span> Security </span><span>�</span><span> Trusted Sites.</span
+          ><br /><span
+            >If you can get to the site through the browser it isn't blocked. However if you see
+            something similar to the screenshot below then there is a misconfiguration with the
+            claims service for the Web-App or Site collection.</span
+          ><br /><img
+            src="kA04u0000000IgpCAE_8a4f000e-bfc5-448b-b1b3-089d7eb27ab8.jpg"
+            alt="User-added image"
+            width="500"
+            height="198"
+          /><br /><span
+            >This screen is inserted into the authentication process in one of the following
+            scenarios:</span
+          >
+        </p>
+        <ol>
+          <li>
+            <span> A web application is configured with multiple authentication providers.</span>
+          </li>
+          <li><span> A provider is configured with multiple ways to authenticate. </span></li>
+          <li>
+            <span
+              >The configuration becomes broken.  For example the default "Claims Authentication
+              Provider" can be configured to support both integrated windows and forms based
+              authentication simultaneously.  In this kind of scenario, SharePoint displays this
+              screen to allow the user to select which authentication method to use. (If it were
+              configured for both we would see options Windows Authentication and Active Directory
+              or SQL credentials for example)
+            </span>
+          </li>
+        </ol>
+        <p>
+          <span
+            >SPAA is not able to complete the negotiation when SharePoint has been configured in
+            this manner.  We are logging a feature enhancement ticket to support this.</span
+          ><br /> <br /><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            >A big hint that something is broken is when the same provider is listed more than once
+            - showing this to a SharePoint admin may be sufficient for them to be able to fix it -
+            if not the following steps worked for us:</span
+          >
+        </p>
+        <ol>
+          <li>
+            <span
+              >View the configuration in the SharePoint central admin console by selecting the web
+              app in Application Management </span
+            ><span>�</span><span> "Manage Web Applications", </span><span>�</span
+            ><span
+              >and then click on "Authentication Providers" in the ribbon.  Their CA console showed
+              just a single auth provider, similar to this:</span
+            >
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA04u0000000IgpCAE_69b6d3d1-2244-4e1a-8615-2e8b9af83684.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p>
+          <span
+            >Clicking where it says "Default" under the zone column brings up configuration for an
+            individual authentication provider.  Their "Claims Based Authentication" provider was
+            configured as shown in the following screen shot</span
+          ><br /><img
+            src="kA04u0000000IgpCAE_1dfa2d3d-0d23-4393-8ddb-e640f84c5fbf.png"
+            alt="mceclip1.png"
+          /><br /><span
+            >If both the "Enable Windows Authentication" and "Enable Forms Based Authentication"
+            checkboxes were checked that would be the cause of the problem.  It is not typical to
+            have both forms based auth and windows authentication enabled for a single zone.</span
+          ><br /><span
+            >However when only one of those options is selected but multiple copies are offered to
+            choose from there is a misconfiguration somewhere in SharePoint or in the web.config
+            file.</span
+          ><br /><span
+            >Authentication providers are configured per-web-application, in the web.config file.
+             This can be accessed via the IIS admin console by selecting the web application in the
+            tree, right clicking and selecting "Explore".  Load the web.config file in Notepad.
+             </span
+          ><br /><span
+            >Each authentication provider should have only a single element in the config file.  The
+            default config looks like this (for SP2013):</span
+          ><br /><span>    </span><br /><span>      </span><br /><span>        </span><br /><span
+            >      </span
+          ><br /><span>    </span><br /> <br /><span>If there are multiple or duplicate </span>
+        </p>
+        <p>
+          <br /><span
+            >In some situations the web.config file may only have a single row which is correct as
+            far as the web.config file is concerned which indicates the misconfiguration is
+            elsewhere. The easiest way to reset configuration for the authentication provider is to
+            use the SharePoint admin console to edit the config to something else, and then set it
+            back to what it should be.  We did this as follows:</span
+          >
+        </p>
+        <p>
+          <br /><span
+            >On the previous screen shot, we clicked the dropdown box under "Integrated Windows
+            Authentication" (where it shows "Negotiate (Kerberos)") and set it to anything else
+            (typically the only other choice is NTLM), and then click SAVE at the bottom of the
+            dialog, and then set the dropdown box back to what it was originally set to, and click
+            SAVE again.  Note: Track the initial setting the customer has, and make sure it ends up
+            reset to the same setting.</span
+          ><br /><span
+            >After making this change try browsing to the site where the issue was occurring and you
+            should only see one option displayed for credentials. Scans should now be able to
+            connect and scan without 403 errors.</span
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Permissions;SA - DC - SPAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1, 8.2<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SASP-3896<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2196
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

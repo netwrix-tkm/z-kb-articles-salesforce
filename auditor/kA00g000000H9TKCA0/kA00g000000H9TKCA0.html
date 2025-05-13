@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to remove agents from server?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TKCA0" />
+    <meta name="Id" content="ka0Qk0000004Bw9IAE" />
+    <meta name="LastPublishedDate" content="2024-06-12T09:22:00.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-12T09:22:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="609" />
+    <meta name="ArticleNumber" content="000003030" />
+    <meta name="description" content="remove agents removing nwagentsvc agent service" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>How do I remove NetWrix Event Log Agent services installed on servers?</div>
+
+        <hr />
+
+        <div>
+          To remove the NetWrix Event Log Agent service from a server, perform the following:
+        </div>
+
+        <div>
+          Run the <strong>EventManager.exe</strong> with the <strong>deleteAgents</strong> key and
+          the following parameter:
+          <strong>"the management object name" (the server name)</strong> in double quotes.
+        </div>
+
+        <div>Alternatively, you can perform the following:</div>
+
+        <div>
+          <ol>
+            <li>
+              Open <strong>NetWrix Enterprise Management Console</strong>. Click the
+              <strong>Event Log Manager</strong> node and clear the
+              <strong>Enable network traffic compression</strong> checkbox.
+            </li>
+            <li>
+              On the server you want to remove the agent service from, navigate to
+              <strong>Start </strong>-&gt; <strong>Run</strong> and type
+              <strong>services.msc</strong>. Locate the
+              <strong>NetWrix Event Log Agent</strong> service and stop it.
+            </li>
+            <li>
+              Launch <strong>Task Manager</strong>. If there are
+              <strong>nwagentsvc.exe</strong> processes running, stop them.
+            </li>
+            <li>
+              Open <strong>Command prompt</strong> and type <strong>sc delete nwagentsvc</strong>.
+              Press <strong>Enter</strong>.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

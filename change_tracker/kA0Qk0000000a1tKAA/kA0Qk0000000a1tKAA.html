@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Change Tracker Agent Does Not Run on RHEL 8 or 9</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000a1tKAA" />
+    <meta name="Id" content="ka0Qk00000030I1IAI" />
+    <meta name="LastPublishedDate" content="2024-04-05T11:10:34.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-23T09:36:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-05T11:10:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9118" />
+    <meta name="ArticleNumber" content="000009118" />
+    <meta name="description" content="Change Tracker Agent Doesn’t Run on RHEL 8/9" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Affected versions:</p>
+
+          <ul>
+            <li>
+              <p>Netwrix Change Tracker Net Core Agent - version 7.0.1.9-255 and later</p>
+            </li>
+          </ul>
+
+          <p>Error on agent service start up:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code>[1] INFO Message - Application core shutting down due to error, please restart service: 
+This license is invalid. Please see servicestack.net or contact team@servicestack.net for more details. 
+The id for this license is '%id%'</code>
+</pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            A Netwrix Change Tracker agent is unable to run due to cryptographic policy changes that
+            are applied by default on Red Hat Enterprise Linux (RHEL) 8 or 9.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Follow the steps below to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the RHEL server hosting the Change Tracker agent, open the terminal, and run the
+                following command:
+              </p>
+
+              <pre># cd /usr/share/crypto-policies/policies/modules</pre>
+            </li>
+            <li>
+              <p>
+                Run the following commands in sequence to create a new file called
+                <code>GEN7AGENT.pmod</code> and then open it:
+              </p>
+
+              <pre># touch GEN7AGENT.pmod</pre>
+
+              <pre># vi /usr/share/crypto-policies/policies/modules/GEN7AGENT.pmod</pre>
+            </li>
+            <li>
+              <p>Add these lines to the opened file:</p>
+
+              <pre># This subpolicy adds SHA1 hash and signature support</pre>
+
+              <pre>hash = SHA1+</pre>
+
+              <pre>sign = RSA-SHA1+</pre>
+            </li>
+            <li>
+              <p>Run the following command:</p>
+
+              <pre># update-crypto-policies --set DEFAULT:GEN7AGENT</pre>
+            </li>
+            <li>
+              <p>Reboot the RHEL system hosting the agent.</p>
+            </li>
+          </ol>
+
+          <p>The Netwrix Change Tracker agent should run after the subpolicies are applied.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

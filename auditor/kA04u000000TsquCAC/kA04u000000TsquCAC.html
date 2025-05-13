@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Check TCP and UDP Ports Required</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000TsquCAC" />
+    <meta name="Id" content="ka0Qk0000001YHNIA2" />
+    <meta name="LastPublishedDate" content="2024-01-29T08:26:45.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-29T08:26:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-05-24T13:49:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8440" />
+    <meta name="ArticleNumber" content="000008440" />
+    <meta
+      name="description"
+      content="How to check TCP, UDP and Dynamic ports required for Netwrix Auditor monitoring plans"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Refer to the following article for the list of
+              ports and protocols required:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Ports.htm"
+                target="_self"
+                >Requirements − Protocols and Ports Required · v10.6</a
+              >.
+            </p>
+          </blockquote>
+
+          <p>
+            Depending on the data source, Netwrix Auditor requires particular TCP and UDP ports to
+            be open. Follow the steps listed to troubleshoot the port-related connection issues.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="install_microsoft_portqry">Install Microsoft PortQry</h4>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The PortQry version used in the article is the
+              non-GUI version. You can download the GUI version in
+              <a
+                href="https://www.microsoft.com/en-us/download/details.aspx?id=24009"
+                target="_blank"
+                >PortQryUI · Microsoft 🡥</a
+              >. To run the PortQry GUI, run the extracted <strong>PortQueryUI</strong> executable.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                Download and extract PortQry Command Line Port Scanner. Download PortQry in
+                <a
+                  href="https://www.microsoft.com/en-us/download/details.aspx?id=17148"
+                  target="_blank"
+                  >PortQry Command Line Port Scanner Version 2.0 · Microsoft 🡥</a
+                >. Learn more about PortQry in
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/portqry-command-line-port-scanner-v2"
+                  target="_blank"
+                  >Using the PortQry Command Line Tool · Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once extracted, run elevated Command Prompt line and navigate to the folder
+                containing the extracted executable:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">cd C:\PortQryV2</code></pre>
+
+              <p>Replace the path with the actual path containing the extracted executable.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="check_open_ports">Check open ports</h4>
+
+        <div>
+          <p>
+            The steps provided below work for both checking open ports to a target server and the
+            Netwrix server.
+          </p>
+
+          <ul>
+            <li>
+              <p>For TCP ports:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">PortQry.exe -n TEST-SQL -p tcp -e 135</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>When checking the 135 TCP port, the first
+                  output line must state <code>Listening</code>.
+                </p>
+              </blockquote>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">PortQry.exe -n TEST-SQL -p tcp -e 139
+PortQry.exe -n TEST-SQL -p tcp -e 445</code></pre>
+            </li>
+            <li>
+              <p>For UDP ports:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">PortQry.exe -n TEST-SQL -p udp -e 137
+PortQry.exe -n TEST-SQL -p udp -e 138</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span> When checking UDP ports, the
+                  <code>Listening or Filtered</code> output line is expected.
+                </p>
+              </blockquote>
+            </li>
+          </ul>
+
+          <p>Replace the <code>TEST-SQL</code> placeholder with the target server IP or FQDN.</p>
+        </div>
+
+        <h4 id="check_dynamic_ports">Check dynamic ports</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>In Command Prompt, run the following command:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">wbemtest</code></pre>
+
+              <p>
+                In the <strong>Windows Management Instrumentation Tester</strong> window, click
+                <strong>Connect</strong> in the <strong>Namespace</strong> section.
+              </p>
+            </li>
+            <li>
+              <p>Specify the name space for the target server following the format provided:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">\\*target_host*\root\cimv2</code></pre>
+
+              <p>Click <strong>Connect</strong> to test the connection.</p>
+            </li>
+            <li>
+              <p>
+                If you receive the <strong>The RPC server is unavailable</strong> error, the dynamic
+                ports are closed. Otherwise, the dynamic ports are open.
+              </p>
+            </li>
+          </ol>
+
+          <p>Alternatively, you can run the following line in Command Prompt:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">netsh int ipv4 show dynamicport tcp</code></pre>
+
+          <p>
+            Learn more in
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/default-dynamic-port-range-tcpip-chang"
+              target="_blank"
+              >Default Dynamic Port Range for TCP/IP Changed in Windows Vista and in Server 2008 ⸱
+              Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Ports.htm"
+                  target="_self"
+                  >Requirements − Protocols and Ports Required · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://www.microsoft.com/en-us/download/details.aspx?id=24009"
+                  target="_blank"
+                  >PortQryUI · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://www.microsoft.com/en-us/download/details.aspx?id=17148"
+                  target="_blank"
+                  >PortQry Command Line Port Scanner Version 2.0 · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/portqry-command-line-port-scanner-v2"
+                  target="_blank"
+                  >Using the PortQry Command Line Tool · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/default-dynamic-port-range-tcpip-chang"
+                  target="_blank"
+                  >Default Dynamic Port Range for TCP/IP Changed in Windows Vista and in Server 2008
+                  ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

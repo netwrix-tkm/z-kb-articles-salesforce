@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      HTTP/HTTPS Error 500.19: Cannot add duplicate collection entry of type 'add' with unique key
+      attribute 'name' set to 'X-Frame-Options'
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JSSCA2" />
+    <meta name="Id" content="ka04u000000QmkBAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-05T12:22:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:41:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8154" />
+    <meta name="ArticleNumber" content="000008154" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="problem_and_cause">Problem and Cause</h2>
+        This error occurs when sometimes upgrading Change Tracker to the latest version from a much
+        older version. The "X-Frame-Options" collection entry has a duplicate in another location,
+        and needs to be removed from the web config file to avoid IIS Conflicts. The below
+        information will show you how to do this.
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <div class="confluence-information-macro-body">
+            <p>
+              <span class="confluence-embedded-file-wrapper"
+                ><img
+                  class="confluence-embedded-image"
+                  src="kA04u0000000JSSCA2_ea823c21-b93d-4c6a-a8c7-007cc8eff198.png"
+              /></span>
+            </p>
+          </div>
+        </div>
+
+        <h2
+          id="HowtofixHTTP/HTTPSError500.19-Cannotaddduplicatecollectionentryoftype'add'withuniquekeyattribute'name'setto'X-Frame-Options'-Step-by-stepguide"
+        >
+          Resolution
+        </h2>
+
+        <ol>
+          <li>Open up IIS, and stop the <strong>IIS Server</strong></li>
+          <li>
+            Navigate to <code>C:\inetpub\wwwroot\Change Tracker Generation 7 WebUI\html\</code>
+          </li>
+          <li>
+            Edit the <strong>Web.Config</strong> file using notepad, take a look at the
+            <strong>X-Frame-Options</strong>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+                    ><img
+                      class="confluence-embedded-image"
+                      height="400"
+                      src="kA04u0000000JSSCA2_e41bd596-e8f6-4653-b97d-47eae9baf999.png"
+                  /></span>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              We want to comment this out, so that the duplication gets removed, to do this, add the
+              following characters (in red):
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span class="confluence-embedded-file-wrapper"
+                    ><img
+                      class="confluence-embedded-image"
+                      src="kA04u0000000JSSCA2_551e8543-599a-4006-a190-7cc64a7e929a.png"
+                  /></span>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            Save the changes.
+            <p>
+              <span><strong>NOTE</strong></span
+              >: You may have to save this to the desktop, and then copy and paste it back into the
+              directory above, replacing the old file.
+            </p>
+          </li>
+          <li>
+            Once you have done this, start <strong>IIS</strong> and visit your Change Tracker
+            Console page. You should now be able to log in.
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <div class="confluence-information-macro-body">
+            <p>
+              <span class="confluence-embedded-file-wrapper"
+                ><img
+                  class="confluence-embedded-image"
+                  src="kA04u0000000JSSCA2_0c9e0e13-f7b2-4b9c-b3d7-b9b10772c6f4.png"
+              /></span>
+            </p>
+          </div>
+        </div>
+
+        <h3
+          id="HowtofixHTTP/HTTPSError500.19-Cannotaddduplicatecollectionentryoftype'add'withuniquekeyattribute'name'setto'X-Frame-Options'-Relatedarticles"
+        >
+          Related articles
+        </h3>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8150" target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

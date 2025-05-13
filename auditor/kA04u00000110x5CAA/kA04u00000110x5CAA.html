@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Remote Certificate Is Invalid According to Validation Procedure — Subscriptions Error in
+      Netwrix Auditor
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110x5CAA" />
+    <meta name="Id" content="ka04u00000117UKAAY" />
+    <meta name="LastPublishedDate" content="2023-07-27T10:15:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-30T13:41:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-27T10:15:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8693" />
+    <meta name="ArticleNumber" content="000008693" />
+    <meta
+      name="description"
+      content="Remote Certificate Is Invalid after Validation Procedure Error in Subscriptions"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Subscription reports are missing.</p>
+            </li>
+            <li>
+              <p>
+                Subscription status reads <strong>Failed</strong> with the following error message:
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <pre class="has-inner-focus">
+The following subscriptions could not be sent to the recipient recipient@domain.com:
+Subscription to the %report_name% report
+Error: The remote certificate is invalid according to the validation procedure.
+</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Certificate validation is enforced for notifications.</p>
+            </li>
+            <li>
+              <p>Incorrect SMTP server stated in Notifications SMTP settings.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          <p>
+            If enforced certificate validation is intended, refer to the following steps to
+            troubleshoot the issue:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                Ensure your SSL certificate is still valid. Netwrix Auditor stops generating reports
+                once your certificate expires. In case you're using a self-signed certificate in
+                your environment, you can reboot your Netwrix Auditor server to reissue the
+                certificate.
+              </p>
+            </li>
+            <li>
+              <p>
+                In case you'd like to set up secure connection between your Netwrix Auditor instance
+                and SQL Server Reporting Services, refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PblFCAS.html"
+                  target="_self"
+                  >Set Up Secure Connection Between Netwrix Auditor and SSRS via SSL/TLS Channel</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Make sure the FQDN of your SMTP server is stated instead of the IP address in
+                Netwrix Auditor settings &gt; <strong>Notifications</strong>.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p>In case certificate validation was not intended, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>In the main Netwrix Auditor screen, select <strong>Settings.</strong></p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>Notifications</strong>, and click
+                <strong>Modify</strong> under <strong>Default SMTP Settings</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Uncheck the
+                <strong>Use Secure Socket Layer encrypted connection (SSL/TLS)</strong> checkbox and
+                click <strong>OK</strong> to save changes.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PblFCAS.html"
+            target="_self"
+            >Set Up Secure Connection Between Netwrix Auditor and SSRS via SSL/TLS Channel</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

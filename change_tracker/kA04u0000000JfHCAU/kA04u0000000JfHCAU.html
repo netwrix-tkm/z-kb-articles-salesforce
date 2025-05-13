@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server returned an
+      error: (403) Forbidden.)"
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JfHCAU" />
+    <meta name="Id" content="ka04u000000HdB5AAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T01:00:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8307" />
+    <meta name="ArticleNumber" content="000008307" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This problem occurs when the NNT Gen 7 Agent service is not able to
+          authenticate/communicate with the Change Tracker Server as the service user assigned does
+          not have enough privileges.
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" class="confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <div class="code panel pdl conf-macro output-block">
+                    <div class="codeContent panelContent pdl">
+                      <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#                                                                             Example Message:													                                #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2019-12-03 14:48:31,110 [10] INFO Message - Hub Offline, connection retries exhausted. Sleeping until 03/12/2019 13:49:53 (The remote server returned an error: (403) Forbidden.)
+</pre
+                      >
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 id="Rolling-LogFix:">Instructions</h2>
+        <ol>
+          <li><p>Remote onto the agent device raising this error.</p></li>
+          <li>
+            <p>Stop the NNT Gen 7 Agent service and click into the properties of the service.</p>
+          </li>
+          <li>
+            <p>Click on the <strong>Log On </strong>tab.</p>
+          </li>
+          <li>
+            <p>
+              Select <strong>This account</strong> and assign a user with more privileges such as
+              administrator for example and press OK.
+            </p>
+          </li>
+          <li>
+            <p>
+              Navigate to your NNT Agent Directory Which contains the Rolling-Log Files - Which is
+              defined in this article -<a
+                class="external-link"
+                href="http://supportnntws.atlassian.nethttps://kb.netwrix.com/8048"
+                target="_blank"
+                >NNT Software Problem? What Info Should I Provide?</a
+              >
+            </p>
+          </li>
+          <li><p>Right-click and edit the Hubdetails.xml file.</p></li>
+          <li><p>Remove the Tags as they are the agent password which has been encrypted</p></li>
+          <li>
+            <p>
+              In the place of the Tags, enter the Tags - See example hubdetails below. The default
+              password is used as an example.
+            </p>
+          </li>
+          <li>
+            <p>
+              In between the password entries, enter your Agent Account password as defined on your
+              NNT Hub Server
+            </p>
+          </li>
+          <li><p>Save the file out, replacing the old one.</p></li>
+          <li><p>Start the NNT Gen 7 Agent service.</p></li>
+        </ol>
+        <h2 id="Rolling-LogFix:"><strong>Example HubDetails.xml file:</strong></h2>
+        <div class="table-wrap">
+          <table count-columns="1" class="confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><br /><strong /></p>
+                  <p>
+                    <strong
+                      ><strong>http://www.w3.org/2001/XMLSchema-instance</strong
+                      ><strong>" xmlns:xsd="</strong
+                      ><a
+                        class="external-link"
+                        href="http://www.w3.org/2001/XMLSchema"
+                        target="_blank"
+                        ><strong>http://www.w3.org/2001/XMLSchema</strong></a
+                      ><strong>"&gt;</strong></strong
+                    >
+                  </p>
+                  <strong />
+                  <p>
+                    <strong
+                      ><strong> </strong
+                      ><a
+                        class="external-link"
+                        href="https://myserver.mydomain.local/api%3c/Url"
+                        target="_blank"
+                        ><strong>https://myserver.mydomain.local/api</strong></a
+                      ><strong><strong>&gt;</strong></strong></strong
+                    >
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> agent</strong></strong></strong
+                    >
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong
+                        ><strong> <span>passWord121</span></strong></strong
+                      ></strong
+                    >
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> false</strong></strong></strong
+                    >
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong> </strong></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                  <p>
+                    <strong
+                      ><strong><strong /></strong
+                    ></strong>
+                  </p>
+                  <strong><strong /></strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <strong><strong /></strong>
+        </div>
+        <strong><strong /></strong>
+        <h2 id="Rolling-LogFix:">
+          <strong><strong>Related articles</strong></strong>
+        </h2>
+        <strong><strong /></strong>
+        <p>
+          <strong><strong /></strong>
+        </p>
+        <strong><strong> </strong></strong>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <strong><strong> </strong></strong>
+            <div>
+              <strong
+                ><strong>
+                  <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                    >Page:</span
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+            <div class="details">
+              <strong
+                ><strong>
+                  <a href="https://kb.netwrix.com/8150" target="_blank"
+                    >How to Backup / Restore / Move your MongoDB Database</a
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+          </li>
+          <li>
+            <strong><strong> </strong></strong>
+            <div>
+              <strong
+                ><strong>
+                  <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                    >Page:</span
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+            <div class="details">
+              <strong
+                ><strong>
+                  <a href="https://kb.netwrix.com/8295" target="_blank"
+                    >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+          </li>
+          <li>
+            <strong><strong> </strong></strong>
+            <div>
+              <strong
+                ><strong>
+                  <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                    >Page:</span
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+            <div class="details">
+              <strong
+                ><strong>
+                  <a href="https://kb.netwrix.com/8283" target="_blank"
+                    >How to move your Linux Server MongoDB Database to a Windows server?</a
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+          </li>
+          <li>
+            <strong><strong> </strong></strong>
+            <div>
+              <strong
+                ><strong>
+                  <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                    >Page:</span
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+            <div class="details">
+              <strong
+                ><strong>
+                  <a href="https://kb.netwrix.com/8164" target="_blank"
+                    >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change
+                    Tracker Gen7</a
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+          </li>
+          <li>
+            <strong><strong> </strong></strong>
+            <div>
+              <strong
+                ><strong>
+                  <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                    >Page:</span
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+            <div class="details">
+              <strong
+                ><strong>
+                  <a href="https://kb.netwrix.com/8273" target="_blank"
+                    >Supporting Documents for Hub Server Problems</a
+                  >
+                </strong></strong
+              >
+            </div>
+            <strong><strong> </strong></strong>
+          </li>
+        </ul>
+        <strong><strong /></strong>
+      </div>
+    </article>
+  </body>
+</html>

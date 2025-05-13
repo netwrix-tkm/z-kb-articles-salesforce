@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Clock Skew Is Too Great</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000LdxKAE" />
+    <meta name="Id" content="ka0Qk0000001FzVIAU" />
+    <meta name="LastPublishedDate" content="2023-12-22T11:05:06.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-08T12:14:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-22T11:05:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8982" />
+    <meta name="ArticleNumber" content="000008982" />
+    <meta name="description" content="Clock Skew Is Too Great" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Failed logons are reported in Netwrix Auditor with the following
+            <strong>Cause</strong> specified:
+          </p>
+
+          <pre class="has-inner-focus"><code class="lang-Registry">Clock skew is too great:
+The workstation's clock too far out of sync with the DC's</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The reported workstation and the DC processing the Kerberos request have a time
+            difference of 5 of more minutes.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            In both the DC and affected workstation, perform the following steps in elevated Command
+            Prompt:
+          </p>
+
+          <ol>
+            <li>
+              <p>Run the following line to get the current system time:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">time /T</code></pre>
+            </li>
+            <li>
+              <p>Run the following line to establish the time zone set up:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">systeminfo | findstr /C:"Time Zone"</code></pre>
+            </li>
+            <li>
+              <p>Run the following line to confirm the source for the machine:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">w32tm /query /status</code></pre>
+            </li>
+            <li>
+              <p>Run the following line to force sync the time:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">w32tm /resync</code></pre>
+            </li>
+            <li>
+              <p>
+                <strong>Optional:</strong> Run the following line again to verify the time was
+                synced:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">time /T</code></pre>
+            </li>
+          </ol>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>You may encounter the following error when
+            attempting to sync your server to the domain controller time:
+          </p>
+
+          <pre class="has-inner-focus">
+Sending resync command to local computer
+The computer did not resync because no time data was available.</pre
+          >
+
+          <p>
+            Verify the time source specified in the output of the
+            <code>w32tm /query /status</code> line. In case the <strong>Source</strong> line states
+            either <strong>Local CMOS Clock</strong> or <strong>Free-running System Clock</strong>,
+            enable time synchronization with your DC. Run the following lines in elevated Command
+            Prompt:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">w32tm /config /syncfromflags:domhier /update
+
+net stop w32time &amp;&amp; net start w32time</code></pre>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

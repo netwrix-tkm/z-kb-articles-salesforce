@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor System Health Log Contains EventIDs 3127 and 3129</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnqWCAQ" />
+    <meta name="Id" content="ka0Qk0000000vfpIAA" />
+    <meta name="LastPublishedDate" content="2023-12-11T10:29:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-11T10:29:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-22T11:33:30.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8915" />
+    <meta name="ArticleNumber" content="000008915" />
+    <meta
+      name="description"
+      content="Netwrix Auditor System Health Log Contains EventIDs 3127 and 3129"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A monitoring plan in Netwrix Auditor is constantly in the <b>Working</b> status and the
+            product fails to collect historical snapshots.
+          </p>
+
+          <p>The Netwrix Auditor System Health Log contains the following errors:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Event ID 3127: Import of the latest snapshot failed. No items were imported.</code></pre>
+        </div>
+
+        <pre
+          class="has-inner-focus"
+        ><code class="lang-Registry">Event ID 3129: Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding. Operation cancelled by user.</code></pre>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            These errors basically occur when the Auditor Audit databases misbehave with the current
+            version of Microsoft SQL Server. However, there might be multiple root causes for the
+            issue but below is the only one potential resolution.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>To resolve the issue, you need to install cumulative update for your SQL Server.</p>
+
+          <p>
+            Download and install
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/sql/releases/sqlserver-2017/cumulativeupdate31"
+              target="_blank"
+              >Cumulative Update 31 for SQL Server 2017 ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE:</strong></span> The State-in-Time snapshot for SharePoint Online
+              occurs every 24 hours, usually at 03:00 or 04:00. So, once the above Cummulative
+              Update is applied, you will need to wait until the following day to see the results.
+            </p>
+          </blockquote>
+
+          <p>
+            To check the the issue has been resolved, run one of the SharePoint Online State-in-Time
+            Reports. Make sure to provide it with a well-known object so that there is the greatest
+            possibility of there being data returned, such as the
+            <b>SharePoint Online Site Collections Access by User</b> Report.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

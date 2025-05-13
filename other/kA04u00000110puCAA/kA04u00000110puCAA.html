@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Losing Access to Machines when Moving Between OUs</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="label" content="employees_v"/><meta name="KnowledgeArticleId" content="kA04u00000110puCAA"/><meta name="Id" content="ka04u00000116h3AAA"/><meta name="LastPublishedDate" content="2023-07-11T08:58:52.000+0000"/><meta name="LastModifiedDate" content="2023-07-14T14:25:56.000+0000"/><meta name="FirstPublishedDate" content="2023-07-11T08:58:52.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8653"/><meta name="ArticleNumber" content="000008653"/><meta name="description" content="Losing Access to Machines when Moving Between OUs"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+
+<div>
+<p>When an update to an AD group is made the Update Sequence Number (USN) is incremented. Netwrix Privilege Secure for Discovery utilizes this to identify the change and flattens the updated group to determine suitable access to a given machine.</p>
+
+<p>When a user is moved from one OU to another, an issue can occur that a user loses access to machines that previously they had access to.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The distinguished name for the user has changed, due to OU move, however, the groups associated with the user has not updated. As these groups have not been updated, the old distinguished name has not been updated either.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Make a change to the group that the user should be receiving access from. This can be simply, the addition and removal of a different account. This will trigger Netwrix Privilege Secure for Discovery to recognize an update and therefore perform a re-flattening of the group, restoring access.</p>
+</div></div>
+</article></body></html>

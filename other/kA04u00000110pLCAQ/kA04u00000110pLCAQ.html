@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Unhandled Error: Module Failure</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110pLCAQ"/><meta name="Id" content="ka0Qk0000004LDxIAM"/><meta name="LastPublishedDate" content="2024-06-25T18:40:38.000+0000"/><meta name="LastModifiedDate" content="2024-06-25T18:53:51.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T11:02:14.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8648"/><meta name="ArticleNumber" content="000008648"/><meta name="description" content="Unhandled Error: Module Failure"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<p>When scanning a Linux system, or with the manual registration of a non-domain Linux system, the following error appears:</p>
+
+<pre class="has-inner-focus">Unhandled error: MODULE FAILURE See stdout/stderr for the exact error
+Type: updateCreds
+Code: 1779</pre>
+
+<blockquote>
+<p><strong><span>NOTE:</span></strong> Domain-joined Linux systems are discovered in Active Directory (AD), and no registration is required.</p>
+</blockquote>
+
+<h2 id="causes">Causes</h2>
+
+<div>
+<ol><li>
+	<p>SUSE Linux has a sudoers configuration where SUSE will prompt for the root password, not the password for the account registered with Netwrix Privilege Secure for Discovery.</p>
+	</li><li>
+	<p>A Python script is failing due to an incomplete package update.</p>
+	</li></ol>
+</div>
+
+<h2 id="resolutions">Resolutions</h2>
+
+<div>
+<ol><li>
+	<p>Cause 1: Comment out the two lines that do not start with ## symbols in the example below.</p>
+
+	<p>Use the following command to edit the file:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">sudo visudo</code></pre>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">## In the default (unconfigured) configuration, sudo asks for the root password.
+## This allows use of an ordinary user account for administration of a freshly
+## installed system. When configuring sudo, delete the two
+## following lines:
+Defaults targetpw   # ask for the password of the target user i.e. root
+ALL   ALL=(ALL) ALL   # WARNING! Only use this together with 'Defaults targetpw'!</code></pre>
+
+	<p>Attempt the registration again.</p>
+	</li><li>
+	<p>Cause 2: Update Linux packages and reboot if required. See the examples below for reference:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Redhat: sudo yum update
+Debian: sudo apt update &amp;&amp; sudo apt -y dist-upgrade
+SUSE: sudo zypper refresh &amp;&amp; sudo zypper update</code></pre>
+	</li></ol>
+</div></div>
+</article></body></html>

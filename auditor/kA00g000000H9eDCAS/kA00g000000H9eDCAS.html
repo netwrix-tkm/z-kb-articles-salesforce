@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to capture service traffic</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eDCAS" />
+    <meta name="Id" content="ka0Qk000000DQUXIA4" />
+    <meta name="LastPublishedDate" content="2025-04-25T18:17:31.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-25T18:17:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3531" />
+    <meta name="ArticleNumber" content="000003695" />
+    <meta name="description" content="How to capture service traffic" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          In more <strong>complex </strong>or <strong>secure </strong>environments there will
+          sometimes be the need to <strong>debug </strong>connectivity between the <strong
+            >Netwrix Data Classification</strong
+          > services and an external <strong>HTTP </strong>connection (Website, SharePoint site
+          collection etc). In these cases "<strong>Fiddler</strong>" is a free tool that can be used
+          to exclude certain issues as well as debug the exact <strong>HTTP </strong>traffic that is
+          occurring.
+        </p>
+
+        <p>
+          When <strong>Fiddler </strong>launches and attaches it adjusts the current user"s proxy
+          settings to point at <strong>Fiddler</strong>, running on 127.0.0.1:8888 by default -
+          however, this will not include the core services (Collector, Indexer and Classifier) which
+          must be configured manually.
+        </p>
+
+        <p>
+          Should the failure case succeed when Fiddler is running (and configured) it would suggest
+          that a proxy configuration is required within the environment that has not been configured
+          correctly. We would suggest co-coordinating with your network team to confirm the exact
+          requirements to connect between the server and desired destination.
+        </p>
+
+        <p>
+          Fiddler can be downloaded from the <a
+            href="https://www.telerik.com/fiddler"
+            target="_blank"
+            >Telerik Website</a
+          >.
+        </p>
+
+        <hr class="wp-block-separator" />
+        <p>
+          <strong>Note: </strong>Making changes to the machine.config may temporarily interrupt IIS.
+        </p>
+
+        <ol>
+          <li>Start <strong>Fiddler</strong></li>
+          <li>
+            Launch <strong>Notepad</strong> with elevated <strong>permissions </strong>(Right Click
+            program → Run as <strong>Administrator</strong>)
+          </li>
+          <li>
+            Open the following file:
+            <strong>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\machine.config</strong>
+          </li>
+          <li>
+            Add the below <strong>XML </strong>block as a peer to the existing
+            <strong>system.net</strong> element, replacing any existing
+            <strong>defaultProxy </strong>element if present (see image below)
+          </li>
+          <li>Save the file</li>
+          <li>
+            Restart the core <strong>Services </strong>(<strong>Collector</strong>,
+            <strong>Indexer </strong>and <strong>Classifier)</strong>
+          </li>
+        </ol>
+        <b>NOTE: </b>The <b>system.net </b>element must be contained <i>within </i
+        ><b>configuration </b>element.<br /> 
+        <pre
+          class="wp-block-verse"
+        > &lt;!-- The following section is to force use of Fiddler for all applications, including those running in service accounts --&gt;
+&lt;system.net&gt;
+&lt;defaultProxy
+                enabled = "true"
+                useDefaultCredentials = "true"&gt;
+&lt;proxy autoDetect="false" bypassonlocal="false" proxyaddress="<a href="http://127.0.0.1:8888/" target="_blank">http://127.0.0.1:8888</a>" usesystemdefault="false" /&gt;
+&lt;/defaultProxy&gt;
+&lt;/system.net&gt; </pre>
+        <img
+          class="wp-image-5119"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2019/12/CaptureTrafficMachineConfig.png"
+        />
+      </div>
+    </article>
+  </body>
+</html>

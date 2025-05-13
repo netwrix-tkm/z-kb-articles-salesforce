@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Identify Whether Auditor Server Can Receive Data from Meraki API?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000XGvKAM" />
+    <meta name="Id" content="ka0Qk0000002jaXIAQ" />
+    <meta name="LastPublishedDate" content="2024-04-05T13:52:22.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-05T13:52:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-25T15:29:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9089" />
+    <meta name="ArticleNumber" content="000009089" />
+    <meta
+      name="description"
+      content="How to Identify Whether Auditor Server Can Receive Data from Meraki API?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>When configuring a Meraki dashboard data source, the following error appears:</p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+        Source: Network Devices Audit Service
+        Event ID: 6023
+        Unable to process item: The network path was not found. 
+            </pre>
+          </div>
+
+          <p>When searching for the Meraki dashboard data source, no data is available.</p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This error indicates an incorrect port configuration on the side of the Meraki Dashboard
+            data source.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>
+            To identify whether the Netwrix server can receive data from the Meraki API, open the
+            command prompt as an administrator and execute the following command:
+          </p>
+          <code>curl https://api.meraki.com/api/v1 &gt; 1.html</code>
+
+          <p>This is an example of a response when the product cannot access the Meraki API:</p>
+
+          <p>
+            <img
+              alt="User-added image"
+              height="113"
+              src="kA0Qk0000000XGvKAM_04646001-6725-43d5-b056-76ee03967118.png"
+              width="500"
+            />
+          </p>
+
+          <p>
+            In this case, check the ports required to audit the Meraki dashboard source and their
+            internal firewall. Learn more about required ports and protocols in this article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/NetworkDevices/Ports.htm"
+              target="_blank"
+              >Data Source Configuration — Network Devices — Network Devices Ports — v10.6</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

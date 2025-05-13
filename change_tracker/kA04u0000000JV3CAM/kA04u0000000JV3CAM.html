@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How To Increase File Content Max for Extension</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JV3CAM" />
+    <meta name="Id" content="ka04u000000Hd8YAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8261" />
+    <meta name="ArticleNumber" content="000008261" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article will help you in increasing your File Content Max for extension when you
+          receive the error below
+        </p>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   															Example Message:																										  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+Contents will not be tracked, file length is bigger than current filecontentmaxforextension limit: (701206 bytes)
+
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="HowToIncreaseFileContentMaxforExtension-HowtoIncreasetheDefaultFileContentMaximum:">
+          How to Increase the Default File Content Maximum:
+        </h2>
+
+        <p>To increase the maximum file content size:</p>
+
+        <ol>
+          <li>
+            Stop the Gen7Agent Service<br />
+             
+          </li>
+          <li>
+            Navigate to and edit C:\Program Files\NNT Change Tracker Suite\Gen7Agent\<strong
+              ><span>Gen7Agent.Service.exe.config</span></strong
+            ><br />
+             
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Look for the following lines of code - Generally this will be in line 11 and 12:
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p> </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Edit the value to represent the number which you want to increase it to. Note that the
+              higher the number, the more resources and time it takes to process file contents
+              (<span>See last Note of Article</span>). Example (1 MB):
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p> </p>
+
+                <p><strong>1048576" /&gt;</strong></p>
+              </div>
+            </div>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  Note that this website is good for conversions. We are looking to convert
+                  Megabytes to Bytes:
+                </p>
+
+                <p>
+                  <a
+                    class="external-link"
+                    href="http://www.matisse.net/bitcalc/?input_amount=135&amp;input_units=megabytes&amp;notation=legacy"
+                    target="_blank"
+                    >http://www.matisse.net/bitcalc/?input_amount=135&amp;input_units=megabytes&amp;notation=legacy</a
+                  >
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            Save the file and close the word processor used to make the changes<br />
+             
+          </li>
+          <li>
+            <p class="auto-cursor-target">Start the Gen7Agent Service</p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span
+                    ><span
+                      >You may find that you need to do this on multiple agents. If this is the
+                      case, this file can be copied and pasted on agents that have the same version
+                      number, and are in default state, but a service stop and start is needed in
+                      order for the changes to take affect.</span
+                    ></span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span
+                    >We have built in file content limits on the agent and if these are exceeded
+                    file-contents will not be performed.</span
+                  >
+                </p>
+
+                <p>
+                  <span
+                    >This assists the agent and ensures that it is able to process files as quickly
+                    as possible, as the bigger the file the longer it takes to generate a hash
+                    value.</span
+                  >
+                </p>
+
+                <p>
+                  <span
+                    >Increasing this value could affect the speed file contents is processed.</span
+                  >
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <h2 id="HowToIncreaseFileContentMaxforExtension-Relatedarticles">Related articles</h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

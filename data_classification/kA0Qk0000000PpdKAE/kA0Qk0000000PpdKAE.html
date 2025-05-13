@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Workflow Isn't Running or Is Running Unexpectedly</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PpdKAE" />
+    <meta name="Id" content="ka0Qk000000454LIAQ" />
+    <meta name="LastPublishedDate" content="2024-06-06T12:48:59.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-06T12:48:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-25T19:05:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9026" />
+    <meta name="ArticleNumber" content="000009026" />
+    <meta name="description" content="Workflow Isn't Running or Is Running Unexpectedly" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article offers step-by-step guidance for resolving common workflow issues. Whether
+            your workflow isn't working, runs unexpectedly, or documents are misclassified, the
+            guide provides solutions for each scenario.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="workflow_isnt_running">Workflow isn't running</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>Please make sure that the workflow is enabled.</p>
+            </li>
+            <li>
+              <p>
+                Go to the <strong>Log</strong> section and check if there were attempts to run the
+                workflow for the document. Depending on the result, follow one of the instructions
+                below:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <strong>There was a successful attempt to run the workflow</strong> – Check the
+                    workflow action configuration. Then enable workflow trace logging and reclassify
+                    the document. Check the Windows Event Logs for details of any issues. (e.g.,
+                    skipping redaction because the file type isn't supported).
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>Failed to run the workflow</strong> – A basic error message will be
+                    displayed that may assist you with troubleshooting the issue. If it doesn't give
+                    enough details, then enable workflow trace logging and reclassify the document.
+                    Check the Windows Event Logs for details of any issues.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>No attempts to run the workflow</strong> – Check that the conditions are
+                    configured correctly for the workflow and workflow rule. If the workflow and
+                    workflow rules are configured correctly, then check the classifications of the
+                    document. If the classifications aren't as expected, then please reference to
+                    the following documentation for the troubleshooting steps:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000Q0vKAE.html"
+                      target="_blank"
+                      >Classification Troubleshooting</a
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Filter the workflow logs and check if there are other workflows being run for the
+                document. Workflows run in a priority order. If there is more than one migration
+                action, then the second migration will fail as the document has already been moved.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="workflow_is_running_unexpectedly">Workflow is running unexpectedly</h4>
+
+        <div>
+          <p>
+            This typically means that the document has a classification that isn't expected to have
+            or that the conditions in the workflow rule are not configured correctly.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Check the workflow rule conditions. Pay attention to the parameters. Learn more
+                about rule configuration and description of classification rules:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Admin/Workflows/AdvancedWindow/CreateWorkflow.htm#specifying_rule_conditions"
+                  target="_blank"
+                  >Configure a Workflow using Advanced dialog ⸱ v5.7</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the document's classifications. If there is a classification that is not
+                intended, then reference the following documentation for troubleshooting steps:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000Q0vKAE.html"
+                  target="_blank"
+                  >Document isn't classified as expected</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="table-wrap"><table count-columns="" /></div>
+      </div>
+    </article>
+  </body>
+</html>

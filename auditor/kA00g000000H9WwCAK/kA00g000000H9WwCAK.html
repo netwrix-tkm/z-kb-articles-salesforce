@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Oracle Database Server 12.1 and 12.2 with Netwrix Auditor</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WwCAK" />
+    <meta name="Id" content="ka04u000000HcQ6AAK" />
+    <meta name="LastPublishedDate" content="2023-01-20T16:41:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1097" />
+    <meta name="ArticleNumber" content="000003249" />
+    <meta
+      name="description"
+      content="Audit Oracle Database Server 12.1 and 12.2 with Netwrix AuditorOracle Database server 12.2 installed on all target servers."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The following scenarios are possible:
+        <ol>
+          <li>Oracle Database server 12.2 installed on all target servers.</li>
+        </ol>
+
+        <div>AND</div>
+
+        <div>Monitoring plans for Oracle Database have not been created.</div>
+
+        <ol start="2">
+          <li>
+            Oracle Database server 12.2 and 12.1 are installed on target servers. AND You need to
+            create monitoring plans for Oracle Database 12.2 and then edit their settings manually.
+          </li>
+        </ol>
+        In both cases, you will not receive any errors in the Netwrix Auditor System Health log, but
+        the product cannot collect data from Oracle Database server 12.2.
+
+        <hr />
+        Perform the following steps depending on your scenario:
+        <div> </div>
+
+        <div class="table-wrap">
+          <table count-columns="2" border="1">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">Scenario</td>
+                <td colspan="1" rowspan="1">Resolution steps</td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  Oracle Database server 12.2 installed on all target servers. AND Monitoring plans
+                  for Oracle Database have not been created
+                </td>
+                <td colspan="1" rowspan="1">
+                  <ol>
+                    <li>
+                      On the computer where Netwrix Auditor is installed, navigate to
+                      <i>%NetwrixAuditor_installation_folder%\Oracle Auditing</i> (by default,
+                      <i>C:\Program Files (x86)</i>.
+                    </li>
+                    <li>Edit the<b> NwxOracleAuditorQueries.acinc</b> file with Notepad:</li>
+                  </ol>
+
+                  <div>
+                    Replace the <i>gv$unified_audit_trail </i>text with <i>audsys.aud$unified</i>.
+                  </div>
+
+                  <ol start="3">
+                    <li>
+                      Navigate to the <b>Services </b>snap-in and restart the
+                      <b>Netwrix Auditor for Oracle Database Audit Service</b> service.
+                    </li>
+                    <li>
+                      Create a monitoring plan for your Oracle Database instances and wait for
+                      initial analysis completes.
+                    </li>
+                  </ol>
+
+                  <div> </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  Oracle Database server 12.2 and 12.1 are installed on target servers AND You need
+                  to create monitoring plans for Oracle Database 12.2 and then edit their settings
+                  manually.
+                </td>
+                <td colspan="1" rowspan="1">
+                  <b>Note</b>: Netwrix Auditor fails to process both: Oracle Database server 12.1
+                  and 12.2 within one monitoring plan.
+                  <ol>
+                    <li>Create monitoring plan with Oracle 12.2 items.</li>
+                    <li>Find your monitoring plan GUID:</li>
+                  </ol>
+
+                  <div>
+                    Navigate to <i>%programdata%\Netwrix Auditor\AuditCore\ConfigServer </i>and open
+                    the <b>Configuration.xml </b>file.
+                  </div>
+
+                  <div>Find your monitoring plan name in the configuration file:</div>
+
+                  <div><i>&lt;n n="ManagedObjects"&gt;</i></div>
+
+                  <div><i>....</i></div>
+
+                  <div>
+                    <i>&lt;a n="Name" t="2" v="your_Oracle_Database_monitoring_plan_name"/&gt;</i>
+                  </div>
+
+                  <ol start="3">
+                    <li>
+                      Navigate to
+                      <i
+                        >C:\ProgramData\Netwrix
+                        Auditor\OracleAuditorData\&lt;your_Oracle_monitoring_plan_GUID&gt;</i
+                      >
+                      and edit the <b>Queries.xml</b> file with Notepad:
+                    </li>
+                  </ol>
+
+                  <div>
+                    Replace the <i>gv$unified_audit_trail </i>text with <i>audsys.aud$unified</i>.
+                  </div>
+
+                  <ol start="4">
+                    <li>Run data collection for your Oracle Database monitoring plans.</li>
+                  </ol>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div> </div>
+      </div>
+    </article>
+  </body>
+</html>

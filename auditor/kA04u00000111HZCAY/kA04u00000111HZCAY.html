@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Compression Service Encountered an Internal Error in Windows Server Monitoring Plan
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111HZCAY" />
+    <meta name="Id" content="ka04u000000wvwhAAA" />
+    <meta name="LastPublishedDate" content="2023-10-02T09:25:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-30T06:39:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-02T09:25:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8834" />
+    <meta name="ArticleNumber" content="000008834" />
+    <meta name="description" content="The Compression Service has encountered an internal error" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for your Windows Server Auditing
+            monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Source: Windows Server Audit Service
+Event ID: 2009
+Description: Monitoring plan: %affected_monitoring_plan%
+Item: %affected_server%
+The following error has occurred while processing %affected_server%:
+The Compression Service has encountered an internal error: The Compression Service has encountered an internal error.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The Windows Server Auditing host and compression service cannot operate due to different
+            TLS protocol versions.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Enable TLS 1.2 via SChannel both in your Netwrix server and the target servers
+                affected by the error. Refer to the following registry subkey:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client\Enabled</code></pre>
+
+              <p>
+                The <strong>Enabled</strong> value in both your Netwrix server and the target
+                servers affected should state <strong>0x00000001 (1)</strong> or 1 (hexadecimal).
+              </p>
+            </li>
+            <li>
+              <p>
+                In both your Netwrix server and the target servers affected, set the following
+                registry keys to allow the operating system to select the protocol for incoming and
+                outgoing communications:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+            
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+            
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+            
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001</code></pre>
+
+              <p>
+                You can also use the following registry key to run it to achieve the same results:
+                <a
+                  href="https://netwrix.com/download/products/KnowledgeBase/TLSRegkey.reg"
+                  target="_blank"
+                  >TLS Registry Key</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Allow all Schannel event logging levels to be logged. Refer to the following
+                registry key:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL</code></pre>
+
+              <p>Change the <strong>EventLogging</strong> subkey value to 7 (hexadecimal).</p>
+            </li>
+            <li>
+              <p>
+                If the issue persists with all settings above configured correctly, review WinHTTP
+                settings in both your Netwrix server and the target servers affected:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp\
+DefaultSecureProtocols = (DWORD): 0xAA0
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp\
+DefaultSecureProtocols = (DWORD): 0xAA0</code></pre>
+            </li>
+            <li>
+              <p>
+                Once the changes are introduced, close Registry Editor for changes to take effect.
+                It is recommended to restart the affected servers. Alternatively, restart
+                <strong>Netwrix Auditor for Windows Server Compression Service</strong> in each
+                affected server.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Once the issue is solved, limit the Schannel
+              event logging level to <strong>1</strong>. Refer to the following registry key:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL</code></pre>
+
+            <p>Change the <strong>EventLogging</strong> subkey value to 1 (hexadecimal).</p>
+          </blockquote>
+        </div>
+
+        <h4 id="attached_files">Attached files</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://netwrix.com/download/products/KnowledgeBase/TLSRegkey.reg"
+              target="_blank"
+              >TLS Registry Key</a
+            >
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+              target="_self"
+              >Сonnection Issue when TLS 1.2 Is Required</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoK4CAK.html"
+              target="_self"
+              >Client and Server Cannot Communicate, Because They Do Not Possess a Common
+              Algorithm</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

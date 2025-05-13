@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Move Long-Term Archive to a New Location</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SSCA0" />
+    <meta name="Id" content="ka04u00000117adAAA" />
+    <meta name="LastPublishedDate" content="2023-09-05T18:52:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-05T18:52:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="247" />
+    <meta name="ArticleNumber" content="000002976" />
+    <meta
+      name="description"
+      content="This article applies to Netwrix Auditor 9.0 and above and provides instructions on how to store your Long-Term Archive to a desired location."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          How to move Long-Term Archive to a location different from the default one for Netwrix
+          Auditor version 8.5 and newer?
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <span><b>NOTE: </b></span>In case you've previously migrated your Netwrix Auditor Storages
+          (Long-Term Archive and/or Short-Term Archive) manually or upgraded from Netwrix Auditor
+          8.0, contact
+          <a href="https://www.netwrix.com/support.html" target="_blank"
+            >Netwrix Technical Support</a
+          >
+          for assistance.
+        </blockquote>
+
+        <div>
+          For a clean installation of Netwrix Auditor 8.5 or newer, follow to the following steps:
+        </div>
+
+        <ol>
+          <li>
+            Stop all services except Netwrix Auditor Configuration Service(NwCfgServerSvc) and
+            Netwrix Auditor Core Service(NwCoreSvc).
+            <p>
+              In case any monitoring plan for Password Expiration Notifier, Inactive User Tracker,
+              or Event Log Manager have ever been set up, disable the scheduled tasks for these
+              applications of your Netwrix Auditor instance. To disable them, navigate to
+              <strong>Start</strong> &gt; <strong>All Programs</strong> &gt;
+              <strong>Task Scheduler</strong> &gt; <strong>Task Scheduler Library</strong> and
+              locate the tasks named Netwrix Auditor with descriptions mentioning the Password
+              Expiration Notifier, Inactive User Tracker, or Event Log Manager applications.<br />
+              Select these tasks (if any) and click <strong>Disable</strong> in the right pane.<br />
+              <br />
+              <img
+                alt="lta_mig_1.png"
+                height="495"
+                src="kA00g000000H9SSCA0_f0239f62-b9cc-409c-8d5a-9cfafd88ca7b.png"
+                width="749"
+              />
+            </p>
+          </li>
+          <li>
+            Copy all files from the old Long-Term-Archive folder into the new Long-Term-Archive
+            folder except for the ActivityRecords folder.
+            <blockquote>
+              <p>
+                <strong>TIP:</strong> While it is not recommended to store your Long-Term Archive on
+                a system disk or in a remote location, it is still possible to set both options up.
+                Refer to the following article for additional documentation on setting up remote
+                Long-Term Archive:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/LongTermArchive.htm"
+                  target="_blank"
+                  >Auditor Settings – Long-Term Archive · v10.6</a
+                >.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            Copy the very last day folder from your ActivityRecords folder.<br />
+            Pay attention to the folder structure — in case the the very last day folder had the
+            <code>C:\ProgramData\Netwrix Auditor\Data\ActivityRecords\1970\01\01\0000</code> path,
+            it should be copied to <code>%New_LTA_Path%\ActivityRecords\1970\01\01\0000</code>.
+          </li>
+          <li>
+            Start Netwrix Auditor Management Service(NwManagementSvc). In main Netwrix Auditor menu,
+            navigate to <strong>Settings</strong> &gt; <strong>Long-Term Archive</strong> and
+            specify the new path.
+          </li>
+          <li>Start other services and tasks you have previously disabled.</li>
+          <li>
+            Copy the rest of files from the old ActivityRecords folder to the new one. In case
+            you're prompted to overwrite any files, do skip these files instead.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

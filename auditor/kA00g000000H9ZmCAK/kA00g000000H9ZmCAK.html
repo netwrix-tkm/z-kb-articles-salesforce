@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Issue with exporting data to the Excel format.</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZmCAK" />
+    <meta name="Id" content="ka04u000000HcSnAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1281" />
+    <meta name="ArticleNumber" content="000003422" />
+    <meta
+      name="description"
+      content="ExcelRenderingExtension: Value of cell at row , column exceeds the maximum length for a string of characters Excel"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You are getting error like the following when trying to export report to the Excel format:
+
+        <img
+          src="kA00g000000H9ZmCAK_5dbbad73-868c-4764-86f2-db3fe07bcdc0.png"
+          alt="User-added image"
+          width="500"
+          height="201"
+        />
+
+        <hr />
+
+        <span>Microsoft Excel has a limit for total number of </span
+        ><span>characters that a cell can contain (32,767). (</span
+        ><a
+          href="http://office.microsoft.com/en-us/excel-help/excel-specifications-and-limits-HP010342495.aspx"
+          target="_blank"
+          >http://office.microsoft.com/en-us/excel-help/excel-specifications-and-limits-HP010342495.aspx</a
+        ><span>) If some report fields contain more that </span><span>32,767 characters it </span
+        ><span>cannot be exported to the Excel format.</span>
+
+        <hr />
+
+        In order to resolve an issue you need to find out fields that contain more
+        <span>32,767 </span
+        ><span
+          >characters and get the list of changes that produce so much data in one cell. Then you
+          will need to exclude such changes from being reported with omit files located in the
+          product installation directory. For example, if it is a change to some AD attribute you
+          can omit it with </span
+        ><span>omitproplist.txt file located in the </span><br /><span
+          >product installation directory (</span
+        ><a href="file:///C:/Program" target="_blank">C:Program</a
+        ><span> Files (x86)NetWrixAD Change </span><span>Reporter Full Version).</span>
+
+        <span
+          >To be able export historical data to the Excel format you will need to delete problematic
+          rows from the database. For example, </span
+        ><span
+          >if it is a change to some AD attribute, you can use the following SQL query to delete all
+          changes to this attribute.</span
+        >
+        <br /><span>USE NetWrix_AD_Change_Reporter; </span><br /><span>GO </span><br /><span
+          >Delete Changes </span
+        ><br /><span>FROM Changes INNER JOIN PropChanges </span><br /><span
+          >ON Changes.ChangeId = PropChanges.ChangeId </span
+        ><br /><span>WHERE PropChanges.Propname like '&lt;attribute name&gt;' </span>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Unable to Save Reports as Office Document (Excel, Word, or PowerPoint) with SSRS 2019
+    </title>
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WRJKA2" />
+    <meta name="Id" content="ka0Qk0000002fFBIAY" />
+    <meta name="LastPublishedDate" content="2024-03-22T12:29:58.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-22T12:29:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-21T15:27:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9072" />
+    <meta name="ArticleNumber" content="000009072" />
+    <meta
+      name="description"
+      content="Unable to Save Reports as Office Document (Excel, Word, or PowerPoint) with SSRS 2019"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Users are unable to save any reports as Excel, Word, or PowerPoint files with SSRS 2019.
+            PDFs and some other formats work, but the Office-specific ones fail with the following
+            error:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+        An error occurred during rendering of the report. (rrRenderingError)
+        An error occurred during rendering of the report.
+        The type initializer for 'MS.Utility.EventTrace' threw an exception.
+        Requested registry access is not allowed.
+        </pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The <b>ReportingServicesService.exe</b> process is getting an ACCESS DENIED error for
+            the <b>Avalon.Graphics</b> (Microsoft) registry key.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            To resolve the issue, you need to grant the the execution account (not the account that
+            runs the service) <b>Read access</b> to the <b>Avalon.Graphics</b> registry key:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts your SQL Server instance, open <b>Registry Editor</b>.
+              </p>
+            </li>
+            <li>
+              <p>Navigate to <code>HKEY_LOCAL_MACHINE\Software\Microsoft\Avalon.Graphics</code>.</p>
+            </li>
+            <li>
+              <p>
+                Assign the <b>Read</b> permission to all occurrences of the
+                <b>Avalon.Graphics</b> key in the registry.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

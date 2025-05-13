@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Customize Event Service Listening Port(s)</title><meta name="label" content="threat_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110h7CAA"/><meta name="Id" content="ka04u000001166MAAQ"/><meta name="LastPublishedDate" content="2023-06-13T11:13:45.000+0000"/><meta name="LastModifiedDate" content="2023-06-13T13:00:27.000+0000"/><meta name="FirstPublishedDate" content="2023-06-13T11:13:45.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8615"/><meta name="ArticleNumber" content="000008615"/><meta name="description" content="How to Customize Event Service Listening Port(s)"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+Customer/Environmental need to customize StealthDEFEND listening ports for Event Service.
+
+<h2 id="cause">Cause</h2>
+Customer or environmental need dictates that default DEFEND Event Service listening port(s) need to be altered.
+
+<h2 id="resolution">Resolution</h2>
+Alter the Default DFENEND Event Service Listening port(s) via PGAdmin:
+
+<ol><li>Install the latest PGAdmin Console: https://www.pgadmin.org/download/</li><li>Connect to the DEFEND database. You will have to create a “Master” password for PGAdmin as well as enter the DEFEND database password: <code>DEFEND124!!</code></li><li>Select <strong>Tables</strong> &gt; <strong>defend_config table</strong></li><li>Right click and select <strong>View/Edit Data</strong> &gt; <strong>First 100 Rows</strong></li><li>Change the Value for the port in question on the line 2 (10000 is the Default FS Port and 10001 is the Default AD Port):
+	<pre class="ckeditor_codeblock">[{"id":1,"port":10000,"enabled":true, ...}{"id":2,"port":10001,"enabled":true, ...}{...}]</pre>
+	For Example, change the FS port to 514 and click <strong>OK</strong>:<br/>	<img alt="port512.png" src="kA04u00000110h7CAA_f1001fe4-ecde-4fbc-8701-b97f90eedfa7.png"/></li><li>In the Window below click the Save Data Changes icon</li><li>Restart the DEFEND Event Service</li></ol></div>
+</article></body></html>

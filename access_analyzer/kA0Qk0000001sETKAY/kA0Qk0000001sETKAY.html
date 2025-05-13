@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Identify Active Transactions Filling the TempDB</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001sETKAY" />
+    <meta name="Id" content="ka0Qk000000CYIrIAO" />
+    <meta name="LastPublishedDate" content="2025-02-06T15:43:13.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-26T15:17:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-02-06T15:43:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9375" />
+    <meta name="ArticleNumber" content="000009375" />
+    <meta
+      name="description"
+      content="A0775-APP2356-S: The transaction log for database 'tempdb' is full due to 'ACTIVE_TRANSACTION'."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="related_query">Related Query</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                "Our application is not functioning, and we are receiving reports that the TempDB is
+                full. What is filling up the TempDB?"
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="question">Question</h2>
+        <div>
+          <p>How can you identify which transactions are active and clogging the TempDB?</p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            The following statements will help to identify which transactions are active and filling
+            the TempDB. Analysis of these results will help to isolate which transactions are at
+            fault.
+          </p>
+          <blockquote>
+            <p>
+              <span class="Note"><strong>NOTE: </strong></span>The data in TempDB is retained until
+              the restart of the server. If you are in critical need of space after running the
+              below queries, please restart your SQL Server as a temporary fix.
+            </p>
+          </blockquote>
+          <ul>
+            <li>
+              <p>Determines Size and Usage of Transaction Log:</p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">DBCC SQLPERF(LOGSPACE);</code></pre>
+            </li>
+            <li>
+              <p>Checks for Active Transactions:</p>
+              <pre class="has-inner-focus"><code class="lang-Registry">SELECT 
+    database_id,
+    DB_NAME(database_id) AS DatabaseName,
+    log_reuse_wait_desc
+FROM 
+    sys.databases;</code></pre>
+            </li>
+            <li>
+              <p>Finds Open Transactions:</p>
+              <pre class="has-inner-focus"><code class="lang-Registry">DBCC OPENTRAN;</code></pre>
+            </li>
+            <li>
+              <p>Checks for Uncommitted Transactions</p>
+              <pre class="has-inner-focus"><code class="lang-Registry">SELECT 
+    transaction_id,
+    transaction_state,
+    name AS TransactionName,
+    transaction_begin_time
+FROM 
+    sys.dm_tran_active_transactions;</code></pre>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

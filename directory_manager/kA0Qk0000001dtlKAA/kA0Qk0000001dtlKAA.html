@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Gather Debug Logs for v10</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001dtlKAA" />
+    <meta name="Id" content="ka0Qk000000DH1RIAW" />
+    <meta name="LastPublishedDate" content="2025-04-15T20:27:33.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-16T19:58:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-10-25T09:08:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9308" />
+    <meta name="ArticleNumber" content="000009308" />
+    <meta
+      name="description"
+      content="This article explains how to enable the debug logs in GroupID Version 10, where different type of logs are stored and how to collect them"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To</h2>
+        <p>Directory Manager 10</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article provides guidance for enabling Debug mode in Netwrix Directory Manager
+          (formerly Netwrix GroupID) applications and collecting log files for troubleshooting
+          purposes. The article outlines how to adjust logging levels and gather logs from various
+          components.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="enable_debug_mode_for_identity_store">Enable Debug Mode for Identity Store</h4>
+        <ol>
+          <li>
+            Open the Directory Manager Console and navigate to the
+            <strong>Identity Stores</strong> node.
+          </li>
+          <li>Open the properties of the Identity Store where the issue is occurring.</li>
+          <li>
+            In the Properties window, navigate to the <strong>Configurations</strong> tab then click
+            on <strong>Log Settings</strong>.
+          </li>
+          <li>
+            Change <strong>File Logging</strong> from <strong>Error</strong> to
+            <strong>Debug</strong>.
+          </li>
+          <li>Click <strong>Apply</strong>, then <strong>OK</strong> to save the changes.</li>
+          <li>
+            After enabling Debug mode, reproduce the issue, then continue with the steps below to
+            dump the logs.
+          </li>
+        </ol>
+        <h4 id="dump_log_files_to_a_specific_location">Dump Log Files to a Specific Location</h4>
+        <ol>
+          <li>
+            Right-click <strong>Directory Manager [connected domain name]</strong> in the left pane
+            and select <strong>Diagnostics &gt; Logs Dump</strong>.
+          </li>
+          <li>The <strong>Logs Dump</strong> dialog box appears.</li>
+          <li>Select the Directory Manager version from the drop-down list.</li>
+          <li>If you select an uninstalled version, an error will be displayed.</li>
+          <li>
+            In the <strong>Dump logs of</strong> area, select the desired modules or event types:
+            <ul>
+              <li>
+                <strong>Event Viewer:</strong> Expands the <strong>Event Logs</strong> list. Select
+                the required logs maintained by Windows Event Viewer.
+              </li>
+              <li>
+                <strong>IIS:</strong> Expands the <strong>Websites</strong> list. Select the
+                websites to include in the dump.
+              </li>
+            </ul>
+          </li>
+          <li>Click <strong>Dump</strong>.</li>
+          <li>
+            In the <strong>Choose dump file name</strong> dialog box, specify a name, select the
+            save location, and click <strong>Save</strong>.
+          </li>
+          <li>The logs are saved as a ZIP file in the chosen location.</li>
+        </ol>
+        <h4 id="manually_collect_logs_by_service">Manually Collect Logs by Service</h4>
+        <p>
+          You can manually collect logs from the following locations. <strong>X</strong> refers to
+          the installation drive of Directory Manager.
+        </p>
+        <ul>
+          <li>
+            <strong>Data Service</strong><br /><code class="lang-Registry"
+              >X:\Program Files\Imanami\GroupID 10.0\GroupIDDataService\Log</code
+            ><br />File: <code class="lang-Registry">GroupID10-DataService</code>
+          </li>
+          <li>
+            <strong>Security Service</strong><br /><code class="lang-Registry"
+              >X:\Program Files\Imanami\GroupID 10.0\GroupIDSecurityService\Log</code
+            ><br />File: <code class="lang-Registry">GroupID10-STS</code>
+          </li>
+          <li>
+            <strong>Replication Logs</strong><br /><code class="lang-Registry"
+              >C:\Users\[ServiceAccount]\AppData\Local\Temp</code
+            ><br />File: <code class="lang-Registry">GroupID 10 Replication.log</code>
+          </li>
+          <li>
+            <strong>Self-Service Portal Logs</strong><br />
+            <ol>
+              <li>
+                In the Directory Manager Console, go to <strong>Self-service</strong> &gt;
+                <strong>Portals</strong> &gt; [Portal name] &gt; <strong>Server</strong>.
+              </li>
+              <li>
+                In <strong>Server Settings</strong>, go to the <strong>Support</strong> tab and
+                change <strong>File Logging</strong> from <strong>Error</strong> to
+                <strong>Debug</strong>.
+              </li>
+              <li>Click the floppy disk icon in the top-right corner to save.</li>
+              <li>
+                Edit <code class="lang-Registry">web.config</code> in
+                <code class="lang-Registry"
+                  >X:\Program Files\Imanami\GroupID 10.0\SelfService\Inetpub\[Portal Name]\Web</code
+                >
+                and ensure:
+                <ul>
+                  <li><code class="lang-Registry">&lt;threshold value="DEBUG" /&gt;</code></li>
+                  <li><code class="lang-Registry">&lt;level value="Debug" /&gt;</code></li>
+                </ul>
+              </li>
+              <li>Save the <code class="lang-Registry">web.config</code> file.</li>
+            </ol>
+            Log location:
+            <code class="lang-Registry"
+              >X:\Program Files\Imanami\GroupID 10.0\SelfService\Inetpub\[Portal Name]\log</code
+            ><br />File: <code class="lang-Registry">GroupID10-SSP</code>
+          </li>
+          <li>
+            <strong>Password Center User Portal Logs</strong><br />
+            <p>Follow the same steps as the Self-Service Portal to enable Debug mode.</p>
+            <code class="lang-Registry"
+              >X:\Program Files\Imanami\GroupID 10.0\PasswordCenter\Inetpub\[Portal Name]\log</code
+            ><br />File: <code class="lang-Registry">GroupID10-PasswordCenter</code>
+          </li>
+          <li>
+            <strong>Directory Manager Management Console Logs</strong><br /><code
+              class="lang-Registry"
+              >C:\Users\[LoggedInUser]\AppData\Local\Temp</code
+            ><br />File: <code class="lang-Registry">GroupID10</code>
+          </li>
+          <li>
+            <strong>Email Service Logs</strong><br /><code class="lang-Registry"
+              >C:\Windows\Temp\~GroupID10-EmailService</code
+            >
+          </li>
+          <li>
+            <strong>Management Shell Logs</strong><br /><code class="lang-Registry"
+              >C:\Windows\Temp\~GroupID10-Management.Log</code
+            >
+          </li>
+          <li>
+            <strong>Upgrade Summary Logs</strong><br /><code class="lang-Registry"
+              >C:\Windows\Temp\~GroupID10_Upgrade.Log</code
+            >
+          </li>
+          <li>
+            <strong>Password Center Helpdesk Portal Logs</strong><br /><code class="lang-Registry"
+              >X:\Program Files\Imanami\GroupID 10.0\PasswordCenter\Helpdesk\Inetpub\[Portal
+              Name]\log</code
+            ><br />File: <code class="lang-Registry">GroupID10-HelpDesk</code>
+          </li>
+          <li>
+            <strong>Task Scheduler Logs</strong><br /><code class="lang-Registry"
+              >C:\Users\[ScheduleAccount]\AppData\Local\Temp</code
+            ><br />File: <code class="lang-Registry">GroupID10-TaskScheduler</code>
+          </li>
+          <li>
+            <strong>Reporting Logs</strong><br /><code class="lang-Registry"
+              >C:\Windows\Temp\~GroupID10-Reporting.Log</code
+            >
+          </li>
+          <li>
+            <strong>Synchronize Logs</strong><br /><code class="lang-Registry"
+              >C:\Windows\Temp\~GroupID10-Synchronize.Log</code
+            ><br />Job file logs:<br /><code class="lang-Registry"
+              >C:\ProgramData\Imanami\GroupID 10.0\Synchronize\Jobs\[Job
+              Name]\JobRun_xxx_xxxx_xxx.dtmlog</code
+            >
+          </li>
+          <li>
+            <strong>Configuration Tool Logs</strong><br /><code class="lang-Registry"
+              >C:\Users\[User]\AppData\Local\Temp</code
+            ><br />File: <code class="lang-Registry">GroupIDConfigurationTool10</code>
+          </li>
+          <li>
+            <strong>Elasticsearch Logs</strong><br /><code class="lang-Registry"
+              >C:\Program Files\Imanami\GroupID 10.0\ElasticSearch\elasticsearch-6.2.4\logs</code
+            >
+          </li>
+        </ul>
+        <p>Once logs have been collected, compress and send the full logs folder as a ZIP file.</p>
+      </div>
+    </article>
+  </body>
+</html>

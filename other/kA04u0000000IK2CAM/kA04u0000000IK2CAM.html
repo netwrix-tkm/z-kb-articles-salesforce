@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Full SSL and SSO Procedure to Secure and Integrate SA Web Reports with AIC</title>
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IK2CAM" />
+    <meta name="Id" content="ka04u000000HckSAAS" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:22:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:15:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6425" />
+    <meta name="ArticleNumber" content="000006425" />
+    <meta name="description" content="360008944451" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary:</strong> You have a need to update your STEALTHbits web reports and
+          Access Information Console (AIC) to utilize SSL to secure the connections to those
+          websites using HTTPS, while at the same time enabling single sign-on (SSO) and being able
+          to access the AIC from the web reports console.
+        </p>
+
+        <p>Hotfixes: NA</p>
+
+        <p>
+          <strong>Issue:</strong> After a fresh install or an upgrade, the default settings for web
+          reports utilizes HTTP on port 8082.
+        </p>
+
+        <p>
+          Extra steps are required to secure the StealthAUDIT reporting website and the AIC with
+          SSL. By default, AIC uses ports 81 for HTTP and 481 for HTTPS, which you will need to
+          configure with Windows Server’s built in IIS, by following the instructions detailed
+          below.
+        </p>
+
+        <p>
+          <strong>Instructions:</strong>  After a fresh install or upgrade, the first step in
+          securing your web reports and AIC website is to make sure you have a certificate that you
+          can use. Typically, companies request a certificate through their certificate authority
+          (CA) and import it into the certificate store on the StealthAUDIT console server.
+        </p>
+
+        <p><strong>Start with Web Reports</strong></p>
+
+        <p>
+          To bind the certificate to the web console (port 8082) run these commands as a System
+          Administrator, in a Windows Powershell:
+        </p>
+
+        <p><strong>Step1:</strong>  netsh http show sslcert</p>
+
+        <p>
+          If this command does not show a certificate bound to port 8082, proceed to the next step.
+          Otherwise, you might need to remove the current cert with the command:
+        </p>
+
+        <p>netsh http delete sslcert ipport=0.0.0.0:8082</p>
+
+        <p>Alternatively, you can choose an unused port and continue</p>
+
+        <p><strong>Step 2:</strong>  dir cert:\localmachine\my</p>
+
+        <p>
+          <strong
+            >This command outputs the “thumbprint value” for the certificate, which is needed to run
+            the script in the next step</strong
+          >
+        </p>
+
+        <p>
+          <strong>Step 3:</strong>  $guid = "bdd5710f-7cbe-4f85-b8c1-da4bddf485a8" # This will be
+          the same for all installations because it is a GUID from the built-in webserver
+          application
+        </p>
+
+        <p>$certHash = "INSERT THUMBNAIL VALUE FROM STEP 2 BETWEEN QUOTES"</p>
+
+        <p>$ip = "0.0.0.0" # this means all IP addresses</p>
+
+        <p>$port = "8082" # the default HTTPS port</p>
+
+        <p>"http add sslcert ipport=$($ip):$port certhash=$certHash appid={$guid}" | netsh</p>
+
+        <p>
+          <strong
+            >This example script binds the certificate to port 8082, the default setting.</strong
+          >
+        </p>
+
+        <p> * Remember to change the $certHash value from step 2, prior to running the script.</p>
+
+        <p>
+          <strong> Step 4:  </strong>A successful binding displays the message “SSL Certificate
+          successfully added” shown below:
+        </p>
+
+        <p>
+           <img
+            alt="mceclip0.png"
+            src="kA04u0000000IK2CAM_32b4f24f-8ac6-43c4-91ca-8876166c6950.png"
+          />
+        </p>
+
+        <p>
+           * The $guid is subject to change. As a result, this KB might be updated as the product is
+          updated.
+        </p>
+
+        <p>
+           Once the port is bound, the next step is to configure the WebServer.exe.config file. To
+          do this:
+        </p>
+
+        <p>
+          <strong>Step 1:</strong> In File Explorer, navigate to the directory %sainstalldir%\web\
+          and open the file, Webserver.exe.config (Your account needs read/write privileges to
+          modify this file)
+        </p>
+
+        <p><strong>Step 2: </strong>Edit the Binding URL setting by changing:</p>
+
+        <p>
+          http://+:8082"/&gt;  and changing the value to "<a href="https://+:8082" target="_blank"
+            >http<strong>s</strong>://+:8082</a
+          >"/&gt;”
+        </p>
+
+        <p><strong>Step 3:</strong>  Edit the WindowsAuthentication setting by changing:</p>
+
+        <p>and changing the value to “True”</p>
+
+        <p><strong>Step 4:</strong>  Edit the AdditionalContentTabs by changing:</p>
+
+        <p>
+          and changing the value to “Access,
+          <a href="https://+:481/v2/login?embed" target="_blank">https://+:481/v2/login?embed</a>”
+        </p>
+
+        <p><strong>Step 5:</strong> Save the file and continue</p>
+
+        <p>
+          Next, you need to update the URL in the Reports section of the Global Settings within the
+          SA console shown below:
+        </p>
+
+        <p>
+          <img
+            alt="mceclip0.png"
+            src="kA04u0000000IK2CAM_8ecca01a-cd8d-4510-8aa8-36c4be17e775.png"
+          />
+        </p>
+
+        <p>To change these settings:</p>
+
+        <ol>
+          <li>Open StealthAUDIT and navigate to the Reporting node, found under Settings</li>
+          <li>Modify the Website URL from “http” to “https”</li>
+          <li>Save the setting</li>
+          <li>Navigate to the desktop shortcut “Published Reports”</li>
+          <li>Edit the properties by right-clicking and selecting “Properties”</li>
+          <li>Change the URL from “http” to “https”</li>
+          <li>Click “Apply” to save the setting</li>
+        </ol>
+
+        <p>
+          <img
+            alt="mceclip1.png"
+            src="kA04u0000000IK2CAM_ce9e0ae5-6911-4a4d-8207-3aea6458a5d9.png"
+          />
+        </p>
+
+        <ol>
+          <li>
+            Launch the ‘Services’ app by clicking the Start button and searching for ‘Services’
+          </li>
+          <li>Right Click the item “StealthAUDIT Web Server” and select Restart</li>
+          <li>
+            Confirm that you can access the web reports by opening the Published Reports shortcut
+          </li>
+        </ol>
+
+        <p>
+           <strong>Troubleshooting:</strong>  If your organization does not have a process for
+          certificate requests, and the desire is to use a self-signed certificate, you can use the
+          ‘New-SelfSignedCertificate’ commandlet, in the Administrator PowerShell version 3.0+ to
+          generate and import the certificate by:
+        </p>
+
+        <p>
+          Step 1:  Running the command and replacing your DnsName with the appropriate machine and
+          domain
+        </p>
+
+        <p class="wysiwyg-indent4">
+          New-SelfSignedCertificate -DnsName machinename.domain.com -CertStoreLocation Cert:\LocalMachine\My
+        </p>
+
+        <p>
+          Step 2:  The output provides a Thumbprint Value, that is the certificate Hash value to be
+          used when binding to the port. The port can be the same as in HTTP (8082). Use this Hash
+          value for Step 2 of the Enable SSL for the Web Console instructions.
+        </p>
+
+        <p>
+          Step 3:  Open Microsoft Management Console (mmc.exe) to create and import the self-signed
+          certificate
+        </p>
+
+        <p>
+          Step 4:  Select File &gt; Add/Remove Snap-in. In the Add or Remove Snap-ins window, select
+          Certificates, and click Add. Then select Computer account in the Certificates snap-in
+          window.
+        </p>
+
+        <p>Step 5:  Click Next and select Local computer. Then, click Finish.</p>
+
+        <p>
+          Step 6:  The certificate will appear in the Selected snap-ins list in the Add or Remove
+          Snap-ins window. Click OK to close the window.
+        </p>
+
+        <p>
+          Step 7:  Navigate to Certificates &gt; Personal &gt; Certificates. The certificate should
+          appear in the right pane.
+        </p>
+
+        <p>
+          Step 8:  The self-signed certificate was created and imported. Repeat these steps for each
+          client-side host.
+        </p>
+
+        <p>
+          If you are unable to access the Published Reports using SSL or SSO, check these items for
+          potential issues:
+        </p>
+
+        <ol>
+          <li>The certificate is bound to port 8082 </li>
+          <li>The webserver.exe.config file is updated and is saved</li>
+          <li>
+            The correct StealthAUDIT Web Service was restarted in the Windows Services console
+          </li>
+          <li>The cache was cleared in Internet Explorer</li>
+          <li>The Https site(s)/zone(s) are added to the Local Intranet Trusted Sites settings</li>
+        </ol>
+
+        <p>To add your site to the Trusted Zone:</p>
+
+        <p>Step 1: In Internet Explorer, click the Settings icon, then select Internet Options</p>
+
+        <p>Step 2:  Navigate to the Security Tab, click “Local intranet” and Select ‘Sites'</p>
+
+        <p>Step 3:  On the Local intranet pop-up, click the “Advanced” button</p>
+
+        <p>Step 4:  Enter the URL for the server/servers and select Add (examples shown below)</p>
+
+        <p>
+           <img
+            alt="mceclip2.png"
+            src="kA04u0000000IK2CAM_f976e979-c671-48a6-b330-e955d61a42c5.png"
+          />
+        </p>
+
+        <p>
+          Step 5:  If these steps do not resolve the issue, you can try restoring the default IE
+          settings. To reset the settings, from within Internet Explorer, navigate to Settings, then
+          select Internet Options. Then navigate to the Advanced tab and click the Reset button.
+        </p>
+
+        <p><strong>Setting up AIC for SSL and SSO</strong></p>
+
+        <p>
+          AIC relies on Microsoft’s IIS for most of its configurations whereas the web reports
+          website relies on configuration files and webserver services to generate the site. It’s
+          also important to note that for SSO to work properly with SSL, you will need the AIC
+          application to be installed on the same server as the SA console, and both applications
+          will need to use the same certificate.
+        </p>
+
+        <p>
+          After AIC is installed and the web reports are configured for SSL and SSO, configure IIS
+          by
+        </p>
+
+        <p>Step 1: Clicking on the Start menu and searching for the application ‘IIS’</p>
+
+        <p>Step 2: Navigating to StealthAUDIT Compliance, under ‘Sites’, from within IIS</p>
+
+        <p>Step 3: Selecting ‘Bindings’ in the Actions menu on the right pane</p>
+
+        <p>
+          Step 4: Selecting the option for https, and clicking Edit (the default port 481, but you
+          can choose any port suited to your environment).
+        </p>
+
+        <p>Step 5: Selecting the SSL certificate used to configure Web Reports</p>
+
+        <p>Below is an example of the configuration:</p>
+
+        <p>
+          <img
+            alt="mceclip3.png"
+            src="kA04u0000000IK2CAM_eca8178d-566e-4685-a455-a983b3fb87de.png"
+          />
+        </p>
+
+        <p>
+          Step 6: If you would like to limit the access to the AIC ONLY with SSL, then you can force
+          this connection by selecting the SSL button with StealthAUDIT Compliance selected in the
+          left hand pane shown below:
+        </p>
+
+        <p>
+          <img
+            alt="mceclip4.png"
+            src="kA04u0000000IK2CAM_3c25d56f-5cfd-4cf8-9f61-49ba59d5222e.png"
+          />
+        </p>
+
+        <p>Step 7: Click on the Require SSL checkbox, and click ‘Apply’ in the Actions pane:</p>
+
+        <p>
+          <img
+            alt="mceclip5.png"
+            src="kA04u0000000IK2CAM_df38703c-86d4-4e1c-9e1e-61494829c079.png"
+          />
+        </p>
+
+        <p>Step 8: In File Explorer, navigate to the AIC working directory:</p>
+
+        <p>C:\inetpub\wwwroot\StealthAUDIT Compliance</p>
+
+        <p>
+          Step 9: Open the file Web.config in notepad to edit the settings for
+          AuthAllowWindowsAuthentication and AuthSessionValidationUrl
+        </p>
+
+        <p>Step 10: Edit the AuthAllowWindowsAuthentication setting by changing:</p>
+
+        <p>the value to “True”</p>
+
+        <p> Step 11:  Edit the AuthSessionValidationURL setting by changing:</p>
+
+        <p>
+          http://localhost:8082/whoami"/&gt; to value="<a
+            href="https://localhost:8082/whoami"
+            target="_blank"
+            >https://localhost:8082/whoami</a
+          >"
+        </p>
+
+        <p>
+          It is recommended to rename the localhost to the FQDN URL of the Audit server. You can
+          copy the value from the reports section of the audit console and paste in the URL.
+        </p>
+
+        <p>To complete the SSO procedure:</p>
+
+        <p>
+          Step 1: Go to IIS and click on the authentication icon for the StealthAUDIT compliance
+          website:
+        </p>
+
+        <p>
+          <img
+            alt="mceclip6.png"
+            src="kA04u0000000IK2CAM_ebefa759-3a42-4d7a-b5e1-67f64a7f2beb.png"
+          />
+        </p>
+
+        <p>Step 2:  Choose “Disabled” for Anonymous Authentication</p>
+
+        <p>Step 3: Choose “Enabled” for Windows Authentication</p>
+
+        <p>
+          <img
+            alt="mceclip7.png"
+            src="kA04u0000000IK2CAM_6fa30160-0baa-4835-94fc-e68fa334e9c2.png"
+          />
+        </p>
+
+        <p>
+          Step 4: Open file explorer and open the file web.config in the AIC working directory
+          (C:\inetpub\wwwroot\StealthAUDIT Compliance) to modify the settings
+        </p>
+
+        <p>Step 5: Edit the Authentication mode by changing the setting:</p>
+
+        <p>to</p>
+
+        <p>
+          Step 6: <em>(Skip this step for v11 and above)</em> Edit the “http customBindings” section
+          by changing:
+        </p>
+
+        <p> </p>
+
+        <p>
+          Step 7: <em>(Skip this step for v11 and above)</em> Edit the “https customBindings”
+          section by changing:
+        </p>
+
+        <p> </p>
+
+        <p>Step 8: Save and close the web.config file</p>
+
+        <p>
+          Step 9: Open the Command Prompt as an administrator. (Search for ‘CMD’ on the start menu.
+          When you find the application, right click, and select the option ‘Run as administrator’)
+        </p>
+
+        <p>
+          Step 10: From the Command Prompt, as an administrator, restart IIS by running the command:
+        </p>
+
+        <p>iisreset /noforce</p>
+
+        <p>
+          Step 11: Open Internet Explorer and enable the “Windows Integrated Authentication”
+          setting, which can be found on the Advanced Tab, after selecting Internet Options, shown
+          below:
+        </p>
+
+        <p>
+          <img
+            alt="mceclip8.png"
+            src="kA04u0000000IK2CAM_7782cdd8-2583-4c39-aa25-383c75b51064.png"
+          />
+        </p>
+
+        <p>
+          If you are unable to access the AIC due to an error after these procedures, check that
+        </p>
+
+        <ol>
+          <li>The web.config and the WebServer.exe.config files have both been saved</li>
+          <li>The web reports service was restarted from the Services app</li>
+          <li>The IIS app was restarted from the Command Prompt (as an administrator)</li>
+          <li>
+            If you receive a Windows Login prompt when accessing the site with the Web Browser,
+            check to see that the site is added to your Intranet Trusted Sites.
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p><strong>Submitted by: </strong>Bill Stater</p>
+
+        <p><strong>Product:</strong> AIC, SA</p>
+
+        <p><strong>Affected Versions:</strong> SA 8.x and above</p>
+
+        <p><strong>Affected Module:</strong> Web Reports website and AIC website</p>
+
+        <p><strong>Dev Ticket:</strong> No</p>
+
+        <p><strong>Resolved in Version:</strong> NA</p>
+
+        <p><strong>KB Type:</strong> FAQ</p>
+      </div>
+    </article>
+  </body>
+</html>

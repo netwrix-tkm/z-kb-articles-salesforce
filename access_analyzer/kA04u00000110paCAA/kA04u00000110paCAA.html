@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_11.5_061</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110paCAA" />
+    <meta name="Id" content="ka0Qk0000000x4vIAA" />
+    <meta name="LastPublishedDate" content="2023-12-12T10:53:47.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T10:53:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-07T13:25:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8651" />
+    <meta name="ArticleNumber" content="000008651" />
+    <meta
+      name="description"
+      content="Azure AD: Deleted objects are marked as deleted, but details are removed"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary:</span></strong
+              > Microsoft Entra ID (formerly Azure AD): Deleted objects are marked as deleted, but
+              details are removed</span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><b
+                >Submitted<strong><span> by: </span></strong></b
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Justin Giemza</span></span></span
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>11.5</span></span></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>SA – DC – Microsoft Entra ID</span></span></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span><span>71786</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>DC\DCAzureADInventory.dll v. 11.5.72.0</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.AzureADInventory.dll v.
+                  11.5.72.0</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span
+                  >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.AzureADInventory.UI.dll
+                  v. 11.5.72.0</span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>Escalations</span></strong></span
+          ></span
+        ><br /><span
+          ><span
+            ><strong><span>373762A</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Notes: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><strong
+              ><span
+                >This will not recover information that was deleted until a full scan, but it will
+                fix for scans going forward.</span
+              ></strong
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><strong
+              ><span
+                >Also updated the SA_AzureADInventory_GroupMembersView,
+                SA_AzureADInventory_EffectiveGroupMembersView, SA_AzureADInventory_GroupOwnersView
+                and effective group members calculation to consider users and groups that were
+                flagged as Deleted in the database.
+              </span></strong
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><strong
+              ><span
+                >The Graph Groups delta API does not inform you that a member was removed from a
+                group if you simply delete the User object in
+              </span></strong
+            ></span
+          ></span
+        ><strong>Microsoft Entra ID</strong
+        ><span
+          ><span
+            ><strong
+              ><span
+                >, so this will now reflect more accurate group member information.</span
+              ></strong
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><strong
+              ><span>This escalation will also include 2 HF’s this is the first one. </span></strong
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Unblock the hotfix zip file in the windows property dialog, if an unblock
+                    button exists there. </span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Close all instances of StealthAUDIT (check task manager under processes for all
+                    users)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      ><span
+                        ><span>Update all DC files in your %SAInstallDir%DC folder</span></span
+                      ></span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      ><span
+                        ><span
+                          >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies
+                          folder.</span
+                        ></span
+                      ></span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      ><span><span>Launch SA</span></span></span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <div>
+          <span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    ><span
+                      ><span
+                        >https://downloads.stealthbits.com/access/files/SAHotFixes/11.5/SA_11.5_061.zip</span
+                      ></span
+                    ></span
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /> 
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

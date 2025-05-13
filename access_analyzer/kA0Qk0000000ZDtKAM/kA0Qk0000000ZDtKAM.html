@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Performance Degradation and Database Issues After Custom Job Update</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000ZDtKAM" />
+    <meta name="Id" content="ka0Qk00000033kXIAQ" />
+    <meta name="LastPublishedDate" content="2024-04-01T16:50:32.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-31T14:53:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-01T16:50:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9111" />
+    <meta name="ArticleNumber" content="000009111" />
+    <meta
+      name="description"
+      content="Performance Degradation and Database Issues After Custom Job Update"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Following the replacement of the original LANSweeper collection job with a new version
+            utilizing the ODBC data collector, significant performance degradation and database
+            issues were observed.
+          </p>
+
+          <p>
+            After implementing the new version of the LANSweeper collection job, the runtime of the
+            job increased drastically up to 2 hours over couple of days.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The <b>StealthAUDIT database</b> exhibited numerous queries in a suspended state. These
+            suspensions primarily occurred when a query attempted to access a table with a
+            write-lock applied due to another query already acting upon it. Additionally, high CPU
+            usage and Disk I/O latency were observed, collectively leading to a significant slowdown
+            in database transactions.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Follow the steps below to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                The AD_GroupPolicy job, which was identified as a contributing factor to the Disk
+                I/O latency, was terminated. This action resulted in a return to normal Disk I/O
+                latency levels, although high CPU usage persisted.
+              </p>
+            </li>
+            <li>
+              <p>
+                Perform Packet Capture (PCAP) on the LANSweeper, Enterprise Auditor, and Enterprise
+                Auditor database hosts. Link?
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 id="recommendations">Recommendations</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Regularly monitor system performance metrics to detect and address any emerging
+                issues promptly.
+              </p>
+            </li>
+            <li>
+              <p>
+                Implement job prioritization and optimization strategies to mitigate resource
+                contention and improve overall system performance.
+              </p>
+            </li>
+            <li>
+              <p>
+                Conduct periodic Packet Capture analysis to identify and resolve any network-related
+                issues affecting data transmission and integrity.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

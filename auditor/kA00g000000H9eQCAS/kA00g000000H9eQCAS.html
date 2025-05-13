@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Auditing stored procedures on the SQL Server</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eQCAS" />
+    <meta name="Id" content="ka04u000000HcX9AAK" />
+    <meta name="LastPublishedDate" content="2021-01-25T20:25:19.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3635" />
+    <meta name="ArticleNumber" content="000003708" />
+    <meta name="description" content="Auditing stored procedures on the SQL Server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor for SQL Server <strong>reports</strong> <strong>creation</strong> and
+        <strong>deletion</strong> of the stored procedures by default. However, there is no way to
+        report the <strong>modification</strong> of the store procedure, e.g. modification of the
+        stored procedure's query. You can adjust Netwrix configuration to enable auditing of the
+        "Date modified" attribute for stored procedures. This allows you to track the time of the
+        modifications.<br /><br /><strong>NOTE:</strong> in that case, Netwrix will only report on
+        the <strong>"Date modified"</strong> attribute. No addition details about the modification
+        performed will not be included in the report.
+        <hr />
+        Follow the steps below to enable auditing of the "Date Modified" attribute for stored
+        procedure objects:
+        <ol>
+          <li>
+            Open <strong>Omitproplist.txt</strong> file located in %Netwrix Installation folder%\SQL
+            Server Auditing (default path C:\Program Files (x86)\Netwrix Auditor\SQL Server
+            Auditing)
+          </li>
+          <li>
+            Comment <strong>*.Date Modified.*</strong> line by putting the <strong>#</strong> sign
+            in front of the <strong>*</strong> sign. The line should look like this:
+            <strong>#*.Date Modified.*</strong>
+          </li>
+          <li>
+            Exclude "Date Modified" attribute for other SQL Server objects by adding the following
+            lines to the same file:
+          </li>
+        </ol>
+
+        <p>
+          Application Role.Date Modified.*<br />Constraints.Date Modified.*<br />Credential.Date
+          Modified.*<br />Database.Date Modified.*<br />Database Role.Date Modified.*<br />Functions.Date
+          Modified.*<br />Jobs.Date Modified.*<br />Jobs Schedules.Date Modified.*<br />Keys.Date
+          Modified.*<br />Login.Date Modified.*<br />Schema.Date Modified.*<br />Server
+          Instance.Date Modified.*<br />Server Role.Date Modified.*<br />#Stored Procedure.Date
+          Modified.*<br />Table.Date Modified.*<br />Triggers.Date Modified.*<br />User.Date
+          Modified.*<br />View.Date Modified.*
+        </p>
+
+        <p><b>You can copy the lines above to the file.</b></p>
+        Starting from the next scheduled collection Netwrix Auditor for SQL server will collect data
+        about changes made to the "Date Modified" attribute for stored procedure objects.  
+      </div>
+    </article>
+  </body>
+</html>

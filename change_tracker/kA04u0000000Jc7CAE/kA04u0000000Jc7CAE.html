@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Move The Log Tracker Server To A New Platform</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Jc7CAE" />
+    <meta name="Id" content="ka04u000000HdAIAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:52:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8242" />
+    <meta name="ArticleNumber" content="000008242" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          You can move your Log Tracker Server installation to a new platform simply, without losing
+          any log data or configuration data.
+        </p>
+        <p>
+          The entire Log Tracker Server software is contained in the root Log Tracker folder (by
+          default C:\Program Files (x86)\NNT Log Tracker Suite, but often some other location.) This
+          makes it easy to copy all files associated with the server to a new location, either a new
+          disk or a completely new computer system.
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <p>
+          To relocate the Log Tracker server to a new platform, perform the following simple steps:
+        </p>
+        <ol>
+          <li>
+            Stop the "CorreLog Framework Service" with the Windows Service Manager, and verify with
+            the task manager that all "CO" processes are stopped.
+          </li>
+          <li>
+            Copy ALL the files in Log Tracker root folder over to a new location, such as with a
+            file system share. Note that this can be a large amount of data that may take several
+            minutes or even hours to complete.
+          </li>
+          <li>
+            If the log files and archive files reside in a location that is different from the
+            default location (as configured on the "Messages &gt; Config &gt; Parms" screen) copy
+            these files to the new platform also, to a folder that is the same as on the old folder
+            (such as D:\Logs and D:\Archives). This is only necessary if you have configured a
+            non-default location for these files, on the "Messages &gt; Config &gt; Parms" screen.
+          </li>
+          <li>
+            After all files are copied, on the new Log Tracker Server platform,run the "C:\Program
+            Files (x86)\NNT Log Tracker Suite\system\CO-install.exe" program as administrator. This
+            re-installs and configures program services at the new location, and restarts the
+            ‚ÄúCorreLog Framework service‚Äù.
+          </li>
+          <li>
+            If the Apache-TLS server is installed, also run the "C:\Program Files (x86)\NNT Log
+            Tracker Suite\apache-tls\bin\CO-Secure.exe" program. This step e-configures the
+            Apache-TLS process to use the new location as its document root directory. (This step
+            also creates a new self-signed certificate for the Apache TLS server.)
+          </li>
+          <li>
+            Rename or delete the old installation after successfully moving the directory, to avoid
+            future confusion.
+          </li>
+        </ol>
+        <p>
+          It is possible (but not likely) that you have some paths in custom alerts, custom actions,
+          or the local windows agent that need to be adjusted. This is not common, but should be
+          mentioned.
+        </p>
+        <p>
+          BE AWARE that the IP address of the Log Tracker server is configured as the message
+          destination on all your managed network devices, hence it may require substantial
+          reconfiguration of your network devices if you want to change the IP Address of the Log
+          Tracker Server. For best results, just assign the old IP address of the Log Tracker Server
+          to the new platform, and decomission the old platform completely.
+        </p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to Backup / Restore / Move your MongoDB Database</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Supporting Documents for Hub Server Problems</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                returned an error: (403) Forbidden.)"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Support for TLS 1.2 in the .NET Framework 3.5.1</a>
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

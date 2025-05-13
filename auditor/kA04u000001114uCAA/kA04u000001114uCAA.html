@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monitoring Plans Disappeared in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001114uCAA" />
+    <meta name="Id" content="ka04u00000117NiAAI" />
+    <meta name="LastPublishedDate" content="2023-08-23T08:59:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-25T06:45:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-23T08:59:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8756" />
+    <meta name="ArticleNumber" content="000008756" />
+    <meta name="description" content="Monitoring Plans Disappeared in Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Monitoring plans in Netwrix Auditor are either missing, not showing, or have disappeared
+            after an update, upgrade, or a backup.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The <strong>Configuration</strong> file was corrupted.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to restore your monitoring plans:</p>
+
+          <ol>
+            <li>
+              <p>
+                In your Netwrix Auditor server, stop all Netwrix Auditor services. In elevated
+                PowerShell, run the following command:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -Displayname Netwrix*</code></pre>
+            </li>
+            <li>
+              <p>
+                Navigate to the <strong>ConfigServer</strong> folder of your Working Folder, located
+                by default in <code>C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer</code>.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    In case your Working Folder was moved, click the
+                    <strong>Health Status</strong> menu in the main Netwrix Auditor screen, and
+                    click <strong>Open diagnostic logs folder</strong> under the
+                    <strong>Working folder</strong> tab. Once the <strong>Logs</strong> folder
+                    opens, go to the parent folder, and follow the mentioned path.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Create a backup of the <strong>Configuration</strong> file located in the
+                <strong>ConfigServer</strong> folder.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once you've backed up the file, navigate to the
+                <strong>StorageBackups</strong> folder of your Working Folder, located by default in
+                <code>C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer\StorageBackups</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Select the folder specifying the date before you've encountered the issue, and open
+                the folder. Proceed to the next folder, copy the
+                <strong>Configuration</strong> file, and paste it to the
+                <code>C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer</code> folder to replace
+                the corrupted file.
+              </p>
+
+              <div>
+                <img
+                  height="481"
+                  src="kA04u000001114uCAA_f5daa966-6134-4884-9856-c7e26d790b34.png"
+                  width="750"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Once you've copied the file, run the following command in elevated PowerShell to
+                restart the services:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -Displayname Netwrix*</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

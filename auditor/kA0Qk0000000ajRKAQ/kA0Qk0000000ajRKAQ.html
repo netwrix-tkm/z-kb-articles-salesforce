@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Service Did Not Respond to the Start or Control Request Error in User Activity Service
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000ajRKAQ" />
+    <meta name="Id" content="ka0Qk00000030UvIAI" />
+    <meta name="LastPublishedDate" content="2024-04-23T11:44:15.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-23T11:44:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-23T11:44:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9126" />
+    <meta name="ArticleNumber" content="000009126" />
+    <meta name="description" content="User Activity Service Does Not Start" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>Your Netwrix Auditor instance exhibits the following symptoms:</p>
+
+          <ul>
+            <li>
+              <p>The User Activity monitoring plan is not collecting any data.</p>
+            </li>
+            <li>
+              <p>
+                The <code>Netwrix Auditor User Activity Audit Service is stopped</code>. When you
+                attempt to start the service manually, the service prompts the following error:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Windows could not start the Netwrix Auditor User Activity Audit Service service on Local Computer.
+
+Error 1053: The service did not respond to the start or control request in a timely fashion.</code></pre>
+            </li>
+            <li>
+              <p>
+                <strong>Optional: </strong>The change in behavior occurred after the recent Auditor
+                upgrade (e.g., v10.5 to v10.6).
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Refer to the following possible causes for the symptoms:</p>
+
+          <ol>
+            <li>
+              <p>
+                The antivirus suite in your environment hinders the Netwrix Auditor User Activity
+                Audit Service operation.
+              </p>
+            </li>
+            <li>
+              <p>
+                Incorrectly configured ports in your environment hinder the Netwrix Auditor User
+                Activity Audit Service operation.
+              </p>
+            </li>
+            <li>
+              <p>
+                The .NET Framework version installed in your environment (i.e., both in the target
+                and Auditor servers) is outdated.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>
+            Depending on the cause, implement the corresponding resolution to address the issue:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Exclude Auditor-related folders from the monitoring scope of your antivirus
+                solution. Refer to the following article to learn more about recommended antivirus
+                exclusions:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the open ports in both the target and Auditor servers. Refer to the following
+                article to learn more about the ports required for correct User Activity operation:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/UserActivity/Ports.htm"
+                  target="_blank"
+                  >Data Source Configuration − User Activity Ports · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify that the .NET Framework v4.8 is installed on both the target and Auditor
+                servers. Refer to the following article to learn more about software requirements in
+                Auditor v10.6:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Software.htm"
+                  target="_self"
+                  >Requirements − Software Requirements · v10.6</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/UserActivity/Ports.htm"
+                  target="_blank"
+                  >Data Source Configuration − User Activity Ports · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Software.htm"
+                  target="_self"
+                  >Requirements − Software Requirements · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

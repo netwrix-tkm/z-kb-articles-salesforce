@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>EMC Unity Auditing</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9S9CAK" />
+    <meta name="Id" content="ka04u00000117eeAAA" />
+    <meta name="LastPublishedDate" content="2023-09-07T11:57:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T11:57:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="189" />
+    <meta name="ArticleNumber" content="000002957" />
+    <meta
+      name="description"
+      content="This article describes how to set up EMC Unity storage systems auditing with Netwrix Auditor."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You can use Netwrix Auditor to audit EMC Unity storage system deployed in your
+        infrastructure. Netwrix Auditor uses EMC native audit technologies and approaches.
+        Procedures described in this article explain how you can configure your NAS Server and
+        Netwrix Auditor to collect audit data.
+        <h4 id="configuring_nas_server">Configuring NAS Server</h4>
+
+        <ol>
+          <li>
+            In NAS Server configuration check the following in the <b>Sharing Protocols</b> section:
+
+            <div>a. The <b>Windows Shares (SMB, CIFS)</b> option is selected.</div>
+
+            <div>b. The <b>Join to the Active Directory domain</b> option is selected.</div>
+          </li>
+          <li>
+            Then use the <i>EMC Unity/VBX/VNXe NAS Management</i> utility to enable
+            <b>Audit object access</b> policy (both <i>Success </i>and <i>Failure</i>).<br />
+            Alternatively, you can follow the steps described in the
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/DellDataStorage/ObjectAccess.htm"
+              target="_blank"
+              >Dell Data Storage – Configure Audit Object Access Policy ⸱ v10.6</a
+            >
+            article.
+          </li>
+          <li>Ensure that EMC Unity logging options are configured in the NAS Server settings.</li>
+        </ol>
+        <b>NOTE:</b> To configure maximum log size to be processed by Netwrix Auditor, follow the
+        steps described in the
+        <a
+          href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/DellDataStorage/SecurityEventLog.htm"
+          target="_blank"
+          >Dell Data Storage – Configure Security Event Log Maximum Size ⸱ v10.6</a
+        >
+        article.
+
+        <h4 id="configuring_netwrix_auditor">Configuring Netwrix Auditor</h4>
+
+        <ol>
+          <li>
+            Configure a monitoring plan for data collection from the storage system, as described in
+            Netwrix Auditor documentation for EMC storage systems.
+          </li>
+          <li>
+            When adding an item to be monitored by this monitoring plan, select
+            <b>EMC VNX/VNXe</b> item type.
+          </li>
+          <li>
+            Ensure the account you plan to use for data collection has the following rights and
+            permissions on the target NAS Server:<br />
+            a. Read share permissions on the audited shares<br />
+            b. Membership in the local Administrators group
+          </li>
+        </ol>
+        For more information, refer to Netwrix Auditor documentation.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Security log settings do not apply via GPO</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000HDk6CAG" />
+    <meta name="Id" content="ka04u000000HdMQAA0" />
+    <meta name="LastPublishedDate" content="2023-05-16T11:16:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-16T12:53:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-16T11:16:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8584" />
+    <meta name="ArticleNumber" content="000008584" />
+    <meta
+      name="description"
+      content="A registry setting preventing security log size change via GPO"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        When configuring maximum security event log size via Group Policy, you may notice that after
+        the policy is applied, the log size on a specific computer is still not set to the value
+        specified in the GPO (Group Policy Object).
+
+        <h2 id="cause">Cause</h2>
+        A legacy registry setting overwrites the GPO. 
+
+        <h2 id="resolution">Resolution</h2>
+        Open a regedit on the problematic server and check if the following key exists:
+
+        <pre class="ckeditor_codeblock">
+KEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security\</pre
+        >
+        The values inside this key, like <strong>MaxSize</strong>, are legacy and usually set by
+        ADMX templates. Check in your current domain and local policies applied to the problematic
+        computer, if the following section is configured:<br /><strong
+          >Computer Configuration </strong
+        >&gt;<strong> Administrative Templates </strong>&gt;<strong> Windows Components</strong>
+        &gt;<strong> Event Log Service </strong>&gt;<strong> Security</strong><br />The easiest way
+        to find the right policy is using a gpresult tool.<br />To fix the issue, simply set the
+        policy back to <strong>Not configured</strong> and execute gpupdate.
+      </div>
+    </article>
+  </body>
+</html>

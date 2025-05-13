@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SD_2.0_005</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IOHCA2"/><meta name="Id" content="ka04u000000HclyAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:25:03.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:06:19.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:25:03.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6716"/><meta name="ArticleNumber" content="000006716"/><meta name="description" content="360012123251"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> .	Additional SAM Event Handling
+.	High Risk Permission Threat &amp; Threat Response Improvements
+.	Active Directory Sync Performance Improvements
+.	Active Directory Sync Error Handling
+.	Missing Client Information in SIEM/Action Response</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <span><span><span><strong><span>Title: </span></strong></span></span></span><br/><span><span><span>Hotfix Patch 2.0.435 for StealthDEFEND 2.0</span></span></span><br/><span><span><span><strong><span>Summary:</span></strong></span></span></span><br/><span><span><span><strong><span>This Hotfix addresses a variety of issues relating but not limited to: </span></strong></span></span></span>
+</p><ul><li>
+<span><span><span><strong><span>Additional SAM Event Handling</span></strong></span></span></span>
+</li><li>
+<span><span><span><strong><span>High Risk Permission Threat &amp; Threat Response Improvements</span></strong></span></span></span>
+</li><li>
+<span><span><span><strong><span>Active Directory Sync Performance Improvements</span></strong></span></span></span>
+</li><li>
+<span><span><span><strong><span>Active Directory Sync Error Handling</span></strong></span></span></span>
+</li><li><span><span><span><strong><span>Missing Client Information in SIEM/Action Response</span></strong></span></span></span></li></ul><span><span><span><strong><span>Behavior before Fix: </span></strong></span></span></span>
+<ul><li>
+<span><span><span>In some rare cases events from SAM would not be processed by StealthDEFEND due to some unique variability in the client data.</span></span></span>
+</li><li>
+<span><span><span>Some rare instances of the high risk permission threat would not gather the correct events or handle threat response properly.</span></span></span>
+</li><li>
+<span><span><span>Active Directory Performance issues when syncing Token Groups</span></span></span>
+</li><li>
+<span><span><span>Active Directory Stability issues on minor network interruption, and certain AD data formats</span></span></span>
+</li><li><span><span><span>SIEM / Playbooks for AD Threats would sometimes be missing client information</span></span></span></li></ul><span><span><span><strong><span>Behavior after Fix: </span></strong></span></span></span>
+<ul><li>
+<span><span><span>DEFEND properly processes SAM events in different data types in.</span></span></span>
+</li><li>
+<span><span><span>High Risk Permission threat handles more unique scenarios.</span></span></span>
+</li><li>
+<span><span><span>Greatly increased performance for the Active Directory Sync.</span></span></span>
+</li><li>
+<span><span><span>Additional error handling and logging for the Active Directory Sync.</span></span></span>
+</li><li><span><span><span>SIEM / Playbook Responses for AD Threats will properly translate outgoing client information</span></span></span></li></ul><span><span><span><strong><span>Submitted by: </span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>Lee Berg</span></span></span></span></span><br/><br/><span><span><span><strong><span>Affected Versions:</span></strong></span></span></span><br/><span><span><span><span class="MsoSubtleEmphasis"><span>Prior versions of 2.0</span></span></span></span></span><br/><br/><span><span><span><span class="MsoSubtleEmphasis"><span><b><span>Escalations:</span></b></span></span></span></span></span><br/><span><span><span><strong><span>34806 </span></strong></span></span></span><br/><br/><span><span><span><strong><span>Dev Tickets:</span></strong><br/><span class="MsoHyperlink"><span>https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-6904</span></span></span></span></span><br/><span><span><span><a href="https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-6895" target="_blank">https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-6895</a></span></span></span><br/><span><span><span><a href="https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-7183" target="_blank">https://stealthbits.myjetbrains.com/youtrack/issue/<span>SDFS-7183</span></a></span></span></span><br/><span><span><span><a href="https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-7085" target="_blank">https://stealthbits.myjetbrains.com/youtrack/issue/<span>SDFS-7085</span></a></span></span></span><br/><span><span><span><a href="https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-7264" target="_blank">https://stealthbits.myjetbrains.com/youtrack/issue/<span>SDFS-7264</span></a></span></span></span><br/><span><span><span><a href="https://stealthbits.myjetbrains.com/youtrack/issue/SDFS-7064" target="_blank">https://stealthbits.myjetbrains.com/youtrack/issue/<span>SDFS-7064</span></a> </span></span></span><br/><br/> <p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Download installer<br/>2. Stop all StealthDEFEND services<br/>3. Double click to perform upgrade (valid for versions 2.0.0+)<br/><br/><a href="https://downloads.stealthbits.com/access/files/SDHotfixes/StealthDEFEND_2.0.435.zip" target="_blank">https://downloads.stealthbits.com/access/files/SDHotfixes/StealthDEFEND_2.0.435.zip</a></p><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthDEFEND<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> StealthDEFEND - General<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 2.0<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> SDFS-7064
+SDFS-6904
+SDFS-6895
+SDFS-7183
+SDFS-7085
+SDFS-7264<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> 2.0.435.0<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 2407<br/></p></div>
+</article></body></html>

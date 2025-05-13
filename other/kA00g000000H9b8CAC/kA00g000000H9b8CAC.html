@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Fatal error. Server.CreateObject.Failed</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9b8CAC" />
+    <meta name="Id" content="ka04u00000116OaAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T15:58:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1332" />
+    <meta name="ArticleNumber" content="000003504" />
+    <meta
+      name="description"
+      content="Fatal error Server.CreateObject.Failed Please make sure that the service Netwrix Password Manager is running and available. ASP error &#34; Cannot Create Object"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Password Manager stopped working after a reboot; Self-Service Portal shows the
+        following error: "Fatal error. Please make sure that the service Netwrix Password Manager is
+        running and available. ASP error " Cannot Create Object".<br /><img
+          alt="User-added image"
+          height="85"
+          src="kA00g000000H9b8CAC_b32831a3-42c5-4d1c-b10f-d3e35d1eb268.png"
+          width="500"
+        />
+        <hr />
+        The error occurs because web-service cannot connect to the Netwrix Password Manager service.
+        It can happen if the Netwrix Password Manager service does not work - the service may be
+        stopped, or the service settings may be corrupted. Netwrix Password Manager stores all
+        settings and service information in the "alinfo.bin" file. The product constantly writes
+        data to it on any performed action. Unexpected interruption of the Netwrix Password Manager
+        service (PRMService.exe process) during a writing operation can cause corruption of this
+        file, which results in the ASP error on the web portals. With DMZ setup such error can also
+        occur if DCOM settings are incorrect and web-service is trying to connect to the machine
+        where Password Manager service does not exist.
+        <hr />
+        <div>
+          First of all make sure that the Netwrix Password Manager service is started.
+          <img
+            alt="User-added image"
+            height="157"
+            src="kA00g000000H9b8CAC_b09c3913-bda5-4d25-a2dd-a842c63297fc.png"
+            width="500"
+          />
+          If you have DMZ setup - verify DCOM settings are as per paragraph 4.4 of
+          <a
+            href="https://www.netwrix.com/download/documents/NetWrix_Password_Manager_Administrator_Guide.pdf"
+            target="_blank"
+            >Admin guide</a
+          >
+          If the service runs and DCOM settings are correct, then you need to recreate the
+          <strong>alinfo.bin</strong> file and configure all the product settings again:
+        </div>
+
+        <ol>
+          <li>
+            Stop the <strong>Netwrix Password Manager </strong>service via the Services snap-in.
+          </li>
+          <li>Navigate to the Netwrix Password Manager installation directory.</li>
+          <li>Remove or rename the <strong>alinfo.bin</strong> file.</li>
+          <li>
+            Start the <strong>Netwrix Password Manager </strong>service via the Services snap-in.
+          </li>
+          <li>Go to the Administrative portal and configure Netwrix Password Manager.</li>
+        </ol>
+
+        <div>
+          As a result, the <strong>alinfo.bin</strong> file will be recreated, but all users
+          enrollment information will stay untouched.
+          <img
+            alt="User-added image"
+            height="400"
+            src="kA00g000000H9b8CAC_543f4467-fdff-47d0-abea-4a6bbaa5f412.png"
+            width="500"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Deleted AD User(s) Still Show In Netwrix Enterprise Auditor Reports</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001i73KAA" />
+    <meta name="Id" content="ka0Qk000000CDUXIA4" />
+    <meta name="LastPublishedDate" content="2025-02-11T14:53:57.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-11T20:18:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-02-11T14:53:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9331" />
+    <meta name="ArticleNumber" content="000009331" />
+    <meta
+      name="description"
+      content="Deleted AD User(s) Still Show In Netwrix Enterprise Auditor Reports"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            A deleted user account(s) from AD still shows in Netwrix Enterprise Auditor (NEA)
+            Reports and is not flagged as deleted.
+          </p>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>A failure on the ADI scan that could be caused by a myriad of reasons.</p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            Run a full <strong>AD Inventory Scan</strong> by disabling differential scanning for the
+            <strong>1-AD_Scan</strong> job using the steps below:
+          </p>
+          <ol>
+            <li>
+              <p>
+                Navigate to
+                <strong
+                  >NEA &gt; Jobs &gt; .Active Directory Inventory &gt; 1-AD_Scan &gt; Configure &gt;
+                  Queries &gt; Query Properties &gt; Configure &gt; Options</strong
+                >.<br /><img
+                  src="kA0Qk0000001i73KAA_4f799372-ef0f-43c2-8100-dccd4ea59d14.png"
+                  alt="Image_2024-11-19_15-36-30.png"
+                  width="683"
+                  height="365"
+                /> 
+              </p>
+            </li>
+            <li>
+              <p>
+                Uncheck the box for
+                <strong>Collect only updates since the last scan</strong>.<br /><img
+                  src="kA0Qk0000001i73KAA_705e7d03-ec52-4abe-a028-99bc30ae64ce.png"
+                  alt="Image_2024-11-19_15-37-33.png"
+                  width="542"
+                  height="437"
+                /> 
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Next</strong> through the end of the Active Directory Inventory DC
+                Wizard.
+              </p>
+            </li>
+            <li>
+              <p>Re-run the <strong>1-AD_Scan</strong> job.</p>
+            </li>
+            <li>
+              <p>
+                Select the previously-unchecked box for
+                <strong>Collect only updates since the last scan</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Re-run the <strong>1-AD_Scan</strong> job.</p>
+            </li>
+            <li>
+              <p>
+                To determine whether the job was successful, verify the results in the
+                <strong>SA_ADInventory_UsersView</strong>. Search for the deleted user to confirm
+                whether it exists or is marked <strong>IsDeleted</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the deleted user does not exist or is not marked <strong>IsDeleted</strong>, then
+                verify the permissions on the scan account. The permissions must have
+                <strong>List contents &amp; read Property</strong> on the
+                <strong>Deleted Objects</strong> container.
+              </p>
+            </li>
+            <li>
+              <p>
+                For more information, please see the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/ADInventory/Overview.htm"
+                  target="_self"
+                  >ADInventory Data Collector</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

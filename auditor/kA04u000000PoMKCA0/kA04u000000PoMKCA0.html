@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Logon Failures in Multi-domain Environments</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoMKCA0" />
+    <meta name="Id" content="ka04u00000116BRAAY" />
+    <meta name="LastPublishedDate" content="2023-06-08T14:15:08.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-16T09:35:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-06T07:48:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8606" />
+    <meta name="ArticleNumber" content="000008606" />
+    <meta
+      name="description"
+      content="Netwrix Auditor account trying to authenticate to root dc, Exchange, forest domain dc"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <ul>
+          <li>
+            <div>
+              The service account used for collecting data in Netwrix Auditor is trying to
+              authenticate to a different domain in a multi-domain environment.
+            </div>
+          </li>
+          <li>
+            <div>
+              The security event log for the other domain server contains recurring entries on
+              failed logon attempts by the Netwrix Auditor service account. The result code is
+              <code>0x6</code> — <code>Client not found in Kerberos database</code>.
+            </div>
+          </li>
+        </ul>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          In multi-domain environments, Active Directory Auditing collectors may connect to servers
+          in other domains:
+          <ul>
+            <li>Root DCs.</li>
+            <li>Exchange servers.</li>
+            <li>Forest domain DCs.</li>
+          </ul>
+        </div>
+
+        <h2 id="solutions">Solutions</h2>
+
+        <ul>
+          <li>
+            <div>
+              Root DC errors can be omitted:
+              <ol>
+                <li>
+                  Open <strong>Registry Editor</strong> (<strong>Start</strong> &gt;
+                  <strong>Run</strong> &gt; <strong>regedit</strong>).
+                </li>
+                <li>
+                  Navigate to HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\AD Change
+                  Reporter.
+                </li>
+                <li>
+                  Create a new <strong>DWORD (32-bit)</strong> value and name it
+                  <strong>IgnoreRootDCErrors</strong>.
+                </li>
+                <li>Right-click the value and select <strong>Modify</strong>.</li>
+                <li>Set the value data to <strong>1</strong>.</li>
+              </ol>
+            </div>
+          </li>
+          <li>
+            <div>
+              If you would like to prevent Netwrix Auditor from accessing Exchange servers, you can
+              use the <strong>omitexchangeserverlist</strong> omit list to specify Exchange servers
+              to be omitted from the monitoring scope. The list can be found in
+              <strong>%Netwrix Auditor installation folder%\Active Directory Auditing</strong>.
+            </div>
+          </li>
+          <li>
+            <div>
+              You can also disable schema and configuration monitoring options for your Active
+              Directory monitoring plan.
+              <ol>
+                <li>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</li>
+                <li>
+                  Select your monitoring plan for Active Directory and click <strong>Edit</strong>.
+                </li>
+                <li>Select the data source and click <strong>Edit data source</strong>.</li>
+                <li>
+                  Uncheck the <strong>Schema</strong> and
+                  <strong>Configurations</strong> checkboxes.
+                </li>
+                <li>Click <strong>Save</strong> to save changes.</li>
+              </ol>
+            </div>
+          </li>
+          <li>
+            <div>
+              You can also setup a trust between the server domain and the affected domain with a
+              single service account to collect the data. For additional information on a single
+              dedicated service account used for data collection and reporting purposes, refer to
+              the following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/DataCollection/ActiveDirectory/Overview.htm"
+                target="_self"
+                >Active Directory — Overview</a
+              >.<br />
+              For additional information on restrictions in a multi-domain environment, refer to the
+              following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Install/Deployment/ServerClient/Server.htm#domains_and_trusts"
+                target="_self"
+                >Server and Client — Domains and Trusts</a
+              >.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Duplicate Configuration and Schema Changes for All Monitored Domains in Forest Made by System
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dhCAC" />
+    <meta name="Id" content="ka04u00000116TuAAI" />
+    <meta name="LastPublishedDate" content="2023-07-03T10:32:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-03T10:33:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2803" />
+    <meta name="ArticleNumber" content="000003663" />
+    <meta
+      name="description"
+      content="Changes to Configuration and Schema partitions of Active Directory are reported by Netwrix Auditor in each Domain of the Forest as done by the &amp;quot;system&amp;quot;."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Netwrix Auditor is set to monitor several domains in the same forest, e.g. one root
+                and several child domains.
+              </p>
+            </li>
+            <li>
+              <p>
+                The configuration or schema has been changed for one of the child domains. Netwrix
+                Auditor reported several types of configuration changes in separate change reports
+                for each of the monitored domains.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Only one report indicates the specific WHO that changed the configuration, while
+                    other reports state System in the WHO field.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="cause_and_resolution">Cause and Resolution</h2>
+
+        <div>
+          <p>
+            This behavior is expected due to the Active Directory architecture. Configuration and
+            Schema partitions are shared between all domains in the forest. Changes made to these
+            partitions in one domain are replicated to other domains.<br />Security log events that
+            Netwrix uses to establish the WHO value are only generated in the domain where the
+            changes were actually made. For all other domains the reports will show
+            <strong>System</strong>.<br /><br />Netwrix Auditor exclusively collects events from
+            domain controllers in domains specified for data collection (in addition to domain
+            controllers in the root domain) and ignores domain controllers in the domains that are
+            not audited. Netwrix Auditor collects changes and security events separately and
+            independently for each managed domain. In the example above, each domain had
+            configuration changes due to replication, but only one had corresponding security events
+            which Netwrix Auditor used to collect the WHO value.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

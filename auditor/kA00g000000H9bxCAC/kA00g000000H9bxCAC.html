@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Request operation timeout</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bxCAC" />
+    <meta name="Id" content="ka04u000000HcUiAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1397" />
+    <meta name="ArticleNumber" content="000003555" />
+    <meta
+      name="description"
+      content="The issue occurs when the Account Lockout Examiner service is busy and is not able to respond to any requests."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I get the "request timeout" error message when I launch the Account Lockout Examiner console
+        or some time after.
+
+        <img
+          src="kA00g000000H9bxCAC_f5438df8-6dda-473b-9c6b-acf2883cad06.jpg"
+          alt="User-added image"
+          width="345"
+          height="184"
+        />
+
+        <hr />
+
+        The issue occurs when the Account Lockout Examiner service is busy and is not able to
+        respond to any requests. It might happen if Account Lockout Examiner is set to monitor all
+        domain controllers and there are a lot of failed logon events to process tracked from every
+        domain controller, or when domain controllers and workstations have a slow connection to the
+        Account Lockout Examiner server (for example located in a remote office).
+
+        <hr />
+
+        In order to resolve the issue perform the following steps on the Account Lockout Examiner
+        machine: 1. Change the method of collecting logs:
+        <ol>
+          <li>Run Registry Editor (Start - Run - regedit)</li>
+          <li>
+            Navigate to HKLMSoftware[Wow6432Node]NetWrixAccount Lockout Examiner (Wow6432Node only
+            for x64 OS)
+          </li>
+          <li>Set readlog to 0</li>
+          <li>Create a DWORD called UseWatcher with the value of 1</li>
+          <li>Set invLogonKeepTime to 10 decimal</li>
+          <li>Set invLogonCleaningPeriod to 10 decimal</li>
+          <li>Restart the Netwrix Account Lockout Examiner service</li>
+        </ol>
+        <p>
+          <img
+            src="kA00g000000H9bxCAC_7c9e285a-e411-4afe-a106-6fde4df2eb59.png"
+            alt="User-added image"
+            width="500"
+            height="212"
+          />
+        </p>
+        2. If the above does not help, disable searching of invalid logons on workstations. This
+        will reduce the service load.
+        <ol>
+          <li>Run Registry Editor (Start - Run - regedit)</li>
+          <li>
+            Navigate to HKLMSoftware[Wow6432Node]NetWrixAccount Lockout Examiner (Wow6432Node only
+            for x64 OS)
+          </li>
+          <li>Create a DWORD called PF_Enabled with the value of 0</li>
+          <li>
+            Restart the Netwrix Account Lockout Examiner service
+            <img
+              src="kA00g000000H9bxCAC_faee7da6-1295-4fa5-80a8-b6654a0893ab.png"
+              alt="User-added image"
+              width="500"
+              height="214"
+            />
+          </li>
+        </ol>
+        3. If all of the registry settings did not address the issue set Account Lockout Examiner to
+        monitor the PDC only
+        <ol>
+          <li>
+            In NetWrix Account Lockout Examiner navigate to File &gt; Settings &gt; Managed Objects.
+          </li>
+          <li>Select your domain and click Edit.</li>
+          <li>Select the Only PDC emulator radio button and click OK to save the changes</li>
+        </ol>
+        <p>
+          <img
+            src="kA00g000000H9bxCAC_fd33d537-b667-4ce8-8378-2dbdc6f0ce66.png"
+            alt="User-added image"
+            width="356"
+            height="357"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

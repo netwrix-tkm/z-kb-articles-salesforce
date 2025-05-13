@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_11.0_002</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ICNCA2" />
+    <meta name="Id" content="ka04u000000HchXAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:08:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:08:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6300" />
+    <meta name="ArticleNumber" content="000006300" />
+    <meta name="description" content="360012217892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary: </strong> FS SDD Scan - Temp Table problem</p>
+        <p>
+          <strong>Before Fix: </strong>When running SDD scans against multiple hosts simultaneously,
+          it is possible that some hosts will error out with the following error: There is already
+          an object named '##SubjectProfileTempSourceIDs_8D8CDB44A122B35' in the database. This was
+          due to the fact that SA was using a timestamp to generate the temp table name which made
+          it possible for multiple hosts to attempt to create the same temp table.
+        </p>
+        <p>
+          <strong>After Fix: </strong>SA will now use a unique GUID value to use in the temp table
+          name to avoid any potential clashes with other hosts attempting to create the temp table
+          at the same time.
+        </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Michael Burrofato</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>11.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>SDD - Common</p>
+        <p><strong> </strong></p>
+        <p><strong>Dev Ticket:</strong></p>
+        <ul>
+          <li>SAFS-20943</li>
+        </ul>
+        <p><strong>Resolved in Version:</strong></p>
+        <ul>
+          <li>StealthAUDIT.DataCollectors.DLP.Common.dll 11.0.48</li>
+        </ul>
+        <p><strong>Other Dependent components included:</strong></p>
+        <ul>
+          <li>dll 11.0.89</li>
+        </ul>
+        <p><strong>KB Type: </strong></p>
+        <p>               Hotfix</p>
+        <p><strong> </strong></p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><strong> </strong></p>
+        <p><strong>-              SAFS-20943/57239</strong></p>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since GA:</strong></p>
+        <p>-              SAFS-20943 57239 - FS SDD Scan - Temp Table problem</p>
+        <p> </p>
+        <p><strong>List of changes since last Hotfix</strong></p>
+        <p>-              N/A</p>
+        <p> </p>
+        <p> </p>
+        <p><strong>Comments:</strong></p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            <strong
+              >Unblock the hotfix zip file in the windows property dialog, if an unblock button
+              exists there. </strong
+            >
+          </li>
+          <li>
+            Close all instances of StealthAUDIT (check task manager under processes for all users)
+          </li>
+          <li>
+            Update all PrivateAssemblies files in your %SAInstallDir%PrivateAssemblies folder.
+          </li>
+          <li>Update all Agent files in your %SAInstallDir%SensitiveData folder</li>
+        </ol>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_002.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SAHotFixes/11.0/SA_11.0_002.zip</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1208 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cNCAS" />
+    <meta name="Id" content="ka0Qk0000001AWnIAM" />
+    <meta name="LastPublishedDate" content="2023-12-27T08:48:35.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T09:33:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2219" />
+    <meta name="ArticleNumber" content="000003581" />
+    <meta
+      name="description"
+      content="The KB provides how to fix a problems related to deployment of Netwrix Auditor for SharePoint Core Service."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1208 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Automatic Netwrix Auditor for SharePoint Core Service deployment failed. 
+</pre
+          >
+        </div>
+
+        <h2 id="causes_and_resolutions">Causes and Resolutions</h2>
+
+        <div>
+          <p>
+            Refer to the table below for possible causes and resolutions based on event
+            descriptions:
+          </p>
+
+          <div class="table-wrap">
+            <table count-columns="3">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">
+                    <p>Event Description</p>
+                  </th>
+                  <th colspan="1" rowspan="1">
+                    <p>Cause</p>
+                  </th>
+                  <th colspan="1" rowspan="1">
+                    <p>Resolution</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="7">
+                    <p><code>Fatal error during installation</code></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The <strong>Timeout expired</strong> error is prompted after SharePoint Core
+                      Service installation has taken over 10 minutes.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Refer to the following article for additional information:
+                      <a
+                        href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9YfCAK.html"
+                        target="_blank"
+                        >Timeout Expired Error on SharePoint Core Service Deployment</a
+                      >.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      An invalid SharePoint Central Administration URL was specified during
+                      monitoring plan creation.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Edit the Item URL via <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; modify the SharePoint Central
+                      Administration URL &gt; click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      An invalid SharePoint Central Administration server was specified during
+                      monitoring plan creation. The specified server does not belong to the audited
+                      farm.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Edit the SharePoint Central Administration server FQDN in
+                      <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; <strong>Core Service</strong> tab
+                      &gt; modify the FQDN and click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      SharePoint solution or SharePoint Core Service has already been installed in
+                      the SharePoint farm, but the solution has not been deployed yet.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Make sure that the list of installed programs on the target computer does not
+                      contain <strong>Netwrix Auditor for SharePoint Core Service</strong>, and
+                      uninstall it if it does. If not, open the SharePoint Central Administration
+                      site and navigate to <strong>System Settings</strong> &gt;
+                      <strong>Manage farm solutions</strong>. Locate the
+                      <code>netwrix.sharepoint.audit.wsp</code> solution and delete it. Update the
+                      monitoring plan.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The data collecting account does not have the required rights and permissions
+                      for automatic Core Service deployment.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Specify a different data collecting account for the affected monitoring plan
+                      or grant corresponding permissions to the current account:
+                    </p>
+
+                    <ul>
+                      <li>
+                        <p>
+                          Navigate to your SharePoint monitoring plan &gt;
+                          <strong>Edit Item</strong> &gt; <strong>General</strong>, and enter user
+                          name and password for the custom account.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Grant the current account the necessary rights and permissions − refer to
+                          the following article for additional information:
+                          <a
+                            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Permissions.htm"
+                            target="_blank"
+                            >SharePoint − Permissions for SharePoint Auditing · v10.6</a
+                          >.
+                        </p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      SharePoint Central Administration is not functioning properly due to
+                      connection problems with the SharePoint Configuration Database, or some other
+                      unexpected error.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Make sure SharePoint Central Administration is functioning properly.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      SharePoint Central Administration URL has been specified without a port number
+                      (<code>Fatal error during installation</code>).
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Verify the Administration URL − Edit the Item URL via
+                      <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; modify the SharePoint Central
+                      Administration URL &gt; click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="3">
+                    <p>Unable to connect to the remote server.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>An invalid SharePoint Central Administration port has been specified.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Verify the Administration URL − Edit the Item URL via
+                      <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; modify the SharePoint Central
+                      Administration URL &gt; click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The port of SharePoint Central Administration is blocked in the Windows
+                      Firewall settings in the target server, or in the Auditor host.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Refer to the following article for additional information on required ports:
+                      <a
+                        href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Ports.htm"
+                        target="_self"
+                        >SharePoint − SharePoint Ports · v10.6</a
+                      >.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The computer that hosts SharePoint Central Administration is not reachable.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Make sure there is network connection to the Central Administration host.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>The remote name could not be resolved.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>An invalid SharePoint Central Administration host has been specified.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Verify the Administration URL − Edit the Item URL via
+                      <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; modify the SharePoint Central
+                      Administration URL &gt; click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>The network path was not found.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The target server for Core Service deployment has been specified incorrectly.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Edit the SharePoint Central Administration server FQDN in
+                      <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; <strong>Core Service</strong> tab
+                      &gt; modify the FQDN and click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>Access is denied.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The data collecting account used to install Core Service does not have the
+                      required rights and permissions in the target server.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Specify a different data collecting account for the affected monitoring plan
+                      or grant corresponding permissions to the current account:
+                    </p>
+
+                    <ul>
+                      <li>
+                        <p>
+                          Navigate to your SharePoint monitoring plan &gt;
+                          <strong>Edit Item</strong> &gt; <strong>General</strong>, and enter user
+                          name and password for the custom account.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Grant the current account the necessary rights and permissions − refer to
+                          the following article for additional information:
+                          <a
+                            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Permissions.htm"
+                            target="_blank"
+                            >SharePoint − Permissions for SharePoint Auditing · v10.6</a
+                          >.
+                        </p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>The system cannot find the file specified.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The target server for Core Service deployment has been specified as an alias
+                      that is not specified in the DNS and that cannot be authenticated in the local
+                      admin share (\serveradmin$) in the target Core Service deployment server.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      Edit the SharePoint Central Administration server FQDN in
+                      <strong>Monitoring Plans</strong> &gt; select
+                      <code>%SharePoint_plan%</code> &gt; <strong>Edit</strong> &gt; select the item
+                      and click <strong>Edit item</strong> &gt; <strong>Core Service</strong> tab
+                      &gt; modify the FQDN and click <strong>Save &amp; Close</strong>.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>The pipe has been ended.</p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The SharePoint Central Administration server was restarted or shut down during
+                      the automatic Core Service deployment. Unable to install Netwrix Auditor for
+                      SharePoint Core Service on the target server.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Retry installation:</p>
+
+                    <ul>
+                      <li>
+                        <p>
+                          To retry the automatic deployment, update the SharePoint monitoring plan.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          For additional information on manual installation of SharePoint Core
+                          Service, refer to the following article:
+                          <a
+                            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/SharePointCoreService.htm"
+                            target="_blank"
+                            >Installation − Install for SharePoint Core Service · v10.6</a
+                          >.
+                        </p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9YfCAK.html"
+                  target="_blank"
+                  >Timeout Expired Error on SharePoint Core Service Deployment</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Permissions.htm"
+                  target="_blank"
+                  >SharePoint − Permissions for SharePoint Auditing · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Ports.htm"
+                  target="_self"
+                  >SharePoint − SharePoint Ports · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/SharePointCoreService.htm"
+                  target="_blank"
+                  >Installation − Install for SharePoint Core Service · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

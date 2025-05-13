@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Operation Timed Out in SharePoint Online and Teams Monitoring Plans in Netwrix Auditor
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111HyCAI" />
+    <meta name="Id" content="ka0Qk0000000x3JIAQ" />
+    <meta name="LastPublishedDate" content="2023-12-12T10:47:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T10:47:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-03T15:11:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8838" />
+    <meta name="ArticleNumber" content="000008838" />
+    <meta
+      name="description"
+      content="Operation Timed Out in SharePoint Online and Teams Monitoring Plans in Netwrix Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            One of the following errors is prompted for your SharePoint Online or MS Teams
+            monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Source: SharePoint Online Audit Service
+Event ID: 3205
+Description: Monitoring plan: %monitoring_plan_name%
+Item: %item_name%
+The following unexpected error occurred:
+The operation timed out.
+</pre
+          >
+
+          <pre class="has-inner-focus">
+Source: MS Teams Audit Service
+Event ID: 2002
+Description: Monitoring plan: %monitoring_plan_name%
+Item: %item_name%
+SharePoint Online: The operation timed out.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Firewall rules for the Microsoft 365 data source are misconfigured.</p>
+            </li>
+            <li>
+              <p>
+                Items from different data sources (e.g., SharePoint Online and MS Teams) were
+                previously added to a single monitoring plan.
+              </p>
+            </li>
+            <li>
+              <p>Items share the same Azure app.</p>
+            </li>
+            <li>
+              <p>Incorrect credentials for monitoring plan items.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>The following steps are vaild for the Modern
+            Authentication method in Microsoft 365.
+          </p>
+        </blockquote>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review the firewall rules set up in your environment. Refer to the following
+                articles for additional information on ports required for Microsoft 365-based data
+                sources:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Ports.htm"
+                  target="_self"
+                  >Microsoft 365 − Exchange Online Ports ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Ports.htm"
+                  target="_self"
+                  >Microsoft 365 − SharePoint Online Ports ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Ports.htm"
+                  target="_self"
+                  >Microsoft 365 − Teams Ports ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Create separate monitoring plans for the monitored items based on the data source.
+                For additional information, refer to the following articles:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/ExchangeOnline/Overview.htm"
+                  target="_self"
+                  >Monitoring Plans − Exchange Online Plans ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/SharePointOnline/Overview.htm"
+                  target="_self"
+                  >Monitoring Plans − SharePoint Online Plans ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/MSTeams.htm"
+                  target="_self"
+                  >Monitoring Plans − MS Teams Plans ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Each monitored item requires a separate Azure AD app. For additional information on
+                the Azure app setup procedure, refer to the following articles:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm#configuration_steps"
+                  target="_self"
+                  >Exchange Online − Permissions for Exchange Online Auditing ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm#configuring_azure_ad_app_for_auditing_sharepoint_online"
+                  target="_self"
+                  >SharePoint Online − Permissions for SharePoint Online Auditing ⸱ v10.6</a
+                >,
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm#configuration_steps"
+                  target="_self"
+                  >Teams − Permissions for Teams Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Review the credentials provided in monitored items:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    You can use your Tenant ID instead of the domain − proceed to your Azure portal
+                    &gt; select <strong>Azure Active Directory</strong> or
+                    <strong>Microsoft Entra ID</strong> in the left pane &gt; select
+                    <strong>Properties</strong> in the left tab &gt; copy
+                    <strong>Tenant ID</strong> and paste it in the
+                    <strong>Tenant name</strong> field in the affected item.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Review the Application ID provided. You can find the Application ID of your app
+                    in the <strong>Overview</strong> page once you select the app in the
+                    <strong>App registrations</strong> section. Copy it and paste it in the
+                    <strong>Application ID</strong> field in the affected item.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Review the application secret provided. You can find it under the
+                    <strong>Value</strong> section in the
+                    <strong>Certificates &amp; secrets</strong> tab once you select the app in the
+                    <strong>App registrations</strong> section. Copy it and paste it in the
+                    <strong>Application secret</strong> field in the affected item.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="troubleshooting_app_credentials">Troubleshooting app credentials</h2>
+
+        <div>
+          <p>
+            You can use the following PowerShell query to prompt the validation check using the
+            Azure app credentials:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Ssl3, [System.Net.SecurityProtocolType]::Tls, [System.Net.SecurityProtocolType]::Tls11, [System.Net.SecurityProtocolType]::Tls12;
+$iwr = 0
+$url = "https://login.windows.net/%Tenant_name%/oauth2/token"
+$AppID = "%App_ID%"
+$secret = "%Secret_Value%"
+$body = "client_id=$AppID&amp;scope=https://graph.microsoft.com/.default&amp;client_secret=$secret&amp;grant_type=client_credentials"
+$iwr = Invoke-WebRequest -Uri $url -Body $body -Method:POST -ContentType "application/x-www-form-urlencoded"
+$iwr.Content</code></pre>
+
+          <p>
+            Make sure to replace %Tenant_name%, %App_ID%, and %Secret_Value% with actual
+            credentials. In case the query succeeds, make sure to specify the credentials used in
+            the item affected. In case the query returns an error, refer to the following steps:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                The following error is prompted in case Tenant ID provided is incorrect. Review the
+                steps to discover the Tenant ID value in the <strong>Resolutions</strong> section.
+              </p>
+
+              <pre class="has-inner-focus">
+AADSTS900023: Specified tenant identifier '%tenant_name%' is neither a valid DNS name, nor a valid external domain.</pre
+              >
+            </li>
+            <li>
+              <p>
+                The following error is prompted in case Tenant ID provided is incorrect, or in case
+                Unified Audit is disabled. Refer to the following article for additional
+                information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PbchCAC.html"
+                  target="_self"
+                  >Remote Server Returned Error: (400) Bad Request when Auditing SharePoint Online
+                  and Microsoft Entra ID</a
+                >.
+              </p>
+
+              <pre class="has-inner-focus">AADSTS90002: Tenant '%tenant_name%' not found</pre>
+            </li>
+            <li>
+              <p>
+                The following error is prompted in case Application ID provided is incorrect, or in
+                case API permissions were not granted. Review the permissions required in the
+                <strong>Resolutions</strong> section.
+              </p>
+
+              <pre class="has-inner-focus">
+AADSTS700016: Application with identifier '%Application_ID%' was not found in the directory '%directory_name'</pre
+              >
+            </li>
+            <li>
+              <p>
+                The following error is prompted in case the Secret value provided is incorrect, or
+                in case the Secret value has expired. Review the steps to discover the Secret value
+                in the <strong>Resolutions</strong> section.
+              </p>
+
+              <pre class="has-inner-focus">AADSTS7000215: Invalid client secret provided.</pre>
+            </li>
+          </ul>
+
+          <p>
+            In case these steps did not help, contact
+            <a href="https://www.netwrix.com/open_a_ticket.html" target="_blank"
+              >Netwrix Technical Support</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Ports.htm"
+              target="_self"
+              >Microsoft 365 − Exchange Online Ports ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Ports.htm"
+              target="_self"
+              >Microsoft 365 − SharePoint Online Ports ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Ports.htm"
+              target="_self"
+              >Microsoft 365 − Teams Ports ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/ExchangeOnline/Overview.htm"
+              target="_self"
+              >Monitoring Plans − Exchange Online Plans ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/SharePointOnline/Overview.htm"
+              target="_self"
+              >Monitoring Plans − SharePoint Online Plans ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/MSTeams.htm"
+              target="_self"
+              >Monitoring Plans − MS Teams Plans ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm#configuration_steps"
+              target="_self"
+              >Exchange Online − Permissions for Exchange Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm#configuring_azure_ad_app_for_auditing_sharepoint_online"
+              target="_self"
+              >SharePoint Online − Permissions for SharePoint Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm#configuration_steps"
+              target="_self"
+              >Teams − Permissions for Teams Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PbchCAC.html"
+              target="_self"
+              >Remote Server Returned Error: (400) Bad Request when Auditing SharePoint Online and
+              Microsoft Entra ID</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

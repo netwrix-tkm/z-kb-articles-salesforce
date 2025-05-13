@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>New-NetFirewallRule: How to Open Ports Avoiding Manual Setup</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110wvCAA" />
+    <meta name="Id" content="ka04u00000117fNAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T12:50:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T12:50:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-27T09:56:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8692" />
+    <meta name="ArticleNumber" content="000008692" />
+    <meta name="description" content="NewNetFirewallRule How to Open Ports Avoiding Manual Setup" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor requires multiple ports to be open to function properly, each collector
+            having its own list of necessary protocols and ports. Going to the Windows Firewall may
+            cause multiple errors, so it is recommended to use the
+            <strong>New-NetFirewallRule</strong> command with PowerShall or Cmd.
+          </p>
+        </div>
+
+        <h2 id="before_you_start">Before You Start</h2>
+
+        <div>
+          <p>This command requires Run as Admin mode.</p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <h4 id="method_1_for_powershell">Method 1. For PowerShell</h4>
+
+        <div>
+          <p>Run <code>New-NetFirewallRule</code> with PowerShell.</p>
+
+          <p>Command example:</p>
+
+          <pre>
+New-NetFirewallRule -DisplayName "Allow TCP 12345" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 12345</pre
+          >
+        </div>
+
+        <h5 id="parameters"><strong>Parameters</strong></h5>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <strong>DisplayName</strong>: Not required, must be specified in quote marks,
+                <code>""</code>
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>Direction</strong>: Either <code>Inbound</code> (for inbound rules) or
+                <code>Outbound</code> (for outbound rules). If not specified defaults to Inbound
+              </p>
+            </li>
+            <li>
+              <p><strong>Action</strong>: Allow the port to be opened</p>
+            </li>
+            <li>
+              <p><strong>Protocol</strong>: <code>TCP</code> or <code>UDP</code></p>
+            </li>
+            <li>
+              <p>
+                <strong>LocalPort</strong>: Port(s) to be opened. Can use <code>[12345]</code>,
+                <code>[12345,12346]</code>, <code>[12345-123456]</code> in any combination.
+              </p>
+
+              <p>Example:</p>
+
+              <pre>…LocalPort 80, 1024-2048</pre>
+            </li>
+            <li>
+              <p>
+                <strong>Profile</strong>: Optional, can be <code>Any</code>, <code>Domain</code>,
+                <code>Private</code>, <code>Public</code> – defaults to <code>Any</code>
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="method_2_for_cmd">Method 2. For Cmd</h4>
+
+        <div>
+          <p>
+            To run the <code>New-NetFirewallRule</code> command with cmd, <code>netsh</code> should
+            be used. Aslo, in Server 2008 and above, the special
+            <code>netsh advfirewall</code>context exists.
+          </p>
+
+          <p>Command example:</p>
+
+          <pre>
+netsh advfirewall firewall add rule name = SQLPort dir = in protocol = tcp action = allow localport = 1433 profile = domain</pre
+          >
+        </div>
+
+        <h5 id="parameters"><strong>Parameters</strong></h5>
+
+        <div>
+          <ul>
+            <li>
+              <p><strong>name</strong>: Name for a rule must be one-word only</p>
+            </li>
+            <li>
+              <p>
+                <strong>dir</strong>: A direction of the connection. <code>in</code> for Inbound,
+                <code>out</code> for Outbound
+              </p>
+            </li>
+            <li>
+              <p><strong>protocol</strong>: <code>TCP</code> or <code>UDP</code></p>
+            </li>
+            <li>
+              <p>
+                <strong>localport</strong>: Port(s) to be opened. Can use <code>[12345]</code> or
+                <code>[12345-123456]</code>. No combination possible.
+              </p>
+
+              <p>Example:</p>
+
+              <pre>
+…localport= 80
+…localport=1024-2048
+            </pre
+              >
+            </li>
+            <li>
+              <p>
+                <strong>Profile</strong>: Can be <code>any</code>, <code>domain</code>,
+                <code>private</code>, <code>public</code> – defaults to <code>any</code>
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="examples">Examples</h2>
+
+        <h4 id="for_powershell">For PowerShell</h4>
+
+        <h5 id="on_na_server"><strong>On NA Server:</strong></h5>
+
+        <pre>
+New-NetFirewallRule -DisplayName "NA SQL Allow Out TCP 1433" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1433
+
+New-NetFirewallRule -DisplayName "NA SQL Allow Out UDP 1434" -Direction Outbound -Action Allow -Protocol UDP -LocalPort 1434
+    
+New-NetFirewallRule -DisplayName "NA SQL Allow Out TCP 1024-65535" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1024-65535 
+</pre
+        >
+
+        <h5 id="on_sql_servertarget"><strong>On SQL Server(target):</strong></h5>
+
+        <pre>
+New-NetFirewallRule -DisplayName "NA SQL Allow Inb TCP 1433" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1433
+
+New-NetFirewallRule -DisplayName "NA SQL Allow Inb UDP 1434" -Direction Inbound -Action Allow -Protocol UDP -LocalPort 1434
+
+New-NetFirewallRule -DisplayName "NA SQL Allow Inb TCP 1024-65535" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1024-65535 
+
+</pre
+        >
+
+        <h4 id="for_cmd">For Cmd</h4>
+
+        <h5 id="on_na_server"><strong>On NA Server:</strong></h5>
+
+        <pre>
+netsh advfirewall firewall add rule name = NASQLAllowOutTCP1433 dir = out protocol = tcp action = allow localport = 1433 profile = any
+
+netsh advfirewall firewall add rule name = NASQLAllowOutUDP1434 dir = out protocol = udp action = allow localport = 1434 profile = any
+
+netsh advfirewall firewall add rule name = NASQLAllowOutTCP1024-65535 dir = out protocol = tcp action = allow localport = 1024-65535 profile = any
+</pre
+        >
+
+        <h5 id="on_sql_servertarget"><strong>On SQL Server(target):</strong></h5>
+
+        <pre>
+netsh advfirewall firewall add rule name = NASQLAllowInTCP1433 dir = in protocol = tcp action = allow localport = 1433 profile = any
+
+netsh advfirewall firewall add rule name = NASQLAllowInUDP1434 dir = in protocol = udp action = allow localport = 1434 profile = any
+
+netsh advfirewall firewall add rule name = NASQLAllowInTCP1024-65535 dir = in protocol = tcp action = allow localport = 1024-65535 profile = any
+</pre
+        >
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SQLServer/Ports.htm"
+                  target="_blank"
+                  >A full list of protocols and ports required for Netwrix Auditor for SQL Server ⸱
+                  v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=windowsserver2022-ps"
+                  target="_blank"
+                  >New-NetFirewallRule Syntax and Examples ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/netsh-advfirewall-firewall-control-firewall-behavior"
+                  target="_blank"
+                  >Using netsh advfirewall Firewall Instead of netsh firewall to Control Windows
+                  Firewall Behavior ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

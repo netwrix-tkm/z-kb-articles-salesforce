@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_7.0_SP2_002</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IbOCAU" />
+    <meta name="Id" content="ka04u000000HcrDAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:47:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:47:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7486" />
+    <meta name="ArticleNumber" content="000007486" />
+    <meta name="description" content="360012217712" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Ticket: FileSystem
+          solution set: Broken Inheritance - Test various improvements Issue: The job's performance
+          was poor with high SQL and disk requirements. Fix: The now has the ability to be scoped
+          down to process only folders with broken permission inheritance, and also to process
+          specific hosts. The analysis scripts were improved for better performance and less growth
+          on the transaction log.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Modules Included
+          <br />- DataAnalysisTask.XML <br /><br />YouTrack/Escalations <br />- SAFS-992/
+          Escalations 8773: Broken Inheritance - Test various improvements <br /><br />Customers
+          <br />- Allstate <br /><br />Cumulative List of fixes included since Service Pack: <br />-
+          SAFS-992: <br />1. Added transactions and check pointing into the permissionsComparison
+          analysis <br />2. Added ability to use #SA_JOB_HOSTS to filter down analysis to only hosts
+          inside the job list <br />3. Added the ability modify a SQLScript parameter in analysis #2
+          which tells the job to only analyze resources with changed permissions from parent. By
+          default this is enabled, but can be set back to 0 to get legacy behavior (Analyze all
+          resources regardless of permission changes between parent and child) <br />4. If running
+          enterprise SQL server, will compress certain large tables with page compression. <br />5.
+          Filtered resources with DeletedUSN.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <u
+            ><span
+              ><a
+                href="http://downloads.stealthbits.com/access/files/SAHotFixes/7.0/SA_7.0_SP2_002.zip"
+                target="_blank"
+                ><span
+                  >http://downloads.stealthbits.com/access/files/SAHotFixes/7.0/SA_7.0_SP2_002.zip</span
+                ></a
+              ></span
+            ></u
+          ><br /> 
+        </p>
+        <ol>
+          <li>
+            <i
+              >Replace the DataAnalysisTask.XML file in the job under
+              GROUP_FileSystem\GROUP_3.Broken Inheritance\JOB_FS_BrokenInheritance with the one
+              provided in the hotfix.</i
+            >
+          </li>
+          <li>
+            <i>Optional:</i>
+            <ol>
+              <li>
+                <i
+                  >To get results only on folders with changed permissions from parent, leave
+                  analysis as it is (runs faster).</i
+                >
+              </li>
+              <li>
+                <i
+                  >To get results on all scanned folders (including folders with identical
+                  permissions to the parent), open analysis #2 and change the
+                  @FILTER_TO_CHANGED_RESOURCES parameter value to 0.</i
+                >
+              </li>
+              <li>
+                <i
+                  >To scope the results to specific hosts, target the desired hosts (from the list
+                  of scanned hosts) in the job's Hosts section.</i
+                >
+              </li>
+            </ol>
+          </li>
+          <li><i>Rerun the job.</i></li>
+        </ol>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Solution Set - File System<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.0 SP2, 7.2<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          - SAFS-992<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          - SA 7.2 - SA 7.0 (only hotfix)<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1264<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

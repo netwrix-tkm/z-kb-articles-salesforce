@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling Log Fix: "ERROR NNT.Hub.ServiceClient.HubAdapter - HubAdapter.Authenticate() Error
+      authenticating to hub at https://.../api/ - Error writing headers (Error while sending TLS
+      Alert (Fatal:InternalError):..."
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JjwCAE" />
+    <meta name="Id" content="ka04u000000QmaLAAS" />
+    <meta name="LastPublishedDate" content="2023-05-25T11:22:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-25T11:22:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T08:31:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8364" />
+    <meta name="ArticleNumber" content="000008364" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:							                          #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2018-07-31 13:03:22,240 [HubClient-PollHubThreadProcessing] ERROR NNT.Hub.ServiceClient.HubAdapter - 
+HubAdapter.Authenticate() Error authenticating to hub at https://example.ip/api/ - Error writing headers (Error 
+while sending TLS Alert (Fatal:InternalError): System.IO.IOException: The authentication or decryption has failed. ---&gt; 
+System.IO.IOException: EndRead failure ---&gt; System.Net.Sockets.SocketException: Connection reset by peer
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="RollingLogFix:">Cause</h2>
+
+        <p>
+          If you have recently disable TLS 1.0/1.1 on your Windows Hub, It is likely that a few of
+          your Linux devices are offline and can not connect to your Hub (mostly disabled for
+          Audit/Compliance Standards).
+        </p>
+
+        <p>
+          If the Linux device is currently at Mono 4.5, you will receive this error if you disable
+          TLS 1.0/1.1 on your Windows Hub.
+        </p>
+
+        <p>
+          Since Mono 4.5 has compatibility issues with TLS 1.2, we will need to upgrade Mono to a
+          later version (Mono 5.0.1.1) Instructions below on how to install/remedy this issue.
+        </p>
+
+        <h2 id="RollingLogFix:">Resolution</h2>
+
+        <p>
+          If you are receiving this error, the NNT Agent is NOT reporting to your hub. This is a
+          critical error and for monitoring to continue, it must be resolved. To resolve this error:
+        </p>
+
+        <ol>
+          <li>
+            Stop the NNT Agent Service:
+            <pre class="ckeditor_codeblock"># service nntgen7agent stop</pre>
+          </li>
+          <li>
+            Download the <a
+              href="https://dl.netwrix.com/products/utilities/ChangeTracker/nnt-mono-5.0.1.1-5.x86_64.rpm"
+              target="_blank"
+              ><span>nnt-mono-5.0.1.1-5.x86_64.rpm</span></a
+            > package
+          </li>
+          <li>
+            Copy the download over to a directory on the Linux device (ex.
+            <em><span>/tmp</span></em> directory)
+          </li>
+          <li>
+            Change directory to that folder:
+            <pre class="ckeditor_codeblock"># cd /tmp</pre>
+          </li>
+          <li>
+            Next, upgrade to the downloaded mono package:
+            <pre class="ckeditor_codeblock"># rpm -Uvhnnt-mono-5.0.1.1-5.x86_64.rpm</pre>
+          </li>
+          <li>
+            Start the NNT Agent Service
+            <pre class="ckeditor_codeblock"># service nntgen7agent start</pre>
+          </li>
+        </ol>
+
+        <p>
+          <span
+            >This will need to be done to all Linux devices that have been disconnected and show
+            this error</span
+          >
+        </p>
+
+        <h3 id="RollingLogFix:">Related articles</h3>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8307" target="_blank"
+                >Hub Offline, connection retries exhausted (The remote server returned an error:
+                (403) Forbidden</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8287" target="_blank"
+                >ERROR HubDetails - Crypto error. Has the agent process account changed since the
+                password data was entered?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8364" target="_blank"
+                >ERROR NNT.Hub.ServiceClient.HubAdapter - HubAdapter.Authenticate() Error
+                authenticating to hub at https://.../api/ - Error writing headers (Error while
+                sending TLS Alert (Fatal:InternalError):.</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8253" target="_blank"
+                >Script error executing line 6: ExecuteAndCaptureChunked - /NNT_FILEHASH_LINUX_X64:
+                Permission denied (AGENTLESS LINUX)</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <a href="https://kb.netwrix.com/8171" target="_blank"
+                >Hub connection failed (403 Server message: Ip Address Blocked: LoginFailures)</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

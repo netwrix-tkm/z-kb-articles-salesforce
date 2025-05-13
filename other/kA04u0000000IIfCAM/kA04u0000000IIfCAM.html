@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WEB SERVER: AD PERMISSION REQUIREMENT</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IIfCAM" />
+    <meta name="Id" content="ka04u000000HcjlAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:14:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:02.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:14:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6402" />
+    <meta name="ArticleNumber" content="000006402" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Web server services can be run as local system or domain user, but service needs to read
+          attributes of user &amp; group objects in Active Directory. Web server fails to read
+          attributes if the calling security context that the service runs under, doesn’t have read
+          access to the attributes. When web server service is not able to get value of required
+          attributes then it throws a standard error “The username or password is incorrect” during
+          authentication.
+        </p>
+        <p>Here is the full error message on the web page:</p>
+        <p>
+          <img
+            src="kA04u0000000IIfCAM_569c25b7-0632-438c-aac7-3851e1deef2e.png"
+            alt="mceclip0.png"
+          />
+        </p>
+        <p>
+          There were couple of customers who have experienced this issue and resolved it by giving
+          proper permission to security context in AD (<a
+            href="https://stealthbits.myjetbrains.com/youtrack/issue/SMPC-7508"
+            target="_blank"
+            >SMPC-7508</a
+          >
+          39365 - Reporting site allows user to authenticate but does not allow viewing of any
+          reports).
+        </p>
+        <p>
+          There are couple of ways to give read access on user and group objects to security
+          context.
+        </p>
+        <ol>
+          <li>
+            Ensure the service account or computer system has the following permission within the
+            Active Directory applied at the domain level
+          </li>
+        </ol>
+        <ul>
+          <li>
+            List contents, read all properties, read permissions; Applied to: This object and all
+            descendant objects (has not been confirmed by QA yet).
+          </li>
+        </ul>
+        <ol start="2">
+          <li>
+            There is a “Pre-Windows 2000 Compatible Access” (backward compatibility) group in Active
+            Directory and this group has read access on all users and groups in the domain. For more
+            information, visit
+            <a
+              href="https://support.microsoft.com/en-us/help/331951/some-applications-and-apis-require-access-to-authorization-information"
+              target="_blank"
+              >Microsoft support page</a
+            >. To overcome permission issue, add the security context (domain user or SA console)
+            that service run as, to the Pre-Windows 2000 Compatible Access group. <br /><br />Below
+            screenshot is showing default group membership and domain user or computer should be
+            added as member of this group.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA04u0000000IIfCAM_e27799d1-9d95-4ebb-9a08-eae87d21a658.png"
+            alt="mceclip1.png"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Troubleshooting File System Action Module – KeepSessionFiles xml option</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000HDhMCAW" />
+    <meta name="Id" content="ka04u000000HdDUAA0" />
+    <meta name="LastPublishedDate" content="2023-04-24T11:05:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-04-24T11:05:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8570" />
+    <meta name="ArticleNumber" content="000008570" />
+    <meta
+      name="description"
+      content="Troubleshooting File System Action Module – KeepSessionFiles xml option"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms_and_cause">Symptoms and cause</h2>
+        <span
+          ><span
+            ><span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        >After executing a File System Action you may encounter errors like "<strong
+                          >Failed to import the results into a database</strong
+                        >" or other similar errors. These errors often indicate a missing column or
+                        invalid data type in the source table for the action.
+                      </span></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        >When any File System Action is executed,
+                        an <strong>input1.db</strong> and <strong>output1.db</strong> file are
+                        created for each session, but by default these are deleted once the
+                        execution completes. These files are useful for troubleshooting and should
+                        be retained and provided to R&amp;D when escalating issues with File System
+                        Actions.</span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ></span
+        >
+
+        <h2 id="resolution">Resolution</h2>
+        <span
+          ><span
+            ><span
+              ><span
+                ><span
+                  ><span
+                    ><span>Follow the steps below to allow these files to be retained:</span></span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          >Right click on the job and select <strong>Explore Folder</strong></span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          >In the job folder, open the <strong>ActionTasks.xml</strong> file with
+                          your preferred text editor</span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          >Locate the <strong>&lt;KeepSessionFiles&gt;</strong> option for the
+                          specific action task and set this option to <strong>true </strong>(case
+                          sensitive).
+                        </span></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><img
+                alt="A picture containing text  Description automatically generated"
+                src="kA04u000000HDhMCAW_4de33971-5128-424d-bc06-2b89f1bf2aac.png" /></span></span
+        ></span>
+
+        <ol start="4">
+          <li>
+            <span
+              ><span
+                ><span
+                  >Save the <strong>ActionTasks.xml</strong> file then run the action.</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Once the action completes navigate to
+                  <strong>%SAINSTALLDIR%Actions\FileSystem</strong> and open the folder that has the
+                  timestamp of when the action was executed as its name</span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              > <img
+                src="kA04u000000HDhMCAW_5b687de8-1e56-4fad-95b4-e0654687b93a.png" /></span></span
+        ></span>
+
+        <ol start="6">
+          <li>
+            <span
+              ><span><span>You should see two files within this folder:</span></span></span
+            >
+
+            <ul>
+              <li>
+                <strong
+                  ><span
+                    ><span><span>[HOST].input1.db.zip</span></span></span
+                  ></strong
+                >
+              </li>
+              <li>
+                <strong
+                  ><span
+                    ><span><span>[HOST].output1.db.zip</span></span></span
+                  ></strong
+                >
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><img
+                alt="Graphical user interface, text, application  Description automatically generated"
+                src="kA04u000000HDhMCAW_b9720832-865d-4168-bd69-d216e9b3d5e6.png" /></span></span
+        ></span>
+
+        <ol start="7">
+          <li>
+            <span
+              ><span
+                ><span
+                  >Copy these two files and provide them to R&amp;D when escalating
+                </span></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <h2 id="related_articles">Related articles</h2>
+        <a
+          href="https://helpcenter.netwrix.com/bundle/StealthAUDIT_11.5/page/Content/StealthAUDIT/Action_Modules/File_System_Action_Module/File_System_Action_Module.htm"
+          target="_blank"
+          ><span
+            ><span
+              ><span
+                ><span
+                  ><span
+                    ><span
+                      ><span><span>File System Action Module</span></span></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ></a
+        >
+      </div>
+    </article>
+  </body>
+</html>

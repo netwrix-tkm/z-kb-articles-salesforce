@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Add an SSL Certificate to a Linux Change Tracker</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JWiCAM" />
+    <meta name="Id" content="ka04u000000Hd90AAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:41:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8155" />
+    <meta name="ArticleNumber" content="000008155" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><em>### Stop services ###</em> </p>
+        <p># <strong>service nnthubservice stop</strong></p>
+        <p># <strong>service nginx stop</strong></p>
+        <p> </p>
+        <p><em>### Copy custom .crt and .key to server hosting ChangeTracker ###</em> </p>
+        <p>Files need to be stored in <strong>/etc/nginx/nnt_ssl</strong></p>
+        <p>My Example:     </p>
+        <p><strong>changetracker.demo.crt</strong></p>
+        <p><strong>changetracker.demo.key</strong></p>
+        <p> </p>
+        <p><em>### Change Nginx config to use custom cert ###</em> </p>
+        <p># <strong>vi /etc/nginx/conf.d/nnt.conf</strong></p>
+        <p>---------------------------------------------------------------------------</p>
+        <p> </p>
+        <p>server {</p>
+        <p>#       listen 80;</p>
+        <p>        listen 443 ssl;</p>
+        <p>        root /usr/share/nginx/V7_UI;</p>
+        <p>        index index.html;</p>
+        <p>
+                  <strong>ssl_certificate </strong
+          ><strong>/etc/nginx/nnt_ssl/changetracker.demo.crt</strong><strong>;</strong>
+        </p>
+        <p>
+          <strong>        ssl_certificate_key </strong
+          ><strong>/etc/nginx/nnt_ssl/changetracker.demo.key</strong><strong>;</strong>
+        </p>
+        <p>        location /api/ {</p>
+        <p>                fastcgi_pass 127.0.0.1:9000;</p>
+        <p>                include /etc/nginx/nnt_fastcgi_params;</p>
+        <p>                fastcgi_read_timeout 120s;</p>
+        <p>        } </p>
+        <p>
+          ---------------------------------------------------------------------------              
+                          
+        </p>
+        <p># <strong>!wq</strong></p>
+        <p> </p>
+        <p><em>### Start services ###</em></p>
+        <p># <strong>service nginx start</strong></p>
+        <p># <strong>service nnthubservice start</strong></p>
+        <p> </p>
+        <p>
+          <em
+            >### Agents then fail to connect to the server because they don't like the cert ###</em
+          >
+        </p>
+        <p> </p>
+        <p>
+          <strong
+            >ERROR DesktopServerCertificateValidation - Certificate thumbprint does not match
+            trusted
+            (BAD1067FBAB59CCED21786657C672F6AB5BE824C/6F7F11707C0C93CD0F7E92D5BC0F1C9345D68A64).
+            Consider setting Thumbprint in HubDetails.xml. Server certificate
+            details:\r\n[Version]</strong
+          >
+        </p>
+        <p> </p>
+        <p>
+          <em
+            >### Add custom Thumbrpint to HubDetails.xml, restart agent service and the agent
+            registers successfully ###</em
+          >
+        </p>
+        <p><br /></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JWiCAM_59b45ecd-ca51-4bf5-9c80-ec9462a3077e.png"
+          /></span>
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

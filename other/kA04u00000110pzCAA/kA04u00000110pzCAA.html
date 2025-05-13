@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How Netwrix Privilege Secure for Discovery Determines a Host is Offline</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110pzCAA"/><meta name="Id" content="ka04u00000116aqAAA"/><meta name="LastPublishedDate" content="2023-07-11T10:12:38.000+0000"/><meta name="LastModifiedDate" content="2023-07-11T10:12:38.000+0000"/><meta name="FirstPublishedDate" content="2023-07-11T10:12:38.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8654"/><meta name="ArticleNumber" content="000008654"/><meta name="description" content="How Netwrix Privilege Secure for Discovery Determines a Host is Offline"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<div>
+<p>When reaching out to systems for any action, Netwrix Privilege Secure for Discovery will use the FQDN (fully-qualified domain name) or the last known IP address. The CN (common name, short name) is never used.</p>
+</div>
+
+<div>
+<p>SecureONE scanner and worker services will:</p>
+
+<ul><li>
+	<p>Attempt to ping (IPv4), then connect using the FQDN first, if that fails. Timeout for ping, using fping, is 500ms</p>
+	</li><li>
+	<p>Attempt to ping, then connect using the last known IP address</p>
+	</li><li>
+	<p>Both FQDN or the last known IP address will be retried once</p>
+	</li><li>
+	<p>If both ping retries fail, the host is deemed offline and <code>Host Offline</code> error occurs</p>
+	</li></ul>
+</div></div>
+</article></body></html>

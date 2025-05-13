@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Methods for Properly Ending StealthAUDIT Running Jobs</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IR8CAM" />
+    <meta name="Id" content="ka04u000000HcnFAAS" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:44:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:06:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6559" />
+    <meta name="ArticleNumber" content="000006559" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> There are many ways
+          to stop a running job in StealthAUDIT but there are some ways that can cause issues. This
+          article outlines several methods for safely ending a running task.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            >Many times while running StealthAUDIT jobs there are situations that require a job
+            execution to be ended prematurely. Doing so incorrectly can adversely impact the
+            console. For instance, rebooting the machine because a running job is being a resource
+            hog and slowing down the console can result in the job tree being incomplete when the
+            console is next launched. The methods below can be used to gracefully (or not so
+            gracefully) stop job executions without adversely impacting the StealthAUDIT
+            Console</span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span><span>Method One for Ending an Interactive Job Execution</span></span>
+        </p>
+
+        <ol>
+          <li>
+            <span><span>Select the currently running job in the tree</span></span>
+          </li>
+          <li>
+            <span><span>In the action bar click on the stop button</span></span>
+          </li>
+          <li>
+            <span><span>Wait for StealthAUDIT to gracefully abort job execution</span></span>
+          </li>
+        </ol>
+
+        <p>
+          <span><span>Method Two for Ending an Interactive Job Execution</span></span>
+        </p>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                >Use the pick list in the lower right hand corner of the application to select the
+                option to stop either the currently running job or stop all jobs in the execution
+                queue</span
+              ></span
+            >
+          </li>
+          <li>
+            <span><span>Wait for StealthAUDIT to gracefully abort job execution</span></span>
+          </li>
+        </ol>
+
+        <p>
+          <span><span>Method Three for Ending an Interactive Job Execution</span></span>
+        </p>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                >Close the StealthAUDIT Console and select the option to forcefully close the
+                console</span
+              ></span
+            >
+          </li>
+          <li>
+            <span><span>Wait for StealthAUDIT to gracefully for the console to close</span></span>
+          </li>
+        </ol>
+
+        <p>
+          <span><span>Method One for Ending a Scheduled Job Execution</span></span>
+        </p>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                >Check StealthAUDIT Scheduled Task list to see if your task is listed</span
+              ></span
+            >
+
+            <ol>
+              <li>
+                <span
+                  ><span
+                    >(a) From time to time a running task will not be shown because the currently
+                    running instance extended past the next scheduled execution time</span
+                  ></span
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span
+              ><span
+                >If your task is listed right click on the task and select the Stop Option</span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <p>
+          <span><span>Method Two for Ending a Scheduled Job Execution</span></span>
+        </p>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                >If you are running a job via the scheduler and it is not shown in the StealthAUDIT
+                Scheduled Task List because of condition (a) mentioned above, your next option is to
+                Open Windows Task Scheduler</span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                >Locate your job or the parent group under which the job is being run and right
+                click the running scheduled task and select the End or Stop Option</span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <p>
+          <span
+            ><span
+              >Final Acceptable Method for Emergency Situations where the task needs to be ended and
+              there is no time to wait for graceful application closure</span
+            ></span
+          >
+        </p>
+
+        <ol>
+          <li>
+            <span><span>Open Task Manager</span></span>
+          </li>
+          <li>
+            <span><span>Identify all StealthAUDIT Processes</span></span>
+          </li>
+          <li>
+            <span
+              ><span
+                >Right Click each process and select End Process Tree so that all associated
+                peripherals are closed along with the parent process.
+              </span></span
+            >
+          </li>
+        </ol>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Core;SA - Job Configuration<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          All<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000002625
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

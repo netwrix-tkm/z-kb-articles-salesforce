@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Failed Login Using AD Credentials</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcwCAE" />
+    <meta name="Id" content="ka04u000000QmlOAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-06T10:57:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:30.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8259" />
+    <meta name="ArticleNumber" content="000008259" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        Have you configured your Change Tracker web console to use an Active Directory server? Have
+        you configured a user account as an "AD Login" on Change Tracker? Is the user unable to log
+        in using their domain login credentials? If so, please read the guide below to troubleshoot
+        the issue further.
+
+        <h2 id="resolution">Resolution</h2>
+        If a user is unable to login to the Change Tracker server using their domain login
+        credentials, Change Tracker will log the response we receive from the AD server and these
+        logs will help you identify where the issue lies. The log that contains this information is
+        the Change Tracker <strong>hubservice-log.txt</strong> file. This log can be found in the
+        following locations:
+
+        <ul>
+          <li>
+            <span
+              >Windows Installation:
+              <code>C:\inetpub\wwwroot\Change Tracker Generation 7 Hub\log</code></span
+            >
+          </li>
+          <li>
+            <span>Linux Installation: <code>/opt/nnt/hubservice/log</code></span>
+          </li>
+        </ul>
+        After an unsuccessful login, if you review the contents of the log, you may see entries that
+        look like the example below:
+
+        <pre class="ckeditor_codeblock">
+2018-01-01 00:00:00,000 [35] ERROR NNT.Hub.Service.Authentication.CustomCredentialsAuthProvider - AD Login failure for: administrator
+Message: The username or password is incorrect.
+Extended Message: 8009030C
+LdapErr: DSID-0C090579
+Comment: AcceptSecurityContext error - data 531 - v3839
+System.DirectoryServices.DirectoryServicesCOMException (0x8007052E): The user name or password is incorrect.
+
+at System.DirectoryServices.DirectoryEntry.Bind(Boolean throwIfFail)
+at System.DirectoryServices.DirectoryEntry.Bind()
+at System.DirectoryServices.DirectoryEntry.get_NativeObject()
+at NNT.Hub.Service.Authentication.CustomCredentialsAuthProvider.LoginActiveDirectoryInternal(String ldapPath, String user, String password) in C:\TeamCity\buildAgent\work\5e46fbf5785c9042\Agent\NNT.Hub.Service\Authentication\CustomCredentialsAuthProvider.cs:line 279</pre
+        >
+        To help identify why the user is unable to log in, you will need to review the line which
+        states the <strong>AcceptSecurityContext</strong> error and in particular, the number that
+        follows. From the example log, we can see that the error and number we have received in this
+        scenario was:
+
+        <pre class="ckeditor_codeblock">
+Comment: AcceptSecurityContext error - data 531 - v3839</pre
+        >
+
+        <p>
+          Using the information listed in the grid below, we can see what each error code means and
+          what steps you can take to resolve the issue:
+        </p>
+
+        <div class="table-wrap">
+          <table count-columns="3" class="wrapped confluenceTable">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd" width="60">
+                  <strong>Code</strong>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd" width="344">
+                  <strong>Description</strong>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd" width="721">
+                  <strong>Resolution</strong>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 525</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">The user could not be found</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Ensure the correct username has been specified for the bind account.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 52e</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  The credentials (username and password) are invalid
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Ensure the credentials are correct, and that the correct server is being used.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 530</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  The user is not permitted to logon at this time
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Remove any Log on Hours from the user's "Account" tab in Active Directory
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 531</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  The user is not permitted to logon at this workstation
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Allow the application server as a permitted log on workstation from the user's
+                  "Account" tab in Active Directory. 
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 532</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  The user's password has expired
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Reset the user's password. If necessary, update your application(s) with the new
+                  password.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 533</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  The user's account has been disabled
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Enable the user account in Active Directory
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 701</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">The user's account has expired</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Ensure that "Never" is set as the account expiration option in Active Directory
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 773</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  The user account must have it's password reset
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Reset the user's password. If necessary, update your application(s) with the new
+                  password.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">Data 775</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">The user account is locked</td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  Unlock the user account from the user's "Account" tab in Active Directory
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br />If you find that the error code that you receive is not included in the above list,
+        you can
+        <a href="https://www.microsoft.com/en-us/download/details.aspx?id=100432" target="_blank"
+          >download</a
+        >
+        <strong>Microsoft Error Code Look-up</strong> application to troubleshoot further.<br />Once
+        the application has been downloaded, please run it, extract the files as instructed and then
+        follow the steps listed below:
+        <ol>
+          <li>Open a Command Prompt (Ensure that you run this as an administrator)</li>
+          <li>
+            Browse to the folder where the files were extracted to. Example: <code>cd C:\Err</code>
+          </li>
+          <li>
+            Run the <strong>Err.exe</strong> along with the <strong>data error code</strong> you
+            receive. Example: <code>Err.exe 528</code>
+          </li>
+          <li>Review the output to obtain an error message description:</li>
+        </ol>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JcwCAE_552f94be-4d9d-4124-ba03-897263d4cf5e.png"
+          /></span>
+        </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

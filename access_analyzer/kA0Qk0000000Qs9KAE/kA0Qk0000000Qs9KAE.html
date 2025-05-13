@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot View Published Reports in Web Console</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_troubleshooting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Qs9KAE" />
+    <meta name="Id" content="ka0Qk000000DT93IAG" />
+    <meta name="LastPublishedDate" content="2024-02-05T09:47:15.000+0000" />
+    <meta name="LastModifiedDate" content="2025-05-01T19:02:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-02-05T09:47:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9039" />
+    <meta name="ArticleNumber" content="000009039" />
+    <meta name="description" content="Unable to View Published Reports in Web Console" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            You cannot connect to the <strong>Published Reports</strong> page in the Web Console of
+            Netwrix Access Analyzer (formerly Enterprise Auditor).
+          </p>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            The account used to run the <code>Netwrix Access Analyzer Web Server</code> service does
+            not have access to the Access Analyzer database.
+          </p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>If the SQL authentication method is
+            implemented in your Access Analyzer instance to connect to the database, the
+            <strong>Local System</strong> account can be used to run the
+            <code>Netwrix Access Analyzer Web Server</code> service. To verify the authentication
+            method, review the <strong>Storage</strong> settings node in Access Analyzer. Refer to
+            the following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/AccessAnalyzer_12.0/page/Content/EnterpriseAuditor/Admin/Settings/Storage/Overview.htm"
+              target="_blank"
+              >Administration − Storage</a
+            >.
+          </p>
+        </blockquote>
+        <div>
+          <ol>
+            <li>
+              <p>In the Access Analyzer server, open <strong>Services</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Locate the <code>Netwrix Access Analyzer Web Server</code> service, right-click it,
+                and select <strong>Properties</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Log On</strong> tab, specify the account with permissions to access
+                the Access Analyzer database. Save the changes, then restart the service.
+              </p>
+            </li>
+          </ol>
+          <blockquote>
+            <p>
+              <strong>TIP: </strong>You can specify any account with permissions to access the
+              Access Analyzer database. It is recommended to use either the Scheduled Task Profile
+              account or the database service account used in Netwrix Access Information Center.
+              Refer to the following articles for additional information: <a
+                href="https://helpcenter.netwrix.com/bundle/AccessAnalyzer_12.0/page/Content/EnterpriseAuditor/Admin/Settings/Schedule.htm"
+                target="_blank"
+                >Global Settings − Schedule</a
+              >
+              and
+              <a
+                href="https://helpcenter.netwrix.com/bundle/AIC_12.0/page/Content/Access/InformationCenter/Admin/Configuration/Database.htm"
+                target="_blank"
+                >Access Information Center − Database Page</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AccessAnalyzer_12.0/page/Content/EnterpriseAuditor/Admin/Settings/Storage/Overview.htm"
+                  target="_blank"
+                  >Administration − Storage</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AccessAnalyzer_12.0/page/Content/EnterpriseAuditor/Admin/Settings/Schedule.htm"
+                  target="_blank"
+                  >Global Settings − Schedule</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_12.0/page/Content/Access/InformationCenter/Admin/Configuration/Database.htm"
+                  target="_blank"
+                  >Access Information Center − Database Page</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

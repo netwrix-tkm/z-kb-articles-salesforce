@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>11 Troubleshooting Agent App Connectivity</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JPsCAM" />
+    <meta name="Id" content="ka04u000000Hd7FAAS" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8069" />
+    <meta name="ArticleNumber" content="000008069" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="id-11TroubleshootingAgentAppConnectivity-_Toc421788442_Toc484003708TroubleshootingAgentAppConnectivity"
+        >
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-11TroubleshootingAgentAppConnectivity-_Toc421788442"
+            ><span class="confluence-anchor-link" id="_Toc421788442"> </span></span
+          ><span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-11TroubleshootingAgentAppConnectivity-_Toc484003708"
+            ><span class="confluence-anchor-link" id="_Toc484003708"> </span></span
+          ><span><strong>Troubleshooting Agent App Connectivity</strong></span>
+        </h2>
+        <h2
+          id="id-11TroubleshootingAgentAppConnectivity-_Check_Agent_Operation_Toc484003709CheckAgentOperation"
+        >
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-11TroubleshootingAgentAppConnectivity-_Check_Agent_Operation"
+            ><span class="confluence-anchor-link" id="_Check_Agent_Operation"> </span></span
+          ><span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-11TroubleshootingAgentAppConnectivity-_Toc484003709"
+            ><span class="confluence-anchor-link" id="_Toc484003709"> </span></span
+          ><span>Check Agent Operation</span>
+        </h2>
+        <p><br /></p>
+        <div class="conf-macro output-block">
+          <p>
+            There is a local agent status interface which can be viewed via the local web browser.
+            To begin with check the operation of your local Windows Agent.
+          </p>
+
+          <p>
+            <strong><em>N.B</em></strong>
+            <strong><em>On Windows, use your web browser to open</em></strong>
+            <br class="atl-forced-newline" />
+            file:///C:/Program%20Files/NNT%20Change%20Tracker%20Suite/Agent/web/NNTAgentStatus.html
+            <br class="atl-forced-newline" />
+          </p>
+
+          <p>
+            <strong><em>On Unix/Linux,</em></strong>
+            <br class="atl-forced-newline" />
+            file:///opt/mono/nntagent/files/mono/web/NNTAgentStatus.html
+            <br class="atl-forced-newline" />
+          </p>
+
+          <p>
+            The below shows that the agent service is running correctly but it has been unable to
+            register with the Change Tracker Hub. <br />The Agent should report the URL for the Hub
+            it is registered to NOTE: Where the Change Tracker Hub has been installed on a
+            Windows/IIS platform then the Hub URL will be
+            <a class="external-link" href="https://192.168.1.36/api" target="_blank"
+              >https://192.168.1.36/api</a
+            >
+          </p>
+
+          <p>
+            The Agent should present an Agent ID<br />There should always be at least two trackers
+            assigned to an Agent
+          </p>
+
+          <p>
+            <span class="image-wrap"
+              ><img
+                src="kA04u0000000JPsCAM_83bac3ca-991b-4f34-a91b-f74909f38c7d.png"
+                height="191"
+                width="625" /></span
+            ><br />
+            In this instance the agent has not registered with the Hub because it does not have an
+            Agent ID – we want to see an Agent ID indicated as in the below:
+            <br class="atl-forced-newline" />
+            <span class="image-wrap"
+              ><img
+                src="kA04u0000000JPsCAM_1357c7e4-20b5-44f2-ab53-943fa2a0831b.png"
+                height="79"
+                width="624"
+            /></span>
+            <br class="atl-forced-newline" />
+          </p>
+
+          <p>
+            Most common reasons for an Agent not registering are either Agent username or password
+            incorrect, or network connectivity.<br />First step is to check that there is network
+            connectivity to the Hub URL – enter<br /><span class="error"
+              >[<span><span>https://</span>|]</span>&gt;</span
+            >
+          </p>
+
+          <p>
+            <span class="image-wrap"
+              ><img
+                src="kA04u0000000JPsCAM_47decc67-fb7f-4001-9d7c-de90319d19e6.png"
+                height="74"
+                width="625" /></span
+            ><br /><strong
+              ><em
+                >Note that Agents will need HTTPS Port 443 access to the Change Tracker server and
+                you may need to configure a firewall rule for this.</em
+              ></strong
+            ><br /><strong><em>Hub Details File:</em></strong> You can verify that the correct Hub
+            URL is configured for your agent by inspecting the
+          </p>
+
+          <p>
+            or /opt/nnt/agent/bin/HubDetails.xml on Solaris – the Hub URL section is highlighted.
+          </p>
+
+          <p>
+            <span class="image-wrap"
+              ><img
+                src="kA04u0000000JPsCAM_2136ba70-3f9b-48c6-b4a9-382b6de40416.png"
+                height="183"
+                width="374"
+            /></span>
+          </p>
+
+          <p>
+            The section following the Hub URL shows the encrypted password entry – this is normal
+            and shows the agent initialization has operated correctly. An unencrypted password means
+            the Agent didn't initialize and suggests a bad installation – remember the Agent on
+            Windows requires the latest NNT Mono runtime.
+          </p>
+
+          <p>
+            Make sure this url is the one assigned to your Agents as the default location is to use
+            localhost. Likewise the default Username is 'agent', default password for Agent
+            registration is 'passWord121' – unless you have changed this please make sure this is
+            configured for all agents.
+          </p>
+
+          <p>If you still are experiencing issues please contact support@nntws.com</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

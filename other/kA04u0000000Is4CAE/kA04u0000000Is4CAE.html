@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Re-enable the Built-in AIC Admin Account via SQL Server</title><meta name="label" content="employees_v"/><meta name="label" content="access_info_center"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000Is4CAE"/><meta name="Id" content="ka0Qk000000CsuHIAS"/><meta name="LastPublishedDate" content="2024-08-30T07:41:31.000+0000"/><meta name="LastModifiedDate" content="2025-04-29T20:05:53.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:37:24.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7263"/><meta name="ArticleNumber" content="000007263"/><meta name="description" content="360008944451"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<div>
+<p>In your Netwrix Access Information Center (AIC) environment, you have disabled the built-in admin account as per the best security practices. Your current Windows authentication account is locked out or compromised in the Active Directory. This article covers the steps to re-enable the built-in admin account on the SQL backend of Netwrix Access Analyzer without access to the AIC</p>
+</div>
+<h2 id="instructions">Instructions</h2>
+<div>
+<p>Refer to the following steps to re-enable the built-in admin account on the SQL backend:</p>
+<blockquote>
+<p><span class="Caution"><strong>IMPORTANT: </strong></span>This will only enable the account and will not reset it to the default password.</p>
+</blockquote>
+<ol><li>
+<p>Log in to SQL Management Studio with the Access Analyzer service account or another account with dbo permissions on the Access Analyzer database.</p>
+</li><li>
+<p>Right-click the Tables folder of the Access Analyzer database and select <strong>Filter</strong> &gt; <strong>Filter</strong> settings. Type <code>AIC</code> into the <strong>Value</strong> field.</p>
+<blockquote>
+<p><span class="Note"><strong>NOTE: </strong></span>Verify that you are referencing the Access Analyzer database and not another database.</p>
+</blockquote>
+<div><img height="335" src="kA04u0000000Is4CAE_8c0ccfe4-99a8-440a-a27e-616283c83351.png" width="649"/><br/><br/></div>
+</li><li>
+<p>Locate the <strong>SA_AIC_Authentication</strong> table. Right-click it and select <strong>Edit Top 200 rows</strong>.</p>
+</li><li>
+<p>For the <code>Builtin</code> Administrator role, set the <strong>IsEnabled</strong> field value to <code>1</code> and click <strong>Save</strong>.</p>
+<div><img height="69" src="kA04u0000000Is4CAE_8f5799d5-d05a-4b08-9f9a-ba942d101fca.png" width="429"/></div>
+</li></ol>
+</div></div>
+</article></body></html>

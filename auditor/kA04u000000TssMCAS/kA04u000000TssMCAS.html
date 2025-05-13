@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Uninstalling User Activity Monitoring Agents</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000TssMCAS" />
+    <meta name="Id" content="ka04u000000UJIvAAO" />
+    <meta name="LastPublishedDate" content="2022-06-14T09:44:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-03T08:45:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-06-02T14:31:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8443" />
+    <meta name="ArticleNumber" content="000008443" />
+    <meta name="description" content="Uninstalling User Activity Monitoring Agents" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The attached PowerShell functions assist customers with removing User Activity monitoring
+        agents<span> </span><em>(Netwrix Auditor User Actvity Core Service)</em><span> </span>that
+        Netwrix Auditor could not automatically uninstall. You can download the script from<span
+          > </span
+        ><a
+          href="https://www.netwrix.com/download/products/KnowledgeBase/Uninstall-NetwrixProduct.ps1"
+          target="_blank"
+          >our website</a
+        >.
+        <h2 id="prerequisites">Prerequisites</h2>
+
+        <ul>
+          <li>Windows PowerShell 5.1</li>
+          <li>
+            If using this script to remotely uninstall agents:
+            <ul>
+              <li>
+                You must be authenticated to the system you're running the script on with an account
+                that has administrative privileges across all systems you wish to uninstall the
+                agent from
+              </li>
+              <li>This account must also have the ability to read from Active Directory</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h2 id="functions">Functions</h2>
+
+        <div class="table-wrap">
+          <table count-columns="2">
+            <thead>
+              <tr>
+                <th colspan="1" rowspan="1">Name</th>
+                <th colspan="1" rowspan="1">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">Uninstall-UAVRAgents</td>
+                <td colspan="1" rowspan="1">
+                  Uninstalls all versions of the User Activity data source agent.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">Uninstall-ADV2022003UAVRAgents</td>
+                <td colspan="1" rowspan="1">
+                  Uninstalls versions of the User Activity data source agent affected by the
+                  vulnerability detailed in security advisory<span> </span
+                  ><a href="https://security.netwrix.com/Advisories/ADV-2022-003" target="_blank"
+                    >ADV-2022-003</a
+                  >.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">Uninstall-GenericProduct</td>
+                <td colspan="1" rowspan="1">
+                  Uses built-in<span> </span><em>PackageManager</em><span> </span>features to
+                  uninstall a specified product. Used by the other helper functions.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">Get-IPRange</td>
+                <td colspan="1" rowspan="1">
+                  An internal function to resolve CIDR notation to an enumeration of IP addresses.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="parameters">Parameters</h2>
+
+        <div class="table-wrap">
+          <table count-columns="4">
+            <thead>
+              <tr>
+                <th colspan="1" rowspan="1">Name</th>
+                <th colspan="1" rowspan="1">Description</th>
+                <th colspan="1" rowspan="1">Example</th>
+                <th colspan="1" rowspan="1"> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>LDAPQuery</strong></td>
+                <td colspan="1" rowspan="1">
+                  - Used to query Active Directory for Computer Objects.<br />
+                  - When this is used the CIDR and ComputerNames parameters cannot be used
+                </td>
+                <td colspan="1" rowspan="1">
+                  <code>(&amp;(ObjectClass=computer)(OperatingSystem=*Windows Server*))</code>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>CIDR</strong></td>
+                <td colspan="1" rowspan="1">
+                  - Provide a CIDR range to uninstall agents from a range of IP addresses<br />
+                  - When this is used the LDAPQuery and ComputerNames parameters cannot be used
+                </td>
+                <td colspan="1" rowspan="1"><code>10.0.0.0/24</code></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>ComputerNames</strong></td>
+                <td colspan="1" rowspan="1">
+                  - Provide a string array of computerNames or IP Addresses to uninstall agents
+                  from.<br />
+                  - When this is used the LDAPQuery and CIDR parameters cannot be used
+                </td>
+                <td colspan="1" rowspan="1">
+                  <code>Server1, Server2, 10.0.0.15</code><br />
+                  <br />
+                  <code>(Get-Content C:\Temp\ComputerNames.txt)</code>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>Quiet</strong></td>
+                <td colspan="1" rowspan="1">Do not show the progress banner</td>
+                <td colspan="1" rowspan="1"><code>-Quiet</code></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>NoDNSResolution</strong></td>
+                <td colspan="1" rowspan="1">Do not attempt to resolve IP Addresses to DNS Names</td>
+                <td colspan="1" rowspan="1"><code>-NoDNSResolution</code></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>ProductName</strong></td>
+                <td colspan="1" rowspan="1">
+                  Input for a custom product name to be removed for the Uninstall-GenericProduct
+                  function. Get the name using the Get-Package cmdlet
+                </td>
+                <td colspan="1" rowspan="1">
+                  <code>"Netwrix Auditor User Activity Core Service"</code>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>versionsBefore</strong></td>
+                <td colspan="1" rowspan="1">
+                  Only uninstall versions prior to the version mentioned
+                </td>
+                <td colspan="1" rowspan="1"><code>"10.5"</code></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>DetectOnly</strong></td>
+                <td colspan="1" rowspan="1">Do not uninstall the product</td>
+                <td colspan="1" rowspan="1"><code>-DetectOnly</code></td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1"><strong>ProviderName</strong></td>
+                <td colspan="1" rowspan="1">
+                  Specifies a specific provider for packages for discovery and uninstallation
+                </td>
+                <td colspan="1" rowspan="1"><code>msi</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="examples">Examples</h2>
+
+        <h2
+          id="uninstall-agents-affected-by-the-vulnerability-detailed-in-adv-2022-003-on-all-windows-servers"
+        >
+          Uninstall agents affected by the vulnerability detailed in ADV-2022-003 on all Windows
+          servers
+        </h2>
+
+        <p>
+          This example demonstrates how to uninstall versions of the<span> </span
+          ><em>Netwrix Auditor User Activity Core Service</em><span> </span>affected by the
+          vulnerability detailed in ADV-2022-003 from all Windows servers in Active Directory.
+        </p>
+
+        <pre><code class="powershell">. .\Uninstall-NetwrixProduct.ps1
+Uninstall-ADV2022003UAVRAgents -Verbose
+</code></pre>
+
+        <h2
+          id="uninstall-agents-affected-by-the-vulnerability-detailed-in-adv-2022-003-from-specific-target-hosts"
+        >
+          Uninstall agents affected by the vulnerability detailed in ADV-2022-003 from specific
+          target hosts
+        </h2>
+
+        <p>
+          This example demonstrates how to uninstall vulnerable versions of the<span> </span
+          ><em>Netwrix Auditor User Activity Core Service</em><span> </span>from specified target
+          hosts. In this example, to reduce errors, the IP Address specified (10.0.0.25) will be
+          attempted to be resolved to a DNS before connecting. Resolution of IP addresses to DNS
+          names can be disabled using the<span> </span><code>NoDNSResolution</code
+          ><span> </span>switch.
+        </p>
+
+        <pre><code class="powershell">. .\Uninstall-NetwrixProduct.ps1
+Uninstall-ADV2022003UAVRAgents -ComputerNames 10.0.0.25, DC1, Server2, Server3
+</code></pre>
+
+        <h2 id="uninstall-from-hosts-in-cidr-range">Uninstall from hosts in CIDR Range</h2>
+
+        <p>
+          This example demonstrates how to uninstall all versions of the<span> </span
+          ><em>Netwrix Auditor User Activity Core Service</em><span> </span>from a CIDR range, and
+          will attempt to resolve the DNS name of each IP address.
+        </p>
+
+        <pre><code class="powershell">. .\Uninstall-NetwrixProduct.ps1
+Uninstall-UAVRAgents -CIDR 10.0.0.0/24
+</code></pre>
+
+        <h2 id="uninstall-on-hosts-retrieved-from-active-directory-with-a-custom-ldap-query">
+          Uninstall on hosts retrieved from Active Directory with a custom LDAP query
+        </h2>
+
+        <p>
+          This example demonstrates the ability to use custom LDAP query to select computers from
+          Active Directory to uninstall the<span> </span
+          ><em>Netwrix Auditor User Activity Core Service</em><span> </span>from. The following
+          query will retrieve all computers which belong to the "Technology" department.
+        </p>
+
+        <pre><code class="powershell">. .\Uninstall-NetwrixProduct.ps1
+Uninstall-UAVRAgents -LDAPQuery "(&amp;(objectClass=computer)(Department=Technology))
+</code></pre>
+
+        <h2 id="notes">Notes</h2>
+
+        <p>
+          When using IP addresses, either with the CIDR or ComputerNames parameters, an attempt will
+          be made to resolve them using DNS. This substantially reduces errors with remote command
+          execution using PowerShell's<span> </span><code>Invoke-Command</code><span> </span>cmdlet,
+          as the extra configuration required to enable<span> </span><code>Invoke-Command</code
+          ><span> </span>to work with IP addresses is rarely configured.
+        </p>
+
+        <p>
+          To disable IP address to DNS name resolution, use the<span> </span
+          ><code>-NoDNSResolution</code><span> </span>switch.<br /><br />To export the results to a
+          CSV file the Export-CSV command can be used. This can be done by piping the output of
+          Uninstall-ADV2022003UAVRAgents or Uninstall-UAVRAgents to Export-CSV, examples of this are
+          shown below.
+        </p>
+
+        <pre>
+Uninstall-ADV2022003UAVRAgents | Export-CSV C:\Temp\VulnerableUAVRAgents.csv
+Uninstall-UAVRAgents | Export-CSV C:\Temp\UAVRAgents.csv</pre
+        >
+      </div>
+    </article>
+  </body>
+</html>

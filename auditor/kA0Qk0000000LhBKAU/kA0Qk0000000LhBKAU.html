@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Can Not Process SQL Commands for the Netwrix Auditor Self Audit Database</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000LhBKAU" />
+    <meta name="Id" content="ka0Qk0000001CvBIAU" />
+    <meta name="LastPublishedDate" content="2024-01-03T15:33:00.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-03T15:33:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-25T11:52:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8983" />
+    <meta name="ArticleNumber" content="000008983" />
+    <meta
+      name="description"
+      content="Error: Can Not Process SQL Commands for the Netwrix Auditor Self Audit Database"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error appears in the Netwrix Auditor System Health log:</p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+            Error: can not process SQL commands for the Netwrix Auditor Self Audit database. 
+        </pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The <b> Netwrix Auditor Self Audit</b> database is in the <b>Recovery</b> mode.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Follow the steps below to turn off the <b>Recovery</b> mode for the database:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts your Auditor Server, stop all services with the
+                <b>Netwrix</b> prefix.
+              </p>
+            </li>
+            <li>
+              <p>Connect to your SQL instance as an administrator.</p>
+            </li>
+            <li>
+              <p>
+                Locate the <b>Netwrix Auditor Self Audit</b> database and set it to the
+                <b>Emergency</b> mode by running this query on the database:
+              </p>
+              <code>ALTER DATABASE Netwrix_Auditor_Self_Audit SET EMERGENCY</code>
+            </li>
+            <li>
+              <p>Once completed, detach the database.</p>
+            </li>
+            <li>
+              <p>Reattach the database.</p>
+            </li>
+            <li>
+              <p>Start all Netwrix services you stopped on the step 1.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 id="related_article">Related Article:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9drCAC.html"
+                  target="_blank"
+                  >Recovery Mode Changes in SQL Databases</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

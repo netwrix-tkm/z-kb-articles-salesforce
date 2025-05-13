@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Connection String Is Not Valid in SQL Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnkxCAA" />
+    <meta name="Id" content="ka04u000000wvzgAAA" />
+    <meta name="LastPublishedDate" content="2023-10-31T14:52:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-01T05:54:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-31T14:52:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8883" />
+    <meta name="ArticleNumber" content="000008883" />
+    <meta
+      name="description"
+      content="Connection String Is Not Valid in SQL Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for your SQL Server monitoring plan in
+            Netwrix Auditor:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Netwrix Auditor State-in-Time error: 
+Monitoring plan: %SQL_monitoring_plan_name%. 
+Item: %SQL_server% 
+The following error occurred during state-in-time operation snapshot collection:
+A network-related or instance-specific error occurred while establishing a connection to SQL Server.
+The server was not found or was not accessible.
+Verify that the instance name is correct and that SQL Server is configured to allow remote connections.
+(provider: SQL Network Interfaces, error: 25 - Connection string is not valid)</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The SQL Server instance name was specified incorrectly in the affected monitoring plan
+            item.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Review the affected item in your SQL Server monitoring plan:</p>
+
+          <ol>
+            <li>
+              <p>In the main Netwrix Auditor menu, click <strong>Monitoring Plans</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select the affected SQL Server monitoring plan and click <strong>Edit</strong>.
+                Refer to the error message to establish the affected monitoring plan name.
+              </p>
+            </li>
+            <li>
+              <p>
+                Select the affected instance and click <strong>Edit item</strong>. Refer to the
+                error message to establish the affected item name.
+              </p>
+            </li>
+            <li>
+              <p>Review the instance name specified:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    For a default SQL instance name (MSSQLSERVER), only specify the server FQDN or
+                    NetBIOS name. See the example for a reference.
+                  </p>
+
+                  <div>
+                    <img src="kA04u000000wnkxCAA_1faebe58-9470-4e89-b076-4bf955e5b24c.png" />
+                  </div>
+                </li>
+                <li>
+                  <p>For a named SQL instance, specify FQDN\Instance_name.</p>
+
+                  <div>
+                    <img src="kA04u000000wnkxCAA_5f4ec8c9-9654-48f6-a53e-1fd85674aee7.png" />
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Once the changes are introduced, click <strong>Save &amp; Close</strong>.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

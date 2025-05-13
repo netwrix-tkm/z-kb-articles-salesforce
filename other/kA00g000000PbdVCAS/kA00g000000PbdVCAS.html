@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to deploy Password Manager client via System Center Configuration Manager 2012 SP1
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdVCAS" />
+    <meta name="Id" content="ka04u00000116c3AAA" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:11:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="795" />
+    <meta name="ArticleNumber" content="000003790" />
+    <meta
+      name="description"
+      content="Deploy Password Manager client in your environment automatically"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to to deploy Password Manager client via System Center Configuration Manager 2012 SP1?
+
+        <hr />
+
+        <div>
+          <strong>NOTE</strong>. If you do not need a detailed description on how to create a new
+          package, program and advertisement in System Center Configuration Manager, refer to Step 2
+          point 7 to find the command line string parameter for the deployed program. To install
+          Netwrix Password Manager Logon Prompt Extension via System Center Configuration Manager
+          (simplest scenario) perform the following steps. Step 1. Prepare files for deployment.
+          Package should include <strong>prm_client.msi</strong> itself and
+          <strong>gina_registry_settings.reg</strong> with settings. Draft
+          gina_registry_settings.reg is attached to the article. 1. Change the
+          <strong>prm_client.msi</strong> default settings if needed, refer to
+          <a href="https://kb.netwrix.com/2014" target="_blank">this article</a> if you want to
+          change this. 2. Edit <strong>gina_registry_settings.reg </strong>file with Notepad to
+          apply required settings. Un-comment the required values (remove #) and change them. Refer
+          to <a href="https://kb.netwrix.com/2056" target="_blank">this article</a> describing keys
+          and values.
+
+          <strong>NOTE</strong>. PM_Server is mandatory.
+        </div>
+        <div>
+          <strong>NOTE</strong>. Remove the Wow6432Node registry key from the file if you are going
+          to use the client on a 32-bit machine.
+        </div>
+        <div />
+        3. Copy both files to your System Center Configuration Manager packages folder Step 2.
+        Create a new package in SCCM 1. Launch <strong>SCCM 2012 Configuration Manager </strong>and
+        choose <strong>Software Library</strong> node 2. Right-click on
+        <strong>Packages </strong>and choose <strong>Create package</strong>
+      </div>
+    </article>
+  </body>
+</html>

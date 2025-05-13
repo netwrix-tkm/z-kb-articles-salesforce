@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Custom Attribute Warnings in Active Directory Inventory Scan Job</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000divKAA" />
+    <meta name="Id" content="ka0Qk0000007MdJIAU" />
+    <meta name="LastPublishedDate" content="2024-05-10T06:43:24.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-25T19:33:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-10T06:43:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9151" />
+    <meta name="ArticleNumber" content="000009151" />
+    <meta
+      name="description"
+      content="Active Directory Inventory Scan warnings about Custom Attributes"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The Active Directory (AD) inventory scan job prompts the following warning in Netwrix
+            Enterprise Auditor:
+          </p>
+
+          <pre class="has-inner-focus">
+The custom attribute %attribute_name% was requested, but not set in domain %domain_name% for the %class_name% class.
+A full ADI scan may be required.</pre
+          >
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The warnings include AD schema attributes and
+              classes. These include but are not limited to
+              <code
+                >AdminCount, msDS-AllowedToActOnBehalfOfOtherIdentity, msDS-AllowedToDelegateT, or
+                PrimaryGroupID</code
+              >
+              attributes and <code>Computer object</code>, <code>User object</code>, or
+              <code>Group object</code> classes.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The AD inventory scan job searches for common AD schema attributes by default. The job
+            prompts corresponding warnings if your environment does not implement these attributes.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            This behavior is expected if your environment does not implement these attributes. You
+            can ignore the warnings or follow the steps below to remove custom attributes used in AD
+            scans:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In <strong>Jobs</strong>, navigate to
+                <strong>.Active Directory Inventory</strong> &gt; <strong>1-AD_Scan</strong> &gt;
+                <strong>Configure</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Right-click <strong>Queries</strong> and select <strong>Properties</strong>.</p>
+            </li>
+            <li>
+              <p>In the <strong>Data Source</strong> tab, click <strong>Configure</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Custom Attributes</strong> step of Active Directory Inventory wizard,
+                select the affected attribute and click <strong>Remove</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Next</strong> &gt; <strong>Finish</strong> &gt; <strong>OK</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/ActiveDirectoryInventory/1-AD_Scan.htm#customize_the_1adscan_query"
+                  target="_self"
+                  >1-AD_Scan Job − Customize the 1-AD_Scan Query · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

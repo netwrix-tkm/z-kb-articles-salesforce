@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Archive Service is Busy Processing Activity Records</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JuQCAU" />
+    <meta name="Id" content="ka0Qk0000004pjtIAA" />
+    <meta name="LastPublishedDate" content="2024-07-30T08:31:14.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-30T08:31:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-03-03T12:07:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8386" />
+    <meta name="ArticleNumber" content="000008386" />
+    <meta name="description" content="Archive Service is busy processing activity records" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Netwrix Auditor prompts the following error in one of your monitoring plans:</p>
+
+          <pre class="has-inner-focus"><code class="lang-Registry">Data collection has failed.
+Error: The Netwrix Auditor Archive Service is busy processing activity records</code></pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            Auditor collects data faster than it transfers data from the Short-Term Storage to the
+            SQL Server instance or the Long-Term Archive. Refer to the following commonly associated
+            causes:
+          </p>
+
+          <ul>
+            <li>
+              <p>SQL Server-based causes:</p>
+
+              <ul>
+                <li>
+                  <p>The SQL Server Express database size reached 10 GB.</p>
+                </li>
+                <li>
+                  <p>SQL Server connection issues.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Long-Term Archive-based causes:</p>
+
+              <ul>
+                <li>
+                  <p>Long-Term Archive connection issues.</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Auditor prompts the error once the amount of
+              Activity Records in the Short-Term Storage has reached 5 million.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <h4 id="sql_server-based_causes">SQL Server-based Causes</h4>
+
+        <div>
+          <p>Refer to the following steps to troubleshoot the SQL Server-based causes:</p>
+
+          <ol>
+            <li>
+              <p>Review the <strong>Database Statistics</strong> screen:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Auditor screen, select <strong>Health Status</strong> and click
+                    <strong>View details</strong> in the <strong>Database Statistics</strong> pane.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Review the database states. If a database state reads
+                    <strong>Failed to store data</strong>, review the database details.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>IMPORTANT: </strong></span>The SQL Server Express databases have
+                      a 10 GB size limit. In case the affected database states
+                      <strong>Failed to store data</strong> with the size limit of
+                      <strong>10 GB</strong>, refer to the following article:
+                      <a
+                        href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110wRCAQ.html"
+                        target="_self"
+                        >SQL Server Express Database Size Reached 10GB</a
+                      >.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    If multiple or all databases state <strong>Failed to store data</strong> with no
+                    size limits, refer to the following troubleshooting steps.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Verify that the SQL Server instance is available.</p>
+            </li>
+            <li>
+              <p>Verify the credentials of the SQL Server instance account:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Auditor screen, select <strong>Settings</strong> &gt;
+                    <strong>Audit Database</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Modify</strong> under the
+                    <strong>Audit Database Settings</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Verify the account credentials and the authentication method. Click
+                    <strong>Next</strong> &gt; <strong>Finish</strong> to complete the setup.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Optional—Verify the credentials of the custom SQL Server settings for the affected
+                monitoring plan:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the left pane of the affected monitoring plan, select
+                    <strong>Edit settings</strong> under the
+                    <strong>Monitoring plan</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Audit Database</strong> tab, review the custom connection
+                    parameters if set. Verify the authentication method and the credetials used.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <strong>Save &amp; Close</strong> to save changes.</p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="long-term_archive-based_causes">Long-Term Archive-based Causes</h4>
+
+        <div>
+          <p>Refer to the following steps to troubleshoot the Long-Term Archive-based causes:</p>
+
+          <ol>
+            <li>
+              <p>
+                Verify that the Long-Term Archive can be accessed. Review the Long-Term Archive path
+                in <strong>Settings</strong> &gt; <strong>Long-Term Archive</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                If using a custom account to connect to the Long-Term Account, verify the
+                credentials of the account used:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Auditor screen, select <strong>Settings</strong> &gt;
+                    <strong>Long-Term Archive</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Modify</strong> under the
+                    <strong>Location and Retention Settings</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Verify the account credentials. Click <strong>OK</strong> to save the changes.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                If using a custom account to connect to the Long-Term Account, assign the
+                permissions to the account used. Refer to the following article for additional
+                information on required permissions:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/LongTermArchive.htm#assign_permissions_on_the_longterm_archive_folder"
+                  target="_self"
+                  >File-Based Repository for Long-Term Archive — Assign Permissions on the Long-Term
+                  Archive Folder · v10.6</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="other_causes">Other Causes</h4>
+
+        <div>
+          <p>
+            Verify that the Audit Database account has the correct permissions—refer to the
+            following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServer.htm#configure_audit_database_account"
+              target="_self"
+              >Requirements for SQL Server to Store Audit Data — Configure Audit Database Account ·
+              v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110wRCAQ.html"
+                  target="_self"
+                  >SQL Server Express Database Size Reached 10GB</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServer.htm#configure_audit_database_account"
+                  target="_self"
+                  >Requirements for SQL Server to Store Audit Data — Configure Audit Database
+                  Account · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/LongTermArchive.htm#assign_permissions_on_the_longterm_archive_folder"
+                  target="_self"
+                  >File-Based Repository for Long-Term Archive — Assign Permissions on the Long-Term
+                  Archive Folder · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

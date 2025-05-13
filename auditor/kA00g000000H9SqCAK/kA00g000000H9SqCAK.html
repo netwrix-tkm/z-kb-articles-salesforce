@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Disable Multi-Factor Authentication for Microsoft 365 Service Accounts</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SqCAK" />
+    <meta name="Id" content="ka0Qk0000001LLlIAM" />
+    <meta name="LastPublishedDate" content="2024-01-15T12:21:13.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T12:21:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="580" />
+    <meta name="ArticleNumber" content="000003000" />
+    <meta name="description" content="Azure and Office 365 configuration for the audit" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to disable multi-factor authentication (MFA) for a Netwrix Auditor service account
+            for your Microsoft 365 sources — Entra ID (Azure AD), Exchange Online, SharePoint Online
+            and Microsoft Teams?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>To manage policies, the Conditional Access
+            Administrator role is required. Learn more about the role in
+            <a
+              href="https://learn.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#conditional-access-administrator"
+              target="_blank"
+              >Azure AD Built-in Roles — Conditional Access Administrator ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            To disable MFA authentication for your data collecting account in any of Microsoft 365
+            sources, you can use the <strong>Conditional Access</strong> feature. It allows you to
+            exclude particular users and apps from the policy. Refer to the following steps for the
+            initial setup:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Log in the Entra ID portal, and proceed to the
+                <strong>Conditional Access</strong> menu located under the
+                <strong>Protection</strong> section:
+                <a
+                  href="https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Overview/fromNav/Identity"
+                  target="_blank"
+                  >Microsoft Entra ID — Conditional Access ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                If you do not have a policy configured, refer to the steps in
+                <a
+                  href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-all-users-mfa#create-a-conditional-access-policy"
+                  target="_blank"
+                  >Common Conditional Access Policy — Require MFA for All Users ⸱ Microsoft 🡥</a
+                >. Otherwise, if you have an MFA policy configured, proceed to the next step.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>Policies</strong>. Select the MFA policy to be
+                edited. You can either select a user to be excluded from the MFA policy or a
+                particular app used.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    To exclude a user from the MFA policy, click the highlighted text under the
+                    <strong>Users</strong> section. Click the <strong>Exclude</strong> tab, and
+                    check the <strong>Users and groups</strong> checkbox. Select the service user to
+                    be used in the <strong>Select excluded users and groups</strong> window, and
+                    click <strong>Select</strong>. To complete the setup, click
+                    <strong>Save</strong> in the bottom left corner.
+                  </p>
+
+                  <div>
+                    <img
+                      height="590"
+                      src="kA00g000000H9SqCAK_4ee720a7-6094-46f7-a8dd-2bfc76970f82.png"
+                      width="650"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>
+                    To exclude an app from the MFA policy, click the highlighted text under the
+                    <strong>Target sources</strong> section. Click the <strong>Exclude</strong> tab,
+                    and click the highlighted text under the
+                    <strong>Select excluded cloud apps</strong>. Select the app to be used in the
+                    <strong>Select excluded cloud apps</strong> windows, and click
+                    <strong>Select</strong>. To complete the setup, click <strong>Save</strong> in
+                    the bottom left corner.
+                  </p>
+
+                  <div>
+                    <img
+                      height="571"
+                      src="kA00g000000H9SqCAK_7386fc11-162f-47fc-b495-5d11d10ea530.png"
+                      width="650"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            Refer to the following articles for additional information on data collecting accounts
+            setup for your Microsoft 365 sources:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+                  target="_blank"
+                  >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+                  target="_self"
+                  >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+                  target="_self"
+                  >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+                  target="_self"
+                  >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/active-directory/roles/permissions-reference#conditional-access-administrator"
+              target="_blank"
+              >Azure AD Built-in Roles — Conditional Access Administrator ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Overview/fromNav/Identity"
+              target="_blank"
+              >Microsoft Entra ID — Conditional Access ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/howto-conditional-access-policy-all-users-mfa#create-a-conditional-access-policy"
+              target="_blank"
+              >Common Conditional Access Policy — Require MFA for All Users ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+              target="_blank"
+              >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

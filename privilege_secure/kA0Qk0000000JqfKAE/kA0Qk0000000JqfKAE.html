@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Slack Integration: Send Slack Message</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000JqfKAE"/><meta name="Id" content="ka0Qk0000001ELtIAM"/><meta name="LastPublishedDate" content="2023-12-12T19:37:32.000+0000"/><meta name="LastModifiedDate" content="2024-01-04T15:13:33.000+0000"/><meta name="FirstPublishedDate" content="2023-12-12T19:37:32.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8959"/><meta name="ArticleNumber" content="000008959"/><meta name="description" content="Slack Integration: Send Slack Message"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+This article describes how to set up a custom "Send Slack Message" action step in Netwrix Privilege Secure, which can then be added to activities.
+
+<h2 id="instructions">Instructions</h2>
+
+<h2 id="preparing_your_slack_app">Preparing Your Slack App</h2>
+
+<p>A custom Slack application must be created for this integration.<br/><br/>    1. In Slack, navigate to the "Your Apps" page: <a href="https://api.slack.com/apps/" target="_blank">https://api.slack.com/apps/</a><br/>    2. Click "Create New App"<br/>    3. Select "From an app manifest" and paste the following YAML into the provided field:</p>
+
+<pre class="ckeditor_codeblock">display_information: 
+name: NPS App 
+settings: 
+org_deploy_enabled: false 
+socket_mode_enabled: false 
+is_hosted: false 
+token_rotation_enabled: false </pre>
+
+<p>    4. On the "Your Apps" page, select "Incoming Webhooks".<br/>    5. Under "Activate Incoming Webhooks", click "Add New Webhook to Workspace".<br/>    <a id="URL2" name="URL2">6.</a> Search for the channel you would like NPS to message. Click "Allow". Copy the provided URL.</p>
+
+<h2 id="importing_the_action_step">Importing the Action Step</h2>
+    1. Download the <a href="https://dl.netwrix.com/additional/Send-SlackMessage.Addon.zip" target="_blank">Send-SlackMessage.zip</a>  archive to the SbPAM server.<br/>    2. Extract the archive, which contains a README file, an ActionTemplates directory, and an Install-Addon.ps1 script file. Right-click Install-Addon.ps1 and select "Run with PowerShell".<br/>    3. When prompted, select "Y" to proceed.<br/><img alt="image.png" src="kA0Qk0000000JqfKAE_5e55d298-2fe1-4968-acd7-be1c2f3a9120.png"/><br/>    4. The PowerShell window should quickly execute the script and close.<br/>    5. Log in to the SbPAM console. (If SbPAM was already open, be sure to refresh the console.)<br/>    6. In SbPAM, navigate to Activities, select an Activity, and click the green plus sign in either the Pre-Session or Post-Session. Note that the "Send Message to Slack" activity step is now available.<br/>    7. Provide the URL from <a href="#URL2">step 6 of Preparing Your Slack App</a>  when configuring the action step.<br/><img alt="image.png" src="kA0Qk0000000JqfKAE_13eaa59d-b7e1-437d-967a-315233b75a5e.png"/></div>
+</article></body></html>

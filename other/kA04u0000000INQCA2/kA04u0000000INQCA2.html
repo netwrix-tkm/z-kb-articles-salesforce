@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SA_10.0_007</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000INQCA2"/><meta name="Id" content="ka04u000000HcliAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:17:37.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:06:15.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:17:37.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6491"/><meta name="ArticleNumber" content="000006491"/><meta name="description" content="360012326391"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary: </strong>  FSAA Bulk Import error: SqlDateTime overflow</p>
+<p><strong>Before Fix: </strong>Resources that have a LastModified, LastAccessed, or Create time value outside the range supported by SQL (1/1/1753 12:00:00 AM – 12/31/9999 11:59:59 PM), will throw an error when attempting to bulk import.</p>
+<p><strong>After Fix: </strong>Resources that have a LastModified, LastAccessed, or Create time value outside the range supported by SQL will import with null values for those columns</p>
+<p><strong>Submitted by: </strong></p>
+<p>Michael Burrofato</p>
+<p><strong>Affected Versions:</strong></p>
+<p>10.0</p>
+<p><strong>Affected Module:</strong></p>
+<p>SA – DC – FSAA</p>
+<p><strong> </strong></p>
+<p><strong>Dev Ticket:</strong></p>
+<ul><li>SAFS-19025</li></ul>
+<p><strong>Resolved in Version:</strong></p>
+<p>DCFSAA.dll                                                                                                     10.0.1229</p>
+<p>FSAASrv.dll                                                                                                    10.0.1229</p>
+<p>Stealthbits.StealthAUDIT.DataCollectors.FSAA.dll                               10.0.1229</p>
+<p>Stealthbits.StealthAUDIT.DataCollectors.FSAA.UI.dll                         10.0.1229</p>
+<p><strong>Other dependencies included:</strong></p>
+<p>AIPHelper.dll</p>
+<p>FSAAnetApp.dll</p>
+<p>FSAATagHelper.exe</p>
+<p>libnfs.dll</p>
+<p>SDDScanAPI32.dll</p>
+<p>sqlite3.dll</p>
+<p>StealthAUDITRPC.exe</p>
+<p>StealthAUDITRPCClient.dll</p>
+<p>UpdateFSAAService.exe</p>
+<p>Stealthbits.StealthAUDIT.DataCollectors.FSAA.RPCClient.dll</p>
+<p><strong>KB Type: </strong></p>
+<p>               Hotfix</p>
+<p><strong> </strong></p>
+<p><strong>YouTrack/Escalations</strong></p>
+<p><strong> </strong></p>
+<p><strong>-              SAFS-19025/51346</strong></p>
+<p><strong> </strong></p>
+<p><strong>Customers</strong></p>
+<p><strong>-              LBC Credit Partners</strong></p>
+<p><strong> </strong></p>
+<p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+<p><strong>-              SAFS-18439 42338 - Update FSAC to support UCS2 encoding</strong></p>
+<p><strong>-              SAFS-18737 471 - FSAA Unable to start scan: Could not initialize scan session for "SERVER" with "SCANNER"</strong></p>
+<p><strong>-              SAFS-18771 50592 - FSAA Bulk import errors "UNIQUE constraint failed" on Turkish console.</strong></p>
+<p><strong>-              SAFS-18795 50703/50855 - FSAA "...not a valid date and time" Error scanning after Upgrading to 10.0</strong></p>
+<p><strong>-              SAFS-18975 Add logging to the FSAA repair tool in maintenance wizard</strong></p>
+<p> </p>
+<p><strong>List of changes since last Hotfix</strong></p>
+<p><strong>-              SAFS-19025 51346 - FSAA Bulk Import error: SqlDateTime overflow</strong></p>
+<p> </p>
+<p><strong>Comments:</strong></p>
+<p><strong>Instructions:</strong></p>
+<ol><li><strong>Unblock the hotfix zip file in the windows property dialog, if an unblock button exists there. </strong></li><li>Close all instances of StealthAUDIT (check task manager under processes for all users)</li><li><strong>Update all DC files in your %SAInstallDir%DC folder</strong></li><li><strong>Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies folder.</strong></li><li><strong>Run the ‘Update Proxy Service’ query under the Maintenance tab in the FSAA data collector against your proxy servers (if running proxy service).</strong></li></ol>
+<p><strong> </strong></p>
+<p><strong><a href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_007.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_007.zip</a></strong></p></div>
+</article></body></html>

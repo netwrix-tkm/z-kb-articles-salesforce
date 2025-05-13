@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>User Account Lockouts and unlocks are missing from reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YrCAK" />
+    <meta name="Id" content="ka04u000000HcRsAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1214" />
+    <meta name="ArticleNumber" content="000003365" />
+    <meta
+      name="description"
+      content="Version(s) 9.7 and older User Account Lockouts and unlocks are missing from reports or reports are empty."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        ser Account Lockouts and Unlocks are missing and the corresponding reports are empty, even
+        though some accounts are known to have been locked/unlocked in the selected period. Daily
+        summary reports also do not show any lockouts or unlocks.
+        <hr />
+        The most common reason for this issue is disabled Audit Account Management policy or some
+        conflicts in policies. Account lockouts, unlocks and Password resets are event-based changes
+        which means that if the audit setting is disabled account lockouts will be detected but will
+        not be included into reports or trigger alerts because there are no corresponding auditing
+        events.
+        <hr />
+        In order to resolve the issue we need to make sure that audit policy is configured
+        correctly. In the corresponding Group Policy Object (or Local policy if you configured
+        auditing there)
+        <ol>
+          <li>
+            Go to<b>
+              Computer Configuration - Policies - Security Settings - Local Policies - Audit
+              Policy</b
+            >
+          </li>
+          <li>Make sure <b>Audit Account Management</b> is set to <b>Success</b></li>
+        </ol>
+         If you use Advanced Audit Policy please check the following setting:
+
+        <ol>
+          <li>
+            Go to<b>
+              Computer Configuration - Policies - Security Settings - Advanced Audit Policy
+              Configuration - Audit Policies - Account management</b
+            >
+          </li>
+          <li>Make sure <b>Audit User Account Management</b> is set to <b>Success</b></li>
+        </ol>
+         Even if Group Policy Object is configured correctly there might still be some conflicts
+        that prevent GP from applying correctly. To find out the effective audit policy on a DC,
+        execute the following command <b>auditpol /get /category:*</b> In the output check that
+        <b>User Account Management</b> is set to <b>Success</b>  For more information on Group
+        Policy and related issue refer to the following articles:
+        <a href="https://technet.microsoft.com/en-us/library/dd277403.aspx" target="_blank"
+          >https://technet.microsoft.com/en-us/library/dd277403.aspx</a
+        >
+        <a
+          href="http://blogs.technet.com/b/askds/archive/2011/03/11/getting-the-effective-audit-policy-in-windows-7-and-2008-r2.aspx"
+          target="_blank"
+          >http://blogs.technet.com/b/askds/archive/2011/03/11/getting-the-effective-audit-policy-in-windows-7-and-2008-r2.aspx</a
+        >
+        <a
+          href="http://blogs.msdn.com/b/spatdsg/archive/2011/06/06/audit-policy-not-registering-audits.aspx"
+          target="_blank"
+          >http://blogs.msdn.com/b/spatdsg/archive/2011/06/06/audit-policy-not-registering-audits.aspx</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SR 1.2 HF 005</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ie7CAE" />
+    <meta name="Id" content="ka04u000000HcsGAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6850" />
+    <meta name="ArticleNumber" content="000006850" />
+    <meta name="description" content="360012021032" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Failed to locate
+          object " Error During Initial Backup
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+        </p>
+        <p>
+          Clinical Labs of Hawaii is trying to run a RECOVER POC, but they have a Computer object in
+          AD that has prevented them from performing an initial sync.
+        </p>
+        <p>
+          <img
+            alt=""
+            src="https://stealthbits.myjetbrains.com/youtrack/_persistent/image.png?file=98-19656&amp;c=false&amp;updated=0"
+          />
+        </p>
+        <p>
+          We were able to find and interact with the object using the DSA snap-in and didn't notice
+          anything unusual about the object. The client tried deleting the object and re-running the
+          initial sync, but the backup attempt blew up again because the object was sitting in the
+          Deleted Objects container.
+        </p>
+        <p>The error that RECOVER is throwing makes it look like a permission issue.</p>
+        <p>
+          <img
+            alt=""
+            src="https://stealthbits.myjetbrains.com/youtrack/_persistent/image2.png?file=98-19657&amp;c=false&amp;updated=0"
+          />
+        </p>
+        <p>
+          However, when I used LDP to try to get a better look at the object its ACL showed that the
+          Domain Admins group had full access to the object (sorry, I failed to save that
+          screenshot), so permissions don't seem to be the problem. I also didn't notice anything
+          unusual about the object's attributes.
+        </p>
+        <p>
+          <img
+            alt=""
+            src="https://stealthbits.myjetbrains.com/youtrack/_persistent/image3.png?file=98-19658&amp;c=false&amp;updated=0"
+          />
+        </p>
+        <p>
+          I looked at the code that's throwing the error and it's possible (though unlikely) that
+          we're blowing up because our LDAP search is returning more than one object:
+        </p>
+        <pre>   </pre>
+        <ol>
+          <li>
+            <code>[StealthRECOVER.ActiveDirectory.ActiveDirectoryUtilities]</code>
+          </li>
+          <li>
+            <code>341 if (searchResponse.Entries.Count != 1)</code>
+          </li>
+          <li>
+            <code>342 { </code>
+          </li>
+          <li>
+            <code>343 Log.ForContext().Error("Failed to locate object with ID '{0}'", guid);</code>
+          </li>
+          <li>
+            <code
+              >344 throw new Exception(string.Format("Failed to locate object with ID {0}", (object)
+              guid));</code
+            >
+          </li>
+          <li><code>345 }</code></li>
+        </ol>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Download
+          the hotfix<br />2. Double click the installer to launch the upgrade process<br />3. Click
+          next through the wizard<br />4. Launch StealthRECOVER<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SRHotfixes/1.2/StealthRECOVER-1.2-HF-005.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SRHotfixes/1.2/StealthRECOVER-1.2-HF-005.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthRECOVER<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          StealthRECOVER - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          1.2<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SR-4293<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          1.2.64.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2054<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

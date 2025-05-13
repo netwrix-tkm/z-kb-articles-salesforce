@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>“Check Available Memory”</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000Jh2CAE"/><meta name="Id" content="ka04u000000HdBTAA0"/><meta name="LastPublishedDate" content="2022-02-07T01:03:06.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:18:22.000+0000"/><meta name="FirstPublishedDate" content="2022-02-07T01:03:06.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8320"/><meta name="ArticleNumber" content="000008320"/><meta name="description" content="HELPDESK"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><u>Issue:</u></strong></p><p><strong>GSM Self Check: “Check Available Memory”</strong></p><p><strong><u>Cause:</u></strong></p><ul><li><p>There is less than the recommended amount of memory installed on your GSM VM.</p></li></ul><p><strong><u>Resolution:</u></strong></p><ul><li><p>Ensure that the GSM VM is running on a supported Greenbone Hypervisor (<a class="external-link" href="https://supportnntws.atlassian.net/l/c/ow2b8968" target="_blank">LINK</a>) using the Greenbone Support Package</p></li></ul><p><em>\support-package\gsm-support\kernel-journal</em></p><p><em>Line: kernel[]: info: Hypervisor detected: <strong><span>--HYPERVISOR--</span></strong></em></p><ul><li><p>Check how much memory is assigned to the GSM VM using the Greenbone Support Package</p></li></ul><p><em>\support-package\gsm-system\commands.txt</em></p><p><em>Line: <strong>Executed command: 'vmstat -s'.</strong></em></p><p><em>Output: </em></p><div class="code panel pdl conf-macro output-block"><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre">7137672 K total memory
+685820 K used memory
+3014812 K active memory
+3009136 K inactive memory
+722312 K free memory
+228416 K buffer memory
+5501124 K swap cache
+0 K total swap
+0 K used swap
+0 K free swap…</pre>
+</div></div><ul><li><p>Ensure that the amount of resources that are assigned to the VM hosting the GSM, are in line with the specific GSM System Requirements (<a class="external-link" href="https://www.greenbone.net/en/virtual-appliances/" target="_blank">LINK</a>).</p><ul><li><p>If not enough resources are assigned to the VM, add accordingly.</p></li><li><p>If the<strong> total memory</strong> reading does not match with the memory assigned to the GSM VM through the  hypervisor, this is usually due to address space being taken by PCI devices and the details differ from hypervisor to hypervisor. In this scenario, raising the memory assigned to the GSM VM may resolve the issue.</p></li></ul></li></ul></div>
+</article></body></html>

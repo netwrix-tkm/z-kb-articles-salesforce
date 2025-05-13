@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FSAA Job Attempts to Scan Non-Existing Shared Folders</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wniICAQ" />
+    <meta name="Id" content="ka04u000000wvrrAAA" />
+    <meta name="LastPublishedDate" content="2023-10-24T10:37:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-24T10:37:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-24T10:37:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8869" />
+    <meta name="ArticleNumber" content="000008869" />
+    <meta name="description" content="FSAA Job Attempts to Scan Non-Existing Shared Folders" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>An FSAA job scan attempts to scan non-existing shared folders.</p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The method used to determine a resource is deleted was changed − the new method
+            implements the <strong>LastSeen</strong>/<strong>LastDeleted</strong> values
+            calculation. A resource might end up marked as not deleted in T1 if the resource was
+            marked as deleted by the permissions scan, but it had subsequent activity. The not
+            deleted resources have a deleted mask of <strong>5</strong>, and they do not show up in
+            the <strong>ResourceStatus</strong> table with a <strong>LastDeleted</strong> value.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Update T1. Refer to the following line:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">UPDATE SA_FSAA_Resources SET DeletedUSN = 1000000, ActivityLastDeleted = CURRENT_TIMESTAMP WHERE AccessID IS NULL AND DLPID IS NULL AND ActivityLastSeen IS NULL AND ActivityLastDeleted IS NULL AND DeletedUSN IS NULL--- CODE ---</code></pre>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>This method will lead to the deletion of
+              every entry not updated to the new <strong>LastSeen</strong>/<strong
+                >LastDeleted</strong
+              >
+              method.
+            </p>
+          </blockquote>
+
+          <p>
+            Inactive resources, or resources out of the permissions scan and DLP scope will be
+            marked as deleted.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

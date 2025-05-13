@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit PostgreSQL Databases in Netwrix StealthAUDIT</title>
+    <meta name="label" content="customers_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111H0CAI" />
+    <meta name="Id" content="ka04u0000011814AAA" />
+    <meta name="LastPublishedDate" content="2023-09-28T12:35:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-02T08:18:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-28T12:35:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8828" />
+    <meta name="ArticleNumber" content="000008828" />
+    <meta name="description" content="Audit PostgreSQL Databases in Netwrix StealthAUDIT" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to set up the PostgreSQL databases audit in Netwrix StealthAUDIT?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <h4 id="requirements">Requirements</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>Requirements for PostgreSQL:</p>
+
+              <ul>
+                <li>
+                  <p>Read access to all databases contained within each PostgreSQL instance.</p>
+                </li>
+                <li>
+                  <p>Domain Admin or Local Admin privilege (Windows only).</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="create_the_sql_logins">Create the SQL logins</h4>
+
+        <div>
+          <p>Create a login on each instance of PostgreSQL to be audited.</p>
+        </div>
+
+        <h4 id="configure_the_connection_profile">Configure the connection profile</h4>
+
+        <div>
+          <p>
+            While this guide describes the configuration steps to audit PostgreSQL standard edition
+            with PostgreSQL logins, the GSSAPI protocol support in PostgreSQL allows for the use of
+            Active Directory. If available, Active Directory authentication to PostgreSQL is
+            recommended and supported by StealthAUDIT.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Open the Netwrix StealthAUDIT console. Click <strong>Settings</strong> -&gt;
+                <strong>Connection</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Click <strong>Add Connection Profile</strong>.</p>
+            </li>
+            <li>
+              <p>Replace the default name with <strong>PostgreSQL</strong>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Add User Credential</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Set <strong>Select Account Type</strong> to <strong>SQL Authentication</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Enter the username and password of the PostgreSQL login.</p>
+            </li>
+            <li>
+              <p>
+                If different logins were created on different instances, add them all to the
+                connection profile.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="create_the_host_list">Create the host list</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Under <strong>Host Management</strong>, click <strong>Add hosts</strong> and enter
+                the domain name or IP address into the <strong>Host name</strong> input box. Repeat
+                this for each instance.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>For AWS RDS instances, enter the endpoint.
+                  This value may change after saving the list if the instance is part of a cluster.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Click <strong>Next</strong> and name the host list
+                <strong>PostgreSQL Instances</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Select the <strong>PostgreSQL</strong> connection profile as the credentials to use
+                when querying hosts in this list.
+              </p>
+            </li>
+            <li>
+              <p>4. Click <strong>Finish</strong>.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="configure_and_run_the_postgresql_collection_job_set">
+          Configure and run the PostgreSQL Collection job set
+        </h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                <strong>Jobs</strong> -&gt; <strong>Databases</strong> -&gt;
+                <strong>PostgreSQL</strong> -&gt; <strong>Settings</strong> -&gt;
+                <strong>Connection</strong>. Select the <strong>PostgreSQL</strong> connection
+                profile. Click to set all child objects to inherit the setting. Click
+                <strong>Save</strong> and <strong>OK</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>Jobs</strong> -&gt; <strong>Databases</strong> -&gt;
+                <strong>PostgreSQL</strong> -&gt; <strong>Settings</strong> -&gt;
+                <strong>Host List Assignment</strong>. Uncheck the
+                <strong>Use Default Setting</strong> checkbox and select the
+                <strong>PostgreSQL Instances</strong> host list and click <strong>Save</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                For AWS RDS and Aurora instances, right click each job in the PostgreSQL -&gt;
+                <strong>0.Collection folder</strong> and open the properties window. Ensure the
+                checkbox <strong>Skip Hosts that do not respond to PING</strong> is unchecked in the
+                <strong>Performance</strong> tab.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

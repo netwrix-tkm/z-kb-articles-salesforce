@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Command line option within Job Properties</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I4oCAE" />
+    <meta name="Id" content="ka0Qk00000045nVIAQ" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:25:15.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-07T09:30:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:03:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6223" />
+    <meta name="ArticleNumber" content="000006223" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p> </p>
+
+        <p>
+          <strong>Summary:</strong> Job chaining in StealthAUDIT provides the ability of one job to
+          spawn the execution of another job or job group upon completion. This execution method
+          mimics that of a scheduled task run but is controlled through the completion of the
+          calling job.
+        </p>
+
+        <p> </p>
+
+        <p>
+          <strong>Issue:</strong> Job chaining can be useful in scenarios where it becomes necessary
+          to execute dependent jobs located in a different area of the job tree only after the
+          source job has completed.
+        </p>
+
+        <p> </p>
+
+        <p><strong>Instructions:</strong>  </p>
+
+        <p><strong>To chain a job or job group, two pieces of information is required:</strong></p>
+
+        <p>
+          1. Path and name of the StealthAUDITStart.EXE executable.  The command directly calls
+          StealthAUDITStart.EXE which in-turn launches StealthAUDIT.EXE.
+        </p>
+
+        <p>
+          2. The name of the job or the relative path of the job group to execute.  The name of the
+          object to be executed is passed as a parameter.
+        </p>
+
+        <ul>
+          <li>
+            <ul>
+              <li>
+                <ul>
+                  <li>
+                    For jobs, the name of the Job as displayed in the StealthAUDIT job tree; e.g.,
+                    “NewJob”
+                  </li>
+                  <li>
+                    For job groups, the relative path of the group from the job tree perspective;
+                    e.g., the relative path of the group “1.Groups” as found in the Active Directory
+                    solution set would be “Jobs\GROUP_Active Directory\GROUP_1.Groups”
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>
+          <strong
+            >To implement job chaining where a job or a group is executed by a calling job upon
+            completion, perform the following:</strong
+          >
+        </p>
+
+        <p>
+          1. Generate the command that will be used to spawn the execution of the job or job group. 
+          Command elements consist of the path and name of the executable StealthAUDITStart.EXE and
+          the job or job group to execute. Example commands are as follows:
+        </p>
+
+        <ul>
+          <li>
+            For the Job “NewJob”:   “C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\StealthAUDITStart.exe”  “NewJob”
+          </li>
+          <li>
+            For the group “1.Groups”:  “C:\Program Files
+            (x86)\STEALTHbits\StealthAUDIT\StealthAUDITStart.exe”  “Jobs\GROUP_Active
+            Directory\GROUP_1.Groups”
+          </li>
+        </ul>
+
+        <p>
+          ​2. Copy/Paste the manufactured command in the “Command” text entry box found in the job
+          properties of the calling job
+        </p>
+
+        <p class="wysiwyg-text-align-center">
+          <img
+            alt="mceclip0.png"
+            src="kA04u0000000I4oCAE_fbf1312d-d389-4072-a291-6b044d04065f.png"
+          />
+        </p>
+
+        <p>
+          3. To test, execute the calling job.  If the syntax is correct, the job or job group
+          called will execute in a separate transparent instance of StealthAUDIT visible only as a
+          process in task manager.  Validate execution by viewing the executable and object
+          parameters.
+        </p>
+
+        <p class="wysiwyg-text-align-center">
+          <img
+            alt="mceclip1.png"
+            src="kA04u0000000I4oCAE_b73799af-a0b1-4245-861e-d35bd09f6500.png"
+          />
+        </p>
+
+        <p> </p>
+
+        <p><strong>Channel:</strong> Customer-Facing</p>
+
+        <p><strong>Submitted by:</strong>  Carlos Mejia</p>
+
+        <p><strong>Product:</strong> StealthAUDIT</p>
+
+        <p><strong>Affected Versions:</strong> All versions</p>
+
+        <p><strong>Affected Module:</strong> SA - Core</p>
+
+        <p><strong>Dev Ticket:</strong> n/a</p>
+
+        <p><strong>Resolved In Version:</strong> n/a</p>
+
+        <p><strong>KB Type:</strong> How To</p>
+      </div>
+    </article>
+  </body>
+</html>

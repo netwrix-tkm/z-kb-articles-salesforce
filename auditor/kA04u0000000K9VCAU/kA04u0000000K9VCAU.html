@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Permission Manifests for Auditing Office 365 and Microsoft Entra ID (Auditor v10.0 and Older)
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000K9VCAU" />
+    <meta name="Id" content="ka0Qk0000001LQbIAM" />
+    <meta name="LastPublishedDate" content="2024-01-15T12:57:20.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T12:57:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-05-06T11:16:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8431" />
+    <meta name="ArticleNumber" content="000008431" />
+    <meta name="description" content="Permission Manifests for Auditing Office 365 and Azure AD" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <strong><span>IMPORTANT:</span></strong> For Netwrix Auditor v10.6 and later, refer to the
+          following documentation articles:
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+            target="_blank"
+            >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+          >,
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+            target="_self"
+            >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+          >,
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+            target="_self"
+            >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+          >,
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+            target="_self"
+            >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+          >.
+        </blockquote>
+
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to set up permissions for Microsoft 365 and Microsoft Entra ID (formerly Azure AD)
+            in Netwrix Auditor v10.0 and older?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            This article contains permission manifests for for Microsoft 365 and Microsoft Entra ID
+            ease the permissions configuration for Netwrix Auditor versions 10.0 and older. Refer to
+            the following steps to configure the application manifest:
+          </p>
+        </div>
+
+        <ol>
+          <li>
+            <p>
+              Visit the Entra ID portal:
+              <a href="https://entra.microsoft.com" target="_blank"
+                >Microsoft Entra Admin Center ⸱ Microsoft 🡥</a
+              >.
+            </p>
+          </li>
+          <li>
+            <p>
+              In the left pane, select <strong>Applications</strong> &gt;
+              <strong>App registrations</strong>.
+            </p>
+          </li>
+          <li>
+            <p>Select the app you would like to configure.</p>
+          </li>
+          <li>
+            <p>
+              In the left pane of the new <strong>Overview</strong> window, select the
+              <strong>Manifest</strong> tab. You can either edit the manifest in the web-based
+              manifest editor, or select <strong>Download</strong> to edit the manifest locally to
+              <strong>Upload</strong> it to reapply it to your application.
+            </p>
+
+            <div>
+              <img
+                height="608"
+                src="kA04u0000000K9VCAU_6df83b56-5889-4862-920c-6210e0faa54d.png"
+                width="750"
+              />
+            </div>
+
+            <p> </p>
+          </li>
+          <li>
+            <p>
+              After opening the manifest file, replace the contents of
+              <strong>requiredResourceAccess</strong> with data provided below.
+            </p>
+          </li>
+          <li>
+            <p>
+              Once changes are introduced, save the manifest and grant administrator permissions in
+              the <strong>API Permissions</strong> tab.
+            </p>
+          </li>
+        </ol>
+
+        <p>You can use the following screenshots for permissions reference:</p>
+
+        <ul>
+          <li>
+            <p>SharePoint Online</p>
+
+            <div>
+              <img
+                height="310"
+                src="kA04u0000000K9VCAU_845d7b28-e5e3-499f-b2bd-25c34e87a242.png"
+                width="501"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Exchange Online</p>
+
+            <div>
+              <img
+                height="334"
+                src="kA04u0000000K9VCAU_5bbd58e7-07ed-4054-ae38-9abb150f9fc8.png"
+                width="501"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Microsoft Entra ID</p>
+
+            <div>
+              <img
+                height="241"
+                src="kA04u0000000K9VCAU_1a47d503-6359-4e00-a968-0f67c2227884.png"
+                width="501"
+              />
+            </div>
+          </li>
+        </ul>
+
+        <h4 id="manifest_for_sharepoint_online">
+          Manifest for Sharepoint Online<a id="SPO" name="SPO" />
+        </h4>
+
+        <pre class="has-inner-focus"><code class="lang-Registry">   "requiredResourceAccess": [
+        {
+            "resourceAppId": "00000003-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "c5393580-f805-4401-95e8-94b7a6ef2fc2",
+            "resourceAccess": [
+                {
+                    "id": "594c1fb6-4f81-4475-ae41-0c394909246c",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "00000002-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "5778995a-e1bf-45b8-affa-663a9f3f4d04",
+                    "type": "Role"
+                },
+                {
+                    "id": "1cda74f2-2616-4834-b122-5cb1b07f8a59",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "00000003-0000-0ff1-ce00-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "678536fe-1083-478a-9c59-b99265e6b0d3",
+                    "type": "Role"
+                }
+            ]
+        }
+    ],</code></pre>
+
+        <h4 id="manifest_for_exchange_online">
+          Manifest for Exchange Online<a id="EXO" name="EXO" />
+        </h4>
+
+        <pre class="has-inner-focus"><code class="lang-Registry">
+    "requiredResourceAccess": [
+        {
+            "resourceAppId": "00000003-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "693c5e45-0940-467d-9b8a-1022fb9d42ef",
+                    "type": "Role"
+                },
+                {
+                    "id": "7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "00000002-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "5778995a-e1bf-45b8-affa-663a9f3f4d04",
+                    "type": "Role"
+                },
+                {
+                    "id": "1cda74f2-2616-4834-b122-5cb1b07f8a59",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "00000002-0000-0ff1-ce00-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "dc50a0fb-09a3-484d-be87-e023b12c6440",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "c5393580-f805-4401-95e8-94b7a6ef2fc2",
+            "resourceAccess": [
+                {
+                    "id": "594c1fb6-4f81-4475-ae41-0c394909246c",
+                    "type": "Role"
+                }
+            ]
+        }
+    ],</code></pre>
+
+        <h4 id="manifest_for_microsoft_entra_id">
+          Manifest for Microsoft Entra ID<a id="AAD" name="AAD" />
+        </h4>
+
+        <pre class="has-inner-focus"><code class="lang-Registry">
+"requiredResourceAccess": [
+        {
+            "resourceAppId": "00000002-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "5778995a-e1bf-45b8-affa-663a9f3f4d04",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "00000003-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "b0afded3-3588-46d8-8b3d-9842eff778da",
+                    "type": "Role"
+                },
+                {
+                    "id": "7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+                    "type": "Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId": "c5393580-f805-4401-95e8-94b7a6ef2fc2",
+            "resourceAccess": [
+                {
+                    "id": "594c1fb6-4f81-4475-ae41-0c394909246c",
+                    "type": "Role"
+                }
+            ]
+        }
+    ],</code></pre>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+              target="_blank"
+              >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a href="https://entra.microsoft.com" target="_blank"
+              >Microsoft Entra Admin Center ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

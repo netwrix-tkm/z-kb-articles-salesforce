@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Error Enumerating Remote Shares—Access Is Denied</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001J8fKAE" />
+    <meta name="Id" content="ka0Qk0000004ouHIAQ" />
+    <meta name="LastPublishedDate" content="2024-07-29T09:41:40.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-29T09:41:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-07-29T09:41:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9228" />
+    <meta name="ArticleNumber" content="000009228" />
+    <meta
+      name="description"
+      content="Error: Error Enumerating Remote Shares &amp;mdash; Access Is Denied"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>This is an unvalidated article. The product
+            R&amp;D team has yet to review some or all of information below.
+          </p>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Netwrix Enterprise Auditor prompts the following error:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Error enumerating remote shares: Access is denied</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The service account has insufficient rights to perform the scan.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Assign the sufficient right to the service account. Depending on the target operating
+            system version, refer to the following required rights:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                When you target a server running Windows Server 2022 and later, verify that the
+                service account is a member of one of the following groups:
+              </p>
+
+              <ul>
+                <li>
+                  <p>Administrator</p>
+                </li>
+                <li>
+                  <p>Access Control Assistance Operators</p>
+                </li>
+                <li>
+                  <p>Server Operator</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                When you target a server running Windows Server 2019 and earlier, verify that the
+                service account is a member of one of the following groups:
+              </p>
+
+              <ul>
+                <li>
+                  <p>Administrator</p>
+                </li>
+                <li>
+                  <p>Power User</p>
+                </li>
+                <li>
+                  <p>Print Operator</p>
+                </li>
+                <li>
+                  <p>Server Operator</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

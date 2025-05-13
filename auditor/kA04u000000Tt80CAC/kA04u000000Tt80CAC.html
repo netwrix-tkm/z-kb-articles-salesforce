@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Fixing reports displaying letters instead of command text in SSRS</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000Tt80CAC" />
+    <meta name="Id" content="ka04u000000HdFqAAK" />
+    <meta name="LastPublishedDate" content="2022-08-04T11:44:02.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:20:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-08-03T15:57:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8473" />
+    <meta name="ArticleNumber" content="000008473" />
+    <meta
+      name="description"
+      content="Fixing reports displaying letters instead of command text in SSRS"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="scenario">Scenario</h2>
+        Upon opening reports, the command buttons have been replaced by text symbols and it looks
+        similar to this:<br /><img
+          alt="Screenshot_1.png"
+          height="108"
+          src="kA04u000000Tt80CAC_3d354d5a-5520-4472-8208-e0d0ff569b90.png"
+          width="817"
+        />
+        <h2 id="solution">Solution</h2>
+        The issue lies with internet explorer's handling of permissions. To fix the issue you need
+        to add the reporting server to the <strong>Trusted Sites </strong>and disable the
+        <strong>Protected Mode </strong>for Admins on the Netwrix Server.
+
+        <h3 id="adding_reporting_server_to_the_trusted_sites">
+          Adding Reporting Server to the Trusted sites
+        </h3>
+        to do it, follow these steps:
+
+        <ol>
+          <li>
+            In Internet Explorer, click <strong>Tools</strong>, then
+            <strong>Internet Options</strong>, in there, go to the<strong> Security</strong> tab.
+          </li>
+          <li>
+            In the
+            <strong>Select a Web content zone to specify its current security settings</strong> box,
+            click <strong>Trusted Sites</strong>, and then click <strong>Sites</strong>.
+          </li>
+          <li>
+            In the <strong>Add this Web site to the zone</strong> box, type the IP address of the
+            Netwrix Server, and then click <strong>Add.</strong>
+          </li>
+          <li>
+            Click <strong>OK</strong> two times to accept the changes and return to Internet
+            Explorer.
+          </li>
+        </ol>
+
+        <h3 id="disabling_protected_mode_for_admins">Disabling Protected Mode for Admins</h3>
+        This operation can be done using group policies. To do so, you need to first locate the
+        Group Policy that applies to the Admins of the Netwrix Server. To disable Protected mode,
+        follow these steps:
+
+        <ol>
+          <li>Launch Group Policy Management Console and Edit a policy.</li>
+          <li>
+            Expand:
+            <strong
+              >User Configuration &gt; Administrative Templates &gt; Windows Components &gt;
+              Internet Explorer&gt; Internet Control Panel &gt; Security Page &gt; Internet
+              Zone</strong
+            >
+          </li>
+          <li>Double click <strong>Turn On Protected mode</strong></li>
+          <li>Select <strong>ENABLED</strong></li>
+          <li>Select <strong>DISABLED</strong> from the PROTECTED MODE selection box.</li>
+        </ol>
+        If this solution didn't help, please contact Netwrix Technical Support.<br /><br /> 
+      </div>
+    </article>
+  </body>
+</html>

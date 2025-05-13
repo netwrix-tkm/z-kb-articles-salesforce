@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthAUDIT process running scheduled tasks did not end</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000INfCAM" />
+    <meta name="Id" content="ka04u000000HclnAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:48:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:06:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:17:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6496" />
+    <meta name="ArticleNumber" content="000006496" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Scheduled task
+          appears to be stuck, how to verify and resolve
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong
+          > While in operating system's Task Scheduler, notice a scheduled task is running longer
+          than it usually does. Job may be stuck, to verify and/or resolve, follow the steps below.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+
+        <p>
+          <span
+            ><span
+              >To verify that the job is actually stuck, check the job statistics.  If the job's
+              last run is the same time as the scheduled task's start time, and if it has a finish
+              time, it is possible that the process is stuck.</span
+            ></span
+          >
+        </p>
+
+        <p>
+          <span><span>To remediate the issue</span></span>
+        </p>
+
+        <p>
+          <span
+            ><span
+              >1.    Right click on the scheduled task in task scheduler and select end.</span
+            ></span
+          >
+        </p>
+
+        <p>
+          <span
+            ><span
+              >2.    Check the task scheduler for the corresponding StealthAUDIT process.  If you
+              add the command line column to the processes tab, it will show you the job that is
+              running.  End the process of the job causing the issue.</span
+            ></span
+          >
+        </p>
+
+        <p>
+          <span
+            ><span
+              >3. Inspect the folder of the job and remove any running.lck files that may be
+              present.  Right click on the job and select explore folder.  If a running.lck file is
+              present, delete it.</span
+            ></span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - Core<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000001109
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

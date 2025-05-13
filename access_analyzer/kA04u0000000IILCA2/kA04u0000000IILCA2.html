@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: The Default Schema Name Is Incorrect</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IILCA2" />
+    <meta name="Id" content="ka0Qk0000006PDRIA2" />
+    <meta name="LastPublishedDate" content="2024-09-12T09:45:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-09T20:06:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:13:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6398" />
+    <meta name="ArticleNumber" content="000006398" />
+    <meta name="description" content="Error: The Default Schema Name Is Incorrect" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>The following error appears when you open or close Netwrix Enterprise Auditor (NEA):</p>
+
+        <pre class="has-inner-focus">FAILED: the default schema name is incorrect</pre>
+
+        <h2 id="causes">Causes</h2>
+
+        <p>Refer to the following possible causes:</p>
+
+        <ol>
+          <li>
+            <p>
+              The user working in NEA does not have sufficient permissions to access the NEA
+              database.
+            </p>
+          </li>
+          <li>
+            <p>
+              When using the Windows authentication method for the database service account, the
+              account has insufficient permissions to access the database.
+            </p>
+          </li>
+        </ol>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <p>Refer to the corresponding resolution:</p>
+
+        <ol>
+          <li>
+            <p>
+              Log in to NEA with a user account that has properly provisioned permissions to the SQL
+              database. Hold <strong>Shift</strong> and right-click the
+              <strong>Enterprise Auditor</strong> icon. Select
+              <strong>Run as different user</strong>.
+            </p>
+
+            <div>
+              <img
+                height="368"
+                src="kA04u0000000IILCA2_ae846f44-9d31-4e3a-9a3f-92d44eea8fa3.png"
+                width="231"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Grant the correct SQL DB permissions to the current user via the SQL Server Management
+              Studio (SSMS) application. Refer to the following article for additional information
+              on required permissions:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/Application/Database.htm#database_creation_first_level_of_security"
+                target="_self"
+                >Enterprise Auditor Database — Database Creation &amp; First Level of Security ·
+                v11.6</a
+              >.
+            </p>
+          </li>
+        </ol>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/Application/Database.htm#database_creation_first_level_of_security"
+                  target="_self"
+                  >Enterprise Auditor Database — Database Creation &amp; First Level of Security ·
+                  v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

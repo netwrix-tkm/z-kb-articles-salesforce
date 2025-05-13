@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SA_8.1_115</title><meta name="label" content="skb"/><meta name="label" content="employees_v"/><meta name="KnowledgeArticleId" content="kA04u0000000IWSCA2"/><meta name="Id" content="ka04u000000HcpOAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:24:02.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:08:01.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:24:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6662"/><meta name="ArticleNumber" content="000006662"/><meta name="description" content="360012217852"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SQL Audit Activity events are being returned with same source user account</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <strong><span>This Hot Fix contains 3 previous HF's </span></strong><br/><strong><span>SA_8.1_105</span></strong><br/><strong><span>SA_8.1_106</span></strong><br/><strong><span>SA_8.1_108</span></strong><br/><strong><span>Summary:</span></strong><br/><strong><span>SQL Audit Activity events are being returned with same source user account</span></strong><br/><strong><span>Submitted by: </span></strong><br/><strong><span>Justin Giemza</span></strong><br/><strong><span>Affected Versions:</span></strong><br/><strong><span>8.1</span></strong><br/><strong><span>Affected Module:</span></strong><br/>SA - DC - SQL<br/>SA - Solution Set - SQL<br/><strong><span>Dev Ticket: </span></strong><br/><strong><span>SAT-4549</span></strong><br/><strong><span>Resolved in Version:</span></strong><br/><strong><span>8.1+</span></strong><br/><strong><span>KB Type: </span></strong><br/><strong><i><span><span>Bug</span></span></i></strong><br/> <br/><strong><span><span><span>Modules Included</span></span></span></strong><br/> <br/>StealthAUDIT.exe                                                                                        8.1.848<br/> <br/>/DC<br/> -DCSQL.dll                                                                                                    8.1.301<br/> <br/>/Private Assemblies<br/> -Dapper.FluentMap.dll                                                                             1.6.0<br/> -Ninject.dll                                                                                                   3.3.3<br/> -SAJobEngine.dll                                                                                        8.1.320<br/> -Stealthbits.PowerShell.Common.dll                                                    8.1.46<br/> -Stealthbits.PowerShell.dll                                                                      8.1.46<br/> -Stealthbits.PowerShell.Server.exe                                                       8.1.46<br/> -Stealthbits.StealthAUDIT.ActionManager.dll                                    8.1.51<br/> -Stealthbits.StealthAUDIT.DataAnalysis.SqlScript.Core.dll              8.1.61<br/> -Stealthbits.StealthAUDIT.DataCollectors.dll                                     8.1.59<br/> -Stealthbits.StealthAUDIT.DataCollectors.PowerShell.dll               8.1.47<br/> -Stealthbits.StealthAUDIT.DataCollectors.PowerShell.UI.dll          8.1.47<br/> -Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll           8.1.302<br/> -Stealthbits.StealthAUDIT.DataCollectors.SQL.dll                             8.1.302<br/> -Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll         8.1.302<br/> -Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll                        8.1.302<br/> -Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SqlServer.dll  8.1.302<br/> -Stealthbits.StealthAUDIT.JobChanges.dll                                           8.1.11<br/> -Stealthbits.StealthAUDIT.Reporting.dll                                              8.1.210<br/> -Stealthbits.StealthAUDIT.RoleBasedAccess.dll                                 8.1.40<br/>/Jobs<br/> /GROUP_SQL<br/>  /GROUP_0.Collection<br/>   -Description<br/>   -GROUP_0.Collection<br/>   /JOB_0-SQL_InstanceDiscovery<br/>    -ActionsTasks.xml<br/>    -DataAnalysisTasks.XML<br/>    -Description.htm<br/>    -Description.txt<br/>    -JOB_0-SQL_InstanceDiscovery.XML<br/>   /JOB_1-SQL_ActivityScan<br/>    -ActionsTasks.xml<br/>    -DataAnalysisTasks.XML<br/>    -Description.htm<br/>    -Description.txt<br/>    -JOB_1-SQL_ActivityScan.XML<br/>    -Storage.ini<br/>   /JOB_1-SQL_PermissionsScan<br/>    -ActionsTasks.xml<br/>    -DataAnalysisTasks.XML<br/>    -Description.htm<br/>    -Description.txt<br/>    -JOB_1-SQL_PermissionsScan.XML<br/>   /JOB_1-SQL_SensitiveDataScan<br/>    -ActionsTasks.xml<br/>    -DataAnalysisTasks.XML<br/>    -Description.htm<br/>    -Description.txt<br/>    -JOB_1-SQL_SensitiveDataScan.XML<br/>   /JOB_1-SQL_ServerLogons<br/>    -DataAnalysisTasks.XML<br/>    -Description.htm<br/>    -Description.txt<br/>    -JOB_1-SQL_ServerLogons.XML<br/>    /Output<br/>     -Placeholder.txt<br/>   /JOB_1-SQL_ServerSettings<br/>    -ActionsTasks.xml<br/>    -DataAnalysisTasks.XML<br/>    -Description.htm<br/>    -Description.txt<br/>    -JOB_1-SQL_ServerSettings.XML<br/>    -RUNSTATS.INI<br/>    -RUNSTATS_PREV.INI<br/>    -Storage.ini<br/>    -VIEW_Configuration_Details.INI.xml<br/>    -VIEW_Messages.INI.xml<br/>    -VIEW_Server_Details.INI.xml<br/>    /Output<br/>     -Placeholder.txt<br/> <br/>/SP<br/> -SPSQLServer.DLL                                                                                       8.1.93<br/> /SQLScripts<br/>  -21_SaFixHostStatus.proc<br/>  -25_CleanupAndCompactJobLogs.proc<br/>  -EffectiveMembership.proc<br/>  -OneDcPerDomain.func<br/>  -OneGcPerDomain.func<br/>  -ProcessingHostListsTblTable.sql<br/>  -ProcessingMessagesTable.sql<br/>  -ProcessingSqlInstancesTable.sql<br/>  -SQLSchema.xml<br/> <br/>/Templates<br/> /*<br/> <br/>/Web<br/> -WebModules.dll                                                                                                      8.1.18<br/> -WebServer.exe                                                                                                         8.1.7     <br/> <br/> <br/><strong><span><span><span>YouTrack/Escalations</span></span></span></strong><br/> <br/><strong><span><span><span>SAT-4549/30066</span></span></span></strong><br/> <br/> </p><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Note<br/>This Hot Fix contains 3 previous HF's<br/>SA_8.1_105<br/>SA_8.1_106<br/>SA_8.1_108<br/>If 8.1 install is up to date only these files need to be replaced:<br/>-DCSQL.dll<br/>-Stealthbits.StealthAUDIT.DataCollectors.SQL.dll<br/>-Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll<br/>-Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll<br/>-Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll<br/>-Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll<br/> <br/><strong><span>1. Unblock the hotfix zip file in the windows property dialog if an unblock button exists there. </span></strong><br/><strong><span>2. Close all instances of StealthAUDIT (check task manager under processes for all users)</span></strong><br/><strong><span>3. Exit StealthAUDIT console</span></strong><br/><strong><span>4. Copy and replace files from the included folder into SA Install dir.</span></strong><br/><strong><span>5. Clear / Delete directory C:\Program Files (x86)\STEALTHbits\StealthAUDITV5\Applet\Powershell on Target server. </span></strong><br/> <br/>  
+</p><div class="table-wrap"><table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0"><tbody><tr height="38"><td colspan="1" rowspan="1" height="38" width="64"><a href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_115.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_115.zip</a></td></tr></tbody></table></div><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - DC - SQL<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 8.1<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> SAT-4549<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> StealthAUDIT.exe						8.1.848
+
+/DC
+ -DCSQL.dll  							8.1.301
+
+/Private Assemblies
+ -Dapper.FluentMap.dll   					1.6.0
+ -Ninject.dll   							3.3.3
+ -SAJobEngine.dll   						8.1.320
+ -Stealthbits.PowerShell.Common.dll   				8.1.46
+ -Stealthbits.PowerShell.dll   					8.1.46
+ -Stealthbits.PowerShell.Server.exe   				8.1.46
+ -Stealthbits.StealthAUDIT.ActionManager.dll   			8.1.51
+ -Stealthbits.StealthAUDIT.DataAnalysis.SqlScript.Core.dll   	8.1.61
+ -Stealthbits.StealthAUDIT.DataCollectors.dll   			8.1.59
+ -Stealthbits.StealthAUDIT.DataCollectors.PowerShell.dll   	8.1.47
+ -Stealthbits.StealthAUDIT.DataCollectors.PowerShell.UI.dll   	8.1.47
+ -Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll   	8.1.302
+ -Stealthbits.StealthAUDIT.DataCollectors.SQL.dll   		8.1.302
+ -Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll   	8.1.302
+ -Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll   		8.1.302
+ -Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SqlServer.dll  8.1.302
+ -Stealthbits.StealthAUDIT.JobChanges.dll   			8.1.11
+ -Stealthbits.StealthAUDIT.Reporting.dll   			8.1.210
+ -Stealthbits.StealthAUDIT.RoleBasedAccess.dll   		8.1.40
+/Jobs
+ /GROUP_SQL
+  /GROUP_0.Collection
+   -Description
+   -GROUP_0.Collection
+   /JOB_0-SQL_InstanceDiscovery
+    -ActionsTasks.xml
+    -DataAnalysisTasks.XML
+    -Description.htm
+    -Description.txt
+    -JOB_0-SQL_InstanceDiscovery.XML
+   /JOB_1-SQL_ActivityScan
+    -ActionsTasks.xml
+    -DataAnalysisTasks.XML
+    -Description.htm
+    -Description.txt
+    -JOB_1-SQL_ActivityScan.XML
+    -Storage.ini
+   /JOB_1-SQL_PermissionsScan
+    -ActionsTasks.xml
+    -DataAnalysisTasks.XML
+    -Description.htm
+    -Description.txt
+    -JOB_1-SQL_PermissionsScan.XML
+   /JOB_1-SQL_SensitiveDataScan
+    -ActionsTasks.xml
+    -DataAnalysisTasks.XML
+    -Description.htm
+    -Description.txt
+    -JOB_1-SQL_SensitiveDataScan.XML
+   /JOB_1-SQL_ServerLogons
+    -DataAnalysisTasks.XML
+    -Description.htm
+    -Description.txt
+    -JOB_1-SQL_ServerLogons.XML
+    /Output
+     -Placeholder.txt
+   /JOB_1-SQL_ServerSettings
+    -ActionsTasks.xml
+    -DataAnalysisTasks.XML
+    -Description.htm
+    -Description.txt
+    -JOB_1-SQL_ServerSettings.XML
+    -RUNSTATS.INI
+    -RUNSTATS_PREV.INI
+    -Storage.ini
+    -VIEW_Configuration_Details.INI.xml
+    -VIEW_Messages.INI.xml
+    -VIEW_Server_Details.INI.xml
+    /Output
+     -Placeholder.txt
+
+/SP
+ -SPSQLServer.DLL			      			8.1.93
+ /SQLScripts
+  -21_SaFixHostStatus.proc
+  -25_CleanupAndCompactJobLogs.proc
+  -EffectiveMembership.proc
+  -OneDcPerDomain.func
+  -OneGcPerDomain.func
+  -ProcessingHostListsTblTable.sql
+  -ProcessingMessagesTable.sql
+  -ProcessingSqlInstancesTable.sql
+  -SQLSchema.xml
+
+/Templates
+ /*
+
+/Web
+ -WebModules.dll 							8.1.18
+ -WebServer.exe							8.1.7<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 2190<br/></p></div>
+</article></body></html>

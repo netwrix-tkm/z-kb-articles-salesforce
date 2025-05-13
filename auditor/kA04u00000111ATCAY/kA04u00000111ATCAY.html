@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Cannot Copy Snapshot to Long-Term Archive − Access to Short-Term Archive Is Denied
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111ATCAY" />
+    <meta name="Id" content="ka0Qk00000016HtIAI" />
+    <meta name="LastPublishedDate" content="2023-09-08T09:17:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-21T09:15:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-08T09:17:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8793" />
+    <meta name="ArticleNumber" content="000008793" />
+    <meta
+      name="description"
+      content="Cannot Copy the Snapshot to Long-Term Archive — Access to ShortTerm Is Denied in Netwrix Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The following error is prompted in Health Log for one or multiple monitoring plans
+                set up:
+              </p>
+
+              <pre class="has-inner-focus">
+Event ID: 2002
+Cannot copy the %name% snapshot to the Long-Term Archive
+Access to the path %ShortTerm% is denied.</pre
+              >
+            </li>
+            <li>
+              <p>
+                Statuses for items and data sources in affected monitoring plans state
+                <strong>Working</strong>/<strong>Take Action</strong> and do not change.
+              </p>
+            </li>
+            <li>
+              <p>No data is collected in the affected monitoring plans.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            Write permissions for the custom Long-Term Archive service account are misconfigured.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review the permissions settings for the affected Long-Term Archive service account.
+                Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/ArchiveAccount/Roles.htm"
+                  target="_self"
+                  >Installation − Configure Long-Term Archive Account ⸱ v10.5</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Allow Full Control permissions to the affected Long-Term Archive service account for
+                the following 2 folders:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Long-term Archive — you can establish the location by following
+                    <strong>Settings</strong> &gt; <strong>Long-Term Archive</strong> &gt;
+                    <strong>Write audit data to</strong>. The default location is
+                    <code>%PROGRAMDATA%\Netwrix Auditor\Data</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Short-Term Archive — you can establish the location by following
+                    <strong>Health Status</strong> &gt;
+                    <strong>Open diagnostic logs folder</strong> under
+                    <strong>Working folder</strong> &gt; parent folder of the
+                    <strong>Logs</strong> folder. The default location is
+                    <code>C:\ProgramData\Netwrix Auditor\ShortTerm</code>.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/ArchiveAccount/Roles.htm"
+              target="_self"
+              >Installation − Configure Long-Term Archive Account ⸱ v10.5</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

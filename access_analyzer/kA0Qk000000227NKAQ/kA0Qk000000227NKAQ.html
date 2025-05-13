@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Optimize SEEK System Scans with System Resources</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="ct_productconfig" />
+    <meta name="label" content="ct_systemrequirements" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="KnowledgeArticleId" content="kA0Qk000000227NKAQ" />
+    <meta name="Id" content="ka0Qk000000D59xIAC" />
+    <meta name="LastPublishedDate" content="2025-03-24T19:02:31.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-01T21:04:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-24T19:02:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9408" />
+    <meta name="ArticleNumber" content="000009408" />
+    <meta name="description" content="SEEK scans are taking a long time" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="related_query">Related Query</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                "SEEK scans are taking a long time. Some scans are taking 70-80-90 hours. Looking
+                for improvements and recommendations."
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="question">Question</h2>
+        <div>
+          <p>How can you improve SEEK scan performance?</p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            If running SDD scans, it will be necessary to increase the minimum amount of RAM. Each
+            thread requires a minimum of 2 additional GB of RAM per host (example configuration
+            below). To improve SEEK scan performance, you can verify the resources and job query
+            configuration as well as tweak the job query.
+          </p>
+          <h4 id="example">Example</h4>
+          <p>
+            To comfortably scan 4 file systems using a dedicated proxy server, the optimized
+            resource configuration should reflect:
+          </p>
+          <p>
+            <strong>Proxy Server System Resources</strong><br />CPU: 4 Core | 8 Threads<br />RAM:
+            32GB <em>(4 Target Hosts x 4 SDD Scan Processes x 2GB RAM per Target Host)</em>
+          </p>
+          <p>
+            <strong>FSAA Data Collector Query Settings</strong><br />Number of SDD Scan Processes: 4
+          </p>
+          <h4 id="verify_resources_and_job_query_configuration">
+            Verify Resources and Job Query Configuration
+          </h4>
+          <ol>
+            <li>
+              <p>
+                Verify that the NEA database has the appropriate resource allotment according to our
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem.htm"
+                  target="_blank"
+                  >product requirements</a
+                >.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    If running multiple solutions simultaneously, the required resources should be
+                    compiled.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Additional requirements for File Activity, SDD, and File Tag collection can be
+                    found below the requirements table.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Verify the number of SDD scan processes:</p>
+              <ul>
+                <li>
+                  <p>
+                    On the Sensitive Data Settings page of the FSAA Data Collector query settings,
+                    set the number of SDD scan processes to reflect the available CPU threads on the
+                    scanning server. This number should not exceed 1-2x the number of available CPU
+                    threads. By default, this is set to 2.
+                  </p>
+                  <img
+                    src="kA0Qk000000227NKAQ_b9f42308-11f1-4398-ad43-7612a245a8ab.png"
+                    alt="Sensitive Data Settings page example"
+                    width="602"
+                    height="539"
+                  />
+                  <blockquote>
+                    <p>
+                      <span class="Note"><strong>NOTE:</strong></span> If the scan server has other
+                      responsibilities (e.g., NEA Console server, busy file server, SQL server),
+                      take those into account when configuring how many CPU threads should be
+                      allocated for SDD scan processes.
+                    </p>
+                  </blockquote>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Verify the total amount of RAM on the Scan Server:</p>
+              <ul>
+                <li>
+                  <p>
+                    For SEEK scanning, each SDD scan process requires 2GB per Target Host being
+                    concurrently scanned. Ensure that the minimum RAM requirements are met for
+                    optimal performance.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h4 id="tweaking_job_query">Tweaking Job Query</h4>
+          <ol>
+            <li>
+              <p>
+                Review the FSAA Data Collector query settings and adjust the following parameters:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Set the <strong>Number of SDD Scan Processes</strong> to reflect the available
+                    CPU threads on the server, ensuring it does not exceed 1-2x the available
+                    threads.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Reduce the scope of the scan to focus on specific directories or file types if
+                    possible. This can help reduce the overall resource load.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Schedule scans during off-peak hours to avoid conflicts with other server
+                    processes.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Enable logging and review the logs to identify bottlenecks or errors during the scan
+                process. Adjust the query settings based on the findings.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

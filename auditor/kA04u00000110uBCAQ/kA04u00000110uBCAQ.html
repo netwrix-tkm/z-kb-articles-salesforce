@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Inactive Users Tracker does not perform any actions on inactive accounts</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110uBCAQ" />
+    <meta name="Id" content="ka04u00000116qyAAA" />
+    <meta name="LastPublishedDate" content="2023-07-25T09:36:13.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-25T10:26:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-25T09:36:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8677" />
+    <meta name="ArticleNumber" content="000008677" />
+    <meta
+      name="description"
+      content="This article explains the reasons why Netwrix Inactive Users Tracker does not perform any actions on the inactive accounts."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          <p>
+            You have configured a monitoring plan for Inactive Users Tracker and specified rules for
+            the product to take actions on inactive accounts (e.g., disable inactive accounts or
+            move them to an OU). The required ports are opened for connections as described in the
+            following documentation article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/Ports/Tools.htm"
+              target="_blank"
+              >Netwrix Tools</a
+            >. However, Netwrix Inactive Users Tracker does not perform any actions on inactive
+            accounts.
+          </p>
+        </div>
+
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Symptom 1. The Inactive Users in Active Directory report shows 'None' in the
+                <b>Performed Action</b> column for accounts.
+              </p>
+            </li>
+            <li>
+              <p>Symptom 2. The Password Expiration Notifier log contains the following error:</p>
+
+              <div>
+                <pre class="has-inner-focus">
+DS_NAME_ERROR_NOT_FOUND
+</pre
+                >
+              </div>
+
+              <p>The log can be found at <em>%Working_Folder%\Logs\Inactive Users Tracker</em>.</p>
+
+              <div> </div>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The possible cause for the issue is that some OUs are no longer exist in a domain.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Review your Inactive Users monitoring plan settings and check the OU where accounts
+            belong to. The error indicates that the monitored OU does not exist and should be
+            removed from the Password Expiration Notifier's filters.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

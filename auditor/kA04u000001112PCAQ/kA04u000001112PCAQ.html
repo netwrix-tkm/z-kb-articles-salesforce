@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot Execute PowerShell Сommand Error in Exchange Online Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001112PCAQ" />
+    <meta name="Id" content="ka04u000000wvnzAAA" />
+    <meta name="LastPublishedDate" content="2023-10-18T14:11:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-19T12:51:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-17T10:21:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8735" />
+    <meta name="ArticleNumber" content="000008735" />
+    <meta
+      name="description"
+      content="Cannot Execute PowerShell Сommand Error in Exchange Online Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            One of the following errors is prompted in Health Log for your Exchange Online
+            monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID: 2002
+User: N/A
+Description: Monitoring Plan: %Exchange Online Monitoring Plan name%
+
+The following error has occurred while processing '%domain_name%':
+
+Cannot Execute the PowerShell command. Error. Connecting to the remote server outlook.office365.com failed with the following error message : 
+For more information, see the about_Remote_Troubleshooting Help topic.</pre
+          >
+
+          <pre class="has-inner-focus">
+Event ID: 2002
+User: N/A
+Description: Monitoring Plan: %Exchange Online Monitoring Plan name%
+
+The following error has occurred while processing '%domain_name%':
+
+Connecting to the remote server outlook.office365.com failed with the following error message : 
+For more information, see the about_Remote_Troubleshooting Help topic.</pre
+          >
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The white-space after the
+              <code>following error message :</code>, as well as the absence of the error message
+              itself are both a strong indicator for this issue.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The Exchange Online Management PowerShell module is outdated.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <h4 id="resolution_1_for_netwrix_auditor_v105_and_older">
+          Resolution 1. For Netwrix Auditor v10.5 and older
+        </h4>
+
+        <div>
+          <p>
+            Update the Exchange Online Management PowerShell module on your Netwrix Auditor server.
+            Run the following command in the elevated PowerShell prompt:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Update-Module -Name "ExchangeOnlineManagement"</code></pre>
+        </div>
+
+        <h4 id="resolution_2_for_netwrix_auditor_v106">Resolution 2. For Netwrix Auditor v10.6</h4>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Netwrix Auditor v10.6.12275 (GA) installs and
+              requires ExchangeOnlineManagement PowerShell module v3.0 to operate. For Netwrix
+              Auditor v10.6.12275 users, it is recommended to upgrade to the latest version
+              available. For additional information, refer to the following link:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/Upgrade.htm"
+                target="_blank"
+                >Upgrade to the Latest Version ⸱ v10.6</a
+              >.<br />Netwrix Auditor v10.6.12299 (Update 1) installs and requires
+              ExchangeOnlineManagement PowerShell module v3.2 to operate.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                Netwrix Auditor v10.6.12299 (Update 1) uses the ExchangeOnlineManagement PowerShell
+                (EXO) module v3.2 and newer.
+              </p>
+
+              <p>
+                Upgrade the EXO module by uninstalling the previous version and installing the EXO
+                v3.2 module. Follow the installation steps in this article:
+                <a
+                  href="https://techcommunity.microsoft.com/t5/exchange-team-blog/announcing-deprecation-of-remote-powershell-rps-protocol-in/ba-p/3695597"
+                  target="_blank"
+                  >Deprecation of Remote PowerShell (RPS) Protocol in Exchange Online PowerShell –
+                  If you have installed any module earlier than v3 ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check if Remote PowerShell (RPS) is deprecated by MS. You can find instructions and
+                deprecation timeline here:
+                <a
+                  href="https://techcommunity.microsoft.com/t5/exchange-team-blog/deprecation-of-remote-powershell-in-exchange-online-re-enabling/ba-p/3779692"
+                  target="_blank"
+                  >Deprecation of Remote PowerShell in Exchange Online – Re-enabling or Extending
+                  RPS support ⸱ Microsoft 🡥</a
+                >
+              </p>
+
+              <p>
+                If it's disabled, you will need to review the PS installation in the Netwrix Auditor
+                server.
+              </p>
+            </li>
+            <li>
+              <p>
+                Auditor versions prior to 10.6 used ExchangeOnlineManagement v2. It is now
+                deprecated by MS, so check the ExchangeOnlineManagement installed on your system:
+              </p>
+
+              <pre>get-module -ListAvailable | Where-object {$_.Name -like '*Exchange*'}</pre>
+
+              <blockquote>
+                <p>
+                  <strong>TIP:</strong> If you see a 2.x or 3.0 version, you will need to delete it.
+                  Netwrix Auditor will attempt to use it and will not be able to install v3.2.0.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>Steps to remove \ update ExchangeOnlineManagement:</p>
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              <p>Disable Exchange Online Monitoring Plan in Auditor</p>
+            </li>
+            <li>
+              <p>Delete all ExchangeOnlineManagement installed in your system:</p>
+
+              <pre>Get-InstalledModule -Name ExchangeOnlineManagement | Uninstall-Module</pre>
+            </li>
+            <li>
+              <p>
+                Enable Exchange Online Monitoring Plan in Auditor. Then Netwrix Auditor will install
+                v3.2.0.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

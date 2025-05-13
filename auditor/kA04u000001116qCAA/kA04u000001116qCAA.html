@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Get a Daily List of Users Added/Removed From Any AD Group?</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000001116qCAA" />
+    <meta name="Id" content="ka0Qk0000001LaHIAU" />
+    <meta name="LastPublishedDate" content="2024-01-15T14:30:03.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T14:30:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-28T12:19:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8769" />
+    <meta name="ArticleNumber" content="000008769" />
+    <meta
+      name="description"
+      content="This article contains instructions on how to get a list of users that have been added or removed from an AD group on a regular basis."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to get the list of users added/removed from an Active Directory group on a regular
+            basis (for example, daily)?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>Create a subscription to Netwrix search results with following parameters:</p>
+
+          <ul>
+            <li>
+              <p>
+                Filters.<br />
+                <img
+                  alt="User-added image"
+                  height="175"
+                  src="kA04u000001116qCAA_e59c8f54-9580-4033-9d6f-47fa80ad05c0.png"
+                  width="500"
+                />
+              </p>
+
+              <p>
+                Windows records users adding or removal as a change to the group itself, since the
+                group is an AD object. So, that is why the <b>Action</b> filter type is suggested to
+                be <em>Modified</em>.
+              </p>
+            </li>
+            <li>
+              <p>Schedule = Daily.</p>
+
+              <p>
+                Set the schedule to whatever frequency you want – the Subscription returns all
+                events that occurred after the latest Subscription delivery. The initial one may
+                have a lot.
+              </p>
+            </li>
+          </ul>
+
+          <p>
+            For additional information on how to create subscriptions, refer to the following
+            article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Subscriptions/Overview.htm"
+              target="_blank"
+              >Administration – Subscriptions</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

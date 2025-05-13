@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: The "Maximum Password Age" is not set</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bLCAS" />
+    <meta name="Id" content="ka04u000000HcU6AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1355" />
+    <meta name="ArticleNumber" content="000003517" />
+    <meta
+      name="description"
+      content="Error: The &amp;quot;Maximum Password Age&amp;quot; is not set Password Expiration Notifier"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          >Password Expiration Notifier return the following error instead of sending
+          notifications:</span
+        >
+        Failed to obtain password expiration settings for the domain. The "Maximum Password Age"
+        setting is not specified for the domain.<br /> <br />Password Expiration Notifier uses the
+        Maximum Password Age value from Password policy to determine the password expiration date.
+        If the Maximum Password Age is not defined or set to 0 (for example in case the Fine Grained
+        password policy in the domain) then Password Expiration Notifier is not able to determine
+        the password expiration date and returns the above error. Password Expiration Notifier is
+        not able to work in mixed mode, it can either use default general Maximum Password Age
+        policy, or Fine Grained policy.
+        <hr />
+        There are two ways to solve this issue:<br />1. Enable "Only report users with Fine Grained
+        Policy settings" option in the PEN monitoring plan. Note that this would make the product
+        only report users who are affected by Fine Grained policies and ignore those who do not.<br />2.
+        Configure the Maximum Password Age policy in the domain. <br />To set Maximum Password Age
+        policy for the domain:
+        <ol>
+          <li>Launch <strong>Group Policy Management</strong></li>
+          <li>Edit the appropriate GPO (for example, Default Domain Policy)</li>
+          <li>
+            Navigate to
+            <strong
+              >Computer Configuration - Policies - Windows settings - Security settings - Account
+              policies - Password policies</strong
+            >
+          </li>
+          <li>In the right pane define the <strong>Maximum password age</strong> value</li>
+          <li>Update policies, for example run <em>gpupdate /force</em> command</li>
+        </ol>
+        <img
+          alt="User-added image"
+          height="195"
+          src="kA00g000000H9bLCAS_9d017c48-7f74-48ba-8d15-d894ff386d3d.png"
+          width="500"
+        />
+      </div>
+    </article>
+  </body>
+</html>

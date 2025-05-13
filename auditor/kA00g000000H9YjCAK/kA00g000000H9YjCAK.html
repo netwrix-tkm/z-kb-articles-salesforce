@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: "Auditing of Directory Service Access and successful Account Management events is not
+      enabled for this DC. Please adjust audit policy settings"
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YjCAK" />
+    <meta name="Id" content="ka04u000000HcRkAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1205" />
+    <meta name="ArticleNumber" content="000003357" />
+    <meta
+      name="description"
+      content="Version(s) 6.5~8.5 Error: Active Directory audit policy settings not enabled &amp;quot;Please adjust audit policy settings&#34; &amp;quot;Who Changed&amp;quot; field contains the &amp;quot;System&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <ul>
+          <li>
+            The Change Summary and the Netwrix Auditor System Health log (Netwrix Auditor log in 6.5
+            or <strong>warning.txt</strong> file in 5.0) contain the following warning message:
+            "Auditing of Directory Service Access and successful Account Management events is not
+            enabled for this DC. Please adjust audit policy settings".
+          </li>
+          <li>
+            "<strong>Who Changed</strong>" field contains the "<strong><em>System</em></strong
+            >" value.
+          </li>
+        </ul>
+
+        <hr />
+
+        The Local Security Policy snap-in on the domain controller indicates that the
+        <strong>Audit directory service access</strong> and/or the
+        <strong>Audit account management</strong> options are not set to "<strong
+          ><em>Success"</em></strong
+        >.
+        <div>
+          If these settings are set to <strong><em>"Success"</em></strong> in the applied effective
+          policy, but you keep receiving this error, this may be due to one of the following
+          reasons:
+        </div>
+        <ul>
+          <li>The effective policy applied to domain controllers is not configured properly.</li>
+          <li>For some reason, the effective policy is not applied to the domain controller.</li>
+          <li>The audit settings are configured using the Advanced Audit Policies.</li>
+        </ul>
+
+        <hr />
+
+        <ul>
+          <li>
+            Set the <strong>Audit directory service access </strong>and
+            <strong>Audit account management</strong> options to <strong><em>"Success"</em></strong
+            >. To do this, perform the following steps:
+          </li>
+        </ul>
+        <ol>
+          <li>
+            <span
+              >Open the Group Policy Management console on any domain controller in the target
+              domain: navigate to </span
+            ><strong>Start --&gt; Administrative Tools --&gt; Group Policy Management</strong
+            ><span>.</span>
+          </li>
+          <li>
+            In the left pane, navigate to
+            <strong
+              >Forest: &lt;domain_name&gt; --&gt; Domains --&gt; &lt;domain_name&gt; --&gt; Domain
+              Controllers</strong
+            >. Right-click the effective domain controllers policy (by default, it is the
+            <strong>Default Domain Controllers Policy)</strong>, and select
+            <strong>Edit </strong>from the pop-up menu.
+          </li>
+          <li>
+            Navigate to
+            <strong
+              >Computer Configuration --&gt; Policies --&gt; Windows Settings --&gt; Security
+              Settings --&gt; Local Policies --&gt; Audit Policy.</strong
+            >
+          </li>
+          <li>
+            Make sure that the <strong>Audit directory service access </strong>and
+            <strong>Audit account management</strong> are set to
+            <strong><em>"Success" </em></strong>(or<strong><em> "Success" </em></strong>and
+            <strong><em>"Failure"</em></strong
+            ><em>).</em>
+          </li>
+          <li>
+            Navigate to <strong>Start --&gt; Run</strong> and type '"<strong><em>cmd</em></strong
+            >". Input the "gpupdate /force" command and press <strong>Enter</strong>. The group
+            policy will be updated.
+          </li>
+        </ol>
+        <div>
+          Refer to
+          <a
+            href="http://www.netwrix.com/download/documents/Netwrix_Auditor_Installation_Configuration_Guide.pdf"
+            target="_blank"
+            >Netwrix Auditor Installation and Configuration Guide</a
+          >
+          for more information.
+        </div>
+        <ul>
+          <li>
+            If the effective policy is applied to the domain controller, but you keep receiving this
+            error, contact your Administrator.
+          </li>
+          <li>
+            If you sure that you have the Advanced Audit Policies applied correctly, but keep
+            receiving this error, you can omit it. Perform the following steps to omit the error:
+          </li>
+        </ul>
+        <ol>
+          <li>
+            On the computer where Netwrix Auditor is installed, navigate to
+            <strong>Start --&gt; Run</strong> and type "<strong><em>regedit</em></strong
+            >".
+          </li>
+          <li>
+            Navigate to the following node: Versions 6.5 and Below -
+            <strong>HKEY_LOCAL_MACHINESOFTWARE(Wow6432Node)NetwrixAD Change Reporter </strong>and
+            set the <strong>IgnoreAuditCheckResultError</strong> registry key to "<strong
+              ><em>1</em></strong
+            >". If this key does not exist please create it.
+          </li>
+        </ol>
+        <div>
+          <b>Note:</b> In Netwrix Auditor 7.0 the registry location is
+          <strong>HKEY_LOCAL_MACHINESOFTWARE(Wow6432Node)Netwrix<b> </b></strong
+          ><b>AuditorAD Change Reporter</b>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

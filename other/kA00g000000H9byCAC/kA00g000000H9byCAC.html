@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot access Licensing page</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9byCAC" />
+    <meta name="Id" content="ka04u00000116btAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:04:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1393" />
+    <meta name="ArticleNumber" content="000003556" />
+    <meta
+      name="description"
+      content="Following to License page of the Password Manager returns the error message: An error occurred on the server when processing the URL."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I get the following error when trying to get to a License page in the Administration console
+        of the Password manager. An error occurred on the server when processing the URL. Please
+        contact the system administrator. If you are the system administrator please click here to
+        find out more about this error.
+
+        <hr />
+
+        The error occurs because Password Manager service fails to get information about current
+        license form the registry.
+
+        <hr />
+
+        To address the issue make sure that the Password Manager service account has Full control on
+        the following:
+        <ol>
+          <li>Password Manager installation directory</li>
+          <li>
+            Registry key HKLMSoftware[Wow6432Node]NetwrixPassword Manager (Wow6432Node only for x64
+            OS)
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9byCAC_00d3e03c-1c71-4c9b-927f-a885cbb64938.png"
+          alt="User-added image"
+          width="282"
+          height="368"
+        />
+        <img
+          src="kA00g000000H9byCAC_d6820c56-7c63-44e5-9af1-8b544923759b.png"
+          alt="User-added image"
+          width="277"
+          height="380"
+        />
+
+        Even if the service account is a member of local Administrators group, please try to grant
+        Full control to the service account explicitly. Restart the Netwrix Password Manager service
+        after granting permissions.
+      </div>
+    </article>
+  </body>
+</html>

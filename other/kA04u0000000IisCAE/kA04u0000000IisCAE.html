@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SIWindowsAgent_3.4.2.166_4.0.0.682</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IisCAE" />
+    <meta name="Id" content="ka04u000000HcuOAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:28:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:28:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6984" />
+    <meta name="ArticleNumber" content="000006984" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> adtrace logs
+          filling domain controllers disk space
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong>adtrace logs filling domain controllers disk
+          space<br /><b><i>Before fix:  </i></b>Events were logged to AdTrace logs when IPC buffer
+          is full. Even when logging.ini has trace set to 'FALSE'<br /><strong
+            ><i><span>After fix: </span></i></strong
+          >
+        </p>
+        <ul>
+          <li>
+            'update code to NOT write actual events to log if IPC buffer is full even when
+            logging.ini has trace set to 'FALSE'
+          </li>
+          <li>log "HookNlpLogonSamLogon: exiting, auth monitoring disabled" on Debug level only</li>
+          <li>remove "valid address wasn't found"</li>
+          <li>move "read error, assuming pipe broken and reconnecting... " to Debug level</li>
+        </ul>
+         <br /><strong><span>Submitted by: </span></strong><br />Maxim Sidarau<br /><strong
+          ><span>Affected Versions:</span></strong
+        ><br />3.3          No Patch created at this time<br />3.4.0      No Patch created at this
+        time<br />3.4.1      No Patch created at this time<br />3.4.2     
+        SIWindowsAgent_3.4.2.166_SI-3256<br />4.0.0      SIWindowsAgent_4.0.0.682_SI-3256<br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Stop
+          SIWindowsAgent service<br />2. Extract attached archive to the "C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Start SIWindowsAgent
+          service<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          3.4.2, 4.0.0<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          SI-3256<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> SI
+          3.4.2.166 SI 4.0.0.682<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1531<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

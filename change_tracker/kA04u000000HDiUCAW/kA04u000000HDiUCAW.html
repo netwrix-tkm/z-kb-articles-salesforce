@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to learn which of devices were audited on which days (Gen 7 R2)</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000HDiUCAW" />
+    <meta name="Id" content="ka04u000000QmY5AAK" />
+    <meta name="LastPublishedDate" content="2023-05-22T18:15:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-23T09:10:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-22T18:15:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8577" />
+    <meta name="ArticleNumber" content="000008577" />
+    <meta name="description" content="How to learn which of devices were audited on which days" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <span
+          ><span><span>How does Gen 7 R2 event record work?</span></span></span
+        >
+
+        <h2 id="answer">Answer</h2>
+        <span
+          ><span
+            ><span
+              >Netwrix Change Tracker Gen 7 R2 records an Audit Event for every day a device is
+              active.</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >Each new event is incremented by 1 – in other words, for every agent seen active in
+              any day period, an event will be recorded with one added to the <strong
+                ><span><span>Licensed Day Usage</span></span></strong
+              > count.</span
+            ></span
+          ></span
+        >
+
+        <h4 id="examples"><strong>Examples</strong></h4>
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  >System <span>with</span><strong><span> 1 agent only</span></strong
+                  >, active every day for a <strong><span>30-day period</span></strong
+                  >, will record <strong><span>30 Licensed Day Usage Audit Events</span></strong
+                  ><span>, numbered </span><strong><span>1 to 30</span></strong
+                  >.</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Alternatively, a system with <strong><span>25 devices</span></strong
+                  >, where all devices have been active in <strong
+                    ><span>each day period</span></strong
+                  > for a <strong><span>ten-day period</span></strong
+                  >, will record <strong
+                    ><span>10 Licensed Day Usage events for each device</span></strong
+                  >, the last of these events will therefore be numbered <strong
+                    ><span>250</span></strong
+                  >.</span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              >To assess the total number of Licensed Day Usage events in any period, run a query
+              for the period, with a text search for
+              <strong><span>Licensed</span></strong> for <strong><span>Audit Events</span></strong
+              >.</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >The actual consumption of <strong><span>Licensed Days</span></strong
+              > during the period will the difference between the last and first events
+              number.</span
+            ></span
+          ></span
+        ><br /> 
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why Do I Have Incomplete Information on Failed Logons?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HNFCA2" />
+    <meta name="Id" content="ka04u000000wvxkAAA" />
+    <meta name="LastPublishedDate" content="2023-10-30T10:01:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-30T10:01:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-09-08T19:25:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5905" />
+    <meta name="ArticleNumber" content="000005905" />
+    <meta name="description" content="Why Do I Have Incomplete Information on Failed Logons?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="situation">Situation</h2>
+        In Search Results or Reports there is no information in <b>What</b> (the destination point
+        of a login) field.
+
+        <h2 id="explanation">Explanation</h2>
+        Netwrix Auditor Logon Activity uses native Windows tools to collect data. It uses Event log
+        events to do so. Windows uses different types of events for failed logons on
+        <b>Workstations </b>and <b>Domain Contorllers</b>.<br />Within a Domain, all the logons go
+        through a <b>Domain Controller </b>using
+        <a
+          href="https://docs.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview"
+          target="_blank"
+          >KERBEROS</a
+        >
+        ticketing system for Authentication. When logon on a <b>Workstation </b>fails, three events
+        will be created:
+        <a
+          href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4768"
+          target="_blank"
+          >4768</a
+        >,
+        <a
+          href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4769"
+          target="_blank"
+          >4769</a
+        >,
+        <a
+          href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4771"
+          target="_blank"
+          >4771</a
+        >. The first two are the informational events registering the request of KERBEROS
+        authentication, the third one (4771) is the event, that contains all the information about
+        the authentication requester.<br /><br />The Problem here is that as a result of a
+        <b>failed </b>logon, the request doesn't go <b>past </b>KERBEROS pre-authentication and
+        therefore does not contain the information about the destination point of a logon request,
+        consequently, the 4771 event does not contain such information and as we rely only on native
+        tools to gather information, we can't populate the <b>What</b> field of a failed logon.<br /><br />When
+        logon on a <b>Domain Controller</b> fails, the process is simpler as it is considered a
+        failed <i>local </i>logon attempt (event
+        <a
+          href="https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4625"
+          target="_blank"
+          >4625</a
+        >
+        will appear) and the data for the destination point will be present.<br /><br />If you would
+        like to have information on how to investigate Failed Logons, check out these articles:
+        <ul>
+          <li>
+            <a href="https://kb.netwrix.com/5198" target="_blank">Investigating Failed Logons</a>
+          </li>
+          <li>
+            <a href="https://kb.netwrix.com/3553" target="_blank"
+              >How to detect the root cause of multiple failed logons</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111KxCAI.html"
+              target="_blank"
+              >How to Find Destination of Failed NTLM Logons?</a
+            >
+          </li>
+        </ul>
+
+        <h2 id=""> </h2>
+      </div>
+    </article>
+  </body>
+</html>

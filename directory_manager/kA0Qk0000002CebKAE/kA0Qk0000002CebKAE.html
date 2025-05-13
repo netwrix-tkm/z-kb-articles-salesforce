@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Allow Users to Create Specific Objects in User Portal</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002CebKAE" />
+    <meta name="Id" content="ka0Qk000000CuJNIA0" />
+    <meta name="LastPublishedDate" content="2025-04-29T17:59:52.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-29T17:59:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-29T17:59:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="10098" />
+    <meta name="ArticleNumber" content="000010098" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+        <p>Directory Manager 11</p>
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article provides instructions for configuring a security role in Directory Manager 11
+          to allow users to create only <em>group</em> and <em>contact</em> object types through the
+          User portal. By modifying the role’s permissions, you can prevent users from creating
+          other object types, such as users and mailboxes, to align with your organization’s
+          security and management policies.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>
+          To grant or deny permission to create specific objects in the Directory Manager User
+          portal, follow these steps:
+        </p>
+        <ol>
+          <li>
+            Open the Directory Manager Admin Portal at
+            <code class="lang-Registry">https://servername/AdminCenter/</code>. Navigate to
+            <strong>Identity Stores</strong>. Under an identity store's name, click the three dots
+            (<strong>...</strong>) to edit it.<br /><br /><img
+              src="kA0Qk0000002CebKAE_6b21fa9e-d58d-41fb-b693-021fd07df6b6.png"
+              alt="Identity Stores list with edit option highlighted in Directory Manager Admin Portal"
+              width="624"
+              height="286"
+            />
+          </li>
+          <li>
+            In the identity store's properties, click the <strong>Security Roles</strong> tab.
+            Select the role you want to modify and click <strong>Edit</strong>.<br /><br /><img
+              src="kA0Qk0000002CebKAE_51660e09-b9fb-42b3-9d8b-46251aef4c1c.png"
+              alt="Security Roles tab and Edit button in Directory Manager Admin Portal"
+              width="624"
+              height="327"
+            />
+          </li>
+          <li>
+            On the <strong>Role Properties</strong> page, click the
+            <strong>Permissions</strong> tab.<br /><br /><img
+              src="kA0Qk0000002CebKAE_6fd0987a-6024-4c54-a4fe-4d7787a6b9c4.png"
+              alt="Permissions tab in Role Properties in Directory Manager Admin Portal"
+              width="624"
+              height="294"
+            />
+          </li>
+          <li>
+            The <strong>Create</strong> permissions for the User portal are shown in the following
+            images:<br /><br /><img
+              src="kA0Qk0000002CebKAE_5b254676-b50f-4495-aaa7-d333860c6cf9.png"
+              alt="Create permissions for object types in Directory Manager User portal"
+              width="624"
+              height="662"
+            /><br /><br /><img
+              src="kA0Qk0000002CebKAE_f926e55d-8b95-4250-b794-225923b65947.png"
+              alt="Additional create permissions for object types in Directory Manager User portal"
+              width="624"
+              height="651"
+            />
+          </li>
+          <li>
+            Select the <strong>Allow</strong> option for <strong>Group</strong> and
+            <strong>Contact</strong> object types to permit creation. Select the
+            <strong>Deny</strong> option for all other object types to restrict creation.
+          </li>
+          <li>Click <strong>OK</strong> to save your changes.</li>
+        </ol>
+        <p>
+          When you allow the role to create <em>groups</em> and <em>contacts</em> using the portal,
+          the result will look like this:<br /><br />
+        </p>
+        <p>
+          <img
+            src="kA0Qk0000002CebKAE_4df92cf7-295b-4672-be6a-925e44e54ae8.png"
+            alt="User portal showing only group and contact creation options"
+            width="624"
+            height="456"
+          />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

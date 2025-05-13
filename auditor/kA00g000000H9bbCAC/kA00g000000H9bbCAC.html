@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: The object invoked has disconnected from its clients.</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bbCAC" />
+    <meta name="Id" content="ka04u000000HcULAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1362" />
+    <meta name="ArticleNumber" content="000003533" />
+    <meta name="description" content="Exception from HRESULT: 0x80010108 (RPC_E_DISCONNECTED)" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          >I get the following message in reports from Event Log Manager: Event collection completed
+          with errors. See the 'Error text' column for details. </span
+        ><br /><span
+          >The object invoked has disconnected from its clients. (Exception from HRESULT: 0x80010108
+          (RPC_E_DISCONNECTED))</span
+        >
+
+        <hr />
+
+        The error message occurs when connection to the event log agent on the target machine was
+        reset.
+
+        <hr />
+
+        <span
+          >If the OS on the target machine is Windows 2003, please refer to the following KB article </span
+        ><a href="http://support.microsoft.com/kb/924432" target="_blank"
+          >http://support.microsoft.com/kb/924432</a
+        ><span> </span> <br /><span>If </span><span>the OS on the target machine </span
+        ><span
+          >is Windows 2008 or later, please try to manually remove the Event Log agent from this
+          server and Let the product reinstall it. </span
+        ><br /><br /><span
+          >To remove the agent, please unregister the Event Log Collector service with help of the
+          "sc delete" command and remove the entire </span
+        ><a href="file:///C:/Windows/NWAgentShare" target="_blank">C:WindowsNWAgentShare</a
+        ><span> folder. </span>
+        <span
+          >The agent will be reinstalled during the next data collection. If these steps do not
+          help, disable Network traffic compression for the corresponding managed object
+
+          <img
+            src="kA00g000000H9bbCAC_ce2c9db8-d297-4fa2-9ae1-78ebb5ace38f.png"
+            alt="User-added image"
+            width="500"
+            height="341"
+        /></span>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SAM_6.0_029</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000LLP5CAO" />
+    <meta name="Id" content="ka04u000000HdDlAAK" />
+    <meta name="LastPublishedDate" content="2022-11-02T21:28:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-11-02T21:28:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8512" />
+    <meta name="ArticleNumber" content="000008512" />
+    <meta
+      name="description"
+      content="1. NetApp monitoring changes: - Better handling of bursts of activity when events come in batches. - Faster processing, better utilization of CPU cores. - Request Abort timeout in the External-Engine is set to 10 seconds instead of default 40. The n"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i><span>1. NetApp monitoring changes: </span></i></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               - Better handling of bursts of activity when events come in
+                  batches.</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               - Faster processing, better utilization of CPU cores.
+                </span></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               - Request Abort timeout in the External-Engine is set to 10
+                  seconds instead of default 40.</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               The new version is at least 2 times faster in the worst-case
+                  scenario (a large batch of activity from a single user). On average, we expect it
+                  to be 7 times faster.</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i><span>               2. Improved performance of syslog outputs</span></i></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               3. Linux: Deployment of the agent may hang during SSH upload</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               4. Active Directory: Improved noise suppression when only
+                  'lastLogon' attribute is changed</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Behavior Before Fix:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i
+                  ><span
+                    ><span
+                      ><span
+                        >1. The product could not effectively handle bursts of activity events from
+                        NetApp. The product did not utilize available CPU cores effectively.</span
+                      ></span
+                    ></span
+                  ></i
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i
+                  ><span
+                    ><span
+                      ><span>               2. Event reporting to syslog could be slow.</span></span
+                    ></span
+                  ></i
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i
+                  ><span
+                    ><span
+                      ><span
+                        >               3. Installation of the agent could hang while copying the
+                        installation package via SSH.</span
+                      ></span
+                    ></span
+                  ></i
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><i
+                  ><span
+                    ><span
+                      ><span
+                        >               4. When 'logonCount' reaches the maximum value of 65535, it
+                        is not updated anymore. The noise filter suppresses events only when both
+                        'lastLogon' and 'logonCount' are modified.</span
+                      ></span
+                    ></span
+                  ></i
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Behavior After Fix:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               1. The product process events from NetApp significantly faster,
+                  using CPU cores more effectively. It is able to consume large batches of events
+                  quickly.
+                </span></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span>               2. The syslog processing pipeline was optimized.</span></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               3. The installation package is copied to the home directory,
+                  respecting the quote mode.
+                </span></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><i
+                ><span
+                  >               4. Changes to 'lastLogon' only (when 'logonCount' reaches the
+                  maximum) are considered noise activity.</span
+                ></i
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Kevin Duddy</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Activity Monitor 6.0</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"
+              ><span>Active Directory, Agent, Console</span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>108982 / 00354484</span></span></span
+        ><br /><span
+          ><span><span>105365 / 00347967</span></span></span
+        ><br /><span
+          ><span><span>108677 / 00353820</span></span></span
+        ><br /><span
+          ><span><span>102204 / 00344570</span></span></span
+        ><br /><span
+          ><span><span>103354 / 00345713</span></span></span
+        ><br /><span
+          ><span><span>104852 / 00347268</span></span></span
+        ><br /><span
+          ><span><span>136455 / NA</span></span></span
+        ><br /><span
+          ><span><span>93926 / 00340713</span></span></span
+        ><br /><span
+          ><span><span>105623 / NA</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 6.0.1049</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Modules Included:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 6.0.1049</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup_unsigned.msi 6.0.1049</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SBTService.exe 1.5.1814</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SI Version 7.3.5.223</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+          ></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning
+                    (previous fix)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning
+                    (corrected hotfix)</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-6977: SAM Nasuni Activity is Collecting but when importing to SA it is not
+                    matching share mapping</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7358: 2019 Server only | LSASS may crash with KB5004244, released
+                    07/13/2021</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-7041: After upgrade SAM Console crashes when editing agents</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >I-7376: 2016 Server | Kerberos auth. events may be lost or incomplete after
+                    applying KB5005393</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>SFAM-7052: SAM 6.0 - can't set access zone per output</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>SFAM-7168: SAM not receiving all events from SI</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7405: 2019 Server only | Kerberos auth. events may be lost or incomplete
+                        with KB5005102 (August 26, 2021)</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >SFAM-7270: After install of SAM agent 6.0.690 or a few days into running "Agent
+                    services may have recently crashed" message is seen</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>SFAM-7211: Improve AD resolution &amp; caching</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7470: SUVP 21-10 | 2019 Server Only | No NTLM events with KB5006672,
+                        release date: 10/12/2021</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>SFAM-7450: SQL - Certain events not being reported</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >SFAM-7447: SAM not collecting events from DC with updated SI agent</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>SFAM-7369: Agents.ini is available to unprivileged users</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >SFAM-6836: SAM is not receiving activity from SP online - Failed to
+                        authenticate Tennant</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7522: 2019 Server | Kerberos events may be lost with Out-of-band
+                        KB5008602, published 11/14/2021</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >I-7501: SUVP 21-11 | Kerberos, DCsync or LDAP events may be lost or
+                        incomplete after applying MSFT updates, release: 11/09/2021</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >62962: SQL performance issues with XEvents enabled, After XEvent sessions
+                    disabled we cannot re-enable from SAM</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>66190: SBTService crash 1.5.0.1540(2008r2)</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >69447: SAM agent 6.0.0.798 upgrade has caused service to restart constantly and
+                    is blue screening devices</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >69066: SAM not archiving events properly so SA cannot retrieve them</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>84607: SAM is not receiving events from SI Agent</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>99271: SAM Nasuni Activity Not Being Reported (previous fix)</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>99271:  SAM Nasuni Activity Not Being Reported</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >62962: SQL performance issues with XEvents enabled, After XEvent sessions
+                    disabled we cannot re-enable from SAM</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >66233: Will doing an in-place upgrade of WS2012R2 to WS2019 have any
+                        adverse effects on SAM or SI</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>101261: Retention procedure not working correctly</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>100976: SI to SAM not postingto SD</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >101816: Stealthbits Activity Monitor (SAM) agents crashing after upgrade to
+                        6.0.865</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>101804: MS updates | SUVP 2022-04 support</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >104885: SAM Crashed a DC in realtion to the ConfigurationAgent.exe casing
+                        "A critical system process died"</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>93926: SAM Linux agent showing outdated in console</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>104731: Linux Agent fails due to Cert error</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>91254: Nasuni Security Vulnerability on port 4493</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+        </ol>
+         
+
+        <ol start="21">
+          <li>
+            <span
+              ><span
+                ><span><span>104442: SAM 6 contains old SI agent.</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>105077: SAM times out during searches</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>103526: SQL user exclusion issue</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>107417: MS updates: 22-07 'Preview' updates support</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>108133: SAM is not reporting UNC Paths for nasuni device</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >105540: nasuni device; Netapp showing read for all subfolders</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>93926: SAM Linux agent showing outdated in console</span></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >107235: Nasuni Paths not Matching StealthAUDIT (previous fix)</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>108178: MS Updates: SUVP 22-08 support</span></span></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>107235: Nasuni Paths not Matching StealthAUDIT</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>107340: High Memory Usage on MonitorService.exe</span></span></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+        </ol>
+         
+
+        <ol start="26">
+          <li>
+            <span
+              ><span
+                ><span><span>106798: SAM not receiving events from SI</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>93926: SAM Linux agent showing outdated in console</span></span></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Run msi file on host that has the SBActivityMonitor installed. (No need to
+                      uninstall previous version, msi will upgrade the monitor).</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>Upgrade all agents.</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <div>
+          <span
+            ><span
+              ><span
+                ><i
+                  ><span
+                    >https://downloads.stealthbits.com/access/files/SAMHotfixes/6.0/SAM_6.0_029.zip</span
+                  ></i
+                ></span
+              ></span
+            ></span
+          ><br /> 
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

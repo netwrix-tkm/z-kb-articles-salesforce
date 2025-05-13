@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scan Previous Days with FSAC</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ItbCAE" />
+    <meta name="Id" content="ka04u000001188eAAA" />
+    <meta name="LastPublishedDate" content="2023-10-10T08:47:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-10T08:48:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:39:30.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7289" />
+    <meta name="ArticleNumber" content="000007289" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>No data has been imported in the database via FSAC system scan job.</p>
+        </div>
+
+        <h2 id="possible_cause">Possible cause</h2>
+
+        <div>
+          <p>Low disk space. FSAC system scan job has failed on several days due to the issue.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Review the <code>SBTLogs</code> files located in
+                <code>%STEALTHbits installation folder%\PSFAM\SBTLogs</code>. The file must contain
+                missing activity only.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If a TSV file for any activity previously
+                  collected is present, it will be duplicated.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Navigate to the <code>FSAA</code> folder (FSAA Tier 2 directory ) for the host −
+                refer to the following path:
+                <code>%STEALTHbits installation folder%\StealthAUDIT\FSAA\%servername%</code>.
+                Modify the <code>Servername_FSAC_suspend.xml</code> file.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update the dates in the file to reflect the day before the day to start collecting
+                data from. Refer to the following screenshot:
+              </p>
+
+              <div>
+                <img
+                  height="176"
+                  src="kA04u0000000ItbCAE_b6b060be-e112-403d-8eea-442011c206ff.jpg"
+                  width="855"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Remove <code>servername_activity.fsaadb</code> and any
+                <code>activity.fsaadb.old</code> files located in the FSAA Tier 2 directory.
+              </p>
+            </li>
+            <li>
+              <p>
+                Run the <strong>1-FSAC System Scans2</strong> job, and verify it is running and
+                collecting data from the job. Once confirmed, you can queue up the
+                <strong>2-FSAC Bulk Import2</strong> job.
+              </p>
+
+              <div>
+                <img
+                  height="564"
+                  src="kA04u0000000ItbCAE_ac13fda1-5c58-4949-aa61-d4d2dcea3168.jpg"
+                  width="290"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <h4
+          id="script_to_clear_the_following_tables_for_imported_data_after_the_beginning_of_the_day"
+        >
+          Script to clear the following tables for imported data after the beginning of the day
+        </h4>
+
+        <p>--Script to delete imported events for a specific host on/after a certain date.</p>
+
+        <div>
+          <pre class="has-inner-focus"><code class="lang-Registry">declare @hostid int
+declare @rescanDate date
+set @hostid = (select id from sa_fsaa_hosts where host = 'PUTYOURHOSTNAMEHERE')
+set @rescanDate = '1/1/2049'
+
+SELECT [ID]
+into #eventsToDelete
+FROM [SA_FSAC_ActivityEvents] a
+where host = @hostid and AccessTime &gt;= @rescanDate
+
+--select *
+delete x
+from SA_FSAC_RenameTargets x inner join #eventsToDelete e on x.ActivityID = e.ID where x.host = @hostid
+
+--select *
+delete x
+from SA_FSAC_OwnerChanges x inner join #eventsToDelete e on x.ActivityID = e.ID where x.host = @hostid
+
+--select *
+delete x
+from SA_FSAC_PermissionChanges x inner join #eventsToDelete e on x.ActivityID = e.ID where x.host = @hostid
+
+--select *
+delete x
+from SA_FSAC_ActivityEvents x where x.host = @hostid and x.AccessTime &gt;= @rescanDate
+
+--select *
+delete x
+from SA_FSAC_DailyActivity x where x.host = @hostid and x.ActivityDate &gt;= @rescanDate
+
+drop table #eventsToDelete</code></pre>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

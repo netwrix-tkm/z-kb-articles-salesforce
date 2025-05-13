@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Cannot Initialize Scan with Proxy Host in Enterprise Auditor 11.6</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_datacollection" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WSvKAM" />
+    <meta name="Id" content="ka0Qk000000BXyLIAW" />
+    <meta name="LastPublishedDate" content="2024-09-20T09:12:32.000+0000" />
+    <meta name="LastModifiedDate" content="2024-12-16T15:37:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-21T15:48:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9073" />
+    <meta name="ArticleNumber" content="000009073" />
+    <meta
+      name="description"
+      content="Netwrix Enterprise Auditor Known Issue v11.6 – Could Not Initialize Scan Session With Any Proxy Host Supplied"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            When running a file system scan using proxies—such as permissions, activity, or
+            sensitive data—you receive the following error message:
+          </p>
+          <div>
+            <pre class="has-inner-focus">
+FSAAException: Unable to start scan: Could not initialize scan session with any proxy host supplied</pre
+            >
+          </div>
+        </div>
+        <h2 id="causes">Causes</h2>
+        <div>
+          <ol>
+            <li>
+              <p>
+                The creation of multiple redundant certificates when targeting a single proxy with
+                multiple hosts for the first time prevents the scan from starting (a certificate
+                creation race condition).
+              </p>
+            </li>
+            <li>
+              <p>
+                Certificates are not stored under the proper user account’s certificate store in
+                multi-user scenarios (e.g., running interactively using one account and as a
+                scheduled task with a different account).
+              </p>
+            </li>
+            <li>
+              <p>The certificate was not properly created by the proxy scan.</p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            Upgrade your Netwrix Enterprise Auditor instance to v11.6.0.65 or above and your File
+            System Proxy Service instance to v11.6.0.19 or above—refer to the following articles for
+            additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/Application/Upgrade/Overview.htm"
+              target="_self"
+              >Enterprise Auditor Console Upgrade · v11.6</a
+            >
+            and
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/FileSystemProxy/Upgrade.htm"
+              target="_self"
+              >Upgrade Proxy Service Procedure · v11.6</a
+            >. Download the latest NEA version from the
+            <a href="https://www.netwrix.com/my_products.html" target="_blank">My Products</a> page.
+            If you still run into issues with certificate generation on FSAA proxy scans, follow the
+            steps provided below.
+          </p>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If the service account for the
+              <code>FSAA Proxy Scanner</code> service in your FSAA proxy server is
+              <code>LocalSystem</code>, perform the following steps before deleting the
+              certificates:
+            </p>
+          </blockquote>
+          <ol>
+            <li>
+              <p>
+                On the target proxy server, download <strong>PsExec</strong>. Extract the contents
+                of the downloaded compressed folder to a local folder. Download
+                <strong>PsExec</strong> in
+                <a
+                  href="https://learn.microsoft.com/en-us/sysinternals/downloads/psexec"
+                  target="_blank"
+                  >PsExec · Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In an elevated Command Prompt instance, navigate to the target folder and run the
+                following line:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">.\psexec.exe -i -s cmd.exe</code></pre>
+            </li>
+            <li>
+              <p>
+                In the new Command Prompt instance, start the Certificate Manager Tool for the
+                SYSTEM account by running the following line:
+              </p>
+              <pre class="has-inner-focus"><code class="lang-Registry">certmgr.msc</code></pre>
+            </li>
+            <li>
+              <p>
+                Delete all certificates in the FSAA Certificate Authority Store, FSAA Client
+                Certificate Store, and FSAA Server Certificate Store:
+              </p>
+              <ul>
+                <li>
+                  <p>User certificates on the proxy server under the proxy service user account</p>
+                </li>
+                <li>
+                  <p>User certificates on the console under the scheduled task account</p>
+                </li>
+                <li>
+                  <p>User certificates on the console under the FS connection profile account</p>
+                </li>
+                <li>
+                  <p>User certificates on the console under the interactive user account(s)</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Run a single scan with proxy on a single host using a scheduled task to establish
+                new certificates (this should be done once per proxy to properly establish
+                certificate on proxy).
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify user certificates on the console and the proxy server (you should have a
+                single FSAA Client Certificate on the console, a single FSAA Server Certificate on
+                the proxy, and a single FSAA Certificate Authority on both).
+              </p>
+            </li>
+            <li>
+              <p>
+                Run all subsequent scans as scheduled tasks (not interactively through the console)
+                until a fix is issued.
+              </p>
+            </li>
+          </ol>
+          <p>
+            Additionally, the scans run in local mode should not run into this issue. To learn more
+            about local mode, see the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem/ScanOptions.htm"
+              target="_blank"
+              >Requirements — File System Solution — File System Scan Options — v11.6</a
+            >.
+          </p>
+        </div>
+        <h2 id="relart">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/Application/Upgrade/Overview.htm"
+                  target="_self"
+                  >Installation &amp; Configuration Overview — Enterprise Auditor Console Upgrade ·
+                  v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Install/FileSystemProxy/Upgrade.htm"
+                  target="_self"
+                  >File System Proxy as a Service Overview — Upgrade Proxy Service Procedure ·
+                  v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://www.netwrix.com/my_products.html" target="_blank"
+                  >My Products · Netwrix</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sysinternals/downloads/psexec"
+                  target="_blank"
+                  >PsExec · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Requirements/Solutions/FileSystem/ScanOptions.htm"
+                  target="_blank"
+                  >Requirements — File System Solution — File System Scan Options — v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

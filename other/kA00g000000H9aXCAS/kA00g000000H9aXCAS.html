@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>An error occured on the server when processing the URL</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9aXCAS" />
+    <meta name="Id" content="ka04u00000116cxAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:13:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1306" />
+    <meta name="ArticleNumber" content="000003467" />
+    <meta
+      name="description"
+      content="an error occurred on the server when processing the URL from Self-service portal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When a user tries to browse to Self-service portal they receive an error message that an
+        error occurred on the server when processing the URL.
+        <img
+          src="kA00g000000H9aXCAS_4b7014c6-c5a9-42af-9e0d-d91dd5fc16ac.png"
+          alt="User-added image"
+          width="500"
+          height="149"
+        />
+
+        <hr />
+
+        The message is just a user-friendly screen indicating that something went wrong. The most
+        common reason is access permission issues. For example, if some files are unable to be read
+        from disk.
+
+        <hr />
+
+        To resolve the issue please make sure that the Password Manger service account is assigned
+        local administrator permissions on the server. If this does not help, turn on IIS error
+        codes to be sent to the browser and disable user-friendly error messages and review the
+        exact error code. To configure sending of errors to browsers:
+        <ol>
+          <li>Run IIS, select the web-site Password Manager is installed to.</li>
+        </ol>
+        <div>
+          <img
+            src="kA00g000000H9aXCAS_54b20b82-e497-4047-b628-0fe3a6fdff15.png"
+            alt="User-added image"
+          />
+        </div>
+        <ol start="2">
+          <li>Select ASP feature in the central pane</li>
+          <li>
+            Expand <strong>Debugging Properties</strong> and set
+            <strong>Send errors to browser</strong> to <strong>True</strong>
+          </li>
+        </ol>
+        <div>
+          <strong
+            ><img
+              src="kA00g000000H9aXCAS_6e39ea0c-e9c6-481e-b640-8e6755feebc6.png"
+              alt="User-added image"
+              width="500"
+              height="202"
+          /></strong>
+        </div>
+        To disable user-friendly errors in IE:
+        <a href="http://technet.microsoft.com/en-us/library/cc778248(v=ws.10).aspx" target="_blank"
+          >http://technet.microsoft.com/en-us/library/cc778248(v=ws.10).aspx</a
+        >
+
+        In Firefox:
+        <ol>
+          <li>Open up a new tab (CTRL+T) or window (CTRL+N).</li>
+          <li>Type in de addressbar: about:config.</li>
+          <li>In the filterbar type: error and press enter.</li>
+          <li>Now set the value of the "browser.xul.error_pages.enabled" to "true".</li>
+          <li>Restart Firefox.</li>
+        </ol>
+        Chrome automatically maintains friendly errors, and disables them for error message bigger
+        that 512 bytes in size. It is recommended to use IE to view the error code.
+      </div>
+    </article>
+  </body>
+</html>

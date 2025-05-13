@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How Does Merging Logon Activity Events Work?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001118cCAA" />
+    <meta name="Id" content="ka04u00000117bkAAA" />
+    <meta name="LastPublishedDate" content="2023-09-06T09:44:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-06T09:44:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-31T10:21:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8776" />
+    <meta name="ArticleNumber" content="000008776" />
+    <meta
+      name="description"
+      content="This article explains how the events merging works for Logon Activity"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How does merging Logon Activity events work?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor for Logon Activity merges similar logon events to reduce noice and
+            narrow the number of similar events. Merging events works as follows:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                The records are considered similar when they have the same event type, User, Name
+                and IP of the originating workstation, Name and IP of the target workstation. For
+                Failed Attempts the failure reasons must also match.
+              </p>
+            </li>
+            <li>
+              <p>For successful logons the value of events is ranged as follows (ascending):</p>
+
+              <ul>
+                <li>
+                  <p>Unidentified Logon</p>
+                </li>
+                <li>
+                  <p>Interactive Logon based on the events <b>4768</b> and <b>4769</b></p>
+                </li>
+                <li>
+                  <p>Interactive Logon based on the event <b>4624</b></p>
+                </li>
+                <li>
+                  <p>Reconnecting to a remote session based on the event <b>4778</b></p>
+                </li>
+              </ul>
+
+              <p>After the merging completes, the first event is displayed to the user.</p>
+            </li>
+            <li>
+              <p>
+                If there is an Interactive Logon based on events <b>4768</b> and <b>4769</b> where
+                the <b>What</b> and <b>Workstation</b> fields are different, all subsequent events
+                of this type with <b>What</b> and <b>Workstation</b> fields matching the
+                <b>What</b> field of the original event, will be merged. Other words, if there was a
+                remote connection to a workstation, it would overwrite all direct connections within
+                the specified time range.
+              </p>
+            </li>
+            <li>
+              <p>
+                Domain Controller Logoff events of the same type are also merged and the user sees
+                the first one. However if there was an event <b>4779</b> (remote session
+                disconnected), it would be considered more valueable. The product also filters out
+                all logoffs for which the corresponding logon belongs to another event (i.e. not
+                displayed to the user).
+              </p>
+            </li>
+            <li>
+              <p>
+                Failed Attempts are also combined into a single event and the number of failed
+                attempts is displayed.
+              </p>
+            </li>
+            <li>
+              <p>
+                For all other events the product simply removes duplicates. The user sees the first
+                event in the series.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

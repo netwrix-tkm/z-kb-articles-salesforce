@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Reset System Administrator Account</title><meta name="label" content="skb"/><meta name="label" content="employees_v"/><meta name="label" content="threat_manager"/><meta name="KnowledgeArticleId" content="kA04u0000000IwBCAU"/><meta name="Id" content="ka0Qk000000Cqu5IAC"/><meta name="LastPublishedDate" content="2025-02-13T20:28:14.000+0000"/><meta name="LastModifiedDate" content="2025-03-18T16:56:24.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:43:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7343"/><meta name="ArticleNumber" content="000007343"/><meta name="description" content="360008304072/StealthDEFEND Default Admin Account Password Reset/How to Reset System Administrator Account"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<div>
+<p>This article covers the steps to reset the password for the system administrator account in Netwrix Threat Manager.</p>
+</div>
+<h2 id="instructions">Instructions</h2>
+<div>
+<p>Refer to the following steps to reset the system administrator account password in Threat Manager:</p>
+<ol><li>
+<p>Find the <code>psqlbuddy_v3.zip</code> file at the bottom of this article. Download and extract the contents of the archive on the Threat Manager server.</p>
+</li><li>
+<p>Run the <code>psqlbuddy_v3.ps1</code> file in elevated PowerShell.</p>
+<pre class="has-inner-focus"><code class="lang-Registry">cd %target_path%
+.\psqlbuddy_v3.ps1</code></pre>
+</li><li>
+<p>Specify the <code>PSQL.exe</code> path depending on the installation path. Refer to the following default path for the latest Threat Manager versions:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\STEALTHbits\Postgres14\bin\psql.exe</code></pre>
+</li><li>
+<p>In the <strong>Select Operation</strong> drop-down list, select the <strong>Reset StealthDEFEND Admin Password V2.8+</strong> option.</p>
+</li><li>
+<p>Click the <strong>Execute Operation</strong> button—the script prompts a pop-up to input a database password. Submit the default password—<code>StealthDEFEND1234!!</code></p>
+<blockquote><span class="Note"><strong>NOTE:</strong></span> The prompt will remain blank while typing the password. Ensure the password is manually entered. Copying and pasting the password may result in input errors.</blockquote>
+</li><li>
+<p>Review the output. The following line stands for a successful reset of the password:</p>
+<pre class="has-inner-focus">Output: Delete from "AspNetUsers" where user_name = 'ADMIN';  DELETE 1</pre>
+</li><li>
+<p>Log out of Threat Manager—it should prompt a pop-up to set a new administrator password.</p>
+</li></ol>
+</div>
+<h2 id="related_links">Related links</h2>
+<div>
+<ul><li>
+<p><a href="https://dl.netwrix.com/products/utilities/psqlbuddy_v3/psqlbuddy_v3.zip" target="_blank">psqlbuddy_v3</a></p>
+</li></ul>
+</div></div>
+</article></body></html>

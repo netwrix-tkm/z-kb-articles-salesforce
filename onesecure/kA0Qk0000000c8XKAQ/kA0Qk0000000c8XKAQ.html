@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>1Secure − Escalation to R&amp;D</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000c8XKAQ" />
+    <meta name="Id" content="ka0Qk0000004ZonIAE" />
+    <meta name="LastPublishedDate" content="2024-04-17T15:03:57.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:15:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-17T15:03:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9145" />
+    <meta name="ArticleNumber" content="000009145" />
+    <meta name="description" content="1Secure − Escalation to R&amp;D" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> Return to the main workflow page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+              target="_self"
+              >1Secure Troubleshooting Workflow</a
+            >.
+          </p>
+
+          <p>
+            Return to the previous page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html"
+              target="_self"
+              >1Secure − Unsuccessful Data Collection</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article covers the data to include in the escalated ticket for the 1Secure R&amp;D
+            team. It lists the locations for service-specific data in the Working Folder,
+            error-specific data in the Working Folder, log levels, and corresponding services.
+          </p>
+        </div>
+
+        <h2 id="1_service-specific_data_required">1. Service-specific data required</h2>
+
+        <div>
+          <p>
+            Four system services represent the 1Secure agent. Refer to the following table for
+            locations of their data in the Working Folder:
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table count-columns="3">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Agent part</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Target service name</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <strong>Related data in the Working Folder</strong><br />
+                    <code>%ProgramData%\Netwrix Cloud Agent</code>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Common infrastructure</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>CloudAgentCoreSvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\AgentCore\*</code></p>
+
+                  <p><code>\Logs\CloudAgentCoreSvc\*</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Active Directory Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>AgentDataCollectionCoreSvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Logs\ActiveDirectory\*</code></p>
+
+                  <p><code>\ShortTerm\AD Changes\STA\*</code></p>
+
+                  <p><code>\Logs\DataCollectionCore\AgentDataCollectionCoreSvc\*</code></p>
+
+                  <p><code>\Logs\Archive\ActiveDirectory\*</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Active Directory Logons</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>NetwrixCloudNLASvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Logs\DataCollectionCore\NetwrixCloudNLASvc\*</code></p>
+
+                  <p><code>\NLA\Data\*</code></p>
+
+                  <p><code>\Logs\Archive\ DataCollectionCore\NetwrixCloudNLASvc\*</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>File Server Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>NetwrixCloudFSASvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Logs\DataCollectionCore\NetwrixCloudFSASvc\*</code></p>
+
+                  <p><code>\FileStorageAuditor\Data\*</code></p>
+
+                  <p><code>\Logs\Archive\DataCollectionCore\NetwrixCloudFSASvc\*</code></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="2_issue-specific_data_required">2. Issue-specific data required</h2>
+
+        <div>
+          <p>
+            Refer to the following table for data required to be provided in the escalation tickets
+            depending on the issue:
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>Make note of additionally requested files.
+          </p>
+        </blockquote>
+
+        <div class="table-wrap">
+          <table count-columns="2">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Issue</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <strong
+                      >Required data from <code>%ProgramData%\Netwrix Cloud Agent</code> and/or
+                      event logs</strong
+                    >
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>All types of issues</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\AgentCore\ConfigServer\Configuration.xml</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Agent authentication/connection issue</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Logs\CloudAgentCoreSvc\*</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <strong
+                      >Data collection status is Completed<br />
+                      Activities are stuck in the Cache folder</strong
+                    >
+                  </p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <code
+                      >\NAProcessor\Cache\*<br />
+                      \Logs\CloudAgentCoreSvc\*</code
+                    >
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Risk counters issue</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <code
+                      >\AgentCore\MetricsStorage\*<br />
+                      \Logs\CloudAgentCoreSvc\*</code
+                    >
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <strong
+                      >ADA connector<br />
+                      Data collection status is not Completed</strong
+                    >
+                  </p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <code
+                      >\AgentCore\ConfigServer\Status.xml<br />
+                      \Logs\CloudAgentCoreSvc\*<br />
+                      \Logs\ActiveDirectory\*<br />
+                      Netwrix Cloud Agent event log</code
+                    ><br />
+                    May additionally be requested by R&amp;D:<br />
+                    <code
+                      >\ShortTerm\AD Changes\STA\*<br />
+                      \Logs\DataCollectionCore\AgentDataCollectionCoreSvc\*<br />
+                      \Logs\Archive\ActiveDirectory\*
+                    </code>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <strong
+                      >NLA connector<br />
+                      Data collection status is not Completed</strong
+                    >
+                  </p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <code
+                      >\AgentCore\ConfigServer\Status.xml<br />
+                      \Logs\CloudAgentCoreSvc\*<br />
+                      \Logs\DataCollectionCore\NetwrixCloudNLASvc\*<br />
+                      Netwrix Cloud Agent event log</code
+                    ><br />
+                    May additionally be requested by R&amp;D:<br />
+                    <code
+                      >\NLA\Data\*<br />
+                      \Logs\Archive\DataCollectionCore\NetwrixCloudNLASvc\*</code
+                    >
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <strong
+                      >FSA connector<br />
+                      Data collection status is not Completed</strong
+                    >
+                  </p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>
+                    <code
+                      >\AgentCore\ConfigServer\Status.xml<br />
+                      \Logs\CloudAgentCoreSvc\*<br />
+                      \Logs\DataCollectionCore\NetwrixCloudFSASvc\*<br />
+                      Netwrix Cloud Agent event log</code
+                    ><br />
+                    May additionally be requested by R&amp;D:<br />
+                    <code
+                      >\FileStorageAuditor\Data\*<br />
+                      \Logs\Archive\DataCollectionCore\NetwrixCloudFSASvc\*</code
+                    >
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="3_raising_log_level">3. Raising log level</h2>
+
+        <div>
+          <p>
+            The default log level is <code>INFO</code>. Messages logged at this level are optimized
+            to troubleshoot the basic issues. You can enable other log levels—these are
+            <code>DBG</code>, <code>DBG2</code>, <code>DBG3</code> (i.e., from less verbose to more
+            verbose). Changing the required log level may be requested by the R&amp;D team to get
+            additional information. Refer to the following steps to change the log level:
+          </p>
+
+          <ol>
+            <li>
+              <p>Stop the target service. See the Table 3.</p>
+            </li>
+            <li>
+              <p>
+                Edit the <code>MaxSeverity</code> setting in the corresponding file. See the Table
+                4.
+              </p>
+            </li>
+            <li>
+              <p>Start the target service.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="table-wrap">
+          <table count-columns="3">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" width="30%">
+                  <p><strong>Agent part</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" width="30%">
+                  <p><strong>Target service name</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" width="40%">
+                  <p><strong>Service display name</strong></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Core infrastructure</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>CloudAgentCoreSvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>Netwrix Cloud Agent Core Service</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Active Directory Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>AgentDataCollectionCoreSvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>Netwrix Cloud Agent Data Collection Service</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Active Directory Logons</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>NetwrixCloudNLASvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>Netwrix Cloud Logon Activity Audit Service</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>File Server Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>NetwrixCloudFSASvc</code></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p>Netwrix Cloud File Storage Audit Service</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <p>
+            Refer to the following locations of <code>.ini</code> files used to change the log
+            level:
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table count-columns="2">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" width="30%">
+                  <p><strong>Agent part</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" width="70%">
+                  <p>
+                    <strong
+                      >File location in <code>C:\Program Files\Netwrix Cloud Agent</code></strong
+                    >
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Core infrastructure</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Agent Core\GlobalSettings.ini</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Active Directory Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Active Directory Auditing\GlobalSettings.ini</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Task manager for Active Directory Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Data Collection Core\GlobalSettings.ini</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>Active Directory Logons</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\Logon Activity Auditing\GlobalSettings.ini</code></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1">
+                  <p><strong>File Server Activity</strong></p>
+                </td>
+                <td colspan="1" rowspan="1">
+                  <p><code>\File Storage Auditing\GlobalSettings.ini</code></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+                  target="_self"
+                  >1Secure Troubleshooting Workflow</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html"
+                  target="_self"
+                  >1Secure − Unsuccessful Data Collection</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

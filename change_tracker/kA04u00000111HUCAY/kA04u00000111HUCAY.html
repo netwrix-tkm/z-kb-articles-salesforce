@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>File Is Being Used by Another Process Error in Netwrix Change Tracker</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111HUCAY" />
+    <meta name="Id" content="ka04u000001181EAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-29T16:51:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-02T09:26:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-29T16:51:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8833" />
+    <meta name="ArticleNumber" content="000008833" />
+    <meta
+      name="description"
+      content="File Is Being Used by Another Process in Netwrix Change Tracker"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted when attempting to run a report in Netwrix Change
+            Tracker:
+          </p>
+
+          <pre class="has-inner-focus">
+The process cannot access the file '%path_to_file%' because it is being used by another process.</pre
+          >
+
+          <p>
+            The <code>%path_to_file%</code> path may differ depending on the affected report. (E.g.,
+            <code
+              >C:\Windows\TEMP\1-11530090-NNT CIS Microsoft Windows Server 2012 R2 Benchmark - Level
+              2 Member Server.json</code
+            >.)
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The antivirus (AV) or endpoint detection and response (EDR) solution installed in your
+            environment is conflicting with Netwrix Change Tracker.
+          </p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Make sure the top-level folder of the affected path are excluded from the monitoring
+                scope of your AV or EDR solution to prevent further conflicts. This would apply to
+                real-time scans and backups. For the example path provided, it is recommended to
+                exclude <code>C:\Windows\TEMP</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Exclude Netwrix Change Tracker folders, services, and processes from the monitoring
+                scope of your AV and EDR. Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111HFCAY.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Change Tracker</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111HFCAY.html"
+              target="_self"
+              >Antivirus Exclusions for Netwrix Change Tracker</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

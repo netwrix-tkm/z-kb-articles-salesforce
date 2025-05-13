@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Linking Directory Manager Processes with Microsoft Flow</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015k1KAA" />
+    <meta name="Id" content="ka0Qk000000DS6XIAW" />
+    <meta name="LastPublishedDate" content="2025-04-24T20:30:32.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:27:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:17:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9167" />
+    <meta name="ArticleNumber" content="000009167" />
+    <meta name="description" content="MS Flow, Workflow, Custom, Connector, GroupID" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to trigger operations in Netwrix Directory Manager (formerly
+          GroupID) from Microsoft Flow (MS Flow). By linking Directory Manager operations to MS
+          Flow, you can automate tasks and simplify business functions, ensuring they are executed
+          in a set order without manual intervention.
+        </p>
+        <p>
+          Directory Manager supports moving groups between organizational units (OUs) or domains
+          within the identity store. By linking the <strong>Disable_User_Accounts</strong> flow in
+          MS Flow to the <strong>Move a Group to a Different Container</strong> function in
+          Directory Manager, groups with disabled owners can be automatically moved to a specified
+          container when the flow runs.
+        </p>
+        <p>
+          To achieve this, define a custom connector in MS Flow and use it within the
+          <strong>Disable_User_Accounts</strong> flow. This connector enables the following
+          operations in Directory Manager:
+        </p>
+        <ul>
+          <li>Create a user</li>
+          <li>Create a group</li>
+          <li>Expire a group</li>
+          <li>Update a Smart Group or Dynasty</li>
+          <li>Move a group to a different container</li>
+          <li>Renew a group</li>
+        </ul>
+        <p>Once linked, the configured operation is triggered automatically when the flow runs.</p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="step_1_create_a_custom_connector_in_microsoft_flow">
+          Step 1: Create a Custom Connector in Microsoft Flow
+        </h4>
+        <p>
+          Refer to the official Microsoft documentation to create a custom connector in MS Flow:
+          <a
+            href="https://docs.microsoft.com/en-us/connectors/custom-connectors/define-blank"
+            target="_blank"
+            >Create a Custom Connector from Scratch ⸱ Microsoft 🡥</a
+          >.
+        </p>
+        <p>
+          During setup, you must enter the <strong>Client ID</strong> and
+          <strong>Client Secret</strong> and import the
+          <strong>GroupIDConnector.swagger.json</strong> file.
+        </p>
+        <p>
+          <img
+            src="kA0Qk00000015k1KAA_a99f440f-88ab-44fa-ba8f-2fb8583b5a7a.png"
+            alt="Security page showing fields for Client ID and Client Secret"
+          />
+        </p>
+        <h4 id="step_2_retrieve_the_client_id_secret_and_swagger_file">
+          Step 2: Retrieve the Client ID, Secret, and Swagger File
+        </h4>
+        <ol>
+          <li>
+            In Directory Manager Management Console, click the
+            <strong>Identity Stores</strong> node.
+          </li>
+          <li>
+            On the <strong>Identity Stores</strong> tab, double-click the identity store you want to
+            link to MS Flow.
+          </li>
+          <li>
+            On the <strong>Workflow</strong> tab in identity store properties, click the
+            <strong>MS Flow</strong> link.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015k1KAA_423eb3e9-76f2-48bc-9c6e-49cb9e1838b8.png"
+            alt="Workflow tab showing Microsoft Flow link"
+          />
+        </p>
+        <ol start="4">
+          <li>
+            Click the copy button next to <strong>MS Flow Client ID</strong> to copy the client ID
+            to the clipboard then paste the ID in the <strong>Client ID</strong> box in MS Flow.
+          </li>
+          <li>
+            Click the copy button next to <strong>MS Flow Client Secret</strong> to copy the client
+            secret (password) to the clipboard and then paste this password in the
+            <strong>Client Secret</strong> box in MS Flow.
+          </li>
+          <li>
+            In addition, import the <strong>GroupIDConnector.swagger.json</strong> file from the
+            Directory Manager installation directory, located at:
+          </li>
+        </ol>
+        <p>
+          <code
+            >[Directory Manager installation directory]\Imanami\GroupID
+            11.0\Automate\GroupIDConnector\</code
+          >
+        </p>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE:</strong></span> The default path is
+            <code>C:\Program Files\Imanami\GroupID 11.0\Automate\GroupIDConnector\</code>. This path
+            may vary depending on your environment.
+          </p>
+        </blockquote>
+        <ol start="7">
+          <li>Complete the process to create the connector in MS Flow.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

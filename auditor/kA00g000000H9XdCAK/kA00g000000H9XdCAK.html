@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1079 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XdCAK" />
+    <meta name="Id" content="ka0Qk0000003hzhIAA" />
+    <meta name="LastPublishedDate" content="2024-05-07T08:35:39.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-10T13:12:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1133" />
+    <meta name="ArticleNumber" content="000003292" />
+    <meta
+      name="description"
+      content="This article applies to Netwrix Auditor 6.5 and below. It explains the nature of the Event ID and provides resolution."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Your SharePoint monitoring plan prompts the following error message under Event ID 1079
+            in Health Log:
+          </p>
+
+          <pre class="has-inner-focus">
+The Change Summary may include incomplete data as the data collection was still in progress when the report was sent.
+No data loss has occurred, the missing events will be listed in the next Change Summary and added to the database.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The data collection exceeded the predefined timeout period for its completion (1 hour by
+            default). The Activity Summary was generated while the data collection was still in
+            progress.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            No data loss has occurred. The next Activity Summary should contain the missing events.
+            Generate a new Activity Summary:
+          </p>
+
+          <ol>
+            <li>
+              <p>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select your SharePoint monitoring plan and click
+                <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>In the right pane, click <strong>Update</strong>.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

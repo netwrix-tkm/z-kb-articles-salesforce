@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Given Key Was Not Present in the Dictionary — ADFS</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110wMCAQ" />
+    <meta name="Id" content="ka04u00000116w8AAA" />
+    <meta name="LastPublishedDate" content="2023-07-26T08:00:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-28T08:56:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-26T08:00:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8689" />
+    <meta name="ArticleNumber" content="000008689" />
+    <meta name="description" content="Given Key Was Not Present in the Dictionary Error in ADFS" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error appears in your ADFS Health Log after upgrading the Windows OS on
+            your ADFS server:
+          </p>
+
+          <pre class="has-inner-focus">
+Failed to retrieve the state of windows feature.
+Reason: The given key was not present in the dictionary.</pre
+          >
+        </div>
+
+        <h2 id="diagnosing_the_issue">Diagnosing the issue</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Run the following command in PowerShell on your Auditor server to a target ADFS
+                server replacing <strong>%TARGET_NAME%</strong> with an actual target server name:
+              </p>
+
+              <pre class="has-inner-focus">Get-WindowsFeature -ComputerName %TARGET_NAME%</pre>
+            </li>
+            <li>
+              <p>The command returns the following error:</p>
+
+              <pre class="has-inner-focus">
+Get-WindowsFeature The given key was not present in the dictionary.
+CategoryInfo: NotSpecified: (:) [Get-WindowsFeature], KeyNotFoundException
+</pre
+              >
+
+              <p>The error indicates a Windows-related issue.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The cache
+                <code
+                  >HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager\ServicingStorage\ServerComponentCache</code
+                >
+                registry key was corrupted.
+              </p>
+            </li>
+            <li>
+              <p>
+                A faulty registry item is present in the XML file that is associated with the Group
+                Policy registry settings.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="solutions">Solutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Recreate the ServerComponentCache registry key:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Locate the
+                    <code
+                      >HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager\ServicingStorage\ServerComponentCache</code
+                    >
+                    registry key in Registry Editor on your ADFS server.
+                  </p>
+                </li>
+                <li>
+                  <p>Right-click the key and rename it to <code>ServerComponentCache.old</code>.</p>
+                </li>
+                <li>
+                  <p>
+                    Run the PowerShell command from your Auditor server again or refresh the view in
+                    Server Manager. This will recreate the key and rebuild the server feature
+                    information.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Re-create the Group Policy and registry settings. Learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/group-policy/cannot-run-group-policy-modeling-wizard"
+                  target="_blank"
+                  >Group Policy error: "The given Key was not present in the dictionary" ⸱ Microsoft
+                  🡥</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

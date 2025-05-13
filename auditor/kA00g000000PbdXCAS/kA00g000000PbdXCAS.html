@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Logon Prompt Extension deployment problems</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdXCAS" />
+    <meta name="Id" content="ka04u000000HcYHAA0" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1141" />
+    <meta name="ArticleNumber" content="000003792" />
+    <meta name="description" content="Logon Prompt Extension deployment problems" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Logon Prompt Extension is not being deployed via GPO
+        <hr />
+        There could be several different reason of such an issue, additional information is required
+        for the investigation.
+        <hr />
+        In order to further investigate the issue please allow GPO software installation logging as
+        per Microsoft KB -<a href="http://support.microsoft.com/kb/249621" target="_blank"
+          >http://support.microsoft.com/kb/249621</a
+        >:<br />1. On the problematic client computer launch regedit and navigate to the following
+        key : H<strong
+          >KEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Diagnostics
+        </strong>
+        You may have to create the Diagnostics registry subkey (in case it's not present)<br />2. In
+        Diagnostics key create new value: Type: DWORD Name:
+        <strong>AppMgmtDebugLevel </strong> Value: 4b (HEX)<br />3. Reproduce the issue - try to
+        install the Logon Prompt Extension via GPO.<br />4. Create new ticket on our site (<a
+          href="https://www.netwrix.com/support_ticket.html"
+          target="_blank"
+          >https://www.netwrix.com/support_ticket.html</a
+        >) and send diagnostic file <strong>%SystemRoot%\DebugUserMode\Appmgmt.log </strong
+        ><br /><strong>NOTE:</strong> We recommend that you delete the AppMgmtDebugLevel registry
+        value to avoid performance degradation after sending log files to us
+      </div>
+    </article>
+  </body>
+</html>

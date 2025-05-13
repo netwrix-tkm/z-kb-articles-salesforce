@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to migrate Netwrix Password Manager to another server</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9T5CAK" />
+    <meta name="Id" content="ka04u00000116RjAAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T11:49:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="599" />
+    <meta name="ArticleNumber" content="000003015" />
+    <meta name="description" content="Netwrix Password Manager migration new server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span><span>How to migrate Netwrix Password Manager to another server?</span></span>
+
+        <hr />
+
+        <span
+          ><span
+            >To migrate <span>Netwrix Password Manager </span>perfrom the following steps:</span
+          ></span
+        >
+        <ol>
+          <li>
+            <span><span>Install Netwrix Password Manager on a new server.</span></span>
+          </li>
+          <li>
+            <span><span>Then, stop the product service on the new server.</span></span>
+          </li>
+          <li>
+            <span><span>Stop the Netwrix Password Manager service on the old server </span></span>
+          </li>
+          <li>
+            <span
+              ><span
+                >Copy the following files from the Password Manager
+                <span>installation</span> directory on the old server to the same location on the
+                new server:
+              </span></span
+            >
+          </li>
+        </ol>
+        <ul>
+          <li>
+            <span><span>secrets.bin</span></span>
+          </li>
+          <li>
+            <span><span>alinfo.bin </span></span>
+          </li>
+          <li>
+            <span><span>PredefinedQuestions.txt (if you changed predefined questions)</span></span>
+          </li>
+          <li>
+            <span><span>Templates subfolder (if you cahnged notifications text)</span></span>
+          </li>
+        </ul>
+        <span
+          ><span
+            ><img
+              src="kA00g000000H9T5CAK_8fb76d9a-0ea4-48ac-afc2-11bd1c0470ee.png"
+              alt="User-added image"
+              width="500"
+              height="533" /></span
+        ></span>
+        <ol start="5">
+          <li>
+            <span><span>Start the Netwrix Password Manager service on the new server.</span></span>
+          </li>
+          <li>
+            <span
+              ><span
+                >Wait for several minutes to allow the service read the users enrollment data.</span
+              ></span
+            >
+          </li>
+          <li>
+            <span><span>Go to Administrative portal and apply license</span></span>
+          </li>
+          <li>
+            <span
+              ><span
+                >Make sure firewall is configured corretly o the new server to accept
+                connections</span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><strong>NOTE. </strong>If you use the Password Manager clients, change the Password
+            Manager server address in their settings.To do this, perform the following steps</span
+          ></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                >Navigate to <strong>Start - &gt; Group Policy Management</strong> Console snap-in.
+              </span></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                >Right-click the GPO created for Netwrix Password Manager and select
+                <strong>Edit</strong> from the popup menu.
+              </span></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                >In the dialog that opens, navigate to
+                <strong
+                  >Computer Configuration -&gt; Administrative Templates -&gt;
+                  &lt;Your_Password_Manager_Template&gt;</strong
+                >.
+              </span></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                >In the right pane, specify the new server URL in the
+                <strong>Password Manager Server URL</strong> entry field.</span
+              ></span
+            >
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

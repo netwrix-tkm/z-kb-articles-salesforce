@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>String or Binary Data Would Be Truncated Error in SQL</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111KOCAY" />
+    <meta name="Id" content="ka04u000001188oAAA" />
+    <meta name="LastPublishedDate" content="2023-10-10T11:27:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-10T11:27:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-10T11:27:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8851" />
+    <meta name="ArticleNumber" content="000008851" />
+    <meta name="description" content="String or Binary Data Would Be Truncated" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error is prompted upon a job performance in Netwrix StealthAUDIT:</p>
+
+          <pre class="has-inner-focus">
+String or binary data would be truncated in table 'NETWRIX_SA.dbo.SA_AIC_FlexibleResources', column 'ResourcePath'.
+Truncated value: '%value%'.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The characters limit for the <code>Resource</code> column has been reached.</p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <h4 id="expand_the_resourcepath_column">Expand the ResourcePath column</h4>
+
+        <div>
+          <p>Expand the affected column in the SQL database:</p>
+
+          <ol>
+            <li>
+              <p>
+                In your SQL server, launch <strong>Microsoft SQL Server Management Studio</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Connect to the SQL Server instance.</p>
+            </li>
+            <li>
+              <p>Click <strong>New Query</strong>.</p>
+            </li>
+            <li>
+              <p>Select the database to run the query against (e.g., <code>NETWRIX_SA</code>).</p>
+            </li>
+            <li>
+              <p>Use the following query to expand the column:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">ALTER TABLE SA_AIC_Flexibleresources ALTER COLUMN ResourcePath NVARCHAR (1600);</code></pre>
+            </li>
+            <li>
+              <p>Execute the query and save the changes.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="expand_other_affected_column">Expand other affected column</h4>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span><code>nvarchar</code> in the query stands for
+              the data type. Unless the target column is of the <code>nvarchar</code> data type, the
+              query will return an error.
+            </p>
+          </blockquote>
+
+          <p>
+            You can manually edit the character limit for the column. Refer to the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In your SQL server, launch <strong>Microsoft SQL Server Management Studio</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Connect to the SQL Server instance.</p>
+            </li>
+            <li>
+              <p>Based on the error prompted, locate the affected table:</p>
+
+              <ul>
+                <li>
+                  E.g., in <code>NETWRIX_SA.dbo.SA_AIC_FlexibleResources</code>,
+                  <code>NETWRIX_SA</code> stands for the database, and
+                  <code>dbo.SA_AIC_FlexibleResources</code> stands for the table in the databased.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Expand the table node, locate and expand the <strong>Columns</strong> folder to find
+                the affected column.
+              </p>
+            </li>
+            <li>
+              <p>Right-click the affected column and click <strong>Modify</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Data Type</strong> column of the affected column, edit the value in
+                round brackets. Save the changes.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>For the performance purposes, it is recommended
+            to use the exact value required. Alternatively, the <code>MAX</code> value can be used,
+            although it might take up an unnecessary large amount of storage (up to 2 GB).
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

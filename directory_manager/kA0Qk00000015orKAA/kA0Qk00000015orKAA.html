@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Uninstall Directory Manager</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015orKAA" />
+    <meta name="Id" content="ka0Qk0000006YdJIAU" />
+    <meta name="LastPublishedDate" content="2025-04-25T19:00:11.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-25T19:00:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:29:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9170" />
+    <meta name="ArticleNumber" content="000009170" />
+    <meta name="description" content="Uninstall Directory Manager" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to uninstall previous versions of Netwrix Directory Manager
+          (formerly GroupID) to upgrade to the latest version. It also provides instructions for
+          completely removing Directory Manager from your machine.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>
+          The steps below guide you through uninstalling Directory Manager for an upgrade and
+          completely removing it from your machine.
+        </p>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>Before you uninstall Directory Manager,
+            ensure that the logged-in user is a member of the local Administrators group on the
+            machine. Make sure the Directory Manager portal is fully closed before you begin the
+            uninstall process.
+          </p>
+        </blockquote>
+        <h4 id="uninstall_directory_manager_to_upgrade_to_a_newer_version">
+          Uninstall Directory Manager to Upgrade to a Newer Version
+        </h4>
+        <ol>
+          <li>
+            Double-click the <strong>setup.exe</strong> file in the Directory Manager installation
+            package to launch the Directory Manager Installer.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015orKAA_e278afa5-af52-436a-8b48-d0cdb697315a.png"
+            alt="Directory Manager Installer main screen with Uninstall Directory Manager option"
+          />
+        </p>
+        <ol start="2">
+          <li>
+            Click <strong>Uninstall Directory Manager</strong> to remove the application files via
+            <strong>Programs &amp; Features</strong> in Control Panel.
+          </li>
+          <li>Proceed with the upgrade to the newer version of Directory Manager.</li>
+          <li>
+            Click the <strong>Install Directory Manager</strong> link on the Directory Manager
+            Installer to install the latest version.
+          </li>
+          <li>
+            After installation, run the Upgrade wizard to make earlier version data compatible with
+            the new version.
+          </li>
+        </ol>
+        <h4 id="completely_uninstall_directory_manager_from_the_machine">
+          Completely Uninstall Directory Manager from the Machine
+        </h4>
+        <ol>
+          <li>
+            Click <strong>Uninstall Directory Manager</strong> on the Directory Manager Installer to
+            uninstall the application files from your computer.
+          </li>
+          <li>
+            Remove the following components to ensure complete uninstallation:
+            <ul>
+              <li>Directory Manager installation directory</li>
+              <li>Other relevant directories</li>
+              <li>Directory Manager DLLs</li>
+              <li>Registry keys</li>
+              <li>Services files</li>
+              <li>Directory Manager application pool</li>
+              <li>Directory Manager certificates</li>
+            </ul>
+          </li>
+        </ol>
+        <h4 id="remove_the_directory_manager_installation_directory">
+          Remove the Directory Manager Installation Directory
+        </h4>
+        <ol>
+          <li>
+            On the Directory Manager machine, navigate to
+            <code class="lang-Registry">X:\Program Files\Imanami</code> (where X represents the
+            installation drive).
+          </li>
+          <li>
+            Delete the directory named <strong>Directory Manager [version]</strong> (for example,
+            Directory Manager 11).
+          </li>
+        </ol>
+        <h4 id="remove_other_relevant_directories">Remove Other Relevant Directories</h4>
+        <ol>
+          <li>
+            On the Directory Manager machine, right-click the Windows button and select
+            <strong>Run</strong>.
+          </li>
+          <li>
+            When the dialog box populates, type
+            <code class="lang-Registry">%ALLUSERSPROFILE%\Imanami</code> and enter.
+          </li>
+          <li>
+            From the location referenced in the command, delete the
+            <strong>Directory Manager</strong> folder.
+          </li>
+        </ol>
+        <h4 id="remove_directory_manager_dlls">Remove Directory Manager DLLs</h4>
+        <ol>
+          <li>
+            On the Directory Manager machine, navigate to
+            <code class="lang-Registry">C:\Windows</code>.
+          </li>
+          <li>
+            Search for all DLL files with names starting with <strong>Netwrix</strong>. You can find
+            the files by typing <code class="lang-Registry">Netwrix*.dll</code> in the Windows
+            Explorer Search box.
+          </li>
+          <li>Delete these files.</li>
+        </ol>
+        <h4 id="remove_registry_keys">Remove Registry Keys</h4>
+        <ol>
+          <li>On the Directory Manager machine, open <strong>Registry Editor</strong>.</li>
+          <li>Delete the following registry key (for Directory Manager 11):</li>
+        </ol>
+        <pre class="has-inner-focus">
+HKEY_LOCAL_MACHINE\SOFTWARE\Imanami\GroupID\Version 11.0
+</pre
+        >
+        <h4 id="remove_directory_manager_services_files">
+          Remove Directory Manager Services Files
+        </h4>
+        <ol>
+          <li>
+            On the Directory Manager machine, navigate to
+            <code class="lang-Registry"
+              >C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Temporary ASP.NET Files</code
+            >.
+          </li>
+          <li>Delete the <strong>root</strong> folder.</li>
+        </ol>
+        <h4 id="remove_portal_files">Remove Portal Files</h4>
+        <ol>
+          <li>
+            Open the Internet Information Services (IIS) console by typing
+            <code class="lang-Registry">inetmgr</code> in the Windows <strong>Run</strong> dialog
+            box.
+          </li>
+          <li>
+            Under the <strong>GroupIDSite</strong> node in the console tree, locate the portals you
+            have created using the portal names.
+          </li>
+          <li>
+            Delete each portal by right-clicking it and selecting <strong>Remove</strong> from the
+            shortcut menu.
+          </li>
+          <li>
+            After removing the portals, navigate to
+            <code class="lang-Registry"
+              >C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Temporary ASP.NET Files</code
+            >.
+          </li>
+          <li>Delete each portal folder one by one.</li>
+        </ol>
+        <h4 id="remove_the_directory_manager_application_pool">
+          Remove the Directory Manager Application Pool
+        </h4>
+        <ol>
+          <li>
+            Open the Internet Information Services (IIS) console by typing
+            <code class="lang-Registry">inetmgr</code> in the Windows <strong>Run</strong> dialog
+            box.
+          </li>
+          <li>
+            Expand the <strong>&lt;machine name&gt;</strong> node in the console tree and click
+            <strong>Application Pools</strong>.
+          </li>
+          <li>
+            On the Application Pools page, delete <strong>Directory Manager App Pool 11</strong> and
+            all other pools that start with <strong>GroupID11_GroupIDSite11</strong> prefixes.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015orKAA_ff2b530e-4999-4507-95a7-5e74bb2575f5.png"
+            alt="IIS Application Pools page with Directory Manager App Pool 11 selected"
+          />
+        </p>
+        <h4 id="remove_directory_manager_certificates">Remove Directory Manager Certificates</h4>
+        <ol>
+          <li>
+            Open the Internet Information Services (IIS) console by typing
+            <code class="lang-Registry">inetmgr</code> in the Windows <strong>Run</strong> dialog
+            box.
+          </li>
+          <li>
+            Click the <strong>&lt;machine name&gt;</strong> node in the console tree. On the
+            <strong>Features View</strong> tab, select <strong>Server Certificates</strong> in the
+            <strong>IIS</strong> section.
+          </li>
+          <li>
+            Delete these certificates bound to <strong>GroupIDSite</strong> (the site deploying
+            Directory Manager Data Service):
+            <ul>
+              <li>GroupIDSecurityService</li>
+              <li>Netwrix Directory Manager Certificate</li>
+            </ul>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>Do not remove these certificates if
+            another Directory Manager version is installed on the machine.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

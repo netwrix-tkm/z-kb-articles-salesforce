@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Migrate Netwrix Auditor Working Folder to a New Location</title>
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PcOLCA0" />
+    <meta name="Id" content="ka0Qk0000002sltIAA" />
+    <meta name="LastPublishedDate" content="2024-01-16T14:05:00.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-16T07:39:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-27T14:50:30.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5799" />
+    <meta name="ArticleNumber" content="000005799" />
+    <meta
+      name="description"
+      content="This article explains how to move migrate Netwrix Auditor working folder to a new location with a specially designed utility."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to move the Netwrix Auditor Working Folder to a new location?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The size of your Working Folder may grow significantly (up to 1 TB) depending on the
+            workload, especially during activity peaks. If your system drive capacity is limited,
+            you might want to keep the temporary files and trace logs on another drive, i.e. change
+            the Working Folder default location.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Netwrix Auditor has two file storages used for
+              different purposes:
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  Long-Term Archive, a repository of collected audit data stored in proprietary
+                  Netwrix format (activity records). Audit data is kept in the Long-Term Archive for
+                  10 years as per default settings. The default Long-Term Archive location is
+                  <code>%ProgramData%\Netwrix Auditor\Data</code>. For more information on setting
+                  Long-Term Archive up, refer to the following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/LongTermArchive.htm"
+                    target="_self"
+                    >Netwrix Auditor Settings – Long-Term Archive · v10.6</a
+                  >.
+                </p>
+
+                <p>
+                  If you would like to move Long-Term Archive to another location, refer to the
+                  following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SSCA0.html"
+                    target="_self"
+                    >How to Move Long-Term Archive to a New location</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Working Folder, a repository for Netwrix Auditor to store operational information
+                  (configuration files for product components, log files, and other data). To ensure
+                  the audit trail continuity, Netwrix Auditor also caches some audit data locally in
+                  the Working Folder prior to placing it to the Long-Term Archive or any audit
+                  database. Audit data is kept in the Working Folder for a shorter period of up to
+                  several weeks. The default Working Folder location is
+                  <code>%ProgramData%\Netwrix Auditor\</code>.
+                </p>
+              </li>
+            </ul>
+          </blockquote>
+        </div>
+
+        <h4 id="planning_and_preparation">Planning and preparation</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                To track your current Working Folder capacity and estimate the disk space you will
+                need on the new target drive, use the <b>Working Folder</b> widget of the Health
+                Status dashboard. Refer to the following articles for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/Dashboard/Overview.htm"
+                  target="_self"
+                  >Netwrix Auditor Operations and Health − Health Status Dashboard · v10.6</a
+                >
+                and
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eZCAS.html"
+                  target="_self"
+                  >How to Check the Netwrix Auditor Health Status</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Working Folder can be stored only locally on the Netwrix server — prepare a
+                local folder for the migration process. Make sure the target folder location differs
+                from the Long-Term Archive location.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span> Network shares are not supported.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                To run the <code>WorkingFolderMigration.exe</code> utility, the current account must
+                be a member of the local <b>Administrators</b> group.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="working_folder_migration_procedure">Working Folder migration procedure</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Navigate to
+                <code>%Netwrix Auditor installation folder%\Audit Intelligence</code> and launch the
+                <code>WorkingFolderMigration.exe</code> utility.
+              </p>
+            </li>
+            <li>
+              <p>Specify the target folder in the <b>Specify new destination</b> field.</p>
+
+              <div>
+                <img
+                  alt="User-added image"
+                  height="313"
+                  src="kA00g000000PcOLCA0_8d98113a-645f-47a9-adb0-b0241dc60eed.png"
+                  width="500"
+                />
+              </div>
+
+              <blockquote>
+                <p>
+                  <b><span>IMPORTANT: </span></b>Network shares are not supported − make sure the
+                  new Working Folder destination is a local folder.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Click <b>Migrate</b>. All temporary data from
+                <code>%ProgramData%\Netwrix Auditor\</code> will be copied to the specified target
+                folder.
+              </p>
+            </li>
+            <li>
+              <p>
+                Wait for the migration process to complete. Your final screen should look like the
+                following screenshot in case the migration process was completed correctly:
+              </p>
+
+              <div>
+                <img
+                  alt="wf_migration.png"
+                  height="322"
+                  src="kA00g000000PcOLCA0_d023a1bd-a51d-4a01-87a1-0d184bc3f1da.png"
+                  width="502"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            If the migration process was completed successfully, proceed to steps described in
+            <b>Scenario A</b>.
+          </p>
+
+          <p>
+            In case any error occurs during the migration process, the Working Folder contents will
+            remain in the original location. The final screen might look like the following
+            screenshot:
+          </p>
+
+          <div>
+            <img
+              alt="User-added image"
+              height="310"
+              src="kA00g000000PcOLCA0_7f5fd603-8681-4dc2-a3ae-23dd55c441d5.png"
+              width="500"
+            />
+          </div>
+
+          <p>
+            In case the migration process was not completed successfully, follow the steps described
+            in <b>Scenario B</b>.
+          </p>
+        </div>
+
+        <h4 id="post-migration_actions_−_scenario_a">Post-migration actions − Scenario A</h4>
+
+        <div>
+          <p>If migration was completed successfully, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                Take 1 to 2 days to verify the new configuration — make sure there are no related
+                errors in the Netwrix Auditor Health log.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once you have verified the proper operation, open the source location (original
+                Working Folder) to remove old trace logs. Locate the following folders:
+              </p>
+
+              <ul>
+                <li><code>%ProgramData%\Netwrix Auditor\Logs\Archive</code></li>
+                <li><code>%ProgramData%\Netwrix Auditor\AuditCore\Logs</code></li>
+                <li><code>%ProgramData%\Netwrix Auditor\ShortTerm</code></li>
+                <li><code>%ProgramData%\Netwrix Auditor\SyslogCollection</code></li>
+                <li><code>%ProgramData%\Netwrix Auditor\FileStorageAuditor</code></li>
+              </ul>
+            </li>
+            <li>
+              <p>Make a backup copy of the contents, then remove these folders</p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span> The
+              <code>%ProgramData%\Netwrix Auditor\AuditCore</code> folder data other than trace logs
+              usually does not occupy much space. If you do have to have this folder cleared, it is
+              recommended to double-check and back up the contents before the cleanup.
+            </p>
+          </blockquote>
+        </div>
+
+        <h4 id="post-migration_actions_−_scenario_b">Post-migration actions − Scenario B</h4>
+
+        <div>
+          <p>If migration was completed with any errors, refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                <strong>In the source location</strong> − Keep all source files as is in the source
+                location (original Working Folder). Do not delete them from the source folder.
+                Netwrix Auditor will continue working using the original folder files.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><b>IMPORTANT:</b></span> Netwrix Auditor configuration changes only after a
+                  successful migration. Otherwise, if any error occurs, the configuration remains
+                  the same with the original Working Folder path preserved. Keep all files in the
+                  original location for Netwrix Auditor to be able to use that folder.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                <strong>In the target location</strong> − As the Netwrix Auditor configuration does
+                not change in case of unsuccessful migration, you can safely remove the files found
+                in the target location. After that you can run the migration utility once again. In
+                case errors still occur during the migration process, contact Netwrix Technical
+                Support:
+                <a href="https://www.netwrix.com/tickets.html#/open-a-ticket" target="_blank"
+                  >Open a Ticket · Netwrix 🡥</a
+                >
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles_and_links">Related articles and links</h2>
+
+        <ul>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/LongTermArchive.htm"
+                target="_self"
+                >Netwrix Auditor Settings – Long-Term Archive · v10.6</a
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SSCA0.html"
+                target="_self"
+                >How to Move Long-Term Archive to a New location</a
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/Dashboard/Overview.htm"
+                target="_self"
+                >Netwrix Auditor Operations and Health − Health Status Dashboard · v10.6</a
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eZCAS.html"
+                target="_self"
+                >How to Check the Netwrix Auditor Health Status</a
+              >
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="https://www.netwrix.com/tickets.html#/open-a-ticket" target="_blank"
+                >Open a Ticket · Netwrix 🡥</a
+              >
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

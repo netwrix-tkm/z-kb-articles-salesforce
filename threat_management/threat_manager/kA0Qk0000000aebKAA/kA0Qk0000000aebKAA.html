@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Exception While Connecting Error During Installation</title><meta name="label" content="employees_v"/><meta name="label" content="threat_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000aebKAA"/><meta name="Id" content="ka0Qk000000DNmnIAG"/><meta name="LastPublishedDate" content="2024-04-23T10:15:12.000+0000"/><meta name="LastModifiedDate" content="2025-04-23T18:16:54.000+0000"/><meta name="FirstPublishedDate" content="2024-04-23T10:15:12.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9123"/><meta name="ArticleNumber" content="000009123"/><meta name="description" content="Exception While Connecting Error During Installation"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>The PostgreSQL installation wizard prompts the following error:</p>
+
+<pre class="has-inner-focus">Creating Default User
+Exception while Connecting
+Retry Installer Action?</pre>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>Security measures in your environment block the Netwrix-based PostgreSQL (PSQL) installation wizard from executing.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Perform the following steps to deploy PostgreSQL in your environment.</p>
+
+<ol><li>
+	<p>Download the native PostgreSQL v14 installer: <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads" target="_blank">Download PostgreSQL · EnterpriseDB 🡥</a>.</p>
+	</li><li>
+	<p>Run the installation wizard as an administrator.</p>
+	</li><li>
+	<p>Install PostgreSQL to <code>Program Files\Stealthbits\PostgreSQL14</code>.</p>
+	</li><li>
+	<p>Select the data directory in <code>ProgramData\Stealthbits\PostgreSQL14</code>.</p>
+	</li><li>
+	<p>Specify port <strong>5435</strong>.</p>
+	</li><li>
+	<p>Set the password to this: <code>StealthDEFEND1234!!</code></p>
+	</li><li>
+	<p>Once the installer prompts the error, perform the following steps:</p>
+
+	<p><span><strong>IMPORTANT: </strong></span>Verify the drive letter in both lines.</p>
+
+	<ol><li>
+		<p>On the server, run a non-elevated Command Prompt.</p>
+		</li><li>
+		<p><code>Chdir</code> to <code>Program Files\Stealthbits\PostgreSQL14\bin</code>.</p>
+		</li><li>
+		<p>Run the following line:</p>
+
+		<pre class="has-inner-focus"><code class="lang-Registry">initdb -D "x:\ProgramData\Stealthbits\PostgreSQL14 -E UTF8 -U postgres"</code></pre>
+
+		<p>Start the database:</p>
+
+		<pre class="has-inner-focus"><code class="lang-Registry">postgres -D "x:\ProgramData\Stealthbits\PostgreSQL14"</code></pre>
+		</li></ol>
+	</li><li>
+	<p>Create a service account for Threat Manager to interact with the database. In an elevated Command Prompt, run the following lines:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">"psql.exe -U postgres"</code></pre>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">CREATE ROLE stealthbits LOGIN PASSWORD 'StealthDEFEND1234!!' superuser inherit createdb createrole replication;</code></pre>
+
+	<blockquote>
+	<p><span><strong>NOTE: </strong></span>Refer to the default path for <code>psql.exe</code>:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\Stealthbits\PostgreSQL14\bin\psql.exe</code></pre>
+	</blockquote>
+	</li><li>
+	<p>Download TimescaleDB for PSQL v14 in <a href="https://docs.timescale.com/self-hosted/latest/install/" target="_blank">Install TimescaleDB · Timescale 🡥</a>.</p>
+	</li><li>
+	<p>Extract the <code>.zip</code> contents. In the target folder, run the following line in an elevated Command Prompt:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">setup.exe -pgconfig “x:\Program Files\Stealthbits\PostgreSQL14\pg_config.exe" -no-tune -wait-before-exit=false</code></pre>
+
+	<p><span><strong>IMPORTANT: </strong></span>Verify the drive letter in the <code>pg_config.exe</code> path.</p>
+	</li><li>
+	<p>Stop the PSQL database by pressing <code>Ctrl+C</code> in the PSQL Command Prompt window.</p>
+	</li><li>
+	<p>Modify the <code>postgresql.conf</code> file located in <code>x:\Program Files\Stealthbits\PostgreSQL14\</code>. Refer to the list of modifications below.</p>
+	</li><li>
+	<p>Once the modifications are introduced, create the PSQL service. In an elevated Command Prompt, <code>Chdir</code> to <code>Program Files\Stealthbits\PostgreSQL14\bin</code> and run the following line:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">pg_ctl.exe register -N "PostgreSQL" -U "NT AUTHORITY\NetworkService" -D " x:\ProgramData\Stealthbits\PostgreSQL14" -w</code></pre>
+
+	<p>Once created, run the PSQL service.</p>
+	</li><li>
+	<p>Install Netwrix Threat Manager.</p>
+	</li></ol>
+</div>
+
+<h4 id="appendix_modifications_to_the_postgresqlconf_file">Appendix: Modifications to the postgreSQL.conf File</h4>
+
+<div>
+<pre class="has-inner-focus"><code class="lang-Registry">port = 5435
+listen_addresses = '*'
+shared_preload_libraries = 'timescaledb'
+wal_level = logical
+checkpoint_timeout = 30min
+wal_buffers = 16MB
+max_wal_size = 2048MB
+min_wal_size = 1024MB
+checkpoint_completion_target = 0.7
+max_connections = 100
+default_statistics_target = 100
+max_worker_processes = 8
+max_parallel_workers_per_gather = 2
+max_locks_per_transaction = 300
+#Add the following at the very bottom under custom settings:
+timescaledb.max_background_workers = 8
+timescaledb.last_tuned = '2022-11-09T14:35:44PM-06:00'
+timescaledb.last_tuned_version = '0.11.0'
+timescaledb.telemetry_level = off
+#The following need to be calculated manually
+effective_cache_size = 24455MB              #(Total Server Memory (MBs) * .75)
+shared_buffers = 512MB                      #(totalMemory / 4 or 512MB max for windows OS)
+work_mem = 54MB                             #Use formula and a minimum of 64KB: ((totalMemory - shared_buffers) / (max_connections * 3) max_parallel_workers_per_gather)
+maintenance_work_mem = 2038MB               #(totalMemory / 16 with a maximum of 2038MB)
+random_page_cost = 1.1                      #(1.1 if installed on a SSD or 4 if on HDD)</code></pre>
+</div>
+
+<h2 id="related_articles">Related Articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads" target="_blank">Download PostgreSQL · EnterpriseDB 🡥</a></p>
+	</li><li>
+	<p><a href="https://docs.timescale.com/self-hosted/latest/install/" target="_blank">Install TimescaleDB · Timescale 🡥</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

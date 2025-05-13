@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Automatic user enrollment failed: Not found (404)</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9biCAC" />
+    <meta name="Id" content="ka04u00000116c8AAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:14:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1377" />
+    <meta name="ArticleNumber" content="000003540" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when Netwrix Password Manager returns the following error message: Automatic user enrollment failed: Not found (404)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The following error occurs after installation of Password Manager.
+        <img
+          src="kA00g000000H9biCAC_48e324cd-c4ad-455e-b03a-b1feb22aa9bc.png"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        The error occurs because the client cannot connect to the Password Manager portals by the
+        specified URL. The 404 error code means that there are no portals at the specified URL.
+
+        <hr />
+
+        Reconfigure the client to connect to the server via the correct URL (should point to
+        Password Manager Self-service portal) The URL is determined by the PRM_server registry value
+        located in the following registry keys (by priority)
+        <ol>
+          <li>HKLMSoftware[Wow6432Node]PoliciesNetWrixPassword Manager</li>
+          <li>
+            HKLMSoftware[Wow6432Node]NetWrixPassword Manager Self-Service client (is used if there
+            is no value in the 1st key)
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9biCAC_af62a454-ad12-4602-aee5-4a1e2cf1f9de.png"
+          alt="User-added image"
+          width="500"
+          height="304"
+        />
+      </div>
+    </article>
+  </body>
+</html>

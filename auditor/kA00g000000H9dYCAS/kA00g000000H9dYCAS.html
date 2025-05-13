@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How I can change the trace log path on the audited SQL Server?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dYCAS" />
+    <meta name="Id" content="ka04u000000HcWJAA0" />
+    <meta name="LastPublishedDate" content="2022-04-18T18:04:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2773" />
+    <meta name="ArticleNumber" content="000003654" />
+    <meta
+      name="description"
+      content="SQL Server Auditing - How to specify the path to SQL Server trace logs."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        To change the log path on the audited SQL Server, perform the following:
+        <ol>
+          <li>
+            Navigate to the <b>SQL Server Auditing </b>collector directory (by default C:\Program
+            Files (x86)\Netwrix Auditor\SQL Server Auditing).
+          </li>
+          <li>Open the "<b>pathstotracelogs</b>.txt" file for editing.</li>
+          <li>
+            Populate this file with UNC path where you want the trace logs to be stored on your SQL
+            Servers. (You can check the current log path by executing the following command: SELECT
+            * FROM sys.fn_trace_getinfo(NULL) WHERE property=2)
+          </li>
+        </ol>
+        Syntax: <b>SQLServerInstance|UNC path </b><br />For example: serverinstance|C:\Program
+        Files\Microsoft SQL Server\MSSQL\LOG<br /><b>NOTE</b>: Replace "SQLServer" with the SQL
+        server machine name. Replace "Instance" with the SQL server instance name.<br /> 
+      </div>
+    </article>
+  </body>
+</html>

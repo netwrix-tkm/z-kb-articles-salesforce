@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_SIEntManager_5.0.0.753</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IgrCAE" />
+    <meta name="Id" content="ka04u000000HctSAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6928" />
+    <meta name="ArticleNumber" content="000006928" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Message: AD Shared
+          memory IPC overflow
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong>Message: AD Shared memory IPC overflow<br /><b
+            ><i>Before fix:</i></b
+          >
+          When some script generates a big number of AD Modify events which has no attributes or has
+          only attributes which are configured to be thrown away then AD Monitor still send these
+          events to Shared Memory buffer which fills this buffer and causing loosing events.<br /><strong
+            ><i><span>After fix: </span></i></strong
+          ><em
+            ><span
+              >Events which have no attributes are useless and thrown away by the SIAgent. Therefore
+              it doesn't make any sense to put them to the shared memory buffer. So, new noise
+              reduction rule is added to filter these events on AD Monitor side.</span
+            ></em
+          ><br /><strong><span>Submitted by: </span></strong><br />Maxim Sidarau<br /><strong
+            ><span>Affected Versions:</span></strong
+          ><br />3.4.0      No Patch created at this time<br />3.4.1      No Patch created at this
+          time<br />3.4.2      No Patch created at this time<br />4.0.0      No Patch created at
+          this time<br />4.1.0      No Patch created at this time<br />5.0.0     
+          SIWindowsAgent_SIEntManager_5.0.0.753_SI-3486<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Windows Agent<br />SI - Enterprise Manager<br /> <br /><strong
+            ><span>Dev Ticket:</span></strong
+          ><br />I-3496<br /><strong><span>Resolved in Version:</span></strong
+          ><br />5.0.0.753<br /><strong><span>KB Type: </span></strong><br />Hotfix<br /> <br /><b
+            >Escalations: </b
+          >23978<br /><b>Customers:  </b>John Deere Company<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> The following
+          modules should be patched:<br /> <br />* SI Enterprise Manager<br />* SI Windows Agent<br /> <br />Applying
+          patch for Enterprise Manager:<br />1. Stop 'SIEnterpriseManager' service.<br />2. Extract
+          files from attached 'SIEnterpriseManager' folder to the C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIEnterpriseManager folder<br />3. Start
+          'SIEnterpriseManager' service<br /> <br />Applying patch for SI Windows Agent:<br />1.
+          Stop SIWindowsAgent service<br />2. Extract attached archive to the "C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Start SIWindowsAgent
+          service<br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIWindowsAgent_SIEntManager_5.0.0.753_SI-3486.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIWindowsAgent_SIEntManager_5.0.0.753_SI-3486.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Enterprise Manager;SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3486<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.0.0.753<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1868<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

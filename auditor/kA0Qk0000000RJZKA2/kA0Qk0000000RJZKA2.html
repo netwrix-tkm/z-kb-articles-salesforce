@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor System Health Log Contains Event IDs 1015 and 1016</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000RJZKA2" />
+    <meta name="Id" content="ka0Qk0000002cfVIAQ" />
+    <meta name="LastPublishedDate" content="2024-03-15T11:32:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-15T11:32:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-02-07T15:29:56.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9046" />
+    <meta name="ArticleNumber" content="000009046" />
+    <meta
+      name="description"
+      content="Netwrix Auditor System Health Log Contains Event IDs 1015 and 1016"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            The corresponding item shows a Ready status after restarting the Netwrix Auditor for
+            Windows Server Compression Service on a target server running Windows Server 2019.
+            However, when clicking the <b>Update</b> option, next to the monitoring plan, the item
+            shows <b>Take Action</b>.
+          </p>
+
+          <p>
+            In addition, the <b>Netwrix Auditor System Health</b> log contains the following event
+            IDs:
+          </p>
+
+          <div>
+            <code
+              >Event ID 1016: Windows Registry audit permissions are not enabled for this server.
+              Adjust Windows Registry audit permissions automatically or manually.</code
+            >
+          </div>
+
+          <p><br />and</p>
+
+          <div>
+            <code
+              >Event ID 1015: Multiple errors of the same type have occurred on the Registry data
+              provider.</code
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The <b>Everyone</b> group should have permission to access the necessary registry keys
+            rather than the data collection service account.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Grant the necessary permissions to access the registry keys to the
+            <b>Everyone</b> group.
+          </p>
+
+          <p>
+            Review the complete list of the required registry keys and learn more about configuring
+            permissions in the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/WindowsRegistry.htm"
+              target="_blank"
+              >Data Source Configuration — Configure Windows Registry Audit Settings — v10.6</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

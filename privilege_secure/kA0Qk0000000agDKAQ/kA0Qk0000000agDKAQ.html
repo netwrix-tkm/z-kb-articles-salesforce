@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Long Provisioning Times in Privilege Secure</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000agDKAQ"/><meta name="Id" content="ka0Qk00000030czIAA"/><meta name="LastPublishedDate" content="2024-04-23T10:40:59.000+0000"/><meta name="LastModifiedDate" content="2024-04-23T12:11:18.000+0000"/><meta name="FirstPublishedDate" content="2024-04-23T10:40:59.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9124"/><meta name="ArticleNumber" content="000009124"/><meta name="description" content="Long Provisioning Times"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>The provisioning stage in Netwrix Privilege Secure (NPS) takes over 30 seconds to complete.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>The WinRM HTTP setting set in <strong>Global Settings</strong> is <strong>Use HTTPS if available</strong> or <strong>Use HTTPS only</strong>. During the provisioning stage, NPS attempts to configure a secure connection via HTTPS. In case no certificate is availble, NPS switches to HTTP.</p>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Refer to the following steps to verify the HTTP setting:</p>
+
+<ol><li>
+	<p>In the main NPS window, select the <strong>Configuration</strong> tab.</p>
+	</li><li>
+	<p>In the left pane, select <strong>System Settings</strong> &gt; <strong>Global Settings</strong>.</p>
+	</li><li>
+	<p>In the <strong>Global Settings</strong> view, review the <strong>WinRM HTTP Setting</strong> value set.</p>
+	</li></ol>
+</blockquote>
+</div>
+
+<h2 id="resolutions">Resolutions</h2>
+
+<div>
+<p>Refer to the following options to decrease the provisioning times:</p>
+
+<ul><li>
+	<p>Switch the WinRM HTTP setting to <strong>Use HTTP</strong>.</p>
+	</li><li>
+	<p>Generate a new self-signed SSL certificate, or import a custom SSL certificate for the resource. Refer to the following article for additional information: <a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.1/page/Content/PrivilegeSecure/AccessManagement/Admin/Policy/Window/Resources/ConfigureSecureWinRMConnection.htm" target="_blank">Resources Page — Configure Secure WinRM Connection Window · v4.1</a>.</p>
+	</li></ul>
+</div>
+
+<h2 id="related_articles">Related articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.1/page/Content/PrivilegeSecure/AccessManagement/Admin/Policy/Window/Resources/ConfigureSecureWinRMConnection.htm" target="_blank">Resources Page — Configure Secure WinRM Connection Window · v4.1</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Find SQL Connection Information if your Customer Doesn't Know It</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IOtCAM"/><meta name="Id" content="ka04u000000HcmGAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:45:24.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:06:31.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:45:24.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7391"/><meta name="ArticleNumber" content="000007391"/><meta name="description" content="360008408371"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> For troubleshooting purposes, it may become necessary to reconfigure a storage profile without knowledge of the back-end database server. This article describes one way to recover that information when the end user doesn't have the information.</p>
+<p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Customer has a need to create storage profile from scratch without knowing their SQL Server or Instance names. This can become necessary as a result of a SA Vault Service reset (as happened in some versions of the upgrade from 7.2 to 8.2), since SA Vault Service removes the SPProfiles.XML file when configured.</p>
+<p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> If StealthAUDIT is running with DEBUG level logging enabled, any recent job logs for jobs containing enabled a SQLScripting analysis tasks will record connection string information.<br/>Steps:</p>
+<ol><li>Locate a job in the tree with an analysis task that uses the SQL Scripting Analysis Module</li><li>Open the Job Log</li><li>Search for Data Source=
+<ol><li>Following the equal sign will be the SQL Server\Instance:port</li></ol>
+</li><li>Search for Initial Catalog=
+<ol><li>Following the equal sign will be the database name</li></ol>
+</li><li>For security there will be one of two entries
+<ol><li>Windows Authentication will appear as: Integrated Security=True;</li><li>SQL Authentication will appear as:  Persist Security Info=True</li><li>SQL Authentication will also show the username being used as well as asterisks representing the password
+<ol><li>User ID={YourUsername};Password=*********</li></ol>
+</li></ol>
+</li></ol>
+<p> If the end user does not know the SQL Authentication password, they should now at least be able to escalate to someone who can help recover it.</p>
+<p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA - Core;SA - DC - SQL<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 6.3+<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 2323</p></div>
+</article></body></html>

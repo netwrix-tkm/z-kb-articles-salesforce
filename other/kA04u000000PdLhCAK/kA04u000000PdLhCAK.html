@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Security, Certificates and Permissions</title><meta name="label" content="password_reset_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000PdLhCAK"/><meta name="Id" content="ka04u000001168XAAQ"/><meta name="LastPublishedDate" content="2021-07-13T19:32:20.000+0000"/><meta name="LastModifiedDate" content="2023-06-14T10:27:15.000+0000"/><meta name="FirstPublishedDate" content="2021-07-13T19:32:20.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5895"/><meta name="ArticleNumber" content="000005895"/><meta name="description" content="Security, Certificates and Permissions"/></head><body><article class=" kb-articles"><div class="Content__c"><div class="ControlZone ControlZone--clean a_a_50a7110f" id="1212fc8d-dd6b-408a-8d5d-9f1cc787efbb">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div>
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<div>
+<div>
+<p>Netwrix Password Reset has many in-built security features, but there are some things you should do to secure the product. The most important of these is to install an <span>SSL certificate</span> for the Web Interface. You can also set up a standard user account with <span>delegated permissions</span> for the Netwrix Password Reset Server.</p>
+
+<h3 id="installing-and-using-an-ssl-certificate">Installing and Using an SSL Certificate</h3>
+
+<p>The Web Interface and the Server always communicate over a secure channel. You do not have to configure the encryption for this connection, but you do need to set up SSL (Secure Sockets Layer) encryption for the connection between the web browser (or <span>Password Reset Client</span>) and the web server.</p>
+
+<blockquote>
+<div><span><strong>NOTE</strong></span>. Do not use Netwrix Password Reset on a production network without SSL encryption.</div>
+</blockquote>
+
+<p>You can use a self-signed certificate with Netwrix Password Reset, but most organizations purchase certificates from a certificate authority. You can install the Web Interface on a server that already has an SSL certificate if you would rather not purchase another one.</p>
+
+<p>Your certificate authority will have instructions to guide you through the certificate request and installation process. You can also learn more about using SSL certificates with IIS on these two pages: </p>
+
+<ul><li><a href="https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis" target="_blank">How to Set Up SSL on IIS 7 or later</a></li><li><a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc732230(v=ws.10)?redirectedfrom=MSDN" target="_blank">Configuring Server Certificates in IIS 7</a></li></ul>
+
+<blockquote>
+<div><span><strong>NOTE</strong></span>. Ensure that users only access Netwrix Password Reset  over an encrypted connection after the SSL certificate is installed. The Start address and Restricted path in the Password Reset Client configuration should start with https://. Web browsers can be redirected to the secure URL.</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="a5c06874-3db4-4786-9783-7ea063fba6c1">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div>
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<div>
+<h3 id="delegating-permissions-to-the-apr-server-service">Delegating Permissions to the Netwrix Password Reset Server Service</h3>
+
+<p>When the Setup wizard creates a service account for the Server, it adds the account to the Domain Admins group. This allows Netwrix Password Reset to start working without additional configuration, but it also gives the service excessive permissions. You can improve security by removing the service account from the Domain Admins group and granting only the required permissions.</p>
+
+<p>You can grant Active Directory permissions from the command-line with dsacls.exe, or with the graphical user interface. The examples below use the command-line, but you can use either method. The commands you need to execute are:</p>
+
+<pre>dsacls "[object]" /I:S /G "[account]:CA;Reset Password;user"
+dsacls "[object]" /I:S /G "[account]:RPWP;lockoutTime;user"
+dsacls "[object]" /I:S /G "[account]:RPWP;pwdLastSet;user"</pre>
+
+<p>Where [object] is the distinguished name of the domain or OU containing the user accounts, and [account] is the name of the service account in user@domain or domain\user format.</p>
+
+<p>The first two commands allow Netwrix Password Reset to reset passwords and unlock accounts. Both commands are required even if the Unlock item is hidden from the menu because the product automatically unlocks an account when its password is reset. The third command allows to set "User must change password at next logon" in Active Directory if the <strong><span>Require users to change their password after a reset </span></strong>option is enabled in the Configuration Console's <strong><span>Security </span></strong>tab.</p>
+
+<p>For example, the following command grants the axs\apr account permission to reset passwords for users in the axs.net domain:</p>
+
+<pre>dsacls "dc=axs,dc=net" /I:S /G "axs\apr:CA;Reset Password;user"</pre>
+
+<p>If Netwrix Password Reset is configured to use an SQL Server Compact database, then give the service account read and write permissions to the <span>database files</span>.</p>
+
+<p>Remove the service account from the Domain Admins group and restart the service after executing these commands. Check the Windows Application event log if the service does not start.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="cb74e24c-a031-4f76-bfdc-8034cac64739">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div>
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<div>
+<h4 id="using-delegated-permissions-with-protected-groups">Using Delegated Permissions with Protected Groups</h4>
+
+<p>When you delegate permissions for the Netwrix Password Reset service account, the delegated permissions are initially applied to all users in the domain or OU. After some time, Windows restores the original permissions for some important user accounts. The restored permissions do not allow to reset passwords or unlock accounts for these users.</p>
+
+<p>The accounts protected by this feature vary by Windows version, and include members of the Domain Admins, Enterprise Admins, and Schema Admins groups. The list of protected groups is configurable, so it may differ from the defaults in the Windows documentation.</p>
+
+<p>If you are using a service account with delegated permissions and do not want these privileged accounts to reset their password or unlock their account with Netwrix Password Reset, then there is no need to make any configuration changes. Windows automatically restores the original permissions for these accounts. This is done every hour by default.</p>
+
+<p>If you want to allow these users to reset their password and unlock their account with Netwrix Password Reset, then you need to change the permissions for the AdminSDHolder container. The commands you need to execute are:</p>
+
+<pre>dsacls "[AdminSDHolder]" /G "[account]:CA;Reset Password"
+dsacls "[AdminSDHolder]" /G "[account]:RPWP;lockoutTime"
+dsacls "[AdminSDHolder]" /G "[account]:RPWP;pwdLastSet"</pre>
+
+<p>Where [AdminSDHolder] is the distinguished name of the AdminSDHolder container, and [account] is the name of the service account in user@domain or domain\user format.</p>
+
+<p>The DN of the AdminSDHolder container for the anixis.net domain is CN=AdminSDHolder,CN=System,DC=anixis,DC=net</p>
+
+<blockquote>
+<div><strong><span>NOTE</span></strong>. Changes to the AdminSDHolder container are not applied to accounts immediately. You may need to wait up to an hour for Windows to update the DACL for these accounts. You can also start the process manually. Search for runProtectAdminGroupsTask or FixUpInheritance in Microsoft's documentation or more information.</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</article></body></html>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor Configuration Server Service Fails to Start — Too Many Methods to Fire Events
+      From
+    </title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoMPCA0" />
+    <meta name="Id" content="ka04u00000117L8AAI" />
+    <meta name="LastPublishedDate" content="2023-08-23T15:10:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-24T09:58:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-06T15:03:33.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8607" />
+    <meta name="ArticleNumber" content="000008607" />
+    <meta name="description" content="An interface has too many methods to fire events from" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Netwrix Auditor Configuration Server Service stopped. When attempting to restart the
+                service, it stops again with the following message in Netwrix Auditor System Health
+                log: 
+              </p>
+
+              <pre class="has-inner-focus">
+Windows could not start the Netwrix Auditor Configuration Server Service service on Local Computer.
+Error 0x80040209: An interface has too many methods to fire events from.</pre
+              >
+
+              <div>
+                <img
+                  height="182"
+                  src="kA04u000000PoMPCA0_46c93b01-aaf4-4c97-bd66-a3d74a21e515.png"
+                  width="401"
+                />
+              </div>
+
+              <p>Other services are running as expected.</p>
+
+              <div>
+                <img
+                  height="424"
+                  src="kA04u000000PoMPCA0_10debf1b-60ff-4b58-99cc-51f946aa6da7.png"
+                  width="650"
+                />
+              </div>
+            </li>
+            <li>
+              <p>The following error is prompted in the main Netwrix Auditor screen:</p>
+
+              <pre class="has-inner-focus">
+Connection failed
+Access is denied</pre
+              >
+
+              <div>
+                <img
+                  height="361"
+                  src="kA04u000000PoMPCA0_30746f7d-a115-41dd-b2a7-9ecce1957398.png"
+                  width="649"
+                />
+              </div>
+
+              <p>
+                Upon checking Services running, Netwrix Auditor Configuration Server Service appears
+                to have stopped. When attempting to restart the service, the same error is prompted.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            Any of the following potential causes may lead to corruption of the configuration server
+            status file:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                The C drive of the Netwrix Auditor server has reached or is running out of its
+                capacity.
+              </p>
+            </li>
+            <li>
+              <p>
+                Unexpected shutdown of the Netwrix Auditor server (e.g. due to the power outage).
+              </p>
+            </li>
+            <li>
+              <p>
+                Cross-program interaction (e.g. antivirus software blocks an operation performed by
+                Netwrix Auditor).
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to troubleshoot the issue:</p>
+        </div>
+
+        <ol>
+          <li>
+            <p>
+              Back up the ConfigServer folder located in
+              <code>%Working Folder%\AuditCore\ConfigServer</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Delete all files in the original ConfigServer folder except for the StorageBackups
+              folder and the Configuration.xml file.
+            </p>
+
+            <div>
+              <img
+                alt="3.png"
+                height="565"
+                src="kA04u000000PoMPCA0_caeb5795-b2c3-46b8-b29b-1ee6ebacc615.png"
+                width="650"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Restart Netwrix Auditor Configuration Server Service.</p>
+          </li>
+          <li>
+            <p>
+              Make sure the following services are running (including all the monitoring
+              plan-related services):
+            </p>
+
+            <ul>
+              <li>
+                <p>Netwrix Auditor Core Service.</p>
+              </li>
+              <li>
+                <p>Netwrix Auditor Archive Service.</p>
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <div>
+          <p>
+            In case the aforementioned steps did not help, refer to the following steps to
+            troubleshoot the issue:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Back up the ConfigServer folder located in
+                <code>%Working Folder%\AuditCore\ConfigServer</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Delete all files in the original ConfigServer folder except for the StorageBackups
+                folder. It is located in <code>%Working Folder%\AuditCore\ConfigServer</code>.
+              </p>
+
+              <div>
+                <img
+                  height="565"
+                  src="kA04u000000PoMPCA0_c58c5455-5c68-435e-9c42-717f24cc03b5.png"
+                  width="650"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Copy the Configuration.xml file from the latest
+                <strong>BACKUP_%DATE%</strong>\%GUID% folder.
+              </p>
+
+              <div>
+                <img
+                  height="565"
+                  src="kA04u000000PoMPCA0_6825e8f3-23c3-419c-a01c-1c7067f08ae4.png"
+                  width="650"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                Paste the copied Configuration.xml file to
+                <code>%Working Folder%\AuditCore\ConfigServer</code>.
+              </p>
+            </li>
+            <li>
+              <p>Restart Netwrix Auditor Configuration Server Service.</p>
+            </li>
+            <li>
+              <p>
+                Make sure the following services are running (including all the monitoring
+                plan-related services):
+              </p>
+
+              <ul>
+                <li>
+                  <p>Netwrix Auditor Core Service.</p>
+                </li>
+                <li>
+                  <p>Netwrix Auditor Archive Service.</p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>If these steps did not help, try using the
+              Configuration.xml file from the second to the last
+              <strong>BACKUP_%DATE%</strong>\%GUID% folder. Paste the file to
+              <code>%Working Folder%\AuditCore\ConfigServer</code> and restart Netwrix Auditor
+              services.
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <img
+            height="565"
+            src="kA04u000000PoMPCA0_bc5a4e8e-e3e0-4d7f-8e57-25692d7a36e8.png"
+            width="650"
+          />
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If the issue reoccurs after some time, contact
+            <a href="https://www.netwrix.com/open_a_ticket.html" target="_blank"
+              >Netwrix Technical Support</a
+            >.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

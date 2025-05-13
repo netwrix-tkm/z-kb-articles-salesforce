@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>File Servers — Security Descriptor of File Share Is Empty</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110sKCAQ" />
+    <meta name="Id" content="ka04u000000ww8EAAQ" />
+    <meta name="LastPublishedDate" content="2023-07-24T08:39:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-17T09:16:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-17T09:24:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8667" />
+    <meta name="ArticleNumber" content="000008667" />
+    <meta name="description" content="security descriptor of the file share is empty" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Your event log contains following entries for your Windows File Servers:</p>
+
+          <pre class="has-inner-focus">
+Source:File Storage Audit Service
+Event ID:6131
+Snapshot processing for the server %SERVERNAME% completed with errors:
+Object: \\%SERVERNAME%\%FILESHARENAME%, Error: 0x80049611 The security descriptor of the file share is empty</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The error indicates the file share Netwrix Auditor is trying to access does not have
+            security permissions assigned to it. The issue occurs when the security settings for the
+            file share are misconfigured or corrupted.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Restart your file server. A restart can resolve permission-related issues — try
+                restarting the server to check if the error persists.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the share permissions. Ensure the share permissions are properly configured:
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Right-click the affected shared folder, select <strong>Properties</strong>, and
+                    navigate to the <strong>Sharing</strong> tab.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click the <strong>Advanced Sharing</strong> button to verify the correct
+                    permissions are set for the intended users (e.g., the data collection account)
+                    or groups.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Verify NTFS permissions. NTFS permissions control access to the files and folders
+                within the shared folder.
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Right-click the affected shared folder, select <strong>Properties</strong>, and
+                    navigate to the <strong>Security</strong> tab.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Ensure the appropriate users (e.g., the data collection account) or groups have
+                    the sufficient permissions to access the files.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Verify the file share path. Log in to the Netwrix Auditor server using the data
+                collection account for the File Server monitoring plan and try accessing the
+                affected file server.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

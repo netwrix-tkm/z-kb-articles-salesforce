@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rolling-Log Fix: "Couldn't get credentials for remote platform discovery on"</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcUCAU" />
+    <meta name="Id" content="ka04u000000HdAQAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T01:00:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8306" />
+    <meta name="ArticleNumber" content="000008306" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This problem can occur if the NNT Gen 7 Agents ProxiedDevices.json file does not
+          automatically update its fields with the proxy device you have configured on the console.
+        </p>
+        <div class="">
+          <div class="table-wrap">
+            <table count-columns="1" class="">
+              <tbody>
+                <tr>
+                  <td colspan="" rowspan="" class="">
+                    <div class="">
+                      <div class="">
+                        <pre class="">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:                                                      #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2019-11-19 09:40:54,551 [9] INFO  Message - Hub connection failed  (403 Server message: Invalid Permission)
+2019-11-19 09:40:54,551 [9] INFO  Message - Couldn't get credentials for remote platform discovery on 1,28 HostNameOrIp: ORCL. Returning a default platform with OSType.Unspecified
+2019-11-19 09:40:54,552 [9] INFO  Message - task 370 - DeviceConfigTask-28 cannot execute, cannot discover proxied device platform details: 1,28 HostNameOrIp: ORCL
+2019-11-19 09:40:54,559 [9] INFO  Message - Entering configuration problem state for 28. Retry at: 19/11/2019 09:43:24</pre
+                        >
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h2 id="">How to Fix</h2>
+        <ul>
+          <li>
+            <p>Remote onto the NNT Gen 7 Agent device you are using to proxy.</p>
+          </li>
+          <li>
+            <p>Navigate into:</p>
+          </li>
+        </ul>
+        <p><strong>Windows: </strong>C:\ProgramData\NNT\gen7agent.service</p>
+        <p><strong>Linux: </strong>/var/nnt/gen7agent.service</p>
+        <ul>
+          <li>
+            <p>Stop the <strong>nntgen7agent </strong>service from running on the server.</p>
+          </li>
+          <li>
+            <p>Edit the <strong>ProxiedDevices.json</strong> file.</p>
+          </li>
+          <li>
+            <p>
+              Within the [] brackets, you will need to manually fill in the proxy devices details,
+              please view the example below:
+            </p>
+          </li>
+        </ul>
+        <p>
+          On the Change Tracker Console, please edit the proxy device in question to view its
+          details:
+        </p>
+        <span class=""><img class="" width="" src="" /> </span>
+        <p>Now looking at the console, you can fill out the details as seen below:</p>
+        <p>
+          <em
+            ><strong>NOTE: </strong>The AgentID &amp; DeviceID of the proxy device can be found in
+            the rolling log file.</em
+          >
+        </p>
+        <p>
+          [{"AgentId":"1","DeviceId":"28","DeviceName":"ORCL","PollPeriodSeconds":30,"PingTimeoutSeconds":15,"HostType":"Database","HostNameOrIp":"ORCL"}]
+        </p>
+        <ul>
+          <li>
+            <p>
+              Once you have entered the details of the proxy device manually, please save the file.
+            </p>
+          </li>
+          <li>
+            <p>Start the <strong>nntgen7agent</strong> service.</p>
+          </li>
+          <li>
+            <p>
+              Now, please check to see if the proxy device appears online on the Change Tracker
+              Console and it operates as expected.
+            </p>
+          </li>
+        </ul>
+        <p />
+        <p />
+        <h2 id="">Related articles</h2>
+        <p />
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to Backup / Restore / Move your MongoDB Database</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Monitoring Oracle Databases using Change Tracker</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+        </ul>
+        <br /><b>Attachments:</b><br /><a href="" target="_blank">image-20191119-100938.png</a>
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

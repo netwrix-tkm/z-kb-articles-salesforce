@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How Reports from User Activity Video Recorder resolve host names</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PdIsCAK" />
+    <meta name="Id" content="ka04u000000HdF0AAK" />
+    <meta name="LastPublishedDate" content="2021-07-02T14:18:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-07-02T14:18:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5881" />
+    <meta name="ArticleNumber" content="000005881" />
+    <meta
+      name="description"
+      content="How Reports from User Activity Video Recorder resolve host names"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <b>Question</b>: When I check reports, the server name is shown differently as when I try to
+        resolve its' name using the DNS server. How does User Activity Video Recorder resolve host
+        names?<br /><b>Answer:</b> First of all, the UAVR Agent looks locally in the hosts file of
+        the server (located in "C:\Windows\System32\drivers\etc" folder). You can also check the
+        Name resolution by utilizing this command in PowerShell on the monitored server:
+        <pre class="ckeditor_codeblock">[System.Net.Dns]::GetHostEntry("127.0.0.1").HostName</pre>
+        The resulting name will match the name of the server in the UAVR report. If there is no
+        record for 127.0.0.1-localhost on the server, the DNS server will be polled for the name.
+      </div>
+    </article>
+  </body>
+</html>

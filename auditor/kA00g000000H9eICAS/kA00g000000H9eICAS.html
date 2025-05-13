@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      The conceptServiceViewer application fails to show the current service statuses after
+      installation
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eICAS" />
+    <meta name="Id" content="ka04u000000HcX1AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3540" />
+    <meta name="ArticleNumber" content="000003700" />
+    <meta
+      name="description"
+      content="The conceptServiceViewer application fails to show the current service statuses after installation"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Typically an <strong>error</strong> similar to the below is logged to the "<strong
+          >Concept</strong
+        >
+        <strong>Searching</strong>" <strong>Event</strong><strong>Viewer</strong> log:
+        <p>
+          Error: System.Exception: This schema for this assembly has not been registered with WMI.
+          at System.Management.Instrumentation.Instrumentation.Initialize(Assembly assembly) at
+          System.Management.Instrumentation.Instrumentation.GetInstrumentedAssembly(Assembly
+          assembly) at System.Management.Instrumentation.Instrumentation.GetFireFunction(Type type)
+          at System.Management.Instrumentation.BaseEvent.get_FireFunction() at
+          System.Management.Instrumentation.BaseEvent.Fire()
+        </p>
+        The specified <strong>error </strong>can occur when the initial
+        <strong>installation</strong> is completed with an <strong>account</strong> does not have
+        <strong>local administration</strong> <strong>rights</strong>.
+        <ol>
+          <li>
+            Ensure that the <strong>account</strong> specified to run each <strong>Windows</strong>
+            <strong>service</strong> is configured as a <strong>local</strong
+            ><strong>administrator</strong>:
+            <ol>
+              <li>
+                Open the "<strong>Run"</strong> window by clicking the "<strong>Start"</strong>
+                button and then clicking "<strong>Run"</strong>
+              </li>
+              <li>
+                In the <strong>Run</strong> window, type "<strong>services.msc"</strong> and then
+                click <strong>OK</strong>
+              </li>
+              <li>
+                Locate each <strong>Windows </strong>service (conceptCollector, conceptIndexer, and
+                conceptClassifier)
+              </li>
+              <li>
+                Ensure that each <strong>user</strong> specified as the "<strong>Log on as</strong>"
+                value is a <strong>local administrator</strong>
+              </li>
+            </ol>
+          </li>
+          <li><strong>Restart</strong> the <strong>Server</strong></li>
+          <li>
+            <strong>Logon </strong>as the specified service account (or, another
+            <strong>local administrator</strong>)
+          </li>
+          <li>
+            <strong>Re-run</strong> the <strong>conceptInstaller application</strong> and run a
+            <strong>"Repair" </strong>operation
+          </li>
+        </ol>
+        <b>Making the user a local administrator on Server 2016 computer:</b>
+        <ol>
+          <li>Click <strong>Start</strong> &gt; <strong>Server Manager</strong></li>
+          <li>
+            On the upper-right corner of the <strong>Server</strong>
+            <strong>Manager</strong> dashboard page, click <strong>Tools</strong> &gt;
+            <strong>Computer Management</strong>
+          </li>
+          <li>
+            In the navigation pane of the <strong>Computer Management</strong> page, expand "<strong
+              >Local Users and Groups"</strong
+            >, and then click "<strong>Users"</strong>
+          </li>
+          <li>
+            From the <strong>users</strong> list, right-click the <strong>user</strong> to which you
+            want to assign <strong>administrator</strong>rights, and click
+            <strong>Properties</strong>
+          </li>
+          <li>Click the <strong>Member Of tab</strong>, and click <strong>Add</strong></li>
+          <li>
+            On the "<strong>Select Group"</strong> page, type <strong>"Administrators"</strong>, and
+            then click <strong>OK</strong>.
+          </li>
+          <li>Click <strong>Apply </strong>and <strong>OK</strong>.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

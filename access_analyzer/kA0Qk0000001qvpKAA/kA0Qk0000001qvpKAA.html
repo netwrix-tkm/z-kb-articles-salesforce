@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Drop Data for Decommissioned File Servers</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001qvpKAA" />
+    <meta name="Id" content="ka0Qk000000CNs5IAG" />
+    <meta name="LastPublishedDate" content="2025-01-08T23:14:02.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-20T18:33:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-01-08T23:14:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9365" />
+    <meta name="ArticleNumber" content="000009365" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            I have decommissioned a file server, and we no longer need the data in the Netwrix
+            Enterprise Auditor (NEA) database. How do I remove it from both the NEA Console and
+            Database?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT: </strong></span>Be careful when applying this
+              query task, as it results in the deletion of collected data. Ensure proper
+              configuration prior to job execution. Also, before following the steps below, it is
+              best practice to remove the host from the host list (as shown in
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000IPDCA2.html"
+                target="_self"
+                >How to Remove Servers from Host Lists</a
+              >) to prevent the rescanning of the same hosts.
+            </p>
+          </blockquote>
+          <ol>
+            <li>
+              <p>
+                Create a new job in NEA by selecting <strong>Job &gt; Create A New Job</strong> from
+                the top taskbar.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    This can also be done by right-clicking
+                    <strong>any Job folder in the job tree</strong> and selecting
+                    <strong>Create New Job</strong>.
+                  </p>
+                </li>
+              </ul>
+              <blockquote>
+                <p>
+                  <span class="Note"><strong>NOTE: </strong></span>It is recommended to add the job
+                  to a <strong>Sandbox folder</strong>, if available.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Name the job <strong>DropFSHostData</strong>.</p>
+            </li>
+            <li>
+              <p>
+                If the server cannot be pinged, deselect the
+                <strong>Skip Hosts that do not respond to the PING</strong> box by following the
+                steps below:
+              </p>
+              <ul>
+                <li>
+                  <p>Right-click the newly-created <strong>DropFSHostData</strong> Job.</p>
+                </li>
+                <li>
+                  <p>Select <strong>Properties</strong>.</p>
+                </li>
+                <li>
+                  <p>Click the <strong>Performance</strong> tab.</p>
+                </li>
+                <li>
+                  <p>
+                    Deselect the
+                    <strong>Skip Hosts that do not respond to the PING</strong> box.<br /><img
+                      src="kA0Qk0000001qvpKAA_c93edc69-c12c-41e4-8786-70fb4544d122.png"
+                      alt=""
+                      width="493"
+                      height="503"
+                    /> 
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Navigate to <strong>Configure &gt; Queries</strong> under the new job.</p>
+            </li>
+            <li>
+              <p>Select <strong>Create Query</strong>.</p>
+            </li>
+            <li>
+              <p>
+                On the Data Source tab, use the dropdown to set the Data Collector to
+                <strong><code>FILESYSTEMACCESS</code></strong
+                >, then hit <strong>Configure</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                On the Query Selection page of the File System Access Auditor Data Collector Wizard,
+                select the option for <strong>Remove host data</strong> under the
+                <strong>Maintenance section</strong>, and then click
+                <strong>Finish</strong>.<br /><img
+                  src="kA0Qk0000001qvpKAA_fcf19e89-fd6a-4f98-9a28-4b72abbee1e0.png"
+                  alt="#6.png"
+                  width="687"
+                  height="503"
+                />
+                 
+              </p>
+            </li>
+            <li>
+              <p>Next, navigate to <strong>Configure &gt; Analysis</strong> under the new job.</p>
+            </li>
+            <li>
+              <p>Select <strong>Create Analysis</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Set the Analysis Module to <strong>SQL scripting</strong>, then hit
+                <strong>Configure Analysis</strong>.
+              </p>
+              <ul>
+                <li>
+                  <p>Set the Table Name to <strong>SA_FSAA_Hosts</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Use the SQL script: <code>SELECT * from [SA_FSAA_Hosts]</code>.<br /><img
+                      src="kA0Qk0000001qvpKAA_915bff77-c369-46f8-a79f-ac382302ebe9.png"
+                      alt="#9.png"
+                      width="687"
+                      height="353"
+                    /> 
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After saving and closing the analysis, right-click <strong>the analysis</strong> and
+                select <strong>Execute Analyses</strong>.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    This will list all the File System hosts in the NEA database under the Results
+                    node of the job.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Navigate to <strong>Configure &gt; Hosts</strong> under the new job and under the
+                Individual Hosts panel, add <strong>the File Server(s) to be removed</strong>.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Enter <strong>the name as it appears in the Host column</strong> in the FSAA
+                    Hosts table.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After setting the hosts, right-click <strong>the job</strong> and select
+                <strong>Schedule</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the Schedule wizard, select <strong>Options</strong> from the steps menu, and
+                then click <strong>Finish</strong>.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    There is no need to add a trigger or schedule this job to run repeatedly, but it
+                    is recommended to be run from <strong>the Schedule's node</strong>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After the job is scheduled, navigate to the Schedules node, then right-click
+                <strong>the DropFSHostData</strong> and select <strong>Run</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the job is complete, check the <strong>FSAA Hosts table</strong> under
+                <strong>DropFSHostData &gt; Results</strong> to confirm it was removed.
+              </p>
+            </li>
+            <li>
+              <p>
+                After confirming the host has been properly removed from the database, remove
+                <strong>the server from the Host Lists</strong>.
+              </p>
+            </li>
+          </ol>
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT: </strong></span>If this job returns a
+              time-out error, then you may refer to the following article to resolve it:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001qxRKAQ.html"
+                target="_self"
+                >!REMOVED-...Host Name in AIC and/or FSAA Host Table</a
+              >.
+            </p>
+          </blockquote>
+          <h2 id="related_articles">Related Articles</h2>
+          <div>
+            <ul>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000IPDCA2.html"
+                  target="_self"
+                  >How to Remove Servers from Host Lists</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001qxRKAQ.html"
+                  target="_self"
+                  >!REMOVED-...Host Name in AIC and/or FSAA Host Table</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

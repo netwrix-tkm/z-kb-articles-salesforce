@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWebReports_4.0.0.654</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IhaCAE" />
+    <meta name="Id" content="ka04u000000HctiAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:28:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:28:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6945" />
+    <meta name="ArticleNumber" content="000006945" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI Web Reports
+          allows you to Delete a Public Report; SI Web Report Public Parameters are Global, not by
+          user or session; Favorite report disappears after pressing "refresh" button
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong>
+        </p>
+        <ul>
+          <li>SI-3220 13196 - SI Web Reports allows you to Delete a Public Report</li>
+          <li>
+            SI-3221 13197 - SI Web Report Public Parameters are Global, not by user or session
+          </li>
+          <li>I-1625 Favorite report disappears after pressing "refresh" button</li>
+        </ul>
+        <b><i>Before fix: </i></b>
+        <ul>
+          <li>User is able to delete the Public report as a non-owner.</li>
+          <li>
+            When Parameters are changed on a public report, they are set Globally. This causes
+            others who are viewing the report to get unexpected results if they Refresh their view
+            of the report.
+          </li>
+          <li>Favorite report disappears after pressing "refresh" button</li>
+        </ul>
+        <strong
+          ><i><span>After fix: </span></i></strong
+        >
+        <ul>
+          <li>
+            Deletion of Public report is available only for report owner and for Administrator
+            (Administrator role in Win Console).
+          </li>
+          <li>Parameters configurationfor public report can be changed globally only by:</li>
+        </ul>
+        - Report owner (report user role in Win Console)<br />- Administrator (administrator role in
+        Win Console).<br />For these users changes in report configuration are saved in DB. One
+        instance of parameters for one report.<br />All other users have local configuration of
+        parameters inside Web App session. These parameters are not saved in DB and expire after WR
+        user session is closed (or by 3 day timer). One instance of parameters per report per user.
+        <ul>
+          <li>Favorite reports are stored after Refreshing</li>
+        </ul>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Stop
+          services:<br />                - SIReportingService<br />                -
+          SISchedulerService<br />2. Stop IIS.<br />3. Replace by attached files:<br />-
+          SIReports\ReportingConsole\ClientBin\SLReportingPages.xap<br /> -
+          SIReports\ReportingServices\SI.Services.Reporting.Implementation.dll<br />4. Start IIS.<br />5.
+          Start services:<br />                - SIReportingService<br />                -
+          SISchedulerService<br />6. Clean all browser history  (IE -&gt; Internet options - &gt;
+          Browsing history)<br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <colgroup>
+              <col width="64" />
+            </colgroup>
+            <tbody>
+              <tr height="20">
+                <td colspan="1" rowspan="1" class="xl65" height="20" width="64">
+                  http://downloads.stealthbits.com/access/files/SIHotFixes/SI4.0/SIWebReports_4.0.0.654_SI-3220_SI-3221_I-1625.ZIP
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Web Reporting<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          4.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3220, SI-3221<br /><strong
+            ><span class="wysiwyg-font-size-large">Resolved In:</span></strong
+          >
+          4.0.0.654<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1441<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "RegistryTrackerDataCollector - check the agent process has the required
+      permissions to access the registry key. The specified registry key does not exist."
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JXICA2" />
+    <meta name="Id" content="ka04u000000Hd99AAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:50:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8210" />
+    <meta name="ArticleNumber" content="000008210" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   															Example Message:																										  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2017-10-02 09:14:38,759 [9] ERROR RegistryTrackerDataCollector - check the agent process has the required permissions to access the registry key. (HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\ExampleService\Parameters, error: The specified registry key does not exist.)
+
+</pre
+            >
+          </div>
+        </div>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>What Does It Mean?</span></strong>
+        </h2>
+        <p>
+          This error occurs when you have your configuration template in Change Tracker looking to
+          track a registry key and the agent cannot access the registry key because it is not found
+          or it does not have proper permissions.
+        </p>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>How Can I Fix This / Should I Worry?</span></strong>
+        </h2>
+        <p>
+          If you are receiving this for a registry key that actually does not exist, then no, do not
+          worry. If you are using one template to track multiple agents, and some agents do have the
+          key, while others dont, it is not a problem to let it track this key. The only caution to
+          have with this is the amount of keys it is looking for. If the template grows
+          exponentially, having a large volume of these errors may cause performance issues,
+          however, in most cases, it is perfectly fine.
+        </p>
+        <p><br /></p>
+        <p>
+          If you are positive the registry key exists, but are getting this error, do the following
+        </p>
+        <ol>
+          <li>
+            Check your configuration template. Is it looking for the key in the same place you have
+            placed the file?
+          </li>
+          <li>
+            Is this a registry key that is in different places on different servers? if so, please
+            define all of the potential spots in the template.
+          </li>
+          <li>
+            Does this agent have special permissions that do not allow it to access the registry? If
+            so, adjust the permissions to allow this.
+          </li>
+        </ol>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <span>In most cases, you can simply ignore this error as it is not harmful.</span>
+          </div>
+        </div>
+        <h2 id="Rolling-LogFix:">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8302" target="_blank"
+                >Support for TLS 1.2 in the .NET Framework 3.5.1</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8285" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8265" target="_blank"
+                >Change Tracker ‚Äì How to Create a Custom Tracked Attributes Filter Within a
+                Configuration Template</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8284" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

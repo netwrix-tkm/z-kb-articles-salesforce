@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to configure Change Tracker to use Multiple Web Servers (High Availability)</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JhgCAE" />
+    <meta name="Id" content="ka0Qk000000Ck5VIAS" />
+    <meta name="LastPublishedDate" content="2025-03-07T21:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-07T21:06:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T01:03:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8328" />
+    <meta name="ArticleNumber" content="000008328" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Follow this guide if you would like to configure Change Tracker to use Multiple Web
+          Servers (IIS) so that you can implement load balancing or dedicate certain functions to
+          certain servers i.e. WEB SERVER 1 is solely used for agent communication and WEB SERVER 2
+          is solely used by remote users to access the web console.
+        </p>
+
+        <p>
+          For this setup, Change Tracker should already be deployed onto a server within your
+          environment. Depending on how many web servers you would like to deploy will determine how
+          many times Change Tracker will need to be installed on other servers.
+        </p>
+
+        <p>Once Change Tracker is deployed, please follow the instructions below:</p>
+
+        <h2 id=""><strong>Instructions for initial Change Tracker web server</strong></h2>
+
+        <ul>
+          <li>
+            <p>
+              Navigate into this directory on your Change Tracker Server: <code
+                >C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub</code
+              >
+            </p>
+          </li>
+          <li>
+            <p>Right click the <strong>Configs </strong>folder.</p>
+          </li>
+          <li>
+            <p>Select <strong>Properties</strong></p>
+          </li>
+          <li>
+            <p>Select <strong>Sharing </strong>Tab</p>
+          </li>
+          <li>
+            <p>Select <strong>Share</strong></p>
+          </li>
+          <li>
+            <p>
+              Add a new entry for <strong>Everyone </strong>with
+              <strong>Permission Level </strong>set to <strong>Read/Write</strong>. If the
+              <strong>Everyone </strong>entry <strong>cannot </strong>be used, please create a new
+              dedicated windows user for this function and assign it here with
+              <strong>Permission Level </strong>set to <strong>Read/Write</strong>
+            </p>
+          </li>
+          <li>
+            <p>Select <strong>Share</strong></p>
+          </li>
+          <li>
+            <p>
+              Take note of the network share path as you will need this when configuring your
+              additional web servers.
+            </p>
+          </li>
+          <li>
+            <p>Select <strong>Done</strong></p>
+          </li>
+          <li>
+            <p>Select <strong>Close</strong></p>
+          </li>
+        </ul>
+
+        <h2 id=""><strong>Instructions for any additional Change Tracker web server</strong></h2>
+
+        <ul>
+          <li>
+            <p>Install Change Tracker onto your additional web server(s)</p>
+          </li>
+          <li>
+            <p>Stop IIS</p>
+          </li>
+          <li>
+            <p>
+              Once Change Tracker is installed, navigate into this directory on your Change Tracker
+              Server: <code>C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub</code>
+            </p>
+          </li>
+          <li>
+            <p>Open the <strong>Web.config </strong>file.</p>
+          </li>
+          <li>
+            <p>
+              Change the <strong>value </strong>on the
+              <code>environmentVariable name="NNT_LOCATION_TYPE"</code> line from
+              <strong>Local </strong>to <strong>FileShare</strong>
+            </p>
+          </li>
+        </ul>
+
+        <p><strong>Before:</strong></p>
+
+        <div>
+          <div>
+            <pre class="ckeditor_codeblock">
+&lt;environmentVariable name="NNT_LOCATION_TYPE" value="Local" /&gt;
+</pre
+            >
+          </div>
+        </div>
+
+        <p><strong>After:</strong></p>
+
+        <pre class="ckeditor_codeblock">
+&lt;environmentVariable name="NNT_LOCATION_TYPE" value="FileShare" /&gt;
+</pre
+        >
+
+        <ul>
+          <li>
+            <p>
+              Change the <strong>value </strong>on the
+              <code>&lt;environmentVariable name="NNT_CONFIG_LOCATION" </code> line from
+              <strong>Configs </strong>to your newly created <strong>network share path.</strong>
+            </p>
+          </li>
+        </ul>
+
+        <p>
+          <code><strong>Before:</strong></code>
+        </p>
+
+        <pre class="ckeditor_codeblock">
+&lt;environmentVariable name="NNT_CONFIG_LOCATION" value="Configs" /&gt;
+</pre
+        >
+
+        <p>
+          <code><strong>After:</strong></code>
+        </p>
+
+        <pre class="ckeditor_codeblock">
+&lt;environmentVariable name="NNT_CONFIG_LOCATION" value="//SERVER/Configs" /&gt;</pre
+        >
+
+        <p> </p>
+
+        <ul>
+          <li>
+            <p>Once both entries have been updated, please save the file.</p>
+          </li>
+          <li>
+            <p>
+              At this stage, if when creating the network share you opted to allow everyone access
+              to it, the setup should now be complete. Please start IIS on the secondary web
+              server(s) and attempt to login locally on the server(s). If done correctly, you should
+              be able to login with your normal Change Tracker username and password and you should
+              be able to access Change Tracker and view all of the data that was present on your
+              initial web server.
+            </p>
+          </li>
+          <li>
+            <p>
+              At this stage, if when creating the network share you opted the allow a specific user
+              access to it, you will need to follow the steps below:
+            </p>
+
+            <ul>
+              <li>
+                <p>Open <strong>IIS</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>Application Pools</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>NNT Web Applications</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>Advanced Settings…</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>Identity</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>Custom Account</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>Set…</strong></p>
+              </li>
+              <li>
+                <p>
+                  Input the <strong>username </strong>and <strong>password </strong>for the specific
+                  user that was created.
+                </p>
+              </li>
+              <li>
+                <p>Select <strong>OK</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>OK</strong></p>
+              </li>
+              <li>
+                <p>Select <strong>OK</strong></p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>
+              The setup should now be complete. Please start IIS on the secondary web server(s) and
+              attempt to login locally on the server(s). If done correctly, you should be able to
+              login with your normal Change Tracker username and password and you should be able to
+              access Change Tracker and view all of the data that was present on your initial web
+              server.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

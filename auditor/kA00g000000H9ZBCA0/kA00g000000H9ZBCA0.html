@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: "The new task has been created but may not run because of an error: Exception from
+      HRESULT: 0x80070520."
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZBCA0" />
+    <meta name="Id" content="ka04u000000HcSCAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1231" />
+    <meta name="ArticleNumber" content="000003385" />
+    <meta
+      name="description"
+      content="Network access: Do not allow storage of passwords &amp;amp;credentials To disable the policy Select Start -&amp;gt; Run and type rsop.msc Resultant Set of Policy Source GPO %%post_excerpt%%"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The product scheduled task does not start and the following error occurs:
+
+        <strong
+          >"The new task has been created but may not run because of an error: A specified logon
+          session does not exist. It may already have been terminated. (Exception from HRESULT:
+          0x80070520)."</strong
+        >
+
+        <hr />
+
+        The "<strong
+          >Network access: Do not allow storage of credentials or .NET Passports for network
+          authentication</strong
+        >" policy does not allow to store passwords and credentials in the product scheduled task.
+
+        <hr />
+
+        Disable the "<strong
+          ><span
+            >Network access: Do not allow storage of passwords and credentials for network
+            authentication</span
+          ></strong
+        >" policy on the computer where this issue appears. To disable the policy, please perform
+        the following steps:
+        <ol>
+          <li>Select <strong>Start -&gt; Run</strong> and type <em>rsop.msc</em>.</li>
+          <li>
+            In the R<strong>esultant Set of Policy</strong> dialog, navigate to
+            <strong
+              >Computer Configuration -&gt; Windows Settings -&gt;Security Settings -&gt; Local
+              Policies -&gt; Security Options</strong
+            >.
+          </li>
+          <li>Select the policy on the right and change the Source GPO accordingly.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

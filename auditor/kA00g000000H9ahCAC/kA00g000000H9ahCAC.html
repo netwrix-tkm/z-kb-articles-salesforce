@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Failed to Load Registry Hive—File Is Used by Another Process</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ahCAC" />
+    <meta name="Id" content="ka0Qk000000BzUnIAK" />
+    <meta name="LastPublishedDate" content="2025-02-18T21:43:10.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-18T21:43:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1317" />
+    <meta name="ArticleNumber" content="000003477" />
+    <meta
+      name="description"
+      content="The process cannot access the file because it is being used by another process.&amp;lt;server&amp;gt;: The Add/Remove Software data provider failed to load the user"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <div>
+          <p>
+            The following warning appears during each data collection in the Netwrix Auditor Health
+            Log:
+          </p>
+          <pre class="has-inner-focus">
+%timestamp%: %server%: 
+The Add/Remove Software data provider failed to load the user %SID%.bak registry hive on the computer %server% due to the following error:
+The process cannot access the file because it is being used by another process.</pre
+          >
+          <pre class="has-inner-focus">
+%timestamp%: %server%: 
+The Add/Remove Software data provider failed to load the user %domain\user% registry hive on the computer %server% due to the following error:
+The process cannot access the %PATH%\ntuser.dat file because it is being used by another process.</pre
+          >
+        </div>
+        <h2 id="causes">Causes</h2>
+        <p>This issue may be caused by one or more of the following factors:</p>
+        <div>
+          <ul>
+            <li>
+              <p>A third-party service uses the registry when the user profile is loaded.</p>
+            </li>
+            <li>
+              <p>
+                The affected user account is used by services that integrate with an existing
+                application during the user logon/logoff process.
+              </p>
+            </li>
+            <li>
+              <p>Antivirus exclusions are incorrectly configured.</p>
+            </li>
+            <li>
+              <p>The registry hive or profile list has become corrupt.</p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="resolutions">Resolutions</h2>
+        <p>Apply one or more of the following solutions to resolve this error:</p>
+        <div>
+          <ul>
+            <li>
+              <p>
+                Configure antivirus exclusions in your Auditor environment. For details, see the
+                following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                  target="_self"
+                  >Antivirus Exclusions for Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Follow these steps if excluding Auditor-related folders did not resolve the issue:
+              </p>
+              <ol>
+                <li>
+                  <p>
+                    Review the registry permissions for the affected SID and compare them to an
+                    unaffected SID on the same server. The default permissions are
+                    <strong>Admin</strong>, <strong>Users</strong>,
+                    <strong>Owner (special)</strong>, and <strong>System</strong>—ensure both SIDs
+                    have the correct permissions and make adjustments if necessary. Refer to steps 1
+                    and 2 below to verify the permissions.
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        Review the list of users in
+                        <code
+                          >Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
+                          NT\CurrentVersion\ProfileList\</code
+                        >.
+                      </p>
+                    </li>
+                    <li>
+                      <p>Right-click the target user and click <strong>Permissions</strong>.</p>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  <p>
+                    Check the <strong>ProfileImagePath</strong> for both SIDs (e.g.,
+                    <code>SID-2143</code> and <code>SID-2143.bak</code>). This will display the
+                    profile path and username. In <code>SID-2143.bak</code>, the username is
+                    specified as <code>%Username%.%domain_name%</code>. Verify the path in
+                    <code>SID-2143</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Verify the folder in the <strong>ProfileImagePath</strong> to confirm the
+                    unaffected user SID.
+                  </p>
+                </li>
+                <li>
+                  <p>Once confirmed, rename the affected SID to <code>SID.tmp</code>.</p>
+                  <blockquote>
+                    <p>
+                      <span class="Caution"><strong>IMPORTANT: </strong></span>Ensure the unaffected
+                      SID does not have any extension.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    Log off and log back in to the same server as the affected user to verify that
+                    the error is resolved.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Follow these steps if the issue remains unresolved:</p>
+              <ol>
+                <li>
+                  <p>
+                    Log in to the server as <strong>administrator</strong> via
+                    <strong>Remote Desktop Connection</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In <strong>Registry Editor</strong>, navigate to
+                    <code
+                      >HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows
+                      NT\CurrentVersion\ProfileList</code
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the affected <code>.bak</code> SID, and navigate to
+                    <code>C:\Users\%affected_username%</code> specified in
+                    <strong>ProfileImagePath</strong>. Note the original profile name, which should
+                    contain the affected SID’s settings.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In <strong>Registry Editor</strong>, manually edit the <code>.bak</code> SID
+                    profile location specified in <strong>ProfileImagePath</strong>. It should
+                    reflect the <strong>ProfileImagePath</strong> value for the original unaffected
+                    SID.
+                  </p>
+                </li>
+                <li>
+                  <p>Save the changes.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Alternatively, you can delete the affected profile.</p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="related_article">Related Article</h2>
+        <ul>
+          <li>
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                target="_self"
+                >Antivirus Exclusions for Netwrix Auditor</a
+              >
+            </p>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

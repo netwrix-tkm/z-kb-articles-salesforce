@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Classification Troubleshooting</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Q0vKAE" />
+    <meta name="Id" content="ka0Qk0000002ehJIAQ" />
+    <meta name="LastPublishedDate" content="2024-03-21T11:31:00.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-21T11:31:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-29T15:48:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9029" />
+    <meta name="ArticleNumber" content="000009029" />
+    <meta name="description" content="Classification Troubleshooting" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>Why is my document not classified as expected?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>Identify a document with incorrect classifications:</p>
+        </div>
+
+        <h4 id="step_1_check_the_status_of_a_document">Step #1: Check the status of a document</h4>
+
+        <div>
+          <p>
+            Go to the workflow logs (<code>https://[YourNDCServerName]/NDC/Workflows/Logs</code>)
+            and check the status:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                If it's <strong>negative</strong>, then there was an error. Enable collector tracing
+                and reindex the file, then view the event logs for details of the issue. You will
+                usually see either the PageID, PageURL, or both in the logs to know which errors are
+                related.
+              </p>
+            </li>
+            <li>
+              <p>
+                If it's less than 400, it means that it is not classified and needs to finish
+                processing first. Check codes in the
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000Pbd4CAC.html"
+                  target="_blank"
+                  >NDC Page Status Codes</a
+                >
+                article.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the status is <strong>Classified (400) </strong> and the
+                <strong>ReindexStatus</strong> is 3, then it means it hasn't been reindexed or
+                reclassified. This means that a change was detected or the user manually requested
+                reprocessing. Give NDC time to reprocess the document.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the status is 400 and the reindex status is 0, check the
+                <strong>Text</strong> and <strong>Metadata</strong> tabs. This is an easy way to
+                confirm issues where Optical Character Recognition (OCR) has failed to extract the
+                text you're looking for or if there was an issue processing text extraction for the
+                document. If it doesn't match, enable collector tracing and reindex the document for
+                details in the logs.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="step_2_investigate_content_configuration">
+          Step #2: Investigate content configuration
+        </h4>
+
+        <div>
+          <p>
+            If it has the expected text and metadata, investigate why the expected
+            classification/term is not present on the document:
+          </p>
+
+          <ol>
+            <li>
+              <p>Make a note of the <strong>PageId</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Navigate to <strong>Taxonomies</strong> and select the taxonomy you need to
+                diagnose.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Search</strong> tab and then select <strong
+                  >Add custom filter</strong
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Select the <strong>Include documents (PageIds)</strong> filter type and type in the
+                PageId of the document you wish to check and then click <strong>Add</strong> &gt;
+                <strong>Search</strong>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <strong>TIP:</strong> The document should be shown. If it is not, then check to
+                  see if security trimming is enabled and hiding the document.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Click on the calculator icon. This will confirm which clues matched and if any
+                filters have been applied.
+              </p>
+            </li>
+            <li>
+              <p>
+                See if the details shown differ from what is expected. You should understand why you
+                expect this document to be classified, so you will see certain matching clues. By
+                comparing the expectations to the results in the classification debug, you can
+                identify which clues are not matching as expected. You may also notice if a
+                mandatory clue hasn't been matched and then adjust the clues accordingly.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the document shows as classified in the calculations dialog but is not shown as
+                classified in the page info dialog, then it's possible that the taxonomy clues have
+                changed since the document was last classified.
+              </p>
+
+              <p>
+                Select the document, select <strong>Re-classify</strong>, and then select
+                <strong>Reset Cache</strong> &gt; <strong>Ok</strong>. Then, observe whether the
+                status of the document changes to <strong>Reclassified</strong>, and then recheck
+                the page info classifications tab.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

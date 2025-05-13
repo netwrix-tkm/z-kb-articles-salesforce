@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Configure Recursive File Content Monitoring?</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JS3CAM" />
+    <meta name="Id" content="ka04u000000Hd7lAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:40:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8149" />
+    <meta name="ArticleNumber" content="000008149" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          You can monitor for file-content changes alongside FIM using our File Integrity Monitoring
+          tracker but you will need to make some changes to a Change Tracker config file and the
+          configuration template attached to your devices.
+        </p>
+        <p><br /></p>
+        <div>
+          <p>
+            By default the FIM/File-content combination is not enabled on the web console. In order
+            to make this available you will need to do the following:
+          </p>
+          <p><br /></p>
+          <ul>
+            <li>Connect to the server hosting your Change Tracker server via RDP</li>
+            <li>
+              Browse to the following folder:
+              <strong>C:\inetpub\wwwroot\Change Tracker Generation 7 Hub\bin\Filters</strong>
+            </li>
+            <li>Edit the following file: <strong>default.xml</strong></li>
+            <li>Find the following chunk of text and remove the text highlighted in red</li>
+          </ul>
+          <p><br /></p>
+          <p><strong>  </strong></p>
+        </div>
+        <div>
+          <strong
+            >  <span>!--</span>filetrackerchangesfilter name="filecontentschangesonly"
+            description="File attributes (including contents) only"</strong
+          ><strong
+            >priority="low" source="globalLow" watchdirectories="false" watchfiles="true"
+            created="false" length="true" </strong
+          ><strong
+            >lastaccess="false" lastwrite="true" filename="true" directoryname="true"
+            attributes="true" security="true"  datastreams="true" content="true" /<span
+              >&gt;<span>--</span></span
+            ><span>&gt;</span></strong
+          >
+        </div>
+        <div>
+          <p><br /></p>
+          <ul>
+            <li>Save and close the file</li>
+            <li>Log off from the RDP session</li>
+          </ul>
+          <p><br /></p>
+          <p>
+            Now this has been done, you will need to apply this FIM/File-content filter to your
+            devices configuration template. In order to do this you will need to do the following:
+          </p>
+          <p><br /></p>
+          <ul>
+            <li>Log into Change Tracker</li>
+            <li>Browse to <strong>Settings</strong></li>
+            <li>Browse to <strong>Configuration Templates</strong></li>
+            <li>
+              Select the appropriate configuration template from the list and select the
+              <strong>Edit</strong> button posted next to it
+            </li>
+            <li>Browse to the <strong>FIM File Integrity tracker</strong></li>
+            <li>
+              Select the <strong>Tracked </strong><strong>Folder</strong> entry that you wish to
+              monitor for file content changes recursively and select the
+              <strong>Edit</strong> button posted next to it
+            </li>
+            <li>
+              Under the <strong>Tracked </strong><strong>Attributes</strong> column, select the
+              drop-down menu and select the
+              <strong>File attributes (including contents) only</strong> option
+            </li>
+            <li>Press <strong>Update</strong></li>
+            <li>Press <strong>Save </strong><strong>Changes</strong> at the top of the screen</li>
+          </ul>
+          <p>
+            <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="400"
+                src="kA04u0000000JS3CAM_e664e99c-79e7-4b72-8c17-74892316b00e.png"
+            /></span>
+          </p>
+          <p>
+            Once the changes made to the template have been saved, an updated version of the config
+            will be sent to the agent and a new baseline scan will run. Please allow some time for
+            this scan to complete before making any test changes to files within the directory as
+            they may be captured as part of the baseline and no reported as a change.
+          </p>
+        </div>
+        <p><br /></p>
+        <div>
+          <p><br /></p>
+          <p><br /></p>
+          <p><br /></p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

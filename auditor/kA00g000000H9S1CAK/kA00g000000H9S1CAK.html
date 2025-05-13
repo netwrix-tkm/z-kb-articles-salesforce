@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Alert Reported Change Made by System</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9S1CAK" />
+    <meta name="Id" content="ka04u00000116UnAAI" />
+    <meta name="LastPublishedDate" content="2023-07-03T14:08:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-03T14:28:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="144" />
+    <meta name="ArticleNumber" content="000002949" />
+    <meta name="description" content="Real Time Alert, Who Changed, System" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>Why was System stated in the WHO field in alert email instead of a user?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Alerts may contain System in the WHO field while daily Activity Summary emails or SQL
+            reports will show the correct user.
+          </p>
+
+          <p>
+            Once a change is received, the WHO or WHEN field might be missing. After collecting the
+            change data, Netwrix Auditor will immediately check for the corresponding event in
+            security event logs to collect WHO and WHEN fields data. Depending on the timing of the
+            change and the collection process, this event might be missing from the security event
+            log, e.g. due to a delayed queue of events written at the time for a particular domain
+            controller.<br />To ensure timely delivery, the alert is sent out with as much data
+            collected at the time.
+          </p>
+        </div>
+
+        <div>
+          <p>
+            During the next quick data collection Netwrix Auditor will attempt to find the
+            corresponding security event to collect data for missing fields of that change as well
+            as new ones. If your Activity Summary report contains the WHO or WHEN data, the security
+            event was properly written and collected. This won't be reflected in the alert, but data
+            will be present for the activity stated in your daily review or in SQL Server report.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

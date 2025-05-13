@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FORWARD EVENTS FROM SI to StealthDEFEND</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HtOCAU" />
+    <meta name="Id" content="ka04u000000HcayAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:24:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:58:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:24:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6677" />
+    <meta name="ArticleNumber" content="000006677" />
+    <meta name="description" content="360008304132" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> When only SI agents
+          are Deployed and StealthDEFEND is in Play
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> SAM agents are not
+          deployed only SI agents and File System events need to be sent to StealthDEFEND<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Configure SIEM settings in SI and point StealthDEFEND via IP @ port TCP
+                  10000</span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+         
+        <ol>
+          <li>
+            <span
+              ><span
+                >You will now need to create and load custom SIEM template for StealthDEFEND
+                formatting should be like below</span
+              ></span
+            >
+          </li>
+        </ol>
+         <br /><b
+          ><i
+            ><span
+              ><span
+                ><span
+                  >%SYSLOG_DATE%|StealthDEFEND|%HOST%|%PRODUCT%|%PRODUCT_VERSION%|cat=%EVENT_NAME%
+                  setting=%SETTING_NAME% iotype=Filesystem domain=%EVENT_SOURCE_NAME%
+                  time=%TIME_STAMP_UTC% username=%USERNAME% process=%ORIGINATING_CLIENT%
+                  filename=%DN% sourcehost=%ORIGINATING_SERVER% success=%SUCCESS%
+                  blocked=%BLOCKED_EVENT% attrname=%ATTRIBUTE_NAME% attrnewvalue=%ATTRIBUTE_VALUE%
+                  attroldvalue=%OLD_ATTRIBUTE_VALUE%</span
+                ></span
+              ></span
+            ></i
+          ></b
+        ><br /> <br /><span><span>Example File:</span></span
+        ><br /> <br /><span><span>// Syslog event consumer configuration file</span></span
+        ><br /><span><span>// Available variables:</span></span
+        ><br /><span
+          ><span>// %AFFECTED_OBJECT_ACCOUNT_NAME%         - Affected Object Name</span></span
+        ><br /><span
+          ><span>// %AFFECTED_OBJECT_SID%                  - Affected Object SID</span></span
+        ><br /><span><span>// %ATTRIBUTE_NAME%                       - Attribute Name</span></span
+        ><br /><span
+          ><span>// %ATTRIBUTE_VALUE%                      - New Attribute Value</span></span
+        ><br /><span><span>// %BLOCKED_EVENT%                        - Blocked</span></span
+        ><br /><span><span>// %CLASS_NAME%                           - Class Name</span></span
+        ><br /><span><span>// %COMPANY%                              - Company Name</span></span
+        ><br /><span
+          ><span
+            >// %DN%                                   - Distinguished Name or Affected Object</span
+          ></span
+        ><br /><span><span>// %ERTYPE_ID%                            - Event Type ID</span></span
+        ><br /><span><span>// %EVENT_CODE%                           - Code</span></span
+        ><br /><span><span>// %EVENT_NAME%                           - Event Name</span></span
+        ><br /><span
+          ><span>// %EVENT_SOURCE_NAME%                    - Event Source Name</span></span
+        ><br /><span
+          ><span>// %EVENT_SOURCE_TYPE%                    - Event Source Type</span></span
+        ><br /><span
+          ><span>// %EVENTNAMETRANSLATED%                  - Translated Event Name</span></span
+        ><br /><span><span>// %EVENTS_COUNT%             - Consolidated Events Count</span></span
+        ><br /><span
+          ><span>// %HOST%                           - Message Source Hostname</span></span
+        ><br /><span
+          ><span>// %OLD_ATTRIBUTE_VALUE%                  - Old Attribute Value</span></span
+        ><br /><span
+          ><span>// %OPERATION%                            - Operation Performed</span></span
+        ><br /><span
+          ><span>// %ORIGINATING_CLIENT%                   - Originating Client</span></span
+        ><br /><span
+          ><span>// %ORIGINATING_SERVER%                   - Originating Server</span></span
+        ><br /><span
+          ><span
+            >// %ORIGINATING_SERVERIP%                 - Originating Server IP Address</span
+          ></span
+        ><br /><span
+          ><span
+            >// %ORIGINATINGCLIENTHOST%                - Originating Server Host Name</span
+          ></span
+        ><br /><span
+          ><span
+            >// %ORIGINATINGCLIENTIP%                  - Originating Client IP Address</span
+          ></span
+        ><br /><span
+          ><span>// %ORIGINATINGCLIENTMAC%                 - Originating Client MAC</span></span
+        ><br /><span
+          ><span
+            >// %ORIGINATINGCLIENTPROTOCOL%                  - Originating Client Protocol</span
+          ></span
+        ><br /><span><span>// %PERPETRATOR%                    - Perpetrator</span></span
+        ><br /><span><span>// %PERPETRATOR_NAME%                     - Perpetrator Name</span></span
+        ><br /><span><span>// %PERPETRATOR_SID%                      - Perpetrator SID</span></span
+        ><br /><span
+          ><span
+            >// %USERNAME%                             - 'Username' part of the %PERPETRATOR_NAME%
+            field if is in 'DOMAIN\Username' format
+          </span></span
+        ><br /><span><span>// %PRODUCT%                              - Product Name</span></span
+        ><br /><span><span>// %PRODUCT_VERSION%                      - Product Version</span></span
+        ><br /><span><span>// %SETTING_NAME%                   - Setting Name</span></span
+        ><br /><span><span>// %SUCCESS%                              - Success</span></span
+        ><br /><span><span>// %STATUS%                         - Status</span></span
+        ><br /><span
+          ><span
+            >// %SYSLOG_DATE%                    - Current Date Time in Syslog Format</span
+          ></span
+        ><br /><span><span>// %SYSLOG_EVENTID%                 - SysLog Event ID</span></span
+        ><br /><span><span>// %TARGETHOST%               - Target Host</span></span
+        ><br /><span><span>// %TARGETHOSTIP%             - Target Host IP</span></span
+        ><br /><span
+          ><span>// %TIME_STAMP%                           - Date/Time of Event</span></span
+        ><br /><span
+          ><span>// %TIME_STAMP_UTC%                       - Date/Time of Event in UTC</span></span
+        ><br /><span
+          ><span>// TODO Add Severity and formatting with /n if desired for the msg</span></span
+        ><br /><span><span>//</span></span
+        ><br /><span
+          ><span>// ** Any characters enclosed in the brackets below will be escaped</span></span
+        ><br /><span><span>// ESCAPECHARS: [=]</span></span
+        ><br /><span><span>//</span></span
+        ><br /><span
+          ><span
+            >// ** For TCP and TCP/SSL protocols message buffer will be appended with bytes (in
+            decimal format) enclosed in brackets. Value example: [13,10]. If this parameter is not
+            set then by default it will use value [0]</span
+          ></span
+        ><br /><span
+          ><span
+            >// Do NOT remove comment prefix in the next line! It must stay commented out.</span
+          ></span
+        ><br /><span><span>// TCP_EOM: [0]</span></span
+        ><br /><span><span>//</span></span
+        ><br /><span
+          ><span
+            >// ** Line breaks in %ATTRIBUTE_VALUE% and %OLD_ATTRIBUTE_VALUE% will be replaced with
+            string enclosed in brackets. Value example: [some_separator]</span
+          ></span
+        ><br /><span
+          ><span
+            >// Do NOT remove comment prefix in the next line! It must stay commented out.</span
+          ></span
+        ><br /><span><span>// LINEBREAK_REPLACEMENT: []</span></span
+        ><br /><span><span>//</span></span
+        ><br /><span
+          ><span
+            >%SYSLOG_DATE%|StealthDEFEND|%HOST%|%PRODUCT%|%PRODUCT_VERSION%|cat=%EVENT_NAME%
+            setting=%SETTING_NAME% iotype=Filesystem domain=%EVENT_SOURCE_NAME%
+            time=%TIME_STAMP_UTC% username=%USERNAME% process=%ORIGINATING_CLIENT% filename=%DN%
+            sourcehost=%ORIGINATING_SERVER% success=%SUCCESS% blocked=%BLOCKED_EVENT%
+            attrname=%ATTRIBUTE_NAME% attrnewvalue=%ATTRIBUTE_VALUE%
+            attroldvalue=%OLD_ATTRIBUTE_VALUE%</span
+          ></span
+        ><br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Enterprise Manager;StealthDEFEND - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          All<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2169<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

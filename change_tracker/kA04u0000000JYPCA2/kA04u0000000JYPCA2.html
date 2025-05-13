@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Compliance Reports do not Complete, Stuck in Processing xx %</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JYPCA2" />
+    <meta name="Id" content="ka04u000000Hd9SAAS" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:01:01.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:45:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8181" />
+    <meta name="ArticleNumber" content="000008181" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          NNT has seen instances over the years of Change Tracker servers unable to run compliance
+          reports against registered devices. When this occurs the 'Status' value for the report
+          will display 'Processing' with an <span
+            >arbitrary completion percentage that never reaches 100%.</span
+          >
+        </p>
+        <p><br /></p>
+        <p><br /></p>
+        <p>
+           <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              height="250"
+              width="1004"
+              src="kA04u0000000JYPCA2_a8a8d2cb-c255-4d3e-9724-5e29f1fcc864.png"
+          /></span>
+        </p>
+        <p>
+          Rather than this being a problem on the target device against which the report is being
+          run, testing has shown that IIS specific security tools have the ability to block Change
+          Tracker's collection of the report information and therefore the report never completes.
+        </p>
+        <p>
+          By far the most common security tool NNT encounters which causes this problem is UrlScan.
+          UrlScan
+          <span
+            >helps to prevent potentially harmful requests from reaching applications on the server
+            by <span
+              >screening all incoming requests, filtering the requests based on rules that are set
+              by the administrator. Filtering requests helps secure the server by ensuring that only
+              valid requests are processed.One such filtering option is to
+              prevent Transfer-Encoding. Such a prevention filter in UrlScan impacts Change Tracker
+              as <span><span>Transfer-Encoding is</span></span> uses to gather the report data
+              together from a remote system.</span
+            ></span
+          >
+        </p>
+        <p><br /></p>
+        <h2 id="ComplianceReportsdonotComplete,StuckinProcessingxx%-Step-by-stepguide">
+          Step-by-step guide
+        </h2>
+        <p>
+          To prevent UrlScan from blocking <span
+            ><span
+              ><span><span>Transfer-Encoding, follow these steps.</span></span></span
+            ></span
+          >
+        </p>
+        <ol>
+          <li>Move to the UrlScan install location at C:\Windows\system32/inetsrv/urlscan</li>
+          <li>
+            Locate the .ini file which controls all filtering options and open the ini file in a
+            text editor
+          </li>
+          <li>Search through the file for the entry 'Transfer-Encoding'</li>
+          <li>
+            comment out Transfer-Encoding by placing a ; at the start of the line, the finished line
+            should look like this: ;Transfer-Encoding:
+          </li>
+          <li>Save and close the ini file</li>
+          <li>Restart IIS</li>
+        </ol>
+        <p> </p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

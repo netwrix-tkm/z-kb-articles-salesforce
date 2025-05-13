@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Permission denied, error code -2146828218</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cCCAS" />
+    <meta name="Id" content="ka04u000000HcUxAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1408" />
+    <meta name="ArticleNumber" content="000003570" />
+    <meta name="description" content="The KB explains how to fix the permissions issue." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When trying to access the Help-Desk portal, a non-admin user gets a "You do not have a
+        Helpdesk operator permissions" message or "Permission denied" error (error code -2146828218)
+        <img
+          src="kA00g000000H9cCCAS_5e4feade-bee7-44f7-9993-a742b32e8cbe.png"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        This message occurs because the user whose credentials were used to enter the Helpdesk
+        portal is not granted Help-Desk operator role in the product settings.
+
+        <hr />
+
+        To grant a user access to the Help-Desk portal, add this user to the Help Desk Operators
+        role. To do this, perform the following steps: 1. In the Account Lockout Examiner console,
+        navigate to File &gt; Settings and select the Security roles tab. 2. In the Help-Desk
+        Operators section, click the Modify button. 3. In the dialog that opens, click the Add
+        button and specify user(s) that you want to add to this role.
+
+        <img
+          src="kA00g000000H9cCCAS_6a509f56-9d54-4bed-ab78-5b8d5e28d89f.png"
+          alt="User-added image"
+          width="500"
+          height="549"
+        />
+
+        If the issue persists, check that Authentication options are configured properly in IIS: 4.
+        Start the IIS Manager and navigate to your Account Lockout Examiner web portal virtual
+        directory (by default - Default Web SiteALE). 5. Select this folder by left-clicking on it
+        and look for the Authentication feature under IIS block in the central pane. Double-click on
+        it. 6. Make sure that "Anonymous Authentication" is disabled.
+
+        <img
+          src="kA00g000000H9cCCAS_9df244c1-3471-4a3c-8a88-c238dc475d16.png"
+          alt="User-added image"
+          width="500"
+          height="379"
+        />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "Hub Offline, connection retries exhausted. Sleeping until ... (Unable to
+      connect to the remote server - No connection could be made because the target machine actively
+      refused it ... )"
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ja1CAE" />
+    <meta name="Id" content="ka04u000000Hd9nAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:49:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8206" />
+    <meta name="ArticleNumber" content="000008206" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#                                                                                                      Example Message:								                                         	                                                                  #          					  
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+2017-11-25 09:22:56,446 [10] INFO  Message - Hub Offline, connection retries exhausted. Sleeping until 11/25/2017 2:24:31 PM (Unable to connect to the remote server - No connection could be made because the target machine actively refused it 192.168.1.1:443)
+
+
+</pre
+            >
+          </div>
+        </div>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>What Does It Mean?</span></strong>
+        </h2>
+        <p>
+          This error occurs when your agent cannot reach the NNT Server. There are many things that
+          can cause this issue, including but not limited to:
+        </p>
+        <ol>
+          <li>
+            Your NNT Server may actually be powered, IIS is not running, or MongoDB is not running.
+          </li>
+          <li>
+            Your NNT Server may not be on the domain, does not have a network connection, or is in
+            the wrong subnet.
+          </li>
+          <li>
+            The port the agent is using is currently being used by another application and is
+            causing a clash.
+          </li>
+          <li>
+            Your firewall is not allowing connection to the NNT Server over the specified port.
+          </li>
+          <li>
+            Your routes are not configured to allow communication between the NNT Server and the
+            Agent.
+          </li>
+          <li>
+            If you configured the agent using a Fully Qualified Domain Name instead of an IP
+            Address, the issue could be DNS related.
+          </li>
+          <li>
+            If your agent is on a WAN or a different LAN, you may have to configure port forwarding.
+          </li>
+          <li>
+            If your agent is on a WAN or a different LAN, you may need to modify NAT settings to
+            allow communication.
+          </li>
+          <li>
+            If your agent is on a WAN or a different LAN, you may need to modify proxy settings if
+            you have a Web / other proxy.
+          </li>
+          <li>
+            If your agent is on a Cloud Provider Network, you may need to modify the Cloud
+            Provider's traffic variables to allow communication.
+          </li>
+        </ol>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>How Can I Fix This / Should I Worry?</span></strong>
+        </h2>
+        <p>
+          If you are receiving this error, this means the agent is currently not sending any logs to
+          the NNT Server! To fix this error, check the above items and verify that everything is
+          functioning properly.
+        </p>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <span
+              >In most cases, if it is one of the above items causing the issue, simply resolving
+              that problem will fix the issue, if not, please restart the agent service.</span
+            >
+          </div>
+        </div>
+        <h2 id="Rolling-LogFix:">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8302" target="_blank"
+                >Support for TLS 1.2 in the .NET Framework 3.5.1</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8285" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8265" target="_blank"
+                >Change Tracker ‚Äì How to Create a Custom Tracked Attributes Filter Within a
+                Configuration Template</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8284" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

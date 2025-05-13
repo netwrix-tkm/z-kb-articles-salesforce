@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Resolving Insecure Permissions for Service Executables</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001oArKAI" />
+    <meta name="Id" content="ka0Qk000000DUbNIAW" />
+    <meta name="LastPublishedDate" content="2025-04-29T19:10:17.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-29T22:34:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-29T19:10:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9356" />
+    <meta name="ArticleNumber" content="000009356" />
+    <meta
+      name="description"
+      content="How to Resolve Insecure Permissions for Service Executables Detected by Tenable"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to resolve insecure permissions for Windows service executables
+          in Netwrix Access Analyzer (formerly Enterprise Auditor). Services using executables with
+          weak permissions are at risk of privilege escalation attacks. An unprivileged user could
+          modify or overwrite the executable with arbitrary code, which would then execute the next
+          time the service starts.
+        </p>
+        <p>
+          This issue occurs when groups such as <code>Users</code> have to modify or write access to
+          service executables, and the <strong>Access</strong> node in the Global Settings controls
+          these permissions. Permissions should be checked both before and after installation to
+          ensure no changes have been made and proper permissions are in place.
+        </p>
+        <p>Examples of insecure permissions include:</p>
+        <ul>
+          <li>
+            Path: <code>%stealthaudit%\vaultservice.exe</code><br />Used by services: Netwrix Access
+            Analyzer Vault<br />File write allowed for groups: Users (S-1-5-32-545)
+          </li>
+          <li>
+            Path: <code>%stealthaudit%\web\webserver.exe</code><br />Used by services: Netwrix
+            Access Analyzer Web<br />File write allowed for groups: Users (S-1-5-32-545)
+          </li>
+        </ul>
+        <h2 id="instructions">Instructions</h2>
+        <p>To resolve this issue, follow these steps:</p>
+        <ol>
+          <li>
+            Review the permissions for the service executables identified by the security scanner:
+            <ul>
+              <li>
+                Navigate to the file path (e.g., <code>WebServer.exe</code> or
+                <code>VaultService.exe</code>).
+              </li>
+              <li>
+                Right-click the file, select <strong>Properties</strong>, and check the
+                <strong>Security</strong> tab.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Remove permissions for groups like <code>Users</code> (S-1-5-32-545) to ensure they
+            cannot modify or write to these files.
+          </li>
+          <li>
+            Ensure groups like <code>Users</code> do not have <strong>Full Control</strong> over
+            directories containing these service executables.
+          </li>
+        </ol>
+        <p>In Access Analyzer:</p>
+        <ul>
+          <li>
+            By default, the <code>Users</code> group does not have
+            <strong>Full Control</strong> over these files (<code>WebServer.exe</code> or
+            <code>VaultService.exe</code>).
+          </li>
+          <li>
+            Permissions are only assigned if configured manually under
+            <strong>Settings</strong> &gt; <strong>Access</strong>. Pay attention to the
+            <code>Member Type</code> as shown in the screenshot below.
+          </li>
+        </ul>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>This approach ensures secure operation
+            and mitigates the risk of privilege escalation.
+          </p>
+        </blockquote>
+        <p>
+          <img
+            src="kA0Qk0000001oArKAI_fbedfb5b-ea16-41c6-a531-28bf679ffafc.png"
+            alt="Screenshot showing the Member Type configuration in Netwrix Access Analyzer settings"
+            width="875"
+            height="512"
+          />
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

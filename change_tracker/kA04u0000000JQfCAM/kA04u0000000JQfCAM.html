@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Troubleshooting Gen 7 Agent Connectivity</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JQfCAM" />
+    <meta name="Id" content="ka04u000000QmgeAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-30T10:31:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:29:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8066" />
+    <meta name="ArticleNumber" content="000008066" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="id-8TroubleshootingGen7AgentConnectivity-_Toc476577606_Toc484003702_Toc52958TroubleshootingConnectivity"
+        >
+          Problem
+        </h2>
+
+        <p>
+          If the Agent UI is not available, then it is likely that the agent service is stopped/has
+          failed.<br />For any agent on any platform there is a local agent status interface which
+          can be viewed via the local web browser at
+          <a class="external-link" href="http://localhost:8096" target="_blank"
+            >http://localhost:8096</a
+          >
+        </p>
+
+        <ul>
+          <li>Windows – Check Task Manager and Services Console</li>
+          <li>Linux – service nntGen7agent status</li>
+        </ul>
+
+        <p>
+          The below shows that the agent service is running correctly but it is unable to register
+          with the Change Tracker Hub.The Agent should report the URL for the Hub it is registered
+          as in the green pop-out boxes.
+        </p>
+
+        <p>
+          <br /><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="338"
+              src="kA04u0000000JQfCAM_9d86b97b-1a79-4df5-b423-9e2cdb7c2f37.png"
+              width="624"
+          /></span>
+        </p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <p>
+          If the Hub URL referenced is not correct, you can edit the
+          <strong>HubDetails.xml</strong> file and correct this. Likewise, the Agent username and
+          password settings can be reset by editing this file.
+        </p>
+
+        <ul>
+          <li>Windows - <code>C:\ProgramData\NNT\gen7agent.service\HubDetails.xml</code></li>
+          <li>
+            Linux - <code>/var/nnt/gen7agent.service/HubDetails.xml</code
+            ><span
+              class="confluence-anchor-link conf-macro output-inline"
+              id="id-8TroubleshootingGen7AgentConnectivity-_The_HubDetails.xml_File"
+              ><span class="confluence-anchor-link" id="_The_HubDetails.xml_File"> </span
+            ></span>
+          </li>
+        </ul>
+
+        <h3
+          id="id-8TroubleshootingGen7AgentConnectivity-_Toc476577608_Toc484003704TheHubDetails.xmlFile"
+        >
+          HubDetails.xml File
+        </h3>
+
+        <h4 id="step_1_check_settings">Step 1. Check settings</h4>
+
+        <p>
+          The Agent configuration settings are controlled by the Hub during operations but the
+          initial registration necessitates a basic config file for registration with the Hub.<br />The
+          <strong>HubDetails.xml</strong> file includes some details unique to your deployment of
+          Change Tracker Gen 7, hence it requiring your intervention to make sure settings are as
+          needed.<br />The key tags within the file are as follows:<br /><span
+            class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="235"
+              src="kA04u0000000JQfCAM_829cf3c2-3466-4b51-aa38-9392dd9af2aa.png"
+              width="625"
+          /></span>
+        </p>
+
+        <p>
+          <strong>*</strong> <strong>Thumbprint</strong> uniquely identifies the Web Server
+          certificate, see more here
+          <a
+            class="external-link"
+            href="https://msdn.microsoft.com/en-us/library/ms734695(v=vs.110).aspx"
+            target="_blank"
+            >https://msdn.microsoft.com/en-us/library/ms734695(v=vs.110).aspx</a
+          >.<br /><br /><span><strong>NOTE:</strong></span> an unencrypted password means the Agent
+          didn't initialize and suggests a bad installation or .NET Framework issue – remember the
+          Agent on Windows requires .NET Framework V3.5, Linux/Solaris requires the latest NNT Mono
+          runtime.<br /><br /><span><strong>IMPORTANT</strong></span
+          >. Netwrix Change Tracker's Gen 7 Agent also supports additional nodes – NamePrefix,
+          NameSuffix
+        </p>
+
+        <h4 id="step_2_add_thumbprint_value">Step 2. Add Thumbprint value</h4>
+
+        <ol>
+          <li>Open IIS</li>
+          <li>Select the server from the list on the left hand side</li>
+          <li>Select <strong>Server Certificates</strong></li>
+          <li>Double click your certificate in the list to open the certificates permissions</li>
+          <li>Open the <strong>Details</strong> tab</li>
+          <li>
+            Scroll to the bottom of the list and highlight the <strong>Thumbprint</strong> field
+          </li>
+          <li>
+            The thumbprint value will then be displayed. Transpose this to your
+            <strong>HubDetails.xml</strong> file
+          </li>
+        </ol>
+
+        <h4 id="step_3_check_network_connectivity">Step 3. Check network connectivity </h4>
+
+        <p>Check that there is network connectivity to the Hub URL from the Agent's host</p>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="74"
+              src="kA04u0000000JQfCAM_e131ef92-dff4-406b-a3b2-35c581256bcd.png"
+              width="625" /></span
+          ><br /><br />Finally, the Agent will maintain a rolling-log of its activity
+        </p>
+
+        <ul>
+          <li>Windows - <code>C:\ProgramData\NNT\gen7agent.service\rolling-log.txt</code></li>
+          <li>Linux - <code>/var/nnt/gen7agent.service/rolling-log.txt</code></li>
+        </ul>
+
+        <p>This will also provide diagnostic information if the Agent doesn't work correctly.</p>
+
+        <h2
+          id="id-8TroubleshootingGen7AgentConnectivity-_Toc476577610Finally–PleasecontactNNTSupportifyouneedhelpatanystage"
+        >
+           
+        </h2>
+      </div>
+    </article>
+  </body>
+</html>

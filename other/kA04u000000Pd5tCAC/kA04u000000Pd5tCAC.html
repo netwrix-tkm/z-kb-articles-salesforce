@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to configure Exchange Online State-in-Time Modern Authentication manually</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000Pd5tCAC"/><meta name="Id" content="ka04u000000HdEhAAK"/><meta name="LastPublishedDate" content="2021-11-08T11:08:50.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:42.000+0000"/><meta name="FirstPublishedDate" content="2021-04-23T16:51:41.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5861"/><meta name="ArticleNumber" content="000005861"/><meta name="description" content="How to configure Exchange Online State-in-Time Modern Authentication manually"/></head><body><article class=" kb-articles"><div class="Content__c">If you got errors from Netwrix Auditor during the automatic configuration of the certificate, do the following:
+<ol><li>In Netwrix Auditor, find your Exchange Online monitoring plan.</li><li>Click <b>Update </b>to force data collection.</li></ol>
+If the error still persists, or you want to preconfigure the work with certificate, follow the instructions below. 
+
+<p><b><span>Important!</span> </b>Install the ExchangeOnlineManagement PowerShell module. Refer to the following Netwrix knowledge base article for instructions: <a href="https://kb.netwrix.com/5862" target="_blank">How to install ExchangeOnlineManagement PowerShell module</a>.</p>
+
+<h2 id="certificate_installation"><b>Certificate installation</b></h2>
+
+<ol><li>Get your certificate or generate a self-signed certificate.</li></ol>
+
+<div><span><b>Important! </b></span>The name must be Netwrix_Auditor_MFA_&lt;your_tenant_name&gt;</div>
+
+<ol start="2"><li>Save the certificate to the <i>CurrentUser/My certificate </i>folder for the Local System account.</li><li>Upload the certificate to the application selected in your monitoring plan or configure it automatically with Netwrix Auditor.</li></ol>
+
+<h2 id="how_to_generate_a_selfsigned_certificate"><b>How to generate a self-signed certificate</b></h2>
+Open Windows PowerShell as an Administrator and run the following commands:
+
+<pre><span><span><span><span><span><span><span># Create certificate</span></span></span></span></span></span></span>
+<span><span><span><span><span><span><span>$mycert = </span></span></span></span><span><span><span><span>New-SelfSignedCertificate</span></span></span></span><span><span><span><span> -DnsName</span></span></span></span> <span><span><span><span>"example.com"</span></span></span></span><span><span><span><span> -CertStoreLocation</span></span></span></span> <span><span><span><span>"cert:\LocalMachine\My"</span></span></span></span><span><span><span><span> -NotAfter</span></span></span></span><span><span><span><span> (</span></span></span></span><span><span><span><span>Get-Date</span></span></span></span><span><span><span><span>).AddYears(1)</span></span></span></span><span><span><span><span> -KeySpec</span></span></span></span><span><span><span><span> KeyExchange</span></span></span></span></span></span></span>
+
+<span><span><span><span><span><span><span># Export certificate to .pfx file</span></span></span></span></span></span></span>
+<span><span><span><span><span><span><span>$mycert | </span></span></span></span><span><span><span><span>Export-PfxCertificate</span></span></span></span><span><span><span><span> -FilePath</span></span></span></span><span><span><span><span> mycert.pfx</span></span></span></span><span><span><span><span> -Password</span></span></span></span><span><span><span><span> $(</span></span></span></span><span><span><span><span>ConvertTo-SecureString</span></span></span></span><span><span><span><span> -String</span></span></span></span> <span><span><span><span>"your_password"</span></span></span></span><span><span><span><span> -Force -AsPlainText</span></span></span></span><span><span><span><span>)</span></span></span></span></span></span></span>
+
+<span><span><span><span><span><span><span># Export certificate to .cer file</span></span></span></span></span></span></span>
+<span><span><span><span><span><span><span><span>$mycert | </span></span></span></span></span><span><span><span><span><span>Export-Certificate</span></span></span></span></span><span><span><span><span><span> -FilePath</span></span></span></span></span><span><span><span><span><span> mycert.cer</span></span></span></span></span></span></span></span></pre>
+<span><b>Important! </b></span>Replace the <b>DnsName </b>parameter value with your certificate name (Netwrix_Auditor_MFA_&lt;your_tenant_name&gt;).<br/><br/><b>How to install the certificate to the CurrentUser/My certificate folder:</b>
+
+<ol><li>Download <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/psexec" target="_blank">PsExec </a>to run Windows PowerShell session under the LocalSystem account;</li><li>Run <b>Windows PowerShell</b> as an Administrator, navigate to  to PsExec.exe installation directory (use the 'CD' command), if necessary, and run the following command:</li></ol>
+
+<pre>.\PsExec.exe -i -s powershell.exe</pre>
+
+<ol start="3"><li>Verify that you are logged in as a Local System account. Run the following command:</li></ol>
+
+<pre>whoami</pre>
+
+<ol start="4"><li>Import the certificate. Run the following command:</li></ol>
+
+<pre>Import-PfxCertificare -FilePath &lt;path to your certificate&gt; -CertStoreLocation 'Cert:\CurrentUser\My' -Password (ConvertTo-SecureSrting -String "your_password" -AsPlainText -Force)
+
+Where path_to_certificate is the full path to the certificate file.</pre>
+<br/><span><b>Note: </b></span>You can also install the certificate with the '.cer' extension to the Azure AD Portal or Netwrix Auditor will set it automatically during establishing a PowerShell connection with Exchange Online.<br/> </div>
+</article></body></html>

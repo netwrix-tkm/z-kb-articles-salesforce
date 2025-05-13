@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "Script error executing line 6: ExecuteAndCaptureChunked -
+      /NNT_FILEHASH_LINUX_X64: Permission denied” (AGENTLESS LINUX)
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JclCAE" />
+    <meta name="Id" content="ka04u000000HdAUAA0" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8253" />
+    <meta name="ArticleNumber" content="000008253" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This problem can occur when the Agent password being sent to the Hub Server is incorrect. 
+        </p>
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:													  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+16:00:33:773 Exec - Script error executing line 6: ExecuteAndCaptureChunked,0,/vmfs/volumes/VMWare_Data2/NNT-Filehash/NNT_FILEHASH_LINUX_X64 -l10 -r -t -x"/etc/vmware/*/dvsdata.db" -x"/etc/vmware/*/*.log" -x
+"/etc/vmware/*/*.counter" "/etc/*". Error: ExecuteAndCaptureChunked failed: /vmfs/volumes/VMWare_Data2/NNT-Filehash/NNT_FILEHASH_LINUX_X64 -l10 -r -t -x"/etc/vmware/*/dvsdata.db" -x"/etc/vmware/*/*.log" -x
+"/etc/vmware/*/*.counter" "/etc/*" -sh: /vmfs/volumes/VMWare_Data2/NNT-Filehash/NNT_FILEHASH_LINUX_X64: Permission denied
+</pre
+            >
+          </div>
+        </div>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>What Does It Mean?</span></strong>
+        </h2>
+        <p>
+          <strong
+            >This means that the NNT File Hash Binary does not have the permissions to execute or
+            perform hashing on various filesystems.</strong
+          >
+        </p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>How Can I Fix This / Should I Worry?</span></strong>
+        </h2>
+        <p>
+          If you are receiving this error, the NNT Agent is NOT reporting to your hub. This is a
+          critical error and for monitoring to continue, it must be resolved. To resolve this error:
+        </p>
+        <ol>
+          <li>
+            Navigate to the location where the FILEHASH Binary is being stored - By default this is
+            /usr/bin
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              You must change the permissions of the FILEHASH Binary as well as ownership of the
+              file.
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Note</p>
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>
+                  <strong
+                    ><span><br /><br /></span
+                    ><span><span>[root@NNT-LINUX-CENTOS7-D1 ~]# chmod 775 /usr/bin/</span></span
+                    ><span>NNT_FILEHASH_LINUX_X64</span></strong
+                  >
+                </p>
+                <p>
+                  <strong
+                    ><span
+                      ><span
+                        ><span
+                          >[root@NNT-LINUX-CENTOS7-D1 ~]# chown root:system /usr/bin/</span
+                        ></span
+                      ><span>NNT_FILEHASH_LINUX_X64</span></span
+                    ></strong
+                  >
+                </p>
+                <p><br /></p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Once the above is completed - Run the FILEHASH Binary from the command prompt. This
+              will hash the /etc Directory.
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <p class="title">Note</p>
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span
+                    ><strong
+                      ><br /><br /><span>[root@NNT-LINUX-CENTOS7-D1 ~]# /usr/bin/</span></strong
+                    ></span
+                  ><strong><span>NNT_FILEHASH_LINUX_X64 -110 -r -t -x /etc/*</span></strong>
+                </p>
+                <p><br /></p>
+              </div>
+            </div>
+          </li>
+          <li>
+            Once completed, you should be able to monitor on all directories, as you have just given
+            the filehash root permissions. Go ahead and log into your change tracker interface, and
+            press the "Start Tracker" button from the devices tab on the agentless device you have
+            specified.
+          </li>
+        </ol>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

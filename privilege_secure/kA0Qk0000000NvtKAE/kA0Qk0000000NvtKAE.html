@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Disable Keystroke Logging</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000NvtKAE"/><meta name="Id" content="ka0Qk0000004bLxIAI"/><meta name="LastPublishedDate" content="2024-02-08T11:54:44.000+0000"/><meta name="LastModifiedDate" content="2024-07-12T11:24:19.000+0000"/><meta name="FirstPublishedDate" content="2024-01-17T10:38:39.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9010"/><meta name="ArticleNumber" content="000009010"/><meta name="description" content="Disable Keystroke Logging"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to disable keystroke logging (keylogging) in Netwrix Privilege Secure?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>The following steps will disable all screen recordings of SSH activity.</p>
+</blockquote>
+
+<div>
+<p>Locate the <code>sbpam_iolog.json</code> file in the <code>C:\ProgramData\Stealthbits\PAM\ProxyService</code> directory. Edit it to include the following lines:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">{
+"idletimeout": 300000000000,
+"path": "C:\\ProgramData\\Stealthbits\\PAM\\ProxyService\\iolog",
+"replicas": 1,
+"disableMetadata": true
+}</code></pre>
+
+<p>If no such file exists in the directory, create it, name it <code>sbpam_iolog.json</code>, and add the lines in the code block to the new file. Save the changes − this will disable all metadata recording, keylogging, and capture of all SSH session recordings.</p>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>This will not affect the previous records.</p>
+</blockquote>
+</div>
+
+<h4 id="delete_recordings_from_a_specific_time_window">Delete recordings from a specific time window</h4>
+
+<div>
+<ol><li>
+	<p>Locate the <strong>iolog</strong> directory − the default path is <code> C:\ProgramData\Stealthbits\PAM\ProxyService\iolog</code>.</p>
+	</li><li>
+	<p>Sort the contents by date and delete the folders matching the desired time window.</p>
+	</li><li>
+	<p>Locate the <strong>sbpam_metadata</strong> database in the <code>C:\ProgramData\Stealthbits\PAM\ProxyService\iolog\.meta</code> directory and delete it.</p>
+	</li><li>
+	<p>Run the following PostgreSQL query to delete references for recordings:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">delete from proxy_session where start_datetime_utc &lt;= '2023-10-31 13:54:22.315271';</code></pre>
+	</li></ol>
+</div></div>
+</article></body></html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot insert the value NULL into column 'owner', table 'tempdb.dbo'</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9c5CAC" />
+    <meta name="Id" content="ka04u000000HcUqAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1409" />
+    <meta name="ArticleNumber" content="000003563" />
+    <meta
+      name="description"
+      content="Netwrix Auditor for SQL Server uses the &amp;#039;sp_helpdb&amp;#039; stored procedure. This stored procedure will fail if any database on the SQL Server does not have an owner."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The change report from Netwrix Auditor for SQL Server contains the following warning:
+        Collect 'Database' information warning on server: MSSQLSERVER DB: master. Cannot insert the
+        value NULL into column 'owner', table 'tempdb.dbo'
+        <hr />
+        Netwrix Auditor for SQL Server uses the 'sp_helpdb' stored procedure. This stored procedure
+        will fail if any database on the SQL Server does not have an owner.
+        <hr />
+        Perform the following steps to find the database(s) with the 'NULL' owner:
+        <ol>
+          <li>Connect to the 'MSSQLSERVER' server.</li>
+          <li>
+            Run the following statement: use master select name, suser_sname(sid) from sysdatabases
+          </li>
+          <li>Look for database without username in second field.</li>
+          <li>
+            Please run the following script to change the owner of the database: use
+            problematic_database_name exec sp_changedbowner 'user name' Note: Replace 'user name'
+            with the user name of the account for the database Example: use problematic_database
+            exec sp_changedbowner 'sa'
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

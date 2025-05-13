@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Migrate the Netwrix Data Classification Database</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="data_classification" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000H6nCAE" />
+    <meta name="Id" content="ka0Qk0000005157IAA" />
+    <meta name="LastPublishedDate" content="2024-08-01T14:29:27.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-29T18:46:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-10-29T17:10:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5827" />
+    <meta name="ArticleNumber" content="000005827" />
+    <meta name="description" content="How to Migrate the Netwrix Data Classification database" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>How can you migrate the Data Classification database?</p>
+        <h2 id="answer">Answer</h2>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>In Data Classification version 5.6 and
+            earlier, refer to the following paths:
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">C:\Program Files\ConceptSearching\Services\ConceptCollectorService\conceptConfig.exe
+C:\inetpub\wwwroot\conceptQS\bin\conceptConfig.exe
+C:\Program Files\ConceptSearching\Services\conceptIndexer\conceptConfig.exe
+C:\inetpub\wwwroot\conceptQS\bin\conceptConfig.exe
+</code></pre>
+        </blockquote>
+        <p>Follow these steps to migrate the Data Classification database:</p>
+        <ol>
+          <li>
+            <p>
+              Open the Service Viewer and stop all three Data Classification services. The default
+              path is:
+            </p>
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">C:\Program Files\Netwrix\Data Classification\ServiceViewer</code></pre>
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span>In a DQS environment, stop the Data
+                Classification services on all Data Classification servers.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            <p>
+              Perform a full Data Classification database backup. For details about the backup
+              process, see
+              <a
+                href="https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-full-database-backup-sql-server?view=sql-server-ver16#SSMSProcedure"
+                target="_blank"
+                >Create a Full Database Backup ⸱ Microsoft 🡥</a
+              >.
+            </p>
+          </li>
+          <li>
+            <p>
+              Restore the Data Classification database file from the device to the target SQL
+              Server. For more information, see
+              <a
+                href="https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/restore-a-database-backup-using-ssms?view=sql-server-ver16#a-restore-a-full-database-backup"
+                target="_blank"
+                >Restore a Database Backup Using SSMS ⸱ Microsoft 🡥</a
+              >.
+            </p>
+          </li>
+          <li>
+            <p>Go to the following folder to update the Data Classification configuration:</p>
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">C:\inetpub\wwwroot\NDC\bin\conceptConfig.exe</code></pre>
+            <p>
+              Review the server name and the credentials of the database account. The database name
+              should remain the same unless you changed it during the migration process.
+            </p>
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span>In a DQS environment, apply the
+                changes on each Data Classification server in the DQS cluster.
+              </p>
+            </blockquote>
+            <blockquote>
+              <p>
+                <span class="Caution"><strong>IMPORTANT: </strong></span>If you are using the
+                Windows Authentication method, verify that the user has the
+                <strong>db_owner</strong> role assigned in the Data Classification database.
+                Alternatively, run <code class="lang-Registry">conceptConfig.exe</code> using the
+                service account.
+              </p>
+            </blockquote>
+            <img
+              src="kA04u0000000H6nCAE_2c869910-8f62-4b62-b697-b1da6557b0d9.png"
+              alt="conceptConfig.exe configuration window with database server and credentials fields visible"
+            />
+          </li>
+          <li>
+            <p>
+              Open the Service Viewer and start all three Data Classification services. The default
+              path is:
+            </p>
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">C:\Program Files\Netwrix\Data Classification\ServiceViewer</code></pre>
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span>In a DQS environment, start the
+                Data Classification services on all Data Classification servers.
+              </p>
+            </blockquote>
+          </li>
+        </ol>
+        <h2 id="related_articles">Related Articles</h2>
+        <ul>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/create-a-full-database-backup-sql-server?view=sql-server-ver16#SSMSProcedure"
+              target="_blank"
+              >Create a Full Database Backup ⸱ Microsoft 🡥</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/restore-a-database-backup-using-ssms?view=sql-server-ver16#a-restore-a-full-database-backup"
+              target="_blank"
+              >Restore a Database Backup Using SSMS ⸱ Microsoft 🡥</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

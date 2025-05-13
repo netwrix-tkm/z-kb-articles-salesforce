@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Limit State-in-Time Scope in SharePoint Online</title>
+    <meta name="label" content="SharePoint" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Yg1KAE" />
+    <meta name="Id" content="ka0Qk0000002mdFIAQ" />
+    <meta name="LastPublishedDate" content="2024-04-02T09:31:13.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-02T09:31:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-02T09:31:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9103" />
+    <meta name="ArticleNumber" content="000009103" />
+    <meta name="description" content="How to Limit State-in-Time Scope in SharePoint Online" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article lists steps to exclude an SPO site from the State-in-Time (SiT) collection
+            scope. Alternatively, you can limit the scope to one particular site depending on the
+            customer's needs.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span
+                ><strong>IMPORTANT: </strong>Before performing these steps, request approval from a
+                Tier 2 engineer.</span
+              >
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <p>Refer to the following steps:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the Auditor server, stop the Netwrix Auditor Configuration Server Service. You
+                can stop it manually via <strong>Services</strong> or run the following line in
+                elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate the <code>Configuration.xml</code> file and create a backup. Refer to the
+                following default path for the file:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\AuditCore\ConfigServer\</code></pre>
+            </li>
+            <li>
+              <p>
+                In the <code>Configuration.xml</code> file, locate the <code>ScopeItms</code> node
+                for the SharePoint Online (SPO) monitoring plan. In the node, locate the following
+                subnode:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;a n="AuditAllFarm" t="7" v="True"/&gt;</code></pre>
+
+              <p>Change the <code>v</code> value to <code>False</code>. Save the changes.</p>
+            </li>
+            <li>
+              <p>Locate the SPO working folder—refer to the following default location:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\Netwrix Auditor for SharePoint Online\Configuration\%GUID%\</code></pre>
+            </li>
+            <li>
+              <p>
+                In the %GUID% folder, create a <code>IncludedSitScStoreList.txt</code> file. Include
+                the SPO sites you would like to monitor and collect SiT from. Once you introduce the
+                sites, save the changes.
+              </p>
+            </li>
+            <li>
+              <p>
+                On the Auditor server, start the Netwrix Auditor Configuration Server Service. You
+                can start it manually via <strong>Services</strong> or run the following line in
+                elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

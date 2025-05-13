@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to detect the root cause of multiple failed logons</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eNCAS" />
+    <meta name="Id" content="ka04u00000117eUAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T11:48:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T11:48:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3553" />
+    <meta name="ArticleNumber" content="000003705" />
+    <meta name="description" content="How to detect the root cause of multiple failed logons" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>
+          Netwrix Auditor for Logon Activity may report a large amount of failed logons from a
+          single workstation or server.
+        </p>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>
+          Usually, this happens because the problematic account credentials were saved somewhere on
+          the target machine and became outdated. If a user's password had been changed but it was
+          not updated in the system or application that had been using it, this systems/application
+          will try to use the stored outdated credentials, therefore generating a large amount of
+          failed logons.
+        </p>
+
+        <h2 id="reolution">Reolution</h2>
+
+        <p>
+          Login to the originating machine and check the following systems for outdated credentials:
+        </p>
+
+        <ul>
+          <li><strong>Windows Сredential Manager </strong>- may store outdated credentials.</li>
+          <li>
+            <strong>Windows task scheduler </strong>- there could be a task configured to run using
+            the problematic account.
+          </li>
+          <li>
+            <strong>Application or service</strong> - there could be a service that is trying to
+            start or a tool/application that is trying to run using outdated credentials.
+          </li>
+          <li>
+            <strong>Terminal Server session</strong> - there could be an opened session with
+            outdated credentials.
+          </li>
+          <li>
+            <strong>AD Federation Services </strong>- replication issues - a new password was not
+            replicated to ADFS.
+          </li>
+          <li>
+            <strong>DCOM objects </strong>- sometimes a computer requires a restart after changing
+            user password - to apply setting to DCOM objects that are using these credentials.
+          </li>
+        </ul>
+
+        <p>
+          Enter valid account credentials.<br /><br />If you want an overview on how Failed Logon
+          information is collected, check this article:
+          <a href="https://kb.netwrix.com/5905" target="_blank"
+            >Why Do I Have Incomplete Information on Failed Logons?</a
+          ><br />If you need a guide on how to Investigate Failed Logon, check this article:
+          <a href="https://kb.netwrix.com/5198" target="_blank">Investigating Failed Logons</a>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

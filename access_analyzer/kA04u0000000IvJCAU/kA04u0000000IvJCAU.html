@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Locate Database Files and Applet Logs for All FSAA Scan Types</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IvJCAU" />
+    <meta name="Id" content="ka0Qk00000044GLIAY" />
+    <meta name="LastPublishedDate" content="2024-06-05T20:40:18.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-05T20:40:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:45:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7416" />
+    <meta name="ArticleNumber" content="000007416" />
+    <meta
+      name="description"
+      content="How to Locate Database Files and Applet Logs for All FSAA Scan Types"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          This article describes Tier 2 database and log locations for the various FSAA scans
+          (Netwrix Enterprise Auditor 9.0+). Additionally, this document covers the following
+          related topics:
+        </p>
+
+        <ul>
+          <li>
+            Conditions for Sending Tier 2 Databases from Netwrix Enterprise Auditor Console to Proxy
+            Server or Applet Host in 9.0+ FSAA
+          </li>
+          <li>How FSAA Determines if a Scan Should Run</li>
+          <li>Tier 1 vs. Tier 2 GUID Mismatch</li>
+          <li>Moving the Location of the FSAA Folder on Proxy Servers or Applet Hosts</li>
+        </ul>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <p>
+          There are several different scan modes that the FS Data Collector can leverage. The
+          location of the Tier 2 databases and logs will vary, depending on that mode.
+        </p>
+
+        <p>
+          This article assumes that Netwrix Enterprise Auditor is installed with a path ending in
+          ...\Netwrix Enterprise Auditor\. Otherwise, the FSAA folder will be located in ...\Netwrix
+          Enterprise Auditor\FSAA in the parent folder of the installation directory.
+        </p>
+
+        <p>
+          The registry key containing the SAINSTALLDIR value is:
+          HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment
+        </p>
+
+        <p>
+          That registry key’s existence is checked when the Netwrix Enterprise Auditor applet is
+          deployed. If it doesn’t exist, then the default path for %SAINSTALLDIR% is used:
+          C:\Program Files (x86)\STEALTHbits\Netwrix Enterprise Auditor
+        </p>
+
+        <h3 id="log_types">Log Types</h3>
+
+        <p>
+          Below are various logs associated with FSAA scans and jobs. The locations of these logs
+          are included with the scan mode information to follow. In addition to these logs, Tier 2s
+          should be included for relevant hosts when troubleshooting scan or bulk import issues.
+        </p>
+
+        <ul>
+          <li>
+            <strong>Applet Logs</strong> – Often contains the most important troubleshooting
+            information. Host scanning is performed by the applet, and these logs contain
+            information, warnings, and errors experienced during FSAA scans. Applet logs should be
+            included when troubleshooting scan and bulk import issues.
+          </li>
+          <li>
+            <strong>RPC Logs</strong> – Contains information, warnings, and errors related to
+            communication (e.g., network, I/O) during scans. RPC logs should be included when
+            troubleshooting scan and communication issues.
+          </li>
+          <li>
+            <strong>Job Logs</strong> – Contains information, warnings, and errors related to
+            Netwrix Enterprise Auditor Console setup before the FSAA applet is launched. Job logs
+            may also contain certain scan messages, although applet logs typically have more
+            information in that regard. All bulk import messages are also included in the job logs.
+            Job logs should be included when troubleshooting scan and bulk import issues.
+          </li>
+          <li>
+            <strong>Sensitive Data Logs</strong> – There are two new logs in v10.0+ that include
+            information about sensitive data scans. These are ScannerLib and Extractor. Both logs
+            will be in a host’s specific FSAA directory and should be included when troubleshooting
+            issues regarding sensitive data. When running sensitive data scans with multiple
+            threads, there will be one ScannerLib and one Extractor log per thread. By default, FSAA
+            sensitive data scans run with four threads, so there will be four ScannerLib logs and
+            four Extractor logs.
+          </li>
+        </ul>
+
+        <h3 id="common_scenarios_what_to_include">Common Scenarios &amp; What to Include</h3>
+
+        <p>
+          In all troubleshooting scenarios, various database and log files will be requested. Please
+          provide all requested materials, as each piece provides important troubleshooting
+          information. If unsure of what to provide, at a minimum please provide each affected
+          host’s FSAA\ folder.
+        </p>
+
+        <p>
+          In various specific troubleshooting scenarios, the following database and log files must
+          be provided:
+        </p>
+
+        <ul>
+          <li><strong>Scan &amp; Network Issues</strong> – Applet logs, job logs, RPC logs</li>
+          <li>
+            <strong>Data Validity Concerns</strong> – Tier 2 database files, screenshot showing data
+            validity concern
+          </li>
+          <li><strong>Bulk Import Issues</strong> – Tier 2 database files, job logs</li>
+          <li>
+            <strong>Sensitive Data Issues</strong> – Applet logs, job logs, and sensitive data logs
+            (ScannerLib/Extractor)
+          </li>
+        </ul>
+
+        <h3 id="local_mode">Local Mode</h3>
+
+        <p>
+          A persistent network connection is used to collect data from the target and send it to the
+          Netwrix Enterprise Auditor Console server.
+        </p>
+
+        <p>
+          Tier 2 databases are created locally on the Netwrix Enterprise Auditor Console while the
+          scan is running, in per-host folders in the FSAA directory.
+        </p>
+
+        <p>Applet logs are stored on the Netwrix Enterprise Auditor Console in: FSAA\</p>
+
+        <p>
+          RPC logs are stored on the Netwrix Enterprise Auditor Console in: FSAA for the parent RPC
+          logs, FSAA\ for each child RPC log
+        </p>
+
+        <p>
+          Job logs are stored on the Netwrix Enterprise Auditor Console in:
+          %SAINSTALLDIR%\Jobs\\Output
+        </p>
+
+        <h3 id="applet_mode">Applet Mode</h3>
+
+        <p>
+          An applet is deployed to the Windows scan target, and the scan runs on the target instead
+          of collecting data over the network. For non-Windows hosts, an active network connection
+          is used to collect data from the target and send it to the Netwrix Enterprise Auditor
+          Console server.
+        </p>
+
+        <p>
+          Tier 2 databases are sent to the applet host if they exist on the Netwrix Enterprise
+          Auditor Console server. Otherwise, they are created on the applet host. In either case,
+          Tier 2s are then zipped and copied to the Netwrix Enterprise Auditor Console’s per-host
+          FSAA folders when the target scan is finished.
+        </p>
+
+        <p>
+          Applet logs are stored in FSAA\ folders on each applet host. The logs are copied to the
+          Netwrix Enterprise Auditor Console when the target scan is finished.
+        </p>
+
+        <p>
+          RPC logs are stored in the FSAA folder and in FSAA\ folders on each applet host. The logs
+          are copied to the Netwrix Enterprise Auditor Console when the target scan is finished.
+        </p>
+
+        <p>
+          Job logs are stored on the Netwrix Enterprise Auditor Console in:
+          %SAINSTALLDIR%\Jobs\\Output
+        </p>
+
+        <h3 id="proxy_mode">Proxy Mode</h3>
+
+        <p>
+          Scans are performed from a remote proxy server to help distribute resources and localize
+          scans geographically to improve performance for large deployments and slow links. Proxy
+          servers act like a Netwrix Enterprise Auditor Console scanning in local mode.
+        </p>
+
+        <p>
+          Tier 2 databases are sent to the proxy server if they exist on the Netwrix Enterprise
+          Auditor Console server. Otherwise, they are created on the proxy server. Tier 2s are then
+          zipped and copied to the Netwrix Enterprise Auditor Console’s per-host FSAA folders when
+          the target scans are finished.
+        </p>
+
+        <p>Proxy Mode has two workflow options:</p>
+
+        <ul>
+          <li>
+            <strong>Standard Proxy</strong> – An applet is sent from the Netwrix Enterprise Auditor
+            Console to the proxy server and started through a remote scheduled task.
+          </li>
+          <li>
+            <strong>FSAA as a Service</strong> – FSAA is installed on the proxy server as a service,
+            rather than sending a proxy applet during each scan.
+          </li>
+        </ul>
+
+        <p>
+          In both modes, FSAA uses a persistent network connection between the proxy server and the
+          target hosts for collecting data.
+        </p>
+
+        <p>
+          Applet logs are stored in FSAA\ folders on the proxy server. The logs are copied to the
+          Netwrix Enterprise Auditor Console when the target scan is finished.
+        </p>
+
+        <p>
+          RPC logs are stored in the FSAA folder and in FSAA\ folders on the proxy server. The logs
+          are copied to the Netwrix Enterprise Auditor Console when the target scan is finished.
+        </p>
+
+        <p>
+          Job logs are stored on the Netwrix Enterprise Auditor Console in:
+          %SAINSTALLDIR%\Jobs\\Output
+        </p>
+
+        <h2 id="related_topics">Related Topics</h2>
+
+        <h3
+          id="conditions_for_sending_tier_2_databases_from_netwrix_enterprise_auditor_console_to_proxy_server_or_applet_host_in_90+_fsaa"
+        >
+          Conditions for Sending Tier 2 Databases from Netwrix Enterprise Auditor Console to Proxy
+          Server or Applet Host in 9.0+ FSAA
+        </h3>
+
+        <p>
+          FSAA collects the GUID, USN, and ScanCompleted values from the TBL_FSAA_Sequence table on
+          the proxy server or applet host (e.g., RemoteGUID, RemoteUSN, and RemoteScanCompleted).
+          FSAA also collects the GUID, USN, and ScanCompleted values from TBL_FSAA_Sequence table
+          from the local Netwrix Enterprise Auditor Console (e.g., LocalGUID, LocalUSN, and
+          LocalScanCompleted).
+        </p>
+
+        <p>
+          If one of the following conditions is true, then FSAA sends the Tier 2s from the Netwrix
+          Enterprise Auditor Console to the proxy server or applet host:
+        </p>
+
+        <ul>
+          <li>RemoteGUID is blank</li>
+          <li>RemoteGUID is not equal to LocalGUID</li>
+          <li>RemoteUSN is not equal to LocalUSN</li>
+          <li>
+            RemoteScan is not complete and local Tier 2 is newer than remote Tier 2 (based on
+            TBL_FSAA_StatusScanTime)
+          </li>
+          <li>Remote Tier 2s have an older schema version</li>
+        </ul>
+
+        <p>
+          If sent, FSAA automatically unzips the Tier 2s on the proxy server or applet host. The
+          Tier 2s on the proxy server or applet host are only replaced with Tier 2s from the zip if
+          a Tier 2 from the zip is newer than proxy/applet Tier 2.
+        </p>
+
+        <h3 id="how_fsaa_determines_if_a_scan_should_run">
+          How FSAA Determines if a Scan Should Run
+        </h3>
+
+        <p>FSAA first checks for the following conditions:</p>
+
+        <ul>
+          <li>No Tier 2s exist</li>
+          <li>
+            Previous scan was not completed, and Tier 2 databases are older than the value for
+            Restart Incomplete Scan After... (or if it is set to 0)
+          </li>
+          <li>
+            Tier 2 databases are older than the value for Rescan Unimported Hosts After... (or if it
+            is set to 0)
+          </li>
+        </ul>
+
+        <p>
+          If any of the above conditions are met, then FSAA will start a new scan, unless one of the
+          following conditions is met:
+        </p>
+
+        <ul>
+          <li>
+            Tier 1's GUID no longer matches Tier 2's GUID, indicating Tier 1 and Tier 2 databases do
+            not match
+          </li>
+          <li>
+            Tier 2's USN is greater than Tier 1's USN, indicating there is data for bulk import
+          </li>
+        </ul>
+
+        <h3 id="tier_1_vs_tier_2_guid_mismatch">Tier 1 vs. Tier 2 GUID Mismatch</h3>
+
+        <p>
+          Tier 1 and Tier 2 databases need to match, as FSAA uses numbers to identify objects such
+          as folders or users. If Tier 1 and Tier 2 GUIDs do not match, FSAA cannot confirm that
+          those numbers represent the same object(s) in Tier 1 and Tier 2 (making the scan data
+          invalid).
+        </p>
+
+        <p>
+          If FSAA detects a GUID mismatch upon import, FSAA will throw an error indicating that and
+          provide instructions on how to reset Tier 1. For assistance, contact Stealthbits Support
+          and halt all further actions (support@stealthbits.com,
+          https://www.stealthbits.com/support).
+        </p>
+
+        <h3 id="moving_the_location_of_the_fsaa_folder_on_proxy_servers_or_applet_hosts">
+          Moving the Location of the FSAA Folder on Proxy Servers or Applet Hosts
+        </h3>
+
+        <ol>
+          <li>
+            Move the FSAA folder on the target host to the new location. The location must be within
+            a folder named Netwrix Enterprise Auditor.
+          </li>
+          <li>
+            Update the %SAINSTALLDIR% Environment Variable on the target host to point to the new
+            Netwrix Enterprise Auditor folder from the previous step.
+          </li>
+        </ol>
+
+        <ul>
+          <li>
+            To open Environment Variables in Windows, search the Start Menu for Environment
+            Variables and open Edit the System Environment Variables.
+          </li>
+          <li>
+            Click Environment Variables near the bottom of the System Properties &gt; Advanced tab.
+          </li>
+          <li>Highlight SAINSTALLDIR under System Variables and click Edit.</li>
+        </ul>
+
+        <p>
+          The default path for %SAINSTALLDIR% is: C:\Program Files (x86)\STEALTHbits\Netwrix
+          Enterprise Auditor\
+        </p>
+
+        <p>The FSAA Data Collector references: %SAINSTALLDIR%\..\Netwrix Enterprise Auditor\FSAA</p>
+
+        <p>
+          That means it will remove the last folder from the %SAINSTALLDIR% path and will add
+          Netwrix Enterprise Auditor\FSAA (e.g., if %SAINSTALLDIR% is set to D:\Temp, then FSAA Tier
+          2s will be stored in D:\Netwrix Enterprise Auditor\FSAA in per-host folders).
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

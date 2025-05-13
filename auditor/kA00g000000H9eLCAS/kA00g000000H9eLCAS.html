@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>No Monitoring Plans Found in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eLCAS" />
+    <meta name="Id" content="ka04u00000117TMAAY" />
+    <meta name="LastPublishedDate" content="2023-08-29T12:39:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-30T08:30:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3581" />
+    <meta name="ArticleNumber" content="000003703" />
+    <meta name="description" content="No Monitoring Plans Found" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When attempting to view a report, the <strong>Monitoring Plan</strong> dropdown list
+            reads as follows:
+          </p>
+
+          <pre class="has-inner-focus">NO MONITORING PLANS FOUND</pre>
+
+          <div>
+            <img
+              height="205"
+              src="kA00g000000H9eLCAS_4ef900ed-2578-415a-877c-51ba3174476e.png"
+              width="698"
+            />
+          </div>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                A data source type for the report you're viewing is not added to any of your
+                existing monitoring plans.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    E.g., if you're generating a File Servers report, it won't be generated unless
+                    you have at least one monitoring plan for a File Servers data source.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                A monitoring plan for the data source type exists, but no data has been collected,
+                or uploaded to your SQL Server instance databases.
+              </p>
+            </li>
+            <li>
+              <p>
+                You're attempting to view a report under the
+                <strong>State-in-Time</strong> category, while data collection for State-in-Time
+                reports for the data source is disabled.
+              </p>
+            </li>
+            <li>
+              <p>The <strong>Reports</strong> folder is corrupted.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Create a new monitoring plan for the data source. Refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/Create.htm"
+                  target="_self"
+                  >Monitoring Plans – Create a New Plan</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Review the corresponding data source settings:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Review your Health Log for errors related to the monitoring plan containing the
+                    data source.
+                  </p>
+                </li>
+                <li>
+                  <p>Review the monitoring plan settings:</p>
+
+                  <ol>
+                    <li>
+                      <p>
+                        In the main Netwrix Auditor menu, click <strong>Monitoring Plans</strong>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        In the left pane, select the appropriate monitoring plan and click
+                        <strong>Edit</strong>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        In the right pane, click <strong>Edit settings</strong> under the
+                        <strong>Monitoring plan</strong> section.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Review the <strong>Data Collection</strong> tab for correct data collection
+                        account credentials.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Review the <strong>Audit Database</strong> tab for correct database
+                        specified, as well as credentials.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Make sure the <strong>Audit Database</strong> tab has the
+                        <strong
+                          >Disable security intelligence and make data available only in activity
+                          summaries</strong
+                        >
+                        checkbox unchecked.
+                      </p>
+                    </li>
+                    <li>
+                      <p>Save the changes.</p>
+                    </li>
+                  </ol>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Review the data source with State-in-Time reporting:</p>
+
+              <ol>
+                <li>
+                  <p>In the main Netwrix Auditor menu, click <strong>Monitoring Plans</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select the appropriate monitoring plan and click
+                    <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the right pane, click <strong>Edit data source</strong> under the
+                    <strong>Data source</strong> section.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Review the <strong>General</strong> tab to switch the
+                    <strong>Collect data for state-in-time reports</strong> switch on.
+                  </p>
+                </li>
+                <li>
+                  <p>Save the changes.</p>
+                </li>
+              </ol>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Once data is collected (once every 24 hours by
+                  default), it should become available in the report.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Recreate the <strong>Reports</strong> folder.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In elevated PowerShell, execute the following command to stop the corresponding
+                    service:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Management Service"</code></pre>
+                </li>
+                <li>
+                  <p>Open Report Manager in your browser.</p>
+
+                  <ul>
+                    <li>
+                      <p>
+                        You can find the Report Manager URL in your main Netwrix Auditor menu &gt;
+                        <strong>Settings</strong> &gt; <strong>Audit Database</strong> tab &gt;
+                        <strong>Report Manager URL</strong>.
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>
+                    In the main SQL Server Reporting Services window, locate the
+                    <strong>Netwrix Auditor</strong> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click the meatball <strong>⸱⸱⸱</strong> button, and select
+                    <strong>Delete</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Follow the path provided:</p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor\Reports</code></pre>
+                </li>
+                <li>
+                  <p>Delete the contents of the <strong>Reports</strong> folder.</p>
+                </li>
+                <li>
+                  <p>
+                    Once deleted, follow the path provided to find the
+                    <strong>Reports.zip</strong> archive in the root of the folder:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\ProgramData\Netwrix Auditor</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Extract the contents of the <strong>Reports.zip</strong> archive to the
+                    <code>C:\ProgramData\Netwrix Auditor\Reports</code> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In elevated PowerShell, execute the following command to start the corresponding
+                    service:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Management Service"</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Wait for about 10 minutes for reports to upload to your Report Manager. You can
+                    track the progress by following the Report Manager URL and entering the
+                    <strong>Netwrix Auditor</strong> folder.
+                  </p>
+                </li>
+                <li>
+                  <p>Once the affected report is uploaded, run the report again.</p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span> There are downsides to this approach:
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  The account specified in <strong>Audit database settings</strong> for Report
+                  Server should have local admin permissions, as well as permissions to create
+                  folders, and upload folders.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Any folder/report access permissions set up in Report Manager directly instead of
+                  monitoring plans delegation in will have to be reconfigured. Alternatively, you
+                  can delete a particular affected report instead of deleting the entire
+                  <strong>Netwrix Auditor</strong> reports folder.
+                </p>
+              </li>
+              <li>
+                <p>
+                  In case you've previously added a custom report, you will have to manually set it
+                  up again. This could apply to the report provided in the following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000HDkpCAG.html"
+                    target="_blank"
+                    >How to Monitor Print Service Activity</a
+                  >.
+                </p>
+              </li>
+            </ul>
+          </blockquote>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/Create.htm"
+            target="_self"
+            >Monitoring Plans – Create a New Plan</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

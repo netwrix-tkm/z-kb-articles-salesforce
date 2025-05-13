@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Access Errors for User Activity Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110zkCAA" />
+    <meta name="Id" content="ka04u0000011755AAA" />
+    <meta name="LastPublishedDate" content="2023-08-04T08:42:45.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-08T11:32:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-04T08:42:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8712" />
+    <meta name="ArticleNumber" content="000008712" />
+    <meta name="description" content="Access Errors for User Activity Monitoring Plan" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A User Activity (UAVR) monitoring plan generates errors on missing access permissions:
+          </p>
+
+          <pre class="has-inner-focus">Requested registry access is not allowed</pre>
+
+          <pre class="has-inner-focus">Cannot open HKEY_Local_Machine: error while opening key</pre>
+
+          <pre class="has-inner-focus">Access is denied</pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Misconfigured Remote Registry service.</p>
+            </li>
+            <li>
+              <p>
+                Misconfigured permissions for the
+                <code
+                  >HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg</code
+                >
+                registry subkey on the affected client.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Review the Remote Registry service configuration. Refer to the following article for
+                additional information on configuration steps:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/EventLog/Overview.htm"
+                  target="_self"
+                  >Configure IT Infrastructure — Windows Event Logs</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the permissions to the
+                <code>SYSTEM\CurrentControlSet\Control\winreg</code> registry subkey. Refer to the
+                following steps to configure the permissions for the affected client:
+              </p>
+
+              <ol>
+                <li>
+                  <p>Run Registry Editor on the affected client.</p>
+                </li>
+                <li>
+                  <p>
+                    Either expand the registry nodes in the left pane to reach the subkey, or enter
+                    the following path in the corresponding path window:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Right-click <strong>winreg</strong>, and click <strong>Permissions</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Add</strong>, and enter <strong>local service</strong> in the
+                    <strong>Enter the object names to select</strong>. Click <strong>OK</strong> to
+                    save the changes.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the <strong>LOCAL SERVICE</strong> user and check the
+                    <strong>Read — Allow</strong> checkbox under the
+                    <strong>Permissions</strong> section. Click <strong>Apply</strong> to save the
+                    changes.
+                  </p>
+                </li>
+                <li>
+                  <p>Restart the client.</p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

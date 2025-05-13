@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>O365 Configuration</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IHkCAM" />
+    <meta name="Id" content="ka04u000000HcjPAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:32:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:32:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7173" />
+    <meta name="ArticleNumber" content="000007173" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to configure
+          credentials for connecting to O365.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Instructions on how
+          to configure O365 collections<br /><br />This isn't as complete as I'd like it to be, but
+          I want to publish it now.  <br />Let me know if you have any input. 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> When targeting
+          a "cloud server" in your host list (eg. mycompany.sharepoint.com or ps.outlook.com), make
+          sure to <span><strong>disable "Skip hosts that don't respond to ping"</strong></span> in
+          job properties &gt; performance tab.  <br /><br /><span
+            ><strong>Azure Collections</strong></span
+          ><br /><strong>Connection Profile</strong>
+        </p>
+        <div>
+          Account type: Azure Active Directory<br />Password storage setting: Application<br />Client
+          ID &amp; Key: Follow instructions to
+          <a
+            href="https://www.stealthbits.com/jdownloads/Downloads/Files/Documentation/MobileFriendly/NetHelp_SA/index.html#!Documents/stealthauditazureadinventorywebapplication1.htm"
+            target="_blank"
+            >Create a Web Application in the Azure ADI Documentation</a
+          >
+        </div>
+        <div>
+          <br /><span><strong>Exchange Online</strong></span
+          ><br /><strong>Connection Profile</strong>
+          <div>
+            Account type: Task (Domain)<br />Password storage setting: Application<br />Username: in
+            upn format (eg. username@domain.com)<br /> 
+          </div>
+          <div><strong>Target Host</strong></div>
+          <div>ps.outlook.com<br />(this will be the same for every customer)<br /> </div>
+          <div><strong>Notes</strong></div>
+          <div>execution policy needs to be set to unrestricted</div>
+          <div>set-executionpolicy unrestricted<br /> </div>
+        </div>
+        <div><strong>Options for configuring the query</strong></div>
+        <div>
+          A) Set DC to Use Office 365 - this exposes additional query categories which are only used
+          for Exchange Online
+        </div>
+        <div>
+          B) Set DC to Use Global Setting - this will allow targeting both on premises and online
+          simultaneously
+        </div>
+        <div> </div>
+        <div>
+          <strong><span>SharePoint Online</span></strong
+          ><br /><strong>Connection Profile</strong>
+        </div>
+        <div>Account type: Task (Domain)<br />Password storage setting: Application</div>
+        <p><br /><strong>Target Host</strong><br />full web dns part of the site url </p>
+        <div>
+          for example, if the sitename is http://testsite.sharepoint.com<br />then the host in your
+          host list should be testsite.sharepoint.com  
+        </div>
+        <div> </div>
+        <div><strong>Notes</strong></div>
+        <div>
+          You <u>need </u>Azure ADI for the analysis and reporting jobs to work correctly.  
+        </div>
+        <div>
+          <br />sharepoint permission doc &amp; dc component<br /><br /><strong
+            ><span>DropBox </span></strong
+          ><br /><strong>Connection Profile / Target Hosts</strong>
+        </div>
+        <div>
+          <div>
+            1) Query Wizard - Connect to drop box - get code<br />2) put code into connection
+            profile <br />3) target local host (the target environment is determined by the access
+            token in the above steps) 
+          </div>
+          <div>
+             
+            <div>
+              <strong><span>Box </span></strong
+              ><br /><strong>Connection Profile / Target Hosts</strong>
+              <div>
+                1) Query Wizard - Connect to box (need enterprise admin account or you may be
+                missing data, even with successful collections)<br />2) Connection profile not
+                required - token is saved to query.  <br />3) target enterprise id of the target box
+                environment (should look like BOX_12356)
+              </div>
+            </div>
+          </div>
+          <div>
+            <br />just in case it may be helpful,
+            <a
+              href="https://www.netiq.com/communities/cool-solutions/creating-application-client-id-client-secret-microsoft-azure-new-portal/"
+              target="_blank"
+              >Here are some additional 3rd party instructions for creating a client id and secret
+              key value.</a
+            >
+          </div>
+        </div>
+        <div> </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - AzureADInventory;SA - DC - ExchangePS;SA - DC - SPO;SA - Solution Set - Azure AD;SA
+          - Solution Set - Azure AD Inventory;SA - Solution Set - Exchange;SA - Solution Set -
+          SharePoint<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1586
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

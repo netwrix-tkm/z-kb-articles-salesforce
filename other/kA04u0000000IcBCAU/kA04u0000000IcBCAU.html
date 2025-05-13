@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_7.2_SP1_084</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IcBCAU" />
+    <meta name="Id" content="ka04u000000HcrUAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:13.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6801" />
+    <meta name="ArticleNumber" content="000006801" />
+    <meta name="description" content="360012217812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Int. overflow error
+          when running ADI.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong><br />Int. overflow error when running ADI.<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Justin Giemza<br /><strong
+            ><span>Cumulative List of fixes included since Service Pack:</span></strong
+          ><br />none<br /><strong><span>Affected Versions:</span></strong
+          ><br /><strong><span>7.2</span></strong
+          ><br /><strong><span>Affected Module:</span></strong
+          ><br />SA - DC - ADInventory<br /><strong><span>Dev Ticket:</span></strong
+          ><br />SAT-2993/24475<br /><strong><span>Resolved in Version:</span></strong
+          ><br />Stealthbits.StealthAUDIT.DataCollectors.ADInventory.dll                7.2.87<br />Stealthbits.StealthAUDIT.DataCollectors.ADInventory.UI.dll         
+          7.2.87<br /><strong><span>KB Type: </span></strong>Bug<br /><strong
+            ><span>Issue:</span></strong
+          ><br />Customer saw the following error causing ADI to not run: System.Exception: Error
+          while adding: user CN=john,CN=Users,DC=com,DC=smith,DC=int System.Exception: Error while
+          adding john to 'SA_ADInventory_Principals' Table, USN = 34467, DomainId = 17 :
+          System.OverflowException: Failed to convert parameter value from a Int32 to a Int16.
+          ---&gt; System.OverflowException: Value was either too large or too small for an Int16.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1.           
+          Unblock the hotfix zip file in the windows property dialog, if an unblock button exists
+          there.<br />2.            Close all instances of StealthAUDIT.<br />3.            Update
+          all included PrivateAssemblie files in your %SAInstallDir%PrivateAssemblies directory<br /><br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SAHotFixes/7.2/SA_7.2_SP1_084.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SAHotFixes/7.2/SA_7.2_SP1_084.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - ADInventory<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.2 SP1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAT-2993<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          Stealthbits.StealthAUDIT.DataCollectors.ADInventory.dll 7.2.87
+          Stealthbits.StealthAUDIT.DataCollectors.ADInventory.UI.dll 7.2.87<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1906<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

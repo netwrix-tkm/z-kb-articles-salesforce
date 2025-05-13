@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor Failed to Process Event Logs on a Domain Controller: COM Error: -2147023485
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="customers_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000K1xKAE" />
+    <meta name="Id" content="ka0Qk00000033ivIAA" />
+    <meta name="LastPublishedDate" content="2023-12-19T14:17:09.000+0000" />
+    <meta name="LastModifiedDate" content="2024-12-04T18:53:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-13T16:25:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8962" />
+    <meta name="ArticleNumber" content="000008962" />
+    <meta
+      name="description"
+      content="Netwrix Auditor Failed to Process Event Logs on a Domain Controller: COM Error: -2147023485"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>The Netwrix Auditor System Health Log contains the following error:</p>
+        </div>
+        <div>
+          <pre class="has-inner-focus">
+        Event ID 2001: 
+        Failed to process the domain controller due to the following error: COM Error: -2147023485
+    </pre
+          >
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            Netwrix Auditor cannot access Event Logs on a Domain Controller due to the combination
+            of the following:
+          </p>
+          <ul>
+            <li>
+              <p>Some audit settings for Active Directory are missing.</p>
+            </li>
+            <li>
+              <p>Insufficient permissions for Data Collecting Account.</p>
+            </li>
+            <li>
+              <p>The compression service unable to start on the problematic Domain Controller.</p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>Prerequisites for a problematic Domain Controller:</p>
+          <ul>
+            <li>
+              <p>Install latest Windows updates</p>
+            </li>
+            <li>
+              <p>Update .Net Framework to 4.5 and above</p>
+            </li>
+            <li>
+              <p>
+                Assign the data collecting account all the permissions as a non domain admin
+                account. For additional information, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Permissions.htm#assign_permission_to_read_the_registry_key"
+                  target="_blank"
+                  >Configuration — Windows Server — v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the <b>Adjust Audit Settings Automatically</b> option is disabled for a
+                monitoring plan, make sure all audit settings for Active Directory were configured
+                properly. For additional information, refer to the following articles:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/ActiveDirectory/Manual.htm"
+                  target="_blank"
+                  >Configuration — Active Directory: Manual Configuration — v10.6</a
+                >
+                and
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/ActiveDirectory/Ports.htm"
+                  target="_blank"
+                  >Configuration — Active Directory Ports — v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+          Follow the steps below to resolve the issue:
+          <ol>
+            <li>
+              <p>
+                On the Netwrix Auditor Server host, navigate to
+                <em>c:\Program Files (x86)\Netwrix Auditor\Active Directory Auditing\agent.ini</em>
+              </p>
+              <p>Open the file with any text editor and add the following line:</p>
+              <code>DCFQDNname=skipsilent</code>
+              <p>
+                where <code>DCFQDNname</code> is the FQDN name of the problematic Domain Controller.
+              </p>
+            </li>
+            <li>
+              <p>Restart the problematic host entirely.</p>
+            </li>
+            <li>
+              <p>
+                In Netwrix Auditor, navigate to the monitoring plan that collects data from the
+                Domain Controller and click <b>Edit data source</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                On the <b>General</b> tab, select the
+                <b>Enable network traffic compression</b> checkbox under
+                <b>Specify data collection method</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Then click <b>Update</b> next to the plan and wait until the data collection
+                completes.
+              </p>
+            </li>
+            <li>
+              <p>Remove the line you added to the <b>agent.ini</b> file on the step 2.</p>
+            </li>
+            <li>
+              <p>
+                In Netwrix Auditor, click <b>Update</b> next to the monitoring plan for the Domain
+                Controller.
+              </p>
+            </li>
+            <li>
+              <p>Wait for the data collection completes.</p>
+            </li>
+          </ol>
+        </div>
+        <h3 id="related_articles">Related Articles</h3>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/EventLog.htm"
+                target="_blank"
+                >Configuration — Windows Server — Adjusting Event Log Size and Retention Settings —
+                v10.6</a
+              >.
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/ActiveDirectory/Ports.htm"
+                target="_blank"
+                >Configuration — Active Directory Ports — v10.6</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/ActiveDirectory/Manual.htm"
+                target="_blank"
+                >Configuration — Active Directory: Manual Configuration — v10.6</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

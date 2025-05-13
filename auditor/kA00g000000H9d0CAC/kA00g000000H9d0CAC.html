@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor System Health Log - Event ID 1213</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9d0CAC" />
+    <meta name="Id" content="ka04u000000HcVkAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2474" />
+    <meta name="ArticleNumber" content="000003620" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues with obtaining audit data from the SharePoint internal logs."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor System Health Log contains the following EventID<b>: 1213 </b>
+        The Event ID may contain 3 error types:
+
+        <b>Error type 1:</b>
+        <i
+          >An unexpected error occurred while trying to collect security events from the audited
+          SharePoint farm: Details: Could not find the file: </i
+        ><i
+          >%programdata%Netwrix AuditorNetwrix Auditor for SharePointConfiguration&lt;Managed Object
+          GUID*&gt;&lt;any file&gt;.</i
+        >
+
+        <b>Error type 2:</b>
+        <span
+          ><i
+            >An unexpected error occurred while trying to collect security events from the audited
+            SharePoint farm: Details: The content type text/html; charset=utf-8 of the response
+            message does not match the content type of the binding (text/xml; charset=utf-8). If
+            using a custom encoder, be sure that the IsContentTypeSupported method is implemented
+            properly. The first 45 bytes of the response were: 'Cannot connect to the configuration
+            database.'..</i
+          ></span
+        >
+
+        <b>Error type 3:</b>
+        <i
+          ><span
+            >An unexpected error occurred while trying to collect security events from the audited
+            SharePoint farm: The request change timed out while waiting for a reply after 01:00:00.
+            Increase the timeout value passed to the call to Request or increase the SendTimeout
+            value on the Binding. The time allotted to this operation may have been a portion of a
+            longer timeout.</span
+          ></i
+        >
+
+        <hr />
+
+        Review the possible error causes:
+
+        <b>Error type 1:</b>
+        <span
+          >The product failed to collect audit data due to a an unexpected error on the Netwrix
+          Auditor side. There is no access to the configuration files, or the file is corrupt.</span
+        >
+
+        <b>Error type 2:</b>
+        <span
+          >The product failed to collect audit data due to an unexpected error on the SharePoint
+          side. The site collection configuration is corrupt, or there is no access to the
+          SharePoint configuration database.</span
+        >
+
+        <b>Error type 3:</b>
+        <span
+          >The product failed to collect audit data as the timeout expired on the SharePoint side.
+          This can be due to maintenance activity in your network, which results in the failure to
+          process requests on the SharePoint side.</span
+        >
+
+        <hr />
+
+        Depending on the received error type, follow the corresponding resolution prompts:
+
+        <b>Error type 1:</b>
+        <span>Try re-creating the monitoring plan</span>
+
+        <b>Error type 2:</b>
+        Make sure that the audited site collection is reachable.
+
+        <b>Error type 3:</b>
+        Make sure that the audited SharePoint sites are operational. If this error is logged once,
+        this does not lead to data loss, and all events were collected within 30 minutes after the
+        error occurred. Is this error is logged several times, contact your SharePoint
+        administrator. *<i
+          >To view your monitoring plan GUID, navigate to %programdata%Netwrix AuditorAudit
+          CoreConfig ServerConfiguration.xml. Find your monitoring plan name in the configuration
+          file:</i
+        >
+
+        -&lt;n n="ManagedObjects"&gt; .... &lt;a n="Name" t="2"
+        v="your_SharePoint_Monitoring_plan_name"/&gt;
+      </div>
+    </article>
+  </body>
+</html>

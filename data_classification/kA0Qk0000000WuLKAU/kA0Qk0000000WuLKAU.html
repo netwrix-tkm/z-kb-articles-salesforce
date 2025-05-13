@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Exclude Directory from Workflow</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WuLKAU" />
+    <meta name="Id" content="ka0Qk0000002fdNIAQ" />
+    <meta name="LastPublishedDate" content="2024-03-22T16:30:54.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-22T16:30:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-22T16:30:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9082" />
+    <meta name="ArticleNumber" content="000009082" />
+    <meta name="description" content="How to Exclude Directory from Workflow" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Is there a way to exclude a directory from a workflow rule but still have it classified?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            To exclude a directory from a workflow you need to create an exclusion for a workflow
+            using a custom taxonomy as a condition (in this specific case, a taxonomy with a
+            negative clue scored at -999 with the directory path). For that:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Access your NDC web interface and head to your <b>Taxonomy</b> page. Head to
+                <b>Global settings</b>.
+              </p>
+            </li>
+            <li>
+              <p>Click <b>Add</b> and create a new taxonomy.</p>
+            </li>
+            <li>
+              <p>
+                We will call the Taxonomy <em>Exclusions</em> for future use and clarity as to its
+                purpose.
+              </p>
+            </li>
+            <li>
+              <p>
+                Head back to the <b>Term Management</b> tab and use the drop-down list of taxonomies
+                to select your <b>Exclusions</b> taxonomy. Right click on the term
+                <b>Exclusions</b> and then click on <b>Add child term</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Name the new term the same as your server where you are wanting to add your
+                exclusion, for example, <em>ASMITH-DC</em> (this is to have reference for the
+                future, in case you want to add exclusions for specific servers, you can give it
+                some order for easier understanding in case you want to remove any exclusions).
+              </p>
+            </li>
+            <li>
+              <p>
+                Click on the new term and to the right, create a <b>Standard</b> clue structed as
+                follows:
+              </p>
+
+              <ul>
+                <li>
+                  <p>cse-folders=folder you want to exclude</p>
+                </li>
+                <li>
+                  <p>Give it a score of <b>-999</b>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Move to your <b>Workflows</b> page, get on your workflow that you needed the
+                exclusion for. Click on the workflow, then on the name of the workflow again. You
+                should get the window below. Click on <b>conditions</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                To the right click <b>Edit</b> and copy these settings to add your exclusion to the
+                workflow.
+              </p>
+            </li>
+            <li>
+              <p>
+                Save the condition, enable your workflow. Run your workflow and it should no longer
+                work on your excluded directory.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Admin/Taxonomies/Create.htm"
+                  target="_blank"
+                  >Content Configuration — Taxonomies — Create a Taxonomy — v5.7</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Admin/Taxonomies/AddClue.htm#score"
+                  target="_blank"
+                  >Content Configuration — Clues (Classification Rules) — Score — v5.7</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

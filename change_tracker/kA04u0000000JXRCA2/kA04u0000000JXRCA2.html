@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>An Example of How to Create an Installed Software Baseline Report.</title>
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JXRCA2" />
+    <meta name="Id" content="ka04u000000Hd9BAAS" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:43:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8167" />
+    <meta name="ArticleNumber" content="000008167" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          If you have a system in your environment which represents the gold standard of required
+          installed software, then you can use NNT Change Tracker to build a report which will check
+          if other systems match the gold standard machine.
+        </p>
+        <p>
+          The approach in the below steps, isolates the gold standard machine within its own groups
+          and with its own templates applied. This is so we can gather the information from the gold
+          standard system without impacting the templates which are applied to the wider production
+          environment.
+        </p>
+        <h2 id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-Step1-Createatemplate">
+          Step 1 - Create a template
+        </h2>
+        <p>
+          Identify the system to be used for the gold standard baseline report and confirm that this
+          system is registered with Change Tracker. Use the Device tile to find the template that is
+          applied to the system as we are going to make a copy of this template, CIS Win 8 L1 Base
+          in this example.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXRCA2_5e6d2e50-6644-4896-84ca-3cb466691c97.png"
+          /></span>
+        </p>
+        <p>While logged on with an admin account, move to Settings &gt; Configuration Template.</p>
+        <p>
+          Find the template which by default is applied to the system. In the example below I will
+          be reviewing a Windows 8 system and so I have located the template, CIS Win 8 L1 Base.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_f53e2c0b-23b5-4ed1-84d1-f55faaa19ac7.png"
+          /></span>
+        </p>
+        <p>
+          Press the copy config button and provide the template with suitable name. I have called my
+          template CIS Win 8 L1 Base Gold Standard.
+        </p>
+        <p> </p>
+        <h2 id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-Step2-Turnonbaselining">
+          Step 2 - Turn on baselining
+        </h2>
+        <p>
+          Within the created gold standard template, we now need to configure the template to
+          collect the baseline information that we will use to build our report. To do this edit
+          your template and on the Installed Software and Updates tab, click the Send baseline
+          events check box and the save changes button.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXRCA2_0d704247-98b1-424a-926f-965be3832a2a.png" /></span
+          > 
+        </p>
+        <h2
+          id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-Step3-CreateaGroupStructure"
+        >
+          Step 3 - Create a Group Structure
+        </h2>
+        <p>
+          Still logged in with the Admin account, move to Settings &gt; Groups and create a group
+          for your gold standard systems. In the example below I have created a group for a Window 8
+          system.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_0d493bec-2cd7-42c2-b8dd-1de625a469b0.png"
+          /></span>
+        </p>
+        <p>
+          With the group created, move to the Device Templates tab and use the Add a Template to the
+          Group button to import your gold standard template.
+        </p>
+        <h2
+          id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-Step4-Addyourdevicetothegroup"
+        >
+          Step 4 - Add your device to the group
+        </h2>
+        <p>
+          With both group and template created, move your device to into the group from Settings
+          &gt; Agents and Devices using the edit button.
+        </p>
+        <p>
+           <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_b4e617a9-2e76-407b-8934-5e2f05ac6447.png"
+          /></span>
+        </p>
+        <h2
+          id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-Step5-Creatingthebaselinereport"
+        >
+          Step 5 - Creating the baseline report
+        </h2>
+        <p>
+          As soon as the agent is added into the group the agent will begin its baseline activities.
+          You can see the Installed Software baseline event messages through the Change Tracker
+          Event tab by using a Baseline event type within the filter.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_671891a3-7a24-44fc-a118-8ccdbe4742ec.png"
+          /></span>
+        </p>
+        <p> </p>
+        <p>
+          Once the baselining has completed, which shouldn’t take more than a ten minutes, move to
+          the Device tile and highlight the gold standard system. You will see a button under the
+          configuration display entitled ‘Create Baseline Report’.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_fb477e66-be70-4eca-a20f-42d378bce035.png"
+          /></span>
+        </p>
+        <p>
+          Click the create baseline report and accept the default from the popup windows, obviously
+          change the name of the report if you prefer!
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXRCA2_fc96a727-07f6-49d0-8890-086a8d28d140.png"
+          /></span>
+        </p>
+        <p> </p>
+        <p>
+          You have now created a baseline report for all software and patches that are installed on
+          your gold standard system. You can see the report from Settings &gt; Compliance Reports
+          Templates.
+        </p>
+        <h2 id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-">
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXRCA2_c8c1feaa-c1a3-41e8-be87-4244cb394f8a.png"
+          /></span>
+        </h2>
+        <h2 id="AnExampleofHowtoCreateanInstalledSoftwareBaselineReport.-Step6-Runningthereport">
+          Step 6 - Running the report
+        </h2>
+        <p>
+          With the report created you will be able to add the report to an existing group, in order
+          to run the report against all occupants of that group, or run the report from ad hoc from
+          the Device tile.
+        </p>
+        <p>Scheduling within a group.</p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_bf983475-ca2d-44a5-8d2a-e32369a929b0.png"
+          /></span>
+        </p>
+        <p>Running the report ad hoc from the Device tile</p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXRCA2_4f3abad6-c9a2-4e3f-851f-5e03bd217587.png"
+          /></span>
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JXRCA2_75168727-be35-46db-a64c-fd18571adb83.png"
+          /></span>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

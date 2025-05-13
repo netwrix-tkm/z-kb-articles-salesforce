@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to remove footer from real-time alert emails</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TrCAK" />
+    <meta name="Id" content="ka04u000000HcNdAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="634" />
+    <meta name="ArticleNumber" content="000003063" />
+    <meta name="description" content="Remove Footer Real-time Alert email notifications" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How do I remove the following text from the real-time alert emails: '<strong
+          >This is an automatically generated message from NetWrix Event Log Manager. Please visit
+          www.netwrix.com for more products and updates.</strong
+        >'?
+
+        <hr />
+
+        <div>
+          To remove the text, perform the following :
+          <ol>
+            <li>
+              Launch <strong>Registry Editor</strong> (<strong>Start</strong> -&gt;
+              <strong>Run</strong>, type <strong>regedit</strong>).
+            </li>
+            <li>
+              Navigate to <strong>HKEY_LOCAL_MACHINESOFTWARENetWrixEvent Log Manager</strong> in the
+              left pane (use
+              <strong>HKEY_LOCAL_MACHINESOFTWAREWow6432NodeNetWrixEvent Log Manager</strong> if you
+              are running a 64-bit version of Windows).
+            </li>
+            <li>
+              In the right pane, modify the existing DWORD value (or create a new DWORD value:
+              right-click the right pane, click New, select DWORD value from the drop-down list)
+              with the following parameters : Name: <strong>ShowReportFooter</strong> Value:
+              <strong>0</strong>
+            </li>
+            <li>Save the changes.</li>
+          </ol>
+        </div>
+        <div>The footer will no longer be shown in the real-time alert emails.</div>
+      </div>
+    </article>
+  </body>
+</html>

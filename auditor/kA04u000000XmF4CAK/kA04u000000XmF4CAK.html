@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Extension Attributes in Active Directory</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000XmF4CAK" />
+    <meta name="Id" content="ka04u00000116flAAA" />
+    <meta name="LastPublishedDate" content="2023-07-12T09:47:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-12T09:48:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-01-19T20:19:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5843" />
+    <meta name="ArticleNumber" content="000005843" />
+    <meta
+      name="description"
+      content="How To Audit extensionAttributes through Active Directory Reporting"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to audit extension attributes in Active Directory?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The set of entries specified in ad2ecr.txt are reported in Active Directory. In order to
+            track changes to extension attributes in Active Directory, refer to the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Navigate to
+                <code>%Netwrix Auditor installation folder%\Active Directory Auditing</code> folder.
+              </p>
+            </li>
+            <li>
+              <p>Open the <strong>ad2ecr.txt</strong> file.</p>
+            </li>
+            <li>
+              <p>Place a hash symbol in front of each extension attribute to be audited, e.g.:</p>
+
+              <pre class="has-inner-focus">#.proxyAddresses</pre>
+
+              <p>A hash symbol designates a comment nullifying the entry in the code.</p>
+            </li>
+            <li>
+              <p>Save changes to the file.</p>
+            </li>
+          </ol>
+
+          <p>
+            The extension attributes commented out will now show in reports when they are changed.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

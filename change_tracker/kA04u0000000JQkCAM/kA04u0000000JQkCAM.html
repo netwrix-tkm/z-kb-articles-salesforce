@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>9 Upgrade from NNT Agent App to NNT Gen 7 Agent</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JQkCAM" />
+    <meta name="Id" content="ka04u000000Hd7RAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:29:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8067" />
+    <meta name="ArticleNumber" content="000008067" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="id-9UpgradefromNNTAgentApptoNNTGen7Agent-_Toc484003706UpgradefromNNTAgentApptoNNTGen7Agent"
+        >
+          <span><strong>Upgrade from NNT Agent App to NNT Gen 7 Agent</strong></span>
+        </h2>
+
+        <p> </p>
+
+        <p>
+          If you are currently using an NNT Agent App (Version 1.0.0.x) and you wish to upgrade to
+          use the Gen 7 Agent instead, the procedure is straightforward but as with any software
+          upgrade, there may be additional steps required depending on your individual
+          circumstances.<br />The high-level overview is this
+        </p>
+
+        <p> </p>
+
+        <ol>
+          <li>Stop Agent App service (you may choose to uninstall the program at this stage)</li>
+          <li>Run installer for Gen 7 Agent to install</li>
+          <li>Hub details, Agent username and password are required</li>
+          <li>Thumbprint may be required if using a private certificate on your Hub server</li>
+        </ol>
+
+        <p> </p>
+
+        <ol>
+          <li>
+            <strong>IMPORTANT</strong> Do not set either a Nameprefix or Namesuffix for the Agent
+            name – if the Gen 7 Agent registers with the same Host Name as the Agent App is using,
+            the Gen 7 Agent will simply assume the identity of the Agent App and therefore event and
+            report continuity will be ensured
+          </li>
+          <li>
+            Once the Gen 7 Agent is operational you can then remove the Agent App (if you didn't
+            already do this in step 1)
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <h2 id="id-9UpgradefromNNTAgentApptoNNTGen7Agent-Step1–StoptheNNTAgentAppService">
+          <strong><em>Step 1 – Stop the NNT Agent App Service</em></strong>
+        </h2>
+
+        <p>
+          Windows – Either use the MS Services Console (Run -&gt; services.msc) or use Command Line
+          as Administrator – sc stop NNTAgentService
+        </p>
+
+        <p>
+          <br /><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="178"
+              src="kA04u0000000JQkCAM_f929f9e9-b15f-45b2-aefe-f1daf800c6d5.png"
+              width="454" /></span
+          ><br /><strong><em>Linux</em></strong> – Use service nntagent stop
+        </p>
+
+        <h2 id="id-9UpgradefromNNTAgentApptoNNTGen7Agent-Step2–InstallNNTGen7Agent">
+          <strong><em>Step 2 – Install NNT Gen 7 Agent</em></strong>
+        </h2>
+
+        <p>
+          <strong><em>Windows</em></strong> – See Installing Gen 7 Agent for Windows<br /><strong
+            ><em>Linux</em></strong
+          >
+          – See Installing Gen 7 Agent for Linux
+        </p>
+
+        <h2 id="id-9UpgradefromNNTAgentApptoNNTGen7Agent-Step3–UninstalloldNNTAgentApp">
+          <strong><em>Step 3 – Uninstall old NNT Agent App</em></strong>
+        </h2>
+
+        <p>
+          <strong><em>Windows</em></strong> – Using NNTAgent.exe from command line<br />C:\Windows\system32&gt;"C:\ProgramData\\{2443C4AA-A2DC-4926-9D6B-2D3D8AAE6006}\NNTAgent.exe"
+          /s MODIFY=FALSE REMOVE=TRUE UNINSTALL=YES
+        </p>
+
+        <h2 id="id-9UpgradefromNNTAgentApptoNNTGen7Agent-Linux–fromterminal">
+          <strong><em>Linux</em></strong> – from terminal
+        </h2>
+
+        <p>
+          <br /><strong><em>rpm -ev nnt-mono nnt-agent</em></strong>
+        </p>
+
+        <p>
+          Debian - from terminal<br /><strong><em>apt-get remove nnt-agent</em></strong
+          ><br /><strong><em>apt-get remove nnt-mono</em></strong
+          ><br class="atl-forced-newline" />
+          You'll then want to remove the NNT Gen 7 Agent files which will be found at<br /><strong
+            ><em>rm -fr /opt/nnt</em></strong
+          ><br /><strong><em>rm -fr /opt/mono</em></strong>
+        </p>
+
+        <h2 id="id-9UpgradefromNNTAgentApptoNNTGen7Agent-MACOSX–fromterminal">
+          MAC OSX – from terminal
+        </h2>
+
+        <p>
+          <strong
+            ><em
+              >sudo pkgutil –-forget MonoFramework-MDK-4.6.1.3.macos10.xamarin.universal.pkg</em
+            ></strong
+          ><br /><strong><em>sudo pkgutil --forget nnt-gen7agent-7.0.0.19-34-x64.pkg</em></strong
+          ><br class="atl-forced-newline" />
+          You'll then want to remove the NNT Gen 7 Agent files which will be found at<br /><strong
+            ><em>rm -fr /var/nnt</em></strong
+          ><br /><strong><em>rm -fr /opt/nnt</em></strong
+          ><br /><strong><em>rm -fr /opt/mono</em></strong> Finally – Please contact NNT Support if
+          you need help at any stage
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

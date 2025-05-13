@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Acquire AD / LDAP Information From Multiple Servers (Log Tracker)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Jd0CAE" />
+    <meta name="Id" content="ka04u000000HdAYAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8256" />
+    <meta name="ArticleNumber" content="000008256" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><br /></p>
+        <p>
+          As of Version 5-7-2, the LDAP adapter is a standard component of all Log Tracker Server
+          installations, and can be found in the "System &gt; Tools &gt; Auto-Update &gt; LDAP" tab
+          of the web interface. This adapter periodically gathers and synchronizes user information
+          from an Active Directory Server, useful for forensics, automatic creation of user lists,
+          and other applications.
+        </p>
+        <p>
+          Normally, the operator configures the LDAP adapter to obtain data from one of the
+          replicated AD servers at the operator's site. However, for sites that may have multiple
+          domains, it is also possible to gather data from multiple sites, as described in this
+          note.
+        </p>
+        <p>///</p>
+        <p>
+          To modify the system to gather LDAP server information from multiple sites, the
+          administrator modifies the "C:\Program Files (x86)\NNT Log Tracker
+          Suite\net-user\gen-ldap.bat" using notepad or some other editor.
+        </p>
+        <p>
+          <em
+            >The "gen-ldap.bat" file is the batch file that actually acquires data from active
+            directory, launched via the "System &gt; Tools &gt; Auto-Update &gt; LDAP" tab and
+            scheduled to run periodically via the "System &gt; Tools &gt; Schedule" screen. The user
+            modifies the batch file to generate a standard "ldif" listing from multiple servers,
+            using the MS "ldifde.exe" program.</em
+          >
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <ol>
+          <li>
+            On the Log Tracker Server, verify that the "ldifde.exe" program is in the standard
+            search path of processes. This is a standard MS program that is built into Windows 2008
+            platforms and later.<br /><em
+              >If the "ldifde.exe" program is not in the user's path, or not found on the platform,
+              obtain a copy of the program and copy it to the "C:\Program Files (x86)\NNT Log
+              Tracker Suite\system" folder.</em
+            >
+          </li>
+          <li>
+            On the Log Tracker Server, edit the "<em
+              >C:\Program Files (x86)\NNT Log Tracker Suite\</em
+            >net-user\gen-ldap.bat" file. (You can use "notepad" or some other text editor.)
+          </li>
+          <li>
+            Replace the contents of the above file (beneath the file comments) with the following
+            specific commands, substituting "server1" and "server2" with the actual names of the AD
+            servers at your site:<br /><br />REM: # # # # # # # # # #<br /><br />del /f
+            ..\temp\ldap_tmp1.txt 2&gt; NUL<br />del /f ..\temp\ldap_tmp2.txt 2&gt; NUL<br />del /f
+            %LDAP_OUTPUT_FILE% 2&gt; NUL<br /><br />exe -s server1 -f ..\temp\ldap_tmp1.txt<br />ldifde.exe
+            -s server2 -f ..\temp\ldap_tmp2.txt<br /><br />type ..\temp\ldap_tmp1.txt &gt;&gt;
+            %LDAP_OUTPUT_FILE%<br />type ..\temp\ldap_tmp2.txt &gt;&gt; %LDAP_OUTPUT FILE%<br /><br />REM:
+            # # # # # # # # # #<br /><br />
+          </li>
+          <li>
+            After making the above changes and saving the gen-ldap.bat file, get a new LDAP listing
+            via the "System &gt; Tools &gt; Auto-Update &gt; LDAP" screen. Note that this may take
+            several minutes to execute to completion.
+          </li>
+          <li>
+            After the program has executed to completion, check the process log, and other log files
+            available via links at the top of the screen. You can also look at the "<em
+              >C:\Program Files (x86)\NNT Log Tracker Suite\</em
+            >temp" folder to see the temporary files that were created by the process.
+          </li>
+        </ol>
+        <p>
+          Note that online help for the "ldifde.exe" program is available, and other parameters MAY
+          be necessary, such as a full username and password and domain. Also, note that you can add
+          multiple different servers to the list (more than just two.)
+        </p>
+        <p>
+          The LDIFDE program creates standard "ldif" formatted files, required and used by the Log
+          Tracker Server. If errors occur, you can try executing the "gen-ldap.bat" file (after
+          first setting the LDAP_OUTPUT_FILE environmental variable to a temporary file location)
+          using an Administrative command prompt. This will display any errors encountered by the
+          batch file to the console.
+        </p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p></p>
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to Backup / Restore / Move your MongoDB Database</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Supporting Documents for Hub Server Problems</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                returned an error: (403) Forbidden.)"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Support for TLS 1.2 in the .NET Framework 3.5.1</a>
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

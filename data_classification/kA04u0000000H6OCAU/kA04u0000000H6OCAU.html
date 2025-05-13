@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Process Pending Deletes</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000H6OCAU" />
+    <meta name="Id" content="ka04u000000HcZJAA0" />
+    <meta name="LastPublishedDate" content="2020-10-28T18:07:45.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:53:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-10-28T18:07:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5824" />
+    <meta name="ArticleNumber" content="000005824" />
+    <meta name="description" content="Process-Pending-Deletes" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="situation">Situation</h2>
+        <span
+          ><span
+            ><span
+              >The Indexer service is reporting a status of “process pending deletes” in the NDC
+              service viewer</span
+            ></span
+          ></span
+        ><br /> 
+        <h2 id="cause">Cause</h2>
+        <span
+          ><span
+            ><span
+              >Pending Deletes is a complex operation of removing all data and references to a
+              Document that has been removed or is no longer accessible to NDC. Mass data migrations
+              (moving a monitored share into SharePoint, deleting a large number of files at once,
+              the crawl account losing access to source)</span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              >Processing these pending deletes involves clearing up a number of Tables in the DB
+              (about 10 queries per single Pending Delete) and Index files on NDC Server(s).</span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              >This is a normal process for the product and is typically not a cause for concern.
+              However, if you are noticing the index service only showing this status and affecting
+              overall indexing speed then please review the information below</span
+            ></span
+          ></span
+        >
+
+        <h2 id="resolution"><br />Resolution</h2>
+        <span
+          ><span
+            ><span
+              >You can improve Pending Deletes processing performance by stopping the <b
+                >Collector Service</b
+              >
+              (NDC will stop registering new Pending Deletes) and <b>Classifier Service</b>, which
+              will free up some extra resources for Indexer Service.</span
+            ></span
+          ></span
+        >
+
+        <h2 id=""> </h2>
+      </div>
+    </article>
+  </body>
+</html>

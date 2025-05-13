@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 500 when Viewing and Accessing Reports</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9arCAC" />
+    <meta name="Id" content="ka0Qk0000001U45IAE" />
+    <meta name="LastPublishedDate" content="2024-01-25T08:27:07.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-25T08:27:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1323" />
+    <meta name="ArticleNumber" content="000003487" />
+    <meta
+      name="description"
+      content="Webpage unavailable when accessing SQL Reporting server remotely Remote SQL reports Webpage not found Remote SQL reports Webpage Unavailable"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The Error 500 is prompted when attempting to view or access Netwrix Auditor reports.
+              </p>
+            </li>
+            <li>
+              <p>No error is present when accessing the Report Manager URL from the SSRS host.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The Local Service account is used in SQL Server Reporting Services (SSRS) instead of the
+            Network Service account.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Configure SSRS to use the Network Service account:</p>
+
+          <ol>
+            <li>
+              <p>
+                In the SSRS host, run <strong>Report Server Configuration Manager</strong> and
+                connect to your Report Server instance.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>Service Account</strong> and switch the built-in
+                account used to <strong>Network Service</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Apply</strong> to save changes, and exit
+                <strong>Report Server Configuration Manager</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                For changes to take effect, proceed to <strong>Services</strong>, locate the
+                <strong>SQL Server Reporting Services</strong> service and restart it.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

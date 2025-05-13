@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to use Twilio CLI with Netwrix Password Reset SMS Verification</title><meta name="label" content="password_reset_manager"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110ukCAA"/><meta name="Id" content="ka04u00000116uqAAA"/><meta name="LastPublishedDate" content="2023-07-21T07:48:18.000+0000"/><meta name="LastModifiedDate" content="2023-07-27T11:09:56.000+0000"/><meta name="FirstPublishedDate" content="2023-07-21T07:48:18.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8678"/><meta name="ArticleNumber" content="000008678"/><meta name="description" content="How to use Twilio CLI with Netwrix Password Reset SMS Verification"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>The Twilio CLI allows to manage phone numbers, call Twilio APIs, and test webhooks.</p>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<div>
+<ol><li>
+	<p>Download Twilio from the official website (recommended to use Windows): <a href="https://www.twilio.com/docs/twilio-cli/getting-started/install#windows" target="_blank">Install the Twilio CLI ⸱ Twilio 🡥</a></p>
+	</li><li>
+	<p>Being logged in with the NPR Service Account, open CMD and log into Twilio accaunt.</p>
+	</li><li>
+	<p>In the <strong>Account info</strong> section, fill in the following fields:</p>
+
+	<ol><li>
+		<p><strong>Account SID</strong></p>
+		</li><li>
+		<p><strong>Auth Token </strong></p>
+		</li></ol>
+
+	<div><img alt="Group 115 (1).png" height="400" src="kA04u00000110ukCAA_d4098ca1-e241-4207-a4d3-3d14d7c15a33.png" width="750"/></div>
+	</li><li>
+	<p>Name the profile. A name has to be easy to remember.</p>
+
+	<p>Example: <code>NPRProfile1</code></p>
+
+	<div><img alt="Group 116 1.png" src="kA04u00000110ukCAA_211d3147-d80c-4e7f-a2d3-2ed7ed4c490e.png"/></div>
+	</li><li>
+	<p>Run CMD to load your Profile using the one you created:</p>
+
+	<pre>twilio profiles:use NPRProfile1</pre>
+	</li><li>
+	<p>Send the following text message:</p>
+
+	<pre>twilio api:core:messages:create --from +1[Your Twilio Number here] --to "+1[PHONE]" --body "Test message"</pre>
+
+	<div><img alt="Group 117.png" src="kA04u00000110ukCAA_d482570c-9cfb-4f48-9dcb-25f5e82cd91a.png"/></div>
+
+	<blockquote>
+	<div><strong>TIP:</strong> to create a log in root of C for any debugging/troubleshooting, use <code>[Previous command] &gt;&gt; C:\APRTWILIOTest.txt</code></div>
+	</blockquote>
+	</li><li>
+	<p>Create a file with the following format:</p>
+
+	<pre>twilio api:core:messages:create --from +18666982044 --to %1 --body %2 &gt;&gt; C:\APRTWILIOTest.txt</pre>
+
+	<div><img alt="Group 118.png" height="190" src="kA04u00000110ukCAA_6751a0d2-6a50-4318-b7d0-785f0163891c.png" width="550"/></div>
+	</li><li>
+	<p>In NPR SMS Verification Settings, setup <strong>Command</strong> and <strong>Parameter</strong></p>
+
+	<blockquote>
+	<div><span><strong>IMPORTANT:</strong></span> every time a setting is changed for <strong>Parameter</strong> in the NPR Settings for Verification, the Service Account needs to be restarted. Failure to do so may result in the changes not taking effect or the SMS not being sent on Unlock/Resets.</div>
+	</blockquote>
+
+	<ol><li>
+		<p><strong>Command</strong>: <code>C:\Windows\System32\cmd.exe</code></p>
+		</li><li>
+		<p><strong>Parameter</strong>: <code>/C ""C:\Program Files\Netwrix Password Reset\TwilioMSGSMS.cmd" [PHONE] [CODE]"</code></p>
+
+		<blockquote>
+		<div><strong>TIP:</strong> the default AD Attribute is set to MOBILE PHONE. You can change it by clicking on the AD Attribute link in the SMS settings.</div>
+		</blockquote>
+		</li></ol>
+	</li></ol>
+</div></div>
+</article></body></html>

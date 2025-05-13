@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Least Privileged Database Access for StealthAUDIT RBAC</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IJuCAM" />
+    <meta name="Id" content="ka04u000000HckMAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:20:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6558" />
+    <meta name="ArticleNumber" content="000006558" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> When using Windows
+          Authentication for database access in StealthAUDIT each user needs to be granted database
+          access. Many users assume that granting a user access through RBAC will also grant that
+          user database access. Convenient as it would be, that is not currently the case.
+        </p>
+        <p> </p>
+        <p>
+          To that end, a job has been created that will provision one database user's domain
+          credential at a time using a least privileged access model.
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            >In order for RBAC configuration in StealthAUDIT to be effective, StealthAUDIT should
+            also be configured to use Windows Authentication for database access. When Windows
+            Authentication is enabled all users provisioned to use the StealthAUDIT console need to
+            also be provisioned with access to the database. To that end a job has been created to
+            be used to provision database access.</span
+          >
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <span
+              ><span
+                >Launch StealthAUDIT with an account that has SysAdmin rights to the whole database
+                server and Administrator rights to the StealthAUDIT application</span
+              ></span
+            >
+          </li>
+          <li>
+            <span><span>Import the attached job</span></span>
+          </li>
+          <li>
+            <span
+              ><span
+                >Add the new application user to ROLES (pre 9.0) or ACCESS (9.0+) in the Global
+                Application Settings</span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                >Edit the analysis task in the newly imported job and change the following entries
+                (It is easiest to do this in notepad with find &amp; replace)</span
+              ></span
+            >
+            <ol>
+              <li>
+                <span><span>Change [] to [Name of StealthAUDIT Database]</span></span>
+              </li>
+              <li>
+                <span><span>Change [] to [domain\username]</span></span>
+              </li>
+              <li>
+                <span><span>Change '' to 'domain\username'</span></span>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span><span>Save and close the analysis task</span></span>
+          </li>
+          <li>
+            <span><span>Execute the job</span></span>
+          </li>
+          <li>
+            <span><span>Launch the console as the user who was just provisioned</span></span>
+          </li>
+        </ol>
+        <p>
+          <strong
+            ><span><span>The job can be found in the below location</span></span></strong
+          >
+        </p>
+        <p>
+          <span
+            ><span
+              >"\\sbitsinc.com\Public\Professional Services\SA Jobs\RBAC_SetUserDBPerms.zip"</span
+            ></span
+          >
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Core<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> All
+          StealthAUDIT Versions<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000002624
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

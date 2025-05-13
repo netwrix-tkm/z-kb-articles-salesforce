@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FSAC/SmartLOG Alternative for Parsing FSAC Logs</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IfRCAU" />
+    <meta name="Id" content="ka04u000000HcsrAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:35:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:35:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7231" />
+    <meta name="ArticleNumber" content="000007231" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Uses PowerShell to
+          parse activity event logs for a given host. May be adapted to events selectively based on
+          modifying the Regular Expression
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> If time is tight or
+          if FSAC and SmartLOG aren't working properly, or would require forklifting of data to
+          collect relevant file system activity data, this is a good and flexible alternative
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> The
+          <em>JOB_PoShLogCollect</em> PowerShell job in
+          <a target="_blank">\\sbitsinc.com\public\Escalation\KB Attachments</a> pulls in the events
+          from a specified host (you only have to modify the log folder location as shown below):<br /><img
+            src="kA04u0000000IfRCAU_7d21dcd9-9b29-4b97-b93c-955b11d8fd5c.png"
+            alt="mceclip0.png"
+          /><br /><br />After importing, it uses ADI data to resolve SIDs<br /><img
+            src="kA04u0000000IfRCAU_4fdec801-9e93-4fa9-953b-9b6396c985f5.png"
+            alt="mceclip1.png"
+          /><br /><br />This job should be able to be used for pulling a report of activity within a
+          certain directory or by a certain user (you just have to modify the RegEx used in the
+          PowerShell).<br /> <br /><span
+            ><span
+              >Note: Due to Core/PowerShell Data Collector limitations, this solution does not
+              support Unicode characters</span
+            ></span
+          >
+        </p>
+        <p> </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - PowerShell<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          V6.x, V7.x<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1486
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

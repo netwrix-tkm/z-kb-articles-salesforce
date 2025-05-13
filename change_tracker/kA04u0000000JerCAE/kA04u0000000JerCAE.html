@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email for each
+      change instead of compiling into one email with multiple changes)
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JerCAE" />
+    <meta name="Id" content="ka04u000000HdB0AAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:58:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8284" />
+    <meta name="ArticleNumber" content="000008284" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The default behavior of Change Tracker when sending real time email notifications is to
+          wait and compile multiple changes into a single email. In some instances, it may be
+          necessary to have each change separated into its own email address. Below is a guide on
+          how to force Change Tracker to send each change as its own email.
+        </p>
+        <h2
+          id="HowToTurnOffBulkEmailNotifications(ForceChangeTrackertosendoneemailforeachchangeinsteadofcompilingintooneemailwithmultiplechanges)-Step-by-stepguide"
+        >
+          Step-by-step guide
+        </h2>
+        <p>Please follow the below carefully:</p>
+        <ol>
+          <li>
+            Stop IIS ( You can do this by opening an administrative command prompt and running the
+            following command:<strong> iisreset /stop</strong> )
+          </li>
+          <li>Navigate toC:\inetpub\wwwroot\Change Tracker Generation 7 Hub\bin\Configs</li>
+          <li>
+            If your localhost.json file is in a default configuration and you have not split your
+            MongoDB to a different server, then you can replace your localhost file with the
+            preconfigured one here:<a
+              href="/csh?context=localhost.json?version=1&amp;modificationDate=1541686854626&amp;cacheVersion=1&amp;api=v2"
+              target="_blank"
+              >localhost.json</a
+            >
+          </li>
+          <li>
+            Start IIS ( You can do this by opening an administrative command prompt and running the
+            following command:<strong> iisreset /start</strong>)
+          </li>
+        </ol>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <p>
+              If you prefer to edit your existing localhost file instead of replacing it with the
+              one above, please insert the following lines of code at the end of the file (in
+              instances where your database has been split off to a different system, the below
+              method will be required):
+            </p>
+            <pre> <br/>,
+  <span>"pipeline"</span> : {
+	<span>"enableBulkNotifications"</span> : <span>"no"</span>
+	}<br/><br/>Below is a before an after of the modification:<br/><br/>BEFORE:                                                                                  AFTER:<br/><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="250" src="kA04u0000000JerCAE_def664fe-10f7-4bc8-90d9-d4ee86d2574b.jpg"/></span>       <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" height="250" src="kA04u0000000JerCAE_c57a64c1-0b82-451b-b962-bfc6ed51dce7.jpg"/></span><br/><br/></pre>
+          </div>
+        </div>
+        <h2
+          id="HowToTurnOffBulkEmailNotifications(ForceChangeTrackertosendoneemailforeachchangeinsteadofcompilingintooneemailwithmultiplechanges)-Relatedarticles"
+        >
+          Related articles
+        </h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8284" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8249" target="_blank"
+                >How to Send E-Mails to Multiple Users on Log Tracker</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8247" target="_blank"
+                >How to Change the Subject of E-Mail Messages (Log Tracker)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKbq&amp;d=%2Fa%2F4u000000LzzQ%2F.zF2CRKLb17oxBLLjnRa6YYwwuPSben7BZLEakWaZwg&amp;asPdf=false"
+          target="_blank"
+          >After.JPG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKUh&amp;d=%2Fa%2F4u000000Lzed%2FbHyk2j2cfxcg8rWqu2KlTHOrE7iK6RlgoRgCWFvr8aE&amp;asPdf=false"
+          target="_blank"
+          >before.JPG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKbv&amp;d=%2Fa%2F4u000000Lzst%2FIP_5r58UvtZa0c2NOeeAdaME8WksDMfepTU5X8Kvezg&amp;asPdf=false"
+          target="_blank"
+          >localhost.json</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>What are Netwrix Auditor for Active Directory bandwidth requirements?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dqCAC" />
+    <meta name="Id" content="ka04u000000HcWaAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:02.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3306" />
+    <meta name="ArticleNumber" content="000003672" />
+    <meta
+      name="description"
+      content="What are Netwrix Auditor for Active Directory bandwidth requirements?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Bandwidth requirements for Netwrix Auditor depend on whether or not network traffic
+        compression option is enabled to collect data from domain controllers:
+        <ul>
+          <li><strong>Without the compression service</strong>:</li>
+        </ul>
+        <p>
+          Bandwidth is calculated as a sum of the security logs for each monitored domain
+          controller. For example, if 7 domain controllers generate 50 MB of events per day, 350 MB
+          will be transferred daily.
+        </p>
+
+        <ul>
+          <li><strong>With the compression service: </strong></li>
+        </ul>
+        Network traffic compression service is used to optimize traffic usage. The service is a
+        lightweight executable that runs on domain controllers, collects data, pre-filters it and
+        sends to Netwrix Auditor in a highly compressed format. Compression service requires
+        approximately 1 Kb per AD change. Essentially, the bandwidth requirements depend on the
+        amount of changes to the AD environment. For example, if 100 changes are done daily, 100 Kb
+        of data will be transferred across all domain controllers. To enable the traffic compression
+        option, navigate to <strong>Netwrix Auditor -&gt; your Monitoring Plan</strong>; select
+        <strong>Active Directory</strong> data source; double-click it or click
+        <strong>Edit data source</strong> and check
+        <strong>"Enable network traffic compression"</strong> option.
+      </div>
+    </article>
+  </body>
+</html>

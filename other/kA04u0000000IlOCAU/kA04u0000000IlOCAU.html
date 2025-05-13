@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Around Microsoft Entra Multifactor Authentication for SPAA Scans</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IlOCAU" />
+    <meta name="Id" content="ka0Qk0000000vUXIAY" />
+    <meta name="LastPublishedDate" content="2023-12-11T08:58:19.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-11T08:58:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:33:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7188" />
+    <meta name="ArticleNumber" content="000007188" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to set up an
+          App Password in Microsoft Entra ID (formerly Azure AD) for an O365 environment that uses
+          Microsoft Entra multifactor authentication.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> We do not support
+          multifactor authentication within StealthAUDIT for SharePoint (SPAA) scans but we can
+          configure an App Password within Microsoft Entra ID to allow us to use an Microsoft Entra
+          account. App Passwords can be configured for a single account and store an unchanging
+          password that does not require authentication after setting up the password in the
+          connection profile.
+        </p>
+
+        <p>
+          <strong>Note:</strong> Before setting up the app password, assuming multi-factor
+          authentication is turned on by default - the O365 admin or whomever you are in contact
+          with must be there to handle the initial multi-factor authentication step. This typically
+          means entering a phone number to receive the code sent by Microsoft Entra ID to
+          authenticate the user.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+
+        <ol>
+          <li>
+            Log into Microsoft Entra ID and click your name icon in the top right corner and select
+            <em>My account.</em>
+
+            <ol>
+              <li>
+                Logging into Microsoft Entra ID may still require MFA at this point, be prepared for
+                the customer to give the code sent via text message or email to access Microsoft
+                Entra ID.
+              </li>
+            </ol>
+          </li>
+          <li>On the left select <em>Security &amp; Privacy </em></li>
+          <li>Select <em>Additional security verification</em></li>
+          <li>Select <em>Create and manage app passwords</em></li>
+          <li>Click <em>Create </em>and name the password as you please</li>
+          <li>
+            Important: Copy the password somewhere safe, you won't be able to see it after closing
+            this window.
+          </li>
+        </ol>
+
+        <p>
+          Now create a connection profile (Azure Active Directory type) and copy the app password
+          you generated into the key field and save.<br /><br /><img
+            alt="mceclip0.png"
+            src="kA04u0000000IlOCAU_27580dfa-840d-4c90-b1f2-bf9e7c17779a.png"
+          />
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Activity;SA - DC - SPAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2086
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

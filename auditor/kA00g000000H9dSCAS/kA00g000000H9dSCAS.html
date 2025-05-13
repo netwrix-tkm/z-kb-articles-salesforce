@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Lockouts are not tracked</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dSCAS" />
+    <meta name="Id" content="ka04u000000HcWDAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2763" />
+    <meta name="ArticleNumber" content="000003648" />
+    <meta
+      name="description"
+      content="Troubleshooting issues with Netwrix Account Lockout Examiner not reporting lockouts, despite being correctly configured."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h4
+          id="you_noticed_that_some_lockout_events_are_not_tracked_even_though_audit_and_all_settings_for_netwrix_account_lockout_examiner_have_been_configured_correctly_and_connection_to_the_required_domain_controller_dc_and_audit_setup_are_shown_as_ok"
+        >
+          You noticed that some lockout events are not tracked even though audit and all settings
+          for NetWrix Account Lockout Examiner have been configured correctly and connection to the
+          required domain controller (DC) and audit setup are shown as OK.
+        </h4>
+
+        <hr />
+
+        First, make sure the Windows security log on your DC is reachable: connect via Event Viewer
+        and check that events are logged. If the events are written correctly, but NetWrix Account
+        Lockout Examiner still does not track them, do the following:
+        <ol>
+          <li>
+            On the computer where NetWrix Account Lockout Examiner is installed, open Registry
+            Editor: navigate to <strong>Start</strong> - <strong>Run</strong>, enter
+            <em>regedit</em> and click <strong>OK</strong>.
+          </li>
+          <li>
+            In the Registry Editor left pane, navigate to <strong>HKLM</strong
+            ><strong>Software</strong><strong>Wow6432Node</strong><strong>NetWrix</strong
+            ><strong>Account Lockout Examiner</strong>, (Wow6432Node only for x64 OS).
+          </li>
+          <li>In the right pane, double-click <strong>readLog</strong> and set its value to 0.</li>
+          <li>Create a new DWORD named <strong>UseWatcher</strong> and set its value to 1.</li>
+          <li>Restart the Netwrix Account Lockout Examiner service via the Services snap-in.</li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcl&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004udF"
+          target="_blank"
+          ><img
+            src="kA00g000000H9dSCAS_ee018f6e-0f75-4e95-aad6-9af5ce119429.png"
+            alt="User-added image"
+            width="500"
+            height="161"
+        /></a>
+
+        If the above doesn't help, try to change the value of <strong>UseWMI</strong> registry key
+        to 0
+
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcl&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wzc"
+          target="_blank"
+          ><img
+            src="kA00g000000H9dSCAS_1531f4ef-64c4-41ae-960e-fbedec91fa88.png"
+            alt="User-added image"
+            width="500"
+            height="245"
+        /></a>
+      </div>
+    </article>
+  </body>
+</html>

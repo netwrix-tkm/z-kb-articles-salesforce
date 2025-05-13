@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Backup / Restore / Move your MongoDB Database</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JWTCA2" />
+    <meta name="Id" content="ka0Qk0000005oqbIAA" />
+    <meta name="LastPublishedDate" content="2023-11-13T12:06:15.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-30T09:33:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:40:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8150" />
+    <meta name="ArticleNumber" content="000008150" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to make a backup of MongoDB, restore MongoDB, or set up a new server to host your
+            Change Tracker Software and retain all of your old data (events, agents, config etc.)?
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT:</strong></span> For additional information on Change Tracker
+              installation prerequisites, refer to the following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/ChangeTracker_7.6/page/Content/ChangeTracker/Requirements/Overview.htm"
+                target="_blank"
+                >System Requirements Overview — v7.6</a
+              >.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Follow the procedures below to backup your MongoDB, restore MongoDB, or set up a new
+            server to host your Change Tracker Software.
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <span class="Caution"><strong>IMPORTANT: </strong></span>Verify the MongoDB versions
+            match in both your current and target servers.
+          </p>
+        </blockquote>
+
+        <h2 id="backup_mongodb_database">Backup MongoDB Database</h2>
+
+        <div>
+          <p>First, you need to backup your MongoDB database. For that:</p>
+
+          <ol>
+            <li>
+              <p>Connect to the server which hosts your Change Tracker software via RDP.</p>
+            </li>
+            <li>
+              <p>
+                Open a <b>Command Prompt</b>, ensure that you run it as an <b>Administrator</b>.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command:<code> iisreset /stop</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command:<code
+                  >cd C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enter the following command:<code
+                  >mongodump.exe -d NNTHubService -o C:\MongoDump --gzip</code
+                >.
+              </p>
+            </li>
+          </ol>
+          <img
+            alt="User-added image"
+            height="725"
+            src="kA04u0000000JWTCA2_3097b78b-f3a8-43a8-80f6-7cdede8d4c9a.png"
+            width="500"
+          />
+          <p>Take a copy of the following folders and transfer them to the new server:</p>
+
+          <ul>
+            <li>
+              <p>C:\MongoDump</p>
+            </li>
+            <li>
+              <p>C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub\Configs\DPKeys</p>
+            </li>
+            <li>
+              <p>C:\ProgramData\Change Tracker Generation 7 (NetCore)\MongoDB\db</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="prepare_target_server">Prepare Target Server</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Connect to the server where Change Tracker is going to be installed via RDP.</p>
+            </li>
+            <li>
+              <p>
+                Run the <b>Change Tracker </b>installer and ensure installing the same version as
+                you have been using on the old server.
+              </p>
+            </li>
+            <li>
+              <p>
+                On the <b>Database Storage Engine</b> step, make sure that this option matches the
+                storage engine of your existing database stored on your old server. If you're not
+                sure what to look for, please contact NNT Support for clarification..
+              </p>
+            </li>
+          </ol>
+          <img
+            alt="User-added image"
+            src="kA04u0000000JWTCA2_f70fcac1-2432-43e3-bc87-47bb58ec81cf.png"
+          />
+        </div>
+
+        <h2 id="restore_mongodb_database_new_or_existing_server">
+          Restore MongoDB Database (New or Existing Server)
+        </h2>
+
+        <div>
+          <p>
+            The steps below apply regardless if you are restoring the database to an existing server
+            or have decided to move it to a new server using the steps above.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Open a <b>Command Prompt</b>, ensure that you run it as an <b>Administrator</b>.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command:<code> iisreset /stop</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>sc stop MongoDB</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code>cd </code
+                ><code>C:\ProgramData\Change Tracker Generation 7 (NetCore)\MongoDB</code>.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>rmdir db /s</code>.</p>
+            </li>
+            <li>
+              <p>Enter <code>Y</code> and <code>Enter</code> when prompted.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>mkdir db</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >cd C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>sc start MongoDB</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >mongorestore.exe C:\MongoDump\NNTHubService -d NNTHubService --gzip</code
+                >.
+              </p>
+            </li>
+          </ol>
+          <img
+            alt="User-added image"
+            height="383"
+            src="kA04u0000000JWTCA2_1a236f55-1af4-4f82-a77e-d2928d182849.png"
+            width="500"
+          />
+          <p>
+            Allow some time for the database to re-index. Once completed, the word <b>done</b> will
+            appear in the command prompt window.
+          </p>
+
+          <ol>
+            <li>
+              <p>Enter the following command: <code>iisreset /start</code>.</p>
+            </li>
+            <li>
+              <p>Close the command prompt window.</p>
+            </li>
+          </ol>
+
+          <p>
+            Ensure that you can login to <b>Change Tracker</b> and go to the <b>Settings</b> page.
+          </p>
+        </div>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <div>
+          <p>
+            If you see the error below on the <b>Settings</b> screen, follow the troubleshooting
+            steps below.
+          </p>
+        </div>
+
+        <div>
+          <pre class="has-inner-focus">
+ 
+        Error: Key not valid in specified state 
+    </pre
+          >
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Open a <b>Command Prompt</b>, ensure that you run it as an <b>Administrator</b>.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command:<code> iisreset /stop</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >cd C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>mongo.exe</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>show dbs</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>use NNTHubService</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >db.RemoteCredentials.update({},{$set: { "pa.Password": "" }}, { multi: true
+                  });</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>exit</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>iisreset /start</code>.</p>
+            </li>
+            <li>
+              <p>Close the command prompt window.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <img
+            alt="User-added image"
+            height="173"
+            src="kA04u0000000JWTCA2_315a545c-1d26-440e-8dc9-38742dc3c6b0.png"
+            width="500"
+          />
+          <p>Ensure that you can login to the Change Tracker software.</p>
+
+          <p>
+            Once the above has been completed, try to log in to Change Tracker. If you changed the
+            admin users password to something else on the old server, this should still work.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE:</strong></span> if this does not resolve the issue and you are
+              still seeing the <code>Key not valid in specified state</code> error, try the
+              following:
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Open a <b>Command Prompt</b>, ensure that you run it as an <b>Administrator</b>.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command:<code> iisreset /stop</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >cd C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>mongo.exe</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>show dbs</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>use NNTHubService</code>.</p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >db.HubConfigData.remove({ "Key" : "SMTP Password" });</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enter the following command: <code
+                  >db.HubConfigData.remove({ "Key" : "SMTP Password2" });</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>exit</code>.</p>
+            </li>
+            <li>
+              <p>Enter the following command: <code>iisreset /start</code>.</p>
+            </li>
+            <li>
+              <p>Close the command prompt window.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

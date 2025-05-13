@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Troubleshoot HTTP AIC Errors</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Ky1KAE" />
+    <meta name="Id" content="ka0Qk00000013v7IAA" />
+    <meta name="LastPublishedDate" content="2023-12-18T13:03:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-20T08:50:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-18T13:03:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8969" />
+    <meta name="ArticleNumber" content="000008969" />
+    <meta name="description" content="Troubleshoot AIC IIS Errors" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            What are the recommended steps to troubleshoot IIS-related errors in Netwrix Access
+            Information Center?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>The steps provided are applicable only to
+            Access Information Center v11.5 and older. Starting v11.6, the steps no longer apply as
+            IIS is no longer used to host the AIC web site.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>It is recommended to enable Failed Request Tracing for the AIC web site:</p>
+
+          <ol start="0">
+            <li>
+              <p>
+                <strong>Optional:</strong> If the Failed Request Tracing feature is not installed in
+                your IIS server, you can either download it from the Microsoft Download Center, or
+                run the following line in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Install-WindowsFeature -Name Web-Http-Tracing</code></pre>
+
+              <p>
+                You can download Failed Request Tracing in
+                <a
+                  href="https://www.microsoft.com/en-us/download/details.aspx?id=47333"
+                  target="_blank"
+                  >Microsoft Application Request Routing 3.0 (x64) · Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open Internet Information Services Manager. In the left pane, open
+                <strong>%IIS_server%</strong> &gt; <strong>Sites</strong> &gt;
+                <strong>AIC web site</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the right pane, click <strong>Failed Request Tracing...</strong> under the
+                <strong>Configure</strong> section.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the <strong>Enable</strong> checkbox, and click <strong>OK</strong> to save
+                changes.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Take note of the path specified to access the
+                  logs later.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                In the <strong>IIS</strong> section of the <strong>Home</strong> page, open
+                <strong>Failed Request Tracing Rules</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the right pane, select <strong>Add...</strong> under <strong>Actions</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Specify Content to Trace</strong> window, select
+                <strong>All content (*)</strong> and click <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Define Trace Conditions</strong> window, check the
+                <strong>Status code(s)</strong> field checkbox and specify the relevant error code.
+                Click <strong>Next</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Click <strong>Finish</strong> to configure the tracing rule.</p>
+            </li>
+          </ol>
+
+          <p>
+            To review trace logs, you can either refer to the path previously specified in the
+            <strong>Failed Request Tracing</strong> settings, or click
+            <strong>View Trace Logs</strong> in the right pane of the
+            <strong>Failed Request Tracing Rules</strong> menu. Learn more about IIS errors and
+            error codes in official Microsoft Documentation at
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/health-diagnostic-performance/http-error-500-19-webpage"
+              target="_blank"
+              >HTTP Error 500.19 · Microsoft 🡥</a
+            >
+            and
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/health-diagnostic-performance/http-403-14-forbidden-webpage"
+              target="_blank"
+              >HTTP Error 403.14 · Microsoft 🡥</a
+            >. The Microsoft articles describe IIS errors (e.g., <code>500.19</code>,
+            <code>501</code>, <code>405.0</code>, <code>403.16</code>, etc.).
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://www.microsoft.com/en-us/download/details.aspx?id=47333"
+                  target="_blank"
+                  >Microsoft Application Request Routing 3.0 (x64) · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/health-diagnostic-performance/http-error-500-19-webpage"
+                  target="_blank"
+                  >HTTP Error 500.19 · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/health-diagnostic-performance/http-403-14-forbidden-webpage"
+                  target="_blank"
+                  >HTTP Error 403.14 · Microsoft 🡥</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/troubleshoot/developer/webapps/iis/health-diagnostic-performance/troubleshoot-arr-using-frt-rules"
+                  target="_blank"
+                  >Using Failed Request Tracing Rules to Troubleshoot Application Request Routing ·
+                  Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

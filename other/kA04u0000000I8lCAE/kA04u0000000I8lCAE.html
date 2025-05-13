@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIEntManager_5.2.0.262</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I8lCAE" />
+    <meta name="Id" content="ka04u000000HcgVAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6831" />
+    <meta name="ArticleNumber" content="000006831" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Investigations for
+          group changes has millions of events in queue
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong>Investigations for group changes has millions of
+          events in queue<br /><strong><span>Behavior before Fix: </span></strong><br />Enterprise
+          Manager sends SIEM messages for Events asynchronously. There is a dedicated in-memory
+          queue for this. This queue has two limits: syslogMessageQueueSize (default value is 100
+          000) and syslogMessageQueueThreshold (default value is 30 000).<br />syslogMessageQueueSize
+          - is a limit for total number of entries in the queue.<br />syslogMessageQueueThreshold -
+          is used to decide how to put item into the queue using the following logic:<br />if number
+          of Event OBJECTs in the queue is less than syslogMessageQueueThreshold then put into the
+          queue entire Event OBJECT, otherwise put into the queue only Event ID which will be used
+          later to query Event data from the Database.<br />Previously logic to calculate number of
+          Event OBJECTs in the queue was implemented by going through entire queue and counting such
+          items which caused delays on Event enqueue.<br /><strong
+            ><span>Behavior after Fix: </span></strong
+          ><br />Now logic is updated to have separate counter for such items which is incremented
+          every time when object is enqueued and decremented when object is dequeued.<br /><b
+            >Changes since Last Hotfix:</b
+          ><br />I-4636 [LINK-Quest] SI-3774 31384 - Investigations for group changes has millions
+          of events in queue<br /><strong><span>Submitted by: </span></strong><br />Maxim
+          Sidarau  <br /><strong><span>Affected Versions:</span></strong
+          ><br />5.2.0      SIEntManager_5.2.0.262_SI-3774<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Enterprise Manager<br /><strong><span>Dev Ticket:</span></strong
+          ><br /><em><span>I-</span></em
+          ><em><span>4636</span></em
+          ><br /><strong><span>Resolved in Version:</span></strong
+          ><br />5.2.0.262<br /><strong><span>KB Type: </span></strong><br />Hotfix<br /> <br /><b
+            >Modules Included:</b
+          ><br />SI - Enterprise Manager<br /> <br /><b>YouTrack/Escalations: </b>SI-3774 / 31384<br /><b
+            >Customers:  </b
+          >Quest Diagnostics Incorporated<br /><b
+            >Cumulative List of fixes included since Service Pack:</b
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Applying patch
+          for Enterprise Manager:<br />1. Stop 'SIEnterpriseManager' service.<br />2. Extract files
+          from attached 'SIEnterpriseManager' folder to the C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIEnterpriseManager folder<br />3. Start
+          'SIEnterpriseManager' service<br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIEntManager_5.2.0.262_SI-3774.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIEntManager_5.2.0.262_SI-3774.zip </a
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Enterprise Manager<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.2.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3774<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.2.0.262<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2244<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

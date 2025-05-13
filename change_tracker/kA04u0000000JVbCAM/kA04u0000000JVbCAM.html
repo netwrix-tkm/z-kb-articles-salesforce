@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to monitor legacy systems with the Change Tracker Express Agent?</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JVbCAM" />
+    <meta name="Id" content="ka04u000000Hd8gAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:51:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8227" />
+    <meta name="ArticleNumber" content="000008227" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Do you have legacy systems (AIX, Solaris etc.) that you need to monitor for File Integrity
+          changes? Do you need to be notified of changes in real time? Do you need to know what user
+          made the change? Then the "Change Tracker Express Agent" is for you! Review the guide
+          below for information on how to install the agent and configure it to register with a
+          Change Tracker server. The example below was captured on an AIX server:
+        </p>
+        <p>
+          Unlike our normal Change Tracker Gen 7 agent which requires either .NET (for Windows) or
+          Mono (for Linux), the Express Agent is intended to be a lightweight agent that can be
+          built and deployed to more legacy platforms where it is only possible to compile C/C++
+          code.
+        </p>
+        <p>
+          The Express Agent is available as an RPM for easy installation onto something like an AIX
+          server. The RPM's can be found on the Members Download area on the NNT website. If you
+          require assistance location the correct installers, please contact the NNT Support team.
+        </p>
+        <p><br /></p>
+        <p>
+          Once the RPM files have been downloaded, copy it onto the endpoint that you would like to
+          monitor.
+        </p>
+        <p>Installation of the RPM can be done using the "rpm -ivh" command (example below)</p>
+        <p><strong>bash-4.2# rpm -ivh nnt-changetracker-expressagent-2.0.1.2-38.ppc.rpm</strong></p>
+        <p><strong>nnt-changetracker-expressagent</strong></p>
+        <p><strong>##################################################</strong></p>
+        <p>
+          Once the RPM is installed, you can configure the agent to register with a Change Tracker
+          server using a shell script that NNT provide as part of the agent installation:
+        </p>
+        <p>
+          <strong
+            >=================================================================================</strong
+          ><br /><strong>Express Agent install complete.</strong><br /><strong
+            >Now run /opt/nnt/expressagent/configure-expressagent.sh to complete
+            installation.</strong
+          ><br /><strong
+            >=================================================================================</strong
+          >
+        </p>
+        <p>
+          The agent will be installed into the /opt/nnt/expressagent directory with HubDetails.xml,
+          log files, databases written to the /var/nnt/expressagent directory:
+        </p>
+        <p>
+          <strong>bash-4.2# ./configure-expressagent.sh</strong><br /><strong
+            >Welcome to the NNT ChangeTracker Express Agent Configuration script</strong
+          >
+        </p>
+        <p>
+          <strong
+            >Hub URL [<a class="external-link" href="https://localhost/api/" target="_blank"
+              >https://localhost/api/</a
+            >] :
+            <a class="external-link" href="https://10.74.100.55/api/" target="_blank"
+              >https://192.168.1.1/api/</a
+            ></strong
+          ><br /><strong>Agent username [agent] : agent</strong><br /><strong
+            >Agent password : passWord121</strong
+          ><br /><strong>Agent config path [/var/nnt/expressagent] : /var/nnt/expressagent</strong>
+        </p>
+        <p>
+          <strong>==================================================================</strong
+          ><br /><strong>The Express Agent will be configured with the following settings :</strong
+          ><br /><strong
+            >Hub URL :
+            <a class="external-link" href="https://10.74.100.55/api/" target="_blank"
+              >https://192.1681.1/api/</a
+            ></strong
+          ><br /><strong>Agent user : agent</strong><br /><strong>Agent password : </strong
+          ><br /><strong>Config path : /var/nnt/expressagent</strong><br /><strong
+            >==================================================================</strong
+          >
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JVbCAM_e97773a7-a73c-435b-aaf9-6656c23d7f2e.png"
+          /></span>
+        </p>
+        <p>
+          Once the agent has been installed, the status of the service can be checked by running the
+          following command:
+        </p>
+        <p><strong># ps -def | grep express</strong></p>
+        <p>
+          The configure-expressagent.sh script will start the agent however if you need to start or
+          stop the service manually you can run the service scripts directly:
+        </p>
+        <p><strong># /etc/rc.d/rc2.d/Snntexpressagent.sh start</strong></p>
+        <p>or</p>
+        <p><strong># /etc/rc.d/rc2.d/Knntexpressagent.sh stop</strong></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JVbCAM_5acb7711-cb8c-4638-995e-feca3cd08d24.png"
+          /></span>
+        </p>
+        <p><br /></p>
+        <p>
+          In order for the Change Tracker Express Agent to function correctly, the following
+          libraries will need to be in place on the system:
+        </p>
+        <p><strong>./expressAgent needs:</strong></p>
+        <p><strong>         /usr/lib/libc.a(shr.o)</strong></p>
+        <p><strong>         /usr/lib/libpthread.a(shr_xpg5.o)</strong></p>
+        <p><strong>         /opt/nnt/expressagent/libcrypto.a(libcrypto.so.1.0.2)</strong></p>
+        <p><strong>         /usr/lib/libpthread.a(shr_comm.o)</strong></p>
+        <p><strong>         /opt/nnt/expressagent/libssl.a(libssl.so.1.0.2)</strong></p>
+        <p><strong>         /unix</strong></p>
+        <p><strong>         /usr/lib/libcrypt.a(shr.o)</strong></p>
+        <p><strong>         /usr/lib/libpthreads.a(shr_comm.o)</strong></p>
+        <p><strong>         /usr/lib/libc.a(shr_64.o)</strong></p>
+        <p><strong>         /usr/lib/libpthreads.a(shr_xpg5_64.o)</strong></p>
+        <p><strong>         /usr/lib/libcrypt.a(shr_64.o)</strong></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JVbCAM_37f74306-ec68-4a0c-965d-bc72016da410.png"
+          /></span>
+        </p>
+        <p>
+          If you require any further information on the Express Agent or assistance with installing
+          it, please open a support ticket on <strong>Jira</strong> or email
+          <strong>support@nntws.com.</strong>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

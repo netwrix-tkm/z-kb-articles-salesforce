@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Client crash - Runtime Error!</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bcCAC" />
+    <meta name="Id" content="ka04u00000116ciAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:07:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1378" />
+    <meta name="ArticleNumber" content="000003534" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when Password Manager&amp;#039;s client returns &amp;#039;Runtime Error!&amp;#039; message."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I deployed the Password Manager client on several machines and on some of them I receive the
+        following error at startup
+
+        <img
+          src="kA00g000000H9bcCAC_d8a056b5-4757-42f5-9d8d-b2d1ee8900c7.jpg"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        The application adds files to Program files and keys to the registry, also registers its
+        components in registry. The error above occurs because some of required components were not
+        installed or registered. The most common reason is the lack of permissions granted to the
+        account under which the client was installed. Microsoft User Account Control (UAC) can also
+        cause this.
+
+        <hr />
+
+        First of all make sure that the account used to deploy the client has full access to the
+        local system (local admin permissions or local system account). Try perform the deployment
+        with UAC disabled. If the issue persists, please manually check that after deployment of the
+        client the following registry keys exist.
+        HKEY_LOCAL_MACHINESOFTWAREPoliciesNetWrixPasswordManager
+        HKEY_LOCAL_MACHINESOFTWAREWow6432NodePoliciesNetwrixPasswordManager (this is only in 64-bit
+        OS)
+
+        <img
+          src="kA00g000000H9bcCAC_e8a7e2ec-63a3-4315-a8a8-bace07710051.png"
+          alt="User-added image"
+        />
+
+        If the key does not exist you can create it manually. No values are necessary. Change the
+        deployment procedure to create this key.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SSRS TempDB Permanently Grows Large and Occupies Disk Space</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PhZKAU" />
+    <meta name="Id" content="ka0Qk0000001VrNIAU" />
+    <meta name="LastPublishedDate" content="2024-01-25T07:49:08.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-26T06:23:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-25T07:49:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9022" />
+    <meta name="ArticleNumber" content="000009022" />
+    <meta name="description" content="SSRS TempDB Occupies Large Space" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The temporary SSRS database (TempDB) in your environment permanently grows large when
+            running reports or investigations.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The SQL Server service account has insufficient permissions to clear the TempDB.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>To establish the SQL Server service account, click
+              <strong>Settings</strong> in the main Netwrix Auditor menu &gt;
+              <strong>Audit Database</strong> &gt; <strong>User name</strong>.
+            </p>
+          </blockquote>
+
+          <p>Grant the <strong>db_owner</strong> role to the SQL Server service account.</p>
+
+          <ol>
+            <li>
+              <p>Run Microsoft SQL Server Management Studio and connect to the SQL instance.</p>
+            </li>
+            <li>
+              <p>
+                In <strong>Object Explorer</strong>, proceed to <strong>Security</strong> &gt;
+                <strong>Logins</strong> &gt; right-click the affected SQL Server service account
+                &gt; <strong>Properties</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>User Mapping</strong> tab, locate the TempDB, highlight it and review
+                the roles assigned to the affected account in the
+                <strong>Database role membership</strong> window.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the <strong>db_owner</strong> checkbox and click <strong>OK</strong> to save
+                changes.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServer.htm"
+                  target="_self"
+                  >Requirements − Requirements for SQL Server to Store Audit Data · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

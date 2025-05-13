@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Reset Multi-Factor Authentication</title><meta name="label" content="recovery_ad"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001zvtKAA"/><meta name="Id" content="ka0Qk000000CHczIAG"/><meta name="LastPublishedDate" content="2025-02-18T18:34:48.000+0000"/><meta name="LastModifiedDate" content="2025-02-18T18:34:48.000+0000"/><meta name="FirstPublishedDate" content="2025-02-13T19:22:17.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9395"/><meta name="ArticleNumber" content="000009395"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+<div>
+<p>Can you reset multi-factor authentication (MFA) in Netwrix Recovery for Active Directory (NRAD) after losing access to their authenticator account?</p>
+</div>
+<h2 id="answer">Answer</h2>
+<div>
+<p>Yes, you can reset MFA in NRAD by following the outlined steps below:</p>
+<ol><li>
+<p>Open <strong>SQL Server Management Studio</strong> and connect to the SQL Server instance used for NRAD.</p>
+</li><li>
+<p>Expand the <strong>Tables</strong> in the database used by NRAD. The default database name is <code>NetwrixRecovery</code>.</p>
+<blockquote><span class="Note"><strong>NOTE:</strong> The default database name may vary if it was modified during the installation of NRAD.</span></blockquote>
+</li><li>
+<p>Right-click the <code>dbo.tusers</code> table and select <strong>Edit Top 200 Rows</strong>.</p>
+</li><li>
+<p>Locate the user account by identifying their login name in the <strong>Data</strong> column.</p>
+</li><li>
+<p>Change the <strong>TwoFactorEnabled</strong> column value from <code>True</code> to <code>False</code> and save the changes.</p>
+</li><li>
+<p>After resetting MFA, users can log in to the console without an authenticator code. To re-enable MFA, refer to the steps in the <a href="https://helpcenter.netwrix.com/bundle/RecoveryForActiveDirectory_2.6/page/Content/RecoveryForActiveDirectory/Admin/ConfigureMFA.htm" target="_blank">Configure MFA</a> guide.</p>
+</li></ol>
+</div>
+<h2 id="related_articles">Related Articles</h2>
+<ul><li><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110wRCAQ.html" target="_blank">Configure MFA</a></li></ul></div>
+</article></body></html>

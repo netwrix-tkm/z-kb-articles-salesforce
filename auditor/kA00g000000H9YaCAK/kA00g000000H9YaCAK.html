@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: 0x80040E37 Invalid object name 'Netwrix_ImportDB.dbo.vw_AIIADA'</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YaCAK" />
+    <meta name="Id" content="ka04u000000HcRbAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1200" />
+    <meta name="ArticleNumber" content="000003348" />
+    <meta
+      name="description"
+      content="Version(s) 7.0-8.5 Error: 0x80040E37 Invalid object name &#34;Netwrix_ImportDB.dbo.vw_AIIADA&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When using the Netwrix Auditor Client to run Searches the search fails with the following:
+
+        <img
+          src="kA00g000000H9YaCAK_ed8b2afd-10e3-4c55-ae4f-c129b7ac7bf2.png"
+          alt="User-added image"
+        />
+
+        <hr />
+
+        During install/upgrade to version 7.1 of Netwrix Auditor, this database view (<span
+          ><span>Netwrix_ImportDB.dbo.vw_AllADA </span></span
+        >) is supposed to be created. In the case where this error is encountered, the
+        <span>Netwrix_ImportDB</span> database was not created. The search looks for this database
+        but is not able to find it which halts the search.
+
+        <hr />
+
+        To fix this issue the ImportDB should be created which can be accomplished with the
+        following steps: 1) Open the <b>Netwrix Auditor Administrator Console</b>
+
+        2) Expand <b>Audit Archive</b> and then click <b>Investigations</b>
+
+        <img
+          src="kA00g000000H9YaCAK_05772f80-2ed4-41b9-890a-c22ac530319b.png"
+          alt="User-added image"
+        />
+
+        3) Click <b>Modify</b> on the Investigations screen in the right hand pane
+
+        <img
+          src="kA00g000000H9YaCAK_c7b8df07-27e9-4a27-a619-da9b307198a9.png"
+          alt="User-added image"
+          width="500"
+          height="466"
+        />
+        4) On the Modify SQL Server Settings Screen that pops up click OK
+
+        <img
+          src="kA00g000000H9YaCAK_3dc71fca-2f96-4ef7-8b31-84ba48ac356b.png"
+          alt="User-added image"
+          width="500"
+          height="217"
+        />
+
+        5) On the next screen click OK to create the ImportDB
+
+        <img
+          src="kA00g000000H9YaCAK_4c45d2d1-74af-4782-8131-c183f42336e5.png"
+          alt="User-added image"
+        />
+
+        Note: Step #5 will not be successful if the account specified in the Netwrix Auditor SQL
+        Server Settings (see screenshot above) does not have Create DB permissions in SQL. Please
+        consult Microsoft documentation for instructions on how to give an account this permission
+        for the version of Microsoft SQL that is being used.
+      </div>
+    </article>
+  </body>
+</html>

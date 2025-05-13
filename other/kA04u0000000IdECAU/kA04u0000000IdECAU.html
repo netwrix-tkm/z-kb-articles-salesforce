@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_8.2_011</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IdECAU" />
+    <meta name="Id" content="ka04u000000HcrtAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6822" />
+    <meta name="ArticleNumber" content="000006822" />
+    <meta name="description" content="360012326351" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> This Hotfix
+          contains fixes for a timeout occurring when analyzing views and general performance
+          improvements for SDD scans.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Title: </span></strong><br />SA_8.2_011<br /><strong
+            ><span>Summary:</span></strong
+          ><br />This Hotfix contains fixes for a timeout occurring when analyzing views and general
+          performance improvements for SDD scans.<br /><strong
+            ><span>Behavior Before Fix: </span></strong
+          ><br />"Execution Timeout Expired" happening at the end of a scan.  Poor performance
+          during SDD scans.<br /><strong><span>Behavior After Fix: </span></strong><br />The view
+          analysis at the end of the scan is now handled in batches, which should allow scans to
+          finish even with large [SA_SQLServer_ExpressionDependencies] tables.  Performance should
+          also be improved markedly.<br /><b>Changes Since Last Hotfix:</b><br />SAT-4462  fix for
+          DatabasePrincipals unique key constraint<br />SAT-4700  Fix for permissions from deleted
+          users showing up on views<br /><strong><span>Submitted by: </span></strong><br />Rob
+          Evert<br /><strong><span>Affected Versions:</span></strong
+          ><br />8.2<br /><strong><span>Affected Module:</span></strong
+          ><br />SA - DC - SQL<br /> <br /><strong><span>Dev Ticket:</span></strong
+          ><br />SAT-4707  30899 - SQL SEEK getting Execution TimeOut<br />SAT-4723  30930 - SQL SDD
+          scan times are unacceptably high<br /><strong><span>Resolved in Version:</span></strong
+          ><br />DCSQL.DLL  8.2.77<br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><strong><span>Modules Included:</span></strong
+          ><br /> <br />/DC/DCSQL.DLL  8.2.78<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll 
+          8.2.78<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  8.2.78<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll 
+          8.2.78<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll 
+          8.2.78<br />/PrivateAssemblies/Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SqlServer.dll 
+          8.2.78<br /> <br /><b>YouTrack/Escalations:</b><br />SAT-4707/30899  and 
+          SAT-4723/30930<br /><b>Customers</b><br />Southern Communications<br /><b
+            >Cumulative List of fixes included since Service Pack:</b
+          ><br />SAT-4462  fix for DatabasePrincipals unique key constraint<br />SAT-4700  Fix for
+          permissions from deleted users showing up on views<br /><br /><br /><span
+            >The SQL Data Collector no longer gives warnings when scanning views that reference
+            cross-database resources. This functionality added significant performance overhead, and
+            will thus be moved to a standalone job which can be run as needed. The requirement for
+            this new, second job, will be deprecated in StealthAUDIT 8.3 where the SQL DC can now
+            scan views for sensitive data. </span
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Unblock the
+          hotfix zip file in the windows property dialog if an unblock button exists there.<br />2.
+          Close all instances of StealthAUDIT (check task manager under processes for all users)<br />3.
+          Exit StealthAUDIT console<br />4. Copy and replace files from the included folder into SA
+          Install dir.<br />5. Clear / Delete directory C:\Program Files
+          (x86)\STEALTHbits\StealthAUDITV5\Applet\Powershell on Target server.<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="484" border="0">
+            <tbody>
+              <tr height="58">
+                <td colspan="1" rowspan="1" height="58" width="484">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.2/SA_8.2_011.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SAHotFixes/8.2/SA_8.2_011.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SQL<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          8.2<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAT-4707 SAT-4723<br /><strong
+            ><span class="wysiwyg-font-size-large">Resolved In:</span></strong
+          >
+          DCSQL.DLL 8.2.77<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2233<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

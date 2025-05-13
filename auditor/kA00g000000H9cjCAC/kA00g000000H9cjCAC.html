@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1289 in Health Log</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cjCAC" />
+    <meta name="Id" content="ka0Qk0000001AN7IAM" />
+    <meta name="LastPublishedDate" content="2023-12-25T12:17:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T09:26:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2368" />
+    <meta name="ArticleNumber" content="000003603" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Auditing issues caused by inaccessible/corrupt configuration files or Data Collection timeouts."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            One of the following error messages under Event ID 1289 is prompted in Health Log for
+            your SharePoint monitoring plan:
+          </p>
+
+          <ol>
+            <li>
+              <p>Error 1:</p>
+
+              <pre class="has-inner-focus">
+An unexpected error occurred while trying to collect read access events from the audited SharePoint farm: 
+Details: The content type text/html;
+charset=utf-8 of the response message does not match the content type of the binding (text/xml; charset=utf-8).
+If using a custom encoder, be sure that the IsContentTypeSupported method is implemented properly. The first 45 bytes of the response were: 
+'Cannot connect to the configuration database.'..</pre
+              >
+            </li>
+            <li>
+              <p>Error 2:</p>
+
+              <pre class="has-inner-focus">
+An unexpected error occurred while trying to collect read access events from the audited SharePoint farm:
+The request change timed out while waiting for a reply after 01:00:00.
+Increase the timeout value passed to the call to Request or increase the SendTimeout value on the Binding.
+The time allotted to this operation may have been a portion of a longer timeout.</pre
+              >
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Error 1: Auditor failed to collect data due to an unexpected error in SharePoint.
+                The site collection configuration is corrupt, or there is no access to the
+                SharePoint configuration database.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error 2: Auditor failed to collect data as the timeout expired due to SharePoint
+                settings. This could be caused by maintenance activity in your network, resulting in
+                failed process requests to SharePoint.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Review the resolution for the corresponding error:</p>
+
+          <ol>
+            <li>
+              <p>
+                Error 1: Verify the farm can be reached and is configured correctly − refer to the
+                following article for additional information on the initial setup:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Overview.htm"
+                  target="_self"
+                  >Configuration − SharePoint · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error 2: Verify the farm can be reached. It might be required to extend the timeout
+                on a binding − learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/framework/wcf/feature-details/configuring-timeout-values-on-a-binding"
+                  target="_blank"
+                  >Configuring Timeout Values on a Binding ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/SharePoint/Overview.htm"
+                  target="_self"
+                  >Configuration − SharePoint · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/dotnet/framework/wcf/feature-details/configuring-timeout-values-on-a-binding"
+                  target="_blank"
+                  >Configuring Timeout Values on a Binding ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

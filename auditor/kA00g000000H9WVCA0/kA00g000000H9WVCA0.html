@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>What cmdlets are used for AAL changes collection?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WVCA0" />
+    <meta name="Id" content="ka04u000000HcPgAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="792" />
+    <meta name="ArticleNumber" content="000003222" />
+    <meta name="description" content="cmdlets aal Get-AdminAuditLogConfig Search-AdminAuditLog" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I need to specify the service account permission to read AAL(Administrator audit logging),
+        what cmdlets are being used to collect AAL data? Also you may see the following error in the
+        daily summary report:<br /><em
+          >Connection with the Exchange server was interrupted: The term 'Search-AdminAuditLog' is
+          not recognized as the name of a cmdlet, function, script file, or operable program. Check
+          the spelling of the name, or if a path was included verify that the path is correct and
+          try again</em
+        >.
+        <hr />
+        In order to collect AAL events the product uses the following cmdlets:
+        <ul>
+          <li>
+            <a
+              href="http://technet.microsoft.com/en-us/library/dd298077%28v=exchg.150%29.aspx"
+              target="_blank"
+              >Get-AdminAuditLogConfig</a
+            >
+          </li>
+          <li>
+            <a
+              href="http://technet.microsoft.com/en-us/library/ff459250%28v=exchg.150%29.aspx"
+              target="_blank"
+              >Search-AdminAuditLog</a
+            >
+          </li>
+        </ul>
+        In order to run these cmdlets the service account should have appropriate permissions
+        ("Audit Logs" role assignment). In order to check the Audit logs role assignment use the
+        following cmdlet:
+
+        <ul>
+          <li>Get-ManagementRoleAssignment -Role "Audit Logs"</li>
+        </ul>
+        In order to provide Audit logs role assignment to the service account please run the
+        following cmdlet:
+
+        <ul>
+          <li>
+            <a
+              href="http://technet.microsoft.com/en-us/library/jj150497(v=exchg.150).aspx#auditinginecp"
+              target="_blank"
+              >New-ManagementRoleAssignment -Role "Audit Logs" -User &lt;Identity&gt;</a
+            >
+          </li>
+        </ul>
+        In order to remove the assigned Role please run:
+
+        <ul>
+          <li>
+            <a
+              href="https://docs.microsoft.com/en-us/exchange/remove-a-role-from-a-user-or-usg-exchange-2013-help"
+              target="_blank"
+              ><span class="hljs-pscommand">Get-ManagementRoleAssignment</span
+              ><span class="hljs-parameter"> -RoleAssignee</span>
+              USERNAME@Domain.onmicrosoft.com<span class="hljs-parameter"> -Role</span>
+              <span class="hljs-string">"Audit Logs"</span
+              ><span class="hljs-parameter"> -Delegating</span>
+              <span class="hljs-literal">$false</span> |
+              <span class="hljs-pscommand">Remove-ManagementRoleAssignment</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

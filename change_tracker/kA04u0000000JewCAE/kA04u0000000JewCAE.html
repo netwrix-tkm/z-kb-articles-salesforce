@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redis - QFork.dat Files Taking Up Large Amounts Of Disk Space?</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JewCAE" />
+    <meta name="Id" content="ka04u000000HdB1AAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:58:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8286" />
+    <meta name="ArticleNumber" content="000008286" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p class="auto-cursor-target">
+          <em
+            >Have you noticed that the server hosting your Change Tracker web console is running low
+            on disk space? Have you scanned the servers disks and found that the culprit is a
+            RedisQFork.dat files? Are you unsure of what the files are and if it is safe to delete
+            them? If so, please read the guide below for your answer!</em
+          >
+        </p>
+        <p class="auto-cursor-target">
+          <span
+            >The files that you may be faced with are normally stored in the following directory:
+            <strong>C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Redis</strong></span
+          >
+        </p>
+        <p class="auto-cursor-target">
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JewCAE_6b821441-fc97-4c6a-97ec-43ccf7533baa.png"
+          /></span>
+        </p>
+        <p class="auto-cursor-target">
+          These files are created due to Redis using the fork UNIX system API to create a
+          point-in-time snapshot of the data store for storage to disk. <span
+            >Windows does not have a fork-like API available, so Redis opted to simulate this
+            behavior by placing the Redis heap in a memory mapped file that can be shared with a
+            child(quasi-forked) process and b<span
+              >y default the size of each snapshot file should be equal to the size of the devices
+              physical memory.</span
+            ></span
+          >
+        </p>
+        <p class="auto-cursor-target">
+          If you encounter this problem, <strong>it is safe</strong> to delete these files, as long
+          as the Redis service is not running.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

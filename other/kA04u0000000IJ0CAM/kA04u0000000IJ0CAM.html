@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Fix for AIC 500.19 Error</title>
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IJ0CAM" />
+    <meta name="Id" content="ka04u000000HcjwAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:46:20.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:23:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6591" />
+    <meta name="ArticleNumber" content="000006591" />
+    <meta name="description" content="360008944451" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong>
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> When attempting to
+          launch the AIC Website you see the following error message even though all IIS components
+          are properly installed:<br />HTTP Error 500.19 - Internal Server Error<br />The requested
+          page cannot be accessed because the related configuration data for the page is invalid.
+          Module DynamicCompressionModule<br />Notification SendResponse<br />Handler StaticFile<br />Error
+          Code 0x8007007e<br /><br />Detailed Error Information:<br />Module:
+          DynamicCompressionModule<br />Notification: SendResponse<br />Handler: StaticFile<br />Error
+          Code: 0x8007007e
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+
+        <p>
+          Run the following in an administrator Command Prompt: <em
+            >%windir%\system32\inetsrv\appcmd.exe set config
+            -section:system.webServer/httpCompression /-[name='xpress'</em
+          >]
+        </p>
+
+        <p>
+          This command will disable the suscomp.dll which is being installed by WSUS. The
+          compression schemes are defined globally and loaded in every application Pool. when WSUS
+          x64 register this dll it will result this error when x64 version of suscomp.dll attempts
+          to load in an application pool which is running in x32 mode.
+        </p>
+
+        <p>
+          If, for any reason you want to enable the compression again, run this command :<em
+            >%windir%\system32\inetsrv\appcmd.exe set config
+            -section:system.webServer/httpCompression
+            /+[name='xpress',doStaticCompression='false',dll='%windir%\system32\inetsrv\suscomp.dll']</em
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Module:</span></strong> AIC - Installer<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000001032
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

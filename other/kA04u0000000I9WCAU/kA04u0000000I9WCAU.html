@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      SQL Tips &amp; Tricks - Working with Calculated Columns (e.g., CN, NTAccount and NTStyleName)
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I9WCAU" />
+    <meta name="Id" content="ka04u000000HcgoAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:44:21.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:44:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7365" />
+    <meta name="ArticleNumber" content="000007365" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Covers performance
+          best practices for joining and filtering on calculated columns in ADInventory and Data
+          Governance Views
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Something to keep in
+          mind - NTAccount ('Domain\SAMAccountName') is a calculated value in the Data Governance
+          and ADInventory views, so joining on it is very slow. It's actually something like this in
+          the background:<br /> <br /><span
+            ><span
+              >SA_ADInventory_Domains<span>.</span>Name<span>+</span><span>'\'</span
+              ><span>+</span>SA_ADInventory_Principals<span>.</span>SamAccountName</span
+            ></span
+          ><br /> <br />In situations where you need to join or filter based on calculated columns,
+          it's better to join on IDs if you can, and on the parts that make up the column if you
+          can't get the IDs easily. If joining a "natural" (non-calculated) column to a calculated
+          column that's a concatenation of other columns, making a temp table with the pieces of the
+          concatenation is a good first step, and will typically be faster than joining on the
+          calculated column - especially for a large dataset.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Here's the
+          substring to split up domain and username when given 'Domain\SAMAccountName' format:<br /> <br /><span
+            ><span><span>select</span></span></span
+          ><br /><span
+            ><span>      <span>'DOMAIN\John.Smith'</span></span></span
+          ><br /><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span
+              >     <span>SUBSTRING</span><span>(</span><span>'DOMAIN\John.Smith'</span
+              ><span>,</span>1<span>,(</span><span>CHARINDEX</span><span>(</span><span>'\'</span
+              ><span>,</span><span>'DOMAIN\John.Smith</span><span>,</span>1<span>)-</span>1<span
+                >))</span
+              >
+              <span>as</span> SCADomain</span
+            ></span
+          ><br /><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span
+              >      <span>SUBSTRING</span><span>(</span><span>'DOMAIN\John.Smith'</span
+              ><span>,(</span><span>CHARINDEX</span><span>(</span><span>'\'</span><span>,</span
+              ><span>'DOMAIN\John.Smith</span><span>,</span>1<span>)+</span>1<span>),</span
+              ><span>LEN</span><span>(</span><span>'DOMAIN\John.Smith</span><span>))</span>
+              <span>as</span> SCASamAccountName</span
+            ></span
+          ><br /> <br /> Looking at the execution plan to compare the two versions, joining on the
+          concatenated value was 99% compared to 1% when joining the two columns. In lab tests with
+          a limited dataset, my join on calculated columns took 3 seconds. Joining on two columns
+          was 1% of the batch and the time to insert was negligible. Here's a scaled down,
+          simplified example you can try in your lab after running ADInventory that shows how the
+          two compare. The exact ratio of performance of the two queries in the batch may vary based
+          on the contents of your database:<br /> <br /><span
+            ><span><span>select</span></span></span
+          ><span
+            ><span><span> NTAccount </span></span></span
+          ><span
+            ><span><span>from</span></span></span
+          ><span
+            ><span><span> SA_ADInventory_PrincipalsView </span></span></span
+          ><span
+            ><span><span>where</span></span></span
+          ><span
+            ><span><span> NTAccount</span></span></span
+          ><span
+            ><span><span>=</span></span></span
+          ><span
+            ><span><span>'DOMAIN\User'</span></span></span
+          ><br /><span
+            ><span><span>select</span></span></span
+          ><span
+            ><span><span> NTAccount </span></span></span
+          ><span
+            ><span><span>from</span></span></span
+          ><span
+            ><span><span> SA_ADInventory_PrincipalsView </span></span></span
+          ><span
+            ><span><span>where</span></span></span
+          ><span
+            ><span><span> DomainName</span></span></span
+          ><span
+            ><span><span>=</span></span></span
+          ><span
+            ><span><span>'DOMAIN'</span></span></span
+          >
+          <span
+            ><span><span>and</span></span></span
+          ><span
+            ><span><span> SAMAccountName</span></span></span
+          ><span
+            ><span><span>=</span></span></span
+          ><span
+            ><span><span>'User'</span></span></span
+          ><br /><img
+            src="kA04u0000000I9WCAU_6f5ecc0e-31f6-4388-87cc-deb13d697971.jpg"
+            alt="50_Instructions_1.jpg"
+          /><br /> <br /> <br /><span
+            >Moral of the story: <strong>never, ever</strong> join on <u>NTAccount</u> or
+            <u>TrusteeNTStyleName</u> in standard views unless you have absolutely no choice, or the
+            environment is small enough that you don't have to worry about performance. </span
+          >If you're working on something custom for a smaller environment, please take the time to
+          join "the right way" so the solution is scalable in other environments (or as the
+          environment grows).<br /> <br /><strong>Other examples:</strong><br /> <br />CN -<br />Similarly,
+          CN is also a calculated value based on the DistinguishedName of the AD object (the "Value"
+          column in the SA_ADInventory_DistinguishedNames table).<br /> <br /><span
+            ><span><span>SUBSTRING</span></span></span
+          ><span
+            ><span><span>(</span></span></span
+          ><span
+            ><span
+              >dn<span>.</span>Value<span>,</span> 4<span>,</span> <span>PATINDEX</span
+              ><span>(</span><span>'%[^\,],%'</span><span>,</span>dn<span>.</span>Value<span
+                >)</span
+              >
+              <span>-</span> 3<span>)</span></span
+            ></span
+          ><br /> <br />Unfortunately, CN is not being collected anywhere else, so there is no
+          substitute for it as far as I know. so grab a coffee if you need to join on CN with a big
+          dataset. Or maybe consider collecting it in the Extended Attributes table and joining back
+          to the other AD data on PrincipalID. That might be faster.<br /> <br /> <br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - Active Directory;SA - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA -
+          Permissions;SA - DC - SPAA - Activity;SA - DC - SPAA - Permissions<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          All<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2222
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Notification Sender 2222 Error with Server response "5.7.57 SMTP; Client was not authenticated
+      to send anonymous mail during MAIL FROM"
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbclCAC" />
+    <meta name="Id" content="ka04u000000HcXZAA0" />
+    <meta name="LastPublishedDate" content="2022-03-10T10:38:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5088" />
+    <meta name="ArticleNumber" content="000003744" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>
+          You are using Office356 to send emails in Netwrix Audit Notification settings. You
+          specified following SMTP settings:
+        </p>
+
+        <ul>
+          <li>SMTP server - smtp.office365.com</li>
+          <li>Port number - 25</li>
+          <li>SMTP authentication is enabled</li>
+          <li>SSL/TLS is enabled</li>
+        </ul>
+        <img
+          class="wp-image-5240"
+          alt=""
+          src="https://kb.netwrix.com/wp-content/uploads/2020/01/SMTP-Example.png"
+        />
+        <p>
+          Even though you recieve Alert and Search Subscription emails you do not get Report
+          Subscription emails.<br />In the Netwrix Auditor Health Log are 2222 EventIDs from
+          <em>Notification Sender</em> Event Source with following description :
+        </p>
+
+        <p>
+          <code>The following error has occurred: </code><br /><code
+            >The following subscriptions could not be sent to the recipient
+            <em>'<strong>Email Address</strong></em
+            >':<br />Subscription to the '<em><strong>Report Name</strong></em
+            >' report (1)<br />Error: The SMTP server requires a secure connection or the client was
+            not authenticated. The server response was: 5.7.57 SMTP;
+            <strong>Client was not authenticated to send anonymous mail during MAIL FROM</strong>
+            [HE1PR0802CA0024.eurprd08.prod.outlook.com]</code
+          >
+        </p>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>
+          Office 365 requires TLS 1.2 encryption to send emails. .Net framework on the Netwrix
+          Auditor server does not have TLS 1.2 configured, thus the component that sends SSRS
+          Reports subscriptions fails to establish a connection with the cloud SMTP server.<br />It
+          is also possible that the Netwrix Auditor server itself does not have TLS 1.2 support,
+          depending on the operating system version and updates installed. Make sure the operating
+          system on the computer where Netwrix Auditor resides supports TLS 1.2
+        </p>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <p>Create or set the following registry keys:</p>
+
+        <p>
+          <em
+            ><strong
+              >[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+              1.2\Client]</strong
+            ><br />“Enabled”=dword:00000001<br />“DisabledByDefault”=dword:00000000</em
+          >
+        </p>
+
+        <p>
+          <em
+            ><strong
+              >[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS
+              1.2\Server]</strong
+            ><br />“Enabled”=dword:00000001<br />“DisabledByDefault”=dword:00000000</em
+          >
+        </p>
+
+        <p>
+          <em
+            ><strong
+              >[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFrameworkv4.0.30319]</strong
+            ><br />“SystemDefaultTlsVersions”=dword:00000001<br />“SchUseStrongCrypto”=dword:00000001</em
+          >
+        </p>
+
+        <p>
+          <em
+            ><strong>[HKEY_LOCAL_MACHIN\ESOFTWARE\Microsoft\.NETFrameworkv4.0.30319]</strong
+            ><br />“SystemDefaultTlsVersions”=dword:00000001<br />“SchUseStrongCrypto”=dword:00000001</em
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

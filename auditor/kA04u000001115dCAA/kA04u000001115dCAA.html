@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event Log Manager (ELM) — Internal</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u000001115dCAA" />
+    <meta name="Id" content="ka04u000000wvosAAA" />
+    <meta name="LastPublishedDate" content="2023-08-24T10:41:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-20T12:39:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-24T10:40:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8760" />
+    <meta name="ArticleNumber" content="000008760" />
+    <meta name="description" content="Event Log Manager — Internal" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span
+              ><strong>IMPORTANT: </strong>This is an internal article migrated from Support Wiki.
+              If any changes to Configuration.xml are implied, the steps should only be performed by
+              Tech Support in a remote session!.</span
+            >
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            Event Log Manager (ELM) enables administrators to gather sets of event log data from any
+            computer on the network, build reports, and execute alerts for high severity event
+            criteria.
+          </p>
+        </div>
+
+        <h2 id="collector_specifications">Collector Specifications</h2>
+
+        <div>
+          <div class="table-wrap">
+            <table count-columns="2">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Category</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Description</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Collector Process Name</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Windows Task</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Change Generation Type</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Event based</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Data Collection Frequency</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Event collection every 10 minutes </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Compression Service</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Optional</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Auto Audit Configuration</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Not Available</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>State in Time Reporting</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Not Available</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Supported Item Types</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Computer, Container, or IP Range</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Reported Changes</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Event Log Records</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Log Location</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>%WORKING FOLDER%\Logs\Event Log Management\Tracing</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>License Model</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>Pairs with Windows Server License bundle</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Litmos training link</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      <a href="https://netwrix.litmos.com/course/10392352" target="_blank"
+                        >https://netwrix.litmos.com/course/10392352</a
+                      >
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2 id="general_collector_overview">General collector overview</h2>
+
+        <div>
+          <p>
+            Event Log Collector (ELM) is a relatively simple but powerful tool that allows
+            collecting data that other collector cannot. It is not recommended to use ELM instead of
+            other collectors but only to complement them.
+          </p>
+        </div>
+
+        <h2 id="special_things_to_consider">Special things to consider</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                ELM does not perform any data analysis. All it does is collecting events as per
+                selected filters and saving them in SQL/LTA
+              </p>
+            </li>
+            <li>
+              <p>
+                ELM does not produce Activity Records. Therefore, ELM data cannot be found using
+                Search in Netwrix Auditor.
+              </p>
+            </li>
+            <li>
+              <p>
+                ELM can send Alerts, but unlike other collectors it does not store the data
+                collected for alerts in SQL/LTA. If you want to receive alerts AND store the data in
+                SQL/LTA for reporting needs, the same filters have to be configured in both Audit
+                archiving filters and Alerts.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="initial_product_configuration">Initial product configuration</h2>
+
+        <div>
+          <p>
+            ELM is not a part of the main Netwrix Auditor UI. The configurator can be found in the
+            Start menu.
+          </p>
+        </div>
+
+        <h4 id="audit_database_configuration">Audit Database configuration</h4>
+
+        <div><img src="kA04u000001115dCAA_b53689b2-e72c-40b2-ac37-6f87f37e0b2d.png" /></div>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                SQL database for ELM has a predefined name Netwrix_Auditor_EventLog that cannot be
+                changed.
+              </p>
+            </li>
+            <li>
+              <p>
+                Authentication method and User name are taken from the main Netwrix Auditor UI
+                (configuration.xml) and cannot be customized.
+              </p>
+            </li>
+            <li>
+              <p>ELM database retention is independent from the rest of the product.</p>
+            </li>
+          </ul>
+
+          <p>
+            "Write event descriptions to Audit Database" checkbox makes ELM save the whole event
+            body to the SQL Database. Good thing is that reports will display more data; bad thing
+            is that the database will grow much faster. This option should only be enabled when
+            absolutely necessary.
+          </p>
+        </div>
+
+        <h4 id="event_filters_configuration">Event Filters configuration</h4>
+
+        <div>
+          <p>
+            Event Log name, if it is not in the predefined list, should be taken from the Properties
+            of the corresponding log (Full Name field):
+          </p>
+        </div>
+
+        <div>
+          <div>
+            <img
+              alt="1.png"
+              height="500"
+              src="kA04u000001115dCAA_252e85cb-3245-4955-913e-e11690cf5137.png"
+              width="500"
+            />
+            <img
+              alt="2.png"
+              height="500"
+              src="kA04u000001115dCAA_fe28a745-be08-4310-a0d0-af7c7d61211a.png"
+              width="447"
+            />
+          </div>
+        </div>
+
+        <div>
+          <p>
+            At the Event Fields tab, if a checkbox for Event Level, Computer, User or Source is not
+            checked, this is the same as "Checked for all options".
+          </p>
+
+          <p>This is how filter options correlate with actual events:</p>
+
+          <div>
+            <div>
+              <img
+                alt="4.png"
+                height="500"
+                src="kA04u000001115dCAA_90945998-cca1-413a-b77c-db8dcc8db6c0.png"
+                width="579"
+              />
+              <img
+                alt="5.png"
+                height="500"
+                src="kA04u000001115dCAA_d6d931fa-bd62-48fa-b63e-70495e901cbf.png"
+                width="442"
+              />
+            </div>
+          </div>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>When configuring Archiving or Alert filters,
+              always look at the real event that you want to capture, in order to make sure that you
+              configured all the fields right!
+            </p>
+          </blockquote>
+
+          <div>
+            <p>
+              Note that for many Windows logs, the User field will always be "N/A" because the
+              events are logged by the system itself rather than the user.
+            </p>
+
+            <div>
+              <img
+                alt="5.1.png"
+                src="kA04u000001115dCAA_7f1e07c8-0b4c-4ec9-9ba0-f51d9f08e641.png"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p>
+              Since each event id has a unique structure, if you plan to configure Insertion
+              Strings, make sure you specify a single event id. This is how you choose Index and
+              Value for Insertion strings:
+            </p>
+
+            <div>
+              <div>
+                <img
+                  alt="4.png"
+                  height="500"
+                  src="kA04u000001115dCAA_21f84f28-2bf9-45ff-bb94-dbf9d460c4c1.png"
+                  width="580"
+                /><img
+                  alt="5.png"
+                  height="500"
+                  src="kA04u000001115dCAA_006c1b27-44ad-4f90-9b3b-16f7f8722bd5.png"
+                  width="442"
+                />
+              </div>
+            </div>
+
+            <h4 id="network_traffic_compression">​​​​​​​Network traffic compression</h4>
+
+            <div>
+              <p>
+                The compression service is installed on the target machine in the
+                C:\Windows\NWAgentShare folder. The service name is Netwrix Auditor Event Log
+                Compression Service (nwagentsvc). The default state is "Stopped". Collected events
+                are saved to the same folder before transferring to the host.
+              </p>
+            </div>
+
+            <h4 id="troubleshooting">Troubleshooting</h4>
+
+            <div>
+              <p>
+                If you want to see processed events in the trace log file, set TraceLevel 100
+                (dec).<br /><br />All configured filters can be found in the %WORKING FOLDER%\Event
+                Log Management\Rules folder. If you need to check what your customer configured,
+                request the above folder and put it into a similar folder in your lab, so you could
+                see the filters in the product UI, which is more convenient than reading XML.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

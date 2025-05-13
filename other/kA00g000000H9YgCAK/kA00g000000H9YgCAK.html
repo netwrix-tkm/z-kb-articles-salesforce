@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The enrollment wizard starts every time a user logs in</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YgCAK" />
+    <meta name="Id" content="ka04u00000116eOAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T16:00:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1207" />
+    <meta name="ArticleNumber" content="000003354" />
+    <meta
+      name="description"
+      content="Password Manager (PRM) Enrollment wizard pops up every time a user logs in. After successfully completing the wizard, and the confirming message appears."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          An enrollment wizard pops up every time a user logs in. After completing the wizard, a
+          message appears confirming that the enrollment procedure has been successful. However, on
+          next login, the wizard pops up again.
+        </div>
+        <div>
+          In the Password Manager administrative console, the user appears as not enrolled into the
+          system.
+        </div>
+
+        <hr />
+
+        Such behavior occurs because of authentication issues. Enrollment wizard uses Windows
+        authentication to pass crednetials of a user to Password Manager server. The authentication
+        can be configured incorrectly, and because of it another user gets enrolled instead of the
+        correct user.
+
+        <hr />
+
+        If you are using single server instalaltion, make sure that the
+        <strong>gina_set_answers.asp </strong>and
+        <strong>gina_set_answers_anonymous.asp </strong>files are configured to use
+        Windows-integrated authentication in the IIS.
+        <div>To do it in IIS7, perform the following steps</div>
+        <ol>
+          <li>Run <strong>IIS Manager</strong> (<em>inetmgr</em>)</li>
+          <li>
+            In the left pane, locate the NetWrix Password Manager virtual directrory ("PM" by
+            default)
+          </li>
+          <li>Switch to the <strong>Content view</strong></li>
+        </ol>
+        <strong
+          ><img
+            src="kA00g000000H9YgCAK_89d6a7a0-24ce-41c4-a946-a43cfdd98b97.png"
+            alt="User-added image"
+            width="500"
+            height="368"
+        /></strong>
+        <ol start="4">
+          <li>
+            Select <strong>gina_set_answers.asp</strong> (or
+            <strong>gina_set_answers_anonymous.asp </strong>respectivly) from the list
+          </li>
+          <li>Right-click it and select <strong>Switch to Features view</strong></li>
+        </ol>
+        <strong
+          ><img
+            src="kA00g000000H9YgCAK_0ddef727-b4dc-4bad-8358-42daf6044c16.png"
+            alt="User-added image"
+            width="500"
+            height="453"
+        /></strong>
+        <ol start="5">
+          <li>Select <strong>Authentication</strong> under IIS group</li>
+          <li>
+            Make sure <strong>Windows authentication </strong>is <strong>Enabled </strong>and all
+            other are Disabled
+          </li>
+        </ol>
+        <b>NOTE</b>. For DMZ setup, <b>gina_set_answers.asp</b> should have
+        <b>all </b>authentication types set to <b>Disabled</b>.
+        <b>gina_set_answers_anonymous.asp</b> should only have <b>Windows authentication</b> set to
+        <b>Enabled </b>and all other types of authentication set to <b>Disabled</b>.
+      </div>
+    </article>
+  </body>
+</html>

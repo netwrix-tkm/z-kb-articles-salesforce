@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Long Data Collection — Improving the Performance</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WjCAK" />
+    <meta name="Id" content="ka04u00000117MLAAY" />
+    <meta name="LastPublishedDate" content="2023-08-16T11:49:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-24T13:55:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="815" />
+    <meta name="ArticleNumber" content="000003236" />
+    <meta name="description" content="Long data collection performance" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Data collection takes too long to complete. How to improve the Netwrix Auditor
+            performance to speed up the data collection?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The following recommendations will allow you to improve the overall Auditor performance.
+          </p>
+        </div>
+
+        <h4 id="split_data_sources_in_separate_monitoring_plans">
+          Split data sources in separate monitoring plans
+        </h4>
+
+        <div>
+          <p>
+            For the initial setup and post-setup stages, it is highly recommended to stick to the
+            following structure:
+          </p>
+
+          <ul>
+            <li>
+              <p>One database per monitoring plan.</p>
+            </li>
+            <li>
+              <p>One monitoring plan per data source.</p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <strong><span>NOTE: </span></strong>It is possible to split collections of specific
+              data sources in multiple monitoring plans, although it is important to considering the
+              following:
+            </p>
+
+            <ul>
+              <li>
+                <p>SQL edition (Express or Standard or other).</p>
+              </li>
+              <li>
+                <p>Average number of activity records of your single data source.</p>
+              </li>
+              <li>
+                <p>Hardware limitations.</p>
+              </li>
+            </ul>
+          </blockquote>
+
+          <p>
+            In general, it is recommended to use different databases for different data sources to
+            avoid rapid database size growth and ease the troubleshooting process. For additional
+            information on creation of monitoring plans, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/Overview.htm"
+              target="_self"
+              >Monitoring Plans</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="hardware_limitations">Hardware limitations</h4>
+
+        <div>
+          <p>
+            In case of recent changes to your environment that led to hindered performance, refer to
+            the following article for reference on hardware requirements for your infrastructure:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Hardware.htm"
+              target="_self"
+              >Hardware Requirements</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="network_traffic_compression">Network traffic compression</h4>
+
+        <div>
+          <p>
+            To reduce network traffic in distributed deployments, multi-site networks, and other
+            environments with remote locations that have limited bandwidth, it is recommended to use
+            network traffic compression. This option also helps reduce the CPU load for the Netwrix
+            Auditor host — for additional information on setting up traffic compression, refer to
+            the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/NetworkTrafficCompression.htm"
+              target="_self"
+              >Network Traffic Compression</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="decrease_database_retention_period">Decrease database retention period</h4>
+
+        <div>
+          <p>
+            Depending on your environment and needs, the Audit Database retention period can be
+            either increased or decreased. It should be noted, that higher retention period for any
+            database will also lead to greater database sizes and longer times to search for stored
+            data. For additional information on setting a database retention period, refer to the
+            following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/AuditDatabase.htm#configure_database_retention"
+              target="_self"
+              >Audit Database — Configure Database Retention</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="exclude_netwrix-related_folders_from_antivirus_scans">
+          Exclude Netwrix-related folders from antivirus scans
+        </h4>
+
+        <div>
+          <p>
+            As Netwrix Auditor creates and writes audit data in smaller portions, your antivirus
+            suite will attempt to check every new or edited file to complete the threat check. Full
+            file reads might take extra time to complete, hindering the writing capability of
+            Netwrix Auditor, in some cases leading to timeouts and additional RAM and CPU loads.
+            Refer to the following article for additional information on folders to be excluded from
+            regular antivirus checks:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+              target="_self"
+              >Antivirus Exclusions for Netwrix Auditor</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="set_up_data_collection_for_state-in-time_reports">
+          Set up data collection for State-in-Time reports
+        </h4>
+
+        <div>
+          <p>
+            Some collectors allow for scheduling of State-in-Time data collection — increasing the
+            time window between these events will help to avoid resource consumption spikes. Same
+            applies to Activity Summary reports — increasing the time window between these reports
+            will allow you to decrease the momentary loads. Both these changes won't affect the
+            overall resource consumption, they will distribute the consumption evenly. Refer to the
+            following article for additional information on editing data sources:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataSources.htm"
+              target="_self"
+              >Manage Data Sources</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="specify_domain_controllers_and_exchange_servers_for_data_collection">
+          Specify domain controllers and Exchange servers for data collection
+        </h4>
+
+        <div>
+          <p>
+            You can specify DCs and Exchange servers to collect data from — this allows to mitigate
+            the effects of decreased network availability, the hardware underperformance, and
+            distance to the Netwrix host of domain controllers and Exchange servers. Refer to
+            dclist.txt, dirsyncdclist.txt, and aal_serverlist.txt files to list the closest and most
+            reliable DCs and Exchange servers.
+          </p>
+        </div>
+
+        <h4 id="group_membership">Group membership</h4>
+
+        <div>
+          <p>
+            Group membership data is collected to include information on group membership of the
+            account that performed a change or an action. Disabling the group membership data
+            collection will reduce the monitoring scope to the audited domain only, but this might
+            increase the overall Active Directory Auditing performance as Netwrix Auditor won't have
+            to query global catalogs in the forest. Refer to the following steps to disable the
+            group membership monitoring:
+          </p>
+
+          <ol>
+            <li>
+              <p>Select your monitoring plan and click <strong>Edit</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select the appropriate data source and click <strong>Edit data source</strong> in
+                the right pane.
+              </p>
+            </li>
+            <li>
+              <p>Select the <strong>General</strong> tab in the left pane.</p>
+            </li>
+            <li>
+              <p>
+                Uncheck the <strong>Group membership</strong> under the
+                <strong>Detect additional details</strong> section.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="event_log_manager">Event Log Manager</h4>
+
+        <div>
+          <p>
+            In case you have an Event Log Manager plan set up, make sure it doesn't monitor data
+            covered by one of your Netwrix Auditor monitoring plans to avoid redundant monitoring
+            data and performance impact. Refer to the following steps to can disable event log
+            collection via Event Log Manager:
+          </p>
+
+          <ol>
+            <li>
+              <p>Launch Netwrix Auditor Event Log Manager.</p>
+            </li>
+            <li>
+              <p>Select your monitoring plan and click <strong>Edit</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the top left corner, uncheck the
+                <strong>Enable event log collection</strong> checkbox and click
+                <strong>Save</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="omit_lists">Omit lists</h4>
+
+        <div>
+          <p>
+            You can limit the monitoring scope in your environment via omit lists — this allows to
+            proactively decrease the DB loads as changes for omitted items are not recorded. For
+            additional information on how to exclude users and objects via Netwrix Auditor UI, refer
+            to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoL2CAK.html"
+              target="_blank"
+              >How to Exclude Users and Objects from Monitoring Scope in Netwrix Auditor UI</a
+            >. For additional information on available omit lists, review the corresponding article
+            applicable to your target system. For example, for Active Directory omit lists, refer to
+            the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/ActiveDirectory/Scope.htm"
+              target="_blank"
+              >Monitoring Plans — Active Directory Plans — Active Directory Monitoring Scope</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/Overview.htm"
+              target="_self"
+              >Monitoring Plans</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/Hardware.htm"
+              target="_self"
+              >Hardware Requirements</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/NetworkTrafficCompression.htm"
+              target="_self"
+              >Network Traffic Compression</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/AuditDatabase.htm#configure_database_retention"
+              target="_self"
+              >Audit Database — Configure Database Retention</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+              target="_self"
+              >Antivirus Exclusions for Netwrix Auditor</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/DataSources.htm"
+              target="_self"
+              >Manage Data Sources</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000PoL2CAK.html"
+              target="_blank"
+              >How to Exclude Users and Objects from Monitoring Scope in Netwrix Auditor UI</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/ActiveDirectory/Scope.htm"
+              target="_blank"
+              >Monitoring Plans — Active Directory Plans — Active Directory Monitoring Scope</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

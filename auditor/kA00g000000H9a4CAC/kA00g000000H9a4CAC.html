@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error AADSTS65001 in Microsoft 365 Monitoring Plans in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9a4CAC" />
+    <meta name="Id" content="ka0Qk0000001LK9IAM" />
+    <meta name="LastPublishedDate" content="2024-01-15T12:16:59.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T12:16:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1190" />
+    <meta name="ArticleNumber" content="000003440" />
+    <meta
+      name="description"
+      content="When creating a new Monitoring Plan for Azure AD or SharePoint Online, you receive the following error message: &amp;quot;AADSTS65001: The user or administrator has not consented to use the application with ID &amp;#039;***&amp;#039;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for any of your Microsoft 365 (Office 365)
+            monitoring plans (e.g., Microsoft Entra ID (formerly Azure AD)), SharePoint Online,
+            Exchange Online, Teams):
+          </p>
+
+          <pre class="has-inner-focus">
+Source: %Affected% Service
+Event ID: 3106
+Description:Monitoring plan: %Affected_Microsoft_365% Monitoring Plan
+Item: %Affected_item%
+Cannot add the item %Affected_item%  for auditing due to the following error:
+AADSTS65001: The user or administrator has not consented to use the application with ID '%id%' named '%app_name%'.
+Send an interactive authorization request for this user and resource.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Incorrectly configured permissons for your Entra ID (Azure AD) app.</p>
+            </li>
+            <li>
+              <p>Admin consent was not granted to the affected app.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Recreate the app named %app_name% in your Entra ID portal:</p>
+
+          <ol>
+            <li>
+              <p>
+                Open the Entra ID portal. You can use the following link:
+                <a href="https://entra.microsoft.com/#home" target="_blank"
+                  >Microsoft Entra Admin Center</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>Applications</strong> &gt;
+                <strong>App registrations</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Select the %app_name% app affected, and delete it.</p>
+            </li>
+            <li>
+              <p>
+                Recreate the app according to the steps provided in the documentation for the
+                affected data source:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+                      target="_blank"
+                      >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+                      target="_self"
+                      >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+                      target="_self"
+                      >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+                      target="_self"
+                      >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Edit the affected monitoring plan to use the new app:</p>
+
+              <ol>
+                <li>
+                  <p>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select the affected plan, and click <strong>Edit</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click the affected item, and select <strong>Edit item</strong> under the
+                    <strong>Item</strong> section in the right pane.
+                  </p>
+                </li>
+                <li>
+                  <p>Provide new credentials for the app.</p>
+                </li>
+                <li>
+                  <p>
+                    Once you've provided the credentials, click <strong>Save &amp; Close</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Update</strong> under the <strong>Monitoring Plan</strong> section
+                    in the right pane.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+              target="_blank"
+              >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/ExchangeOnline/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for Exchange Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Teams/Permissions.htm"
+              target="_self"
+              >Microsoft 365 — Permissions for Teams Auditing ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a href="https://entra.microsoft.com/#home" target="_blank"
+              >Microsoft Entra Admin Center</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

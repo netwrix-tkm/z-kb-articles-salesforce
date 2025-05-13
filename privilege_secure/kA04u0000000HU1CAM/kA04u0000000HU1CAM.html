@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Creating a Least Privilege Service Account for Linux Resources</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HU1CAM"/><meta name="Id" content="ka0Qk000000D0YTIA0"/><meta name="LastPublishedDate" content="2024-11-12T21:43:35.000+0000"/><meta name="LastModifiedDate" content="2025-03-27T13:57:14.000+0000"/><meta name="FirstPublishedDate" content="2021-10-24T22:01:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5921"/><meta name="ArticleNumber" content="000005921"/><meta name="description" content="Creating a Least Privilege Service Account for Linux Resources"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<p>To onboard Linux resources into Netwrix Privilege Secure (NPS), a service account is required that can execute certain elevated commands on the Linux resource.<br/><br/>While one could simply use the root account, it is not secure and would be a drastic over-provisioning of privileges. Instead, a dedicated service account can be created with a <b>sudoers </b>file that only allows elevation for the commands required by NPS.</p>
+<h2 id="Instructions">Instructions</h2>
+<div>
+<ol><li>
+<p>Create a new user on the Linux resource that will be used as the service account such as <strong>svc_sbpam</strong>. On most Linux distros, this will be performed with the <strong><code>useradd</code></strong> command, for example: <code><strong>useradd svc_sbpam -m</strong></code>.</p>
+<blockquote>
+<p><span class="Note"><strong>NOTE: </strong></span>Alternatively, you may create the user interactively using the <strong><code>adduser svc_sbpam</code></strong> command.</p>
+</blockquote>
+</li><li>
+<p>Create a file named after the user (e.g., <strong>svc_sbpam</strong>) in the Linux resource's sudoers directory. Typically, this is: <strong><code>/etc/sudoers.d</code></strong>.</p>
+</li><li>
+<p>The contents of the file should be as follows, which will grant the service account the least amount of privilege required for NPS to onboard the Linux resource and execute workflows on it:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">Cmnd_Alias ACT_CHKSUM = /usr/bin/find, /usr/bin/test, /usr/bin/md5sum
+Cmnd_Alias ACT_SUDOERS = /usr/bin/ls, /usr/bin/tee, /usr/bin/visudo, /usr/bin/rm, /usr/bin/mv, /usr/bin/chmod, /sbin/visudo
+Cmnd_Alias SB_PASS = /usr/bin/chpasswd, /usr/sbin/chpasswd, /usr/bin/groups, /usr/sbin/usermod, /usr/sbin/userdel, /usr/sbin/useradd, /usr/bin/gpasswd
+Cmnd_Alias SB_CMNDS = /usr/bin/grep, /usr/bin/ps, /usr/bin/kill, /usr/bin/which, /usr/bin/write, /usr/bin/who, /usr/bin/w, /usr/bin/last, /usr/bin/cat, 
+/usr/bin/uname, /usr/bin/ls, /usr/bin/yum, /usr/bin/chage, /usr/bin/rpm, /usr/share/bash-completion/completions/dpkg, /usr/bin/id, /usr/sbin/ip,
+/usr/sbin/ifconfig, /usr/bin/dpkg 
+
+svc_sbpam ALL = NOPASSWD: ACT_CHKSUM, ACT_SUDOERS, SB_PASS, SB_CMNDS
+Defaults:svc_sbpam !requiretty</code></pre>
+<p>The <code>Cmnd_Alias</code> lines are the commands the service account needs to run on the Linux resource, while the second to last line associates those commands with the NPS service account as a sudoers rule. Additionally, <code>NOPASSWD</code> allows the service account to execute elevated commands without manually entering a password each time, and <code>!requiretty</code> allows elevated commands to be run in non-interactive shell sessions.</p>
+<blockquote>
+<p><span class="Note"><strong>NOTE: </strong></span>The account name <strong>svc_sbpam</strong> is not required and can be changed. The only requirement is that the account name added as a service account in NPS must match the account name used in the <strong>sudoers</strong> file (anywhere <strong>svc_sbpam</strong> is replaced).</p>
+</blockquote>
+</li><li>
+<p>The service account is now ready to be added to NPS and can be assigned to the Linux resource when it is onboarded or via the Resources page if the Linux resource has already been onboarded.</p>
+</li></ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<div>
+<p>You may receive the following error message when attempting to provision a session against a Linux resource using this service account:</p>
+<pre class="has-inner-focus">sudo: no tty present and no askpass program specified</pre>
+<p>To resolve this, perform the following steps:</p>
+<ol><li>
+<p>Check the logs on the Linux resource for error messages involving the <strong>svc_sbpam</strong> account (or whatever service account name you chose) via the below steps:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">sudo grep svc_sbpam /var/log/*</code></pre>
+</li><li>
+<p>If any of the entries reference a particular command that the service account failed to run due to insufficient sudoer privileges, be sure to note the path of the command (for example, <code><strong>/sbin/ifconfig/</strong></code>) and add it to the end of the <code><strong>Cmnd_Alias SB_CMNDS</strong></code> entries in the service account's <code><strong>/etc/sudoers.d/</strong></code> file.</p>
+</li><li>
+<p>You should then reattempt to provision a session now that the necessary command alias is configured for the service account.</p>
+</li></ol>
+</div>
+<h2 id="additional_troubleshooting">Additional Troubleshooting</h2>
+<div>
+<p>You may receive the following error when performing a host scan or activity:</p>
+<pre class="ckeditor_codeblock">Error: 'Could not chdir to home directory /home/svc_sbpam: Not a directory sudo: a terminal is required to read the password; either use the -S option to read from 
+standard input or configure an askpass helper sudo: a password is required.'</pre>
+<p>This would indicate that your service account (such as <strong>svc_sbpam</strong>) is not listed in the <strong><code>/etc/sudoers</code></strong> file.</p>
+<blockquote>
+<p><span class="Note"><strong>NOTE: </strong></span>This can easily be confirmed by attempting to use <strong>sudo</strong> as your service account.</p>
+</blockquote>
+<p>To fix this, you may refer to the following steps:</p>
+<ol><li>
+<p>Edit your <strong>sudoers</strong> file, typically with the below command:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">sudo visudo</code></pre>
+</li><li>
+<p>Then, ensure that there is an entry for your service account under the <strong>user privilege specification</strong> header. For example:</p>
+<pre class="has-inner-focus"><code class="lang-Registry"># User privilege specification
+root    ALL=(ALL:ALL) ALL
+sbpam_svc    ALL=NOPASSWD: ALL</code></pre>
+</li></ol>
+</div>
+<h2 id="using_a_shell_script_to_determine_sudoersd_file_configuration">Using a Shell Script to Determine sudoers.d File Configuration</h2>
+<div>
+<p>Instead of using the methods described in the above sections, a shell script can be deployed that will determine the exact contents of the <strong><code>/etc/sudoers.d/</code></strong> file that should be created. Please refer to the following steps:</p>
+<ol><li>
+<p>Copy the following script:</p>
+<pre class="ckeditor_codeblock">#!bash
+echo "Enter the least privileged account's name:"
+read lprivacct
+append_comma=0
+cmd_alias="Cmnd_Alias ACT_CHKSUM = "
+for cmd in find test md5sum
+do
+    cmd=`which ${cmd} 2&gt;/dev/null`
+    if [ ${append_comma} -eq 1 ] 
+    then
+        if [ "" != "${cmd}" ]
+        then
+            cmd_alias+=", "
+        fi
+    fi
+    cmd_alias+="${cmd}"
+    append_comma=1
+done
+append_comma=0
+echo ${cmd_alias}
+cmd_alias="Cmnd_Alias ACT_SUDOERS = "
+for cmd in ls tee visudo rm mv chmod
+do
+    cmd=`which ${cmd} 2&gt;/dev/null`
+    if [ ${append_comma} -eq 1 ] 
+    then
+        if [ "" != "${cmd}" ]
+        then
+            cmd_alias+=", "
+        fi
+    fi
+    cmd_alias+="${cmd}"
+    append_comma=1
+done
+append_comma=0
+echo ${cmd_alias}
+cmd_alias="Cmnd_Alias SB_PASS = "
+for cmd in chpasswd groups usermod userdel useradd gpasswd
+do
+    cmd=`which ${cmd} 2&gt;/dev/null`
+    if [ ${append_comma} -eq 1 ] 
+    then
+        if [ "" != "${cmd}" ]
+        then
+            cmd_alias+=", "
+        fi
+    fi
+    cmd_alias+="${cmd}"
+    append_comma=1
+done
+append_comma=0
+echo ${cmd_alias}
+cmd_alias="Cmnd_Alias SB_CMNDS = "
+for cmd in "grep" "ps" "kill" "which" "write" "who" "w" "last" "cat" "uname" "ls" "yum" "chage" "rpm" "dpkg" "id" "ip" "ifconfig"
+do
+    cmd=`which ${cmd} 2&gt;/dev/null`
+    if [ ${append_comma} -eq 1 ] 
+    then
+        if [ "" != "${cmd}" ]
+        then
+            cmd_alias+=", "
+        fi
+    fi
+    cmd_alias+="${cmd}"
+    append_comma=1
+done
+append_comma=0
+echo ${cmd_alias}
+echo "${lprivacct} ALL = NOPASSWD: ACT_CHKSUM, ACT_SUDOERS, SB_PASS, SB_CMNDS"
+echo "Defaults: ${lprivacct} "'!requiretty'
+</pre>
+</li><li>
+<p>Paste the script into the terminal and hit enter.</p>
+</li><li>
+<p>When prompted, enter the least privileged account's name (for example, <strong>svc_sbpam</strong>, or whichever account name you have chosen).</p>
+</li><li>
+<p>The script will output the contents of a <strong>sudoers.d</strong> file for a least-privilege user with the exact command paths used on your Linux server.</p>
+</li><li>
+<p>Copy the output and use it to complete the steps in the <a href="#Instructions">Instructions</a>, using the file contents you have just generated instead of those provided in the Instructions section.</p>
+</li></ol>
+</div>
+</div></div>
+</article></body></html>

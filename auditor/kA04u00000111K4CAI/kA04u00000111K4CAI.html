@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: Current Site Is Not a Tenant Administration Site in Microsoft 365 Monitoring Plan
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111K4CAI" />
+    <meta name="Id" content="ka0Qk0000004B89IAE" />
+    <meta name="LastPublishedDate" content="2024-05-30T07:01:53.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-11T11:32:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-09T15:23:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8847" />
+    <meta name="ArticleNumber" content="000008847" />
+    <meta name="description" content="SPO − Current Site Is Not a Tenant Administration Site" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            A Microsoft 365-based monitoring plan in Netwrix Auditor prompts the following error in
+            the Health Log:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID: 3229
+Description: Monitoring plan: %Monitoring_plan_name%
+Item: %item_name%
+Failed to collect state-in-time data due to the following error:
+Error get responce for GetTenant: Current site is not a tenant administration site</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The affected monitored item has an incorrect tenant name.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Review the tenant name in the affected monitoring plan.</p>
+
+          <ol>
+            <li>
+              <p>
+                In the main Auditor screen, click <strong>Monitoring Plans</strong>, select the
+                affected monitoring plan, and click <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Select a monitored item and click <strong>Edit Item</strong> in the right pane.</p>
+            </li>
+            <li>
+              <p>
+                Review the tenant name value for the item. Refer to the Microsoft guide to locate
+                the correct tenant ID:
+                <a
+                  href="https://learn.microsoft.com/en-us/partner-center/find-ids-and-domain-names#find-the-microsoft-azure-ad-tenant-id-and-primary-domain-name"
+                  target="_blank"
+                  >Locate important IDs for a user ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once you introduce the changes, click <strong>Save &amp; Close</strong>. In the
+                right pane, click <strong>Update</strong> to update your monitoring plan.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/partner-center/find-ids-and-domain-names#find-the-microsoft-azure-ad-tenant-id-and-primary-domain-name"
+                  target="_blank"
+                  >Locate important IDs for a user ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

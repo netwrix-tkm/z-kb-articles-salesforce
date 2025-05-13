@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: "Cannot collect data on the object .....copy_offload.tokens" when auditing NetApp Data
+      ONTAP
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YlCAK" />
+    <meta name="Id" content="ka04u000000HcRmAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1204" />
+    <meta name="ArticleNumber" content="000003359" />
+    <meta
+      name="description"
+      content="Version(s) 7.0~9.7 NetApp auditing Error: ID 2002 Cannot collect data on the object &amp;#039;\server_nameshare_name.copy_offload.tokens&amp;#039;: Error: Access is denied."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When auditing NetApp Data ONTAP, you get the following error in the Netwrix Auditor System
+        Health log: Event 2002
+        <b
+          >Cannot collect data on the object '\<i>server_name</i
+          ><i>share_name</i>.copy_offload.tokens': Error: Access is denied.</b
+        >
+        <hr />
+        Your file share contains the system <b>.copy_offload</b> folder used by Microsoft Offloaded
+        Data Transfer (ODX). Access to system files and folders inside <b>.copy_offload</b> is
+        restricted.
+
+        <hr />
+        It is recommended to exclude system files and folder from auditing. To do this, perform the
+        following steps:
+        <ol>
+          <li>
+            Navigate to %<b
+              >Netwrix Auditor Installation folder%File Server Auditingomitcollectlist.txt.
+            </b>
+          </li>
+          <li>Add a new entry to omitlist.</li>
+        </ol>
+
+        <div>For example: *,,\\\\server_name\\share01\\.copy_offload*</div>
+      </div>
+    </article>
+  </body>
+</html>

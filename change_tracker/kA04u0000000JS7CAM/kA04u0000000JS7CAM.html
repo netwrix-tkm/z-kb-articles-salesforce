@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>2. Gen 7 Settings Pages - Configuration Templates - Tracking File Contents</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JS7CAM" />
+    <meta name="Id" content="ka04u000000Hd7mAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:32:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8087" />
+    <meta name="ArticleNumber" content="000008087" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span>Configuration Templates: File Contents</span><br />
+          Configuration settings conveyed using config files can be tracked directly using the File
+          Contents tracker. Similarly to the FIM tracker, changes can be tracked continuously to
+          give real-time notifications of any changes, or via a periodically scheduled poll. Change
+          Tracker Gen 7 supports a regular expression-based data-extraction operation to precisely
+          focus the tracking on salient entries only.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="209"
+              width="624"
+              src="kA04u0000000JS7CAM_4d6ea201-cfdb-4694-a7f0-2ff796ad70cc.png" /></span
+          ><br />
+          <strong><em>Polling Frequency:</em></strong> The default setting is to run a full poll
+          (effectively a new baseline operation) only when the Agent has been restarted e.g. after a
+          reboot but the Agent may be run in a 'polling-only' mode. This disables live tracking (the
+          'Tracking Style' attribute for the tracker should be set to 'Polling') and means that the
+          only change detection is performed when the scheduled poll is run. While this loses the
+          benefits of real-time change detection, it can be desirable in sensitive environments
+          where server resource loads need to be minimized under all conditions.<br />
+          <strong><em>Define Path:</em></strong> Click '+ Add a Tracked Folder' to add a new
+          folder/path to be tracked<br />
+          <strong><em>Tracking Specification:</em></strong
+          ><br />
+          Tracked File Path – File Hashing – Selects the Cryptographic Hash Algorithm used to record
+          a 'DNA Fingerprint' for each file – this option will record a secure hash value for the
+          files being tracked and use this as a definitive metric for file integrity.<br />
+          Regular Expression – If left blank, the entire contents of the file will be recorded and
+          tracked, but using a Regular Expression will focus tracking on contents isolated by the
+          regex, useful if only certain elements of a file contents need to be tracked<br />
+          RegEx Ignore Case – If using a Regular Expression this ensures that tracking is case
+          insensitive
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

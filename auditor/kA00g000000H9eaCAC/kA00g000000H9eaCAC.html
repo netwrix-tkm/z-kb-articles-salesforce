@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Read Netwrix Auditor Logs</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eaCAC" />
+    <meta name="Id" content="ka04u000000HcXJAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4602" />
+    <meta name="ArticleNumber" content="000003718" />
+    <meta name="description" content="How to Read Netwrix Auditor Logs" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h4 id="what_to_expect_from_netwrix_auditor_logs">
+          What to expect from Netwrix Auditor logs
+        </h4>
+
+        <p>
+          Logs can reveal many aspects of operations for all Netwrix Auditor Collectors and
+          Services. Not all log information is related to errors, in fact most of the text will walk
+          you through the collection process.
+        </p>
+
+        <h4 id="where_are_the_logs">Where are the logs?</h4>
+
+        <p>
+          The Netwrix Auditor Logs can be found by default at "C:ProgramDataNetwrix AuditorLogs" on
+          the Netwrix Auditor Server.
+        </p>
+
+        <p>
+          There is certainly an overwhelming amount of logs to choose from. To efficiently view
+          logs, first choose which collector you would like to troubleshoot or investigate. Most log
+          folders display the name of the related collector. Some logs are nested and may take
+          longer to find unless you build familiarity with the file structure.
+        </p>
+
+        <p>
+          <strong>Data Collection Core</strong><br />This is an example of a less obvious log
+          location. This directory has logs for collectors like File Server Auditing and Logon
+          Activity.
+        </p>
+
+        <p>
+          <strong>Audit Core</strong><br />This directory will include logs for Netwrix Auditor Core
+          Services. For example, Technical Support will visit these logs in instances where data may
+          not be getting stored in SQL. In this example, we would look at the NwArchiveSVC because
+          the Netwrix Auditor Archive Service is responsible for storing data in SQL.
+        </p>
+
+        <h4 id="how_to_read_the_logs">How to read the logs</h4>
+
+        <p>
+          Due to variance between logs, the general rule of thumb when viewing logs is to start with
+          the largest sized log. Alternatively, you can choose to start with log files with names
+          that match the collector in question. In this example, they are one in the same:
+        </p>
+
+        <img
+          class="wp-image-4638"
+          src="https://kb.netwrix.com/wp-content/uploads/2019/10/Reading-Logs.png"
+          alt=""
+        />
+
+        <hr class="wp-block-separator" />
+
+        <p>
+          Once you open a log, you will want to either scroll to the bottom or use the handy
+          keystroke CONTROL + END<br />Log data is formatted in columns. From left to right, data is
+          presented as: Date/Time, Message Type, Process Code, Process Name, Process
+          description/Error Description
+        </p>
+
+        <img
+          class="wp-image-4640"
+          src="https://kb.netwrix.com/wp-content/uploads/2019/10/reading-log-data-1-1024x147.png"
+          alt=""
+        />
+
+        <p>
+          Unless you are viewing logs to better understand collector processes, you will want to
+          filter through the log using a find function. Here are useful ways to find errors and
+          warnings
+        </p>
+
+        <ul>
+          <li><strong>Control + F</strong></li>
+          <li>warn</li>
+          <li>err</li>
+          <li>error</li>
+          <li>failed</li>
+          <li>
+            tracing (This may not be present in every log, but if it is, you can see when a
+            collection begins, follow it through, and watch for signs of root cause)
+          </li>
+          <li>
+            names of servers and domain controllers (If you suspect issues with collections from
+            identified machines, you may find clues by searching their names in the logs)
+          </li>
+        </ul>
+
+        <p>
+          Ultimately, learning logs requires the ability to watch for patterns. While extremely
+          useful, logs will not always lead to a direct resolution. They tend to act as a stepping
+          stone along the path to resolution.
+        </p>
+
+        <h4 id="sending_logs_to_technical_support">Sending logs to Technical Support</h4>
+
+        <p>
+          In most cases, Technical Support will request logs for tickets not resolved on initial
+          contact. If you would like to anticipate this and possibly expedite resolution, you can
+          prepare the logs using the steps seen
+          <a href="https://kb.netwrix.com/4645" target="_blank">here</a>.
+        </p>
+
+        <h4 id="" />
+
+        <p />
+      </div>
+    </article>
+  </body>
+</html>

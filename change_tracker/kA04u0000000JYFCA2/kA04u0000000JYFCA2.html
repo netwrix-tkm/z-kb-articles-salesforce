@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to fix The NNT Agent Service not Starting</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JYFCA2" />
+    <meta name="Id" content="ka04u000000Hd9QAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:45:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8179" />
+    <meta name="ArticleNumber" content="000008179" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          On completion of the NNT Agent installation, the agent's service should start
+          automatically. If you find that the service has not started and, when manual attempts to
+          start the service timeout, the following may be the cause.
+        </p>
+        <p>
+          The agent's files are signed with a certificate and therefore Windows will attempt to
+          confirm the validity of the certificate as the service starts. If the Windows server is
+          able to reach a certificate server or if access to a certificate server is rejected, then
+          the agent service will start as normal. If, for whatever reason the a certificate server
+          cannot be reached or
+          <strong
+            >the attempt to reach the certificate server does not timeout within 30 seconds</strong
+          >, the default time allowed for a Windows service to start, then the service will fail
+          with the error.
+        </p>
+        <h2 id="HowtofixTheNNTAgentServicenotStarting-">
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JYFCA2_73712965-9774-40ad-a152-f8feb782983d.png"
+          /></span>
+        </h2>
+        <p><br /></p>
+        <p>
+          Consider the following steps to eliminate the problem, the below configuration will
+          prevent the certificate look up when the agent's service starts.
+        </p>
+        <h2 id="HowtofixTheNNTAgentServicenotStarting-Step-by-stepguide">Step-by-step guide</h2>
+        <p>
+          Add the highlighted lines to the file - '<strong>NNTAgentService.exe.config'</strong>found
+          in this location '<strong>C:\Program Files\NNT Change Tracker Suite\Agent'</strong>
+        </p>
+        <p />
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p><span /></p>
+        <p><span> </span></p>
+        <p><span> </span></p>
+        <h2 id="HowtofixTheNNTAgentServicenotStarting-Relatedarticles">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8150" target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8282" target="_blank"
+                >Monitoring Oracle Databases using Change Tracker</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8295" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKMh&amp;d=%2Fa%2F4u000000LzY1%2F9TmGc30hA1WjaKoMt0TaW88BjFS60e_08cY2mHZofI8&amp;asPdf=false"
+          target="_blank"
+          >image2017-12-4_18-32-45.png</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKP7&amp;d=%2Fa%2F4u000000LzuZ%2FQZ3eX0pbeqwDNpGUamx9XLixTFGs_7RxRO4mSqBufZ0&amp;asPdf=false"
+          target="_blank"
+          >image2017-12-4_18-32-19.png</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

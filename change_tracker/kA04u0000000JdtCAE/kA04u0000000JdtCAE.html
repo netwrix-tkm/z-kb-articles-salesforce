@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Supporting Documents for Hub Server Problems</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdtCAE" />
+    <meta name="Id" content="ka04u000000QmfaAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-29T18:30:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:55:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8273" />
+    <meta name="ArticleNumber" content="000008273" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This document aims to assist the end user in providing us with as much information as
+          possible about problems related to the NNT Hub Server.
+        </p>
+
+        <h2 id="SupportingDocumentsforHubServerProblems-GeneralInformationtoProvide">
+          <span><strong>General Information to Provide</strong></span>
+        </h2>
+
+        <p>
+          This is some of the general information
+          <a
+            href="https://www.netwrix.com/sign_in.html?rf=tickets.html#/open-a-ticket"
+            target="_blank"
+            >Netwrix Technical Support</a
+          > would like to know regardless of what the problem is.
+        </p>
+
+        <ol>
+          <li>
+            <strong
+              >A detailed description of the issue that is being experienced. If a screenshot/video
+              can be captured, this will also be useful, as well as when the issue was
+              noticed.</strong
+            >
+          </li>
+          <li><strong>What version of the NNT Hub Server are you using?</strong></li>
+          <li>
+            <strong>Have there been any recent updates, or patches to the operating system?</strong>
+            <ul>
+              <li>If so, what was updated?</li>
+              <li>How recently did it occur?</li>
+              <li>Can information about what was installed be provided?</li>
+              <li>Was the system rebooted after the patch?</li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              >Is the issue related to a hub component (such as saved queries, compliance reports,
+              or configuration templates)? If so, please answer the following:</strong
+            >
+            <ul>
+              <li>Was that hub component previously working properly?</li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              >Is the issue related to the performance of the hub server (such as the interface is
+              responding slowly, event filters are taking a long time to show results)? if so,
+              please answer the following:</strong
+            >
+            <ul>
+              <li>
+                What was the last action or change made to the system prior to experiencing this
+                type of performance?
+              </li>
+              <li>How many agents are currently reporting to the system</li>
+              <li>How long has the server been displaying this behavior</li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              >Is the issue related to the NNT Hub Server being down or unreachable? If so, which of
+              the following is being experienced?</strong
+            >
+            <ul>
+              <li>Cannot Log In</li>
+              <li>Cannot Start IIS/MongoDB Services</li>
+              <li>Cannot Reach Web Console</li>
+              <li>The Server Itself is Unreachable via RDP or SSH</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Were any of the following network settings changed recently?</strong>
+            <ul>
+              <li>SSL/TLS Version</li>
+              <li>Microsoft IIS Services</li>
+              <li>IIS Certificate</li>
+              <li>IIS Website Port Binding</li>
+              <li>MongoDB Version</li>
+              <li>.NET Framework / Mono Runtime Version</li>
+            </ul>
+          </li>
+        </ol>
+
+        <h2 id="SupportingDocumentsforHubServerProblems-KeyInformationandAttachments">
+          <strong><span>Key Information and Attachments</span></strong>
+        </h2>
+
+        <p>
+          These are the key log files we will need to view for the NNT Hub Server in addition to the
+          General Information. In addition to these items, please also attach the items below which
+          are requested based on the platform your NNT Hub Server is installed on.
+        </p>
+
+        <ol>
+          <li>
+            <strong>Compress / Zip and Send the following folder containing the NNT Hub Log</strong>
+
+            <ul>
+              <li>
+                Default Linux Hub Location:<br />
+                <code>/opt/nnt/hubservice/log/</code>
+              </li>
+              <li>
+                Default Windows Hub Location:<br />
+                <code>C:\inetpub\wwwroot\Change Tracker Generation 7 Hub\log\</code>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Compress / Zip and Send the following folder containing the MongoDB Log</strong>
+            <ul>
+              <li>
+                Default Linux Hub Location:<br />
+                <code>/var/log/mongodb</code>
+              </li>
+              <li>
+                Default Windows Hub Location:<br />
+                <code>C:\ProgramData\Change Tracker Generation 7\MongoDB\log</code>
+              </li>
+            </ul>
+          </li>
+        </ol>
+
+        <h2 id="SupportingDocumentsforHubServerProblems-WindowsBasedPlatformHubAttachments">
+          <strong><span>Windows Based Platform Hub Attachments</span></strong>
+        </h2>
+
+        <p>
+          These are the key files we will need to view for the NNT Hub Server in addition to the
+          General Information and Key Information for a Windows based platform.
+        </p>
+
+        <ol>
+          <li>
+            <p class="auto-cursor-target">
+              <span
+                ><span><strong>Text output of System Information (msinfo32)</strong></span></span
+              >
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>Here is how to gather this information:</p>
+
+                <ol>
+                  <li>
+                    Go to <strong>Start &gt; Run</strong>. Type <em>msinfo32.exe</em> and hit
+                    <strong>Enter</strong>.
+                  </li>
+                  <li>Select <strong>File &gt; Save</strong></li>
+                  <li>Browse to an appropriate location to save the file</li>
+                  <li>
+                    Set the filename and ensure the save as type is
+                    <strong>System Information File (*.NFO)</strong>
+                  </li>
+                  <li>Click <strong>Save</strong></li>
+                  <li>Provide the file in the ticket</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                >Windows Event Logs (Windows Logs &gt; Application &amp; Windows Logs &gt;
+                System)</strong
+              >
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>Here is how to gather this information:</p>
+
+                <ol>
+                  <li>
+                    Go to <strong>Start </strong>&gt; <strong>Run</strong>.  Type
+                    <em>eventvwr </em>and hit <strong>Enter</strong>.
+                  </li>
+                  <li>Click <strong>Action &gt; Create Custom View</strong></li>
+                  <li>
+                    In the custom view filter -Dial in the time frame by going to
+                    <strong>Logged &gt; Custom Range</strong>
+                  </li>
+                  <li>
+                    After selecting your range, select <strong>By Log </strong>and select
+                    <strong>Event Logs</strong> as <strong>Application</strong>,
+                    <strong>System</strong>
+                  </li>
+                  <li>
+                    Go ahead and click <strong>OK</strong> and <strong>Name The View</strong> as you
+                    would like. Click <strong>OK</strong> again.
+                  </li>
+                  <li>
+                    Select the created view in the left side panel and click on
+                    <strong>Action &gt; Save All Events in Custom View As</strong>
+                  </li>
+                  <li>
+                    Set the filename and ensure the save as type is
+                    <strong>Event Files (*.evtx)</strong>.  Click OK
+                  </li>
+                  <li>
+                    <strong
+                      >For Display Information &gt; Display Information For These Languages  &gt;
+                      English</strong
+                    >
+                  </li>
+                  <li>Provide the file in the ticket</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target"><strong>IIS Server Logs (If Enabled)</strong></p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span><span>If this is enabled, the default location is </span></span
+                  ><code>C:\inetpub\logs\LogFiles</code>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target"><strong>Windows Firewall Logs (If Enabled)</strong></p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span><span>If this is enabled, the default location is </span></span
+                  ><code>%systemroot%\system32\LogFiles\Firewall\pfirewall.log</code>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <h2 id="SupportingDocumentsforHubServerProblems-LinuxBasedPlatformHubAttachments">
+          <strong><span>Linux Based Platform Hub Attachments</span></strong>
+        </h2>
+
+        <p>
+          These are the key files we will need to view for the NNT Hub Server in addition to the
+          General Information and Key Information for a Linux based platform.
+        </p>
+
+        <ol>
+          <li>
+            <span
+              ><strong>Compress and Attach </strong><code>/var/messages</code
+              ><strong><strong> file to the ticket</strong></strong></span
+            ><br />
+            <strong> </strong>
+          </li>
+          <li>
+            <strong
+              ><span
+                ><strong
+                  ><span><strong>Compress and Attach</strong></span
+                  >the NNT Mono log directory
+                </strong></span
+              > </strong
+            ><strong> </strong>
+            <ul>
+              <li>
+                <span>Default location:</span
+                ><strong
+                  ><span
+                    ><strong>
+                      <u><span>INSERT LOCATION HERE</span></u></strong
+                    ></span
+                  > </strong
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              ><span
+                ><strong
+                  ><span
+                    ><strong
+                      ><span><strong>Compress and Attach</strong></span></strong
+                    ></span
+                  >the NNT NGINX log directory
+                </strong></span
+              > </strong
+            ><strong> </strong>
+            <ul>
+              <li>
+                <span
+                  >Default Location:<strong><span> </span></strong
+                  ><span><code>/var/log/nginx</code></span></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                ><span
+                  ><strong><strong>Attach the Output of </strong></strong></span
+                ></strong
+              ><span><code>uname -a</code></span>
+            </p>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                ><span
+                  ><strong
+                    ><strong
+                      ><strong><strong>Attach the</strong></strong
+                      >Output of
+                    </strong></strong
+                  ></span
+                ></strong
+              ><span><code>ps aux | grep nnt-</code></span>
+            </p>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                ><strong
+                  ><strong
+                    ><span
+                      ><strong><strong>Attach the</strong></strong
+                      >Output of
+                    </span></strong
+                  ></strong
+                ></strong
+              ><span><code>rpm -qa | grep nnt-</code></span>
+            </p>
+          </li>
+        </ol>
+
+        <h3 id="SupportingDocumentsforHubServerProblems-Relatedarticles"> </h3>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

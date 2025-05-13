@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Remove Stale Hosts from StealthAUDIT Console</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IzUCAU" />
+    <meta name="Id" content="ka04u000000HczrAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:40:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:13:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:45:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7406" />
+    <meta name="ArticleNumber" content="000007406" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Stale hosts clutter
+          reporting and show "Licensed host count exceeded" banner.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Describes how to
+          automatically remove (purge) stale hosts from target host lists and the StealthAUDIT (SA)
+          console based on staleness. The stale hosts are defined by their existence in the #tmp
+          temp table.<br /><br />Two versions are shown below. The first is more complex because it
+          supports multiple consoles and will only purge hosts from the StealthAUDIT console
+          specified in the
+          <span
+            ><span><span>@SA_Host</span></span></span
+          >
+          variable. The second will purge from all consoles.<br /> <br />Standard criteria that
+          define a stale host in these scripts are either that the AD Object has a
+          LastLogonTimestamp older than 90 days, or that the LastOnline value for the host in Host
+          Management is older than 90 days.<br /> <br /><strong>NOTE:</strong> This is designed to
+          work for short names, and will not work for FQDNs without further modifications.<br /> <br /> <br /><span
+            ><span><span>--define SA host so we don't delete from other consoles</span></span></span
+          ><br /><span
+            ><span><span>declare</span></span></span
+          ><span
+            ><span><span> @SA_Host </span></span></span
+          ><span
+            ><span><span>varchar</span></span></span
+          ><span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>64</span></span></span
+          ><span
+            ><span><span>)</span></span></span
+          ><br /><span
+            ><span><span>set</span></span></span
+          ><span
+            ><span><span> @SA_Host</span></span></span
+          ><span
+            ><span><span>=</span></span></span
+          ><span
+            ><span><span>'YourSAHostName'</span></span></span
+          ><br /> <br /><span
+            ><span
+              ><span
+                >--find stale computer objects based on AD or LastOnline in Host Inventory</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>select</span></span></span
+          >
+          <span
+            ><span><span>name</span></span></span
+          ><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span><span> hostid </span></span></span
+          ><span
+            ><span><span>into</span></span></span
+          ><span
+            ><span><span> #tmp </span></span></span
+          ><span
+            ><span><span>from</span></span></span
+          ><span
+            ><span><span> SA_HostMasterTbl</span></span></span
+          ><br /><span
+            ><span><span>where</span></span></span
+          >
+          <span
+            ><span><span>Name</span></span></span
+          >
+          <span
+            ><span><span>in</span></span></span
+          >
+          <span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>select</span></span></span
+          >
+          <span
+            ><span><span>substring</span></span></span
+          ><span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>SamAccountName</span></span></span
+          ><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span><span>1</span></span></span
+          ><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span><span>len</span></span></span
+          ><span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>samaccountname</span></span></span
+          ><span
+            ><span><span>)-</span></span></span
+          ><span
+            ><span><span>1</span></span></span
+          ><span
+            ><span><span>)</span></span></span
+          >
+          <span
+            ><span><span>from</span></span></span
+          ><span
+            ><span><span> SA_ADInventory_ComputersView </span></span></span
+          ><span
+            ><span><span>where</span></span></span
+          ><span
+            ><span><span> LastLogonTimestamp</span></span></span
+          ><span
+            ><span
+              ><span><span>getdate</span></span></span
+            ><span
+              ><span><span>()-</span></span></span
+            ><span
+              ><span><span>90</span></span></span
+            ><span
+              ><span><span>))</span></span></span
+            ><br /><span
+              ><span><span>or</span></span></span
+            ><span
+              ><span><span> LastOnline </span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>getdate</span></span></span
+            ><span
+              ><span><span>()-</span></span></span
+            ><span
+              ><span><span>90</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            ><br /> <br /><span
+              ><span><span>--make hosts no longer visible in the console</span></span></span
+            ><br /><span
+              ><span><span>delete</span></span></span
+            >
+            <span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> HostMaster_SANodeFilter </span></span></span
+            ><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> HostID </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostID </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            >
+            <span
+              ><span><span>and</span></span></span
+            ><span
+              ><span><span> SA_Node</span></span></span
+            ><span
+              ><span><span>=</span></span></span
+            ><span
+              ><span><span>@SA_Host</span></span></span
+            ><br /> <br /><span
+              ><span><span>--delete from all host lists in the console</span></span></span
+            ><br /><span
+              ><span><span>delete</span></span></span
+            ><span
+              ><span><span> HLC</span></span></span
+            ><br /><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> HostListsContentTbl HLC</span></span></span
+            ><br /><span
+              ><span><span>inner</span></span></span
+            >
+            <span
+              ><span><span>join</span></span></span
+            ><span
+              ><span><span> HostListsTbl HLT</span></span></span
+            ><br /><span
+              ><span><span>on</span></span></span
+            ><span
+              ><span><span> HLT</span></span></span
+            ><span
+              ><span><span>.</span></span></span
+            ><span
+              ><span><span>listID</span></span></span
+            ><span
+              ><span><span>=</span></span></span
+            ><span
+              ><span><span>HLC</span></span></span
+            ><span
+              ><span><span>.</span></span></span
+            ><span
+              ><span><span>listID </span></span></span
+            ><span
+              ><span><span>and</span></span></span
+            ><span
+              ><span
+                ><span>
+                  <a href="mailto:HLT.SA_Node=@SA_Host" target="_blank"
+                    >HLT.SA_Node=@SA_Host</a
+                  ></span
+                ></span
+              ></span
+            ><br /><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> HLC</span></span></span
+            ><span
+              ><span><span>.</span></span></span
+            ><span
+              ><span><span>hostid </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostID </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            ><br /> <br /><span
+              ><span
+                ><span
+                  >--delete host from host master table if it's not referenced anywhere else</span
+                ></span
+              ></span
+            ><br /><span
+              ><span><span>delete</span></span></span
+            >
+            <span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> SA_HostMasterTbl </span></span></span
+            ><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> HostID </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><br />      
+            <span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostid </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> SA_HostMasterTbl HMT</span></span></span
+            ><br />      
+            <span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> hostid </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostid </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            >
+            <span
+              ><span><span>--it's been identified as stale</span></span></span
+            ><br />      
+            <span
+              ><span><span>and</span></span></span
+            >
+            <span
+              ><span><span>not</span></span></span
+            >
+            <span
+              ><span><span>exists</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            >
+            <span
+              ><span><span>null</span></span></span
+            >
+            <span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> HostMaster_SANodeFilter SANF </span></span></span
+            ><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> SANF</span></span></span
+            ><span
+              ><span><span>.</span></span></span
+            ><span
+              ><span><span>hostID</span></span></span
+            ><span
+              ><span><span>=</span></span></span
+            ><span
+              ><span><span>HMT</span></span></span
+            ><span
+              ><span><span>.</span></span></span
+            ><span
+              ><span><span>hostID </span></span></span
+            ><span
+              ><span><span>and</span></span></span
+            ><span
+              ><span><span> SANF</span></span></span
+            ><span
+              ><span><span>.</span></span></span
+            ><span
+              ><span><span>SA_Node</span></span></span
+            ><span
+              ><span
+                ><span><span>@SA_Host</span></span></span
+              ><span
+                ><span><span>)</span></span></span
+              >
+              <span
+                ><span><span>--it's not visible in any other consoles</span></span></span
+              ><br />      
+              <span
+                ><span><span>and</span></span></span
+              >
+              <span
+                ><span><span>not</span></span></span
+              >
+              <span
+                ><span><span>exists</span></span></span
+              >
+              <span
+                ><span><span>(</span></span></span
+              ><span
+                ><span><span>select</span></span></span
+              >
+              <span
+                ><span><span>null</span></span></span
+              >
+              <span
+                ><span><span>from</span></span></span
+              ><span
+                ><span><span> HostListsContentTbl HLC  </span></span></span
+              ><span
+                ><span><span>-- it's not in any host lists on any other consoles</span></span></span
+              ><br />             
+              <span
+                ><span><span>inner</span></span></span
+              >
+              <span
+                ><span><span>join</span></span></span
+              ><span
+                ><span><span> HostListsTbl HLT</span></span></span
+              ><br />             
+              <span
+                ><span><span>on</span></span></span
+              ><span
+                ><span><span> HLT</span></span></span
+              ><span
+                ><span><span>.</span></span></span
+              ><span
+                ><span><span>listID</span></span></span
+              ><span
+                ><span><span>=</span></span></span
+              ><span
+                ><span><span>HLC</span></span></span
+              ><span
+                ><span><span>.</span></span></span
+              ><span
+                ><span><span>listID </span></span></span
+              ><span
+                ><span><span>AND</span></span></span
+              ><span
+                ><span><span> HLT</span></span></span
+              ><span
+                ><span><span>.</span></span></span
+              ><span
+                ><span><span>SA_Node</span></span></span
+              ><span
+                ><span
+                  ><span><span>@SA_Host</span></span></span
+                ><br />             
+                <span
+                  ><span><span>where</span></span></span
+                ><span
+                  ><span><span> HLC</span></span></span
+                ><span
+                  ><span><span>.</span></span></span
+                ><span
+                  ><span><span>hostID</span></span></span
+                ><span
+                  ><span><span>=</span></span></span
+                ><span
+                  ><span><span>HMT</span></span></span
+                ><span
+                  ><span><span>.</span></span></span
+                ><span
+                  ><span><span>hostID</span></span></span
+                ><br />      
+                <span
+                  ><span><span>)</span></span></span
+                ><br /><span
+                  ><span><span>)</span></span></span
+                ><br /> <br /><span
+                  ><span><span>drop</span></span></span
+                >
+                <span
+                  ><span><span>table</span></span></span
+                ><span
+                  ><span><span> #tmp</span></span></span
+                ><br /> <br /> </span
+              ></span
+            ></span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span>Assuming you only have one console, this gets considerably easier..</span
+          ><br /> <br /><span
+            ><span
+              ><span
+                >--find stale computer objects based on AD or LastOnline in Host Inventory</span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>select</span></span></span
+          >
+          <span
+            ><span><span>name</span></span></span
+          ><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span><span> hostid </span></span></span
+          ><span
+            ><span><span>into</span></span></span
+          ><span
+            ><span><span> #tmp </span></span></span
+          ><span
+            ><span><span>from</span></span></span
+          ><span
+            ><span><span> SA_HostMasterTbl</span></span></span
+          ><br /><span
+            ><span><span>where</span></span></span
+          >
+          <span
+            ><span><span>Name</span></span></span
+          >
+          <span
+            ><span><span>in</span></span></span
+          >
+          <span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>select</span></span></span
+          >
+          <span
+            ><span><span>substring</span></span></span
+          ><span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>SamAccountName</span></span></span
+          ><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span><span>1</span></span></span
+          ><span
+            ><span><span>,</span></span></span
+          ><span
+            ><span><span>len</span></span></span
+          ><span
+            ><span><span>(</span></span></span
+          ><span
+            ><span><span>samaccountname</span></span></span
+          ><span
+            ><span><span>)-</span></span></span
+          ><span
+            ><span><span>1</span></span></span
+          ><span
+            ><span><span>)</span></span></span
+          >
+          <span
+            ><span><span>from</span></span></span
+          ><span
+            ><span><span> SA_ADInventory_ComputersView </span></span></span
+          ><span
+            ><span><span>where</span></span></span
+          ><span
+            ><span><span> LastLogonTimestamp</span></span></span
+          ><span
+            ><span
+              ><span><span>getdate</span></span></span
+            ><span
+              ><span><span>()-</span></span></span
+            ><span
+              ><span><span>90</span></span></span
+            ><span
+              ><span><span>))</span></span></span
+            ><br /><span
+              ><span><span>or</span></span></span
+            ><span
+              ><span><span> LastOnline </span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>getdate</span></span></span
+            ><span
+              ><span><span>()-</span></span></span
+            ><span
+              ><span><span>90</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            ><br /> <br /><span
+              ><span><span>--make hosts no longer visible in the console</span></span></span
+            ><br /><span
+              ><span><span>delete</span></span></span
+            >
+            <span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> HostMaster_SANodeFilter </span></span></span
+            ><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> HostID </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostID </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            >
+            <span
+              ><span><span>and</span></span></span
+            ><span
+              ><span><span> SA_Node</span></span></span
+            ><span
+              ><span><span>=</span></span></span
+            ><span
+              ><span><span>@SA_Host</span></span></span
+            ><br /> <br /><span
+              ><span><span>--delete from all host lists in the console</span></span></span
+            ><br /><span
+              ><span><span>delete</span></span></span
+            >
+            <span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> HostListsContentTbl</span></span></span
+            ><br /><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> hostid </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostID </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            ><br /> <br /><span
+              ><span
+                ><span
+                  >--delete host from host master table if it's not referenced anywhere else</span
+                ></span
+              ></span
+            ><br /><span
+              ><span><span>delete</span></span></span
+            >
+            <span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> SA_HostMasterTbl </span></span></span
+            ><span
+              ><span><span>where</span></span></span
+            ><span
+              ><span><span> HostID </span></span></span
+            ><span
+              ><span><span>in</span></span></span
+            >
+            <span
+              ><span><span>(</span></span></span
+            ><span
+              ><span><span>select</span></span></span
+            ><span
+              ><span><span> hostid </span></span></span
+            ><span
+              ><span><span>from</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><span
+              ><span><span>)</span></span></span
+            >
+            <span
+              ><span><span>--it's been identified as stale</span></span></span
+            ><br /> <br /><span
+              ><span><span>drop</span></span></span
+            >
+            <span
+              ><span><span>table</span></span></span
+            ><span
+              ><span><span> #tmp</span></span></span
+            ><br /> <br /><span>Just edit the criteria as you wish in the population of #tmp.</span
+            ><br /> </span
+          >
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Core<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          6.3+<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2291
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

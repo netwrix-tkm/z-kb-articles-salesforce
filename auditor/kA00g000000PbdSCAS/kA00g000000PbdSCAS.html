@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to configure granular audit policies for Logon Auditing</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdSCAS" />
+    <meta name="Id" content="ka04u000000HcYDAA0" />
+    <meta name="LastPublishedDate" content="2020-08-26T17:02:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="768" />
+    <meta name="ArticleNumber" content="000003787" />
+    <meta name="description" content="Configure granular audit policies for Logon Auditing." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to configure granular audit policies for Logon Auditing (Windows Vista or later)?
+        <hr />
+        In Windows Server 2008 R2 and Server 2012, granular audit policies are integrated with the
+        Group Policies, so they can be applied via a Group Policy Object (GPO) or Local Security
+        Policies.
+        <h2
+          id="applying_granular_audit_policies_via_local_policies_to_apply_granular_audit_policies_via_local_policies_perform_the_following"
+        >
+          Applying Granular Audit Policies via Local Policies To apply granular audit policies via
+          Local Policies, perform the following:
+        </h2>
+
+        <ol>
+          <li>
+            On a monitored server, open the Local Security Policy snap-in (navigate to Start-&gt;Run
+            and type ‘secpol.msc’).
+          </li>
+          <li>
+            Navigate to Security Settings -&gt; Local Policies -&gt; Security Options and locate the
+            Audit: Force audit policy subcategory settings (Windows Vista or later) policy.
+          </li>
+          <li>Double-click this policy and select the Enabled option.</li>
+          <li>
+            Navigate to Security Settings -&gt; Advanced Audit Policy Configuration -&gt; System
+            Audit Policies
+          </li>
+          <li>
+            Set the subcategories below to Success and Failure: - LogonLogoff -&gt; Audit Other
+            Logon/Logoff Events - LogonLogoff -&gt; Audit Logon - LogonLogoff -&gt; Audit Logoff -
+            Account Management -&gt; Audit User Account Management
+          </li>
+          <li>
+            Update your Group Policies by executing the gpupdate /force command in the command line
+            interface. Note: You can check your current effective settings by executing the
+            following command: auditpol /get /category:*
+          </li>
+          <li>
+            In Netwrix Logon Reporter, navigate to the Advanced tab. Select the "<b
+              >Enable granular audit policies checking</b
+            >" option and click Apply.
+          </li>
+        </ol>
+
+        <h2 id="applying_granular_audit_policies_via_group_policies">
+          Applying Granular Audit Policies via Group Policies
+        </h2>
+        In order to apply a granular audit policy configuration via a Group Policy Object (GPO), you
+        must have a Windows Server 2008 R2 domain controller or member server with the Group Policy
+        Management Console installed.<br />For instructions on how to do this, refer to the
+        following technical article by Microsoft:
+        <a
+          href="http://technet.microsoft.com/en-us/library/dd408940(v=ws.10).aspx?ppud=4"
+          target="_blank"
+          >Advanced Security Audit Policy Step-by-Step Guide</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

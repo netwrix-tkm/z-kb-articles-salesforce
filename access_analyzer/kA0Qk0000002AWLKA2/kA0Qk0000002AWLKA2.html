@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-8.0.142</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000002AWLKA2" />
+    <meta name="Id" content="ka0Qk000000Cqm1IAC" />
+    <meta name="LastPublishedDate" content="2025-03-18T13:56:07.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-18T13:56:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-18T13:56:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9439" />
+    <meta name="ArticleNumber" content="000009439" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span>Title: </span></strong>
+        </p>
+        <p>
+          <i><span>activitymonitor-8.0.142</span></i>
+        </p>
+        <p>
+          <strong><span>Summary:</span></strong>
+        </p>
+        <ol>
+          <li>Qumulo. Monitoring service consumes 99% of RAM</li>
+          <li>
+            <i><span>SUVP 25-03 support</span></i>
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior Before Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            MonitorService.exe's memory usage increased to the point of exhausting all available RAM
+            when monitoring Qumulo under a heavy workload. Disabling of the MS Office filtering
+            helped to alleviate the problem.
+          </li>
+          <li> </li>
+        </ol>
+        <ul>
+          <li>
+            2025 Server - KB5053598
+            <ul>
+              <li><i>Kerberos</i> events will be lost or incomplete. </li>
+              <li>Cases with jump-boxes will no longer be handled correctly</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                  <li>
+                    Couldn't resolve CConnectionEx::InitializeClientData (4 param)<br /><br />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            2022 Server - KB5053603
+            <ul>
+              <li>LDAP Bind and Kerberos events will be lost or incomplete</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve LDAP_CONN::BindRequest</li>
+                  <li>Couldn't resolve HandleTGSRequest</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            2019 Server - KB5053596
+            <ul>
+              <li>LDAP Bind and Kerberos events will be lost or incomplete</li>
+              <li>
+                Logs: 
+                <ul>
+                  <li>Couldn't resolve LDAP_CONN::BindRequest</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            2016 Server - KB5053594
+            <ul>
+              <li>No impact <br /><br /></li>
+            </ul>
+          </li>
+          <li>
+            2012R2 Server - KB5053887
+            <ul>
+              <li>Logs: Couldn't resolve LDAP_CONN::BindRequest</li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          <strong><span>Behavior After Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            File system event processing has been updated to efficiently handle Qumulo-specific
+            activity patterns both with and without the MS Office filtering. Office filtering has
+            been optimized across all file systems. Temp file filtering has been moved from Path
+            Filters to a more efficient internal process.
+          </li>
+          <li>AD Module updated. Product should report active directory events as expected.</li>
+        </ol>
+        <p><b>Changes Since Last Hotfix:</b></p>
+        <ul>
+          <li><span>343343: Linux Syslog events differs from nas</span></li>
+          <li><span>378042: Qumulo: Empty path for the Share Read operations over NFS</span></li>
+          <li><span>376947: Qumulo: Wrong share path in Share Add event</span></li>
+          <li>
+            <span
+              >377244: Qumulo: %ORIGINATING_SERVER% macro does not report host name,
+              %ORIGINATING_SERVER_IP% does not report node's IP</span
+            >
+          </li>
+          <li><span>376557: Qumulo: Syslog events are lost</span></li>
+          <li><span>378189: Qumulo: Server in the UNC path does not match the Host name</span></li>
+          <li><span>373970: OfficeFilter, Performance issue</span></li>
+          <li><span>376043: Path Filters optimization (NAS)</span></li>
+        </ul>
+        <p>
+          <strong><span>Submitted by: </span></strong>
+        </p>
+        <p><span>Kevin Duddy</span></p>
+        <p>
+          <strong><span>Affected Versions:</span></strong>
+        </p>
+        <p><span>Activity Monitor 8.0</span></p>
+        <p>
+          <strong><span>Affected Module:</span></strong>
+        </p>
+        <ol>
+          <li><span>Qumulo</span></li>
+          <li><span>Active Directory</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ol>
+          <li>375726</li>
+          <li>377758</li>
+        </ol>
+        <p>
+          <strong><span>Resolved in Version:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 8.0.142</span></p>
+        <p>
+          <i><span> </span></i>
+        </p>
+        <p>
+          <strong><span>KB Type: </span></strong>
+        </p>
+        <p><span>Hotfix</span></p>
+        <p>
+          <strong
+            ><i><span> </span></i></strong
+          >
+        </p>
+        <p>
+          <strong><span>Modules Included:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 8.0.142</span></p>
+        <p>
+          <span>SBTService.exe </span><i><span>1.25.109.1917</span></i>
+        </p>
+        <p>
+          <span>SI Version </span><i><span>7.4.0.176</span></i>
+        </p>
+        <p> </p>
+        <p><b>DevOps/Escalations</b></p>
+        <ol>
+          <li>375726 / 00435832</li>
+          <li>377758 / NA</li>
+        </ol>
+        <p><b>Cumulative List of fixes included since Service Pack:</b></p>
+        <ol>
+          <li>
+             
+            <ul>
+              <li>374999: NAM - User SID resolves incorrectly</li>
+              <li>
+                365901: NetApp. Occasional errors when an SVM is being monitored by several agents
+              </li>
+              <li>374172: SUVP 25-02 support</li>
+            </ul>
+          </li>
+          <li>
+             
+            <ul>
+              <li>374597: Nasuni successful activity incorrectly reported as failed</li>
+              <li>374777: Search for Entra ID activity in NAM console returning 0 rows</li>
+              <li>
+                310536: Not Recording Events for NFS Mount - Several Other servers are working new
+                one is not.
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i
+              ><span
+                >Run the MSI file on a host that has the Activity Monitor Console is
+                installed.</span
+              ></i
+            >
+          </li>
+          <li>
+            <i><span>Upgrade all agents. </span></i>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <span
+            ><a
+              href="https://releases.netwrix.com/products/activitymonitor/8.0/activitymonitor-8.0.142.zip"
+              target="_blank"
+              >https://releases.netwrix.com/products/activitymonitor/8.0/activitymonitor-8.0.142.zip</a
+            ></span
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why Do I get Multiple Events on Password Changing in Reports?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnt1CAA" />
+    <meta name="Id" content="ka04u000000wwIsAAI" />
+    <meta name="LastPublishedDate" content="2023-11-30T20:15:19.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-30T20:15:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-30T16:55:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8929" />
+    <meta name="ArticleNumber" content="000008929" />
+    <meta
+      name="description"
+      content="Why Do I get Multiple Events on Password Changing in Reports?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>Why do I get multiple activity records of the following format?</p>
+
+          <div>
+            <pre class="has-inner-focus">
+Who:CORP\ITSQLTR$
+Action:Modified
+Object type:Local User
+What:System Information\Local Users\ITSQLARC$
+When:11/15/2023 4:25:09 AM
+Where:DCD003.CORP.net
+Data source:Windows Server
+Monitoring plan:DC Monitoring Plan
+Item: DCD003.CORP.net' (Computer)
+RID:2023111500000000000000000000000000
+Details:Password changed  
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The event you are seeing is an automatic password change for a computer account in
+            Active Directory, which occurs every 30 days by default. Since Domain Controllers are in
+            the auditing scope, the domain computer account was picked up and interpreted as a local
+            user for the DC.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

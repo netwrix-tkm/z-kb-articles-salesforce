@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Configure a Duo RADIUS Proxy for Multi-Factor Authentication</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000LLOHCA4"/><meta name="Id" content="ka0Qk0000003h21IAA"/><meta name="LastPublishedDate" content="2024-05-10T07:14:22.000+0000"/><meta name="LastModifiedDate" content="2024-05-10T07:14:35.000+0000"/><meta name="FirstPublishedDate" content="2022-10-25T14:16:14.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8508"/><meta name="ArticleNumber" content="000008508"/><meta name="description" content="How to Configure a Duo RADIUS Proxy for MFA"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>This article lists the steps to configure a Duo RADIUS proxy server as a multi-factor authentication (MFA) provider for Netwrix Privilege Secure (NPS).</p>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Privilege Secure only supports Duo as a secondary authentication provider. Password authentication is still handled by Privilege Secure.</p>
+</blockquote>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<div>
+<ol><li>
+	<p>On your RADIUS server, follow the default path below to open the <code>authproxy.cfg</code> file.</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">%ProgramFiles%\Duo Security Authentication Proxy\conf\authproxy.cfg</code></pre>
+	</li><li>
+	<p>Add a <code>[duo_only_client]</code> section heading to the file and save the file. The new heading should precede the <code>[radius_server_auto]</code> section heading. See the following codeblock for a reference:</p>
+
+	<pre class="has-inner-focus">[duo_only_client]
+
+[radius_server_auto]
+ikey=%value%
+skey=%value%
+api_host=%value%
+radius_secret_1=testing123
+radius_ip_1=192.168.77.20
+failmode=safe
+client=duo_only_client
+port=1812</pre>
+
+	<blockquote>
+	<p><span><strong>NOTE: </strong></span>Take note of values in the <code>[radius_server_auto]</code> section—these are used to configure NPS for Duo authentication. If you maintain multiple Duo configurations for applications, take note of values in <code>[radius_server_auto1]</code>, <code>[radius_server_auto2]</code>, etc.</p>
+	</blockquote>
+	</li><li>
+	<p>Log in to the NPS console as a user with the Administrator role. Navigate to <strong>Configuration</strong> &gt; <strong>Authentication</strong>.</p>
+	</li><li>
+	<p>Verify the following points:</p>
+
+	<ul><li>
+		<p><strong>IP</strong>, <strong>Remote Port</strong>, and <strong>Shared Secret</strong> match the corresponding values in the <code>authproxy.cfg</code> file.</p>
+		</li><li>
+		<p>The <strong>Prefix for Response Text</strong> field contains a comma. In case the PAP protocol is used, no prefix is needed.</p>
+		</li><li>
+		<p>Both <strong>Initial Auto-Response Text</strong> and <strong>Send Initial Text</strong> features are optional. If you specify the <strong>push</strong> auto-response text and enable the <strong>Send Initial Text</strong> feature, a Duo push will be automatically initiated.</p>
+		</li></ul>
+	</li><li>
+	<p>Save the changes to the configuration.</p>
+	</li></ol>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>You can assign Duo as an authenticator connector for any NPS user. In the main NPS screen, click <strong>Policy</strong> &gt; <strong>Users &amp; Groups</strong>. Select any user and proceed to the <strong>Authenticator Connector</strong> tab. Select the <strong>Duo</strong> option.</p>
+</blockquote>
+
+<p>On their login to NPS, the configured user should both enter their password and see the multi-factor authentication prompt from Duo. During the initial login, they will be asked to perform the initial Duo enrollment.</p>
+</div></div>
+</article></body></html>

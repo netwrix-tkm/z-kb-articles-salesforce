@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mass Removal of Files Located on DFS Server</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WeDKAU" />
+    <meta name="Id" content="ka0Qk00000053i1IAA" />
+    <meta name="LastPublishedDate" content="2024-04-05T12:18:21.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-21T09:45:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-22T11:52:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9075" />
+    <meta name="ArticleNumber" content="000009075" />
+    <meta name="description" content="Mass Removal of Files Located on DNS Server" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why am I seeing the alert <b>Mass Data Removal from File Servers</b> in Netwrix Auditor,
+            alongside the removal and immediate replacement of many files on a DFS file server?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            This is expected behavior for Netwrix Auditor 10.6.12321 and below. To avoid the issue,
+            Netwrix recommends upgrading to the latest version. You can download the latest version
+            from the
+            <a href="https://www.netwrix.com/my_products.html" target="_blank">My Products</a> page.
+          </p>
+
+          <p>For the oldest versions, the workflow is as follows:</p>
+
+          <p>
+            In the audited infrastructure with multiple DFS servers, if one server undergoes
+            maintenance shutdown while another remains operational, it triggers mass file removal.
+          </p>
+
+          <p>
+            This removal consequently activates the <b>Mass Data Removal from File Servers</b> alert
+            in Netwrix Auditor. Netwrix Auditor interprets the disappearance of files from the
+            affected server as a mass creation of file delete Activity Records.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

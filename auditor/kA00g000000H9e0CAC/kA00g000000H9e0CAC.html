@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to improve document processing performance</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9e0CAC" />
+    <meta name="Id" content="ka04u000000HcWiAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3507" />
+    <meta name="ArticleNumber" content="000003682" />
+    <meta name="description" content="How to improve document processing performance" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The <b>Netwrix Data Classification</b> platform contains a number of ways to tweak the
+        processing of content to make the most of the available server resources and ensure that
+        your content is processed as quickly as possible. You may wish to review this guide if:
+        <ul>
+          <li>
+            You're seeing one or two of the core services <strong>idle</strong> a large percentage
+            of the time
+          </li>
+          <li>
+            and, one service is typically busy processing content (suggesting a bottleneck with one
+            service)
+          </li>
+        </ul>
+        The below guide details some of the typical steps we would recommend taking when looking to
+        improve performance, or debug a lower than expected throughput.
+
+        <strong>Collector</strong>
+
+        The <strong>Collector </strong>service is largely bound by the <strong>CPU</strong> and
+        <strong>Network </strong>performance available to the server. If these resources are not
+        being fully utilised then there are several configuration variables that can be increased by
+        following these steps:
+        <ol>
+          <li>
+            Navigate to the "<strong>Config</strong>" section of the
+            <b>QS Administration interface</b>
+          </li>
+          <li>
+            On the "<strong>Collector" </strong>tab consider increasing the following variables:
+            <ul>
+              <li>
+                <strong>Collector</strong> <strong>Threads</strong> - Limits the total number of
+                requests to external systems, each <strong>thread</strong> can be thought of as a
+                single user, so 5 <strong>threads</strong> would roughly be the equivalent load of 5
+                extra users
+              </li>
+              <li>
+                <strong>Collector Domain Threads </strong> - Limits the total number of requests to
+                each HTTP Domain (the root URL of a website or SharePoint environment etc).
+                Depending on the content being crawled this will override the main "<strong
+                  >Collector Threads" </strong
+                >variable. I.E, if we are only crawling one website or one SharePoint environment
+                and we have values of 10 and 5 for the main and domain variables respectively then
+                the lower "<strong>Domains" </strong>value will used.
+              </li>
+              <li>
+                <strong>Collector File Threads</strong> - Limits the total number of requests made
+                to file sources.
+              </li>
+            </ul>
+          </li>
+        </ol>
+        We would recommend increasing these values slowly - reviewing the environment and then
+        perhaps repeating. It is also important to continue monitoring the source system(s) as you
+        increase the demands made on the environment.
+
+        <strong>Indexer</strong>
+
+        The <strong>Indexer </strong>service is largely bound by the
+        <strong>IO/Disk/Memory</strong> performance available to the server. We would recommend
+        considering the following:
+        <ul>
+          <li>
+            The current <strong>IO </strong>usage level, in virtual environments this should be
+            reviewed on the VM host
+          </li>
+          <li>
+            The speed of the disks used for indexing (the <strong>CSE </strong>files location, by
+            default: C:Program FilesConcept SearchingconceptDB). We recommend using solid-state
+            storage, or the fastest disks available " high speed network appliances are also
+            supported.
+          </li>
+          <li>
+            When utilising a network storage device it is important to also monitor
+            <strong>Network </strong>usage, and consider upgrading the Network link
+          </li>
+        </ul>
+        <strong>Classifier</strong>
+
+        The <strong>Classifier </strong>service is largely bound by the
+        <strong>CPU </strong>performance available to the server. If these resources are not being
+        fully utilised then you can increase throughput by following these steps:
+        <ol>
+          <li>
+            Navigate to the "<strong>Config</strong>" section of the
+            <b>QS Administration interface</b>
+          </li>
+          <li>
+            On the "<strong>Classifier" </strong>tab consider increasing the "<strong
+              >Classifier Threads</strong
+            >", monitoring <strong>CPU </strong>usage as throughput increases
+          </li>
+        </ol>
+        <b>Delays between batches</b>
+
+        In smaller, less busy, environments you may sometimes see a "<strong>delay</strong>" between
+        each batch. This can sometimes leave you waiting 30-45 seconds for a document to process
+        through fully. This is nothing to worry about - the services are designed to go into a small
+        "<strong>sleep</strong>" state when there is no more work to do in order to reduce demands
+        on the SQL environment. You can optionally remove this "<strong>sleep</strong>" setting by
+        following these steps:
+        <ol>
+          <li>
+            Navigate to the "<strong>Config</strong>" section of the
+            <b>QS Administration interface</b>
+          </li>
+          <li>
+            Reduce the values of the following configuration options:
+            <ol>
+              <li><strong>Collector Polling</strong></li>
+              <li><strong>Indexer Polling</strong></li>
+              <li><strong>Classifier Polling</strong></li>
+            </ol>
+          </li>
+        </ol>
+        Once updated please restart each of the affected services.
+        <b>SQL Performance</b>
+
+        If you are still seeing throughput issues, with little demand on the
+        <strong>Netwrix Data Classification </strong>server then we would recommend reviewing the
+        SQL Server host - in particular <strong>CPU </strong>and
+        <strong>Memory </strong>utilisation.
+      </div>
+    </article>
+  </body>
+</html>

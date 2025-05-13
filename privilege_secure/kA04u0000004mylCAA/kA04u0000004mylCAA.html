@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Exporting the Activity Log as a CSV</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000004mylCAA"/><meta name="Id" content="ka04u000000HdD5AAK"/><meta name="LastPublishedDate" content="2022-08-25T13:55:13.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:00.000+0000"/><meta name="FirstPublishedDate" content="2022-08-25T13:55:13.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8484"/><meta name="ArticleNumber" content="000008484"/><meta name="description" content="Exporting the Activity Log as a CSV"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>Exporting the "Activity Log" report is a common auditing and compliance use case. This article provides a scripted method of exporting the Activity Log data from SbPAM.</p>
+
+<h2 id="instructions"><br/>Instructions</h2>
+    1. On your SbPAM server, ensure that PowerShell 7.1 is installed. It can be obtained from <a href="https://github.com/PowerShell/PowerShell/releases/tag/v7.1.7" target="_blank">the official PowerShell github repository</a>.<em> (Note: This specific version of PowerShell is a necessary prerequisite to running the SbPAM API. Do not install PowerShell 7.2+)</em><br/>    2. Locate the "Extras" folder, which was packaged alongside your SbPAM installer. Run the SbPAMPowerShellModules installer.<br/>     <img alt="User-added image" height="223" src="kA04u0000004mylCAA_2730a178-a00f-4dd1-929e-8f52ff07c162.png" width="500"/><br/>    3. In your preferred text editor, paste the following PowerShell script. Save it as "ActivityReport.ps1".
+<pre class="ckeditor_codeblock">[cmdletbinding()]
+param(
+    [Parameter(Mandatory)][PSCredential]$UserCred,
+    [Parameter()][String]$UserCode = $null,
+    [Parameter(Mandatory)][String]$SbPamUrl,
+    [Parameter(Mandatory)][datetime]$StartDate,
+    [Parameter(Mandatory)][datetime]$EndDate,
+    [Parameter()][string]$FilePath = "out.csv"
+)
+
+Import-Module SbPAMAPI -Force
+
+function Renew-Token {
+    [CmdletBinding()]
+    param (
+        [string]
+        $Token,
+        $Uri
+    )
+    $mfaObj = Convert-SbPAMToken $Token
+    if ($null -eq $global:expiration) {
+        $global:expiration = Get-Date -UnixTimeSeconds $mfaObj.exp
+    }
+
+    if ($global:expiration -lt (Get-Date).AddMinutes(7)) {
+        Write-Host "$(Get-Date) Refreshing token"
+        $Token = Invoke-SbPAMRest -Uri "$Uri/api/v1/UserToken" -Token $Token -ErrorAction Stop -SkipCertificateCheck
+        $mfaObj = Convert-SbPAMToken $Token
+        $global:expiration = Get-Date -UnixTimeSeconds $mfaObj.exp
+    }
+    return $Token
+}
+
+function Get-SbPAMActivitySessionReport {
+    param(
+        $Uri,
+        $Token,
+        $StartDate,
+        $EndDate
+    )
+    $Token = Renew-Token -Uri $Uri -Token $Token
+    $Skip = 0
+    $Take = 100
+    $StartDateString = $StartDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+    $EndDateString = $EndDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+    
+    $ApiUri = "$($Uri)/api/v1/ActivitySession/Search?skip=$($Skip)&amp;filterText=&amp;filterDateTimeMin=$($StartDateString)&amp;filterDateTimeMax=$($EndDateString)&amp;filterTopUsersType=1&amp;take=$Take"
+    $Data = @()
+    
+    $Results = Invoke-SbPAMRest -Uri $ApiUri -SkipCertificateCheck -Token $Token
+    while ($Results.Data.Length -ge $Take) {
+        $Data += $Results.Data
+        $Skip += $Take
+        Write-Progress -Activity "Fetching activity report from $StartDate to $EndDate" -PercentComplete 0 -Status "$Skip of $($Results.recordsTotal) $($Results.Data.Length)"
+        
+        $ApiUri = "$($Uri)/api/v1/ActivitySession/Search?skip=$($Skip)&amp;filterText=&amp;filterDateTimeMin=$($StartDateString)&amp;filterDateTimeMax=$($EndDateString)&amp;filterTopUsersType=1&amp;take=$Take"
+        $Results = Invoke-SbPAMRest -Uri $ApiUri -SkipCertificateCheck -Token $Token
+    }
+    $Data += $Results.Data
+    $Data
+}
+
+# "https://192.168.77.99:6500/api/v1/ActivitySession/Search?skip=0&amp;filterText=&amp;filterDateTimeMin=2022-07-01T05:00:00.000Z&amp;filterDateTimeMax=2022-08-24T04:59:59.999Z&amp;filterTopUsersType=1&amp;take=30" 
+# Create the web session
+$WebSession = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+# Set up the user credentials - MFA and JWT objects
+$userToken = Get-SbPAMToken -Credential $userCred -Uri $SbPamUrl -WebSession $WebSession -SkipCertificateCheck -ErrorAction Stop
+if ("" -eq $UserCode -or $null -eq $UserCode) {
+    $userCode = Read-Host -Prompt "Enter MFA code"
+}
+$userToken = Get-SbPAMMfaToken -Uri $SbPamUrl -Token $userToken -Code $userCode -WebSession $WebSession -SkipCertificateCheck -ErrorAction Stop
+
+Write-Progress -Activity "Fetching activity report from $StartDate to $EndDate" -PercentComplete 0 -Status "Fetching..."
+Write-Host "Exporting From $StartDate to $EndDate to $FilePath"
+
+$Data = Get-SbPAMActivitySessionReport -Uri $SbpamUrl -Token $userToken -StartDate $StartDate -EndDate $EndDate
+
+$Data | ConvertTo-Csv -NoTypeInformation -UseQuotes Always | Out-File -FilePath $FilePath
+Write-Host "Export complete found $($Data.Length) records"</pre>
+    4. Open up PowerShell 7. Navigate to the directory containing ActivityReport.ps1, and execute the following command:
+
+<pre class="ckeditor_codeblock">.\ActivityReport.ps1</pre>
+    5. You will be prompted for an SbPAM administrator username and password, your SbPAM URL, and an MFA code (if applicable).<br/>    <img alt="User-added image" height="206" src="kA04u0000004mylCAA_c1b04cea-7e84-42f4-9f05-d060153f8cf3.png" width="500"/><br/>    6. Your activity data will then be output to a file called "out.csv".<br/>    <img alt="User-added image" height="157" src="kA04u0000004mylCAA_dfbb66f1-e910-496e-ae54-ba9aeefd4295.png" width="500"/></div>
+</article></body></html>

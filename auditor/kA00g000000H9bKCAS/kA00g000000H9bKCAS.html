@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Notifications are not sent</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bKCAS" />
+    <meta name="Id" content="ka04u000000HcU5AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1353" />
+    <meta name="ArticleNumber" content="000003516" />
+    <meta
+      name="description"
+      content="Notifications are not sent Account Lockout Examiner does not notify about account lockouts although Notifications are enabled."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Account Lockout Examiner does not notify about account lockouts although Notifications are
+        enabled.
+
+        <hr />
+
+        An e-mail notification is sent only when an actual lockout security event is tracked. There
+        are two possible reasons why notifications typically are not sent - either lockout is not
+        tracked, or there are some errors during sending of the notification.
+
+        <hr />
+
+        To make sure that an actual lockout event is tracked, make sure that the lockout timestamp
+        is correct. If it is not, then please refer to the following KB article
+        <a href="https://kb.netwrix.com/2763" target="_blank">https://kb.netwrix.com/2763</a>
+
+        If the lockout timestamp is correct, then a notification should be sent. First of all make
+        sure all settings are correct:
+        <ol>
+          <li>Go to File " Settings " Notifications</li>
+          <li>Check mail server address and port.</li>
+          <li>
+            Your mailserver should accept anonymous SMTP connections. Test with telnet if it is
+            possible to connect on the specified port.
+          </li>
+          <li>
+            Make sure that there is no firewall or antivirus software blocking inbound and outbound
+            connections
+          </li>
+        </ol>
+        If all the settings are correct, then the easiest way to find out the error is to review the
+        product log. NOTE. If you have a valid support contract you can submit a support ticket and
+        send the log to Netwrix Support. By default it is located in C:Program Files
+        (x86)NetWrixAccount Lockout ExaminerTracingALEService.log Scroll to the very bottom and
+        search for the "NOTIFICATIONS" text in the Up direction. NOTE. Messages of Notification type
+        are logged only in case an error occurred. If there are no such messages, than either there
+        were no errors during notification sending, or the product did not try to send it at all -
+        there were no lockout events tracked. When you find the corresponding "NOTIFICATIONS"
+        message, the error message is listed in the second line, for example:
+        <div>
+          <strong
+            >ALEService.exe Warning: 0 : [TID, &lt;timestamp&gt;] NOTIFICATIONS: smtpserver:
+            &lt;IP&gt;, smtpport: &lt;port&gt;, from: &lt;fromemail&gt;, to: &lt;toemail&gt;</strong
+          >
+          <strong
+            >System.Net.Mail.SmtpException: Failure sending mail. ---&gt; System.Net.WebException:
+            Unable to connect to the remote server ---&gt; System.Net.Sockets.SocketException: A
+            connection attempt failed because the connected party did not properly respond after a
+            period of time, or established connection failed because connected host has failed to
+            respond
+          </strong>
+          <strong>
+            at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress
+            socketAddress)</strong
+          >
+          <strong>
+            at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4,
+            Socket s6, Socket&amp; socket, IPAddress&amp; address, ConnectSocketState state,
+            IAsyncResult asyncResult, Int32 timeout, Exception&amp; exception)</strong
+          >
+          <strong> --- End of inner exception stack trace ---</strong>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

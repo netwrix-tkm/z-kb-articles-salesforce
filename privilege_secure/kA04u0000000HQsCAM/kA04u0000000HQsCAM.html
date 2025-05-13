@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Changing the Active Directory OU Where Users Get Created</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HQsCAM"/><meta name="Id" content="ka04u000000wvskAAA"/><meta name="LastPublishedDate" content="2023-10-24T20:40:45.000+0000"/><meta name="LastModifiedDate" content="2023-10-24T20:40:45.000+0000"/><meta name="FirstPublishedDate" content="2021-10-12T13:37:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5906"/><meta name="ArticleNumber" content="000005906"/><meta name="description" content="Changing the Active Directory OU Where Users Get Created"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>The Active Directory OU where SbPAM Users get created can be customized, by modifying the <strong>appsettings.json</strong> file in SbPAM's ProgramData directory.</p>
+
+<h2 id="instructions">Instructions</h2>
+
+<p>Open the following file in Notepad, noting the drive letter may differ depending on the specific SbPAM installation:</p>
+
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\PAM\WebService\appsettings.json</pre>
+
+<p>Locate and change the following value (if a "ManagedOUs" setting does not exist, then manually add it prior to the final closing brace, making sure to append a comma to the preceding line):</p>
+
+<pre class="ckeditor_codeblock">"ManagedOUs": {
+    "Users": "SbPAM Users"
+}</pre>
+
+<p>So if the desired OU's Distinguished Name (DN) is “<strong>OU=Prod,OU=PAM,OU=SbPAM Users,DC=lab,DC=local</strong>”, then change "<strong>SbPAM Users</strong>" in the example above to "<strong>Prod,OU=PAM,OU=SbPAM Users</strong>".</p>
+
+<p><span class="wysiwyg-color-red90"><em><strong>NOTE: </strong>The leading "OU=" and trailing "DC="s are dropped.</em></span></p>
+
+<p>After the change, this now looks like:</p>
+
+<pre class="ckeditor_codeblock">"ManagedOUs": {
+    "Users": "Prod,OU=PAM,OU=SbPAM Users"
+}</pre>
+
+<p>After this change, users created or managed by SbPAM will be created or managed in the newly specified Active Directory OU.<br/><br/><strong><em>NOTE:</em></strong> Activities that are run with Managed login accounts, and were run before this configuration change was made, may still create user account objects in the SbPAM Users OU. To circumvent this behavior, change the Login Account Template on the activity. This will prevent the activity from referencing any historical Postgres data referring to the SbPAM Users OU.</p></div>
+</article></body></html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to specify Exchange Server to collect Administrator Audit Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SFCA0" />
+    <meta name="Id" content="ka0Qk000000DRyTIAW" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:54:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="164" />
+    <meta name="ArticleNumber" content="000002963" />
+    <meta name="description" content="Exchange Administrator Audit Log AAL 2010" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        If for some reason you cannot configure <strong>IIS</strong> (steps<strong> 5-8</strong>
+        from<strong> Procedure 16</strong> of the<strong>
+          Installation and Configuration Guide</strong
+        >
+        attached to this article) on all Exchange Servers in your organization, it is enough to
+        configure it on just one Exchange Server. You can specify the Exchange Server with
+        configured IIS to be used by Netwrix products to avoid the Administrator Audit Log error
+        appearing in reports. In order to specify properly configured servers to the product,
+        perform the following steps:
+        <ol>
+          <li>
+            On computer where Netwrix host resides, navigate to the
+            <em
+              ><a target="_blank">C:ProgramDataNetWrixAD</a> Change ReporterOmitlists%Managed object
+              name%</em
+            >
+            folder.
+          </li>
+          <li>
+            Add the properly configured server's FQDN to the
+            <strong>aal_serverlist.txt</strong> file. (Each server's FQDN in a separate line).
+          </li>
+          <li>
+            Click <strong>Start -&gt; Run</strong> and type <strong>regedit </strong>to open
+            <strong>Registry Editor.</strong>
+          </li>
+          <li>
+            Navigate to the following folder depending on your operating system:
+            <ul>
+              <li>
+                <strong>32-bit OS:</strong>
+                <em>HKLMSOFTWARENodeNetWrixAD Change ReporterAALCollectionVersion</em>
+              </li>
+              <li>
+                <strong>64-bit OS: </strong
+                ><em>HKLMSOFTWAREWow6432NodeNetWrixAD Change ReporterAALCollectionVersion</em>
+              </li>
+            </ul>
+          </li>
+          <li>Check that the AALCollectionVersion key value is set to 1.</li>
+        </ol>
+        <strong>Explanation:</strong> In this scenario the first server where the product will try
+        to get the Administrator Audit Log will be the first server from the
+        <strong>aal_serverlist.txt</strong>. If all servers from
+        <strong>aal_serverlist.txt</strong> fail to provide the Administrator Audit Log, the product
+        will try to collect the Administrator Audit Log from other Exchange Servers in your
+        organization, and the Administrator Audit Log error can appear in the report.
+      </div>
+    </article>
+  </body>
+</html>

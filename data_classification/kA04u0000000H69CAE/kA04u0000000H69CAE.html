@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Text not being extracted from ZIP files</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000H69CAE" />
+    <meta name="Id" content="ka04u000000HcZHAA0" />
+    <meta name="LastPublishedDate" content="2020-10-26T20:44:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:53:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-10-26T20:39:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5822" />
+    <meta name="ArticleNumber" content="000005822" />
+    <meta name="description" content="Text-not-being-extracted-from-ZIP-files" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="expected_behavior">Expected Behavior</h2>
+        .zip files should be classified based on the sum of their content. This means that the
+        documents within are read as a single file and the .zip is classified as a whole.
+
+        <h2 id="issue">Issue</h2>
+        <span
+          ><span
+            ><span
+              >When reviewing .zip files in the Netwrix Data Classification interface you realize
+              that no text has been extracted from them and they are therefore not being classified
+              based on their content.</span
+            ></span
+          ></span
+        ><br /> 
+        <h2 id="resolution">Resolution</h2>
+        <span
+          ><span
+            ><span
+              >To extract text from a .zip file Netwrix Data Classification uses <b>ifilters</b>.
+              For .zip files,
+              <a
+                href="https://download.microsoft.com/download/0/A/2/0A28BBFA-CBFA-4C03-A739-30CCA5E21659/FilterPack64bit.exe"
+                target="_blank"
+                >this filter pack</a
+              >
+              must be installed on the NDC server (or each server in a DQS cluster)</span
+            ></span
+          ></span
+        >
+
+        <h2 id=""> </h2>
+
+        <h2 id=""> </h2>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>30 File/Folder Match Filters for Inclusion/Exclusion Rules</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JTFCA2" />
+    <meta name="Id" content="ka04u000000Hd83AAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:34:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8103" />
+    <meta name="ArticleNumber" content="000008103" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          There are a range of pre-built Match Filters provided with NNT Change Tracker Enterprise
+          which enable precision monitoring of only the attributes required (including pre-built
+          exclusion filters for popular AV packages that update often and create lots of ‘change
+          noise’). Often due to paths containing a mixture of files that are to be monitored,
+          alongside files for which changes can be ignored, it is desirable to define
+          multidimensional rules for includes and excludes.
+        </p>
+        <p>
+          For example, if I wish to monitor all files within a specified path and all sub-paths, I
+          can use the built-in ‘All files (recursive)’ match filter.
+        </p>
+        <p>
+          However, it may be desirable to reduce ‘noise’ from the route path by applying an
+          exclusion for any changes relating to temporary files, for example, swp, swx or ~ file
+          variants. There is actually a built-in Pathmatch Defintion for this provided ‘Linux temp
+          files in folder’.
+        </p>
+        <p>
+          However, by way of example, the example Custom Pathmatch Definition below provides this
+          policy:
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JTFCA2_2e5c85e6-785d-4b96-858f-87c70ab2ca61.png"
+          /></span>
+        </p>
+        <ol>
+          <li>
+            FolderMatchType  - Options here are 
+            <strong><em>(All|Exact|Wildcards|Regex)</em></strong>
+          </li>
+          <li>
+            FolderMatchExpression - Options are: 
+            <ol>
+              <li>
+                If using ‘All’, then use <strong><em>“”</em></strong
+                > 
+              </li>
+              <li>
+                If using ‘Exact’, then specify an exact <strong><em>“foldername”</em></strong>
+              </li>
+              <li>
+                If using ‘Wildcards’, then specify a separated wildcards list eg
+                <strong><em>“backup*|old*”</em></strong>
+              </li>
+              <li>
+                If using ‘Regex’, then specify a regular expression eg
+                <strong><em>“^backup”</em></strong>
+              </li>
+            </ol>
+          </li>
+          <li>
+            FileMatchType – options the same as for the ‘foldermatchtype’
+            <strong><em>(All|Exact|Wildcards|Regex</em></strong
+            >)
+          </li>
+          <li>
+            FileMatchExpression – Options are  
+            <ol>
+              <li>
+                If using ‘All’, then use <strong><em>“”</em></strong
+                > 
+              </li>
+              <li>
+                If using ‘Exact’, then specify an exact <strong><em>“filename”</em></strong>
+              </li>
+              <li>
+                If using ‘Wildcards’, then specify a separated wildcards list eg
+                <strong><em>“*.exe|*.dll”</em></strong>
+              </li>
+              <li>
+                If using ‘Regex’, then specify a regular expression eg
+                <strong><em>“^audit[0-9]*\.(log|txt)$”</em></strong>
+              </li>
+            </ol>
+          </li>
+          <li>
+            SubfolderRecursion
+            <ol>
+              <li>Unlimited</li>
+              <li>None (operate on specified folder only)</li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          <strong><em>“n”</em></strong> = recurse through
+          <strong><em>1, 2 or 3 </em></strong>subfolders
+        </p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Exchange Server name instead of User in reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZzCAK" />
+    <meta name="Id" content="ka04u000000HcT0AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1284" />
+    <meta name="ArticleNumber" content="000003435" />
+    <meta
+      name="description"
+      content="Netwrix Auditor report shows Exchange server name instead of user name in the Who changed column for group membership changes. Default Exchange 2013 Administrator Audit Log parameter LogLevel"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor report shows Exchange server name instead of user name in the Who changed
+        column for group membership changes.
+        <hr />
+        This happens because by default LogLevel parameter of the Administrator Audit Log is set to
+        None, and the <code>CmdletName</code>, <code>ObjectName</code>,
+        <code>Parameters</code> (values), and the <code>Caller</code>, <code>Succeeded</code>, and
+        <code>RunDate</code> properties are included in log entries. But the data required to show
+        correct Who changed is missing because <code>ModifiedProperties</code> (old and new) and
+        <code>ModifiedObjectResolvedName</code> properties are NOT included in the log entries.
+
+        <hr />
+        In order to solve this issue, the LogLevel parameter should be changed from None to Verbose
+        to provide <code>ModifiedProperties</code> (old and new) and
+        <code>ModifiedObjectResolvedName</code> properties. To enable the parameter, run the
+        following cmdlet with Exchange Management Shell:
+        <strong>Set-AdminAuditLogConfig -LogLevel Verbose</strong><br />The output should be like
+        this:<br /><span
+          ><span
+            ><span><span>[PS]</span></span>
+            <span><span>C:Windowssystem32&gt;Set-AdminAuditLogConfig -LogLevel Verbose</span></span>
+            <span
+              ><span
+                >WARNING: The admin audit log configuration change you specified could take up to 60
+                minutes to take effect.</span
+              ></span
+            ></span
+          ></span
+        ><br />After that run the <strong>Get-AdminAuditLogConfig</strong> cmdlet and check that
+        LogLevel is set to verbose now:<br /><span
+          ><span
+            ><span><span>LogLevel : Verbose</span></span></span
+          ></span
+        >
+      </div>
+    </article>
+  </body>
+</html>

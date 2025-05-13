@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Configure Microsoft 365 Data Sources to Use Proxy Server Settings</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9V6CAK" />
+    <meta name="Id" content="ka0Qk0000000ws1IAA" />
+    <meta name="LastPublishedDate" content="2023-12-12T09:38:15.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T09:38:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="713" />
+    <meta name="ArticleNumber" content="000003140" />
+    <meta
+      name="description"
+      content="Change proxy settings for Azure AD and SharePoint Online collection"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to configure Microsoft 365 (Office 365) data sources to use proxy server settings?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <h4 id="exchange_online">Exchange Online</h4>
+
+        <div>
+          <p>
+            Exchange Online relies on PowerShell gathering proxy settings from the network adapter.
+            Browser proxy settings in Windows are not propagated to the network adapter by default.
+            Refer to the following steps to set up proxy settings for Exchange Online:
+          </p>
+
+          <ol>
+            <li>
+              <p>In elevated Command Prompt line, check the network adapter settings:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh winhttp show proxy</code></pre>
+
+              <div>
+                <img
+                  height="93"
+                  src="kA00g000000H9V6CAK_a2c21f81-14e2-4955-98e8-c1264cc2a25c.png"
+                  width="350"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                If the system prompts <strong>Direct settings</strong>, configure the network
+                adapter to use the correct proxy settings:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">netsh winhttp set proxy proxy-server="http=***.***.***.***:port;https=***.***.***.***:port"</code></pre>
+
+              <p>Replace the proxy server settings in the line with your actual settings.</p>
+
+              <div>
+                <img
+                  height="96"
+                  src="kA00g000000H9V6CAK_ac7498dd-a78e-45a3-a35c-a3967364c8e4.png"
+                  width="704"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="microsoft_entra_id_formerly_azure_ad">Microsoft Entra ID (formerly Azure AD)</h4>
+
+        <div>
+          <p>
+            To use proxy server settings for the Microsoft Entra ID audit, the following files
+            should be edited:
+          </p>
+
+          <ul>
+            <li>
+              <p><code>Netwrix.Common.AzureAdHelper.exe.config </code></p>
+            </li>
+            <li>
+              <p><code>Netwrix.O365.AzureAdCollector.exe.config </code></p>
+            </li>
+            <li>
+              <p><code>Netwrix.O365.AzureAdDiffQueryCollector.exe.config </code></p>
+            </li>
+            <li>
+              <p><code>Netwrix.O365.AzureADDumper.exe.config </code></p>
+            </li>
+            <li>
+              <p><code>Netwrix.O365.AzureAdManagementApiCollector.exe.config </code></p>
+            </li>
+            <li>
+              <p><code>Netwrix.O365.AzureAdReporter.exe.config</code></p>
+            </li>
+          </ul>
+
+          <p>
+            Add the following line at the end of each file before the &lt;/configuration&gt; tag:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">&lt;system.net&gt; &lt;defaultProxy&gt; &lt;proxy proxyaddress="***.***.***.***:port" usesystemdefault="True" autoDetect="False" /&gt; &lt;/defaultProxy&gt; &lt;/system.net&gt;</code></pre>
+
+          <div class="table-wrap">
+            <table count-columns="2" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Before editing</th>
+                  <th colspan="1" rowspan="1">After editing</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <em
+                      ><strong
+                        >&lt;?xml version="1.0" encoding="utf-8" ?&gt; &lt;configuration&gt;
+                        &lt;startup useLegacyV2RuntimeActivationPolicy="true"&gt;
+                        &lt;supportedRuntime version="v4.0.30319"/&gt; &lt;supportedRuntime
+                        version="v2.0.50727"/&gt; &lt;/startup&gt; &lt;/configuration&gt;</strong
+                      ></em
+                    >
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <em
+                      ><strong
+                        >&lt;?xml version="1.0" encoding="utf-8" ?&gt; &lt;configuration&gt;
+                        &lt;startup useLegacyV2RuntimeActivationPolicy="true"&gt;
+                        &lt;supportedRuntime version="v4.0.30319"/&gt; &lt;supportedRuntime
+                        version="v2.0.50727"/&gt; &lt;/startup&gt;
+                        <span
+                          >&lt;system.net&gt; &lt;defaultProxy&gt; &lt;proxy
+                          proxyaddress="***.***.***.***:port" usesystemdefault="True"
+                          autoDetect="False" /&gt; &lt;/defaultProxy&gt; &lt;/system.net&gt;</span
+                        >
+                        &lt;/configuration&gt;</strong
+                      ></em
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <img
+                      height="334"
+                      src="kA00g000000H9V6CAK_becdf1f9-05ab-4966-95db-d0fed48096f2.png"
+                      width="380"
+                    />
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <img
+                      height="334"
+                      src="kA00g000000H9V6CAK_0dbe3f9e-0914-49b8-baf4-4cc937d0f2c5.png"
+                      width="380"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Replace <code>***.***.***.***:port</code> with your actual proxy settings.</p>
+        </div>
+
+        <h4 id="sharepoint_online">SharePoint Online</h4>
+
+        <div>
+          <p>
+            To use proxy server settings for the SharePoint Online audit, the following files should
+            be edited:
+          </p>
+
+          <ul>
+            <li>
+              <p><code>Netwrix.Common.AzureAdHelper.exe.config </code></p>
+            </li>
+            <li>
+              <p><code>SpaOnlineHost.exe.config </code></p>
+            </li>
+          </ul>
+
+          <p>
+            Add the following line at the end of each file before the &lt;/configuration&gt; tag:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">&lt;system.net&gt; &lt;defaultProxy&gt; &lt;proxy proxyaddress="***.***.***.***:port" usesystemdefault="True" autoDetect="False" /&gt; &lt;/defaultProxy&gt; &lt;/system.net&gt;</code></pre>
+
+          <p>
+            Replace <code>proxyaddress="***.***.***.***:port"</code> with your actual proxy
+            settings.
+          </p>
+        </div>
+
+        <h4 id="microsoft_teams">Microsoft Teams</h4>
+
+        <div>
+          <p>
+            To use proxy server settings for the Teams audit, set up both Microsoft Entra ID and
+            SharePoint Online settings.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

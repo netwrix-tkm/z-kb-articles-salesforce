@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthINTERCEPT LSASS Guardian Protect may prevent LSASS dump file creation</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IHiCAM" />
+    <meta name="Id" content="ka04u000000HcjNAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:20:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6565" />
+    <meta name="ArticleNumber" content="000006565" />
+    <meta name="description" content="360008304132" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI Agent configured
+          with LSASS Guardian Protect policy may prevent LSASS dump file creation
+        </p>
+        <p> </p>
+        <p>
+          <span
+            ><span><strong>Issue:</strong></span></span
+          ><br /><span
+            ><span
+              >The default configuration of an LSASS Guardian Protect policy registration, which
+              blocks programs not in the process 'allow' list from accessing LSASS, can result in an
+              inability to create LSASS dump files.</span
+            ></span
+          ><br /><br /><span
+            ><span><strong>Instructions:</strong> </span></span
+          ><br /><span
+            ><span
+              >To resolve this issue add the following names to the process filter tab "allow"
+              list:</span
+            ></span
+          ><br /><br /><span><span>Werfault.exe</span></span
+          ><br /><span><span>Procdump.exe</span></span
+          ><br /><br /><span
+            ><span
+              >Werfault.exe is used internally by windows OS to create crash dump files.</span
+            ></span
+          ><br /><span
+            ><span
+              >Procdump.exe is often used to get non crash dump files such as process hangs.</span
+            ></span
+          ><br /><span
+            ><span
+              >If attempting to get a dump file from task manager then may instead add
+              "taskmgr.exe".</span
+            ></span
+          ><br /><br /><span
+            ><span
+              >At a minimum it is recommended to add "werfault.exe" to the allow list so that if an
+              unexpected LSASS crash occurs at any time the Windows OS will be able to create a
+              crash dump file for later review.</span
+            ></span
+          ><br /><br /><span><span>See following SI Console example:</span></span
+          ><br /><br /><span
+            ><span
+              ><img
+                src="kA04u0000000IHiCAM_147e2065-989c-4f56-b938-919404234eb3.png" /></span></span
+          ><br /> 
+        </p>
+        <p>
+          <span
+            ><span><strong>Instructions:</strong> </span></span
+          ><br /><span
+            ><span
+              >To resolve this issue add the following names to the process filter tab "allow"
+              list:</span
+            ></span
+          ><br /><br /><span><span>Werfault.exe</span></span
+          ><br /><span><span>Procdump.exe</span></span
+          ><br /><br /><span
+            ><span
+              >Werfault.exe is used internally by windows OS to create crash dump files.</span
+            ></span
+          ><br /><span
+            ><span
+              >Procdump.exe is often used to get non crash dump files such as process hangs.</span
+            ></span
+          ><br /><span
+            ><span
+              >If attempting to get a dump file from task manager then may instead add
+              "taskmgr.exe".</span
+            ></span
+          ><br /><br /><span
+            ><span
+              >At a minimum it is recommended to add "werfault.exe" to the allow list so that if an
+              unexpected LSASS crash occurs at any time the Windows OS will be able to create a
+              crash dump file for later review.</span
+            ></span
+          ><br /><br /><span><span>See following SI Console example:</span></span>
+        </p>
+        <p />
+      </div>
+    </article>
+  </body>
+</html>

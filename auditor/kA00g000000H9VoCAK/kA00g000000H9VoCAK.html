@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Configure SQL Server Auditing to Ignore Addition</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VoCAK" />
+    <meta name="Id" content="ka0Qk0000001GnVIAU" />
+    <meta name="LastPublishedDate" content="2024-01-09T08:23:38.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-09T08:24:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="761" />
+    <meta name="ArticleNumber" content="000003179" />
+    <meta
+      name="description"
+      content="Can I configure SQL Server Auditing feature to monitor just modificationsdeletion and ignore addition of data?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to configure SQL Server Auditing to monitor modifications and deletion, and ignore
+            addition of data?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span> An elevated server role in SQL Server is
+            required to perform the following actions. The sysadmin role will allow to follow the
+            instructions.
+          </p>
+        </blockquote>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In your SQL Server monitoring plan, click <strong>Edit data source</strong> in the
+                right pane &gt; select the <strong>Data</strong> tab &gt; switch the
+                <strong>Monitor changes to data in the database tables</strong> switch on.
+              </p>
+            </li>
+            <li>
+              <p>Enable the <strong>Use triggers for detailed monitoring</strong> switch.</p>
+            </li>
+            <li>
+              <p>
+                Add inclusion rules for target databases, tables and columns. Click
+                <strong>Save &amp; Close</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update your SQL Server monitoring plan by clicking <strong>Update</strong> in the
+                right pane.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the status switches to <strong>Ready</strong>, open SQL Server Management
+                Studio and connect to your SQL Server instance.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>Databases</strong> &gt;
+                <strong>%target_data_base%</strong> &gt; %target_table% &gt; the
+                <strong>Triggers</strong> folder &gt; right-click the
+                <strong>netwrix_audit_trg_%table_name%</strong> trigger &gt;
+                <strong>Script Trigger as</strong> &gt; <strong>CREATE To</strong> &gt;
+                <strong>New Query Editor Window</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Locate the following line:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">AFTER INSERT, UPDATE, DELETE</code></pre>
+
+              <p>Modify it to read as follows:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">AFTER UPDATE, DELETE</code></pre>
+
+              <p>Keep the query window open.</p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select <strong>%target_data_base%</strong> &gt;
+                <strong>Programmability</strong> &gt; <strong>Stored Procedures</strong> &gt;
+                right-click <strong>dbo.sp_Netwrix_WriteEvent</strong> and select
+                <strong>Script Stored Procedure</strong> &gt; <strong>CREATE To</strong> &gt;
+                <strong>New Query Editor Window</strong>. Keep the new query window open.
+              </p>
+            </li>
+            <li>
+              <p>
+                Return to your SQL Server monitoring plan menu in Auditor. Click
+                <strong>Edit data source</strong> in the right pane &gt; select the
+                <strong>Data</strong> tab &gt; edit the inclusion rule type for the target database,
+                table, etc. &gt; modify the <strong>Type</strong> field to state
+                <strong>Exclude</strong>. Click <strong>Save &amp; Close</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update your SQL Server monitoring plan by clicking <strong>Update</strong> in the
+                right pane.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the status switches to <strong>Ready</strong>, return to SQL Server Management
+                Studio, select the <strong>dbo.sp_Netwrix_WriteEvent</strong> query window and click
+                <strong>Execute</strong>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The
+                  <strong>dbo.sp_Netwrix_WriteEvent</strong> query window will contain the
+                  <code>CREATE PROCEDURE [dbo].[sp_Netwrix_WriteEvent]</code> line.
+                </p>
+              </blockquote>
+
+              <p>
+                The <code>Commands completed successfully</code> message will confirm the successful
+                query execution.
+              </p>
+            </li>
+            <li>
+              <p>
+                Select the <strong>netwrix_audit_trg_%table_name%</strong> query window and click
+                <strong>Execute</strong>.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The
+                  <strong>netwrix_audit_trg_%table_name%</strong> query window will contain the
+                  <code>CREATE TRIGGER [dbo].[Netwrix_audit_trg_%table_name%]</code> line.
+                </p>
+              </blockquote>
+
+              <p>
+                The <code>Commands completed successfully</code> message will confirm the successful
+                query execution.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            To run the query against each table, modify the following line in the
+            <code>CREATE TRIGGER</code> query window:
+          </p>
+
+          <ol>
+            <li>
+              <p>Locate the following line:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">SET @table_name = N'%target_table_name%'</code></pre>
+
+              <p>
+                The placeholder could be represented by any table name (e.g.,
+                <code>dbo.AzureDirectoryRoles</code>).
+              </p>
+            </li>
+            <li>
+              <p>Replace the placeholder with the target table name.</p>
+            </li>
+            <li>
+              <p>Run the query once you replace the table name.</p>
+            </li>
+            <li>
+              <p>Repeat for every target table.</p>
+            </li>
+          </ol>
+
+          <p>
+            While the target database, table, or column will be shown as excluded in Auditor, audit
+            data will be collected.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

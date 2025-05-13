@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Update Agents via Agent Software Update in Netwrix Change Tracker</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111GlCAI" />
+    <meta name="Id" content="ka04u00000117z3AAA" />
+    <meta name="LastPublishedDate" content="2023-09-28T09:13:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-28T13:59:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-28T09:13:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8825" />
+    <meta name="ArticleNumber" content="000008825" />
+    <meta
+      name="description"
+      content="Unable to Update Agents via Agent Software Update in Netwrix Change Tracker"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The following error is prompted upon the <code>.zip</code> and
+                <code>.upd.zip</code> files upload:
+              </p>
+
+              <pre class="has-inner-focus">File already exists in upload repository</pre>
+            </li>
+            <li>
+              <p>
+                The <strong>Agent Version</strong> in <strong>Settings</strong> &gt;
+                <strong>Groups</strong> &gt; <strong>Select group\device</strong> &gt;
+                <strong>Agent Updates</strong> is missing.
+              </p>
+            </li>
+            <li>
+              <p>The rolling-log includes the following error messages:</p>
+
+              <pre class="has-inner-focus">
+[datestamp] [timestamp] [.NET Long Running Task] INFO Message - task 9 - UpdateTask-1 was enqueued
+[datestamp] [timestamp] [.NET Long Running Task] INFO Message - Downloading update for device 1 to C:\Windows\TEMP\tmpEA39.tmp.zip
+[datestamp] [timestamp] [.NET Long Running Task] ERROR Updater - error processing download request: task 9 - UpdateTask-1 for file: C:\Windows\TEMP\[name].tmp.zip
+System.ArgumentNullException: Value cannot be null. (Parameter 'key')
+at System.Security.Cryptography.RSAPKCS1SignatureDeformatter..ctor(AsymmetricAlgorithm key)
+at NNT.Agent.Desktop.Updater.Updater.VerifyFileSignature(String filePath, Byte[] signature, RSACryptoServiceProvider publicKey)
+at NNT.Agent.Desktop.Updater.Updater.ProcessDownload(UpdateTask updateRequest, String&amp; extractedFolderRoot)</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The installed agent is misinterpreting the hash sent from the hub when attempting an
+            agent update.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Remove the hash when applying an agent update via MongoDB Shell. Refer to the following
+            commands:
+          </p>
+
+          <pre class="has-inner-focus"><code class="lang-Registry">&gt; use NNTHubService
+&gt; db.fs.files.updateOne({ filename : 'netwrix-changetracker-gen7agent-netcore-7.0.1.9-22.zip' }, { $set : { 'metadata.Hash' : '' } } )</code></pre>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>In <code>{ filename :}</code>, specify the
+              required update.
+            </p>
+          </blockquote>
+
+          <p>The output should correspond to the following code block:</p>
+
+          <pre>
+{ acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0 }</pre
+          >
+
+          <p>To confirm the successful hash deletion, use the following command:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">&gt; db.fs.files.findOne({ filename : 'netwrix-changetracker-gen7agent-netcore-7.0.1.9-22.zip' })</code></pre>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

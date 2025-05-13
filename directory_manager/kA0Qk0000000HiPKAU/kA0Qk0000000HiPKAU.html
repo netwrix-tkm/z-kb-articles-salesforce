@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How To Enforce Users to Create Groups in a Specific OU</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000HiPKAU" />
+    <meta name="Id" content="ka0Qk00000016L7IAI" />
+    <meta name="LastPublishedDate" content="2023-12-18T14:20:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-21T10:47:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-05T15:47:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8937" />
+    <meta name="ArticleNumber" content="000008937" />
+    <meta name="description" content="How To Enforce Users to Create Groups in a Specific OU" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="applies_to">Applies To:</h2>
+
+        <div>
+          <p>GroupID 11</p>
+        </div>
+
+        <h2 id="business_requirement">Business Requirement:</h2>
+
+        <div>
+          <p>
+            Using the GroupID portal, users can create groups in any OU in the directory. Is there a
+            way to limit users to create groups in a specific OU?
+          </p>
+        </div>
+
+        <h2 id="solution">Solution:</h2>
+
+        <div>
+          <p>
+            In GroupID, you can apply policies to security roles, so that role members can use
+            GroupID in keeping with the policy restrictions.
+          </p>
+
+          <p>
+            GroupID’s <em>New Object</em> policy enables you to restrict role members to create new
+            groups in a specific OU only.
+          </p>
+        </div>
+
+        <h2 id="steps">Steps:</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>In the GroupID Admin Center portal, click the <b>Identity Stores</b> tab.</p>
+            </li>
+            <li>
+              <p>
+                On the <b>Identity Stores</b> tab, click on the <b>Triple Dot</b> button and then
+                click on the <b>Edit</b> button to open its properties.
+              </p>
+            </li>
+            <li>
+              <p>
+                On the <b>Security Roles</b> tab, select the security role you would like to apply
+                the <em>New Object</em> policy to (for example, <em>User</em>).
+              </p>
+            </li>
+            <li>
+              <p>On the <b>Policies</b> tab, click <b>New Object</b> in the left pane.</p>
+            </li>
+            <li>
+              <p>Select <b>Groups</b> and click <b>Add</b>.</p>
+            </li>
+            <li>
+              <p>
+                On the <b>Select Container</b> dialog box, select the container in which role
+                members can create groups (this will be the default OU when creating groups).
+              </p>
+
+              <p>The selected OU appears below the <b>Groups</b> option.</p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="189"
+                  src="kA0Qk0000000HiPKAU_1af463eb-bda2-438b-991b-fd68d20d566c.png"
+                  width="500"
+                />
+              </p>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  src="kA0Qk0000000HiPKAU_867402b6-5e5e-4d2f-973b-cec9ce5a1106.png"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Click <b>OK</b>.</p>
+            </li>
+            <li>
+              <p>Click <b>Update Security Role</b> and then <b>Save</b>.</p>
+            </li>
+          </ol>
+
+          <p>
+            Now when members of the security role try to create groups, they will be created in the
+            default OU that you specified in the <em>New Object</em> policy.
+          </p>
+        </div>
+
+        <h2 id="reference">Reference:</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/GroupID_11.0/page/Content/GroupID/AdminCenter/SecurityRole/Policy/NewObject.htm"
+              target="_blank"
+              >Admin Center — Security Roles — New Object Policy for Security Roles — v11.0</a
+            >
+          </p>
+        </div>
+
+        <h3 id="related_articles">Related Articles:</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HQfKAM.html"
+                  target="_blank"
+                  >Walkthrough Search Policy - Define Scope and Filter Results</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HthKAE.html"
+                  target="_blank"
+                  >How To Import Members to a Group Using Self-Service Import Wizard</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HwvKAE.html"
+                  target="_blank"
+                  >How to Trigger a workflow When a User Сreates a Group</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HyXKAU.html"
+                  target="_blank"
+                  >How To Add Message Approvers in Group Properties in Self-Service</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000HiPKAU.html"
+                  target="_blank"
+                  >Best Practices for Controlling Changes to Group Membership</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000IPxKAM.html"
+                  target="_blank"
+                  >Best Practices for Preventing Accidental Data Leakage</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

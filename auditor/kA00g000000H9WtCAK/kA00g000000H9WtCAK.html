@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Drive Letter Resolver is not Installed on the Target Host</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WtCAK" />
+    <meta name="Id" content="ka04u000001174qAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-08T10:14:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1091" />
+    <meta name="ArticleNumber" content="000003246" />
+    <meta name="description" content="Drive letter resolver is not installed on the target host" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        Netwrix Auditor returns the following error for Windows File Servers:
+
+        <pre class="ckeditor_codeblock">
+Drive letter resolver is not installed on the target host</pre
+        >
+
+        <h2 id="cause">Cause</h2>
+        The component responsible for collecting information about the drive letter was not
+        installed on the target file server. It is <i>Network</i
+        ><i> Traffic Compression Service</i> that collects this information to map data in the
+        security events.
+
+        <h2 id="resolution">Resolution</h2>
+        To solve the issue, it is recommended to deploy
+        <i>Network Traffic Compression Service</i> on the audited file server:
+
+        <ol>
+          <li>In Netwrix Auditor client, select the corresponding Monitoring Plan.</li>
+          <li>In the <b>Data source</b> section on the right, select <b>Edit data source</b>.</li>
+          <li>
+            In the dialog displayed, locate the <b>Specify data collection method</b> section and
+            select the <b>Enable network traffic compression</b> check box.
+          </li>
+          <li>
+            <i>Network Traffic Compression Service</i> will be automatically deployed and launched
+            on the target file server during the next data collection (scheduled or ad hoc),
+            collecting and pre-filtering data.
+          </li>
+          <li>Click <b>Save &amp; Close</b>.</li>
+        </ol>
+        Consider that using this service will also minimize network load and speed up state-in-time
+        snapshot collection and SACL configuration. See also:
+
+        <ul>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/MonitoredObjects/FileServers.htm"
+              target="_blank"
+              >Monitored Object Types, Actions, and Attributes: File Servers ⸱ v10.5</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Overview.htm"
+              target="_blank"
+              >Monitored Object Types, Actions, and Attributes: File Servers ⸱ v10.6</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

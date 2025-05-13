@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Recover SQL Script</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IfOCAU" />
+    <meta name="Id" content="ka04u000000HcsoAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:40:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:40:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7304" />
+    <meta name="ArticleNumber" content="000007304" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to (hopefully)
+          recover a SQL script that's recently been run.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> How to (hopefully)
+          recover a SQL script that's recently been run.  
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span><span>Requires VIEW SERVER STATE permission on the server.</span></span
+          ><br /><br /><span>select </span><br /><span>distinct text</span><br /><span>from </span
+          ><br /><span>(</span><br /><span>select</span><br /><span
+            >* from sys.dm_exec_query_stats d</span
+          ><br /><span>cross apply sys.dm_exec_sql_text(d.plan_handle) as e</span><br /><span
+            >) as c</span
+          ><br /><span>where c.text like '%value to search for%'</span><br /> <br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1848
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

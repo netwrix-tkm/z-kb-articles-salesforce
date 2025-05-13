@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Reduce Audit Database Size for Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cbCAC" />
+    <meta name="Id" content="ka04u00000117bzAAA" />
+    <meta name="LastPublishedDate" content="2023-09-06T10:00:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-06T10:00:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2282" />
+    <meta name="ArticleNumber" content="000003595" />
+    <meta
+      name="description"
+      content="The KB provides how to reduce the audit database size of Netwrix Auditor."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to reduce the Netwrix Auditor audit database size?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Data removed after altering or deleting audit
+            databases will no longer be readily available to be searched and reported. To query that
+            data, you'll have to perform an investigation. For additional data on investigations,
+            refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/Investigations.htm"
+              target="_blank"
+              >Auditor Settings – Investigations · v10.6</a
+            >.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            You can configure the audit database retention settings by following the next steps:
+          </p>
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              <p>Launch Netwrix Auditor and open the <strong>Settings</strong> menu.</p>
+            </li>
+            <li>
+              <p>In the left pane, select the <strong>Audit Database</strong> tab.</p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Modify</strong> under the <strong>Database Retention</strong> section
+                and input the retention period in days.
+              </p>
+
+              <div>
+                <img
+                  alt="User-added image"
+                  height="230"
+                  src="kA00g000000H9cbCAC_d303ccd1-e21a-4860-95f8-cda717e7825c.png"
+                  width="400"
+                />
+              </div>
+
+              <ul>
+                <li>
+                  <p>
+                    <strong>Tip: </strong>Longer retention periods results in larger audit
+                    databases.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            Data that exceeds the new retention period will be removed during the next collection,
+            reducing the audit database size.
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE:</strong></span> If you are using SQL Server Express to save your
+            audit data, you may find your audit databases quickly reach the 10 GB limit. Instead of
+            fine-tuning retention settings, you may choose to either delete and recreate your audit
+            databases or rename the older full database for new information to be kept in a new
+            database. Refer to the folowing steps for additional information on the process.
+          </p>
+        </blockquote>
+
+        <h4 id="deleting_audit_database">Deleting audit database</h4>
+
+        <ol>
+          <li>
+            <p>
+              In Windows Services Manager on your Netwrix host, stop both Netwrix Auditor Archive
+              Service and Netwrix Auditor Management Service.
+            </p>
+          </li>
+          <li>
+            <p>
+              Run your SQL Management Studio instance and navigate to %SQL_Server_database_name%
+              &gt; Databases to select the database you are going to delete.
+            </p>
+
+            <div>
+              <img
+                alt="User-added image"
+                height="445"
+                src="kA00g000000H9cbCAC_e5c0a036-20b1-4d4a-b3ee-3458ced399c6.png"
+                width="400"
+              />
+            </div>
+          </li>
+          <li>
+            <p>In the Delete Object window, check both option checkboxes:</p>
+
+            <ol>
+              <li>
+                <p>Delete backup and restore history information for databases.</p>
+              </li>
+              <li>
+                <p>Close existing connections.</p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p>
+              Once the database has been deleted, restart Netwrix Auditor Archive Service and
+              Netwrix Auditor Management Service.
+            </p>
+          </li>
+        </ol>
+
+        <div>
+          <p>
+            The audit database has now been successfully deleted. Refer to the
+            <strong>Rebuilding audit databases</strong> section for next steps.
+          </p>
+        </div>
+
+        <h4 id="rebuilding_audit_databases">Rebuilding audit databases</h4>
+
+        <ol>
+          <li>
+            <p>
+              Select an affected monitoring plan and click <strong>Edit</strong> &gt; click
+              <strong>Edit settings</strong> in the right pane.
+            </p>
+          </li>
+          <li>
+            <p>
+              In the left pane, select the <strong>Audit Database</strong> tab. Review the database
+              name and update it if necessary.<br />
+              Netwrix Auditor allows you to specify settings for each monitoring plan individually,
+              so you'll have to rebuild the database for each monitoring plan separately.
+            </p>
+
+            <div>
+              <img
+                alt="User-added image"
+                height="153"
+                src="kA00g000000H9cbCAC_35a4f01e-ca49-4307-87af-601b291ac1b0.png"
+                width="401"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Refresh or reopen the SQL Management Studio to sure the audit database was rebuilt.
+            </p>
+          </li>
+        </ol>
+
+        <h4 id="renaming_audit_databases">Renaming audit databases</h4>
+
+        <ol>
+          <li>
+            <p>
+              In Windows Services Manager on your Netwrix host, stop both Netwrix Auditor Archive
+              Service and Netwrix Auditor Management Service.
+            </p>
+          </li>
+          <li>
+            <p>
+              Run your SQL Management Studio instance and navigate to %SQL_Server_database_name%
+              &gt; Databases to select the database you are going to rename.
+            </p>
+          </li>
+          <li>
+            <p>Right-click the selected database and select <strong>Rename</strong>.</p>
+
+            <div>
+              <img
+                alt="Screenshot_1.png"
+                src="kA00g000000H9cbCAC_e54bc5ad-506c-4a91-a463-2ce86250eb4d.png"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              Add <strong>_old </strong> or another word to the end of the database name to
+              differentiate it from other databases.
+            </p>
+          </li>
+          <li>
+            <p>
+              Once the database has been renamed, restart Netwrix Auditor Archive Service and
+              Netwrix Auditor Management Service.
+            </p>
+          </li>
+        </ol>
+
+        <div>
+          <p>
+            The audit database has now been successfully renamed. Refer to the
+            <strong>Rebuilding audit databases</strong> section for next steps.
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE:</strong></span> Both renaming and deleting processes are temporary
+            non-scalable workarounds for SQL Server Express limitations. We strongly recommend using
+            Standard version of SQL Server to avoid potential data loss and issues with databases.
+          </p>
+        </blockquote>
+
+        <h4 id="setting_the_retention_period">Setting the retention period</h4>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE:</strong></span> In order to correctly set the retention period, you
+            have to estimate your audit database growth. If you are using Netwrix Auditor 9.6 or
+            newer, this can be done by monitoring <strong>Health Status</strong> &gt;
+            <strong>Database statistics</strong>.
+          </p>
+        </blockquote>
+
+        <div>
+          <img
+            alt="db_stats.png"
+            height="194"
+            src="kA00g000000H9cbCAC_a2f6a339-5e8d-452f-909d-8d78129a479d.png"
+            width="653"
+          />
+        </div>
+
+        <ol>
+          <li>
+            <p>
+              Run your SQL Management Studio instance and navigate to %SQL_Server_database_name%
+              &gt; Databases to locate the required database.
+            </p>
+          </li>
+          <li>
+            <p>Right-click it and select <strong>Properties</strong>.</p>
+
+            <div>
+              <img
+                alt="User-added image"
+                height="449"
+                src="kA00g000000H9cbCAC_1625f81c-a781-4b39-a7a4-677cb0682024.png"
+                width="500"
+              />
+            </div>
+          </li>
+          <li>
+            <p>Review <strong>Size</strong> and <strong>Space Available</strong> parameters.</p>
+          </li>
+        </ol>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>This should be done over the course of several days
+            to get the best estimate of growth.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

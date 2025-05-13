@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>StealthINTERCEPT Basic Troubleshooting</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000Iu0CAE"/><meta name="Id" content="ka04u000000Hcy2AAC"/><meta name="LastPublishedDate" content="2022-02-01T18:39:56.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:12:24.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:39:56.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7300"/><meta name="ArticleNumber" content="000007300"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> basic steps to troubleshoot and verify StealthINTERCEPT functionality</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> To verify basic StealthINTERCEPT functionality in the StealthINTERCEPT Windows 32bit console:<br/> </p><p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>   
+</p><ul><li>license manager 
+<ul><li>what modules are licensed 
+<ul><li>unlicensed modules events will be discarded</li></ul>
+</li><li>when does the license expire 
+<ul><li>expired license will trigger Windows agents to store events locally until license is not expired or local Windows agent queue overflows</li></ul>
+</li></ul>
+</li><li>agents frame 
+<ul><li>events in last sixty seconds 
+<ul><li>if a Windows agent or set of Windows agents consistently over a consecutive timeframe records thousands of events then review the latest events and enabled policies</li></ul>
+</li><li>events in queue 
+<ul><li>if a Windows agent or set of Windows agents consistently records millions of events in queue then review the enabled policies, network bandwidth, and database resources</li></ul>
+</li><li>Windows agent version 
+<ul><li>always useful to be on the latest Windows agent except if the Windows agent is on an unsupported Windows agents</li></ul>
+</li><li>AD Directory event latency</li></ul>
+</li><li>alerts frame 
+<ul><li>queue overflows 
+<ul><li>review the enabled policies, network bandwidth, outbound queue folder, Windows agent logs, and available disk space</li></ul>
+</li><li>lost connections 
+<ul><li>review network bandwidth, ports 3136, and 3739</li></ul>
+</li></ul>
+</li><li>investigation 
+<ul><li>latest thousand events 
+<ul><li>review policy, or policies with most event, and event times</li></ul>
+</li><li>latest one hundred thousand events 
+<ul><li>review policy, or polices with most events, and event times</li></ul>
+</li></ul>
+</li><li>logging 
+<ul><li>installation logs 
+<ul><li>:\users\\apdata\local\temp\ or :\users\\apdata\local\temp\\</li></ul>
+</li><li>debug logs capture the most detail 
+<ul><li>StealthINTERCEPT Windows agents logs
+</li><li>StealthINTERCEPT Enterprise Manager logs
+</li><li>StealthINTERCEPT Scheduler service logs
+</li><li>SI Events log 
+<ul><li>Group Policy Object monitoring and lockdown events are in the SI Events logs</li></ul>
+</li></ul>
+</li><li>file system monitoring events in '*.tsv' log files
+</li><li>operating system logs 
+<ul><li>service or services stopping without notice
+</li><li>.NET errors</li></ul>
+</li></ul>
+</li></ul><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthINTERCEPT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SI - Admin Console;SI - Alerts;SI - Enterprise Manager;SI - Exchange Agent;SI - File System Agent;SI - Installer;SI - Policy;SI - SIEM Integration;SI - Web Reporting;SI - Windows Agent<br/><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong> 1839<br/></p></div>
+</article></body></html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Upload an Agent Installer Package to the Hub</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JW0CAM" />
+    <meta name="Id" content="ka0Qk00000011IDIAY" />
+    <meta name="LastPublishedDate" content="2023-12-15T10:30:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-15T10:30:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:41:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8163" />
+    <meta name="ArticleNumber" content="000008163" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><br /></p>
+        <p>
+          Issue found on a Change Tracker 54 hub.<br />
+          Installed on a Windows server.<br />
+          .NET 4.6.1 Installed
+        </p>
+        <p>
+          Issue: Agent Software Updates Section is empty but the hub throws an error stating that
+          "There appears to be a software update of this version available already". Please remove
+          that version before uploading this one.
+        </p>
+        <p>
+          Troubleshooting: Restarted IIS and cleared Hub cache. Issue was seen on 2 separate
+          customer installs but I have been unable to replicate on my test system.
+        </p>
+        <h2 id="OnlyNNT-Unabletouploadaagentinstallerpackagetothehub-Step-by-stepguide">
+          Step-by-step guide
+        </h2>
+        <p>
+          This requires wiping the partial upload from the mongo fs.files and fs.chunks collections
+          as follows (also described in an email previously):
+        </p>
+        <p>
+          <strong
+            >Recovering from a Botched Agent Update Upload by removing all updates from GridFS
+            manually:</strong
+          >
+        </p>
+        <p>The process for removing all the updates:</p>
+        <p>1. Find scheduled updates on groups via mongo, then remove them using the UI</p>
+        <p>
+          &gt; use NNTHubService<br />&gt; db.SystemDirectory.find({ "_t" : <span class="error"
+            >["MongoMember", "MongoGroupMember"]</span
+          >, "GroupAgentUpdateSchedule" : { $ne: null }},
+        </p>
+        <p><span>{ "DisplayName" : 1 }</span></p>
+        <p>)</p>
+        <p>
+          this will list any group names that have scheduled agent updates on them. <br /><strong
+            >Remove the updates from the listed groups using the UI</strong
+          >
+        </p>
+        <p>
+          2. Verify that there are some update zip files in mongo gridFS that need removing, this
+          query lists them:
+        </p>
+        <p>&gt; db.fs.files.find({ "metadata.UpdateType" :</p>
+        <p><span>{ $gt: 0 }</span></p>
+        <p>}).pretty()</p>
+        <p>
+          3. Remove the file records and data from gridFS:<br />&gt; db.fs.files.remove({
+          "metadata.UpdateType" :
+        </p>
+        <p><span>{ $gt: 0 }</span></p>
+        <p>})<br />&gt; db.fs.chunks.remove({ "metadata.UpdateType" :</p>
+        <p><span>{ $gt: 0 }</span></p>
+        <p>})</p>
+        <p>(<strong>NB</strong> the second may not be necessary but won't do any harm)</p>
+        <p>
+          4. run the query from Step 2. <strong>It should now return no results</strong> indicating
+          all the updates have been deleted
+        </p>
+        <p>5. Restart IIS so that the Hub's cached idea of the available updates is refreshed</p>
+        <p> </p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

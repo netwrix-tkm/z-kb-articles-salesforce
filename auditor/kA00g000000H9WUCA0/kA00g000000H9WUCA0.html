@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How does Password Expiration Notifier work?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WUCA0" />
+    <meta name="Id" content="ka04u000000HcPfAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="801" />
+    <meta name="ArticleNumber" content="000003221" />
+    <meta
+      name="description"
+      content="Password Expiration Alerting, Maximum Password Age, pwdlastset"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How does Password Expiration Notifier (PEN) work?
+        <hr />
+        Note: This only includes the main function algorithm; advanced features are not included.<br />1.
+        LDAP query is used to determine the Maximum Password Age for the domain.<br />2. A list of
+        users is also determined via LDAP query.<br />3. First user from the list is processed.<br />4.
+        The "pwdLastSet" attribute value is determined for this user.<br />5. The number of days
+        before the password expires in is determined based on the Maximum Password Age as well as
+        the value of "pwdLastSet".<br />6. PEN checks whether the user matches the conditions
+        specified in the settings (e.g. list of users whose password expires in xx days,
+        notification options and advanced settings).<br />7. If the user matches the conditions then
+        it is added to the report, if not, then the next user in the list is processed.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>0x800706D3 Error − Authentication Service Is Unknown</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PdInCAK" />
+    <meta name="Id" content="ka04u000000wvwJAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-27T14:30:39.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-27T14:30:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-07-02T14:06:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5880" />
+    <meta name="ArticleNumber" content="000005880" />
+    <meta
+      name="description"
+      content="File Server Auditing for EMC VNX/Unity Error cannot connect to file server (0x800706D3 The authentication service is unknown)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Either of the following errors is prompted in Health Log for file server monitoring
+            plans in Netwrix Auditor:
+          </p>
+
+          <pre class="has-inner-focus">
+Source:	File Storage Audit Service
+Event ID:6104
+Description:Monitoring plan: %File_Servers_Monitoring_Plan% 
+Item: %item_name%
+Unable to process item: Cannot connect to file server (0x800706D3 The authentication service is unknown).</pre
+          >
+
+          <pre class="has-inner-focus">
+Backup event log seek failed. Error details: Access is denied</pre
+          >
+
+          <pre class="has-inner-focus">
+Failed to open the event log. Error details: The requested operation is not supported. Error code: 800706e4</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            Microsoft released security updates KB5003646/KB5003638 to fix security vulnerabilities.
+            These updates installed in Windows Server 2019 servers would affect the Netwrix Auditor
+            data collection. Learn more about the updates in
+            <a
+              href="https://support.microsoft.com/en-us/topic/june-8-2021-kb5003646-os-build-17763-1999-81e2ff5a-0769-4e56-8762-059dd6e0d6bb"
+              target="_blank"
+              >KB5003646 · Microsoft Support</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Upgrade your Netwrix Auditor instance to v10.5.11059 or the latest version available.
+            Refer to the following article for additional information on the upgrade process:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/Upgrade.htm"
+              target="_self"
+              >Installation − Upgrade to the Latest Version · v10.6</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://support.microsoft.com/en-us/topic/june-8-2021-kb5003646-os-build-17763-1999-81e2ff5a-0769-4e56-8762-059dd6e0d6bb"
+              target="_blank"
+              >KB5003646 · Microsoft Support</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/Upgrade.htm"
+              target="_self"
+              >Installation − Upgrade to the Latest Version · v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter-be.netwrix.com/bundle/Auditor_10.5_ReleaseNotes/raw/resource/enus/Netwrix_Auditor_10.5_BugFixList.pdf"
+              target="_blank"
+              >Netwrix Auditor v10.5 Bug Fix List</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

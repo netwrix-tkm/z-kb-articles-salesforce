@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Communication Protocols in Password Policy Enforcer</title><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001CgfKAE"/><meta name="Id" content="ka0Qk0000004E9FIAU"/><meta name="LastPublishedDate" content="2024-06-10T10:48:25.000+0000"/><meta name="LastModifiedDate" content="2024-06-14T08:04:19.000+0000"/><meta name="FirstPublishedDate" content="2024-06-10T10:48:25.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9196"/><meta name="ArticleNumber" content="000009196"/><meta name="description" content="Communication Protocols in Password Policy Enforcer"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>This article covers communication protocols used in Netwrix Password Policy Enforcer (PPE). In PPE v10.2 and newer, you can select a communication protocol to be used between the Password Policy Server and Client installations.</p>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Before implementing the RPC protocol, update all Password Policy Clients in your environment to the latest version (v10.2 and later).</p>
+</blockquote>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>PPE/Web v7.11 and Netwrix Password Reset v3.3 do not yet support the RPC protocol. Do not implement the RPC protocol in the NPR and PPE/Web environments.</p>
+</blockquote>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<div>
+<p>Refer to the following steps to set up PPE to use one of the available communication protocols:</p>
+
+<ul><li>
+	<p>To use the UDP protocol, specify the Server port in Password Policy Server Properties:</p>
+
+	<ol><li>
+		<p>In the main PPE screen, select <strong>Password Policy Server</strong> in the left pane &gt; <strong>PPS Properties</strong>.</p>
+		</li><li>
+		<p>In the <strong>General</strong> tab, specify the used port in the <strong>Password Policy Server Port</strong> field.</p>
+		</li></ol>
+	</li><li>
+	<p>To use the RPC protocol, set the Server port to <code>0</code> and set up <strong>Communication settings</strong> in the domain group policy:</p>
+
+	<ol><li>
+		<p>In the main PPE screen, select <strong>Password Policy Server</strong> in the left pane &gt; <strong>PPS Properties</strong>.</p>
+		</li><li>
+		<p>In the <strong>General</strong> tab, specify <code>0</code> in the <strong>Password Policy Server Port</strong> field.</p>
+		</li><li>
+		<p>In the Group Policy Management Console, locate the domain policy governing the PPE domain. Right-click the policy and click <strong>Edit...</strong>.</p>
+		</li><li>
+		<p>In the left pane, proceed to <strong>Computer Configuration</strong> &gt; <strong>Policies</strong> &gt; <strong>Administrative Templates</strong> &gt; <strong>Netwrix Password Policy Enforcer</strong> &gt; <strong>Netwrix Password Policy Client</strong>.</p>
+		</li><li>
+		<p>Right-click the <strong>Communication settings</strong> setting and select <strong>Edit</strong>.</p>
+		</li><li>
+		<p>Switch the <strong>Type of communication</strong> value to <strong>RPC</strong> and click <strong>OK</strong> to save changes.</p>
+		</li></ol>
+	</li></ul>
+</div></div>
+</article></body></html>

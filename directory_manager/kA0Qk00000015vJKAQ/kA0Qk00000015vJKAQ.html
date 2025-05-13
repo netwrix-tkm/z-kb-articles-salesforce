@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Enforce Group Type as Distribution</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015vJKAQ" />
+    <meta name="Id" content="ka0Qk000000DSMfIAO" />
+    <meta name="LastPublishedDate" content="2025-04-16T18:48:42.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:24:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:43:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9174" />
+    <meta name="ArticleNumber" content="000009174" />
+    <meta name="description" content="Enforce Group Type" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to enforce the Group Type as <strong>Distribution</strong> in
+          the Self-Service portal of Netwrix Directory Manager (formerly GroupID).
+        </p>
+        <p>
+          Directory Manager allows administrators to configure object creation settings, including
+          the ability to customize the Create wizard, define default values, and set visibility
+          rules based on user roles. By customizing the Create Group wizard, administrators can
+          restrict users to creating only distribution groups, ensuring consistent group types
+          across the directory.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <ol>
+          <li>
+            In the Directory Manager Admin Center, go to <strong>Applications</strong> &gt;
+            <strong>Directory Manager Portals</strong> and locate the required portal. 
+          </li>
+          <li>
+            Once you have chosen the required portal, click the three-dot icon on the portal then
+            click <strong>Settings</strong>.
+            <img
+              src="kA0Qk00000015vJKAQ_d5ad9a88-1693-4c0c-ac93-9a0086f48c7e.png"
+              alt="Steps 1-2"
+              width="682"
+              height="380"
+            /> 
+          </li>
+          <li>
+            Under <strong>Application Settings</strong>, select an identity store from the
+            <strong>Design Settings</strong> section.
+            <img
+              src="kA0Qk00000015vJKAQ_4a6a997c-5f64-4c36-9ffe-76ce36afc69f.png"
+              alt="Step 3"
+              width="682"
+              height="338"
+            /> 
+          </li>
+          <li>Click the <strong>Create Object</strong> tab.</li>
+          <li>
+            In the <strong>Select Directory Object</strong> list, choose <strong>Group</strong>.
+          </li>
+          <li>
+            In the <strong>Name</strong> list, select <strong>General</strong> and click
+            <strong>Edit</strong>.
+          </li>
+          <li>
+            In the <strong>Edit Category</strong> dialog box, select
+            <strong>Group Type</strong> from the Fields list and click <strong>Edit</strong>.
+          </li>
+          <li>
+            In the <strong>Edit Field</strong> dialog box, click <strong>Advanced Options</strong>.
+          </li>
+          <li>
+            From the <strong>Default Value</strong> dropdown, select <strong>Distribution</strong>.
+          </li>
+          <li>
+            To restrict changes to this setting, do one of the following:
+            <ul>
+              <li>Select the <strong>Is Read Only</strong> checkbox.</li>
+              <li>Or set the <strong>Visibility Role</strong> to <strong>Never</strong>.</li>
+            </ul>
+          </li>
+          <li>
+            To enforce the setting for a specific role (e.g., Role C), set the visibility level to a
+            role with a higher priority than Role C. Roles with equal or lower priority will not be
+            able to change the group type.
+          </li>
+          <li>Click <strong>OK</strong> to close the dialog boxes and save your changes.</li>
+        </ol>
+        <p>
+          After saving your changes, the Group Type field will default to
+          <strong>Distribution</strong> in the Self-Service portal, and users will not be able to
+          change it. This ensures that all newly created groups are distribution lists only.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

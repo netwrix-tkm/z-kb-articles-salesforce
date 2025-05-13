@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>1Secure − Successful Data Collection</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000c5JKAQ" />
+    <meta name="Id" content="ka0Qk0000004ZlZIAU" />
+    <meta name="LastPublishedDate" content="2024-04-17T14:33:41.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:14:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-17T14:33:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9143" />
+    <meta name="ArticleNumber" content="000009143" />
+    <meta name="description" content="1Secure − Data Collection Is Successful" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> Return to the main workflow page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+              target="_self"
+              >1Secure Troubleshooting Workflow</a
+            >.
+          </p>
+
+          <p>
+            Return to the previous page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html"
+              target="_self"
+              >1Secure − Analyze Status.xml</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html"
+              target="_self"
+              >1Secure − Unsuccessful Data Collection</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article covers the troubleshooting steps to follow in case of successful data
+            collection in 1Secure. It also includes a description of the <code>Cache</code> folder
+            contents.
+          </p>
+        </div>
+
+        <h2 id="successful_data_collection_−_analyze_the_cache_folder">
+          Successful data collection − Analyze the Cache folder
+        </h2>
+
+        <div>
+          <p>
+            The activities collected by 1Secure are processed via the <code>Cache</code> folder. The
+            folder is located in <code>C:\ProgramData\Netwrix Cloud Agent\NAProcessor\Cache</code>.
+            The <code>Cache</code> folder includes the following folders:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                <code>Failed</code>. The folder contains activities which could be converted from
+                the connector format to the cloud format. If activities are stuck in the folder,
+                escalate the case to the R&amp;D team.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Include the
+                  <code
+                    >C:\ProgramData\Netwrix Cloud Agent\Logs\CloudAgentCoreSvc\NAPHandler.log</code
+                  >
+                  file in the escalation.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                <code>Tmp</code>. The folder collects activities before they are sent to 1Secure.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>Del</code>. The folder contains activities successfully sent to 1Secure. The
+                folder is cleared once per minute (i.e., the retention cycle equals 1 minute).
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>Ready</code>. The folder contains activities to be uploaded to 1Secure. If
+                activities are stuck in the folder, escalate the case to the R&amp;D team.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Include the contents of the
+                  <code>C:\ProgramData\Netwrix Cloud Agent\Logs\CloudAgentCoreSvc</code> log folder
+                  in the escalation.
+                </p>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+                  target="_self"
+                  >1Secure Troubleshooting Workflow</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html"
+                  target="_self"
+                  >1Secure − Analyze Status.xml</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html"
+                  target="_self"
+                  >1Secure − Unsuccessful Data Collection</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

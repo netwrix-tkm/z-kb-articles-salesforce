@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>State in time reports do not show GPO settings values</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="KnowledgeArticleId" content="kA04u000000Pcy9CAC" />
+    <meta name="Id" content="ka04u000000HdEaAAK" />
+    <meta name="LastPublishedDate" content="2021-03-10T14:38:15.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-03-10T14:38:15.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5857" />
+    <meta name="ArticleNumber" content="000005857" />
+    <meta
+      name="description"
+      content="GPO SIT reports do not show GPO settings values. Only GPO summary information is present."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          GPO SIT reports do not show GPO settings values. Only GPO summary information is
+          present.<br />For example: “Empty Group Policy Objects” report lists Policies that
+          actually contain some settings set.
+        </p>
+        <img
+          alt="User-added image"
+          src="kA04u000000Pcy9CAC_ccb3a4b4-3f90-492e-b32e-c7d6eefb7f11.png"
+        /><br />Another example: “Group Policy Objects by Policy Name” report lists only settings of
+        the following sections:
+        <ul>
+          <li>General/Delegation</li>
+          <li>General/Details</li>
+          <li>General/Links</li>
+          <li>General/Security Filtering</li>
+        </ul>
+
+        <p>
+          <img
+            alt="User-added image"
+            src="kA04u000000Pcy9CAC_ba3c3e02-3a09-43f9-a72e-e694a24cf388.png"
+          />
+        </p>
+        All the other data is missing form the report:<br /><img
+          alt="User-added image"
+          src="kA04u000000Pcy9CAC_1041d43b-0e15-47b0-b4f0-eff0c76086a2.png"
+        /><br /><b>Affected environment:</b><br />The conditions below must take place altogether:
+        <ol>
+          <li>
+            Netwrix Auditor VM belongs to the different network subnet than the monitored active
+            directory domain
+          </li>
+        </ol>
+        Example:<br />Netwrix Auditor VM:<br />            IP address: 10.0.0.12<br />           
+        Subnet Mask: 255.255.0.0 / 16<br />Domain Controller VM:<br />            IP address:
+        192.168.8.4<br />            Subnet Mask: 255.255.252.0 / 22
+        <ol start="2">
+          <li>You are not using any custom WINS servers for NETBIOS names resolution</li>
+          <li>
+            Domain Item Data Processing Account in the Netwrix Auditor configuration setting for the
+            monitored domain is set in a format of “NETBIOSDOMAINNAME\ACCOUNTSAMACCOUNTMANE” (e.g.
+            corp\administrator)
+          </li>
+        </ol>
+        <img
+          alt="User-added image"
+          src="kA04u000000Pcy9CAC_ce5f5de3-241c-4bef-bbc9-cb77b1c8fc28.png"
+        /><br /><b>Cause</b>: By default NetBios names cannot be resolved across different subnets
+        using broadcasting.<br /><br /><b>Resolution</b>: Set the data processing account for the
+        monitored domain item in a format of “FQDNDOMAINNAME\ACCOUNTSAMACCOUNTNAME” (e.g.
+        corp.local\administrator)<br /><span
+          ><span><img src="kA04u000000Pcy9CAC_5061443f-aa24-4c62-9b79-3bbce18e42ab.png" /></span
+        ></span>
+      </div>
+    </article>
+  </body>
+</html>

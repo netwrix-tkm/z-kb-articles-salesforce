@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      System.Net.WebException: The underlying connection was closed: An unexpected error occurred on
+      a send. ---&gt; System.IO.IOException: Authentication failed because the remote party has
+      closed the transport stream
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9a2CAC" />
+    <meta name="Id" content="ka04u000000HcT3AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1283" />
+    <meta name="ArticleNumber" content="000003438" />
+    <meta
+      name="description"
+      content="Error in _VMware inventory data collection: Error saving current VMware Virtual Center snapshot: The underlying connection was closed: An unexpected error occurred on a send."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When you are trying to connect to vSphere 5.1 and higher from Windows 2003 or XP the
+        following error appear in the log:
+
+        <span
+          >System.Net.WebException: The underlying connection was closed: An unexpected error
+          occurred on a send. ---&gt; System.IO.IOException: Authentication failed because the
+          remote party has closed the transport stream. at
+          System.Net.Security.SslState.StartReadFrame(Byte[] buffer, Int32 readBytes,
+          AsyncProtocolRequest asyncRequest) at System.Net.Security.SslState.StartReceiveBlob(Byte[]
+          buffer, AsyncProtocolRequest asyncRequest) at
+          System.Net.Security.SslState.CheckCompletionBeforeNextReceive(ProtocolToken message,
+          AsyncProtocolRequest asyncRequest) at System.Net.Security.SslState.StartSendBlob(Byte[]
+          incoming, Int32 count, AsyncProtocolRequest asyncRequest) at
+          System.Net.Security.SslState.ForceAuthentication(Boolean receiveFirst, Byte[] buffer,
+          AsyncProtocolRequest asyncRequest) at
+          System.Net.Security.SslState.ProcessAuthentication(LazyAsyncResult lazyResult) at
+          System.Net.TlsStream.CallProcessAuthentication(Object state) at
+          System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback
+          callback, Object state) at System.Net.TlsStream.ProcessAuthentication(LazyAsyncResult
+          result) at System.Net.TlsStream.Write(Byte[] buffer, Int32 offset, Int32 size) at
+          System.Net.PooledStream.Write(Byte[] buffer, Int32 offset, Int32 size) at
+          System.Net.ConnectStream.WriteHeaders(Boolean async) --- End of inner exception stack
+          trace --- at ClientUtils.ServiceUtil.ClientConnect() at
+          #=qLTypetNdXRgtjZ5oarkCew==.#=qkNh22T_fDe6KeGYPPku7uw==() at
+          #=q6n0019yskoh04kUwRaodAHgJJIkadPEJ0hV7epNjK8E=.#=qWVzNcX8B9oOVI8KMUqqorw==(String
+          #=qp3ysQkh_RnMqOKFVrKR8wg==, String #=qDn7h7Hgh77aVJrsVKRhiwA==, String
+          #=qDqhS0EFSxvajyWc_Ci5Tgw==, String #=q67JaGw_aa7xfomCg5JQWMQ==, String
+          #=qQs0BWGid$1Ml$wmmDiTDBw==) Error in _VMware inventory data collection: Error saving
+          current VMware Virtual Center snapshot: The underlying connection was closed: An
+          unexpected error occurred on a send.</span
+        >
+
+        <hr />
+
+        <div>
+          This issue occurs due to increased security of the cipher strengths which are, by default,
+          used by the VMware Management Web Services components. Due to this change that was
+          introduced in vSphere 5.1, the host operating system is required to support a higher
+          cipher strength to be able to connect to these components.
+        </div>
+        <div />
+        <div>
+          In Windows Vista and Windows Server 2008, the proper cipher strengths are built into the
+          operating system. However, for older Windows operating systems, a Microsoft hotfix must be
+          applied to add the supported cipher strengths.
+        </div>
+
+        <hr />
+
+        In order to resolve this issue the following
+        <a href="http://support.microsoft.com/kb/948963/en-us" target="_blank">Microsoft hot-fix</a>
+        should be installed. NOTE: This hot-fix is available only for Windows 2003 (32-bit and
+        64-bit Edition) and it is <u><strong>NOT</strong></u
+        ><u><strong> AVAILABLE</strong></u> for Windows XP.
+      </div>
+    </article>
+  </body>
+</html>

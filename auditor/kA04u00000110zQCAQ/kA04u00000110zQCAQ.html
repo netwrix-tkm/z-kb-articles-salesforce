@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could Not Find Stored Procedure GetAllProperties</title>
+    <meta name="label" content="Netwrix_Auditor_SQL_Databases" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110zQCAQ" />
+    <meta name="Id" content="ka04u000001171mAAA" />
+    <meta name="LastPublishedDate" content="2023-08-03T15:40:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-04T07:39:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-03T15:40:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8709" />
+    <meta name="ArticleNumber" content="000008709" />
+    <meta name="description" content="Could not find stored procedure GetAllProperties" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>You've encountered the following error running reports:</p>
+
+          <pre class="has-inner-focus">
+An error occurred within the report server database.
+This may be due to a connection failure, timeout or low disk condition within the database. (rsReportServerDatabaseError)
+Could not find stored procedure 'GetAllProperties'</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The ReportServer database is corrupted and has to be rebuilt.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In your Netwrix Auditor server, disable
+                <strong>Netwrix Auditor Archive Service</strong> and
+                <strong>Netwrix Auditor Management Service</strong> via Services.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open the SQL server instance used by Netwrix Auditor via SQL Server Management
+                Studio, and delete both the <strong>ReportServer</strong> and
+                <strong>ReportServerTemp</strong> databases.
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    Once you've opened SSMS, unfold the <strong>Databases</strong> folder in the
+                    <strong>Object Explorer</strong> pane on the left.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Right-click each (<strong>ReportServer</strong> and
+                    <strong>ReportServerTemp</strong>) database and select <strong>Delete</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Before confirming the deletion, make sure to check the
+                    <strong>Close existing connections</strong> checkbox.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Once the databases are deleted, regenerate the
+                <strong>ReportServer</strong> database. Refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eUCAS.html"
+                  target="_blank"
+                  >Deploying the Report Server Database</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                After you've configured the <strong>ReportServer</strong> database, grant the roles
+                to the SSRS service account the roles required. Refer to the following article for
+                additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/SSRSAccount/Overview.htm"
+                  target="_blank"
+                  >Configure SSRS Account</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Restart <strong>Netwrix Auditor Archive Service</strong> and
+                <strong>Netwrix Auditor Management Service</strong> via Services.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Reading log status</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TZCA0" />
+    <meta name="Id" content="ka04u000000HcNKAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:53.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="624" />
+    <meta name="ArticleNumber" content="000003045" />
+    <meta
+      name="description"
+      content="Domain controller has a yellow exclamation mark in front of the DC Name column of the Monitored Domain Controllers grid. Connection status is shown Reading log"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        In NetWrix Account Lockout Examiner Console, a domain controller has a yellow exclamation
+        mark in front of the <b>DC Name</b> column of the <b>Monitored Domain Controllers</b> grid.
+        Connection status is shown <strong>Reading log</strong>. Lockout events from this domain
+        controller cannot be read by the program as well. <br /><img
+          alt="User-added image"
+          height="80"
+          src="kA00g000000H9TZCA0_867cfc4a-357b-4b40-9db2-996c25303ccf.png"
+          width="500"
+        />
+
+        <hr />
+
+        <div>
+          This issue can appear either right after the NetWrix Account Lockout Examiner
+          installation, or after the NetWrix Account Lockout Examiner Service restart. The program
+          is referring to the event logs created earlier, before the installation or restart, and
+          fails to complete reading the logs. To fix the issue, do the following:
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              Open <strong>Registry Editor</strong>: navigate to Start - Run, enter
+              <em>regedit</em> and click <strong>OK</strong>.
+            </li>
+            <li>
+              In the left pane, navigate to
+              <strong>HKLM Software[Wow6432Node]NetWrixAccount Lockout Examiner.</strong> The step
+              Wow6432Node is only applied to x64 OS.
+            </li>
+            <li>
+              In the right pane, double-click <strong>readLog</strong>, specify 0 in the Value data
+              field and click <strong>OK</strong>.
+            </li>
+            <li>
+              In NetWrix Account Lockout Examiner Console main menu bar, navigate to<strong>
+                File - Settings </strong
+              >and click <strong>OK</strong> to apply registry changes. <br />
+              <img
+                alt="User-added image"
+                height="249"
+                src="kA00g000000H9TZCA0_4c746867-2e55-463b-92db-4e67d084128a.png"
+                width="500"
+              />
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

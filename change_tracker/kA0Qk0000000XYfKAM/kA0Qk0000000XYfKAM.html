@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Upload Agent Update Files</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000XYfKAM" />
+    <meta name="Id" content="ka0Qk0000003eNVIAY" />
+    <meta name="LastPublishedDate" content="2024-05-08T10:20:41.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-08T10:20:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-08T10:20:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9093" />
+    <meta name="ArticleNumber" content="000009093" />
+    <meta
+      name="description"
+      content="Unable to Upload Agent Update Files in Netwrix Change Tracker"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When you attempt to upload agent updates in Netwrix Change Tracker, the following errors
+            are prompted:
+          </p>
+
+          <pre class="has-inner-focus">
+System Error
+An unknown error occurred</pre
+          >
+
+          <pre class="has-inner-focus">%number_of% File(s) failed to upload</pre>
+
+          <p>The upload attempt fails.</p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The default size for the maximum file upload in Internet information services (IIS) is
+            too low. The default value prevents Change Tracker from uploading agent updates.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Increase the predefined file upload size in <code>Web.config</code>:</p>
+
+          <ol>
+            <li>
+              <p>Run the following line in elevated Command Prompt to stop all IIS services:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">iisreset /stop</code></pre>
+            </li>
+            <li>
+              <p>Locate and open the <code>Web.config</code> file:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub\Web.config</code></pre>
+            </li>
+            <li>
+              <p>
+                Modify the <code>&lt;requestFiltering&gt;</code> node to specify the following
+                value:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">&lt;requestFiltering&gt;
+    &lt;requestLimits maxAllowedContentLength="250000000" /&gt;
+&lt;/requestFiltering&gt;</code></pre>
+
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>Run the following line in elevated Command Prompt to start all IIS services:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">iisreset /start</code></pre>
+            </li>
+            <li>
+              <p>Log in to the Change Tracker console and reupload the update files.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

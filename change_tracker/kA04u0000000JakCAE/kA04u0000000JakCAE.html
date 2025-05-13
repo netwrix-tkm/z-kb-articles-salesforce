@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      HOTFIX - Hub Build .56 no longer allows me to schedule planned changes or put proxy devices in
+      diagnostic mode
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JakCAE" />
+    <meta name="Id" content="ka04u000000Hd9xAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:50:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8216" />
+    <meta name="ArticleNumber" content="000008216" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Upon upgrading to 7.0.1.56 - some functionality of the Planned Changes tab and Agents and
+          Devices tab in the Settings Tile do not work properly. This article will show you how to
+          implement a simple hot-fix in order to restore functionality.
+        </p>
+
+        <h2
+          id="HOTFIX-HubBuild.56nolongerallowsmetoscheduleplannedchangesorputproxydevicesindiagnosticmode-Step-by-stepguide"
+        >
+          Step-by-step guide
+        </h2>
+
+        <p>Here is what you need to do</p>
+
+        <ol>
+          <li>Stop IIS</li>
+          <li>Stop the MongoDB Service</li>
+          <li>
+            Navigate to<strong
+              >C:\inetpub\wwwroot\Change Tracker Generation 7 WebUI\html\pages\admin</strong
+            >
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              Copy and Paste the files below, replacing the files in the folder<br />
+               
+            </p>
+
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                File 1 -<a
+                  href="/csh?context=devices-admin.html?version=1&amp;modificationDate=1525711562602&amp;cacheVersion=1&amp;api=v2"
+                  target="_blank"
+                  >devices-admin.html</a
+                ><br />
+                File 2 -<a
+                  href="/csh?context=planned-changes.html?version=1&amp;modificationDate=1525711576725&amp;cacheVersion=1&amp;api=v2"
+                  target="_blank"
+                  >planned-changes.html</a
+                >
+              </div>
+            </div>
+          </li>
+          <li>
+            Navigate to<strong>C:\inetpub\wwwroot\Change Tracker Generation 7 WebUI\html\js</strong>
+          </li>
+          <li>
+            Copy and Paste the file below, replacing the files in the folder
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <div class="confluence-information-macro-body">
+                File 3 -<a
+                  href="/csh?context=nnt.changetracker.v7.js?version=1&amp;modificationDate=1534279659446&amp;cacheVersion=1&amp;api=v2"
+                  target="_blank"
+                  >nnt.changetracker.v7.js</a
+                >
+              </div>
+            </div>
+          </li>
+          <li>Do not proceed until all 3 files have been replaced</li>
+          <li>Start the MongoDB Service</li>
+          <li>Start IIS</li>
+          <li>Clear your browser cache</li>
+        </ol>
+
+        <p> </p>
+
+        <h2
+          id="HOTFIX-HubBuild.56nolongerallowsmetoscheduleplannedchangesorputproxydevicesindiagnosticmode-Relatedarticles"
+        >
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKU6&amp;d=%2Fa%2F4u000000LzzK%2Fgg7dxk.buie6D5.HBUfy85allK6l9DA44GMm34ksNCE&amp;asPdf=false"
+          target="_blank"
+          >nnt.changetracker.v7.js</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK2K&amp;d=%2Fa%2F4u000000LzhR%2FfEiFKGvUp.OaLYV6A4M2wztkCSF0qagHdVporJVX38w&amp;asPdf=false"
+          target="_blank"
+          >planned-changes.html</a
+        ><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKUB&amp;d=%2Fa%2F4u000000Lzo9%2FsWhHJAVmE5.cG4St42dNPEV2I3uHZR082KadrI4MfKY&amp;asPdf=false"
+          target="_blank"
+          >devices-admin.html</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

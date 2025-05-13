@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Use Wildcards in Netwrix Auditor Reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VUCA0" />
+    <meta name="Id" content="ka04u00000117UPAAY" />
+    <meta name="LastPublishedDate" content="2023-08-30T12:17:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-30T13:42:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="737" />
+    <meta name="ArticleNumber" content="000003159" />
+    <meta
+      name="description"
+      content="This article will explain you how to use wildcards in order to filter data in Netwrix Auditor reports"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to use wildcards in Netwrix Auditor reports? What are the wildcards?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor reports are based on SQL Server Reporting Services — the same wildcards
+            apply as the wildcards used in SQL queries.
+          </p>
+        </div>
+
+        <div>
+          <div class="table-wrap">
+            <table count-columns="3">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Wildcard</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Function</strong></p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p><strong>Matched results</strong></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      <code><strong>%</strong></code>
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The <code><strong>%</strong></code> wildcard matches all characters beginning
+                      at that position and/or bounded by the next character. See results for the
+                      <code><strong>A%E</strong></code> query.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>AE</p>
+                      </li>
+                      <li>
+                        <p>ABE</p>
+                      </li>
+                      <li>
+                        <p>ACE</p>
+                      </li>
+                      <li>
+                        <p>ABCDE</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      <code><strong>_</strong></code>
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The <code><strong>_</strong></code> underscore wildcard replaces any single
+                      character at that position. See results for the
+                      <code><strong>A_E</strong></code> query.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>A1E</p>
+                      </li>
+                      <li>
+                        <p>ABE</p>
+                      </li>
+                      <li>
+                        <p>AAE</p>
+                      </li>
+                      <li>
+                        <p>AOE</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      <code><strong>[***]</strong></code>
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The <code><strong>[***]</strong></code> square brackets wildcard will match a
+                      single stated character at the position in the string. See results for the
+                      <code><strong>A[ABC]E</strong></code> query.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>ABE</p>
+                      </li>
+                      <li>
+                        <p>ACE</p>
+                      </li>
+                      <li>
+                        <p>AAE</p>
+                      </li>
+                      <li>
+                        <p>Not ADE, AEE, etc.</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      <code><strong>[*-*]</strong></code>
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The <code><strong>[*-*]</strong></code> square brackets wildcard will match a
+                      range of characters at that position in the string. See results for the
+                      <code><strong>A[A-D]E</strong></code> query.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>ABE</p>
+                      </li>
+                      <li>
+                        <p>ACE</p>
+                      </li>
+                      <li>
+                        <p>AAE</p>
+                      </li>
+                      <li>
+                        <p>ADE</p>
+                      </li>
+                      <li>
+                        <p>Not AEE, AOE, etc.</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      <code><strong>[^*-*]</strong></code>
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      The <code><strong>[^*-*]</strong></code> square brackets wildcard will match
+                      any character outside of the specified range. See results for the
+                      <code><strong>A[^A-D]E</strong></code> query.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <ul>
+                      <li>
+                        <p>ARE</p>
+                      </li>
+                      <li>
+                        <p>AGE</p>
+                      </li>
+                      <li>
+                        <p>AOE</p>
+                      </li>
+                      <li>
+                        <p>Not ABE, ACE, AAE, ADE.</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+         
+
+        <div>
+          <img
+            height="285"
+            src="kA00g000000H9VUCA0_1e19fafa-4bca-414e-8002-f18cdc9821f2.png"
+            width="801"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

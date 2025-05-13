@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How To Reset Access to SI Console</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000TsoUCAS"/><meta name="Id" content="ka04u000000HdFKAA0"/><meta name="LastPublishedDate" content="2022-05-16T13:52:38.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:53.000+0000"/><meta name="FirstPublishedDate" content="2022-05-16T13:52:38.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8435"/><meta name="ArticleNumber" content="000008435"/><meta name="description" content="How To Reset Access to SI Console"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="situation">Situation</h2>
+A customer has lost control of the StealthINTERCEPT Console and cannot access the configuration menu.
+
+<h2 id="solution">Solution</h2>
+VIA SSMS - Reset SecurityDescriptor to null:
+
+<pre>update [NVMonitorConfig].dbo.Folder
+set securityDescriptor = NULL
+WHERE [Folder].[name] = 'Policies';</pre>
+On SI Host:
+
+<ul><li>Restart SI Enterprise Manager Service</li><li>Use a local Admin account to Launch SI Console - This user will be assigned as the only SI Administrator</li><li>Navigate to Configuration &gt; Users</li><li>Add additional Administrators to prevent loss of access</li></ul></div>
+</article></body></html>

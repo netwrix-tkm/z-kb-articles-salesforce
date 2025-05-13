@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-7.0.3148</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001EKHKA2" />
+    <meta name="Id" content="ka0Qk0000004JthIAE" />
+    <meta name="LastPublishedDate" content="2024-06-24T20:35:23.000+0000" />
+    <meta name="LastModifiedDate" content="2024-06-24T20:35:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-06-24T20:35:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9204" />
+    <meta name="ArticleNumber" content="000009204" />
+    <meta name="description" content="activitymonitor-7.0.3148" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Title: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span
+                ><i><span>activitymonitor-7.0.3148</span></i></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Summary:</span></strong></span
+            ></span
+          ></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Upgraded to 7.0 from 6 and activity agent on proxy server that was collecting
+                      SP (on-prem) activity before stopped running and will not start back up</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>MS updates: SUVP 24-06 support</span></i></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><strong><span>Behavior Before Fix:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  >In some cases SharePoint path filtering causes the monitoring service to
+                  stop.</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><b> </b></span></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span><span>2022 Server - KB5039227 </span></span></span
+              ></span
+            >
+
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >Impact: Kerberos and AD Replication events may be lost or incomplete
+                      </span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>Logs:  </span></span></span
+                  ></span
+                >
+                <ul>
+                  <li>
+                    <span
+                      ><span
+                        ><span
+                          ><span><span>Kerberos:</span> </span></span
+                        ></span
+                      ></span
+                    >
+                    <ul>
+                      <li>
+                        <span
+                          ><span
+                            ><span
+                              ><span><span> Couldn't resolve I_GetASTicket</span> </span></span
+                            ></span
+                          ></span
+                        >
+                      </li>
+                      <li>
+                        <span
+                          ><span
+                            ><span
+                              ><span><span>Couldn't resolve KdcGetSidsFromTgt</span> </span></span
+                            ></span
+                          ></span
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span
+                      ><span
+                        ><span
+                          ><span><span>AD Replication: </span> </span></span
+                        ></span
+                      ></span
+                    >
+                    <ul>
+                      <li>
+                        <span
+                          ><span
+                            ><span
+                              ><span><span>Couldn't resolve IDL_DRSGetNCChanges</span> </span></span
+                            ></span
+                          ></span
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span><span>2019 Server - KB5039217 </span></span></span
+              ></span
+            >
+
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span>Impact: Kerberos events may be lost or incomplete </span></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        ><span>Logs</span><span>: Couldn't resolve KdcGetSidsFromTgt</span>
+                      </span></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span><b> </b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Behavior After Fix:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  >SharePoint monitoring should log activity as expected and monitoring service
+                  should not stop unexpectedly.</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >After fix Activity Monitor and SI Agent Should report Active Directory events as
+                  expected.</span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span><b>Changes Since Last Hotfix:</b></span></span
+          ></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >328046: File outputs: the tooltip shows wrong date for Last Archived</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>341224: Confusing error in the Search when connection is lost</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >287334: Update SI Installer should not require exact "SI Agent.exe"
+                    filename</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >342972: Linux - agent install on rhel 9.4 with fips enabled fails</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >339737: Issue installing Linux Agent - epel error even though lttng is
+                    available</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Kevin Duddy</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Activity Monitor 7.0</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"
+              ><span>SharePoint On-Prem / Active Directory</span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>302867</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 7.0.3148</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Modules Included:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span>SBActivityMonitorSetup.msi 7.0.3148</span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SBTService.exe 1.24.531.852</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>SI Version 7.3.9.172</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>DevOps/Escalations</b></span></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span><span>302867 / 00390679</span></span></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span>342955</span></span></span
+            >
+          </li>
+        </ol>
+        <br /><span
+          ><span
+            ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >296085: Previously provided Home Directory fix also does not work</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >296085: Previously provided Home Directory fix also does not work</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>302292: MS updates: SUVP 23-12 support</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >296085: Previously provided Home Directory fix also does not work</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >296085: Previously provided Home Directory fix also does not work</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >303161: Upgraded to 7.0 from 6 and activity agents on windows server
+                        started spitting back occasional errors</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >307350: Customer observed that NAM agent unable to process EMC events causing a
+                    backlog unless services are restarted</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >296085: Previously provided Home Directory fix also does not work</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >308377: SI - StealthIntercept suspected of causing DC crashes once agent begins
+                    starting</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >305411: Agents intermittently Flash red x as if there is an error and then go
+                    back to normal.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><b><span>Previous Hotfix Revoked</span></b></span
+                ></span
+              ></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>307777: upgraded from 6.0.1052 to 7.0.3035</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>303337: Archive Permissions Trouble</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>309401: MS updates: SUVP 24-03 support</span></span></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span><span>307777: upgraded from 6.0.1052 to 7.0.3035</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>303337: Archive Permissions Trouble</span></span></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span><span>309401: MS updates: SUVP 24-03 support</span></span></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>310232: Upgraded to 7.0 and agent won't update from 6.0</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>314134: MS updates - March 22, 2024 Out-of-band KBs support</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>326307: MS updates: SUVP 24-04 support</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>310232: Upgraded to 7.0 and agent won't update from 6.0</span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >311740: Error when adding agent Authentication failed..... the requested
+                    function is not supported</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span><span> </span></span></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >295712: Sam For Linux not updating properly - Appears to be fips
+                        related</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><span
+                        >310536: Not Recording Events for NFS Mount - Several Other servers are
+                        working new one is not.</span
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>340126: MS updates: SUVP 24-05 support</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>341387: NAM File system having port on host IP Address</span></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i
+                    ><span
+                      >Run the MSI file on a host that has the Activity Monitor Console is
+                      installed.</span
+                    ></i
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><i><span>Upgrade all agents. </span></i></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br />https://releases.netwrix.com/products/activitymonitor/6.0/activitymonitor-6.0.2286.zip
+      </div>
+    </article>
+  </body>
+</html>

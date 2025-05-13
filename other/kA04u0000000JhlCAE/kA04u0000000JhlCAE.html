@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Convert GSM appliance (.OVA file) to Azure format</title><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000JhlCAE"/><meta name="Id" content="ka04u000000HdBcAAK"/><meta name="LastPublishedDate" content="2022-02-22T11:49:58.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:18:24.000+0000"/><meta name="FirstPublishedDate" content="2022-02-07T01:04:08.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8329"/><meta name="ArticleNumber" content="000008329"/><meta name="description" content="HELPDESK"/></head><body><article class=" kb-articles"><div class="Content__c"><p>In this particular case we’ll be converting a CENO image provided by GB as an OVA to a VHD fixed-size image that can be imported into Microsoft Azure. We’ll be enabling SSH access and Superuser credentials previous to the conversion.</p>
+
+<h4 id="ConvertGSMappliance(.OVAfile)toAzureformat-Pleasefollowthestepsbelowtogetitdone:">Please follow the steps below to get it done:</h4>
+
+<ul><li>
+	<p>Download the OVA provided by GB.</p>
+	</li><li>
+	<p>Import the downloaded OVA into your VMware ESXi environment.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_bf3cb7e8-b991-4076-80b2-2ca13e83cbed.png" width="564"/></span>
+
+<p> </p>
+
+<ul><li>
+	<p>Power On the VM and log in using <strong><span>admin/admin. </span></strong>Hit No when asked.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_2c7cc975-0d9d-4559-99e1-802f06493427.png"/></span>
+
+<ul><li>
+	<p>Go to <strong>Setup &gt; Services &gt; SSH</strong> and enable SSH. Set a <span class="inline-comment-marker">new password</span> when asked. <strong><span>This will be your new password to access the Administration console so don’t forget it. </span></strong>Hit Save.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_23c1154e-a3f5-4a9e-99e9-679c6c4ebbfc.png"/></span>
+
+<ul><li>
+	<p>Let’s set the superuser credential now. Go all the way back to the main menu, and go to <strong>Advanced &gt; Support &gt; Superuser. </strong>Enable it and set the password. Just hit continue when prompted. Hit Save.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_e416f6d1-f34d-42bb-a98b-7718ba26553f.png"/></span>
+
+<ul><li>
+	<p>At this point we can turn off the VM. Please make sure to do it at <strong>Main Menu &gt; Maintenance &gt; Power &gt; Shutdown.</strong></p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_5c4abb85-35ef-47e1-8ee8-5e745e7064c4.png"/></span>
+
+<ul><li>
+	<p>With the VM powered off, hit in the Actions option, and select Export. This will generate 2 files and OVF and a <strong><span>VMDK</span></strong>. Once the export has finished, you should see both files in the <strong>Downloads</strong> folder on the File Explorer. We’ll need to convert the VMDK one.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_d7002286-8a18-4c83-9354-181314248fbe.png"/></span><span class="confluence-embedded-file-wrapper image-right-wrap-wrapper"><img class="confluence-embedded-image image-wrap-right" src="kA04u0000000JhlCAE_3fab95b1-b550-4fd0-8a4e-07d7a07a72f0.png"/></span>
+
+<ul><li>
+	<p>To convert the VMDK file to VHD (fixed-size) we’ll be using <a class="external-link" href="https://www.starwindsoftware.com/starwind-v2v-converter" target="_blank"><strong>StarWind V2V Converter</strong></a><strong>. </strong>Please download it and install it.</p>
+	</li></ul>
+
+<p> </p>
+
+<ul><li>
+	<p>Open StarWind V2V Converter and select <strong>Local File</strong> option. Hit Next.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_994049f9-366b-4a70-b2b1-52626fa73964.png" width="448"/></span>
+
+<ul><li>
+	<p>Hit the Browse (…) button, select the exported VMDK file and hit <strong>Open</strong>. Now hit Next.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_7a9da626-9688-48a2-96bd-bdf00ab775d0.png"/></span>
+
+<ul><li>
+	<p>Select <strong>local file</strong> option again and hit Next.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_9798ae7c-9f11-48f9-97f0-32c91b9404ab.png"/></span>
+
+<ul><li>
+	<p>No select <strong>VHD/VHDX</strong> option and hit Next.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_46f31a0a-58c6-484e-92c7-93cde035e10d.png"/></span>
+
+<ul><li>
+	<p>In the next screen please select VHD pre-allocated image. It’s essential to select this format since it’s the only one compatible with Microsoft Azure. Hit Next.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_af7b091f-a24f-47b6-b227-56359b3583e8.png"/></span>
+
+<ul><li>
+	<p>At this point you’ll just need to select the location for the converted file. <strong><span>Please make sure you have enough space. This conversion should generate a 32 GB file.</span></strong> Now just hit <strong>Convert </strong>and the VHD (fixed-size) file will be generated.</p>
+	</li></ul>
+<span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="kA04u0000000JhlCAE_4b5672a4-d3a9-43fc-8226-9841ec2d43ea.png"/></span>
+
+<ul><li>
+	<p>If you’re planning to send over the file I would recommend compressing it. It shouldn’t take more than 2 GB when compressed.</p>
+	</li><li>
+	<p><strong><span>When creating the instance in Azure, it’s important you create the machine as a </span><span>Generation 2</span><span>. (EFI/UEFI) Otherwise you won’t be able to loaded because Generation 1 only supports BIOS.</span></strong></p>
+	</li></ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="ConvertGSMappliance(.OVAfile)toAzureformat-Pleasefeelfreetocontactusifyouhaveanyquestions.">Please feel free to contact us if you have any questions.</h2>
+
+<p> </p></div>
+</article></body></html>

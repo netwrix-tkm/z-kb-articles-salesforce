@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Cannot Create a Connection to Data Source DS</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XeCAK" />
+    <meta name="Id" content="ka0Qk0000004dArIAI" />
+    <meta name="LastPublishedDate" content="2024-07-15T15:51:37.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-15T15:51:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1140" />
+    <meta name="ArticleNumber" content="000003293" />
+    <meta
+      name="description"
+      content="SQL Server Database Engine: Connection / Accessing Errors Caused by Insufficient Permissions"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When you attempt to generate reports in Netwrix Auditor, the following error appears:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">An error has occurred during report processing. (rsProcessingAborted)
+Cannot create a connection to data source 'DS'. (rsErroropeningConnection)
+For more information about this error navigate to the report server on the local server machine, or enable remote errors</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The affected user tries to access SQL Server Reporting Services reports from a remote
+            machine. The affected user lacks permissions to access the SQL Server Database Engine
+            and the target database.
+          </p>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Refer to the following possible resolutions:</p>
+
+          <ul>
+            <li>
+              <p>
+                Review the required account permissions and roles to access SSRS reports:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServer.htm#sql_server"
+                  target="_self"
+                  >Requirements for SQL Server to Store Audit Data — SQL Server · v10.6</a
+                >
+                and
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+                  target="_self"
+                  >SQL Server Reporting Services · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Specify the credentials to access the Reporting Services database.</p>
+            </li>
+          </ul>
+
+          <p>
+            Perform the following steps to specify the credentials to access the Reporting Services
+            database:
+          </p>
+
+          <ol>
+            <li>
+              <p>Proceed to the Report Manager URL on the SQL Server with SSRS.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Locate the Report Manager URL in Auditor via
+                  <strong>Settings</strong> &gt; <strong>Audit Database</strong>.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                In the top right corner, click <strong>View</strong> / <strong>List</strong> and
+                check the <strong>Show hidden items</strong> checkbox.
+              </p>
+            </li>
+            <li>
+              <p>
+                Navigate to the <strong>Netwrix Auditor</strong> folder &gt;
+                <strong>Netwrix Auditor for %datasource%</strong> &gt;
+                <strong>Change Reports</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Right-click <strong>DS_Common</strong> and select <strong>Manage</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Properties</strong> tab, review the
+                <strong>Credentials</strong> section.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    To use a SQL login, select <strong>Database user name and password</strong> in
+                    the <strong>Type of credentials</strong> dropdown list.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    To use a Windows login, select
+                    <strong>Windows user name and password</strong> in the
+                    <strong>Type of credentials</strong> dropdown list.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Click <strong>Test connection</strong> to verify the credentials.</p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Apply</strong>, close the browser, and generate the report in Auditor.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServer.htm#sql_server"
+                  target="_self"
+                  >Requirements for SQL Server to Store Audit Data — SQL Server · v10.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+                  target="_self"
+                  >SQL Server Reporting Services · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

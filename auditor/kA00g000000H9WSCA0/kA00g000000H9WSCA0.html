@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How Does Inactive User Tracker Work?</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WSCA0" />
+    <meta name="Id" content="ka04u000001179CAAQ" />
+    <meta name="LastPublishedDate" content="2023-08-10T16:17:06.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-14T11:35:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="800" />
+    <meta name="ArticleNumber" content="000003219" />
+    <meta
+      name="description"
+      content="Inactive User Tracking, how does it work, lastlogontimestamp, lastlogon"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How does Inactive User Tracker (IUT) work?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>IUT requests the current date from the local machine.</p>
+            </li>
+            <li>
+              <p>IUT requests the list of Active Directory users from the domain (via LDAP).</p>
+            </li>
+            <li>
+              <p>IUT picks the first user from the list.</p>
+            </li>
+            <li>
+              <p>
+                IUT retrieves <strong>lastLogon</strong> and
+                <strong>lastLogonTimestamp</strong> attributes for the user from every domain
+                controller.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>In case a single domain controller is
+                  unavailable, no action will be performed.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                If the user has never logged in, the <strong>createTimestamp</strong> attribute is
+                used instead of <strong>lastLogon</strong> or <strong>lastLogonTimestamp</strong>.
+                In case multiple <strong>lastLogonTimestamp</strong> entries are available, the most
+                recent is used.
+              </p>
+            </li>
+            <li>
+              <p>
+                Inactivity time is calculated using <strong>createTimestamp</strong>,
+                <strong>lastLogon</strong> or <strong>lastLogonTimestamp</strong> and the local
+                machine date/time to determine the number of days.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the user matches the inactivity criteria specified, they will be added to the
+                list of inactive users and acted upon according to the configuration.
+              </p>
+            </li>
+            <li>
+              <p>Steps 4 to 7 are repeated for each user in the list.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

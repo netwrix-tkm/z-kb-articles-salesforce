@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Configure Netwrix Auditor in Failover Mode</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TECA0" />
+    <meta name="Id" content="ka0Qk0000005d2LIAQ" />
+    <meta name="LastPublishedDate" content="2024-09-17T20:28:14.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-20T14:45:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="591" />
+    <meta name="ArticleNumber" content="000003024" />
+    <meta name="description" content="Netwrix Auditor failover mode" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How can you configure Netwrix Auditor (NA) in failover mode to minimize the downtime and
+            risk of losing audit data in case of an outage?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Back up NA databases if needed.
+            </p>
+          </blockquote>
+
+          <p>Refer to the following steps to configure NA in failover mode:</p>
+
+          <ol>
+            <li>
+              <p>Prepare your environment by installing NA on a virtual machine.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If NA is already installed on a physical
+                  machine, consider migrating it to a virtual box. Some vendors support "physical to
+                  VM" migration.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Configure the Long-Term Archive (LTA) to be stored on a remote location, such as a
+                shared iSCSI volume. Refer to the following Netwrix knowledge base article for
+                instructions on how to move LTA to a new location:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SSCA0.html"
+                  target="_self"
+                  >How to Move Long-Term Archive to a New Location</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                For setting up backup and failover, ensure that the volume under LTA and Working
+                Folder is redundant enough to survive failure.
+              </p>
+            </li>
+            <li>
+              <p>
+                Use the features provided by your virtualization vendor to ensure zero-downtime of
+                your NA machine (e.g., HyperV Live Migration or VMware VMotion.)
+              </p>
+            </li>
+          </ol>
+
+          <p>For alternative backup and failover options, refer to the steps below.</p>
+
+          <ol>
+            <li>
+              <p>
+                Ensure that the volume under LTA and Working Folder is redundant enough to survive
+                failure.
+              </p>
+            </li>
+            <li>
+              <p>Once NA is up and fully operational, back up the virtual machine.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>You can configure backups as often as every
+                  hour, using differential backups, for example, with one full backup daily.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Set up regular backups of the NA <code>Configuration.xml</code> file on the NA
+                Server. Navigate to the following default path:
+                <code>%ProgramData%Netwrix Auditor\AuditCore\ConfigServer</code>
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>In case you previously migrated your Working
+                  Folder, review the following Registry Key value to identify the new location:
+                  <code
+                    >Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix
+                    Auditor\DataPathOverride</code
+                  >
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Restore the NA machine from snapshot.</p>
+            </li>
+            <li>
+              <p>Restore the configuration.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SSCA0.html"
+                  target="_self"
+                  >How to Move Long-Term Archive to a New Location</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

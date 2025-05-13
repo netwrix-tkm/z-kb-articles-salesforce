@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Access Denied Error Connecting to a Non-domain-joined Windows Resource</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000LLRQCA4"/><meta name="Id" content="ka0Qk0000000ulNIAQ"/><meta name="LastPublishedDate" content="2023-12-08T09:21:23.000+0000"/><meta name="LastModifiedDate" content="2023-12-08T09:21:33.000+0000"/><meta name="FirstPublishedDate" content="2022-12-14T13:49:52.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8526"/><meta name="ArticleNumber" content="000008526"/><meta name="description" content="Resolving &#34;Access Denied&#34; When Connecting to a Non-domain-joined Windows Resource"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>When connecting to a non-domain-joined Windows resource, you may receive an <code>Access Denied</code> message in the ActionServiceWorker log when trying to provision an activity session or run a resource scan.</p>
+
+<pre class="ckeditor_codeblock">Add-SbPAMActionLog: Warn Message: Unable to create New-PSSSession for HOSTNAME using ComputerName (HOSTNAME)
+Error: [HOSTNAME] Connecting to remote server HOSTNAME failed with the following error message :
+Access is denied.
+For more information, see the about_Remote_Troubleshooting Help topic</pre>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<div>
+<p>Review the local configuration of the target host resource:</p>
+
+<ol><li>
+	<p>Run <code>lusrmgr.msc</code> via the Run command window − make sure the NPS service account used is a member of the <strong>Administrators</strong> group. In case the NPS account is not a part of the <strong>Administrators</strong> group, proceed to the next step.</p>
+	</li><li>
+	<p>Change a UAC setting preventing remote PowerShell authentication for non-Administrator accounts. Run the following line in elevated PowerShell:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">New-ItemProperty -Name LocalAccountTokenFilterPolicy `
+-Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System `
+-PropertyType DWord -Value 1</code></pre>
+
+	<blockquote>
+	<p><span><strong>NOTE: </strong></span>Learn more in <a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_remote_troubleshooting?view=powershell-7.3#how-to-enable-remoting-for-administrators-in-other-domains" target="_blank">about_Remote_Troubleshooting − How to enable remoting for administrators in other domains ⸱ Microsoft 🡥</a>.</p>
+	</blockquote>
+	</li></ol>
+
+<p>You should now be able to use your service account to connect to the resource via NPS. For additional information on configuring non-domain-joined NPS resources, to refer to the following article: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000Tt1TCAS.html" target="_self">Managing Non-domain-joined Windows Computers with Privilege Secure</a>.</p>
+</div>
+
+<h2 id="related_articles">Related articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_remote_troubleshooting?view=powershell-7.3#how-to-enable-remoting-for-administrators-in-other-domains" target="_blank">about_Remote_Troubleshooting − How to enable remoting for administrators in other domains ⸱ Microsoft 🡥</a></p>
+	</li><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000Tt1TCAS.html" target="_self">Managing Non-domain-joined Windows Computers with Privilege Secure</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

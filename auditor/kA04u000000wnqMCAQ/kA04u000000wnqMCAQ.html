@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cannot Establish a Connection to a Windows File Server Compression Service</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnqMCAQ" />
+    <meta name="Id" content="ka0Qk0000000vmHIAQ" />
+    <meta name="LastPublishedDate" content="2023-12-11T13:02:06.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-11T13:02:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-21T16:01:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8913" />
+    <meta name="ArticleNumber" content="000008913" />
+    <meta
+      name="description"
+      content="Cannot Establish a Connection to a Windows File Server Compression Service error"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Symptom 1. The following error appears when trying to process an item with Netwrix
+                Auditor for File Servers:
+              </p>
+
+              <div>
+                <pre class="has-inner-focus">
+Unable to process item: Cannot establish a connection to a Compression Service (0x80070424 The specified service does not exist as an installed service).</pre
+                >
+              </div>
+            </li>
+            <li>
+              <p>
+                Symptom 2. The <b>Netwrix Auditor Application Deployment Service</b> is not
+                installed on the target server.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The error appears when the <b>Remote Registry Service</b> was disabled on the target
+            server.
+          </p>
+
+          <h2 id="resolution">Resolution</h2>
+
+          <div>
+            <p>To resolve the error, do the following:</p>
+
+            <ol>
+              <li>
+                <p>
+                  Enable the <b>Remote Registry Service</b> referencing the following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/RemoteRegistryService.htm"
+                    target="_blank"
+                    >Configuration — Windows File Servers — Enable Remote Registry Service —
+                    v10.6</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>Reboot Netwrix Auditor Server.</p>
+              </li>
+            </ol>
+
+            <p>
+              After that, the <b>Netwrix Auditor Application Deployment Service</b> appears on the
+              target file server. Depending on the amount of audited data, further data collection
+              may take a while.
+            </p>
+          </div>
+
+          <h3 id="related_articles">Related Articles</h3>
+
+          <div>
+            <ul>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000TsqpCAC.html"
+                  target="_blank"
+                  >How to Investigate Compression Services Errors</a
+                >.
+              </li>
+              <li>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/RemoteRegistryService.htm"
+                  target="_blank"
+                  >Configuration — Windows File Servers — Enable Remote Registry Service — v10.6</a
+                >.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

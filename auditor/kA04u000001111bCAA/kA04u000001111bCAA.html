@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Connection to Microsoft 365 Tenant in Netwrix Auditor Completes with Error Validating Your
+      Account’s Rights and Permissions
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001111bCAA" />
+    <meta name="Id" content="ka04u00000117A1AAI" />
+    <meta name="LastPublishedDate" content="2023-08-14T16:39:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-14T16:39:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-11T13:56:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8726" />
+    <meta name="ArticleNumber" content="000008726" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the 'Error validating your account’s rights and permissions' error."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When trying to connect to Office 365 Tenant using modern authentication, the following
+            error appears:
+          </p>
+
+          <pre class="has-inner-focus">
+Error validating your account’s rights and permissions: Tenant name 'Tenant_name' specified is not a valid DNS name. </pre
+          >
+        </div>
+
+        <div>
+          <h2 id="cause">Cause</h2>
+
+          <div>
+            <p>
+              The issue occurred due to incorrect Office 365 tenant credentials provided in Netwrix
+              Auditor.
+            </p>
+          </div>
+
+          <h2 id="resolution">Resolution</h2>
+
+          <div>
+            <p>
+              Make sure you provided same parameters in a Netwrix Auditor monitoring plan and
+              Microsoft Office 365 Admin center.
+            </p>
+
+            <ol>
+              <li>
+                <p>
+                  <b>Tenant name</b> in Netwrix should equal the <b>Directory (tenant) ID</b> in
+                  Microsoft Office 365 Admin center.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <b>Modern authentication application ID</b> should equal
+                  <b>Application (client) ID</b> in Microsoft Office 365 Admin center.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <div>
+            <p>
+              <img
+                alt="00371273 O365 Tenant.PNG"
+                src="kA04u000001111bCAA_f2334a9b-92d3-4aa6-a9ff-7701a6e30464.png"
+              /><br />For additional information on configuring Office 365 tenant, refer to the
+              following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/Overview.htm"
+                target="_blank"
+                >Microsoft 365</a
+              >. Select the data source you want to audit and review the corresponding section.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

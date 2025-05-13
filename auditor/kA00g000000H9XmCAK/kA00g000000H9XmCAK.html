@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error During Agent Operation on Server: No Such Host is Known</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XmCAK" />
+    <meta name="Id" content="ka04u000000wwFtAAI" />
+    <meta name="LastPublishedDate" content="2023-09-02T15:27:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-27T12:37:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1147" />
+    <meta name="ArticleNumber" content="000003301" />
+    <meta name="description" content="Netwrix Auditor, Windows Server, No such host is known" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Activity Summary contains the following error message:</p>
+
+          <pre class="has-inner-focus">
+&lt;ServerName&gt;: Error during agent operation on server &lt;ServerName&gt;. No such host is known. Additional information: none.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Here are the possible causes for the issue:</p>
+
+          <ul>
+            <li>
+              <p>Cause 1. Incorrect server names are specified.</p>
+            </li>
+            <li>
+              <p>Cause 2. DNS-request fails.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Here are possible options to resolve the issue:</p>
+        </div>
+
+        <h4 id="check_server_names">Check Server Names</h4>
+
+        <div>
+          <p>
+            First of all, check that all server names are specified correctly in the program
+            settings. Make sure that your DNS server, has the DNS-records registered for your
+            problematic servers:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the server running Netwrix Auditor Server host, launch the<b> nslookup</b> tool:
+                click <b>Start</b> / <b>Run</b>, type in <b>nslookup.exe</b> and press <b>Enter</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <b>nslookup</b> dialog, check all your problematic servers one by one:
+                specify a server name and press <b>Enter</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the IP-addresses appear in the command output, your DNS server has the
+                DNS-records registered correctly.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="check_dns_records">Check DNS Records</h4>
+
+        <div>
+          <p>If the DNS-records are not registered correctly, perform the steps below:</p>
+
+          <ol>
+            <li>
+              <p>
+                On each problematic server, launch the command prompt: click <b>Start /</b>
+                <b>Run</b>, type in <b>cmd</b> and press <b>Enter.</b>.
+              </p>
+            </li>
+            <li>
+              <p>Type in the <code>ipconfig /registerdns</code> command and press <b>Enter</b>.</p>
+            </li>
+            <li>
+              <p>As a result, the DNS records will be registered for your servers.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

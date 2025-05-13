@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_10.0_099</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Jn5CAE" />
+    <meta name="Id" content="ka04u000000HdCCAA0" />
+    <meta name="LastPublishedDate" content="2022-03-04T18:38:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:42.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-14T20:49:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8377" />
+    <meta name="ArticleNumber" content="000008377" />
+    <meta name="description" content="FSAA: Resolve deleted USNs in bulk import" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span
+              ><strong><span>Summary: </span></strong>  FSAA: Resolve deleted USNs in bulk
+              import</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Michael Burrofato</span></span></span
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>10.0</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Module:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span><span>SA – DC – FSAA</span></span></span
+        ><br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        >
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span><span>ADO Bug 84951</span></span></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      >DC\DCFSAA.dll                                                                                                    
+                                     10.0.1286</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      >DC\FSAASrv.dll                                                                                                    
+                                     10.0.1286</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.FSAA.dll                 
+                      10.0.1286</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.FSAA.UI.dll           
+                      10.0.1286</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"
+                ><span><b>Other dependencies included:</b></span></span
+              ></span
+            ></span
+          ></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\AIPHelper.dll</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\FSAAnetApp.dll</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\FSAATagHelper.exe</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\libnfs.dll</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\SDDScanAPI32.dll</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\sqlite3.dll</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"><span>DC\StealthAUDITRPC.exe</span></span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span>DC\StealthAUDITRPCClient.dll</span></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span>DC\UpdateFSAAService.exe</span></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span>PrivateAssemblies\StealthAUDITRPCClient.dll</span></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      >PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.FSAA.RPCClient.dll</span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span>SensitiveData\DLPCommon.dll</span></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>               Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>YouTrack/Escalations</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>-              ADO User Story 88272</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong
+              ><span>Cumulative List of fixes included since Service Pack:</span></strong
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18439 42338 - Update FSAC to support UCS2 encoding</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18737 471 - FSAA Unable to start scan: Could not initialize
+                  scan session for "SERVER" with "SCANNER"</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18771 50592 - FSAA Bulk import errors "UNIQUE constraint
+                  failed" on Turkish console.</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18795 50703/50855 - FSAA "...not a valid date and time" Error
+                  scanning after Upgrading to 10.0</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18975 Add logging to the FSAA repair tool in maintenance
+                  wizard</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19025 51346 - FSAA Bulk Import error: SqlDateTime
+                  overflow</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19092 SDD: Dont start file extractor when only text extractor
+                  is needed (10.0 Implementation)</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19100 FSAA: Improve performance in bulk import around
+                  SetDeletedUSN</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19180 FSAA: T2 Query for resources can result in fragmented
+                  IDs importing, hurting performance</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19211 51931 - Unable to upgrade FSAA proxy using maintenance
+                  query</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19009 Update FSAA to store null values in the
+                  SA_FSAA_FileAges table for folders that do not have files in them. (10.0+)</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19375 Update duplicate removal tool to fix GatesProxyMap
+                  (10.0 Merge)</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              SAFS-19370 FSAA DC: Repair tool looking in wrong location for
+              Suspend.xml</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              SAFS-19270 51453 - FSAC: Impersonation issue when targeting Windows
+              Clusters</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              SAFS-18990 FSAA: Repair tool throws SQL logic error if multiple DLPEX
+              databases exist</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19358 52688 - FSAA DC: Repair tool timeout is hardcoded to 30
+                  minutes</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18786 FS DC: Maintenace task 'RESET' on a host in T1 that has
+                  no T2 folder shows obscure error</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19498 Error after Repair Tool 10.0 - SQL logic error database
+                  DLPEX0 is already in use</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19499 FSAA Repair Tool: Saying path doesn't exist when it
+                  does</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19280 1164 - FS DC: Improve proxy host list selection in FSAA
+                  DC scan config.</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19488 Update FSAA to support IPv6 for NFS scans.</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19425 52817 - PK_SA_FSAC_PermissionChanges after Dup
+                  Removal</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19553 FSAA: Remove reference to HostStatus.pas in FSAA
+                  Project</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19671 FSAA Repair tool: SQL logic error no such table:
+                  TBL_FSAC_PermissionChanges</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19353 52576 - Add tool to mark children of deleted parents as
+                  deleted in tier 1 to the repair tool</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19693 53538 - FS scans do not respect scoping rules when
+                  folder is a substring of filter</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18673 53120 - FSAA SDD: Scans fail to start when there is too
+                  much custom criteria configured.</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19695 53546 - FSAC Bulk Import Errors
+                  "System.NullReferenceException: Object reference not set to an instance of an
+                  object"</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18566 FSAA SDD: Progress reporting not working</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20082 54480 - FS Maint Wiz Limit on DLP Tier 2</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span>-              SAFS-20128 SDD: Issue with long path handling</span></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20337 SDD: Bulk import error importing MatchHits of corrupt
+                  zip files</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18993 SDD: Error initiating DLP scan of file with temp path
+                  of 260 characters</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20276 SA 10.0 365 day limit on file activity (UI).</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-19954 FSAA SDD: Batch deleting old SDD matches</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20378 55122 - Disabling OCR automatically excludes image
+                  files from SDD scans</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20593 FSAA SDD: SEEK Bulk Import Results table shows
+                  inaccurate counts for Matches and MatchHits when using SDD Parallelism</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20792 56701 - Failed to import SA_FSDLP_Matches: Violation of
+                  PRIMARY KEY constraint 'PK_SA_FSDLP_Matches'. (Remediation)</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-18331 428 - FSAA SDD: Make DLP exceptions report actual
+                  filename/path</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-21123 58099 - FSAA: Update Repair tool to remove duplicate
+                  gates in tier 1</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-21243 FSAA scan hangs after failure to enumerate folder fails
+                  with "The semaphore timeout period has expired"</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-21252 58731 - Out of Memory Errors on Seek Scans</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20985 Failed to import SA_FSDLP_Matches: Violation of PRIMARY
+                  KEY constraint 'PK_SA_FSDLP_Matches'. (Prevention)</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-20257 FSAC: Proxy Connection Error Logging Improvements</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >-              SAFS-21532 59983 - Error message about parsing datetime on
+                  import</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              SAFS-21523 59932 - \APPLICATION PACKAGE AUTHORITY\ALL APPLICATION
+              PACKAGES missing from FSAA collections.</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              SAFS-21579 FSAA Bulk Import: Leverage command timeout for merging
+              StrucMap code (10.0 Merge)</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              SAFS-19924 62573 - Slow log file cleanup for old log files times out
+              scan when copying back t2s</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO Bug 74590: 63497 - SA_FSAA_ScanHistory table growth</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO Bug 83975: Error "StealthAUDITRPC.EXE is not a dll or exe" in
+              StealthAUDITRPC log file</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO Bug 84951: 64510 - FSAA: Improve Bulk import performance when
+              marking resources as deleted in tier 1</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO Bug 88015: FSAA: DeletedUSN logic broken after performance
+              changes</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO Bug 74601: 63419 - file system SDD scans failing with error "no
+              DLP scanners available"</span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO User Story 85483: FSAA: Clean/Refactor code around bulk import
+              merge statement</span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>List of changes since last Hotfix</b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              >-              ADO User Story 88272: FSAA: Resolve deleted USNs in bulk import</span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Comments:</b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><b
+                ><span
+                  ><span
+                    ><span
+                      >THIS HOTFIX REQUIRES SDD ADD-ON VERSION 10.0.0.66 OR LATER TO BE INSTALLED
+                      (IF LICENSED FOR SDD).</span
+                    ></span
+                  ></span
+                ></b
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><b
+                    ><span
+                      ><span
+                        >Unblock the hotfix zip file in the windows property dialog, if an unblock
+                        button exists there. </span
+                      ></span
+                    ></b
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Close all instances of StealthAUDIT (check task manager under processes for all
+                  users)</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span>Update all DC files in your %SAInstallDir%DC folder</span></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies
+                      folder.</span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      >Update all SensitiveData files in your %SAInstallDir%SensitiveData
+                      folder.</span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      >Install SDD add-on version 10.0.0.66 or later (this step only applies to
+                      customers that are licensed for Sensitive Data)</span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      >Run the ‘Update Proxy Service’ query under the Maintenance tab in the FSAA
+                      data collector against your proxy servers (if running proxy service).</span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+            <ol>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      ><strong
+                        ><span
+                          ><span
+                            >PLEASE NOTE THAT THIS HOTFIX INCLUDES A CHANGE THAT MAY REQUIRE YOU TO
+                            RUN THE UPDATE PROXY SERVICE TWICE TO UPDATE SDD COMPONENTS ON THE PROXY
+                            SERVER. YOU SHOULD RECEIVE A WARNING ON THE FIRST RUN INDICATING
+                            THIS.</span
+                          ></span
+                        ></strong
+                      ></span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong><span>Re-run Bulk Import.</span></strong></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <br /><br />https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_099.zip<br /><br /><br /> 
+      </div>
+    </article>
+  </body>
+</html>

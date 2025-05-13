@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tail a log file in Windows</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IL7CAM" />
+    <meta name="Id" content="ka04u000000HckuAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:23:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:23:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6595" />
+    <meta name="ArticleNumber" content="000006595" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to tail a log
+          file in Windows
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Sometimes its
+          pertinent to tail a log file. Linux has this function natively from the command line, now
+          Windows does too (Since PowerShell version 3)! This opens the log file as a system process
+          so can be read while StealthAUDIT is writing to the file.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Open a
+          PowerShell prompt. Move to the log file directory by using the Change Directory command
+          "CD". Once in the directory with the log file run  <span
+            ><span><span>Get-content -Wait -Tail X Logfilenname.tsv</span></span></span
+          >
+          Where X is the number of lines you want to tail (note you can use TAB to autocomplete
+          these steps). (Using the
+          <span
+            ><span><span>-wait</span></span></span
+          >
+          switch keeps the file open, failure to add the
+          <span
+            ><span><span>-wait</span></span></span
+          >
+          will only display the current state of the log file).<br /> <br />E.g., to view the TSV
+          for the Active Directory Inventory job, run the following.<br />Open PowerShell<br /><span
+            ><span
+              ><span
+                >CD "C:\Program Files (x86)\STEALTHbits\StealthAUDIT\Jobs\GROUP_.Active Directory
+                Inventory\JOB_1-AD_Scan\Output"
+              </span></span
+            ></span
+          ><br /><span
+            ><span><span>Get-content -Wait -Tail 10 1-AD_Scan_Log.tsv</span></span></span
+          >
+          will show you the last 10 lines of the AD Scan Job and then any new lines of the log
+          file.<br />The output is refreshed every second.<br /> <br /><span
+            ><span
+              >Reference link -<span>
+                <a
+                  href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-6"
+                  target="_blank"
+                  >https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-6</a
+                ></span
+              ></span
+            ></span
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          File Activity Monitor - Windows;SA - Core;SI - Enterprise Manager;StealthDEFEND -
+          General;StealthRECOVER - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          All<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000002252
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

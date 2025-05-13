@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Asset Export Utility Configuration</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015thKAA" />
+    <meta name="Id" content="ka0Qk0000004nIHIAY" />
+    <meta name="LastPublishedDate" content="2025-04-28T17:28:05.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T17:28:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:35:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9173" />
+    <meta name="ArticleNumber" content="000009173" />
+    <meta name="description" content="Asset Export Utility configuration" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article provides step-by-step instructions for migrating schedules and synchronize
+          jobs from Netwrix Directory Manager (formerly GroupID) 10 to Directory Manager 11 using
+          the Asset Export utility. The process involves exporting assets from Directory Manager 10,
+          preparing the Directory Manager 11 server, and importing the assets.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="prepare_the_directory_manager_11_server">
+          Prepare the Directory Manager 11 Server
+        </h4>
+        <ul>
+          <li>
+            Ensure the Directory Manager 10 installation folder is present at the default location
+            (<strong>C:\Program Files\Imanami\GroupID10</strong>) on the Directory Manager 11
+            server.
+          </li>
+          <li>
+            Copy the Directory Manager 10 folder from <strong>ProgramData</strong> to the Directory
+            Manager 11 server.
+          </li>
+        </ul>
+        <h4 id="export_assets_from_directory_manager_10">
+          Export Assets from Directory Manager 10
+        </h4>
+        <ol>
+          <li>Run the <strong>Asset Export</strong> utility on the Directory Manager 10 server.</li>
+          <li>
+            Select the option <strong>Directory Manager 10.0 to Directory Manager 11.0</strong>.
+          </li>
+          <li>Select the schedules and synchronize jobs to export.</li>
+          <li>Click <strong>Export</strong> and select a folder to save the exported assets.</li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015thKAA_a04fed93-a4a2-47f3-883b-cd289160505f.png"
+            alt="Asset Export utility main screen on Directory Manager 10"
+          />
+          <img
+            src="kA0Qk00000015thKAA_6d45aacd-242b-42f2-af0e-69ebd0a06d07.png"
+            alt="Selecting schedules and synchronize jobs for export"
+          />
+          <img
+            src="kA0Qk00000015thKAA_015eef0b-80f3-467e-a3a3-84dfe226e776.png"
+            alt="Export folder selection dialog"
+          />
+        </p>
+        <h4 id="provide_the_encryption_key">Provide the Encryption Key</h4>
+        <ol>
+          <li>
+            When prompted, enter the encryption key (passphrase) used for database encryption in
+            Directory Manager 10. The key must match the one used in Directory Manager 10 SR 2.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015thKAA_fc0ea251-d7f7-4f08-a428-e3979d3e144e.png"
+            alt="Encryption key entry screen in Asset Export utility"
+          />
+        </p>
+        <h4 id="copy_required_folders_to_directory_manager_11_server">
+          Copy Required Folders to Directory Manager 11 Server
+        </h4>
+        <ul>
+          <li>
+            Copy the default installation folder of Directory Manager 10 to the Directory Manager 11
+            server.
+          </li>
+        </ul>
+        <p>
+          <img
+            src="kA0Qk00000015thKAA_df9d8458-77ea-4831-ba75-116e68ec02a8.png"
+            alt="Default installation folder location for Directory Manager 10"
+          />
+        </p>
+        <ul>
+          <li>
+            Copy the <strong>ProgramData</strong> location to the Directory Manager 11 server for
+            synchronize jobs.
+          </li>
+        </ul>
+        <p>
+          <img
+            src="kA0Qk00000015thKAA_85f70c61-b5ca-414e-a537-14a1091dbc37.png"
+            alt="ProgramData folder for synchronize jobs"
+          />
+        </p>
+        <ul>
+          <li>
+            Copy the <strong>Reports</strong> folder in ProgramData to the Directory Manager 11
+            server.
+          </li>
+        </ul>
+        <p>
+          <img
+            src="kA0Qk00000015thKAA_ae8654ae-b84e-42cc-b32a-fd68ae9426d0.png"
+            alt="Reports folder in ProgramData on Directory Manager 11 server"
+          />
+        </p>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>The <strong>schedules</strong> and
+            <strong>synchronize job</strong> folders should be empty (the Asset Export utility will
+            import these files). However, for the <strong>Reports</strong> folder, copy reports from
+            the Directory Manager 10 server for the respective schedules upgrade.
+          </p>
+        </blockquote>
+        <h4 id="import_assets_into_directory_manager_11">
+          Import Assets into Directory Manager 11
+        </h4>
+        <ol>
+          <li>Run the <strong>Asset Export</strong> utility on the Directory Manager 11 server.</li>
+          <li>Select <strong>Directory Manager 10.0 to Directory Manager 11.0</strong>.</li>
+          <li>
+            Click <strong>Browse</strong>, select the exported file, and click
+            <strong>Import</strong>.
+          </li>
+          <li>
+            The schedules and synchronize jobs will be imported into the respective folders on the
+            Directory Manager 11 server.
+          </li>
+          <li>After import, run the upgrade on the Directory Manager 11 server.</li>
+        </ol>
+        <p>
+          <img
+            src="kA0Qk00000015thKAA_34510a19-46ba-4fb5-9c61-c9fc1a48f2f3.png"
+            alt="Asset Export utility import screen on Directory Manager 11"
+          />
+          <img
+            src="kA0Qk00000015thKAA_4a2701da-4b1d-447c-8f72-7a7de56dbeca.png"
+            alt="Import progress screen"
+          />
+          <img
+            src="kA0Qk00000015thKAA_495175f7-0d63-4fd8-a33b-524e09fae2cf.png"
+            alt="Imported schedules and synchronize jobs in Directory Manager 11"
+          />
+          <img
+            src="kA0Qk00000015thKAA_9bb51088-1992-477c-aab6-8682a441aa93.png"
+            alt="Upgrade process on Directory Manager 11 server"
+          />
+        </p>
+        <h2 id="related_links">Related Links</h2>
+        <ul>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/directory-manager/page/kA00g000000H9TKCA0.html"
+              target="_self"
+              >How to Upgrade Directory Manager</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

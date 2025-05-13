@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to fix the "Check Log for Details" message in the event details</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JVQCA2" />
+    <meta name="Id" content="ka04u000000Hd8dAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:38:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8133" />
+    <meta name="ArticleNumber" content="000008133" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p class="MsoNormal">
+          This is usually due to the Who made the change driver called the “NNT Info” Driver not
+          running.
+        </p>
+        <p><br /></p>
+        <p class="MsoNormal">
+          In command prompt as admin, type in “fltmc” and press enter. If the driver is running you
+          should see NNT Info as one of the listed items.
+        </p>
+        <p class="MsoNormal"><br /></p>
+        <p class="MsoNormal"><br /></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image confluence-content-image-border"
+              height="146"
+              width="557"
+              src="kA04u0000000JVQCA2_ccf9c380-41ad-4a0a-9f2d-a6d37afac5b2.png" /></span
+          ><br /><br />
+        </p>
+        <p>
+          If not, go to the directory below, and right click the “Install” file, and run it as
+          administrator. 
+        </p>
+        <p><strong>Gen7 Agent:</strong></p>
+        <p>C:\Program Files\NNT Change Tracker Suite\Gen7Agent\Driver</p>
+        <p><strong>6.5 Agent:</strong></p>
+        <p>C:\Program Files\NNT Change Tracker Suite\Agent\Driver </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              width="557"
+              src="kA04u0000000JVQCA2_ff76ac96-1c91-478c-8fc3-8f1cbef16423.png"
+          /></span>
+        </p>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <p class="title">Please Note:</p>
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <p><br /></p>
+            <p>
+              In some cases users may notice that the NNTInfo driver is running, however they are
+              experience intermittent interruption of who made the change information.
+            </p>
+            <p>
+              This mainly occurs on extremely busy and noisy systems with a large volume of changes.
+              The kernel buffer which is used to capture the who made the change information may be
+              overflowing, so our agent may be unable to capture the who made the change information
+              in this case. Keep in mind that because our agent is a kernel level agent, although
+              excluding the events in Change Tracker will stop the reporting of the events, these
+              events are still being generated at the kernel level and so, the agent is seeing them,
+              but choosing not to report them to the hub server based on the predefined exclusion.
+            </p>
+            <p>
+              Large volumes of changes will impact the agents ability to capture who made the change
+              information depending on the volume.
+            </p>
+          </div>
+        </div>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

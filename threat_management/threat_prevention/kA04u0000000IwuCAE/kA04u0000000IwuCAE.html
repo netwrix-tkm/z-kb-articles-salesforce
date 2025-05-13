@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Unable to Uninstall or Upgrade Hardened Agent</title><meta name="label" content="employees_v"/><meta name="label" content="threat_prevention"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IwuCAE"/><meta name="Id" content="ka0Qk0000005QbNIAU"/><meta name="LastPublishedDate" content="2024-09-10T06:47:16.000+0000"/><meta name="LastModifiedDate" content="2024-09-11T05:16:22.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:43:57.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7359"/><meta name="ArticleNumber" content="000007359"/><meta name="description" content="Unable to Uninstall or Upgrade Hardened Agent"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptoms">Symptoms</h2>
+
+<div>
+<p>The Netwrix Threat Prevention (NTP) agent hardening cannot be removed (softened). You cannot uninstall or upgrade the agent.</p>
+</div>
+
+<div>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>The NTFSSecurity module must be installed to proceed. Download the PS module in <a href="https://www.powershellgallery.com/packages/NTFSSecurity/4.2.6" target="_blank">NTFSSecurity · PowerShell Gallery 🡥</a>.</p>
+</blockquote>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Refer to the following steps to uninstall a hardened NTP agent:</p>
+
+<ol><li>
+	<p>Download PsExec to the target DC from <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/psexec" target="_blank">PsExec · Microsoft 🡥</a>.</p>
+	</li><li>
+	<p>In an elevated Command Prompt instance, change directory to the PsExec folder and run the following line to run PowerShell as <code>system</code>:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Psexec.exe -I -s powershell.exe</code></pre>
+	</li><li>
+	<p>Run the following lines to stop the NTP agent, disable the automatic stratup, and reset permissions for the <code>SIWindowsAgent</code> folder.</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Stop-Service SIWindowsAgent
+Set-Service SIWindowsAgent -Startup Disabled
+Import-Module NTFSSEcurity
+$ACL = Get-ACL 'C:\Program Files\STEALTHbits\StealthINTERCEPT\SIWindowsAgent\’
+$ACL.SetAccessRuleProtection($False,$true)
+Set-ACL -Path 'C:\Program Files\STEALTHbits\StealthINTERCEPT\SIWindowsAgent\' -AclObject $ACL</code></pre>
+
+	<blockquote>
+	<p><span><strong>NOTE: </strong></span>Verify the target paths in your environment. For the default agent folder path in v7.4, refer to the following code block:</p>
+
+	<pre class="has-inner-focus">C:\Program Files\Netwrix\Netwrix Threat Prevention\SIWindowsAgent</pre>
+	</blockquote>
+
+	<blockquote>
+	<p><span><strong>IMPORTANT: </strong></span>In the <strong>Security</strong> settings of the <code>SIWindowsAgent</code> folder, verify both <strong>Users</strong> and <strong>Administrators</strong> groups have <strong>Full control</strong> permissions.</p>
+	</blockquote>
+	</li><li>
+	<p>In the <code>SIWindowsAgent</code> folder, locate the <code>SIWindowsAgent.exe.config</code> file. Locate the following node and alter the value to <code>false</code>:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">&lt;add key="hardeningEnabled" value="false" /&gt;</code></pre>
+	</li><li>
+	<p>Uninstall the NTP agent using the user account.</p>
+	</li></ol>
+</div></div>
+</article></body></html>

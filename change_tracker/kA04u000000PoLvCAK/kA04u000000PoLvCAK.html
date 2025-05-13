@@ -1,0 +1,1073 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Installing Change Tracker Gen 7: Gen7 R2 Hub Service Log</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoLvCAK" />
+    <meta name="Id" content="ka04u000000QmkQAAS" />
+    <meta name="LastPublishedDate" content="2023-06-05T14:09:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-05T14:09:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-06-05T14:09:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8603" />
+    <meta name="ArticleNumber" content="000008603" />
+    <meta name="description" content="Installing Change Tracker Gen 7: Gen7 R2 Hub Service Log" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <pre class="ckeditor_codeblock">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Gen7R2 Hug Service Log:                                               #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ 
+7.2.1.21 - 04-Oct-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- fix: HELPDESK-4547 Groups "Export Members" Button missing
+- fix: HELPDESK-4631 BUG - Inconsistencies in tracking templates when viewed by different users
+- fix: for previous group avg score calculation in summary compliance report
+- fix: for miscalculated dashboard widget chart heights in chrome
+- enh: new User Role 'Report Admin' grants holder the permissions to view/edit all reports in system. Default admin account now has this role.
+- enh: new config key 'MaxDevicesInComplianceReport' can be used to increase the maximum number of devices allowed in a compliance report run from the default of 50000
+- enh: new config key 'ComplianceReportTasksIssuedPerSecond' can be used to alter the rate of issuing report tasks to agent from the default of 10. Setting to 0 issues all tasks at once.
+- enh: added CIS certified Windows Server 2019 reports.
+- enh: added CIS certified Windows 10 Release 1809 reports.
+ 
+7.2.1.20 - 21-Aug-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- fix: HELPDESK-4124 New Agents Automatically Get Placed in 'Deleted Group' when DeleteDevicesOfflineForSeconds advanced setting is configured
+- fix: for 'Object reference error' in report summary text running group compliance report when some members of the group are offline
+- enh: HELPDESK-4121 Added secure / unsecure TCP options for Syslog
+- enh: HELPDESK-4129 Enable the "x items per page" option on the Devices page
+- enh: HELPDESK-3718 Proxied Device selection issue, list only the selected proxied device on admin page (under parent) if a proxied device selected
+- fix: HELPDESK-4168 re: "stuck" layout rendering template
+- enh: HELPDESK-3448 New config key 'LoadConfigTemplates' can be used to prevent config templates from being re-loaded after they have been removed from SetupGroups.json and deleted from the UI
+- enh: Addition of CIS Red Hat Enterprise Linux 5 Benchmark Level 1 and 2 reports
+- enh: HELPDESK-4229 Include notification method in user notifications CSV export
+ 
+7.2.1.19 - 25-Jun-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- fix: 'All Devices All Events' etc default queries were not correctly created in new install
+- fix: HELPDESK-4017 User restrictions and the dashboard widgets
+- fix: HELPDESK-4014 Name Column Blank in Device Page for User Role
+- fix: HELPDESK-3787 Cannot View the Operating System Of A Proxy Device On The Groups Page
+- fix: HELPDESK-3858 Group Page Refresh Notifications when change group selection
+- fix: HELPDESK-3805 Group Actions Buttons Scroll Off Screen
+- fix: HELPDESK-3540 Moving Groups (autoscroll tree)
+- fix: HELPDESK-3737 Custom Report Introduction Text Not Provided in Reports Delivered via Email
+- fix: HELPDESK-3857 Device Report: Online Status Filter Bug
+- fix: HELPDESK-3823 Cloned User Role Bug
+- fix: HELPDESK-3945 Updating user with large number of notifications
+- enh: further CEF syslog formatting
+- enh: new 'Itsm' role includes minimum permissions required for Itsm integration
+ 
+7.2.1.18 - 02-May-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- enh: HELPDESK-3738 Add From Existing Ruleset Takes Time / Times out =‌&gt; change PC wizard ruleset selection to search by 'name contains' rather than picklist, to allow for handling otherwise large lists of rulesets
+- enh: reduce time taken to query incoming queue length
+- enh: added CIS certified Ubuntu 18.04 compliance reports
+- enh: improvements to processing core to enable distribution of report processing tasks
+- enh: improvements to events/planned change reports event summary section (HELPDESK-3658 Report Chart)
+- enh: addition of new Reports index on type (oid_1__t_1)
+- enh: ensure that all dependent UI pages refresh when TimeZone is changed using new timezone selector in LHS panel
+- enh: update compliance page grid headers to use standard user date format
+- enh: improvements to gridFs cleanup routine causing reporting slowdown on some upgraded installs
+- fix: for missing alert description in events grid
+- fix: HELPDESK-3693 Device Last Poll Time Report Issue
+- fix: for Compliance report total percentage
+- fix: for report table of contents failing to display
+- fix: for device page events detail chart query to correspond with events shown on events page
+- fix: for missing planned change ruleset displayname value on legacy planned changes, causing failure to display in grids
+- fix: for js error deleting SMTP mail server settings from UI
+ 
+7.2.1.17 - 05-Apr-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- enh: addition of new Events index on PlannedChangeStatus (oid_1_pcs_1_dt_-1)
+- enh: show group member changes (added, removed) in change event description
+- fix: agent update schedules in the future are now honoured
+- fix: ignore OverwriteIfExists flag when uploading Compliance Report Xml templates. The internal report version numbers are now honored, so a new edit of a report must be given a new version
+- fix: compliance results for a new device appeared in wrong position in grid when added to an existing group
+- fix: to allow large numbers of events to be rendered in pdf report (removing document overflow error)
+- fix: for events filter when selecting only Local Accounts events
+- fix: HELPDESK-3614 Proxy Agent Process Tracker, Device Type shows in details and Process Tracker details grid populated
+- fix: HELPDESK-3504 Search devices is not working properly. DeviceFilterManage permission added to 'User' role, filters sorted before return from API
+- fix: HELPDESK-3626 Licensing Page Bug. License details correctly being shown
+- fix: Config Template - SUSE LES 11 Base.xml, Oracle Linux 6 CIS Base Template.xml, syntax errors corrected ('greater than' ampersand encoding etc)
+ 
+7.2.1.16 - 18-Mar-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- enh: performance tuning for bulk event re-submit workloads triggered by sync service
+- enh: new Devices Monitoring report added
+- enh: events/planned change reports now have "Align to previous unit (hour or day)" option to standardize the event time period reported on whatever the execution time
+- enh: events/planned change reports can now be offset back a number of days to report on N days ago
+- enh: new config key 'MaxEventsInReport' can be used to increase the maximum number of events listed in a pdf events report from the default of 500
+- enh: for HELPDESK-3044 Increase Event List from 1000 to Higher - events page has new 'All Events' button to match all events in query not just current page, resubmit and add to planned change bulk operations supported
+- chg: Planned Change 'recording mode' feature retired due to incompatibility with future scaling plans
+- fix: Planned Change 'resubmit events' now uses current date range selection from LHS panel to choose events to resubmit
+ 
+7.2.1.15 - 01-Mar-2019
+======================
+*** NB Mongo Db 3.6.3 is now required, 3.6.9 or above recommended ***
+- enh: Devices page has new refresh on date range change support
+- enh: Devices page Reports tab now supports report download using the formats available on the Reports page
+- enh: Reports page has options to include a subset of the agents in a compliance report run in the results
+- enh: Planned Change Summary Report available, with date filters to select PC active date range
+- enh: optimisation to only add registration tasks for devices currently online on each pass
+- enh: add 'Include Default System Reports' filter checkbox to Reports page
+- enh: log warnings if malformed localhost.json database settings are detected
+- enh: improved caching of group and device hierarchy to improve system responsiveness
+- fix: user group restrictions are now applied when searching for devices and adding device/group selections to favourites list
+- fix: admin device link from devices =‌&gt; admin devices page
+- fix: handle missing reportDataRepository section in localhost.json config file by creating one based on default settings
+- fix: handle report version number parsing on under languages where decimal point is a comma etc
+- fix: for HELPDESK-3202 All devices change events not showing in graphs dashboard
+- fix: for HELPDESK-3369 CSV delivery file via email is corrupt
+ 
+7.2.0.14 - 04-Jan-2019
+======================
+*** NB Mongo Db 3.6.X is now required ***
+- enh: compliance templates updated
+- enh: better reporting of failure to compare reports due to duplicated rule titles in rule xml
+- fix: for correct filtering using search text in events query report
+- fix: dashboard reset editing state on logout timeout
+- fix: for HELPDESK-2325 creating/editing 'access problem' planned change rules
+- fix: for GridFS access when FIPS enabled
+ 
+7.2.0.13 - 12-Dec-2018
+======================
+*** NB Mongo Db 3.6.X is now required ***
+- enh: package mongodb-win32-x86_64-2008plus-ssl-3.6.9-signed.msi with new installs
+- enh: improve dashboard performance
+- enh: compliance templates updated
+- enh: improve device page performance
+- enh: improve cache warmup performance to decrease application startup time
+- enh: added Device page 'online status' filter to filter display strip.
+- enh: UI login process alteration; don't refresh page when server comes back online and user session hasn't changed
+- fix: to navigation from dashboard page to compliance
+- fix: for HELPDESK-2854 re: "red hat" vs "redhat"
+- fix: to syslog notification as per HELPDESK-2851
+- fix: for compliance page re: incorrect headers, support for large groups and missing page control
+- fix: corrected link on devices page for compliance report
+ 
+7.2.0.12 - 04-Dec-2018
+======================
+*** NB Mongo Db 3.6.X is now required ***
+- enh: updated compliance reports with 13 Jul 2018 builds
+- enh: track whether an event was added to a planned change manually, or via a rule. Resubmit events supports the ability to filter on this flag
+- enh: events manually added to a planned change must now be within it's date range
+- enh: appSettings.config entries to control send of initial online/offline device notifications, "notifications.sendinitialofflinenotifications" and "notifications.sendinitialonlinenotifications", both default to false
+- fix: for HELPDESK-1956 Unable to login to Change Tracker (=‌&gt; remove default sort from cache warmup query)
+- fix: to record LastLoginAttempt for user even when not using the "auth.lockoutenabled" flag
+- fix: for GetAgents API call name match using a startswith query when it should be equals
+- fix: for efficient re-processing of Events when DaysToKeepEventsFor setting changed
+- fix: prevent planned change rule reduction process from creating a rule that matches zero length match text (which matches anything)
+- fix: for HELPDESK-2457 Application of templates with times merging with templates without times
+ 
+7.0.1.57 - 08-Jun-2018
+======================
+- enh: reduce minimum allowed planned change window size to 0 (was 10 minutes)
+- enh: show planned change member groups count and explicitly added devices count in planned change summary grid UI
+- fix: for HELPDESK-1814 re-run query now button not functioning correctly on scheduled query results
+- fix: for HELPDESK-1724 Event filter does not work in new version
+- fix: for HELPDESK-1703 re: large filecontent event changes
+- fix: for HELPDESK-1528 Remove ending date information in Planned change
+ 
+7.0.1.56 - 09-May-2018
+======================
+- fix: HELPDESK-1709 re unable to create new Planned Change
+- fix: to set ServicePointManager.SecurityProtocol for FAST calls where local Tls protocols disabled
+- fix: for HELPDESK 1462 re: events grid not including final second of end date
+- fix: for search for planned change status = NotRelevant did not return all events
+- fix: HELPDESK-1235 re: Exclude some servers from planned change
+- fix: for local accounts tracker filter on events page
+- fix: HELPDESK-1257 re: using text can't sort via an index so can exceed mongo memory limit.  Add app setting TextSearchMethod = regex
+- fix: HELPDESK-1359/1603 re: renaming groups
+- fix: HELPDESK-1531 re: schedule query interval set to 0 minutes
+- enh: add EventBlockEnabled to agent at API level to reject event submission from rogue agents
+- enh: updated bundled MongoDB with Windows installed to 3.6.3
+- enh: additional tracking template caching for large estates
+- enh: Api enhancements for individual devices in planned changes
+- enh: updated compliance reports with 30 Apr 2018 builds
+ 
+7.0.1.55 - 15-Jan-2018
+======================
+- fix: for high CPU use when re-queued Fast lookup attempted with no FAST API key set
+- fix: V7-259 Report rule results diffe r depending on whether process.service rule is in a single rule report or multi-rule report
+- fix: HELPDESK-644 re: scheduled exports of baseline events
+- fix: HELPDESK-546 re: scheduled Reports - Parent/Child Group Issue
+- fix: Alert events now also returned when searching by planned change id
+- fix: agents sending very large report results via streamed file
+- fix: raise an error to caller when FAST/whitelist test call fails (rather than just logging error)
+- fix: V7-244 Tracked Attributes - "File Attributes (including contents) only" doesn't display attributes that change
+- enh: existing reports updated 12/1/18
+- enh: report error when bad report template name requested for adhoc run
+- enh: additional date based event mongo index for use when no other query filters set
+- enh: HELPDESK-1048 Database Example connection strings are misleading - removed * from example db connection strings
+- enh: set default 'New Line' for new 'Windows device' credentials in UI to CR rather than CRLF
+- enh: planned change instance evaulation order is based on alpha sort of Description field. Use ~ prefix to place a planned change at the end of the list
+- enh: HELPDESK-743 re: Notifications based on groups, alert emails are routed to users on the group the tracking temaplte item originated from, requires gen7agent 7.0.0.30  for feature to be enabled
+- enh: new config key 'MinimumFileHashReputation' set to either AssuredGood (the default if no setting) or AssumedGood controls the level of Whitelist assurance that maps to a 'planned' event in a planned change
+- enh: added 'CIS Windows Server 2016 Base Template.xml' template
+- enh: added POST file name to Whitelist, returned reputation now logged
+- enh: planned change members can be mananged individually via api
+- enh: added support for new FAST FileHashStatus return codes
+- enh: HELPDESK-537 re: ability to schedule polled trackers, compliance reports and saved queries to run on a monthly basis
+- enh: change process tracking option 'Report start &amp; stop events (alerts will be raised...' to 'Report white &amp; greylisted notifications...'
+- enh: new advanced setting "ScheduledQuerySendsEmptyAttachments" to always send empty attachments when part of scheduled query run (usually they are suppressed).  Set to "Yes" to activate.
+- enh: connect to MongoDB using SSL (beta)
+- enh: updated SSL certificate added. Only applied on new install. Agents with built-in compatibity with new SSL thumbprint are: gen7agent 7.0.0.28, agent: 1.0.0.109, proxy: 1.0.0.106, express: 2.0.0.8
+- enh: added Task List export feature to compliance page
+- enh: added "Run Now" button to compliance page to run a set of compliance reports for a group
+- enh: when exporting baseline events exclude 'tcpopen' value from network tracker NMap scans
+ 
+7.0.1.54 - 19-Jul-2017
+======================
+- fix: stop evaluating planned changes after a match is found
+- fix: correctly propagate template changes to devices when new template xml is uploaded
+- fix: add process rule to template for uncategorized process from events page UI
+- fix: re-enable querying processes and services on a device from hub UI
+- fix: error on agent poll when custom template group deleted
+- enh: enable planned change rule combination and/or operator editing in UI
+- enh: GET based REST API authentication can be disallowed by setting 'auth.postonly=true' in appSettings.config
+ 
+7.0.1.53 - 03-Jul-2017
+======================
+- fix: V7-239 "Planned Change History - Last 7 days" graph does not update
+- fix: deleted proxied devices should not be reported as available to the master proxying them
+- fix: Nmap network port scanner failed to scan local device with multiple IP addresses
+- enh: allow merge of templates with differing AccountsTracker.TrackDomainControllerAccounts settings, values are now or'd.
+- enh: updated rule logic and wording of autogenerated installed software baseline report
+ 
+7.0.1.52 - 15-Jun-2017
+======================
+- enh: V7-230 Impose an upper limit to the number of rules that can created for a Planned Change in recording mode. Upper limit is set via new config key MaxRecordedRulesPerPlannedChange (1000 default)
+- enh: added MaxReportDetailLength config key advanced setting for size of detail column cell when displaying / exporting (32750 default)
+- enh: update to merge of file tracking templates to allow merge of subfolder where pathmatch specifies no recursion
+- enh: added Events index to find by taskId to improve performance of report-view page
+- enh: updated manuals: 'NNT Change Tracker Gen 7 Getting Started Guide V2.0.pdf' and 'NNT Change Tracker Gen 7 Admin Guide V2.0.pdf'
+- enh: updated project references to .NET 4.6.1 from 4.5. Windows Hub Installer now requires .NET 4.6.1 installed.
+- enh: updated installer to install gen7agent on new install, 6.5 agent and proxy removed.
+- enh: additonal Fast Whitelist diagnostics (on event history), 'Test Fast Connectivity' &amp; 'Test Fast Credentials' buttons added to system settings page
+- enh: gen7agent now installed with windows install instead of 6.5 agent + proxy
+- fix: V7-232 Settings &gt; Users. Cancelling editing a newly-cloned User Role causes it to disappear from the grid
+- fix: Settings &gt; Planned Changes. Grid Delete button was generating an error message.
+- fix: Event Details window sometimes showed an empty Details section.
+- fix: 'Use SSL' setting not correctly passed to server on system-settings page 'test email' function
+- fix: ignore empty hash values from 6.5 agents
+- fix: V7-229 re: exporting baseline events to PDF
+ 
+7.0.1.51 - 05-May-2017
+======================
+- enh: automatically convert to agents with 'Unknown' Device Type to Windows or Unix the first time the agent calls in
+- enh: include baseline event details when exporting to Excel from events grid
+- enh: FAST service details now supplied via license
+- fix: 'Name' related validation error when extending planned changes
+ 
+7.0.1.50 - 20-Apr-2017
+======================
+- enh: added new 'ESX Report' and 'ESX FIM' pre-defined credentials settings
+- fix: V7-225 when displaying / downloading saved query results re: timezones
+ 
+7.0.1.49 - 29-Mar-2017
+======================
+*** INTERNAL RELEASE ONLY ***
+- enh: in addition to remote requests, local requests are now checked for possible cross-site request forgery
+- enh: added "Compare Results" button to devices page
+- enh: add report name to logged error message when rule xml typos detected
+- enh: added 'ipBlocking', and 'ipBlocking/add' and 'ipBlocking/delete' api routes for ip blacklisting management
+- enh: updated manuals in windows installer, and added 'NNT Change Tracker Gen 7 - Agent Installation Guide.pdf' and 'NNT Change Tracker Gen 7 - Gen 7 Agent Installation Guide.pdf'
+- enh: updated reports and tracking templates
+- enh: added following filter files "Chrome Update Exclusions.xml", "Sophos AntiVirus Update Exclusions.xml", "Symantec Endpoint Protection Update Exclusions.xml", "Trend Micro Update Exclusions.xml"
+- enh: update to ServiceStack 4.5.6, and incorporate latest MongoDbAuthRepository in FipsMongoDbAuthRepository
+- enh: upgrade mongo repositories latest mongo driver style
+- fix: reserved characters in file names prevented their successful download
+- fix: if agent task results are an Error then indicate this in the task list immediately, not via a background task
+- fix: V7-207 Agent Registration Admin page allowed multiple Agent Registration Reports to be uploaded
+- fix: to devices page report section on IE11
+- fix: V7-221 'EventCountsSummary not found for utc date' error on dashboard when view counts as days in a timezone in daylight saving
+- fix: to preserve CustomerFilters.xml edited file on upgrade
+- fix: for report rules with unspecified attribute (eg installedsoftwaretracker.installedsoftware) now returns item name/title as data value
+ 
+7.0.1.48 - 22-Feb-2017
+======================
+- enh: filter out registration report results from dashboard compliance stats list
+- enh: updated reports: 'NNT CIS VMware ESXi 5.5 Benchmark Level 1 V1.2.0.xml' and 'NNT CIS VMware ESXi 5.5 Benchmark Level 2 V1.2.0.xml'
+- fix: V7-212 re: planned change name on events export
+- fix: V7-213 compliance report runs twice during scheduled run
+- fix: V7-199 re: including changed user on event exports
+- fix: make cache warmup code more resilient
+- fix: exporting event data with very large change details value
+- fix: to handle residual events about a proxied device from an agent from which the proxied device has been removed
+ 
+7.0.1.47 - 10-Feb-2017
+======================
+- enh: fix to event detail popup to hide previous attributes column for new/deleted events
+- enh: update to ActiveDirectory user integration: usernames can now contain \ to allow specification of domain name, max username length is now 60 to allow domain prefix
+- enh: reset admin password now clears 'AD user' flag to allow local admin recovery login
+- enh: user cannot be set to 'Ad user' login if no AD settings configured
+- enh: hub now sends a 'RefreshSettings' task to agents when details are edited, so the changes are picked up asap
+- enh: added Reload button to devices page to refresh device details
+- fix: failure to correctly fallback to secondary AD server
+- fix: V7-204 AD authentication on Linux
+- fix: to allow a gen7 agent to take over the identity and settings of a previous 6.5 agent
+ 
+7.0.1.46 - 30-Jan-2017
+======================
+- enh: V7-202 enhancements to saved query notifications
+- enh: V7-95 include a reoccurring planned change option configurable via UI and api using: PlannedChangeInstance.PeriodicityMinutes and PeriodDurationMinutes.PeriodicityCount, PeriodicityUnit, PeriodDurationCount and PeriodDurationUnit
+- enh: V7-193 Event export enhancements (set config setting "IncludeDevicesWithNoEventsInEventExport" to "Yes" to enable)
+- enh: V7-179 Addition of hostname:// prefix to syslog messages
+- enh: added remote device IP address to logged error messages in hubservice-log.txt, to diagnose agent login failures
+- enh: added 'plugins.validationenabled' boolean appSettings key to control enhanced API validation module
+- enh: report rules generated from baseline/state events now have RemoveEmptyValues=true, and AllowMissingDataInNamedVariables set for the tracked data variable
+- fix: V7-178 Planned Change schedule, configured in user time but displayed in GMT time
+- fix: minor fixes to planned change API operations
+- fix: pushing notification of proxied device move between agents, based on last config dates returned from poll
+- fix: V7-189 re-addition of change details to syslog message
+- fix: dashboard statistics enabled for all timezones. Stats unit controlled by system setting EventStatsUnitSeconds, now defaulting to 30 minutes.
+- fix: V7-206 Reduce default trial license device count to 6 devices
+- fix: V7-203 Editing a pre-defined schedule doesn’t hold the Schedule Start and End times
+ 
+7.0.1.45 - 22-Nov-2016
+======================
+- enh: added custom role/permissions editor to Settings &gt; Users admin page
+- enh: improved Planned Change processing performance by using cache
+- enh: remove obsolete built-in 'Stats' role
+- enh: challenge-response based device deletion api added
+- enh: new config setting DeleteDevicesOfflineForSeconds. If this setting is present and &gt; 0, devices offline for this amount of time are automatically deleted
+- enh: new config setting SessionTimeout. If this setting is present and &gt; 0, users will be logged out after this many minutes (default 10 minutes if not set)
+- enh: new config setting SessionTimeoutWarning. If this setting is present and &gt; 0, users will warned this many seconds prior to pending log out (default 30 seconds if not set)
+- enh: added Custom planned change rule type to the planned change rule processing
+- enh: remove obsolete 'RuleSetDisaggregatorThread down' message from System Status page
+- enh: added CSV export for events to "Export and Import" page to allow larger quantities of events to be exported
+- enh: added 'plugins.metadataenabled' and 'plugins.swaggerenabled' boolean appSettings keys to control whether the API metadata and swagger pages are available
+- enh: added a new Settings &gt; Agent Registration page to administer agent registration report / script
+- fix: V7-187 re: improved stability and resilience of file downloads
+- fix: for gen7agents not auto registering
+- fix: correctly audit config item name on deletion
+- fix: group level notifications didn't propogate up group hierarchy
+- fix: editing processes and services in config template was not preserving edits on roundtrip
+- fix: GroupReportResultEvent events were causing failure to calculate dashboard event stats for the hour in which they occurred
+- fix: ensure notifications are logged to store even if no mail/syslog delivery settings specified
+- fix: for notification thread stopping under Mono when using new Razor templates
+- fix: V7-189 re: limited details on the syslog alert
+- fix: V7-191 re: creating baseline reports using path depth feature
+- fix: log error when pipeline.IpAddressActivityRepository is not configured in localhost.json in an upgrade sceanario, and continue without blacklisting enabled
+- fix: V7-192 Event filter window can become too small when options are selected/deselected
+- fix: clear stored uniqueId at hub, when a legacy device without a unique id is taking over an agentDeviceId
+ 
+7.0.1.44 - 13-Oct-2016
+======================
+- fix: correctly invalidate cache of SMTP and other config items when they are updated by id rather than name
+- fix: V7-182 re: don't recreate default admin user if it's been removed
+- fix: V7-184 re: saved queries with quoted search text
+- enh: V7-186 added 10 minute session timeout feature
+- enh: V7-176 License key Expiry 7 day Warning
+- enh: added custom role/permissions creation api (/userroles/add) etc
+- enh: added "File attributes (excluding contents and file-write time) only" to file sttribute filters in default.xml. Intended for linux file tracking
+- enh: update ServiceStack libs to 4.5.0
+- enh: added re-parenting of Proxied devices to Settings &gt; Agents / Devices admin page
+- enh: add baseline events count to devices page
+- enh: improvements to compliance page re: V7-174 exporting compliance reports
+- enh: added feature to compare compliance results
+ 
+7.0.1.43 - 17-Aug-2016
+======================
+- enh: updated bundled NNT_FILEHASH_AIX executable
+- enh: update default Network groups hierarchy, add corresponding integrity monitoring policies
+- enh: honour rule's &lt;MissingValueReplacement&gt; Substitute even when no item (eg regkey) is collected
+- enh: show device event origin (polling/live tracking) in emails and on event detail page
+- enh: update email templates to show device name in notification summaries list
+- enh: V7-161 Enabled additional audit messages to appear as notifications
+- enh: added Symantec DeepSight white list service
+- enh: added four sets of standard Credentials settings (Checkpoint, Cisco SSH firewall, Cisco Telnet firewall and Palo Alto devices)
+- fix: prevent login dialog from storing credentials
+- fix: improved hub startup time after major upgrade
+ 
+7.0.1.42 - 18-Jul-2016
+======================
+- fix: saved queries not storing type information when saving event data
+- fix: minor reporting fix related to error when Rule.ResultText not specified in xml
+ 
+7.0.1.41 - 15-Jul-2016
+=======================
+- fix: to disappearing / "flickering" reports on devices page
+- enh: V7-167 Report Format requirements, added support for NewlineToken in conjuction with PassesSeparator/FailuresSeparator on &lt;Rule&gt;&lt;ResultText&gt; node
+- enh: added Swagger Api plugin to hub description page
+- enh: added ESXI i 5.5 reports to system
+- enh: updated 'NNT Change Tracker Gen 7 Getting Started Guide.pdf'
+- enh: added LastLine whitelist
+- enh: added enhanced 'Change Approver' role, with User permissions plus ability to manage planned changes and events
+ 
+7.0.1.40 - 01-Jul-2016
+=======================
+- enh: trim whitespace from start and end of new policy template name
+- enh: V7-160 added export user list function to users page
+- enh: add query name to summary text for 'Your scheduled query returned X results' email message
+- enh: V7-165 added group names to member export details (csv,pdf,excel)
+- enh: V7-166 re: user password complexity
+- enh: added LocalConnector and Generic credential protocol to allow credentials to be passed to compliance report scripts using $$ variable names
+- enh: added mongo index to speed up Saved User Query display
+- fix: correctly show task error in popup from Devices page 'Adhoc compliance report' grid
+- fix: V7-164 System Error "OK" displayed when no filter applied in events page
+- fix: LicensedDayUsage Audit events were being expired and removed from mongo prematurely
+  
+7.0.1.39 - 23-May-2016
+=======================
+- enh: altered the Email transfer-encoding scheme for better support across mail clients
+- enh: for V7-152 provide more helpful advice when a Compliance Report Template is uploaded as a Configuration Template
+- fix: adding an agent to a group did not immediately cause the agent to update its tracking configuration
+- fix: for V7-159 amendments to a planned change are not immediately available when acknowledging events
+ 
+7.0.1.38 - 14-Apr-2016
+=======================
+- enh: split web.config's &lt;appSettings&gt; section out to an appSettings.config file which is not overwritten on update so that web.config can be
+- enh: *** Hub API Breaking Change *** EditChildGroups operation (/groups/editchildgroups) has been replaced by UpdateGroup operation (/groups/update)
+- enh: increased the number of records returned by a 'paged' query when the 'take' parameter is unspecified (from 100 to 1000)
+- enh: removed the restriction on the number of records returned by a 'paged' query when the 'take' parameter is specified (was 50,000)
+- enh: added Clone Planned Change option to Settings &gt; Planned Change page
+- enh: for V7-126 added 'Reduce Planned Change Ruleset' option to Settings &gt; Planned Change &gt; Rules page.
+- enh: implementation of V7-139, 140 re: device name and report name on exports
+- enh: for V7-136 group name is now editable via Settings &gt; Groups &gt; Edit
+- enh: speed up available reports list on devices.html page
+- enh: internal upgrades, mongodb driver, servicestack, build environment to vs2015, servicemodel to PCL assembly
+- enh: for V7-143 user is protected from overwriting their settings when adding credentials via Settings &gt; Credential &gt; Add Shell Credential &gt; Apply(defaults)
+- enh: for V7-144 added floating help window for Custom PathMatch definitions
+- enh: added device name to event details window
+- enh: for V7-103 Dashboard &gt; Devices Offline &gt; 'Click for more' now directs to Events page, showing Online/Offline events in the previous week
+- fix: for additional email addresses being removed from scheduled queries
+- fix: for errors in query scheduling when schedule end time is passed
+- fix: removed the upper limit on the number of groups the user can pick from
+- fix: for report scheduling where report would run again at 10 minutes past scheduled time
+- fix: primary email ssl setting was not honoured
+- fix: use secondary email setting if no primary configured
+- fix: clear cached smtp settings when smtp entry deleted
+- fix: V7-141 Dashboard and Devices &gt; 'Events Chart - past week' receive error - 'EventCountsSummary not found' when users have different time zones
+- fix: V7-145 re: clearing start date for event filter and then refreshing page
+- fix: V7-147 Hitting max character limit in credentials login script - upper limit removed
+- fix: rule results missing from report when rule definition has no Number specifed and AutoNumber=false
+- fix: for when changing time window on System Performance page without changing selected metric
+ 
+7.0.1.37 - 25-Feb-2016
+=======================
+- enh: added scheduled exports
+- enh: added warnings to User Notifications setup page if no email or syslog server is configured
+- enh: added summary text to beginning of bulk notification email
+- enh: added CreateDefaultGroups and CreateDefaultQueries config options to suppress re-creation of default groups on hub startup
+- enh: for V7-131 Carry over the Device Event Description from the Events screen to the Event Details pop-out window
+- enh: for V7-134 Auto expand proxied devices when searching for a proxied device
+- fix: upgrade install of hub now preserves changes to Web.config and pipeline configuration files
+- fix: pipeline attempts to detect notifications that can't be sent and doesn't queue them if they can't be
+- fix: for V7-128 Deleting a device from an edited row on Agents &amp; Devices settings page fails
+ 
+7.0.1.36 - 05-Feb-2016
+=======================
+- enh: added Mono / .Net and MongoDB version numbers to hub service log file.
+- enh: added scheduled report passmark editing to Settings &gt; Groups &gt; Scheduled Reports page. This configures whether the report score is considered a 'pass' or a 'fail' on the Compliance reports page
+- enh: replaced account lockout on 3 login failures with a block on all calls from the IP address for 10 minutes (previous behaviour can be re-instated setting the "auth.lockoutenabled" flag in Web.config to "true")
+- enh: improved drag/drop behaviour for devices in Settings &gt; Group Admin page. User can choose between Copy or Move when dropping a device into destination group
+- enh: for V7-118 Better way of handling the planned change list presented from the Events &gt; Action button
+- enh: for V7-130 Removing link from scheduled query notifications
+- fix: for V7-127 Syslog notifications
+- fix: for V7-114 Updated Windows Logon Credentials built-in under 'Apply the standard settings appropriate to a typical - FIM for Windows Device'
+- fix: for V7-124 Adding a scheduled report to a group without explicitly selecting a report causes error
+- fix: for V7-125 Button click on saved queries page leads to empty screen
+- fix: for V7-129 Actions from Events
+ 
+7.0.1.35 - 19-Jan-2016
+=======================
+- enh: added RHEL 7 config template and CIS reports
+- enh: dashboard stats speed improvement when '[No Group Filter]' selected
+- fix: for V7-120 refresh main Group selection when logging in/out/switching to a less privileged user
+- fix: for V7-121 Events Page 'Load Query' function updated. Settings &gt; Saved Queries page update. 'Clickable' grids now share a common row highlighting style.
+- fix: for V7-122 re: lockdown on Windows and other DB authentication issues
+- fix: for excessive disk use when many events could be covered by planned changes with lots of rules
+- fix: for V7-123 Compliance report dropdown list becomes unresponsive to the main Group filter selection
+- fix: disallow duplicated planned change names at creation time
+- fix: regular expression metacharacters present in Planned Change names are now escaped before being used in a searching (ref error with '\jsprofilercore.dll' in PC name)
+- fix: template merge fails even when merged paths are different
+ 
+7.0.1.34 - 08-Jan-2016
+=======================
+- enh: added "Run Now" button to saved queries page to allow a scheduled query to be tested / executed immediately
+- enh: added 'Windows 10' group and CIS compliance reports. Extended auto registration process to handle windows 10
+- enh: altered the group admin page to allow drag/drop restructuring of groups and devices
+- fix: dashboard chart showed incorrect date labels when user has custom timezone setting and page viewed in a browser in a non-GMT region
+- fix: reregistering a device was broken by prevention of deletions on Deleted group
+- fix: for V7-113 attempt to login directly into an admin page can result in an empty page
+- fix: events grid action "Acknowledge events in a Planned Change..." presented an incorrect list of Planned Changes for the groups the device is in, resulting in possible failure to acknowledge event
+- fix: for dashboard error when calculating count statistics from cache when '[No Group Filter]' selected, now totals all top level group counts
+- fix: for V7-115 click-through from Events page to Planned Change page doesn't always highlight correct planned change
+- fix: for V7-117 Different paths with similar names not monitored. Identification of subpaths was incorrect
+ 
+7.0.1.33 - 21-Dec-2015
+=======================
+- enh: switch UI login call to HTTP POST (prevents accidental credentials logging in webserver logs)
+- enh: for V7-102 added ReportAllErrors setting to allow all errors to be reported in UI. Remove this item from System Settings &gt; Configuration Settings once setup is complete
+- enh: log audit event for device detail changes reported by agent (IP address, agent version, Machine name, Os etc)
+- enh: added clickable link to compliance report in ad-hoc report list on devices.html page (admin only)
+- enh: added bulk notifications to hub so multiple changes are delivered via one email
+- enh: for V7-106 reworked the System Settings &gt; Planned Change editor dialog to increase the Name field size and make it expandable
+- enh: improved event query performance
+- enh: added install option for WiredTiger and changed default DB location to C:\ProgramData (Windows)
+- enh: updated CIS reports for various Windows platforms
+- enh: added drop down to devices page to allow window of listed reports to be expanded
+- enh: cache dashboard event counts once calculated for faster subsequent display
+- enh: changed the group admin page to a tree-based view
+- enh: for V7-112 Prevent operations on system groups via the API
+- fix: BaseUrl setting no longer reset during application startup
+- fix: for V7-105 problem displaying active planned changes after the out of schedule planned change table wraps to multiple pages
+- fix: for V7-107 Firefox browser issue, the device list on the Events page requires a refresh to show complete names
+- fix: for V7-108 Events &gt; Create a New Intelligent Planned Change to Capture These Events throws error
+- fix: Templates column in the System Settings &gt; Agents &amp; Device grid doesn't update to reflect the group membership when editing an agent or device
+ 
+7.0.1.32 - 26-Nov-2015
+=======================
+- enh: added Getting Started Guide to installer
+- enh: added Templates column to the settings &gt; agents grid and made grid page size configurable. Minor style improvement to the grid column selectors.
+- enh: main Planned Changes grid settings are persistent and page size configurable. Minor style improvement to the overall page.
+- enh: more descriptive text on group template merge conflicts (highlight the name of the conflicting filter)
+- enh: added more notifications for audit events (UserAdmin, DeviceAdmin &amp; SystemConfigChange) (V7-98)
+- enh: report mongo query exception sort stage errors as a user friendly message
+- enh: update licensing to support features
+- fix: for scheduled queries generating large results sets (V7-83)
+- fix: when uninstalling and re-installing changes to MongoDB configuration are now preserved
+- fix: incorrect 'Total' on settings &gt; agents grid (master view)
+- fix: removing a user notification sometimes didn't completely remove the notification
+- fix: return to page 1 when toggling 'Show Master Proxies Only' on settings &gt; agents grid (master view)
+- fix: agents grid sort by Name
+- fix: extend group-config-template merge checking to include the other groups of device members
+- fix: when editing device groups ensure group removals are perfomed before additions to prevent merge failures from blocking the edit
+- fix: selecting devices within the settings &gt; agents page caused errors on other pages. Visiting the settings &gt; agents page cleared the site-wide device selections unnecessarily.
+ 
+7.0.1.31 - 17-Nov-2015
+=======================
+- enh: added a Database Credentials editor dialog accessible from the credentials admin and device admin pages
+- enh: added 'Track account information on Domain Controllers' option to Local User Accounts template editing page
+- enh: changed the device admin page to a master/detail view (agents and proxies at the top level, proxied devices at the second level)
+- enh: added an INFO level Message logger to .config, and log a versioned application startup message
+- enh: replace use of guids for agent/device ids with shorter ids from a sequence generator. Uses less storage in collections and indexes
+- enh: for V7-97 store grid settings for Events page, includes minor cosmetic enhancement
+- fix: for V7-100 onscreen error message needs to contain error details
+- fix: remove event type selection from events filter popup when it is removed via closing the event type summary button
+- fix: hub now deals with very large result sets sent in from agent
+- fix: report viewer now correctly handles &gt; 100 results
+ 
+7.0.1.30 - 12-Nov-2015
+=======================
+- enh: close any visible popup notification messages when switching between pages
+- fix: for compatibility with older agents at registration time (ref Parameter required: DeviceName)
+ 
+7.0.1.29 - 11-Nov-2015
+=======================
+- enh: check new proxied device name against existing to prevent duplicates
+- enh: added agent version number to Group -&gt; Members grid
+- enh: for V7-96 improved the 500/1000 event selection response time
+- enh: remove duplication of change event logging (there is no longer a duplicated notification event for each device event)
+- enh: unneeded 'Task expired by timeout of scheduled policy' alerts removed
+- enh: updated Kendo UI library to version 2015.3.930.
+- enh: name validation errors in user creation are now reported in the on screen message (eg 'invalid characters in user name')
+- enh: simplify notification description in events grid
+- fix: re-registration of deleted device did not add to any groups
+- fix: corrected rule result to individual rule results storage
+- fix: for V7-99 add StartAgentTracker support for WindowsAccountTracker
+- fix: adding agent to group now inherits any agent update schedule
+- fix: re-schedule planned change when start/end times are altered. Start/End planned change signals are generated 5 minutes prior to Start/End
+- fix: new devices were not always registered into 'All Devices' group correctly
+ 
+7.0.1.28 - 05-Nov-2015
+=======================
+- enh: change password prompt now only appears 3 times
+- enh: MongoDB now ony listens on 127.0.0.1 (new installs only) V7-94
+- enh: only act on registration report result and place device in suggested groups if it is still in 'Awaiting Registration' group at the time
+- enh: speed up processing of device registration report
+- fix: device config template change was not picked up by the device when it was removed from a group
+- fix: for V7-93 Admin user with restricted to groups 'All Devices', can create a group but cannot edit the group.
+- fix: check for compatibility of associated templates before allowing a device or group to be added to group
+- fix: display of before and after changes are hot highlighted correctly in the events grid popup window when the line contains more than one '.'
+- fix: fixed the redirect from [site root]/api to [site root]/api/metadata, and made the requests from site to api relative
+- fix: minor UI style fix in credentials editor dialog
+- fix: for V7-92 re: fonts on RedHat / CentOS
+- fix: for broken "More Reports" button on reportview.html and set to show a weeks worth of reports for the device
+- fix: for report viewer filter on Pass/Fail (required filter value is "pass" or "fail")
+- fix: re: deleting Planned Changes
+ 
+7.0.1.27 - 27-Oct-2015
+=======================
+- enh: optimise events grid refresh timing by caching Total event count unless Filter changed or refresh clicked
+- fix: for V7-91 Dashboard: Show changes for &gt; after 7 days date compression on x axis of bar graph become unreadable.
+- fix: for V7-41 Time Zone context not working correctly for Dashboard
+- fix: truncate verbose API error messages which would otherwise exceed the maximum permitted ResponseStatus length
+ 
+7.0.1.26 - 23-Oct-2015
+=======================
+- enh: minor UI fix to show path match description for tracked folders in device config summary on devices page
+- enh: added loading animation to dashboard page
+- enh: sped up compliance page 
+- enh: for V7-87 30 day 'use by' restriction applied to new keys
+- enh: alpha sort all displayed group lists
+- enh: events now automatically expire after 90 days (configurable)
+- enh: failed logons are now recorded as an audit event
+- enh: show Proxied device Host Name rather than possibly invalid IP Address on Devices page
+- enh: supply Proxied device Host Name only, rather than possibly invalid IP Address on Device Admin page
+- enh: scheduled query results are now downloadable in multiple formats directly from the Saved Queries admin page
+- fix: for IE9 compatability (re console.log)
+- fix: for V7-83 when scheduled query generate large amount of data
+- fix: for V7-84 re: amending / updating agent software updates
+- fix: for V7-86 Template merging incorrectly when drive root is configured
+- fix: grids on various pages weren't always displaying their loading animation while updating
+- fix: fixed intermittent javascript error in dashboard page, added meta-tag to encourage IE to ignore compatability mode
+- fix: for V7-89 Email settings are sometimes not correctly loaded/saved from the UI
+ 
+7.0.1.25 - 07-Oct-2015
+=======================
+- enh: add 24 / 48 hourly event view to barchart on dashboard
+- enh: can now create agentless devices that represent databases
+- enh: run adhoc report list is now sorted and can be filtered by typing search term
+- enh: hide inactive planned changes on device summary page
+- enh: diagnostic and communications events for a device are now only recorded if the device is in 'Diagnostic Mode' (see Settings &gt; Agents &amp; Devices)
+- enh: minor typo fixes on events page actions popups, plus hide 'Create Smallest Number of Rules' option when not appropriate
+- fix: for V7-74 On login if no subpage specified, successful login should take you to the dashboard.
+- fix: for V7-78 The logout process needs to be refined.
+- fix: for list of available reports on devices page containing reports relating to other devices
+- fix: for V7-80 rationalise the way in which errors are propagated from API to UI
+ 
+7.0.1.24 - 24-Sep-2015
+=======================
+- enh: Saved Queries can now be made public allowing other users to execute them and see scheduled results
+- enh: allow edit of proxied device names via device admin page
+- enh: enabled extra browser caching to reduce page load time
+- enh: added 'Create Smallest Number of Rules' checkbox to Events grid Add New and Extend planned change action options, creates rules based on common stem of selected events
+- enh: for V7-73 Add filters to the Planned Change Pages to hide Disabled and Out-of-schedule PCs
+- fix: fix for V7-72 SMTP settings entered as the primary email server, appear as the secondary email server
+- fix: for possible error in AddStandardPermissionsForRoles accidentally recreating permissions list each login
+- fix: for V7-64 Responsive (small screen) mode of the web layout. Restyled the grid filter cells to better adapt.
+- fix: for error generated when an invalid task result id (eg for an expired task) submitted. Was causing agent to resubmit repeatedly
+ 
+7.0.1.23 - 16-Sep-2015
+=======================
+- enh: extend maximum allowed username length from 15 to 30 characters
+- enh: add an 'application restarted' notification event (categorized under 'offline' notifications for alerting)
+- fix: fix for syslog message send failure in some circumstances
+ 
+7.0.1.22 - 25-Aug-2015
+=======================
+- enh: addition of licensed device count to license. Default trial license created on new install is now created with a 10 device limit
+- enh: for V7-44 Leave user on requested page when they are forced to login
+- enh: default 'Network Devices' group added
+- enh: provide an alert error message when new user creation fails due to duplicated username or email address
+- enh: for V7-53 Devices screen layout improved and can link through to devices admin screen
+- enh: added CIS reports for Mac OS X 10.8 and 10.9
+- enh: added OnlineDetection to proxied devices to enable Auto (ping) or None options
+- enh: add 500 and 1000 events as options in events page 'items per page' dropdown
+- enh: for V7-39 Active Directory integration. Requires Primary (and optional Secondary) Server Names system settings, and the user must be set to 'AD login' on users page
+- enh: added file hash binaries for Mac OS X
+- enh: remove confirmation prompt on event resubmission
+- enh: ChangeTracker notifications can now be sent to a RFC5424 or RFC3146 compliant Syslog server (admin users only)
+- enh: for V7-68 Added configuration pane for SysLog server settings
+- fix: for V7-45 Remove SSHAuto option from credentials
+- fix: for V7-56 Settings &gt; Groups: Adding a subgroup to a group blanks the edited group line
+- fix: for V7-42 re: switching tabs after session has expired and display of username on homepage.
+- fix: for V7-49 The bars on the dashboard chart are sometimes not clickable and sometimes leave their tool-tips behind when clicked
+- fix: use POST to resubmit events on events grid, allowing for greater number to be resubmitted at once
+- fix: calls to https://repo.nntsupport.com checking current released version number removed from login page due to problems with self-signed certificate popups
+- fix: for V7-64 Responsive (small screen) mode of the web layout
+- fix: allow creation of new planned change when Alert Events only were selected (previously got a 'No Device Events selected' message)
+- fix: editing planned change rules with long name and text failed with a 'Not Found' error
+- fix: fix for V7-66 re: device config disappearing after selecting a device with no config
+- fix: for grid paging on view planned changes page when &gt;10 planned changes
+- fix: to handle empty dates on planned change editing and event filter specification (ie going from a specified date to none)
+- fix: updated filehash binaries (5.3.0.6) for all platforms (except AIX and HP UX) to fix V7-62 and V7-63
+  
+7.0.1.21 - 21-Aug-2015
+=======================
+- enh: added file user and hash seach options to event filter
+- enh: tidy up of device picker
+- fix: corrected pipeline upgrade logic to deal with a "skipped" version
+- fix: fix to index error relating to licensed days
+ 
+7.0.1.20 - 13-Aug-2015
+=======================
+- enh: for V7-16 IE 11 problem, resize the Event view pop out to better fit the browser window
+- enh: for V7-25 show 'About this page' help text for new login
+- enh: saved queries page now list existing queries as a drop down to simplify layout and use screen space more efficiently
+- enh: device page now has device config represented in a tabstrip grid along with option to export to PDF / Excel
+- enh: device page running and available report grids have been combined
+- enh: device page now 'hides' event chart so it doesn't load on initial display and presents simple, faster, text summary on startup
+- enh: devices page has improved report selector for running adhoc reports
+- fix: for selecting proxy row via checkbox on device admin page
+- fix: for V7-38 Error when adding a Device Template to a Device Group
+ 
+7.0.1.19 - 5-Aug-2015
+=======================
+- fix: for V7-34 corrected the default Login Scripts for SSH Cisco and Telnet Cisco Credentials
+- fix: for V7-36 relates to V7-21 Improve Scheduled query workflow - need a start date/time for the Saved Query when created from the Events screen
+- fix: device admin page did not correctly clear out it's selected device list when devices were deleted
+- fix: adding a config template to a group caused an error in the page even though the underlying add succeeded
+ 
+7.0.1.18 - 4-Aug-2015
+=======================
+- enh: update visibility of events 'Resubmit' button when individual alert or device events selected
+- enh: for V7-26 add a ‘New Credentials’ button on the ‘Agents and Devices’ page when adding a proxied device
+- fix: for V7-32 to upgrade existing audit events without a 'Licensed Day' hash on startup. The new unique index on this field was preventing correct initialisation of the system
+- fix: for V7-33 to remove stray 'save qry' dialog div from events display
+- fix: for user notifications page incorrectly selecting default group for new notification
+- fix: for V7-31 incorrect date and times in planned change from events page
+- fix: upgrade old audit events without day hash on installation
+ 
+7.0.1.17 - 31-Jul-2015
+=======================
+- enh: for V7-22 User Admin Page - simplification, addition of User Notifications page
+- enh: added planned change reason (pc name) to exported Xls and PDF reports
+- enh: for V7-5 added email settings management to system settings
+- enh: for V7-24 added grid custom column width settings persistence to agents and devices page (stored in browser local storage)
+- enh: for V7-27 added two new sets of 'standard settings' to the credentials editor, FIM Windows and FIM Linux/Unix SSH
+- enh: added "Notifications" tab to Groups page in Settings to allow Notifications to be specified via the Group (V7-23)
+- enh: added default scheduled queries to run daily (V7-20)
+- enh: for V7-21 Improved Scheduled query workflow
+- fix: for error popup when scheduling a query  (V7-17)
+- fix: for V7-28 prevent 'twitch' as scrollbar is removed and re-added when switching between pages in UI
+- fix: to prevent errors (and the resulting multiple system audit events) in role cache setup caused ny multple authentication requests from proxy
+ 
+7.0.1.16 - 24-Jul-2015
+=======================
+- enh: comment out unused trackers in dashboard picker
+- enh: added new index to Events collection to better support devices.html graph
+- fix: for V7-14 (Adding a new group to an agent removes existing group) due to changed behaviour of the autoBind: false tag on kendoMultiSelect.
+- fix: to allow old and new previously executed Saved Query results to be displayed
+- fix: for V7-12 Small typo in Web page message when manually running a tracker
+ 
+7.0.1.15 - 22-Jul-2015
+=======================
+- enh: process output tracker changes now include a description of the change in the Events grid (upto 128 chars).
+- enh: popup event details window now uses full width for details of new files etc
+- enh: users cannot now edit their own roles or groups
+- enh: unplanned change email alerts now contain more details of the change
+- enh: exported events now contain more details of the change (Excel only)
+- enh: system created admin and agent accounts roles and groups cannot be altered
+- enh: admin users can edit others settings, but only to allow groups or roles they have access to. Roles or groups the admin cannot see are left unchanged on the user
+- enh: update Kendo to telerik.kendoui.professional.2015.2.624.commercial
+- enh: updated compliance reports and templates
+- enh: dashboard includes tracker type filter for device events
+- fix: suppressed the event filter dropdown, when clicking the tag area above events grid
+- fix: freeing SMTP server connections once emails have been sent
+ 
+7.0.1.14 - 15-Jul-2015
+=======================
+- enh: addition of 'system' created user accounts and prevention of role/group editing or deletion for these
+- enh: enforce a maximum of 3 login attempts before account lockout
+- enh: credentials admin dialog reworked to include mandatory options first, advanced options hidden
+- enh: scheduled queries can now suppress the delivery of the results email if no results were found
+- enh: default settings for different types of credentials added to credentials admin dialog
+- fix: issue where hub is on Windows and agent is Linux agent and config / reports signature cannot be verified
+- fix: users page now correctly assigns password to new users where in some cases this could fail
+- fix: for reset admin password api accessibility from localhost only when ip address is ipv6
+  
+7.0.1.12 - 08-Jul-2015
+=======================
+- enh: day-range picker persists selection
+- fix: added new event details popup to planned changes and saved query result pages
+- fix: resolved issue where scheduled policy / device discovery would get "stuck" and not execute
+ 
+7.0.1.11 - 07-Jul-2015
+=======================
+- enh: day-range picker added to 'Device Changes Overview' dashboard widget
+- enh: event page now has new event details accessed by clicking on description text instead of event type icon
+- enh: sparklines removed from 'Device Compliance' dashboard widget
+- enh: history icon added to 'Device Compliance' dashboard widget
+- enh: Errors removed from 'Device Changes Overview' dashboard widget, minor dashboard layout changes
+- fix: fix for empty "More Info" popup window on report viewer page
+ 
+7.0.1.10 - 02-Jul-2015
+=======================
+- enh: installer now installs into NNT Change Tracker Suite program group
+- fix: increased fault tolerance through use of mongo-based queues
+- fix: agents report correct planned change membership inherited from parent groups
+ 
+7.0.1.9 - 01-Jul-2015
+=======================
+- enh: remove spurious logged errors re template creation etc at startup
+- enh: additional resilience in the case of redis failures
+- enh: group list on Group Alerts for users is now sorted in alphabetical order
+- fix: fix to Start Tracker buttons being disabled upon return to devices page
+- fix: config templates tracker schedule periodicities were incorrectly merged when one was 0 (meaning run once once at start). Should have merged to the non-zero value but was merging to 0.
+ 
+7.0.1.8 - 29-Jun-2015
+=======================
+- enh: configuration of processoutputtracker added to template admin page
+ 
+7.0.1.7 - 26-Jun-2015
+=======================
+- enh: individual trackers can now be started "on-demand" for a device via the Devices page (requires proxy 1.0.0.78 / agent 1.0.0.76)
+- enh: report viewer now has more flexible display including search and dynamic columns / sizes
+- enh: added filter options to various grids (users, compliance, config, PC rules)
+- enh: file hash binaries now stored in hub and can be downloaded for pushing to remote devices
+- enh: hub now checks if redis is working before starting.
+- fix: fix to logon failures under IE
+ 
+7.0.1.6 - 18-Jun-2015
+=======================
+- enh: added configurable "grace period" for offline device detection to support busy systems (AgentOfflineGracePeriod)
+- enh: added "Remove" and "Re-run" buttons onto adhoc reports grid on devices.html to enable failed reports to be re-run / removed
+- enh: create sample credentials at startup
+- enh: add Cisco report to report store
+- enh: complicance report grid is now larger
+- fix: fix to credential storage when running under Mono
+- fix: changed devices.html so that adhoc compliance reports now only appear for selected device
+- fix: adhoc report list is now correctly re-loaded each time button is pressed
+- fix: deleting a compliance report template removes the definition from the cache
+ 
+7.0.1.5 - 17-Jun-2015
+=======================
+- enh: Agentless/network devices can now be attached to Proxying agents on the Admin&gt;Agents &amp; Devices page
+- enh: scheduled queries can now be sent to additional email recipients
+- fix: for resubmitting events combined with planned changes inherited from parent groups
+- fix: for cache invalidation of planned changes on edit
+- fix: re-inststated email notifications for Unplanned Changes
+ 
+7.0.1.4 - 01-Jun-2015
+=======================
+- fix: rule engine to handle single valued variable 'notequals' comparison with a variable containing a list of values
+ 
+7.0.1.3 - 29-May-2015
+=======================
+- enh: scheduled saved queries can now include a PDF, CSV or Excel attachment
+- enh: added Query Details section to Save Queries page to show what the saved query will do
+- enh: when saving a query on Events page, if the name already exists you are prompted to ask if you wish to overwrite or not
+- enh: saved queries list is now searchable
+ 
+7.0.1.2 - 21-May-2015
+=======================
+- enh: users can now be limited to a subset of the device groups setup in the system. Various UI enhancements to filter views of data based on the restricted device/event/report visibility
+- enh: added warnings when updating / deleting users with the "Agent" role that this may affect agents
+- enh: agents now have "diagnostic mode" to get more debug / logging data (where implemented)
+- enh: agent info events (notifying of missing file/folder/regkeys etc) are now stored as alert/warning events at hub rather than device events
+- fix: fix for agent software update "empty payload" error
+- fix: custom path match editing grid on UI template editing page now shows all columns on small screens
+- fix: acknowledging 100 events on the Events page now works correctly
+- fix: prevent addition of duplicate templates (config or scheduled) to group
+- fix: report results with a passing score of 1 were not being flagged as 'passed'
+- fix: various timezone related issues fixed
+ 
+7.0.1.1 - 07-May-2015
+=======================
+- enh: Performance improvements and other optimizations
+- enh: Hub now runs on a FIPS enabled Windows machine
+- fix: Report viewer page clickable link to related results error now fixed
+- fix: Device tracking config display bug fixed on devices.html page
+- fix: Sparklines are now wider on compliance/dashboard page
+- fix: Running adhoc compliance reports with a "+" in the name now works (on device page)
+ 
+7.0.1.0 - 27-Mar-2015
+=======================
+- enh: Added local user account tracker config to template editor
+- enh: Added agent auto update feature. Can upgrade agents 1.0.0.66 (Windows) and 1.0.0.68 (Mono/Linux) onwards
+- fix: Fix to manually acknowldeging 100 events returning 400 error.
+- fix: Device Type is now displayed in the devices page
+- fix: Unregistered agent events are rejected
+ 
+7.0.0.10 - 24-Mar-2015
+=====================
+- enh: Added custom user timezone setting on users page and additional events grid columns (Device Date and Local Date)
+- enh: Added 100 items per page for events views
+ 
+- enh: Password related config items and credential connection strings are now "password" fields
+- enh: Added group members grid and export function to Settings =‌&gt; Groups page
+- enh: IP addresses now shown on device page
+- enh: Added info content for all pages and new logo on home page
+- enh: Better rendering on layouts down to 1366x768
+- enh: Added auto-refresh to dashboard.html
+- fix: All checkbox on events page now resets after all events have been acknowledged
+- fix: Change to way device's last poll time is coloured to more accurately reflect server status
+ 
+7.0.0.9 - 12-Mar-2015
+=====================
+- enh: Template merge allows merge of differing process tracker 'alert on uncategorized processes' settings by ORing the values
+- enh: Cryptographically signed system licenses can now be uploaded via the admin page and are checked at login
+- enh: Planned Change 'Action' menu items renamed to more accurately represent their behaviour
+- enh: Planned Changes can be enabled and disabled via an admin setting
+- enh: Default 'Manually Acknowledged Changes' planned change now automatically created in system, with 'All Devices' as member. Events can be manually acknowleded as planned into this from the Events page
+- enh: Planned Changes can now include alert events
+- enh: Grids now have resizable columns
+- enh: Users in the system can now have &gt;1 email address (separate each with a semi-colon)
+- enh: Event Filter now supports filtering events by specific Planned Change
+- enh: Device Name and Event time added to Notification email
+- enh: Planned Changes can not be deleted if events have been assigned to them
+- enh: Added 'online devices only' filter checkbox to device selector
+- enh: When assigning password to user popup is now 'secure'
+- enh: Tidied up login box layout
+- enh: Automatic version check to notify about hub upgrade
+- enh: Users can now manage their own password and notify groups if not admin
+- enh: Template merge will now allow different schedule periodicity, using the smaller value
+- enh: Added registry tracker config to summary on device UI page
+- enh: Planned text on events page now has tooltip of the planned change name
+- enh: Added "/resetadminpassword" url endpoint to reset forgotten admin passwords (runs from localhost only)
+- enh: Users are prompted to change their password on first logon now
+- enh: Report viewer now includes a drop down to enable choice of templates
+- fix: Offline devices list on dashboard now populated correctly
+- fix: Compliance reports page now passes report name encoded to handle + etc chars in report name
+- fix: Deleting notify group for user now works
+ 
+7.0.0.8 - 20-Feb-2015
+=====================
+- enh: Added refresh button next to group selector to enable forced refresh if required
+- enh: Creating new planned changes form events now includes option to alter time window at create time
+- enh: Agent poll time is now stored in db to better support future distributed caching
+- enh: Added online icon and last poll time filtering to admin agents grid
+- fix: Device warning on dashboard now looks better on smaller screens
+- fix: Creating / amending planned changes from events now works with lots of events
+ 
+7.0.0.7 - 17-Feb-2015
+=====================
+- enh: Deleted devices are now moved to a 'Deleted' group and their event history preserved for audit purposes. They can be re-registered via the UI after which they go through the discovery process again and are reinstated with the same underlying id
+- fix: Group name picker on events page when creating new Planned Change now keeps it's visual appearance on page changes
+- fix: Group name picker on Planned Changes admin page now lists all groups (up to 100)
+- fix: Fix when creating Planned Change from selected events for a specific device
+- fix: Force logout when using Reset UI to ensure system is in a clean, usable, state.
+ 
+7.0.0.6 - 13-Feb-2015
+=====================
+- enh: Xml config files are now signed
+- enh: Added registry tracker config to template editor
+- enh: Compliance view only lists reports for groups that have members
+- enh: Compliance view allows up to 100 rows to be displayed at a time
+- enh: Upgrade kendo ui to telerik.kendoui.professional.2014.3.1316.commercial
+- enh: Added device name filtering to device admin page
+- enh: Group names now sorted alphabetically in main drop down
+- enh: Added warning about selecte devices affecting dashboard page
+- enh: Un-planned Device Events can now just be "acknowledged" wihout needing to add them to a Planned Change.
+- enh: Can now overwrite config / policy on upload to allow for easying updating of existing config / policy
+- fix: Template edit page grids were deleting rows on cancel update click
+- fix: Preserve full file name on xml download options in UI
+- fix: Encode process names to preserve special characters when adding rule to config template from events grid
+- fix: Increased timeout for login button to allow for system startup
+- fix: De-selecting "All" checkbox now clears *all* events, not just visible ones
+- fix: Log duplicate key errors when processing compliance reports (caused by duplicate report titles)
+- fix: Fix to displaying compliance reports whe "All Devices (inc System)" group is selected.
+- fix: Fix to navigating saved query schedule grids
+- fix: Fix to system status page re: component statuses generating a 404 error
+- fix: Removed unnecessary planned change notifications from event repository
+ 
+7.0.0.5 - 06-Feb-2015
+=====================
+- enh: Added rows per page drop down to events page grid.
+- enh: Added "All" checkbox at top of events grid to select all visible events
+- enh: Added 'add process rule to template' from events grid
+- enh: Added 'ignore processes defined in template X' option when building config template process list from a device
+- enh: Added 'ignore services defined in template X' option when building config template service list from a device
+- enh: All event icons are now grey unless they're unplanned
+- enh: Actions menu now allows acknowledgement of Alert events
+- enh: Event filter now supports multi-select event types and defaults to Device and Alert events
+- enh: Added device tracked items config summary to device page
+- enh: Scheduled reports now run immediately if they are created 'in-date' (rather than waiting until the next scheduled time)
+- enh: Devices added to a group with scheduled reports (eg by autodiscovery) now pick up the and run immediately the reports associated with their groups
+- enh: Device name is now a link to the device details page on the compliance page
+- enh: A2 registradded automatic group, template and scheduled report setup from a SetupGrous.json file at runtime
+- fix: Device name link is now white when on a selected row.
+- fix: Fix to demo VM re: fonts export for PDFs
+- fix: Fix to error when scheduling multiple saved queries
+- fix: Prevent user from inadvertently loading incorrect XML into system (e.g report into config or vice versa)
+- fix: Fix to compliance page where reports for agents that only recently joined a group were in the wrong place.
+ 
+7.0.0.4 - 16-Jan-2015
+=====================
+- enh: Added security policy tracker config to template editor
+- enh: Added installed software tracker config to template editor
+- enh: Added file content tracker config to template editor
+- enh: Added service config to template editor
+- enh: Improved display of notifications and errors from agent
+- enh: Added "Changed Attributes" column to Device Event detail window
+- enh: Added export to PDF and Excel for events grid
+- enh: Added config template name click through to from group edit admin page
+- enh: Added group name filter to device groups page, added group name click through to pre-select group on admin editing page
+- enh: Added filter option to agents grid
+- enh: Login now automatically takes you to dashboard page
+- enh: Added click though from dashboard pie to events page
+- enh: Enhancements to report export to PDF / Excel
+- enh: Changed layout of device detail page to put more relevant content at the top and added links to device config templates
+- enh: Can now filter events using the Tracker Type Name in the Event Filter
+- enh: Groups drop down on UI now only lists groups that actually have members
+- enh: Create a new planned change from selected events
+- enh: Add selected events to an existing planned change
+- enh: Add groups from selected events to an existing planned change
+- enh: Planned change start and end now trigger a poll of trackers at the agent
+- enh: Added auto-refresh checkbox to events page
+- fix: Bar links on dashboard now link to events page correctly
+- fix: Events grid resets to page 1 after running new query (to avoid getting 'orphaned' when a new query returns less data)
+ 
+7.0.0.3 - 22-Dec-2014
+=====================
+- enh: Compliance Templates can now be uploaded / downloaded.
+- fix: Demo VM can now download XLS versions of completed compliance reports (GDIplus error)
+- fix: Upload function now works correctly on demo VM.
+- fix: Run adhoc compliance report button now only submits one report after page has been reloaded
+- fix: Planned Change rules grid now pages correctly.
+- fix: file tracker hashing setting is now correctly passed through to the agent
+- fix: centralised alert on rest api 400 error return. Automatic logout on 401 error return
+- enh: PollGracePeriodSeconds=10s is now added to the next expected device poll time - this is the number of seconds the poll is allowed to be overdue before it is considered late and the agent flagged as offline.
+- fix: Fix to paging on config and compliance templates grid
+ 
+7.0.0.2 - 16-Dec-2014
+=====================
+- enh: Added device config template editing admin page
+- enh: Added process picker to device config template editing page
+- enh: Devices can be members of multiple groups and each group can have multiple config templates, scheduled reports etc attached. For an individual device config a single unified config is created based on group membership
+- enh: Added device config template merge testing on save and edit, along with decriptive text messages if merge fails due to conflicts
+- fix: Load Filter now updates group names drop down list with saved group name
+- fix: Save Filter button now only fires once after the group name changed
+- fix: Button sizes on Events page more consistent height
+- fix: Changed planned changes icon to be less ambiguous
+- enh: Saved event filters can now be scheduled and results emailed
+- enh: System settings page now includes grid of configuration items
+- enh: Credentials admin page now lists agents/devices using the selected credential
+- enh: Added nice representation of current event filter to events page with one-click remove and grid update
+- fix: Fix to Planned Changes view when displaying rules for a planned change
+- fix: Fix to Planned Changes view when changing selected planned change
+- enh: Event lists on Events and Planned Changes page now has a popup window showing more details for the event (certain events only - click on the icon to show it)
+- enh: Added icon to test credentials when assigned to an agent in the Agents and Devices admin tab
+- fix: Fixed bug when updating credentials which caused the connection string to get lost
+- enh: Added "All Devices (inc. System)" group to allow system (i.e non device related) events to be viewed
+- enh: Logon events now recorded as an "AuditEvent"
+- enh: Added config key for "DaysToKeepEventsFor" to allow events to be 'aged out' automatically
+- enh: Added backup and restore options under Admin page to allow full or partial backup / export / restore / imports
+- enh: Group names drop down list automatically re-populates if a group is created or deleted
+- enh: Settings tabs (renamed from "Admin") are now limited if current user is not an "admin" user
+- enh: New "info-panel" added to each page to display inline help / tips and information.
+- enh: Added new logout button (power switch) to main page and removed old one from admin / settings page.
+- enh: Events grid can now display full details of a DataResultsEvent as well as a DeviceEvent
+ 
+7.0.0.1 - 27-Oct-2014
+=====================
+- fix: Fix to event filter popup window losing styling
+- enh: Planned Change rules can be recorded from live device events by putting Planned Change into 'recording mode'
+- enh: Planned Change editing reorganised: Planned Change template page removed, planned changes now created directly off Planned Change admin page
+- enh: Planned Changes now applied via groups rather than individual devices
+- enh: Devices With Problems link now goes to devices page, not events page
+- enh: Report Summary now included on report view page and in Excel export
+- enh: Added clickable link on system settings page to this readme
+- enh: Hub Service pipeline is now a mono / linux service and can be started / stopped with "service nnthubservice start|stop"
+- enh: Added user management to Admin page
+- enh: Changed config template admin grid to collapse XML into expandable view
+- enh: Added refresh button to device grids
+- enh: Added example connection strings to credentials admin page
+- enh: Added "hover" highlight to grids with selectable rows
+- enh: Added "Resubmit Events" button to Events page which re-submits all events implied by current event filter (need to select DeviceEvent for this to be enabled)
+- enh: Added collapsed description text to events.html to save screen space (if larger then set number chars)
+- enh: Added link to reportview.html that takes user to events.html and filters to other results of the same rule
+- enh: Added link to devices page from Planned Changes tab Enrolled Devices list
+- enh: Added link from a Planned Change event in the events list through to the Planned Changes tab
+- enh: Added Save / Load Filter function buttons to events page so "queries" can be saved / loaded</pre
+        >
+        <br /> 
+      </div>
+    </article>
+  </body>
+</html>

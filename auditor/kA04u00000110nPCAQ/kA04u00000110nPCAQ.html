@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mimikatz Pass-the-Hash Activity on Netwrix Auditor Server</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110nPCAQ" />
+    <meta name="Id" content="ka04u00000116V2AAI" />
+    <meta name="LastPublishedDate" content="2023-07-03T12:18:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-04T07:07:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-03T12:18:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8632" />
+    <meta name="ArticleNumber" content="000008632" />
+    <meta
+      name="description"
+      content="Seim Security Event and Incident Management suite detected Mimikatz Pass-the-Hash activity on Netwrix Auditor server"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            My Security Event and Incident Management suite has detected Mimikatz Pass-the-Hash
+            activity on Netwrix Auditor server. Is Netwrix Auditor trying to steal my passwords and
+            hashes?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            This is an expected behavior for the set up Active Directory monitoring plan. Netwrix
+            Auditor collects data from audited domains with the Data Collection account via
+            impersonation. Refer to the following link for additional information on impersonation:
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc961980(v=technet.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >Impersonation</a
+            >. The use of impersonation requires Secondary Logon Service enabled as stated in the
+            product documentation:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/ActiveDirectory/SecondaryLogonService.htm"
+              target="_self"
+              >Enable Secondary Logon Service</a
+            >.
+          </p>
+
+          <p>
+            You can exclude your Netwrix Auditor server from the monitoring scope of your SEIM to
+            stop receiving these alerts. For additional information on the Pass-the-Hash attack,
+            refer to the following article:
+            <a
+              href="https://blog.netwrix.com/2021/11/30/passing-the-hash-with-mimikatz/"
+              target="_blank"
+              >Performing Pass-the-Hash Attacks with Mimikatz</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

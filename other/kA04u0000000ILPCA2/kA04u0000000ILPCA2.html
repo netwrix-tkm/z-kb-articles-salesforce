@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Performance impact of FPolicy on C-mode NetApp</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ILPCA2" />
+    <meta name="Id" content="ka04u000000Hcl0AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:16:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:16:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6447" />
+    <meta name="ArticleNumber" content="000006447" />
+    <meta name="description" content="360008602431" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> FPolicy by itself
+          is an expensive technology. It has significant impact on I/O performance.  FPolicy is a
+          NetApp service that we simply integrate with as an event subscriber.  It can be a
+          performance-intensive feature to enable and NetApp will tell you as much.  We advise a
+          crawl/walk/run approach to avoid any impact to production services.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Enabling Fpolicy for
+          Activity Collection can cause some performance impacts
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <div>
+          <div>
+            FPolicy by itself is an expensive technology. It has significant impact on I/O
+            performance.
+          </div>
+          <div>
+            A prospect (now a customer) has run extensive performance tests during POC, two models
+            of NetApp devices vs. SAM.
+          </div>
+          <div> </div>
+          <div>
+            To test this, we developed a high-performance, stripped down version of SAM (Test
+            FPolicy Utility) to prove that SAM was not a culprit of performance issues. This Test
+            FPolicy Utility is a fast C++ implementation (similar to SAM's FPolicy service) that
+            just receives messages and discards them immediately without any parsing or processing.
+          </div>
+          <div>
+            <dl><dt></dt></dl>
+            <div>
+              <div>
+                <div>
+                  The idea was to measure maximum possible throughput. Luckily SAM was close to the
+                  tool's figures. We've used the tool in two instances
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>Case #1. POC</div>
+          <div class="copy-paste-block">
+            <div>With FPolicy disabled: 22K events/second</div>
+            <div>With FPolicy enabled: 8K events/second</div>
+            <div>
+              Tested both with SAM and custom built high performance tool. Activity was distributed
+              across 4 SAM Agents.
+            </div>
+            <div> </div>
+            <div>Case #2. Customer</div>
+            <div>
+              <div>
+                Customer had many performance issues. On the most busiest filers (usual load of 5
+                million events/hour with bursts up to 20 million/hour) they had to limit the
+                monitored operations to creates, deletes, and renames only.
+              </div>
+              <div> </div>
+              <div>
+                Here's more info from NetApp<a
+                  title="https://kb.netapp.com/advice_and_troubleshooting%2fdata_storage_software%2fontap_os%2fwhat_is_the_performance_impact_on_nas_when_using_fpolicy_in_ontap%3f"
+                  href="https://kb.netapp.com/Advice_and_Troubleshooting%2FData_Storage_Software%2FONTAP_OS%2FWhat_is_the_performance_impact_on_NAS_when_using_FPolicy_in_ONTAP%3F"
+                  target="_blank"
+                  >https://kb.netapp.com/Advice_and_Troubleshooting%2FData_Storage_Software%2FONTAP_OS%2FWhat_is_the_performance_impact_on_NAS_when_using_FPolicy_in_ONTAP%3F</a
+                >
+              </div>
+              <div> </div>
+              <div>
+                <dl><dt></dt></dl>
+                <div>
+                  <div> Additional notes (convo w/ Kyle and Kenny, 8/5):</div>
+                  <div> </div>
+                  <div>
+                    <p>
+                      Just try to explain that FPolicy is a NetApp service that we simply integrate
+                      with as an event subscriber. It can be a performance-intensive feature to
+                      enable and NetApp will tell you as much. It’s also independent of the vendor.
+                      Stealthbits and Varonis and anyone else will have similar impacts if
+                      configured similarly.
+                    </p>
+                    <p>
+                      <a
+                        href="https://kb.netapp.com/Advice_and_Troubleshooting%2FData_Storage_Software%2FONTAP_OS%2FWhat_is_the_performance_impact_on_NAS_when_using_FPolicy_in_ONTAP%3F"
+                        target="_blank"
+                        >https://kb.netapp.com/Advice_and_Troubleshooting%2FData_Storage_Software%2FONTAP_OS%2FWhat_is_the_performance_impact_on_NAS_when_using_FPolicy_in_ONTAP%3F</a
+                      >
+                    </p>
+                    <p>
+                      We advise a crawl/walk/run approach to avoid any impact to production
+                      services.
+                    </p>
+                    <ul>
+                      <li>Think about what your requirements are.</li>
+                      <li>Do you really need to monitor read events?</li>
+                      <li>Are there any shares or volumes you absolutely need to monitor?</li>
+                      <li>
+                        Any shares or volumes you expect to have automated processes or applications
+                        that can be excluded?
+                      </li>
+                    </ul>
+                    <p>
+                      At the risk of mixing metaphors, opening the floodgates can be a valid and
+                      necessary exercise, but you don’t want to open them all at once if you don’t
+                      know how much higher the water level is on the other side of the gate.
+                    </p>
+                    <p> </p>
+                    <p>
+                      All of the commands are in our documentation, they just have to replace with
+                      SVM names and scope of events to screen for and locations to monitor they
+                      need. They may not know where to start though. NetApp has “worksheets” in the
+                      sub-nodes of this documentation that’ll help you / them guide what kind of a
+                      configuration they want.
+                    </p>
+                    <p> </p>
+                    <p>
+                      Planning the FPolicy configuration -
+                      <a
+                        href="https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cifs-nfs-audit%2FGUID-DDFB957B-CE0F-4603-9629-669653B1E922.html&amp;cp=13_4_2_5"
+                        target="_blank"
+                        >https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cifs-nfs-audit%2FGUID-DDFB957B-CE0F-4603-9629-669653B1E922.html&amp;cp=13_4_2_5</a
+                      >
+                    </p>
+                    <p>
+                        <img
+                        src="kA04u0000000ILPCA2_99553af1-808f-441f-a8d2-1203ab6d88ea.png"
+                        alt="mceclip0.png"
+                        width="709"
+                        height="428"
+                      />
+                    </p>
+                    <p> </p>
+                  </div>
+                </div>
+
+                <dl><dd /></dl>
+              </div>
+              <div> </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <strong
+            ><span class="wysiwyg-font-size-large"
+              >Product: Stealthbits Activity Monitor</span
+            ></strong
+          >
+        </p>
+        <p>
+          <strong>
+            <span class="wysiwyg-font-size-large">Module: File Activity Monitor</span><br /><span
+              class="wysiwyg-font-size-large"
+              >Versions: 3.0+</span
+            ></strong
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

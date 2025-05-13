@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to filter out certain users from reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WYCA0" />
+    <meta name="Id" content="ka04u000000HcPkAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="812" />
+    <meta name="ArticleNumber" content="000003225" />
+    <meta name="description" content="How do I filter out certain users from reports?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How do I filter out certain users from mailbox access reports?
+
+        <hr />
+
+        <div>
+          To exclude a specific user from the mailbox access reports you need to add that user to
+          <strong>userstoexclude.txt </strong>located<strong> i</strong>n the product installation
+          directory. Since this file is read in the beginning of each data collection, it would only
+          affect newly collected data.
+          <div>The file structure is following:</div>
+          <ul>
+            <li>Each entry must be a separate line.</li>
+            <li>Wildcards (* and ?) are supported.</li>
+            <li>Lines that start with the # sign are treated as comments and are ignored.</li>
+          </ul>
+        </div>
+        <div>
+          <img
+            src="kA00g000000H9WYCA0_83f3ffb4-d360-45dc-a97a-368ee9eb261b.png"
+            alt="User-added image"
+            width="500"
+            height="398"
+          />
+
+          <strong>NOTE</strong>. The <strong>userstoexclude.txt</strong> file contains a list of
+          users who must be excluded from reports if they perform non-owner access to mailboxes. But
+          the audit data for these users will still be stored in the snapshots, so if a user is
+          removed from this list, the information on the user actions can be viewed with the Report
+          Viewer.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

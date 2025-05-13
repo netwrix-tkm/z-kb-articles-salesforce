@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Monitor Print Service Activity</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000HDkpCAG" />
+    <meta name="Id" content="ka04u000000HdPUAA0" />
+    <meta name="LastPublishedDate" content="2023-05-19T07:13:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-19T14:30:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-19T07:13:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8586" />
+    <meta name="ArticleNumber" content="000008586" />
+    <meta
+      name="description"
+      content="print usage statistics, track who is printing what, printing"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          <h2 id="question">Question</h2>
+          How to track print usage statistics for a network printer?
+        </div>
+
+        <div>
+          <h2 id="answer">Answer</h2>
+          You can enable the print event logging by following the steps below:
+
+          <ol>
+            <li>
+              Enable logging for the print service of the print server — open
+              <b>Event Viewer</b> &gt; <b>Applications and Services Logs</b> &gt;
+              <b>Microsoft</b> &gt; <b>Windows</b> &gt; <b>PrintService</b>.
+            </li>
+            <li>
+              Right-click the <b>Operational</b> item to select <b>Properties</b>.<br />
+              <br />
+              <img
+                alt="1.png"
+                height="523"
+                src="kA04u000000HDkpCAG_4692cff8-80f5-4b24-9a89-8881c9aa37fc.png"
+                width="800"
+              />
+            </li>
+            <li>
+              Check the <b>Enable logging</b> checkbox — print service events will now be logged.
+              Click <b>OK</b> to save changes.<br />
+              <br />
+              <img
+                alt="2.png"
+                height="523"
+                src="kA04u000000HDkpCAG_f36fa4ba-6f0e-4cd8-8dc1-be220803b635.png"
+                width="800"
+              />
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          Create an inclusive filter in Netwrix Auditor Event Log Manager:
+          <ol>
+            <li>
+              Create a new monitoring plan by clicking <b>Add</b> or select the preexisting
+              monitoring plan and click <b>Edit</b>.
+            </li>
+            <li>
+              Click the <b>Configure</b> button for Audit archiving filters.<br />
+              <br />
+              <img
+                alt="1.png"
+                height="570"
+                src="kA04u000000HDkpCAG_9cfa0d24-4d81-4ee7-beea-56821e065a66.png"
+                width="570"
+              />
+            </li>
+            <li>
+              Click <b>Add</b> for Inclusive Filters.<br />
+              <br />
+              <img
+                alt="2.png"
+                height="570"
+                src="kA04u000000HDkpCAG_890dc514-a060-498f-84dd-3fe9ebaa208f.png"
+                width="570"
+              />
+            </li>
+            <li>
+              Fill in the filter name and description with <b>Event Log</b> field to contain the
+              following line:
+              <pre class="ckeditor_codeblock">Microsoft-Windows-PrintService/Operational</pre>
+              Verify the location for the print server event logs via Event Viewer — the Log Name
+              should correspond with the actual event logs location.<br />
+              <br />
+              <img
+                alt="3.png"
+                height="487"
+                src="kA04u000000HDkpCAG_d8dc3b24-17e5-4768-8144-44ecdecca1fc.png"
+                width="430"
+              />
+            </li>
+            <li>
+              You can specify Event IDs in the <b>Event Fields</b> tab to filter the events (e.g.
+              Event ID 307 for <b>Printing a document</b>). Additionally you can filter the events
+              via <b>Insertion Strings</b>, refer to the index numbers specified in event details
+              (e.g. Param1 stands for Index 1 with "Job #" value).
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          Download the <b>Printed Documents RDL.zip</b> archive provided below and extract the .rdl
+          file:
+
+          <ol>
+            <li>
+              Open the Reports Server URL in your browser and navigate to the folder you'd like to
+              upload the report to (e.g. <b>Home</b> &gt; <b>Netwrix Auditor</b> &gt;
+              <b>Netwrix Auditor for Event Log</b> &gt; <b>Change Reports</b>).
+            </li>
+            <li>
+              Click <b>Upload</b> to upload the report to the folder.<br />
+              <br />
+              <img
+                alt="1.png"
+                height="581"
+                src="kA04u000000HDkpCAG_4c513a00-da67-4e7b-bb6c-31ca55badea7.png"
+                width="800"
+              />
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          Configure the report to use the Netwrix_Auditor_EventLog database:
+          <ol>
+            <li>
+              Click the meatball <b>More info</b> menu of the Print Service report to select the
+              <b>Manage</b> tab.
+            </li>
+            <li>Select the <b>Data sources</b> tab to choose <b>Custom data source</b>.</li>
+            <li>
+              Specify the Microsoft SQL Server connection type and enter the following connection
+              string:
+              <pre class="ckeditor_codeblock">
+Data Source=SQLINSTANCE;Initial Catalog=Netwrix_Auditor_EventLog;Application Name="Netwrix Auditor";
+</pre
+              >
+              NOTE: <b>SQLINSTANCE</b> should be replaced with the name of your SQL Server
+              instance.<br />
+              <br />
+              <img
+                alt="2.png"
+                height="583"
+                src="kA04u000000HDkpCAG_f5587b5b-120b-4583-8a78-5455bef98ea1.png"
+                width="800"
+              />
+            </li>
+            <li>
+              Input your credentials, test the connection and save the changes.<br />
+              <br />
+              <img
+                alt="3.png"
+                height="581"
+                src="kA04u000000HDkpCAG_eff5c382-790b-4eb0-a293-ef6551d227f1.png"
+                width="800"
+              />
+            </li>
+            <li>
+              The report is now available via the web interface of your Report Server. It will not
+              appear under Reports in the Netwrix Auditor console.<br />
+              <br />
+              <img
+                alt="4.png"
+                height="581"
+                src="kA04u000000HDkpCAG_d5bf2f7d-266a-4fa1-984b-6cb67377aa15.png"
+                width="800"
+              />
+            </li>
+          </ol>
+        </div>
+         
+
+        <div>
+          <a href="https://www.netwrix.com/download/Printed-Documents-RDL.zip" target="_blank"
+            >Printed Documents RDL</a
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

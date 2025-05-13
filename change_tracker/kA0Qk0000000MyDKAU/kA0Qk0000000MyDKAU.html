@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Policy Templates Generated a Schema Error and Were Set as Untrusted</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000MyDKAU" />
+    <meta name="Id" content="ka0Qk0000001JyHIAU" />
+    <meta name="LastPublishedDate" content="2024-01-12T08:40:43.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-12T08:40:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-10T15:23:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8998" />
+    <meta name="ArticleNumber" content="000008998" />
+    <meta
+      name="description"
+      content="Policy Templates Generated a Schema Error and Were Set as Untrusted"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            After an upgrade, some policies under <b>Settings</b> -&gt; <b>Policy Templates</b> were
+            set as <em>untrusted</em>. When trying to duplicate the policy and remove the old one,
+            the following error appears:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+    File: [policy name] fails schema validation: Error: The element 'UsageTags' in namespace '
+        </pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This is a common issue after upgrading the Change Tracker application from v7.2 to v7.3
+            or higher.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Follow the spteps below to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                Remove any <b>Compliance Reports</b> which had been added. For that, navigate to
+                <b>Settings</b> &gt; <b>Groups</b> &gt; <b>Templates</b>. These are noticeable as
+                they typically contain <em>Benchmark</em> within the template name.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once removed, navigate to
+                <em>C:\Program Files\NNT Change Tracker Suite\Gen7\Maintenance\</em> and run the
+                <b>NNT.Hub.Service.Maintenance.App.exe</b> file that lauches the maintenance
+                application.
+              </p>
+            </li>
+            <li>
+              <p>
+                Use the <code>U</code> option in the maintenance app to verify all compliance
+                templates.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            This will resolve the <b>Schema Error</b> tag and set the templates to <em>Trusted</em>.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "FileContentTrackerDataCollectorLocal - Couldnt locate file entry for
+      /mydirectory/my.file"
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JY6CAM" />
+    <meta name="Id" content="ka04u000000Hd9NAAS" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:49:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8203" />
+    <meta name="ArticleNumber" content="000008203" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeHeader panelHeader pdl"><b>Example Error Message</b></div>
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:													  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2017-10-02 07:42:42,082 [5] ERROR FileContentTrackerDataCollectorLocal - couldn't locate File entry for /etc/yum.conf
+
+
+</pre
+            >
+          </div>
+        </div>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>What Does It Mean?</span></strong>
+        </h2>
+        <p>
+          This error occurs when you have your configuration template in Change Tracker looking to
+          track file contents on a certain file. In this case, we are looking to track
+          "/etc/yum.conf" This error means that the agent could not locate this file.
+        </p>
+        <p><br /></p>
+        <h2 id="Rolling-LogFix:">
+          <strong><span>How Can I Fix This / Should I Worry?</span></strong>
+        </h2>
+        <p>
+          If you are recieving this for a file that actually does not exist, then no, do not worry.
+          If you are using one template to track multiple agents, and some agents do have the file,
+          while others dont, it is not a problem to let it track this file. The only caution to have
+          with this is the amount of files it is looking for. If the template grows exponentially,
+          having a large volume of these errors may cause performance issues, however, in most
+          cases, it is perfectly fine.
+        </p>
+        <p><br /></p>
+        <p>If you are positive the file exists, but are getting this error, do the following</p>
+        <ol>
+          <li>
+            Check your configuration template. Is it looking for the file in the same place you have
+            placed the file?
+          </li>
+          <li>
+            Is this a file that is in different places on different servers? if so, please define
+            all of the potential spots in the template.
+          </li>
+          <li>
+            Does this file have special permissions that do not allow it to be read by our agent? If
+            so, adjust the file permissions, or adjust the privilages of the account our agent uses.
+          </li>
+        </ol>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <span>In most cases, you can simply ignore this error as it is not harmful.</span>
+          </div>
+        </div>
+        <h2 id="Rolling-LogFix:">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8133" target="_blank"
+                >How to fix the "Check Log for Details" message in the event details</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8302" target="_blank"
+                >Support for TLS 1.2 in the .NET Framework 3.5.1</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8285" target="_blank"
+                >MongoDB - Pre-allocated Log Files Accumulate &amp; Result to Disk Space Errors</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8265" target="_blank"
+                >Change Tracker ‚Äì How to Create a Custom Tracked Attributes Filter Within a
+                Configuration Template</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8284" target="_blank"
+                >How To Turn Off Bulk Email Notifications (Force Change Tracker to send one email
+                for each change instead of compiling into one email with multiple changes)</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

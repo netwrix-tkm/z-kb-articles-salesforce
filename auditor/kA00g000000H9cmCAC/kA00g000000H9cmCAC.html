@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor System Health Log - Event ID 1284</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cmCAC" />
+    <meta name="Id" content="ka0Qk0000001E2XIAU" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:50.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-04T13:05:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2372" />
+    <meta name="ArticleNumber" content="000003606" />
+    <meta name="description" content="Increasing timeouts for SharePoint Audit Data Collections." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor System Health Log contains the following Event ID:<b> 1284</b> "<i
+          >The Activity Summary may include incomplete data as the data collection was still in
+          progress when it was sent. No data loss has occurred, the missing events will be listed in
+          the next Activity Summary and added to AuditArchive</i
+        >".
+        <hr />
+        Since the data collection exceeded the predefined timeout period for its completion (1
+        hour), the summary email was generated while the data collection was still in progress.
+        <hr />
+        No data loss has occurred, the missing events will be listed in the next summary email and
+        added to the Audit Archive and Database. To generate a new summary email, do the following:
+        Navigate to <b>Monitoring plans</b> --&gt;
+        <b>&lt;your SharePoint monitoring plan name&gt;</b> --&gt; <b>Edit</b> and click
+        <b>Update</b>. If the error persists:
+
+        <ol>
+          <li>Exit <b>Netwrix Auditor</b>.</li>
+          <li>
+            Stop the following services:
+            <ul>
+              <li>Netwrix Auditor Core Service</li>
+              <li>Netwrix Auditor Configuration Server Service</li>
+              <li>
+                Netwrix Auditor Service for SharePoint (your_SharePoint_Monitoring_Plan_name).
+              </li>
+            </ul>
+          </li>
+          <li>
+            Navigate to
+            <b>%ProgramData%Netwrix AuditorAuditCoreConfigServerConfiguration.xml. </b>Find your
+            monitoring plan name in the configuration file:
+          </li>
+        </ol>
+
+        <div>
+          -&lt;n n="ManagedObjects"&gt; ..... &lt;a n="Name" t="2"
+          v="your_SharePoint_Monitoring_Plan_name"/&gt;
+        </div>
+
+        <ol start="4">
+          <li>
+            Locate the
+            <b>&lt;a n="SynchronizationTaskWaitTimeout" t="5" v="36000000000"/&gt;</b> string and
+            set <b>SynchronizationTaskWaitTimeout</b> to "72000000000".
+          </li>
+          <li>
+            Save the <b>Configuration.xml</b> file and start the services you have stopped on the
+            step 2. To do it, navigate to Start --&gt; Administrative Tools --&gt; Services, locate
+            the service, right-click it and select <b>Start. </b>
+          </li>
+        </ol>
+         
+      </div>
+    </article>
+  </body>
+</html>

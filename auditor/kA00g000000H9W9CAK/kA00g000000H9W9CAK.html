@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to remove Netwrix Event Log agent from multiple servers</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9W9CAK" />
+    <meta name="Id" content="ka04u000000HcPLAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="777" />
+    <meta name="ArticleNumber" content="000003200" />
+    <meta name="description" content="Remove Netwrix Event Log agents from your environment" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        We used to use Netwrix Auditor - Generic (Event Log Management) events and Netwrix Auditor
+        for User logons with agents, but we do not use them anymore But agents are still installed
+        on the servers, so we<span>
+          need a method to safely automate the removal of the service from all servers.
+        </span>
+
+        <hr />
+
+        The agents are registered as services, so it is recommended to use sc.exe to remove
+        services. Find attached a Powershell script that will remove Netwrix agents from all servers
+        in the specified list.
+
+        <a href="https://kb.netwrix.com/wp-content/uploads/2013/12/Remove.zip" target="_blank"
+          >Remove.zip</a
+        >
+
+        The script requires a list of servers in a text file as input.
+
+        <span><strong>Example:</strong> <em>.Remove.ps1 -list D:Servers.txt</em></span>
+      </div>
+    </article>
+  </body>
+</html>

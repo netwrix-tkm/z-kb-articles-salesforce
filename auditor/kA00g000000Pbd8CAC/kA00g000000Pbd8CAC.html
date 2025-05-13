@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Migrate Netwrix Auditor Databases to Another SQL Server Instance</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000Pbd8CAC" />
+    <meta name="Id" content="ka0Qk0000006yfpIAA" />
+    <meta name="LastPublishedDate" content="2024-10-22T21:40:18.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-22T21:40:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="680" />
+    <meta name="ArticleNumber" content="000003767" />
+    <meta
+      name="description"
+      content="How to migrate the Netwrix databases to another MS SQL Server instance"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>How do I migrate audit databases to another Microsoft SQL Server instance?</p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <blockquote>
+          <p>
+            <span><strong>NOTE</strong></span
+            >. If you are migrating the SQL Express instance, install SQL Server Reporting Services
+            (SSRS) in the new server. Refer to the following article for additional information on
+            requirements:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+              target="_blank"
+              >Requirements – SQL Server Reporting Services · v10.7</a
+            >
+            article.
+          </p>
+        </blockquote>
+        <ol>
+          <li>
+            <p>Configure a new SQL Server instance.</p>
+          </li>
+          <li>
+            <p>
+              In the Netwrix Auditor server, stop <code>Netwrix Auditor Archive Service</code> and
+              <code>Netwrix Auditor Management Service</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Back up all Netwrix databases in the old SQL Server instance except for the
+              <strong>Netwrix_CommonDB</strong>, <strong>Netwrix_ImportDB</strong>,
+              <strong>Netwrix_Auditor_EventLog</strong>, <strong>ReportServer</strong>, and
+              <strong>ReportServerTempDB</strong> databases. Perform the following steps to back up
+              databases:
+            </p>
+            <ol>
+              <li>
+                <p>
+                  Open <strong>Microsoft SQL Server Management Studio</strong> and connect to the
+                  original SQL Server instance.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Select an <strong>audit database</strong>, right-click it and select
+                  <strong>Tasks </strong> &gt; <strong>Back Up...</strong>
+                </p>
+              </li>
+              <li>
+                <p>
+                  In the <strong>Back Up Database</strong> window, review the path the database
+                  backup will be stored in in the <strong>Destination</strong> section.
+                </p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p>
+              Copy the database backups to your new SQL Server. In the new
+              <strong>SQL Server</strong> instance, perform the following steps:
+            </p>
+            <ol>
+              <li>
+                <p>
+                  Open <strong>Microsoft SQL Server Management Studio</strong> and connect to the
+                  destination SQL Server instance.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Right-click the <strong>Databases</strong> node and select
+                  <strong>Restore Database...</strong>
+                </p>
+              </li>
+              <li>
+                <p>
+                  Under the <strong>Source</strong> section, select the
+                  <strong>Device</strong> option, and click <strong>...</strong> to browse
+                  databases.
+                </p>
+              </li>
+              <li>
+                <p>
+                  In the <strong>Specify Backup Devices</strong> window, click
+                  <strong>Add</strong> and select the file source database file (the backed up
+                  database). Click <strong>OK</strong>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Specify the database name and check the <strong>Restore</strong> checkbox under
+                  the <strong>Backup sets to restore</strong> caption.
+                </p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p>
+              Deploy new Report Database. Refer to the following article for additional information:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eUCAS.html"
+                target="_self"
+                >Deploying the Report Server Database</a
+              >.
+            </p>
+          </li>
+          <li>
+            <p>Stop the old <strong>SQL Server (%instance_name%)</strong> service.</p>
+          </li>
+          <li>
+            <p>
+              Start <code>Netwrix Auditor Archive Service</code> and
+              <code>Netwrix Auditor Management Service</code>.
+            </p>
+          </li>
+          <li>
+            <p>
+              In the main Netwrix Auditor menu, select <b>Settings</b> &gt;
+              <b>Audit Database</b> tab, and specify the new SQL Server and Reporting Service
+              settings.
+            </p>
+          </li>
+          <li>
+            <p>Click <strong>Yes</strong> once the following message appears:</p>
+            <div>
+              <img
+                alt="data-will-become-unavailable.png"
+                src="kA00g000000Pbd8CAC_12d6d0e4-b97f-48e9-ac03-9271c3ee0683.png"
+              />
+            </div>
+          </li>
+          <li>
+            <p>
+              In the main Netwrix Auditor menu, select <b>Settings</b> &gt;
+              the<b> Investigations</b> tab. Click <b>Modify</b> to specify the
+              <b>new SQL Server</b> settings.
+            </p>
+          </li>
+          <li>
+            <p>
+              Run a Search with the filter <b>When | Equals | Last 7 days</b>. If you see the
+              relevant data, the databases were migrated successfully and the
+              <b>new SQL Server</b> is being used.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Optional:</strong> Start the old SQL Server instance if it's used for any
+              other tasks.
+            </p>
+          </li>
+        </ol>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Requirements/SQLServerReportingService.htm"
+                  target="_blank"
+                  >Requirements – SQL Server Reporting Services · v10.7</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001115OCAQ.html"
+                  target="_blank"
+                  >How to Prepare the Netwrix Server for a SQL Upgrade</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eUCAS.html"
+                  target="_self"
+                  >Deploying the Report Server Database</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

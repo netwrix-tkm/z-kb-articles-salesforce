@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Change the Header and Footer Logo in Notifications</title>
+    <meta name="label" content="groupid" />
+    <meta name="label" content="f_imanami" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000015iPKAQ" />
+    <meta name="Id" content="ka0Qk000000DSOHIA4" />
+    <meta name="LastPublishedDate" content="2025-04-16T18:33:28.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:24:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-13T18:11:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9166" />
+    <meta name="ArticleNumber" content="000009166" />
+    <meta name="description" content="Change Logo in GroupID Notifications" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>
+          Can you change the logo in the header and footer of Netwrix Directory Manager (formerly
+          Netwrix GroupID) notifications?
+        </p>
+        <div>
+          <img
+            src="kA0Qk00000015iPKAQ_00c5f368-4e23-4df8-856f-1efc0fea1073.png"
+            alt="Notification Logo Screenshot"
+          />
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            Yes, it is possible to change the logos in the header and footer of notifications.
+            However, this cannot be done through the Directory Manager Admin Center. Instead, you
+            must update the image files directly in the database.
+          </p>
+        </div>
+        <h4 id="before_you_begin">Before You Begin</h4>
+        <p>
+          Notification logos are stored in the <code>GroupID.NotificationResources</code> database
+          table as binary data. The relevant column is <code>ResourceImage</code>, which includes
+          the following entries:
+        </p>
+        <ul>
+          <li>
+            <p><code>ID 1</code> – Header logo</p>
+          </li>
+          <li>
+            <p><code>ID 2</code> – Footer logo</p>
+          </li>
+          <li>
+            <p><code>ID 3</code> – Title image</p>
+          </li>
+        </ul>
+        <p>The image ID located at the end of the query specifies which image will be replaced.</p>
+        <h4 id="how_to_replace_an_image">How to Replace an Image</h4>
+        <p>
+          Run the SQL query below, updating <code>PathToUpdatedImage.jpg</code> and
+          <code>WHERE id =</code> with the values you want to replace:
+        </p>
+        <pre
+          class="has-inner-focus"
+        ><code class="lang-Registry">UPDATE [DB Name].[GroupID].[NotificationResources]
+SET ResourceImage = (
+    SELECT BulkColumn 
+    FROM OPENROWSET(BULK 'PathToUpdatedImage.jpg', SINGLE_BLOB) AS x
+)
+WHERE id = 1;</code></pre>
+        <p>After executing the query, all future notifications will display the updated image.</p>
+      </div>
+    </article>
+  </body>
+</html>

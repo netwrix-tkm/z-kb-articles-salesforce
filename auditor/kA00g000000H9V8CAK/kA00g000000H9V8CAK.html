@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to audit File Servers with enabled User Account Control</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9V8CAK" />
+    <meta name="Id" content="ka04u000000HcOVAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:12.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="719" />
+    <meta name="ArticleNumber" content="000003142" />
+    <meta
+      name="description"
+      content="How to audit File Servers with enabled User Account Control"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Why Netwrix Auditor cannot configure audit settings for File Servers Managed Object?<br /><br /><br /><br />
+
+        <hr />
+
+        <p>
+          Most likely, this is due to enabled User Account Control. ​In this case the Netwrix
+          Auditor System Health log contains the following error:<br /><i
+            >Cannot configure audit settings for the object &lt;Managed Object name&gt;: A required
+            privilege is not held by the client.</i
+          ><br />To resolve this issue, do the following:
+        </p>
+
+        <ol>
+          <li>
+            If your target server is not in a domain, create a user that is not a member of the
+            <b>BUILTINAdministrators</b> group. Grant all required rights and permissions to the
+            account.
+          </li>
+          <li>
+            Enable User Account Control for local connections only and disable it for remote
+            connections.
+          </li>
+        </ol>
+
+        <p></p>
+      </div>
+    </article>
+  </body>
+</html>

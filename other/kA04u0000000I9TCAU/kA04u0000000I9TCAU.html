@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PowerShell: "Only core types are supported in this language mode"</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I9TCAU" />
+    <meta name="Id" content="ka04u000000HcgmAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:04:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:39.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:04:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6249" />
+    <meta name="ArticleNumber" content="000006249" />
+    <meta name="description" content="360010581231" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          If PowerShell throws an error that says
+          <em>"Only core types are supported in this language mode"</em>, the host is running
+          PowerShell in
+          <a
+            href="https://devblogs.microsoft.com/powershell/powershell-constrained-language-mode/"
+            target="_blank"
+            >Constrained Language Mode</a
+          >. 
+        </p>
+        <p>
+          You can confirm this by navigating to HKLM:\\SYSTEM\CurrentControlSet\Control\Session
+          Manager\Environment in the registry and checking the value of the __PsLockdownPolicy key. 
+        </p>
+        <p>This script will do that for you:</p>
+        <pre>$Hive = [Microsoft.Win32.RegistryHive]::LocalMachine<br/>$Registry = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey($Hive, $env:COMPUTERNAME)<br/>$KeyPath = 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment'<br/>$Key = $Registry.OpenSubKey($KeyPath)<br/>$LockdownPolicy = $Key.GetValue('__PSLockdownPolicy')<br/><br/>switch($LockdownPolicy) {<br/>    $null { Write-Host "PSLockdownPolicy is not enabled"}<br/>    0 { Write-Host "PSLockdownPolicy is set to ""Full Language"""}<br/>    1 { Write-Host "PSLockdownPolicy is set to ""Full Language"""}<br/>    2 { Write-Host "PSLockdownPolicy is set to ""Full Language"""}<br/>    3 { Write-Host "PSLockdownPolicy is set to ""Full Language"""}<br/>    4 { Write-Warning "PSLockdownPolicy is set to ""Constrained Language Mode"""}<br/>    5 { Write-Warning "PSLockdownPolicy is set to ""Constrained Language Mode"""}<br/>    6 { Write-Warning "PSLockdownPolicy is set to ""Constrained Language Mode"""}<br/>    7 { Write-Warning "PSLockdownPolicy is set to ""Constrained Language Mode"""}<br/>    8 { Write-Host "PSLockdownPolicy is set to ""Full Language"""}<br/>}</pre>
+        <p>
+          If the value is 4, 5, 6, or 7, PowerShell is in Constrained Language Mode and you're gonna
+          have a bad time. 
+        </p>
+        <p>If the key doesn't exist or the value is 0, 1, 2, 3, or 8 everything is awesome. </p>
+        <p>
+          You'll have to restart any PowerShell consoles after changing this value before the change
+          will take effect.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

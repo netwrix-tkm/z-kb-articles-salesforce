@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Changes Reported in Wrong Time Zone</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SWCA0" />
+    <meta name="Id" content="ka04u00000117eyAAA" />
+    <meta name="LastPublishedDate" content="2023-09-07T12:18:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T12:18:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="246" />
+    <meta name="ArticleNumber" content="000002980" />
+    <meta name="description" content="reports time zone SSRS" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor reports changes in a wrong time zone. Is it possible to fix time zone
+            settings?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>The SQL Server Reporting Services (SSRS) server time
+            zone change won't affect the prior timestamp values. If you change your SSRS server time
+            zone with a change made at 9:00 AM (as per your SSRS server time zone), it will still be
+            recorded as made at 9:00 AM.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            If Netwrix Auditor and SQL Server Reporting Services do not share the same server, the
+            predefined reports will show both date and time zone based on the SQL Server Reporting
+            Services server settings. Refer to the following steps to change the time zone set
+            locally on your SSRS server:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Open the <strong>Start</strong> menu and select the <strong>Settings</strong> menu.
+              </p>
+            </li>
+            <li>
+              <p>Select the <strong>Time &amp; Language</strong> tab.</p>
+            </li>
+            <li>
+              <p>In the left pane, select the <strong>Date &amp; time</strong> tab.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    You can click the <strong>Change</strong> button under the
+                    <strong>Change date and time</strong> section to set up the specific time for
+                    your SSRS server. Deselect the <strong>Set time automatically</strong> switch to
+                    enable the option.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    You can also separately set the time zone — deselect the
+                    <strong>Set time zone automatically</strong> switch to enable the option.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>You must restart SSRS service in order for the
+              time zone change to take effect.
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <p>
+            Custom search-based reports and queries are not affected by the SSRS time zone. Learn
+            more about custom search-based reports in the <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Reports/Types/Custom.htm"
+              target="_blank"
+              >Reports – Custom Search-Based Reports ⸱ v10.6</a
+            > article. To learn more about changing SSRS time zone, refer to the
+            <a
+              href="https://learn.microsoft.com/en-us/sql/reporting-services/subscriptions/change-time-zones-and-clock-settings-on-a-report-server?view=sql-server-ver16"
+              target="_blank"
+              >Change Time Zones and Clock Settings on a Report Server · Microsoft 🡥</a
+            >
+            article.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

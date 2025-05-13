@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1267 − 1273 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cRCAS" />
+    <meta name="Id" content="ka0Qk0000001Dw5IAE" />
+    <meta name="LastPublishedDate" content="2024-01-04T09:35:11.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-04T09:51:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2257" />
+    <meta name="ArticleNumber" content="000003585" />
+    <meta
+      name="description"
+      content="The KB provides resolution steps depending on Event ID returned by Netwrix Auditor System Health log."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Either of the following error messages under Event ID 1267, 1268, 1269, 1270, 1271,
+            1272, and 1273 is prompted in Health Log for your SharePoint monitoring plan.
+          </p>
+        </div>
+
+        <h2 id="causes_and_resolutions">Causes and Resolutions</h2>
+
+        <div>
+          <p>Refer to the following possible causes and resolutions:</p>
+
+          <div class="table-wrap">
+            <table count-columns="3">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">Event Description</td>
+                  <td colspan="1" rowspan="1">Cause</td>
+                  <td colspan="1" rowspan="1">Resolution</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1267 − Unable to report changes to SharePoint farm %affected_Shapoint_farm%
+                      correctly, as the current, previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                  <td colspan="1" rowspan="7">
+                    <ul>
+                      <li>
+                        <p>Access to the affected web site has been blocked.</p>
+                      </li>
+                      <li>
+                        <p>
+                          Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED)).
+                        </p>
+                      </li>
+                      <li>
+                        <p>Some or all identity references could not be translated.</p>
+                      </li>
+                      <li>
+                        <p>The previous data collection completed with an error.</p>
+                      </li>
+                    </ul>
+                  </td>
+                  <td colspan="1" rowspan="7">
+                    <p>Refer to the following resolutions depending on the cause:</p>
+
+                    <ul>
+                      <li>
+                        <p>
+                          In SharePoint Central Administration, navigate to
+                          <strong>Application Management</strong> &gt;
+                          <strong>Configure Quotas and Locks</strong> &gt;
+                          <strong>%affected_web_application%</strong>, and change the status to
+                          <strong>Not locked</strong>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          In SharePoint Central Administration, navigate to
+                          <strong>Web Applications</strong> &gt;
+                          <strong>%affected_web_application%</strong> &gt;
+                          <strong>User Permissions</strong>, and verify the security settings. The
+                          minimum required permissions are <strong>Manage Web Site</strong>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          This error could be caused by the account running SharePoint service or
+                          SharePoint WebApplication Pool removed from the AD domain but left in the
+                          service accounts portion of SharePoint. Remove this account from
+                          SharePoint service accounts, or join it back to the domain.
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Navigate to <strong>Monitoring Plans</strong> &gt; select the
+                          <strong>%affected_monitoring_plan%</strong> and click
+                          <strong>Edit</strong> &gt; click <strong>Update</strong>.
+                        </p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1268 − Unable to report changes to web application &lt;ID&gt; correctly as the
+                      current, previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1269 − Unable to report changes to site collection &lt;ID&gt; correctly as the
+                      current, previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1270 − Unable to report changes to feature &lt;ID&gt; correctly as the
+                      current, previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1271 − Unable to report changes to solution &lt;ID&gt; correctly as the
+                      current, previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1272 − Unable to report changes to permission policy &lt;ID&gt; correctly as
+                      the current, previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <p>
+                      1273 − Unable to report changes to server &lt;ID&gt; correctly as the current,
+                      previous, or both snapshots are partially invalid.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Learn more on management of the SharePoint site lock status via PowerShell in
+            <a
+              href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+              target="_blank"
+              >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status for
+              Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+                  target="_blank"
+                  >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status
+                  for Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

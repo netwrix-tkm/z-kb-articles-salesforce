@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to back up the NDC index</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PcvZCAS" />
+    <meta name="Id" content="ka04u000000HdEYAA0" />
+    <meta name="LastPublishedDate" content="2020-08-25T18:36:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:19:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-08-10T13:31:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5811" />
+    <meta name="ArticleNumber" content="000005811" />
+    <meta
+      name="description"
+      content="The following article details steps in backing up the NDC index."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The following article details steps for backing up the NDC index. The reason for backing
+          up the NDC index is to provide a safety net in case of index corruption. Having a properly
+          maintained NDC index can reduce the time lost in the event that an index is corrupted.
+        </p>
+
+        <p><b>What causes index corruption?</b></p>
+
+        <p>Corruption within the index occurs when one of two situations occurs:</p>
+
+        <ol>
+          <li>
+            The Indexer process is terminated without being allowed to stop gracefully, perhaps by a
+            power interruption or the use of the “End Task” option in Task Manager
+          </li>
+          <li>
+            The Indexer is prevented from editing the files by some other utility (Ransomware
+            protection, Anti-Virus etc) during that same window (or, the utility changes those files
+            itself).
+          </li>
+        </ol>
+
+        <p><b>How to prevent the index from corrupting?</b></p>
+
+        <ol>
+          <li>Ensure that automatic restarts have been disabled on the server</li>
+          <li>
+            Ensure that the CSE files have been excluded from any running Anti-Virus. (Default CSE
+            location: <i>C:\Program Files\ConceptSearching\ConceptDB\</i>)
+          </li>
+          <li>Educate users of the NDC product to avoid manually stopping the indexer process.</li>
+        </ol>
+
+        <p><b>My index has corrupted, can I perform a root cause analysis?</b></p>
+
+        <p>
+          Yes, logs are generally the best method for this but if considerable time has passed then
+          it may be tricky. One option would be to review the following SQL data:
+        </p>
+
+        <pre><i>SELECT * FROM ApplicationLog WHERE Operation = 1 AND ModuleID = 2 ORDER BY LogDateTime DESC</i></pre>
+
+        <p>
+          If the service was improperly shutdown then you would expect to have a “<b>Started</b>”
+          entry without a corresponding “<b>Shutdown</b>” entry.
+        </p>
+
+        <p><b>How to back up the index?</b></p>
+
+        <ol>
+          <li>
+            Stop all services (<b>Collector</b>, <b>Indexer</b>, <b>Classifier</b>). If you are
+            using a DQS (clustered NDC), stop all three services on each server in the cluster.
+          </li>
+          <li>
+            Take a backup of the CSE file folder on each server. (Default CSE location:
+            <i>C:\Program Files\ConceptSearching\ConceptDB\</i>)
+          </li>
+          <li>
+            Take a backup of the SQL database (it’s very important that the SQL database is in sync
+            with the CSE files – hence stopping the services first)
+          </li>
+          <li>Start all services</li>
+        </ol>
+
+        <p>
+          For best results, taking these steps weekly will ensure that minimal data is lost in the
+          event of an index corruption.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

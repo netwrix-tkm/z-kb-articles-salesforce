@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Edition of Reporting Services Requires Using Local Relational Databases</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9a8CAC" />
+    <meta name="Id" content="ka0Qk0000005YsHIAU" />
+    <meta name="LastPublishedDate" content="2024-09-17T19:49:56.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-17T19:49:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1249" />
+    <meta name="ArticleNumber" content="000003444" />
+    <meta
+      name="description"
+      content="When generating reports in Netwrix Auditor or web browser the following error occurs: &amp;quot;An error has occurred during report processing. (rsProcessinsAborted)"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When generating reports in Netwrix Auditor or a web browser, the following error occurs:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">An error has occurred during report processing. (rsProcessingAborted)  
+Cannot create a connection to data source 'DS'. (rsErrorOpeningConnection). 
+The feature:
+"The edition of Reporting Services that you are using requires that you use local SQL Server relational databases for report data sources and the report server database."
+is not supported in this edition of Reporting Services. </code></pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Both of the following aspects are true for your environment:</p>
+
+          <ul>
+            <li>
+              <p>
+                You have Reporting Services configured on a SQL Server Express instance while the
+                database containing your audit data is stored on a remote SQL Server instance.
+              </p>
+            </li>
+            <li>
+              <p>
+                The Reporting Services configured on a SQL Server Express instance allow generating
+                reports based on data stored in the local instance of SQL Server only.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Refer to one of the following options to resolve the issue:</p>
+
+          <ul>
+            <li>
+              <p>
+                Install and configure SQL Server Reporting Services on the same SQL Server instance
+                where the databases with your audit data are stored.
+              </p>
+            </li>
+            <li>
+              <p>Upgrade your SQL Server instance from the Express to the Standard Edition.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

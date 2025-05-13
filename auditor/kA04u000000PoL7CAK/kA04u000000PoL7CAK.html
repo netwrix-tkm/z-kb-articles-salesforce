@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Reducing the Used Active Directory License Count and Entra ID License Count</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="customers_v" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoL7CAK" />
+    <meta name="Id" content="ka0Qk000000DXZFIA4" />
+    <meta name="LastPublishedDate" content="2025-04-29T19:36:44.000+0000" />
+    <meta name="LastModifiedDate" content="2025-05-02T15:42:01.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-29T13:29:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8597" />
+    <meta name="ArticleNumber" content="000008597" />
+    <meta name="description" content="reduce license counts, omit users and ou" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span class="Caution"><strong>IMPORTANT: </strong></span>Netwrix Auditor is licensed per
+            enabled AD user object. For additional information on determining the number of enabled
+            Auditor accounts, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9UdCAK.html"
+              target="_blank"
+              >How to Determine the Number of Enabled User Accounts</a
+            >. Auditor only collects data from objects that are not excluded (omitted), which means
+            that any objects that are omitted will not be monitored.
+          </p>
+        </blockquote>
+        <h2 id="question">Question</h2>
+        <div>
+          <p>How can the number of used Active Directory (AD) licenses be reduced in Auditor?</p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>Refer to the following options to reduce the count of used AD licenses:</p>
+          <ul>
+            <li>
+              <p><a href="#Disable the User Objects">Disable the User Objects</a></p>
+            </li>
+            <li>
+              <p>
+                <a href="#Exclude OUs and User Objects via the Auditor UI"
+                  >Exclude OUs and User Objects via the Auditor UI</a
+                >
+              </p>
+            </li>
+            <li>
+              <p><a href="#Exclude an OU via the Omit List">Exclude an OU via the Omit List</a></p>
+            </li>
+            <li>
+              <p>
+                <a href="#Exclude Entra ID Users via the omitUPNlist.txt File"
+                  >Exclude Entra ID Users via the OmitUPNlist.txt File</a
+                >
+              </p>
+            </li>
+          </ul>
+          <h4 id="Disable the User Objects">Disable the User Objects</h4>
+          <div>
+            <p>
+              Auditor is licensed based on the number of enabled user objects in the AD. Disabled
+              user objects are still tracked for changes, but they do not count towards the license
+              count. Refer to the following steps to view a list of all enabled users:
+            </p>
+            <ol>
+              <li>
+                <p>
+                  In the main Auditor screen, select <strong>Reports</strong> &gt;
+                  <strong>Predefined</strong> &gt; <strong>Active Directory</strong> &gt;
+                  <strong>Active Directory—State-in-Time</strong> &gt;
+                  <strong>User Accounts</strong>.
+                </p>
+              </li>
+              <li>
+                <p>
+                  In the filters section, switch the <strong>Status</strong> filter to
+                  <strong>Enabled</strong> to get a full list of enabled users. Click
+                  <strong>View Report</strong> to update the report.
+                </p>
+                <blockquote>
+                  <p>
+                    <strong>TIP: </strong>Switch the <strong>Sort By</strong> filter to
+                    <strong>Name</strong> to sort the list by the organizational unit (OU).
+                  </p>
+                </blockquote>
+                <p>Review the list to determine if any accounts should be disabled.</p>
+              </li>
+            </ol>
+            <blockquote>
+              <p>
+                <span class="Note"><strong>NOTE: </strong></span>No further actions are required
+                after you disable the user objects—Auditor reviews the used AD license count on data
+                collection.
+              </p>
+            </blockquote>
+          </div>
+          <h4 id="Exclude OUs and User Objects via the Auditor UI">
+            Exclude OUs and User Objects via the Auditor UI
+          </h4>
+          <div>
+            <p>
+              Refer to the following steps to exclude OUs and user objects from the monitoring scope
+              via the Auditor UI to reduce the used license count:
+            </p>
+            <ol>
+              <li>
+                <p>In the main Auditor menu, click <b>Monitoring Plans</b>.</p>
+              </li>
+              <li>Select the relevant AD monitoring plan and click <b>Edit</b>.</li>
+              <li>
+                <p>Select the data source and click <b>Edit data source</b>.</p>
+                <div>
+                  <img
+                    alt="bM2zhsogPP.png"
+                    height="403"
+                    src="kA04u000000PoL7CAK_be4b3eb1-8b3e-487d-b801-a7786e5e6141.png"
+                    width="600"
+                  />
+                </div>
+              </li>
+              <li>
+                <p>
+                  In the left pane, select the <b>Objects</b> tab. Select the
+                  <b>Exclude these objects</b> checkbox, then click <b>Add</b> to exclude objects
+                  from the monitoring scope. After adding the objects, click
+                  <b>Save &amp; Close</b>.
+                </p>
+                <div>
+                  <img
+                    height="403"
+                    src="kA04u000000PoL7CAK_0b3f80b3-d37c-48e4-a6b8-eb5bc9da2181.png"
+                    width="600"
+                  />
+                </div>
+              </li>
+            </ol>
+            <p>
+              Refer to the following examples to learn about how the exclusion rules work for
+              <b>Objects</b>. The same logic applies to the inclusion rules:
+            </p>
+            <ul>
+              <li>
+                <p>
+                  <code>domain.local/OU</code> will exclude the OU itself. However, objects within
+                  this OU will not be excluded.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <code>domain.local/OU/*</code> will exclude objects within the OU. However, the OU
+                  itself will not be excluded.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <code>domain.local/OU*</code> will exclude the OU itself, all objects within it,
+                  and also all objects whose path begins with <code>domain.local/OU</code> (like
+                  <code>domain.local/OU_HQ</code>).
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h4 id="Exclude an OU via the Omit List">Exclude an OU via the Omit List</h4>
+          <div>
+            <p>
+              Populate the <code>omitpathlist.txt</code> omit list with the OU you would like to
+              omit. Use the exclusion rules provided above. For additional information on AD omit
+              lists, refer to the following article:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/MonitoringPlans/ActiveDirectory/Scope.htm"
+                target="_blank"
+                >Active Directory — Active Directory Monitoring Scope · v10.6</a
+              >.
+            </p>
+          </div>
+          <h4 id="Exclude Entra ID Users via the omitUPNlist.txt File">
+            Exclude Entra ID Users via the OmitUPNlist.txt File
+          </h4>
+          <div>
+            <p>
+              To exclude specific Entra ID users from the license count, populate the
+              <code>omitUPNlist.txt</code> file with the user principal names (UPNs) of the users
+              you want to omit. Follow these steps:
+            </p>
+            <ol>
+              <li>
+                Locate the <code>omitUPNlist.txt</code> file in the installation directory of
+                Netwrix Access Analyzer.
+              </li>
+              <li>
+                Edit the file and add the UPNs of the users you want to exclude using the following
+                XML format:
+              </li>
+            </ol>
+            <pre class="has-inner-focus"><code class="lang-Registry">
+        &lt;EntraIdServiceAccounts&gt;
+            &lt;Users&gt;
+              &lt;!--&lt;User Name="John@nwxcorp.onmicrosoft.com" /&gt;--&gt;
+              &lt;!--&lt;User Name="Bob@nwxcorp.onmicrosoft.com" /&gt;--&gt;
+            &lt;/Users&gt;
+        &lt;/EntraIdServiceAccounts&gt;
+    </code></pre>
+            <p>
+              Ensure that the UPNs are added as comments within the XML structure as shown above.
+              This allows you to manage and track excluded users without affecting the XML
+              structure. Also, <code>Wildcard *</code> is supported and can replace any number of
+              characters.
+            </p>
+            <blockquote>
+              <p>
+                <span class="Caution"><strong>IMPORTANT: </strong></span>Excluding users via the
+                <code>omitUPNlist.txt</code> file will reduce the Entra ID user count used for
+                licensing but will also exclude these users from monitoring. For more information,
+                please see
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Admin/MonitoringPlans/MicrosoftEntraID/Scope.htm"
+                  target="_blank"
+                  >Microsoft Entra ID Monitoring Scope</a
+                >.
+              </p>
+            </blockquote>
+          </div>
+          <h2 id="tips">Tips</h2>
+          <div>
+            <ul>
+              <li>
+                <p>
+                  No special syntax is required for OUs with white-space characters in their names
+                  (e.g., a space).
+                </p>
+              </li>
+              <li>
+                <p>
+                  Auditor updates the monitoring scope after the next scheduled state-in-time
+                  snapshot collection (next day by default). Alternatively, you can manually update
+                  your AD monitoring plan to update the monitoring scope.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h2 id="related_articles">Related Articles</h2>
+          <div>
+            <ul>
+              <li>
+                <p>
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9UdCAK.html"
+                    target="_blank"
+                    >How to Determine the Number of Enabled User Accounts</a
+                  >
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Admin/MonitoringPlans/ActiveDirectory/Scope.htm"
+                    target="_blank"
+                    >Active Directory — Active Directory Monitoring Scope</a
+                  >
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Admin/MonitoringPlans/MicrosoftEntraID/Scope.htm"
+                    target="_blank"
+                    >Microsoft Entra ID Monitoring Scope</a
+                  >
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

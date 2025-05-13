@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>1Secure − Analyze AgentCore Node</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="onesecure" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000byrKAA" />
+    <meta name="Id" content="ka0Qk0000004Zf7IAE" />
+    <meta name="LastPublishedDate" content="2024-04-17T14:05:43.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:09:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-17T14:05:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9140" />
+    <meta name="ArticleNumber" content="000009140" />
+    <meta name="description" content="1Secure — Analyze Configuration.xml File" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span> Return to the main workflow page via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+              target="_self"
+              >1Secure Troubleshooting Workflow</a
+            >.
+          </p>
+
+          <p>
+            Proceed to the next section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c0TKAQ.html"
+              target="_self"
+              >1Secure − Analyze ManagedObjects Node</a
+            >.
+          </p>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            This article covers the <code>AgentCore</code> node legend in the 1Secure
+            <code>Configuration.xml</code> file. This article also includes an example of the
+            <code>AgentCore</code> node. Refer to the following
+            <code>Configuration.xml</code> location:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</code></pre>
+        </div>
+
+        <h2 id="1_agentcore_legend">1. AgentCore legend</h2>
+
+        <div>
+          <p>The <code>AgentCore\MainSettings</code> node should contain the following subnodes:</p>
+
+          <ul>
+            <li>
+              <p><code>ApiEndPoint</code>. A URL. The value is used to interact with the Cloud.</p>
+            </li>
+            <li>
+              <p>
+                <code>ClientSecret</code>. A unique key. The value is used for authorization in the
+                Cloud.
+              </p>
+            </li>
+            <li>
+              <p><code>ProviderReference</code>. A unique identifier of the agent.</p>
+            </li>
+            <li>
+              <p>
+                <code>TenancyReference</code>. A unique identifier of the organization where the
+                agent is deployed.
+              </p>
+            </li>
+          </ul>
+
+          <p>The <code>AgentCore\Certificates</code> node should contain the following subnodes:</p>
+
+          <ul>
+            <li>
+              <p>
+                <code>DER</code>. A public key of the agent. The key is used by the Cloud to encrypt
+                credentials for this particular agent.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>RSA</code>. A private key of the agent. The key is used by the agent to
+                decrypt credentials received from the Cloud.
+              </p>
+            </li>
+            <li>
+              <p>
+                <code>NeedToSend</code>. A flag. The value confirms the public DER key was
+                successfully sent to the Cloud.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If the <code>AgentCore</code> node misses any
+              subnodes or values, run the Netwrix Cloud Agent Configuration tool. The tool is
+              located in
+              <code>C:\Program Files\Netwrix Cloud Agent\Agent Core\CloudAgentConfigTool.exe</code>.
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  The main tool screen looks as follows if there are no issues with the
+                  configuration file:
+                </p>
+
+                <div>
+                  <img
+                    alt="image003.png"
+                    height="507"
+                    src="kA0Qk0000000byrKAA_43c4b187-2032-44eb-8bd5-d839996464a0.png"
+                    width="699"
+                  />
+                </div>
+              </li>
+              <li>
+                <p>
+                  The main tool screen looks as follows if either the <code>MainSettings</code> node
+                  is missing or the initial configuration has not been performed:
+                </p>
+
+                <div>
+                  <img
+                    alt="image005.png"
+                    height="504"
+                    src="kA0Qk0000000byrKAA_3e91624f-f47e-4e9d-8d1b-023b0fd91a22.png"
+                    width="699"
+                  />
+                </div>
+              </li>
+              <li>
+                <p>
+                  The main tool screen looks as follows if there are issues in the Cloud connection:
+                </p>
+
+                <div>
+                  <img
+                    alt="image007.png"
+                    height="504"
+                    src="kA0Qk0000000byrKAA_9f9bdba6-0547-4bd1-b1d1-325a419a6fa3.png"
+                    width="699"
+                  />
+                </div>
+
+                <p>
+                  You can find the related logs in
+                  <code
+                    >C:\ProgramData\Netwrix Cloud
+                    Agent\Logs\CloudAgentCoreSvc\CloudAgentCore.log</code
+                  >.
+                </p>
+              </li>
+            </ul>
+          </blockquote>
+
+          <h2 id="11_cloudagentcorelog_usage">1.1 CloudAgentCore.log usage</h2>
+
+          <p>
+            The <code>CloudAgentCore.log</code> lines may include event descriptions. See examples
+            below.
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                The server name or address could not be resolved. Check the internet connection in
+                the host and DNS settings.
+              </p>
+
+              <pre class="has-inner-focus">
+2023-07-05 12:03:10.9988312 | INFO | 6336  6196 | RestApiHandler.cpp:163
+|   Exiting: NetwrixOverlord::RestApiHandler::StopThreads [0.064 ms] 
+2023-07-05 12:03:43.1430323 | ERR  | 6336  6196 | RestApiHandler.cpp:61
+|   Cloud authentication has failed. Error while sending a request. Error Code: 12007: The server name or address could not be resolved
+.
+2023-07-05 12:03:43.1430648 | ERR  | 6336  6196 | CloudAgentCoreService.cpp:129  | m_restApiClient-&gt;Authenticate() call failed. 
+0x8004B005 Cloud authorization has failed. See application logs for more details [0x00007FFBAB797327,0x00007FFBAB796E56]; 
+2023-07-05 12:03:43.1430902 | ERR  | 6336  6196 | CloudAgentCoreService.cpp:137  | NetwrixOverlord::CloudAgentCoreService::Initialize failed:
+0x8004B005 Cloud authorization has failed. See application logs for more details [0x00007FFBAB797327,0x00007FFBAB796E56]</pre
+              >
+            </li>
+            <li>
+              <p>
+                The access is forbidden for this particular put configuration. It most likely means
+                that the tenant is already served by some other agent. If you are certain that this
+                is the correct agent, then re-enter the agent configuration in the Cloud Agent
+                Configuration tool.
+              </p>
+
+              <pre class="has-inner-focus">
+2023-07-05 12:14:28.8915749 | ERR  | 6440 65400 | AzureExceptions.h:34           | Status code: 403, reason: "".
+2023-07-05 12:14:28.8929019 | ERR  | 6440 65400 | RestApiHandler.cpp:61          | Cloud authentication has failed. 
+2023-07-05 12:14:28.8934781 | ERR  | 6440 65400 | CloudAgentCoreService.cpp:129  | m_restApiClient-&gt;Authenticate()	call failed. 
+0x8004B005 Cloud authorization has failed. See application logs for more details [0x00007FFBAB797327,0x00007FFBAB796E56]; 
+2023-07-05 12:14:28.8935318 | ERR  | 6440 65400 | CloudAgentCoreService.cpp:137  | NetwrixOverlord::CloudAgentCoreService::Initialize failed: 
+0x8004B005 Cloud authorization has failed. See application logs for more details [0x00007FFBAB797327,0x00007FFBAB796E56]</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="12_configurationxml_example">1.2 Configuration.xml example</h2>
+
+        <div>
+          <p>
+            The <code>Configuration.xml</code> is located in
+            <code>C:\ProgramData\Netwrix Cloud Agent\AgentCore\ConfigServer</code>. Refer to the
+            following code block for a structure reference:
+          </p>
+
+          <pre class="has-inner-focus"><code class="lang-Registry">&lt;nr&gt;
+    &lt;n n="\AgentCore"&gt;
+        &lt;n n="MainSettings"&gt;
+            &lt;n n="Authentication" t="Authentication"&gt;
+                &lt;a n="ApiEndPoint" v="…"/&gt;
+                &lt;a n="ClientSecret" t="12" v="HEX:…"/&gt;
+                &lt;a n="ProviderReference" v="…"/&gt;
+                &lt;a n="TenancyReference" v="…"/&gt;
+            &lt;/n&gt;
+            &lt;n n="Certificates" t="Certificates"&gt;
+                &lt;a n="DER" v="…"/&gt;
+                &lt;a n="NeedToSend" t="7" v="False"/&gt;
+                &lt;a n="RSA" t="12" v="HEX:…"/&gt;
+            &lt;/n&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+    &lt;n n="\AuditArchive"&gt;
+        …
+    &lt;/n&gt;
+    &lt;n n="\LicenseUsage"&gt;
+        &lt;n n="da7c0b3d-63ad-ff26-fe75-ac0712a1835d"&gt;
+            &lt;n n="1019cf83-51ba-4ca8-a869-415fbbcccc0b"&gt;
+                &lt;n n="Active Directory users" t="LicenseCounter"&gt;
+                    &lt;a n="CounterName" t="2" v="Active Directory users"/&gt;
+                    &lt;a n="ExcludeCount" t="3" v="0"/&gt;
+                    &lt;a n="LicenseCount" t="12" v="HEX:… "/&gt;
+                    &lt;a n="Reference" t="2" v="…"/&gt;
+                &lt;/n&gt;
+            &lt;/n&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+    &lt;n n="\MSP"&gt;
+        …
+    &lt;/n&gt;
+    &lt;n n="\NetwrixAuditor"&gt;
+        &lt;n n="CommonSettings"&gt;	…	
+        &lt;n n="MetaInformation"&gt;	…	
+        &lt;n n="ManagedObjects"&gt;
+            &lt;n n="fbe25b03-18fb-4267-add2-fe3afabf7cc7" t="ManagedObject"&gt;
+                …
+            &lt;/n&gt;
+            &lt;n n="ce354ab6-6a46-41e5-b590-788e4b20a64c" t="ManagedObject"&gt;
+                …
+            &lt;/n&gt;
+        &lt;/n&gt;
+    &lt;/n&gt;
+    &lt;n n="\Templates"&gt;
+        …
+    &lt;/n&gt;
+&lt;/nr&gt;</code></pre>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html"
+                  target="_self"
+                  >1Secure Troubleshooting Workflow</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c0TKAQ.html"
+                  target="_self"
+                  >1Secure − Analyze ManagedObjects Node</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

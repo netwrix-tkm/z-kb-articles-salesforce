@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The disk on a monitored file server is overfilled</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZcCAK" />
+    <meta name="Id" content="ka04u000000HcSdAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1262" />
+    <meta name="ArticleNumber" content="000003412" />
+    <meta
+      name="description"
+      content="This article explains how to prevent disk from overfilling."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The disk on a monitored file server is overfilled with Security event log auto archives.
+
+        <hr />
+
+        <div>Disk overfilling can be caused by the following reasons:</div>
+        <div>
+          <ul>
+            <li>Removal of processed auto archives is not configured.</li>
+            <li>
+              The maximum size of the Security event log does not meet
+              <a href="http://support.microsoft.com/kb/957662" target="_blank">Microsoft</a
+              ><span> recommendations, </span>so Netwrix Auditor cannot process auto archives and
+              remove them.
+            </li>
+            <li>
+              The disk where auto archives are stored is too small to contain all archives
+              accumulated between two Netwrix Auditor data collections.
+            </li>
+          </ul>
+        </div>
+
+        <hr />
+
+        <ol>
+          <li>
+            Check whether the automatic removal is configured. On the computer where Netwrix Auditor
+            is installed, perform the following:
+            <ol>
+              <li>
+                Navigate to <strong>Start --&gt; Run</strong> and type
+                <strong><em>regedit</em></strong
+                >.
+              </li>
+              <li>
+                Expand
+                <strong
+                  >HKEY_LOCAL_MACHINE/SOFTWARE/(Wow6432Node)/Netwrix/File Server Change
+                  Reporter.</strong
+                >
+              </li>
+              <li>
+                Make sure <strong>ProcessBackupLogs </strong>is set<strong> </strong>to
+                <strong><em>1</em>.</strong>
+              </li>
+              <li>
+                Make sure <strong>CleanAutoBackupLogs</strong> is set to X - a positive integer
+                number (the archive is removed when all events are older than
+                <strong>X</strong> hours).
+              </li>
+            </ol>
+          </li>
+        </ol>
+        Refer to
+        <a
+          href="http://www.netwrix.com/download/documents/Netwrix_Auditor_Installation_Configuration_Guide.pdf"
+          target="_blank"
+          >Netwrix Auditor Installation and Configuration Guide</a
+        >
+        for more information.
+        <ol start="2">
+          <li>
+            If the automatic removal option is enabled, check the audit archives creation date.
+            <ul>
+              <li>
+                If archives are stored longer than it is defined by the limiting
+                <strong>CleanAutoBackupLogs </strong>parameter, make sure that
+                <strong>Security </strong>event log can be reached by Netwrix Auditor, and the log"s
+                size meets
+                <a href="http://support.microsoft.com/kb/957662" target="_blank">Microsoft</a
+                ><span> </span>requirements.
+              </li>
+              <li>
+                If archives are not stored longer than it is defined by the limiting
+                <strong>CleanAutoBackupLogs </strong>parameter, and <strong>Security </strong>event
+                log can be reached by Netwrix Auditor, and the log"s size meets
+                <a href="http://support.microsoft.com/kb/957662" target="_blank">Microsoft</a
+                ><span> </span>requirements, it means that audit archives fill the free disk space
+                before Netwrix Auditor removes them. To resolve this issue, do one of the following:
+                <ul>
+                  <li>
+                    Change location of the Event Viewer log files. Move them to a disk with more
+                    free space available. Audit archives will be accumulated on the disk and removed
+                    after the data collection.<strong>Note</strong>: For information on how to do
+                    this for Windows 2000 and Windows Server 2003, refer to the following
+                    <a href="http://support.microsoft.com/kb/315417" target="_blank"
+                      >Microsoft technical article</a
+                    >. For Windows Server 2008 and above, log location can be changed under the log
+                    properties. It is recommended to reboot your server after this manipulations.
+                  </li>
+                  <li>
+                    Configure Netwrix Auditor to run data collection more frequently and decrease
+                    the value of the <strong>CleanAutoBackupLogs </strong>parameter. If the task
+                    runs frequently enough to prevent the Security event log from being overfilled,
+                    you can disable the automatic archiving option (the disk will not be overfilled,
+                    but this can lead to audit data loss). To adjust the data collection schedule,
+                    in Netwrix Auditor, navigate to
+                    <strong>Settings --&gt; Data Collection, </strong>click
+                    <strong>Modify</strong> next to
+                    <strong>Default data collection and Change Summary generation schedule. </strong
+                    >In the <strong>Modify Schedule </strong>dialogue select
+                    <strong>Advanced </strong>and adjust the schedule as necessary.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <div>
+          <strong>Note:</strong> Before updating the <strong>CleanAutoBackupLogs </strong>parameter,
+          make sure that Netwrix Auditor has enough time to process audit archives for other audited
+          systems before the archives are removed.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

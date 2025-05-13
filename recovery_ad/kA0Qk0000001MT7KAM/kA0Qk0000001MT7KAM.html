@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Remove Server Backup Stuck in Queued Status</title><meta name="label" content="public_v"/><meta name="label" content="recovery_ad"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001MT7KAM"/><meta name="Id" content="ka0Qk000000BGnpIAG"/><meta name="LastPublishedDate" content="2024-08-23T08:13:24.000+0000"/><meta name="LastModifiedDate" content="2024-11-15T17:06:11.000+0000"/><meta name="FirstPublishedDate" content="2024-08-23T08:13:24.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9252"/><meta name="ArticleNumber" content="000009252"/><meta name="description" content="Remove Server Backup Stuck in Queued Status"/></head><body><article class=" kb-articles"><div class="Content__c"><blockquote>
+<p><span><strong>IMPORTANT: </strong></span>This article applies exclusively to Netwrix Recovery for Active Directory v2.5. and later.</p>
+</blockquote>
+<h2 id="symptom">Symptom</h2>
+<div>
+<p>In the <strong>Forest</strong> page in Netwrix Recovery for Active Directory, the <strong>Server Backup History</strong> table lists a queued session that does not start.</p>
+</div>
+<h2 id="causes">Causes</h2>
+<div>
+<p>Review the list of possible causes:</p>
+<ul><li>
+<p>A service connection point is not published.</p>
+</li><li>
+<p>The Recovery Server Backup Agent failed to install.</p>
+</li><li>
+<p>Netwrix Recovery for Active Directory encountered an issue during the backup process.</p>
+</li><li>
+<p>The Recovery Server port (9001 by default) is closed for inbound communication.</p>
+</li><li>
+<p>Your Netwrix Recovery for Active Directory license has expired.</p>
+</li></ul>
+</div>
+<h2 id="resolution">Resolution</h2>
+<div>
+<p>Refer to the following steps to remove the queued session from the list:</p>
+<ol><li>
+<p>In your SQL Server Management Studio instance, locate the Netwrix Recovery for Active Directory database. The default name is <code>NetwrixRecovery</code>.</p>
+</li><li>
+<p>Right-click the <code>NetwrixRecovery</code> database and run a new query to output all records of the <strong>Server Backup History</strong> table:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">SELECT * FROM ServerBackupHistory</code></pre>
+</li><li>
+<p>Locate the entry with <code>NULL</code> in the <strong>EndTime</strong> column. Record the corresponding <code>ID</code> value.</p>
+</li><li>
+<p>Run a new query to remove the queued entry:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">DELETE FROM ServerBackupHistory WHERE ID = '%targetID%'</code></pre>
+</li><li>
+<p>Refresh the <strong>Forest</strong> page in Netwrix Recovery for Active Directory to confirm the query is deleted.</p>
+</li></ol>
+</div></div>
+</article></body></html>

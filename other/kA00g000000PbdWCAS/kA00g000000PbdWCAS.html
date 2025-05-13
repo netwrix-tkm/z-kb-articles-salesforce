@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to create a redirection for the Password Manager web portal</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdWCAS" />
+    <meta name="Id" content="ka04u00000116bfAAA" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:00:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="823" />
+    <meta name="ArticleNumber" content="000003791" />
+    <meta name="description" content="Password Manager web re-direction creation." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <span
+          ><span
+            ><span
+              >I want users to access Password Manager by browsing through &lt;servername&gt;
+              instead of &lt;servername&gt;/pm. How can I redirect users to the Password Manager
+              website?</span
+            ></span
+          ></span
+        ><br /> 
+        <h2 id="answer">Answer</h2>
+        <span
+          ><span
+            ><span
+              ><strong
+                ><span><span>Option 1.</span></span></strong
+              >
+              Change <strong><span>iisstart.htm</span></strong> file in the root folder of the
+              default website. You will not be able to see the default web page in this case.</span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Locate <strong><span>iisstart.htm </span></strong>(by default at
+                    C:\inetpub\wwwroot), right-click it to select
+                    <strong><span>Edit.</span></strong></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span>Replace the preexisting text in the file with the following:</span></span
+                ></span
+              ></span
+            >
+            <pre class="ckeditor_codeblock">
+&lt;html&gt; &lt;head&gt; &lt;meta http-equiv="Refresh" content="0; url=http://%servername%/pm"/&gt; &lt;/head&gt; &lt;/html&gt;</pre
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><span>Save changes to the file.</span></span></span
+              ></span
+            >
+          </li>
+        </ol>
+        <span
+          ><span
+            ><span
+              ><strong
+                ><span><span>Option 2.</span></span></strong
+              >
+              Use the <strong><span>HTTP Redirect</span></strong> feature of IIS. Please refer to
+              the following article for additional information:
+              <a
+                href="http://www.iis.net/configreference/system.webserver/httpredirect"
+                target="_blank"
+                >http://www.iis.net/configreference/system.webserver/httpredirect</a
+              ><span class="MsoHyperlink"><span>.</span></span></span
+            ></span
+          ></span
+        ><br /> 
+        <div>
+          <img
+            alt="httpredirect - Copy.png"
+            src="kA00g000000PbdWCAS_9b96e897-7a78-4a00-81fe-352ae5ba9f6a.png"
+          />
+        </div>
+        <br /><span
+          ><span><span>Perform the following steps:</span></span></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >In the left pane of <strong><span>IIS Manager</span></strong> navigate to the
+                    website with the virtual directory of the Password Manager (“PM” by
+                    default).</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Locate the <strong><span>HTTP Redirect</span></strong> icon under the
+                    <strong><span>IIS</span></strong> category to double-click it in the central
+                    pane.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    ><strong
+                      ><span><span>Check the</span></span></strong
+                    ><strong><span> Redirect requests to this destination </span></strong
+                    ><strong
+                      ><span><span>checkbox</span></span></strong
+                    ><strong> </strong>and enter the URL to redirect to (for example,
+                  </span></span
+                ></span
+              ><span><span>http://%servername%/pm</span></span
+              ><span
+                ><span><span>).</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Check the
+                    <strong
+                      ><span
+                        >Redirect all request to exact destination (instead of relative to
+                        destination)</span
+                      ></strong
+                    >
+                    checkbox.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Check the
+                    <strong
+                      ><span
+                        >Only redirect requests to content of this directory (not
+                        subdirectories)</span
+                      ></strong
+                    >
+                    checkbox.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Set <b>Status code</b> to <strong><span>Found (302)</span></strong
+                    ><strong
+                      ><span><span>.</span></span></strong
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Click <strong><span>Apply</span></strong> in the right pane.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <div>
+          <img
+            alt="httpredirect_ex - Copy1.png"
+            src="kA00g000000PbdWCAS_4d02ebc3-73d5-4940-b4ad-0a25e877bd75.png"
+          />
+        </div>
+        <br /><span
+          ><span
+            ><span
+              ><strong
+                ><span><span>Option 3</span></span></strong
+              ><b>.</b> Use <strong><span>URL Rewrite</span></strong> rules. Please refer to the
+              following link to download and install the module:
+              <a href="http://www.iis.net/downloads/microsoft/url-rewrite" target="_blank"
+                >http://www.iis.net/downloads/microsoft/url-rewrite</a
+              >.</span
+            ></span
+          ></span
+        >
+
+        <div>
+          <img alt="url_re.png" src="kA00g000000PbdWCAS_1a082744-6811-4219-8770-1650a0554b04.png" />
+        </div>
+        <br /><span
+          ><span
+            ><span
+              >After the installation of the URL Rewrite module, perform the following steps:</span
+            ></span
+          ></span
+        >
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >In the left pane of <strong><span>IIS Manager</span></strong> navigate to the
+                    website with the virtual directory of the Password Manager (“PM” by
+                    default).</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Locate the <strong><span>URL Rewrite </span></strong>icon under the
+                    <strong><span>IIS</span></strong> category to double-click it in the central
+                    pane.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Click <strong><span>Add rule(s)…</span></strong> in the right pane.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Select <strong><span>Blank rule </span></strong>under
+                    <strong><span>Inbound rules</span></strong> and click
+                    <strong><span>OK</span></strong
+                    ><strong
+                      ><span><span>.</span></span></strong
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Enter a <strong><span>Name</span></strong> for the rule.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >In the <strong><span>Match URL</span></strong> area:</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Select <strong><span>Requested URL: Matches the pattern</span></strong> and
+                    <strong><span>Using: Regular expressions </span></strong>in the dropdown
+                    lists.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Enter the following <strong><span>Pattern:</span></strong>
+                    <strong><span>^$</span></strong
+                    ><strong
+                      ><span><span>.</span></span></strong
+                    ></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Check the <strong><span>Ignore case</span></strong> checkbox.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <ol start="7">
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >In <strong><span>Action </span></strong>area:</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Select <strong><span>Action: Redirect </span></strong>from the dropdown
+                    list.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Enter <strong><span>Redirect URL</span></strong> (for example,
+                  </span></span
+                ></span
+              ><span><span>http://%servername%/pm</span></span
+              ><span
+                ><span><span>).</span></span></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Check the <strong><span>Append query string</span></strong> checkbox.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Select <b>Redirect type: Permanent (301)</b> from the dropdown list.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <ol start="8">
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Click <strong><span>Apply</span></strong> and then click
+                    <strong><span>Back to Rules</span></strong
+                    >. The configured rule should be now listed.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Restart IIS with <b>iisreset</b> command in
+                    <strong><span>Command Prompt</span></strong> run as admin.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+
+        <div>
+          <img
+            alt="url_re_complete.png"
+            src="kA00g000000PbdWCAS_b599e2fd-852b-4889-9ca7-eac4410de78b.png"
+          />
+        </div>
+        <br /><span
+          ><span
+            ><span
+              >These steps will allow for the self-service portal to become accessible via a short
+              URL http://&lt;servername&gt; instead of http://&lt;servername&gt;/pm.</span
+            ></span
+          ></span
+        ><br /><strong
+          ><span
+            ><span><span>NOTE: </span></span></span
+          ></strong
+        ><span
+          ><span
+            ><span
+              >If you’d like to make the self-service portal accessible via external network, you
+              need to create a DNS Alias for the Password Manager self-service portal address.
+              Please refer to the following Microsoft Documentation article for additional
+              information:
+              <a
+                href="https://learn.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/create-an-alias-cname-record-in-dns-for-web1"
+                target="_blank"
+                >https://learn.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/create-an-alias-cname-record-in-dns-for-web1</a
+              ></span
+            ></span
+          ></span
+        >
+
+        <div id=""> </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How Netwrix Auditor Collects Data from Replicated Domain Controllers?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001111HCAQ" />
+    <meta name="Id" content="ka04u00000117BIAAY" />
+    <meta name="LastPublishedDate" content="2023-08-16T10:56:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-16T10:56:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-10T13:11:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8723" />
+    <meta name="ArticleNumber" content="000008723" />
+    <meta
+      name="description"
+      content="This article explains how Netwrix Auditor collects data from replicated Domain Controllers."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Is Netwrix Auditor able to show data collected from one of several replicated Domain
+            Controllers in search, reports, alerts, and emails?
+          </p>
+
+          <p>Example deployment scenario:</p>
+
+          <ol>
+            <li>
+              <p>
+                There are two Domain Controllers within a domain. The replication configured
+                successfully between these Domain Controllers, and neither one is read-only.
+              </p>
+            </li>
+            <li>
+              <p>
+                A monitoring plan is configured to collect data
+                <b>only from a single Domain Controller</b>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Yes, Netwrix Auditor can show these events with some considerations.<br />Netwrix
+            collects data, including but not limited to Windows Security Event Logs that are not
+            replicated from one Domain Controller to another. Even if an action itself was
+            replicated, the product will not be able to show correctly all issue details in search,
+            reports, alerts, and emails since event log entries are not replicated. Review the
+            following for additional information:
+          </p>
+
+          <div class="table-wrap">
+            <table count-columns="2" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Detail</th>
+                  <th colspan="1" rowspan="1">How the product report it</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">What</td>
+                  <td colspan="1" rowspan="1">Actual information</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Object type</td>
+                  <td colspan="1" rowspan="1">Actual information</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Who</td>
+                  <td colspan="1" rowspan="1">System</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Where</td>
+                  <td colspan="1" rowspan="1">Unknown</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Workstation</td>
+                  <td colspan="1" rowspan="1">—</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">When</td>
+                  <td colspan="1" rowspan="1">
+                    This detail shows the time when the action was collected by the product rather
+                    than the time when it actually happened.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

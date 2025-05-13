@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: User Activity Core Service Has Been Already Launched</title>
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u0000011167CAA" />
+    <meta name="Id" content="ka0Qk0000004pqLIAQ" />
+    <meta name="LastPublishedDate" content="2024-07-03T10:28:42.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-30T09:03:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-25T08:58:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8763" />
+    <meta name="ArticleNumber" content="000008763" />
+    <meta name="description" content="Duplicate Status in User Activity Monitoring Plan" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>The following symptoms are present in your Netwrix Auditor environment:</p>
+
+          <ul>
+            <li>
+              <p>
+                Auditor prompts the following error in Health Log for your User Activity monitoring
+                plan:
+              </p>
+
+              <pre class="has-inner-focus">
+Source: User Activity Audit Service
+Event ID: 2001
+The Netwrix Auditor User Activity Core Service has been already launched on this computer.
+The computer is included in this or another monitoring plan</pre
+              >
+            </li>
+            <li>
+              <p>
+                The list of monitored computers in your User Activity monitoring plan states the
+                <strong>Duplicate</strong> status for one or multiple servers.
+              </p>
+
+              <div>
+                <img
+                  height="201"
+                  src="kA04u0000011167CAA_427f1214-5265-49e0-866d-9112c64fd9e5.png"
+                  width="748"
+                />
+              </div>
+            </li>
+            <li>
+              <p>No monitoring data is available for the <strong>Duplicate</strong> servers.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>The affected server is monitored by two separate monitoring plans.</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>After performing the troubleshooting
+                  steps, make sure the server is included in a single User Activity plan.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                The affected server was previously monitored by a different monitoring plan, and it
+                is now being added to a new monitoring plan.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <p>Refer to the following steps to resolve the issue:</p>
+
+        <ol>
+          <li>
+            <p>
+              Remove the affected server from all existing User Activity monitoring plans. Allow
+              Auditor to uninstall the User Activity Core Service—in the monitoring plan screen,
+              click <strong>Edit Data Source</strong> &gt; <strong>Monitored Computers</strong> to
+              track the Core Service status.
+            </p>
+
+            <blockquote>
+              <p>
+                <span><strong>IMPORTANT: </strong></span>Verify the Netwrix Auditor User Activity
+                Core Service is uninstalled on the affected server—review the list of installed apps
+                on the server and uninstall, if still present.
+              </p>
+            </blockquote>
+          </li>
+          <li>
+            <p>
+              On the Auditor host, run the following line in an elevated PowerShell instance to stop
+              the User Activity service:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Stop-Service -Name "NwUserActivitySvc"</code></pre>
+          </li>
+          <li>
+            <p>On the affected server, start the Registry Editor and locate the following key:</p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix\User Activity Video Reporter Agent</code></pre>
+
+            <div>
+              <img
+                height="489"
+                src="kA04u0000011167CAA_1c17512f-d2f4-4443-95d7-9ede7789261f.png"
+                width="751"
+              />
+            </div>
+
+            <p>
+              Locate the <code>UniqID</code> value. Copy the value data and refer to it in the
+              future steps—right-click the key and select <strong>Modify...</strong>. Once you copy
+              the value, delete the <code>UniqID</code> value.
+            </p>
+          </li>
+          <li>
+            <p>
+              On the Auditor host, proceed to the following path to locate the
+              <code>Agents.xml</code> document:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">%Working_Folder%\User Activity Video Reporter\Agents.xml</code></pre>
+
+            <p>Refer to the following default Working Folder path:</p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">%ProgramData%\Netwrix Auditor\</code></pre>
+          </li>
+          <li>
+            <p>
+              Open the <code>Agents.xml</code> document in a text editor. Locate the node containing
+              the <code>UniqID</code> value copied from the affected server. Delete the parent node
+              containing the <code>UniqID</code> value and save the changes.
+            </p>
+          </li>
+          <li>
+            <p>
+              On the Auditor host, run the following line in an elevated PowerShell instance to
+              start the User Activity service:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Start-Service -Name "NwUserActivitySvc"</code></pre>
+          </li>
+          <li>
+            <p>
+              Re-add the affected server to your User Activity monitoring plan. Allow Auditor some
+              time to install the Core Service and verify the new <code>UniqID</code> value is
+              created by comparing it to the previously copied value.
+            </p>
+          </li>
+        </ol>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.7/page/Content/Auditor/Install/Uninstall.htm#delete_netwrix_auditor_user_activity_core_service"
+                  target="_blank"
+                  >Uninstall Netwrix Auditor — Delete Netwrix Auditor User Activity Core Service ·
+                  v10.7</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

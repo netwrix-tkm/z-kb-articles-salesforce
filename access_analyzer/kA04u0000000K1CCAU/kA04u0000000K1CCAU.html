@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      StealthAUDIT: Migrating Low Priority Scheduled Tasks to Normal Priority to Improve Job
+      Performance
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000K1CCAU" />
+    <meta name="Id" content="ka04u000000HdCbAAK" />
+    <meta name="LastPublishedDate" content="2022-03-29T14:36:35.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:52.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-03-29T14:36:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8406" />
+    <meta name="ArticleNumber" content="000008406" />
+    <meta
+      name="description"
+      content="StealthAUDIT: Migrating Low Priority Scheduled Tasks to Normal Priority to Improve Job Performance"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div class="test-id__field-label-container slds-form-element__label"> </div>
+
+        <div class="slds-form-element__control slds-grid itemBody">
+          <div
+            class="slds-rich-text-editor__output uiOutputRichText forceOutputRichText forceKnowledgeOutputRichTextForKnowledge"
+            dir="ltr"
+          >
+            <h2 id="summary">
+              <span class="test-id__field-value slds-form-element__static slds-grow">Summary</span>
+            </h2>
+            <span class="test-id__field-value slds-form-element__static slds-grow"
+              >In some cases, Scheduled Tasks in StealthAUDIT are being created with priority 7
+              (Below Normal) instead of 5 (Normal), or with no priority set at all. This results in
+              StealthAUDIT.exe I/O to/from Tier 2 databases being Low Priority which could lead to
+              reduced performance. This article outlines how to migrate Scheduled Tasks to be
+              Priority 5 rather than Priority 7 via PowerShell.
+            </span>
+
+            <h2 id="instructions">
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                >Instructions</span
+              >
+            </h2>
+            <span class="test-id__field-value slds-form-element__static slds-grow">
+              <span><b>Important:</b></span>
+            </span>
+
+            <ul>
+              <li>
+                <span class="test-id__field-value slds-form-element__static slds-grow"
+                  ><span
+                    ><b
+                      >The credential in the script below is not for permission purposes. Rather, it
+                      is the Service Account that will be assigned to each modified Scheduled
+                      Task.</b
+                    ></span
+                  ></span
+                >
+              </li>
+              <li>
+                <span class="test-id__field-value slds-form-element__static slds-grow"
+                  ><span
+                    ><b
+                      >This script should be run again any time a new StealthAUDIT Scheduled Task is
+                      created</b
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                >1. Run the script below in an elevated PowerShell on the StealthAUDIT server (or
+                download the script here:
+                <a
+                  href="https://netwrix.com/download/products/KnowledgeBase/SA-ScheduledTaskPriority.ps1"
+                  target="_blank"
+                  >https://netwrix.com/download/products/KnowledgeBase/SA-ScheduledTaskPriority.ps1</a
+                >):<br /> </span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>param</span><span> (</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>[Parameter(Mandatory=</span><span>$true</span><span>)][PSCredential]</span
+                ><span>$TaskServiceAccount</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>)</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow">   </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$currentPrincipal</span
+                ><span>
+                  = New-Object
+                  Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())</span
+                ></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"
+              ><span>if</span><span> (-not </span><span>$currentPrincipal</span
+              ><span
+                >.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {</span
+              ></span
+            >
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>Write-Error </span
+                ><span>"Script must be Run As Admin. Exiting..."</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>exit</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>}</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow">   </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$directories</span><span> = @(</span><span>"C:\Windows\System32\Tasks"</span
+                ><span>, </span><span>"C:\Windows\Tasks"</span><span>) </span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow">   </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$directories</span><span> | ForEach-Object { </span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$list</span><span> = Get-ChildItem </span><span>$_</span
+                ><span> | ` </span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>Where-Object {</span><span>$_</span><span>.name -like </span
+                ><span>"SAJOB*"</span><span>} | ` </span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>Select-Object Name </span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$list</span><span> | ForEach-Object { </span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$taskName</span><span> = </span><span>$_</span><span>.Name</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$task</span><span> = Get-ScheduledTask -TaskName </span
+                ><span>$taskName</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>$task</span><span>.Settings.Priority = </span><span>5</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>Set-ScheduledTask `</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>-TaskName </span><span>$taskName</span><span> `</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>-Action </span><span>$task</span><span>.Actions `</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>-Settings </span><span>$task</span><span>.Settings `</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>-User </span><span>$TaskServiceAccount</span><span>.Username `</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>-Password </span><span>$TaskServiceAccount</span
+                ><span>.GetNetworkCredential().Password</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>}</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <span class="test-id__field-value slds-form-element__static slds-grow"
+                ><span>}</span></span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <br /><span class="test-id__field-value slds-form-element__static slds-grow"
+                >2.Confirm script ran successfully by observing output. It should look similar to
+                the example below:<br /> </span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <pre><span class="test-id__field-value slds-form-element__static slds-grow">TaskPath                                       TaskName                          State     
+--------                                       --------                          -----     
+\                                              SAJOB~.Active Directory Invent... Ready     
+\                                              SAJOB~FSAA~{A5142820-4190-4244... Ready     
+\                                              SAJOB~SEEK~{3ABDD931-37EB-4734... Ready
+</span></pre>
+            <span class="test-id__field-value slds-form-element__static slds-grow"> </span>
+
+            <div>
+              <br /><span class="test-id__field-value slds-form-element__static slds-grow"
+                >3.    Observe XMLs for scheduled tasks in C:\\Windows\Tasks or
+                C:\Windows\System32\Tasks and confirm priority is now set to 5 (Normal).<br /> </span
+              >
+            </div>
+            <span class="test-id__field-value slds-form-element__static slds-grow">
+              After successfully running the script all StealthAUDIT Scheduled Tasks will now run
+              with Normal I/O priority.</span
+            >
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

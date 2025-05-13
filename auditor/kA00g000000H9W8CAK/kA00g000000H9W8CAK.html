@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Customize Notifications and Reports in Password Expiration Notifier</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9W8CAK" />
+    <meta name="Id" content="ka0Qk0000001ZgTIAU" />
+    <meta name="LastPublishedDate" content="2024-01-30T07:42:15.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-30T07:42:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="776" />
+    <meta name="ArticleNumber" content="000003199" />
+    <meta
+      name="description"
+      content="How to customize notifications in password expiration notifier notifcations"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to customize Netwrix Auditor Password Expiration Notifier notifications and reports?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>You can find the templates by following the provided
+            path (by default):
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\Password Expiration Alerting\Templates\%GUID%</code></pre>
+
+          <p>
+            If you have multiple monitoring plans set up, refer to the Task Scheduler tasks to
+            determine the appropriate GUID for the plan. The Password Expiration task in Task
+            Scheduler will have <code>Netwrix Auditor - {%GUID_1%} - {%GUID_2%}</code> name, where
+            %GUID_2% will match the corresponding folder name.
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>Password Expiration Notifier uses UTF-8
+            encoding. Your email client should be set up to either automatically or explicitly
+            detect UTF-8 encoding to correctly translate characters.
+          </p>
+        </blockquote>
+
+        <div>
+          <ul>
+            <li>
+              <p><a href="#locateTemplates">Locate templates</a></p>
+            </li>
+            <li>
+              <p><a href="#addImage">Insert an image to the user notification email template</a></p>
+            </li>
+            <li>
+              <p>
+                <a href="#addHyperlink"
+                  >Insert a hyperlink to the user notification email template</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#changeFontSize"
+                  >Change the font size of the user notification email template</a
+                >
+              </p>
+            </li>
+            <li>
+              <p><a href="#addAttribute">Include an attribute in the email template</a></p>
+            </li>
+            <li>
+              <p><a href="#editHeader">Edit email header and footer</a></p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="locateTemplates">Locate templates</h4>
+
+        <div>
+          <p>
+            You can edit and customize the notification and report templates in Netwrix Auditor
+            Password Expiration Notifier:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In the <strong>Start</strong> menu, select the
+                <strong>Netwrix Auditor</strong> folder.
+              </p>
+            </li>
+            <li>
+              <p>Open <strong>Netwrix Auditor Password Expiration Notifier</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select the monitoring plan you would like to edit the notification and (or) report
+                templates for, and click <strong>Edit</strong>.
+              </p>
+            </li>
+            <li>
+              <p>To change notifications sent to users, select the <strong>Actions</strong> tab.</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Check the <strong>Notify users</strong> checkbox, and click
+                    <strong>Customize</strong> to edit the corresponding notification template.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>Changes introduced are unique to the
+                      template. These changes will not be replicated from
+                      <strong>First time when password expires in</strong> template to
+                      <strong>Last time when password expires in</strong> template, etc.
+                    </p>
+                  </blockquote>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>To change the report template, select the <strong>Advanced</strong> tab.</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Click <strong>Edit</strong> next to
+                    <strong>Customize the report template</strong>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                To change the report template for users managers, select the
+                <strong>Actions</strong> tab.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Check the <strong>Send reports to the users' managers</strong> checkbox, and
+                    click <strong>Customize</strong> to edit the corresponding notification
+                    template.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="addImage">Insert an image to the user notification email template</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>Select the appropriate template and click <strong>Customize</strong>.</p>
+            </li>
+            <li>
+              <p>Add the following HTML tag to the template body:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;img src="C:\pic.jpg" alt="image_description"&gt;</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The image must be located in a shared folder
+                  with permissions to read this folder shared between all users being notified.
+                  Alternatively, a URL to the image can be used.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Test</strong> button in the template editor window to send a test
+                message.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="addHyperlink">Insert a hyperlink to the user notification email template</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>Select the appropriate template and click <strong>Customize</strong>.</p>
+            </li>
+            <li>
+              <p>Add the following HTML tag to the template body:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;a href="full_URL"&gt;Hyperlinked text&lt;/a&gt;</code></pre>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Test</strong> button in the template editor window to send a test
+                message.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="changeFontSize">Change the font size of the user notification email template</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>Select the appropriate template and click <strong>Customize</strong>.</p>
+            </li>
+            <li>
+              <p>Add the following tag to the template body (with values ranging from 1 to 7):</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;FONT SIZE = Your_Font_Size&gt;</code></pre>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Test</strong> button in the template editor window to send a test
+                message.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>The tag affects the lines after the tag. The
+                  example provided below affects the lines after <code>Hi {givenName},</code>.
+                </p>
+
+                <div>
+                  <img
+                    height="296"
+                    src="kA00g000000H9W8CAK_68ec5a3d-1cd4-4f32-be2e-4f18c3b5316a.png"
+                    width="483"
+                  />
+                </div>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="addAttribute">Include an attribute in the email template</h4>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>You can use other attributes in your Password
+            Expiration Notifier emails. Learn more about Active Directory attributes in
+            <a
+              href="https://learn.microsoft.com/en-us/windows/win32/adschema/attributes-all"
+              target="_blank"
+              >All attributes ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </blockquote>
+
+        <div>
+          <ol>
+            <li>
+              <p>Select the appropriate template and click <strong>Customize</strong>.</p>
+            </li>
+            <li>
+              <p>Add the following attribute to the template body:</p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">{CanonicalName}</code></pre>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Test</strong> button in the template editor window to send a test
+                message.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="editHeader">Edit email header and footer</h4>
+
+        <div>
+          <p>
+            You can disable header and footer in Password Expiration Notifier emails. Refer to the
+            following article for additional information:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eVCAS.html"
+              target="_self"
+              >Hide and Disable Header and Footer in Password Expiration Notifier Emails</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eVCAS.html"
+                  target="_self"
+                  >Hide and Disable Header and Footer in Password Expiration Notifier Emails</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/windows/win32/adschema/attributes-all"
+                  target="_blank"
+                  >All attributes ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

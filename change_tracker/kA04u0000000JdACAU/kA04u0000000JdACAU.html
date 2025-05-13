@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Log Tracker - What is the "NNT Log Tracker Tunnel Sender Service" and how does it work?
+    </title>
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdACAU" />
+    <meta name="Id" content="ka04u000000HdAcAAK" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8258" />
+    <meta name="ArticleNumber" content="000008258" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <em
+            >Do you need to monitor devices in a DMZ/PCI zone which is isolated from the internet or
+            has limited access to the network where your Log Tracker software is installed? Is there
+            a single server within the PCI zone that has access to the internal/unsecure network,
+            which can be used to feed all of the logs from your monitored devices to your Log
+            Tracker server? If so, read on because this is the guide for you...</em
+          >
+        </p>
+        <p>
+          In order to achieve what has been described above, you can utilise the "NNT Log Tracker
+          Tunnel Sender Service".
+        </p>
+        <p>
+          The Tunnel Sender is easy to get up and running. You setup a tunnel "Receiver" on the Log
+          Tracker Server, and then setup a tunnel "Sender" on the secondary server you have
+          configured (the secondary server will act as your feed to the internal/unsecure network).
+          The tunnel "Sender" listens for messages on UDP port 514 and then sends these messages via
+          TCP (with optional encryption) to the tunnel "Receiver" on the Log Tracker server. Log
+          Tracker receives the TCP messages where they are then resent to Log Tracker using standard
+          UDP.
+        </p>
+        <p>
+          The Tunnel process uses TCP port 51462 by default but this port number can be easily
+          modified.
+        </p>
+        <p>
+          We’ve listed below how it would be configured in a production environment and we’ve also
+          provided a diagram to show how the monitored devices, tunnel sender, tunnel receiver and
+          Log Tracker server will communicate together.
+        </p>
+        <p>
+          <span
+            ><strong><u>Inside the PCI Zone:</u></strong></span
+          >
+        </p>
+        <ol>
+          <li>
+            <span
+              >A Tunnel sender would be installed on a random Windows server which has access to the
+              <span>Internal zone</span>.</span
+            >
+          </li>
+          <li>
+            <span
+              >Other Windows servers, Linux servers and network devices within the PCI Zone would be
+              configured to send their syslog messages to the Tunnel Sender using UDP port
+              514.</span
+            >
+          </li>
+          <li>
+            <span
+              >The Tunnel Sender will listen for the syslog messages and then send them via TCP port
+              51462 to the Tunnel Receiver in the <span>Internal zone</span>. This port number can
+              be easily modified.</span
+            >
+          </li>
+        </ol>
+        <p>
+          <span
+            ><strong><u>Inside the Internal Zone:</u></strong></span
+          >
+        </p>
+        <ol>
+          <li>
+            <span
+              >A Tunnel Receiver would be installed on the server which hosts the Log Tracker
+              software.</span
+            >
+          </li>
+          <li>
+            <span
+              >The Tunnel Receiver will listen for the TCP messages sent by the Tunnel Sender.</span
+            >
+          </li>
+          <li>
+            <span
+              >Once TCP messages are received, they will be resent to the Log Tracker server as a
+              syslog message using UDP port 514.</span
+            >
+          </li>
+        </ol>
+        <p><br /></p>
+        <p>
+          <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JdACAU_4a1a1e45-7e10-4129-902c-f575c0646f76.png"
+          /></span>
+        </p>
+        <p>
+          Information on the Tunnel Sender and Tunnel Receiver is in the NNT Windows Tool Set
+          Manual, available from the "Home" screen of Log Tracker.
+        </p>
+        <p>
+          For more information on the "NNT Log Tracker Tunnel Sender Service" and instructions or
+          assistance with configuring it, please open a support ticket through the Jira HelpDesk.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

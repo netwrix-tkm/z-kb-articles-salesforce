@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Auditing of Directory Service Access is not enabled for this DC.</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XcCAK" />
+    <meta name="Id" content="ka04u000000HcQkAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:38.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1138" />
+    <meta name="ArticleNumber" content="000003291" />
+    <meta name="description" content="Auditing Directory Service Access Report Error" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The product report contains error: " DC collection warnings: Domain Controller. The message
+        is: [ERROR] Auditing of Directory Service Access is not enabled for this DC.
+
+        <hr />
+
+        The error indicates that auditing of Directory Service Access is not enabled for the
+        specified domain controller.
+
+        <hr />
+
+        To troubleshot this issue, log on to the Domain controller indicated in the error message
+        and perform the following steps:
+        <ol>
+          <li>Select<strong> Start -&gt; Run</strong> and type <strong>rsop.msc.</strong></li>
+          <li>
+            Navigate to<strong>
+              Computer Configuration -&gt; Windows Settings -&gt; Security Settings -&gt; Local
+              Policies -&gt; Audit policy.</strong
+            >
+          </li>
+          <li>
+            Make sure <strong>Audit directory service acces</strong>s policy is set to<em>
+              Success</em
+            >.
+          </li>
+        </ol>
+        If these the policy is set to <em>Success</em> and still there are errors (red icon),
+        perform the following steps:
+        <ol>
+          <li>Select<strong> Start -&gt; Run</strong> and type <strong>secpol.msc.</strong></li>
+          <li>Navigate to<strong> Local Policies -&gt; Audit policy</strong>.</li>
+          <li>
+            Make sure <strong>Audit directory service access</strong> policy is set to
+            <em>Success</em> (GPO may be successfully distributed but not applied to the Domain
+            Controller).
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

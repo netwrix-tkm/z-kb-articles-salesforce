@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Set Up Secure Connection Between Auditor and SSRS via SSL/TLS Channel</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PblFCAS" />
+    <meta name="Id" content="ka0Qk0000004v9NIAQ" />
+    <meta name="LastPublishedDate" content="2024-07-16T11:14:19.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-06T19:46:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-15T16:51:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3800" />
+    <meta name="ArticleNumber" content="000003800" />
+    <meta
+      name="description"
+      content="This article explains how to set up a secure connection between Netwrix Auditor and SQL Server Reporting Services at report generation."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor uses SQL Server Reporting Services (SSRS) to generate reports. In
+            environments with Auditor and SSRS installed on different servers, it is recommended to
+            use a secure communication channel. To ensure secure communication, you can set it up
+            via HTTPS using SSL or TLS protocol. This will encrypt your data communicated between
+            your SSRS server and Netwrix Auditor.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span> Every certificate has a validity period.
+            Auditor will stop generating reports once your certificate expires. If your self-signed
+            certificate has expired, it will be reissued upon a reboot.
+          </p>
+        </blockquote>
+
+        <h4 id="ssrs_conf">Configure SSRS to Use the Secure Channel</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Open Report Server Configuration Manager, specify the
+                <strong>Server Name</strong> and <strong>Report Server Instance</strong>, and click
+                <strong>Connect</strong>.
+              </p>
+            </li>
+            <li>
+              <p>In the left pane, select <strong>Web Service URL</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>HTTPS Certificate</strong> dropdown list, select the certificate you
+                installed previously. Both <strong>HTTPS Port</strong> and
+                <strong>Report Server Web Services URL</strong> fields will fill in automatically.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>For additional information on installing and
+                  using self-signed and authority-issued certificates, refer to the following
+                  articles:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001HQDKA2.html"
+                    target="_self"
+                    >Use Certificate Authority-issued Certificates in SSRS</a
+                  >,
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001HRpKAM.html"
+                    target="_self"
+                    >Generate Self-signed SSL Certificate for SSRS</a
+                  >.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Click <strong>Apply</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Select <strong>Web Portal URL</strong> tab in the left pane—the
+                <strong>Virtual Directory</strong> field should fill in automatically.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Web Portal URL</strong> tab, click <strong>Advanced</strong>. Click
+                <strong>Add</strong> under the <strong>Multiple HTTPS Identities</strong> section.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the new pop-up window, select the <strong>(All IPv4)</strong> value in the
+                <strong>IP Address</strong> field, specify the port (<strong>443</strong> by default
+                for HTTPS), and select the certificate issued. Click <strong>OK</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Add</strong> under the
+                <strong>Multiple HTTPS Identities</strong> section and create an additional HTTPS
+                identity for the <strong>(All IPv6)</strong> IP address. Specify the port (<strong
+                  >443</strong
+                >
+                by default for HTTPS) and select the certificate issued. Click
+                <strong>OK</strong> &gt; <strong>OK</strong> &gt; <strong>Apply</strong>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h5 id="testing_connection_with_auditor_server">Testing Connection With Auditor Server</h5>
+
+        <div>
+          <p>Refer to the following steps to test the connection via a secure channel:</p>
+
+          <ol>
+            <li>
+              <p>
+                Launch a browser on your Auditor server and open the SSRS Web Portal URL. You can
+                copy the target URL from the <strong>Web Portal URL</strong> tab in Report Server
+                Configuration Manager.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Verify the URL has the
+                  <code>https</code> prefix.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Input the credentials to connect to the Web Portal. Use the account that has
+                sufficient access rights for the SSRS portal.
+              </p>
+            </li>
+            <li>
+              <p>
+                The SSRS portal should open without any additional messages. If so, the certificate
+                was published correctly.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="na_conf">Configure Auditor to Use SSL to Communicate With the SSRS Server</h4>
+
+        <div>
+          <p>Refer to the following steps to use SSL in Auditor and SSRS communication:</p>
+
+          <ol>
+            <li>
+              <p>
+                In Report Server Configuration Manager, locate <strong>Web Service URL</strong> and
+                <strong>Web Portal URL</strong> tabs. Review the lists of URLs and copy the latest
+                values added—these should have the <code>https</code> prefix and the
+                <code>443</code> port (depending on the HTTPS port used).
+              </p>
+            </li>
+            <li>
+              <p>
+                In the main Auditor menu, select <strong>Settings</strong> &gt;
+                <strong>Audit Database</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <strong>Modify</strong> under the
+                <strong>Audit Database Settings</strong> section. Alternatively, click
+                <strong>Configure</strong> if you are configuring the audit database settings for
+                the first time.
+              </p>
+            </li>
+            <li>
+              <p>
+                Fill in, review and verify the <strong>Default SQL Server Settings</strong> fields.
+                Click <strong>Next</strong>. In the
+                <strong>SQL Server Reporting Services Settings</strong> window, update the URL
+                values. Specify the new <strong>Web Portal URL</strong> value in the
+                <strong>Report Manager URL</strong> field. Specify the
+                <strong>Web Service URL</strong> in the <strong>Report Server URL</strong> as
+                mentioned in the step #1.
+              </p>
+            </li>
+            <li>
+              <p>Click <strong>Finish</strong> to save changes.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <p>
+            The traffic between Auditor and SSRS is now encrypted. It is recommended to update the
+            SQL Server password used to access the default SQL Server instance.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001HQDKA2.html"
+                  target="_self"
+                  >Use Certificate Authority-issued Certificates in SSRS</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001HRpKAM.html"
+                  target="_self"
+                  >Generate Self-signed SSL Certificate for SSRS</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

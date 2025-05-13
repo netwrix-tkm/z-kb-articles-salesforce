@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Configuration Server Service Terminated − Raised an Exception</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dpCAC" />
+    <meta name="Id" content="ka0Qk0000001U8vIAE" />
+    <meta name="LastPublishedDate" content="2024-01-25T10:23:34.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-25T10:23:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3284" />
+    <meta name="ArticleNumber" content="000003671" />
+    <meta
+      name="description"
+      content="Configuration Server Service Terminated − Raised an Exception"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor Configuration Server Service stopped. When attempting to restart the
+            service, the following error is prompted:
+          </p>
+
+          <pre class="has-inner-focus">
+The Netwrix Auditor Configuration Server Service service terminated with the following error 0x80040208:
+A user-supplied component or subscriber raised an exception.</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>
+            Any of the following potential causes may lead to corruption of the configuration server
+            status file:
+          </p>
+        </div>
+
+        <ul>
+          <li>
+            <p>
+              The C drive of the Netwrix Auditor server has reached or is running out of its
+              capacity.
+            </p>
+          </li>
+          <li>
+            <p>Unexpected shutdown of the Netwrix Auditor server (e.g. due to the power outage).</p>
+          </li>
+          <li>
+            <p>
+              Cross-program interaction (e.g. antivirus software blocks an operation performed by
+              Netwrix Auditor).
+            </p>
+          </li>
+        </ul>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to the following steps to troubleshoot the issue:</p>
+        </div>
+
+        <ol>
+          <li>
+            <p>Stop all Auditor services in the server via elevated PowerShell:</p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor *"</code></pre>
+          </li>
+          <li>
+            <p>
+              Navigate to <code>%Working Folder%\AuditCore\ConfigServer</code> and back up the
+              contents of the <strong>ConfigServer</strong> folder except for the
+              <strong>StorageBackups</strong> directory.
+            </p>
+          </li>
+          <li>
+            <p>
+              Delete the contents of <strong>ConfigServer</strong> folder except for the
+              <strong>StorageBackups</strong> directory.
+            </p>
+          </li>
+          <li>
+            <p>
+              In the <strong>StorageBackups</strong> directory, locate the previous to the latest
+              <code>Configuration.xml</code> file and copy it to the
+              <strong>ConfigServer</strong> folder.
+            </p>
+          </li>
+          <li>
+            <p>Run the following line in elevated PowerShell to start all Netwrix services:</p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor *"</code></pre>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

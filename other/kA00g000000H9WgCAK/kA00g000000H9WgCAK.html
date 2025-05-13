@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to create second Help-Desk portal</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WgCAK" />
+    <meta name="Id" content="ka04u00000116eVAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T16:09:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="820" />
+    <meta name="ArticleNumber" content="000003233" />
+    <meta name="description" content="Create a help desk portal for Netwrix Password Manager" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Is there a way to create separate Help-desk portal? Can we have certain users have certain
+        permissions on the second Help-desk portal?
+
+        <hr />
+
+        To create another portal and assign permissions, do the following:
+        <ol>
+          <li>
+            Navigate to the NetWrix Password Manager installation directory, the default path:
+            C:Program Files (x86)Netwrix Password Manager.
+          </li>
+          <li>
+            In the installation directory, create a copy of the <strong>Web</strong> folder and name
+            it as <strong>Helpdesk2.</strong>
+          </li>
+        </ol>
+        <strong
+          ><img
+            src="kA00g000000H9WgCAK_aac4f028-839b-44c4-85a0-04a3dab36d16.png"
+            alt="User-added image"
+            width="500"
+            height="252"
+        /></strong>
+        <ol start="3">
+          <li>
+            Select the <strong>Web</strong> folder, right-click it and select
+            <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Properties</strong> dialog, navigate to the <strong>Security</strong> tab
+            and change Windows security permissions:
+            <ul>
+              <li>disable all inherited permissions</li>
+              <li>leave full control for SYSTEM, CREATOR OWNER, Administrators</li>
+              <li>
+                create a group of users who should have access to the fully functional Help-desk
+                portal, and grant this group full control.
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <img
+          src="kA00g000000H9WgCAK_72df8e75-8064-4fd1-bc9f-cbe8a63bc713.png"
+          alt="User-added image"
+          width="273"
+          height="324"
+        />
+        <ol start="5">
+          <li>Start the Internet Informational Services (IIS) Manager.</li>
+          <li>
+            In the left pane, navigate to <strong>%ComputerName%</strong> - <strong>Sites</strong> -
+            <strong>Default Web Site</strong> - <strong>PM</strong>, right-click the
+            <strong>PM</strong> node and select <strong>Add Virtual Directory</strong>.
+          </li>
+          <li>
+            In the <strong>Add Virtual Directory</strong> dialog, specify
+            <strong>Alias</strong> (for example, helpdesk2), and <strong>Physical path</strong> to
+            the new directory created earlier:
+            <em>C:Program Files (x86)Netwrix Password ManagerHelpdesk2.</em>
+          </li>
+        </ol>
+        <em
+          ><img
+            src="kA00g000000H9WgCAK_d7d8915e-d2af-4bd3-ab83-a20739d18bea.png"
+            alt="User-added image"
+            width="500"
+            height="348"
+        /></em>
+        <ol start="8">
+          <li>
+            Make sure that only Windows authentication is enabled for this new virtual directory.
+          </li>
+          <li>
+            Open the <strong>Administrative portal</strong>, go to <strong>Roles</strong> and add
+            the security group created in step 4 to the <strong>Help Desk Operators </strong>role.
+          </li>
+        </ol>
+        Now you have two Help-desk portals:
+        <ol>
+          <li>
+            <a href="http://prmserver/pm/helpdesk2" target="_blank"
+              >http://prmserver/pm/helpdesk2</a
+            >
+            - can be accessed by all users, granted the Help Desk Operators role.
+          </li>
+          <li>
+            <a href="http://prmserver/pm/helpdesk2" target="_blank">http://prmserver/pm/helpdesk</a>
+            - can be accessed only by Administrators and the special security group you have
+            created.
+          </li>
+        </ol>
+        If you want to add or remove some functionality from the second Help-desk portal, please
+        <a href="https://www.netwrix.com/support_ticket.html" target="_blank"
+          >contact Netwrix Technical Support</a
+        >.
+      </div>
+    </article>
+  </body>
+</html>

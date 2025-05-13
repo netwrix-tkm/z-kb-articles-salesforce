@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>High Availability − Enter or Exit a Failover State Using NPS.HaMgr.exe</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000HDhCCAW"/><meta name="Id" content="ka0Qk0000001Jv3IAE"/><meta name="LastPublishedDate" content="2024-01-10T14:08:57.000+0000"/><meta name="LastModifiedDate" content="2024-01-12T07:42:06.000+0000"/><meta name="FirstPublishedDate" content="2023-04-21T16:57:17.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8569"/><meta name="ArticleNumber" content="000008569"/><meta name="description" content="High Availability. How to enter or exit a failover state using NPS.HaMgr.exe"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+
+<div>
+<p>Failover is required in upgrade scenarios, as well as disaster recovery scenarios. This article discusses how to fail over a secondary node in a high availability (HA) pair, and how to re-establish high availability after failing over.</p>
+</div>
+
+<h2 id="instructions">Instructions</h2>
+
+<h4 id="step_1_−_fail_over_a_secondary_node">Step 1 − Fail over a secondary node</h4>
+
+<div>
+<ol><li>
+	<p>In the secondary server, locate <code>NPS.HaMgr.exe</code>. As per the recommendations, it should be located in the <code>\%ProgramFiles%\Stealthbits\PAM\HA Tools</code> directory on the drive where Netwrix Privilege Secure is installed. Otherwise, it will be in the <strong>Extras</strong> folder where the Netwrix Privilege Secure archive file was extracted. Refer to the following article for additional information: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HfOCAU.html" target="_self">How to Configure High Availability (HA) Using SbPAM.HaMgr.exe</a>.</p>
+	</li><li>
+	<p>Start the HA Manager Tool <code>NPS.HaMgr.exe</code>.</p>
+	</li><li>
+	<p>Click the <strong>Failover</strong> button − this button appears only when HA Tool is running in the secondary server, and the secondary node is actively replicating the primary node.</p>
+	</li><li>
+	<p>Shortly PostgreSQL replication will stop. The secondary node should no longer indicate <strong>Running Replica</strong> in the HaMgr interface, and the <strong>Failover</strong> button should be replaced with the <strong>Configure HA</strong> button.</p>
+	</li></ol>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Clicking <strong>Failover</strong> swaps the IP Address of the Primary and the Secondary hosts, moving the secondary IP address to the primary IP address field. After failing over, the HA Tool confirms replication is inactive.</p>
+</blockquote>
+</div>
+
+<h4 id="step_2_−_re-establish_the_ha_connection_between_the_primary_and_secondary_nodes">Step 2 − Re-establish the HA connection between the primary and secondary nodes</h4>
+
+<div>
+<ol><li>
+	<p>Launch the HA Tool in the secondary node.</p>
+	</li><li>
+	<p>Enter the primary IP address into the <strong>Primary IP</strong> text box.</p>
+	</li><li>
+	<p>Enter the secondary IP address into the <strong>Secondary IP</strong> text box.</p>
+	</li><li>
+	<p>Click the <strong>Configure HA</strong> button.</p>
+	</li></ol>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>When re-establishing a High Availability pair, confirm the correct IP addresses for both the primary and secondary nodes. These should correspond to the same IP addresses as before the failover was performed. Contact Technical Support for assistance in case the nodes are swapped, and HA is improperly re-established: <a href="https://www.netwrix.com/support.html" target="_blank">Netwrix Support · Netwrix 🡥</a>.</p>
+</blockquote>
+</div>
+
+<h2 id="related_links">Related links</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HfOCAU.html" target="_self">How to Configure High Availability (HA) Using SbPAM.HaMgr.exe</a></p>
+	</li><li>
+	<p><a href="https://www.netwrix.com/support.html" target="_blank">Netwrix Support · Netwrix 🡥</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

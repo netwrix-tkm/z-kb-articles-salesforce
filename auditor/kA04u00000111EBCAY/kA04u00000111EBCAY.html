@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Why I Get Alerts on Accounts That Cannot Be Locked Out?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111EBCAY" />
+    <meta name="Id" content="ka04u00000117toAAA" />
+    <meta name="LastPublishedDate" content="2023-09-22T09:07:22.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-22T09:07:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-20T13:46:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8811" />
+    <meta name="ArticleNumber" content="000008811" />
+    <meta
+      name="description"
+      content="This article explains why Netwrix generates alerts on the accounts that cannot be locked out e.g., domain admins."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>Why Netwrix sends alerts on accounts that cannot be locked out?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            If an account was to be locked based on certain rules within Windows such as too many
+            bad password attempts, even if it cannot be locked, Windows will still generate Event ID
+            4740 despite the failure.
+          </p>
+
+          <p>
+            Learn more about this event in
+            <a
+              href="https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4740"
+              target="_blank"
+              >4740(S): A user account was locked out. ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            If you configured alerts triggered by lockout events, Netwrix Auditor reacts to these
+            Events even in case of failed attempts and sends the corresponding alert.
+          </p>
+
+          <p>
+            Alerts contain also an account RID, that is a unique ID within Netwrix that ties it to
+            the alert that was fired off which would allow you to look into it more thoroughly.
+          </p>
+
+          <p>
+            You can then select an alert that fired off and click
+            <b>Show activity record in a new window</b> to the bottom right, which will show you the
+            details of the event.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

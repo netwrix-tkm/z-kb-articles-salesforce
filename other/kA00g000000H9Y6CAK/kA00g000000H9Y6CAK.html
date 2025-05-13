@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 401: Unauthorized: Access is denied due to invalid credentials</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9Y6CAK" />
+    <meta name="Id" content="ka04u00000116csAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:21.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:16:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1162" />
+    <meta name="ArticleNumber" content="000003321" />
+    <meta
+      name="description"
+      content="Netwrix Auditor, Password Manager, Error 401: Unauthorized: Access is denied due to invalid credentials"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Error 401 occurs when trying to access Administrative and Help-Desk Portals, while
+        Self-Service Portal works fine.
+        <div>
+          <img
+            src="kA00g000000H9Y6CAK_fe213e87-dc32-46ed-8890-bbd597e6f796.png"
+            alt="User-added image"
+            width="500"
+            height="104"
+          />
+        </div>
+
+        <hr />
+
+        This error is returned by Internet Information Services (IIS). It occurs when the
+        authentication to Admin or Helpdesk portal fails. Administrative and Helpdesk portals have
+        similar authentication settings, Self-Service portal has different, that is why the
+        Self-Service portal does not return this error. Authentication can fail because
+        authentication settings are misconfigured or the account does not have read permissions to
+        the physical folder on the server.
+
+        <hr />
+
+        To resolve the issue verify authentication settings and account permisions. 1. Make sure all
+        authentication types except Windows authentication or Basic authentication are disabled in
+        Internet Information Services (IIS) Manager, and either Windows or Basic authentication is
+        enabled. To ensure the required settings are enabled in IIS6, do the following:
+        <ol>
+          <li>
+            In <strong>IIS Manager</strong> left pane, navigate to &lt;your computer name&gt; - Web
+            Sites - Default Web Site - PM.
+          </li>
+          <li>
+            Right-click the <strong>helpdesk</strong> (or <strong>admin</strong>) virtual directory
+            under <strong> PM </strong>folder and select <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Properties </strong>dialog, open the
+            <strong>Directory Security </strong>tab, and select <strong>Edit</strong> for
+            Authentication and access control.
+          </li>
+          <li>
+            In the <strong>Authentication Methods </strong>dialog, enable either the
+            <strong>Integrated Windows authentication </strong>box or
+            <strong>Basic authentication </strong>(password is sent in clear text), and clear all
+            other authentication options for Authentication access.
+          </li>
+        </ol>
+        <div>
+          <img
+            src="kA00g000000H9Y6CAK_ed84853c-6828-47d5-803c-c5694919eaa9.png"
+            alt="User-added image"
+            width="309"
+            height="342"
+          />
+        </div>
+        To ensure the required settings are enabled in IIS7, do the following:
+        <ol>
+          <li>
+            In IIS Manager left pane, navigate to &lt;your computer name&gt; -
+            <strong>Web Sites - Default Web Site - PM </strong>- <strong>helpdesk</strong> (or
+            <strong>admin)</strong>
+          </li>
+          <li>
+            In the Manager central pane, double-click the <strong>Authentication</strong> option
+            under IIS block
+          </li>
+          <li>
+            In the <strong>Authentication </strong>list, enable either
+            <strong>Windows Authentication </strong>option or <strong>Basic Authentication</strong>,
+            and disable all other authentication options.
+          </li>
+        </ol>
+        <p>
+          <img
+            src="kA00g000000H9Y6CAK_5672e439-3607-4439-a4ac-c9f975b9bc23.png"
+            alt="User-added image"
+            width="500"
+            height="319"
+          />
+          <img
+            src="kA00g000000H9Y6CAK_8ca0bd2b-ddf0-4d09-9c55-b1551a6e2a25.png"
+            alt="User-added image"
+            width="405"
+            height="219"
+          />
+        </p>
+
+        2. The account whose credentials are specified to access the portal has Read permisison to
+        the Password Manager instalaltion directory
+        <p>
+          <img
+            src="kA00g000000H9Y6CAK_38562fba-5652-443b-8ed3-d608fe421d57.png"
+            alt="User-added image"
+            width="302"
+            height="367"
+          />
+        </p>
+        3. The account is granted the appropriate role: Administrators role to access Administrative
+        portal and Help Desk Operators role to access Help Desk portal.
+
+        <img
+          src="kA00g000000H9Y6CAK_7ffc15dd-1f9c-4c60-a379-418706a0c6c9.png"
+          alt="User-added image"
+          width="500"
+          height="390"
+        />
+        <div id="cke_pastebin" />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Unable to Upload Session to Long-Term Archive − Access to State-in-Time Folder Is Denied
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000LSfKAM" />
+    <meta name="Id" content="ka0Qk00000017qfIAA" />
+    <meta name="LastPublishedDate" content="2023-12-21T09:12:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-25T07:34:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-21T09:12:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8980" />
+    <meta name="ArticleNumber" content="000008980" />
+    <meta
+      name="description"
+      content="Unable to Upload Session to Long-Term Archive − Access to State-in-Time Folder Is Denied"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error is prompted in Health Log for one of or multiple monitoring plans in
+            Netwrix Auditor:
+          </p>
+
+          <pre class="has-inner-focus">
+Description: Monitoring plan: %monitoring_plan% 
+The following error has occurred: 
+While processing the state-in-time data, Netwrix Auditor was unable to upload the session to the Long-Term Archive:
+Access to the path '%Long-Term_Archive%\%monitoring_plan_SiT_folder%' is denied.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>Misconfigured permissions for the Long-Term Archive (LTA) service account.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>You can establish the affected Long-Term Archive
+            service account by following <strong>Settings</strong> &gt;
+            <strong>Long-Term Archive</strong> tab &gt; <strong>Modify</strong> under the
+            <strong>Long-Term Archive</strong> section.
+          </p>
+        </blockquote>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Allow <strong>Full Control</strong> permissions to the Long-Term Archive service
+                account for the following 2 folders:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Long-term Archive − you can establish the location by following
+                    <strong>Settings</strong> &gt; <strong>Long-Term Archive</strong> &gt;
+                    <strong>Write audit data to</strong>. The default location is
+                    <code>%PROGRAMDATA%\Netwrix Auditor\Data</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Short-Term Archive − you can establish the location by following
+                    <strong>Health Status</strong> &gt;
+                    <strong>Open diagnostic logs folder</strong> under
+                    <strong>Working folder</strong> &gt; parent folder of the
+                    <strong>Logs</strong> folder. The default location is
+                    <code>C:\ProgramData\Netwrix Auditor\ShortTerm</code>.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>Alternatively, you can run the following
+                      line in Command Prompt in your Auditor server to get the value of the
+                      <code>DataPathOverride</code> subkey entry. The output will contain the
+                      location of Short-Term Archive in your Auditor server:
+                    </p>
+
+                    <pre
+                      class="has-inner-focus"
+                    ><code class="lang-Registry">reg query "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Netwrix Auditor\DataPathOverride"</code></pre>
+                  </blockquote>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Grant the Long-Term Archive service account Local Administrators permissions in the
+                Auditor server.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

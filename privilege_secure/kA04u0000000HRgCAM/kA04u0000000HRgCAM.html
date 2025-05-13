@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>SbPAM: PostgreSQL 12 High Availability (HA) Set-up</title><meta name="label" content="employees_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HRgCAM"/><meta name="Id" content="ka04u0000001COnAAM"/><meta name="LastPublishedDate" content="2021-11-15T14:36:20.000+0000"/><meta name="LastModifiedDate" content="2023-06-29T09:54:52.000+0000"/><meta name="FirstPublishedDate" content="2021-10-12T13:56:39.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5916"/><meta name="ArticleNumber" content="000005916"/><meta name="description" content="SbPAM: PostgreSQL 12 High Availability (HA) Set-up"/></head><body><article class=" kb-articles"><div class="Content__c">Product version: v3.5 and prior
+<h2 id="summary">Summary</h2>
+
+<p>How to Setup High Availability (HA) for SbPAM (PostgreSQL 12)</p>
+
+<p>Before configuring HA for SbPAM (PostgreSQL), it's important to understand how HA is intended to work. Once HA has been configured, there's two SbPAM servers, each with their own database. These servers take on the roles of Primary and Secondary.</p>
+
+<p>At any time, the only writeable database is the Primary. In the event that the Primary server experiences an interruption, the Secondary database will be up-to-date as of the time of that interruption. The Secondary server can then be promoted to be the Primary via the failover.ps1 script.</p>
+
+<p>Now that the Secondary server has become the Primary, the old Primary needs to be configured as the new Secondary, which can be done using the same steps outlined later in this KB for Secondary server configuration.</p>
+
+<p>Once the new Primary/Secondary relationship has been established, the same steps could be followed to set the original Primary (now Secondary) back to the Primary, and the original Secondary (now Primary) back to the Secondary.</p>
+
+<p><span><em><span class="wysiwyg-color-red"><strong>Important: </strong>These steps are only for SbPAM installations running PostgreSQL 12. If running PostgreSQL 10 and upgrading to 12, please contact the SbPAM Product Team.</span></em></span></p>
+
+<h3 id="steps_to_install_sbpam_with_high_availability_ha">Steps to Install SbPAM with High Availability (HA)</h3>
+
+<p><span><span class="wysiwyg-color-red"><em><strong>Important: </strong>If SbPAM is already installed with a single PostgreSQL database, and you intend to add a second server for PostgreSQL High Availability (GA), skip Step #1.</em></span></span></p>
+
+<p>Before starting, please note the IPv4 address of both the Primary and Secondary servers. You'll also need the PostgreSQL 12 port for the Primary server which can be obtained by running the following in PowerShell on the Primary server (assuming SbPAM is already installed):</p>
+
+<pre class="ckeditor_codeblock">(Get-ItemProperty HKLM:\SOFTWARE\PostgreSQL\Services\postgresql-x64-12).Port</pre>
+
+<p>The output will either be "<strong>5432</strong>" or "<strong>5433</strong>".</p>
+
+<p>1. Install SbPAM on <strong>Primary</strong> server - Configure the Admin account and install the license.</p>
+
+<p>2. Install SbPAM on <strong>Secondary</strong> (Standby) server - Configure the Admin account and install the license.</p>
+
+<p class="wysiwyg-indent2"><strong>NOTE: </strong>This Admin account will be removed and the Admin from the Primary will be used going forward after High Availability has been successfully configured.</p>
+
+<p>3. Obtain and copy the SbPAM High Availability scripts to the Primary and Secondary servers.</p>
+
+<p>4. On the <strong>Primary</strong> server, launch an elevated PowerShell session.</p>
+
+<p class="wysiwyg-indent2">a. Browse to the folder where the High Availability scripts are located. Ensure that the SbPAM High Availability scripts are unblocked, either via the right-click menu or via PowerShell (below):</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; cd .\SbPAM\
+PS &gt;&gt; Get-ChildItem
+
+Directory: C:\Users\&lt;username&gt;\Desktop\SbPAM
+
+Mode LastWriteTime Length Name
+---- ------------- ------ ----
+-a--- 4/26/2021 1:41 PM 4159 failover.ps1
+-a--- 4/26/2021 1:41 PM 20994 pg_replication.psm1
+-a--- 4/26/2021 1:41 PM 656 Set-AppSettingsUser.ps1
+-a--- 4/26/2021 1:41 PM 5531 setup_pg_replication_primary.ps1
+-a--- 4/26/2021 1:41 PM 5734 setup_pg_replication_standby.ps1
+
+PS &gt;&gt; Get-Item * | Unblock-File</pre>
+
+<p class="wysiwyg-indent2">b. Run the setup_pg_replication_primary.ps1 script. You can do this in PowerShell with</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; .\setup_pg_replication_primary.ps1</pre>
+
+<p class="wysiwyg-indent2">You will be required to enter the IPv4 addresses of the Primary and Secondary servers.</p>
+
+<p>5. On the <strong>Secondary</strong> server, launch an elevated PowerShell session.</p>
+
+<p class="wysiwyg-indent2">a. Browse to the folder where the High Availability scripts are located. Ensure that the SbPAM High Availability scripts are unblocked, either via the right-click menu or via PowerShell (below):</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; cd .\SbPAM\
+PS &gt;&gt; Get-ChildItem
+
+Directory: C:\Users\&lt;username&gt;\Desktop\SbPAM
+
+Mode LastWriteTime Length Name
+---- ------------- ------ ----
+-a--- 4/26/2021 1:41 PM 4159 failover.ps1
+-a--- 4/26/2021 1:41 PM 20994 pg_replication.psm1
+-a--- 4/26/2021 1:41 PM 656 Set-AppSettingsUser.ps1
+-a--- 4/26/2021 1:41 PM 5531 setup_pg_replication_primary.ps1
+-a--- 4/26/2021 1:41 PM 5734 setup_pg_replication_standby.ps1
+
+PS &gt;&gt; Get-Item * | Unblock-File</pre>
+
+<p class="wysiwyg-indent2">b. Run the setup_pg_replication_standby.ps1 script. You can do this in PowerShell with</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; .\setup_pg_replication_standby.ps1</pre>
+
+<p class="wysiwyg-indent2">You will be required to enter the IPv4 addresses of the Primary and Secondary servers, as well as the Primary server's PostgreSQL 12 port (obtained prior to Step #1 of this KB).</p>
+
+<p class="wysiwyg-indent2"><strong>NOTE:</strong> Replication should now be working between the 2 servers.</p>
+
+<p>6. On the <strong>Secondary</strong> server - Login with the Admin account and credentials from the Primary server to confirm replication has been successful.</p>
+
+<p>7. On the <strong>Primary</strong> server, you'll need to copy 2 files to the Secondary (in the same location on Secondary server). </p>
+
+<pre class="ckeditor_codeblock">&lt;DriveLetter&gt;:\Program Files\Stealthbits\PAM\Web\appsettings.json
+&lt;DriveLetter&gt;:\ProgramData\STEALTHbits\PAM\Web\jwtsign.pfx</pre>
+
+<p>8. On the <strong>Secondary</strong> server modify the appsettings.json file remove the <strong>"Host": "localhost"</strong> line and save the file.</p>
+
+<p>9. On the <strong>Primary </strong>server, launch an elevated PowerShell session.</p>
+
+<p class="wysiwyg-indent2">a. Navigate to the directory with the High Availability scripts, and run the following (replacing "localhost" with the hostname of the Primary server, except in the event a certificate hasn't been installed, in which case use "localhost" due to the included self-signed SbPAM certificate).</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; Set-AppSettingsUser.ps1 -Url "https://localhost:6500"</pre>
+
+<p class="wysiwyg-indent2">b. Repeat these steps for the <strong>Secondary</strong> server, using the Secondary server's hostname instead of the Primary server's hostname (Except in the event a certificate hasn't been installed, in which case use "localhost" due to the included self-signed SbPAM certificate).</p>
+
+<p>10. <strong>Register Services</strong> on the <strong>Primary </strong>server - Log-in to SbPAM as the Admin user. Click on the Admin in upper-right and click "Settings". Go to the Register Services tab and click on the “Register Services” button.</p>
+
+<p class="wysiwyg-indent2">a. Repeat this step on the <strong>Secondary</strong> server.</p>
+
+<p class="wysiwyg-indent2">b. If for any reason the Register Services tab cannot be reached, you can try manually restarting the SbPAM Proxy Service via Windows' native Services.msc (restarting this service will automatically restart the other essential SbPAM services).</p>
+
+<p>11. On the <strong>Primary</strong> machine</p>
+
+<p class="wysiwyg-indent2">a. Login to SbPAM. Go to Configuration – Service Nodes and check on the status on all the services on each of the SbPAM servers.</p>
+
+<p class="wysiwyg-indent2">b. All services should be up and running for both SbPAM servers, indicates the HA configuration was successful.</p>
+
+<p class="wysiwyg-indent2">c. If any services are not running, Register Services again or manually restart the SbPAM Proxy Service via Windows' native Services.msc (restarting this service will automatically restart the other essential SbPAM services).</p>
+
+<h3 id="steps_to_upgrade_an_sbpam_installation_thats_using_high_availability_ha">Steps to Upgrade an SbPAM Installation That's Using High Availability (HA)</h3>
+
+<p>1. On the <strong>Secondary</strong> server, launch an elevated PowerShell session.</p>
+
+<p class="wysiwyg-indent2">a. Browse to the folder where the High Availability scripts are located. Ensure that the SbPAM High Availability scripts are unblocked, either via the right-click menu or via PowerShell (below):</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; cd .\SbPAM\
+PS &gt;&gt; Get-ChildItem
+
+Directory: C:\Users\&lt;username&gt;\Desktop\SbPAM
+
+Mode LastWriteTime Length Name
+---- ------------- ------ ----
+-a--- 4/26/2021 1:41 PM 4159 failover.ps1
+-a--- 4/26/2021 1:41 PM 20994 pg_replication.psm1
+-a--- 4/26/2021 1:41 PM 656 Set-AppSettingsUser.ps1
+-a--- 4/26/2021 1:41 PM 5531 setup_pg_replication_primary.ps1
+-a--- 4/26/2021 1:41 PM 5734 setup_pg_replication_standby.ps1
+
+PS &gt;&gt; Get-Item * | Unblock-File</pre>
+
+<p>2. On the <strong>Secondary</strong> server, run the failover PowerShell script: .\failover.ps1</p>
+
+<p class="wysiwyg-indent2">a. When asked for Database server and SbPAM server, enter the IP addresses for the <strong>Secondary </strong>server.</p>
+
+<p>3. Upgrade SbPAM on the <strong>Secondary</strong> server.</p>
+
+<p>4. On the <strong>Secondary</strong> server, log-in to SbPAM. Go to Configuration &gt; Service Nodes and check on the status of all the services.</p>
+
+<p>5. Upgrade SbPAM on the <strong>Primary Server</strong></p>
+
+<p>6. On the <strong>Secondary</strong> server, launch an elevated PowerShell session.</p>
+
+<p class="wysiwyg-indent2">a. Run the PowerShell script</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; .\setup_pg_replication_secondary.ps1</pre>
+
+<p>7. On the <strong>Secondary</strong> server, log-in to SbPAM. Go to Configuration &gt; Service Nodes and check on the status of all the services.</p>
+
+<p class="wysiwyg-indent1">a. If any services are not running, Register Services again or manually restart the SbPAM Proxy Service via Windows' native Services.msc (restarting this service will automatically restart the other essential SbPAM services).</p>
+
+<h3 id="installing_a_tls_certificate_in_an_sbpam_high_availability_ha_environment">Installing a TLS Certificate in an SbPAM High Availability (HA) Environment</h3>
+
+<p><span><span class="wysiwyg-color-red"><em><strong>Important:</strong> You will need to obtain certificates for your primary and secondary host, for HA using a wildcard certificate is preferred. <strong>Note the steps are repeated for primary and secondary servers.</strong></em></span></span></p>
+
+<p>After getting the valid certificate for your web host, update the bindings for the website in IIS Manager.</p>
+
+<p>1. On the <strong>Primary</strong> server, open IIS Manager.</p>
+
+<p class="wysiwyg-indent2">a. Select the SbPAM Web Service Node.</p>
+
+<p class="wysiwyg-indent2">b. Right-click “SbPAM Web Service”.</p>
+
+<p class="wysiwyg-indent2">c. Select “Edit Bindings…”.</p>
+
+<p class="wysiwyg-indent2"><img alt="User-added image" src="kA04u0000000HRgCAM_7eb069f4-30be-46b9-8df5-03b7dfc994ef.png"/></p>
+
+<p class="wysiwyg-indent2">d. Double-click "https" or highlight "https" and click "Edit..."</p>
+
+<p class="wysiwyg-indent2"><img alt="User-added image" src="kA04u0000000HRgCAM_d558d2b3-e411-42a6-91ee-9e13cfe5c756.png"/></p>
+
+<p class="wysiwyg-indent2">e. Select the SSL certificate for the DNS hostname you are using from the "SSL certificate" dropdown:</p>
+
+<p class="wysiwyg-indent2"><img alt="User-added image" height="425" src="kA04u0000000HRgCAM_b27e4a42-ca2e-43a5-a264-737253e30ac4.png" width="500"/></p>
+
+<p class="wysiwyg-indent2">f. After making these changes, open an elevated Command Prompt and run the following command to restart IIS services:</p>
+
+<pre class="ckeditor_codeblock">iisreset</pre>
+
+<p>2. On the <strong>Primary</strong> server, navigate to the directory with the High Availability scripts, and run the following (replacing "localhost" with the hostname of the Primary server used in the certificate):</p>
+
+<pre class="ckeditor_codeblock">PS &gt;&gt; Set-AppSettingsUser.ps1 -Url "https://localhost:6500"</pre>
+
+<p>3. On the <strong>Primary</strong> server, verify the services are running properly by navigating to the Configuration &gt; Service Nodes page in the SbPAM Web UI.</p>
+
+<p>4. Repeat these steps to install the certificate on the <strong>Secondary</strong> server. If you've completed these steps for both the <strong>Primary </strong>and <strong>Secondary </strong>servers, then you are finished.</p>
+
+<p><br/><b>Attachment: </b><a href="https://www.netwrix.com/download/SbPAM_HA.zip" target="_blank">SbPAM_HA.zip</a></p></div>
+</article></body></html>

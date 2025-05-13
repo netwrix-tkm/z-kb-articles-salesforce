@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Password Policy Requirements Are Missing</title><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="f_anixis"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000111JuCAI"/><meta name="Id" content="ka0Qk0000004aEbIAI"/><meta name="LastPublishedDate" content="2024-06-14T08:07:24.000+0000"/><meta name="LastModifiedDate" content="2024-07-10T16:26:23.000+0000"/><meta name="FirstPublishedDate" content="2023-10-09T13:36:40.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8844"/><meta name="ArticleNumber" content="000008844"/><meta name="description" content="Password Policy Requirements Are Missing"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>After the recent upgrade, Password Policy Enforcer (PPE) users do not see any password policy requirements.</p>
+</div>
+
+<h2 id="causes">Causes</h2>
+
+<div>
+<p>One or more of the following causes may affect your PPE installation. Refer to the list of possible causes:</p>
+
+<ol><li>
+	<p>The PPE upgrade is not completed.</p>
+	</li><li>
+	<p>The PPE integration with third-party credential providers is misconfigured (e.g., Duo Security, Global Protect, etc.).</p>
+	</li><li>
+	<p>Firewall rules for PPE are missing or misconfigured.</p>
+	</li><li>
+	<p>In PPE v10.2 and newer, there's a protocol mismatch in PPE Client and Server.</p>
+	</li></ol>
+</div>
+
+<h2 id="resolutions">Resolutions</h2>
+
+<div>
+<p>Refer to the relevant resolution for the cause in your environment:</p>
+
+<ol><li>
+	<p>Review the upgrade checklist for PPE—refer to the following article for additional information: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001Cf3KAE.html" target="_self">Upgrade Checklist in Password Policy Enforcer</a>.</p>
+	</li><li>
+	<p>Configure your third-party credential provider to work with PPE if necessary. Refer to the following articles for additional information:</p>
+
+	<ul><li>
+		<p>For additional information on Cisco DUO Authentication setup, refer to the following article: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111D8CAI.html" target="_self">Set Up Netwrix Password Policy Enforcer to Work with Cisco DUO Authentication</a>.</p>
+		</li><li>
+		<p>Learn more about setting up GlobalProtect to work with PPE in <a href="https://docs.paloaltonetworks.com/globalprotect/9-1/globalprotect-admin/globalprotect-apps/deploy-app-settings-transparently/deploy-app-settings-to-windows-endpoints/enable-sso-wrapping-for-third-party-credentials-with-the-windows-registry" target="_blank">Enable SSO Wrapping for Third-Party Credentials with the Windows Registry ⸱ GlobalProtect 🡥</a>.</p>
+
+		<blockquote>
+		<p><span><strong>NOTE: </strong></span>Refer to the Password Policy Enforcer Client GUID provided below:</p>
+
+		<pre class="has-inner-focus"><code class="lang-Registry">{F347212E-AF6B-4726-92B3-E4DF3388D58C}</code></pre>
+		</blockquote>
+
+		<blockquote>
+		<p><span class="Caution"><strong>IMPORTANT:</strong></span> If the PPE-specific GUID does not work, you can try to use the GenericProvider GUID instead:</p>
+
+		<pre class="has-inner-focus"><code class="lang-Registry">{25CBB996-92ED-457e-B28C-4774084BD562}</code></pre>
+		</blockquote>
+		</li></ul>
+	</li><li>
+	<p>Configure the firewall rules for PPE clients in your environment. Refer to the following article to learn more about required firewall rules in PPE environments: <a href="https://helpcenter.netwrix.com/bundle/PasswordPolicyEnforcer_10.2/page/Content/Password_Policy_Enforcer/Administration/Installing_Password_Policy_Client.htm#creating_firewall_rules_for_the_password_policy_client" target="_self">Installing Password Policy Client − Creating Firewall Rules for the Password Policy Client v10.2</a>.</p>
+	</li><li>
+	<p>Review the protocol used in your PPE environment. Verify the GPO settings have propagated in the PPE Client servers. Refer to the following article for additional information: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001CgfKAE.html" target="_self">Communication Protocols in Password Policy Enforcer</a>.</p>
+	</li></ol>
+</div>
+
+<h2 id="related_articles">Related articles</h2>
+
+<div>
+<ul><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001Cf3KAE.html" target="_self">Upgrade Checklist in Password Policy Enforcer</a></p>
+	</li><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000111D8CAI.html" target="_self">Set Up Netwrix Password Policy Enforcer to Work with Cisco DUO Authentication</a></p>
+	</li><li>
+	<p><a href="https://docs.paloaltonetworks.com/globalprotect/9-1/globalprotect-admin/globalprotect-apps/deploy-app-settings-transparently/deploy-app-settings-to-windows-endpoints/enable-sso-wrapping-for-third-party-credentials-with-the-windows-registry" target="_blank">Enable SSO Wrapping for Third-Party Credentials with the Windows Registry ⸱ GlobalProtect 🡥</a></p>
+	</li><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/PasswordPolicyEnforcer_10.2/page/Content/Password_Policy_Enforcer/Administration/Installing_Password_Policy_Client.htm#creating_firewall_rules_for_the_password_policy_client" target="_self">Installing Password Policy Client − Creating Firewall Rules for the Password Policy Client v10.2</a></p>
+	</li><li>
+	<p><a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001CgfKAE.html" target="_self">Communication Protocols in Password Policy Enforcer</a></p>
+	</li></ul>
+</div></div>
+</article></body></html>

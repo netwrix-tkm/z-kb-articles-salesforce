@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Crawl a Website That Does Not Require Credentials?</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="data_classification" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnoVCAQ" />
+    <meta name="Id" content="ka04u000000wwAUAAY" />
+    <meta name="LastPublishedDate" content="2023-11-21T10:41:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-21T10:41:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-14T11:14:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8899" />
+    <meta name="ArticleNumber" content="000008899" />
+    <meta name="description" content="How to Crawl a Website That Does Not Require Credentials" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            When trying to scan a website that does not require credentials to access it, the
+            following error appears:
+          </p>
+        </div>
+
+        <div>
+          <pre class="has-inner-focus">
+ 
+Version: 5.7.0.58
+
+Instance: abandc-test
+
+Component: Collector Service
+
+Level: Error
+
+Page ID: 443213
+
+CollectorEnumerator.CollectPage
+
+Page Collection Exception
+
+Exception: Location: CollectorEnumerator.CollectPage
+
+A Web Exception 'Forbidden occured during processing -&gt; The remote server returned an error: (403) Forbidden.
+
+Details: Error: AccessDeniedError (-403)
+
+Page Id: 443213
+
+conceptCore.PageCollectionException: Location: CollectorEnumerator.CollectPage
+
+A Web Exception 'Forbidden occured during processing ---&gt; System.Net.WebException: The remote server returned an error: (403) Forbidden.
+
+   at System.Net.HttpWebRequest.GetResponse()
+
+   at conceptHttp.Collection.HttpPageCollector.Get(Boolean forceCollect, Boolean&amp; changedSinceLastCollection)
+
+   at conceptEngine.ServiceFramework.Collection.CollectorEnumerator._()
+
+   --- End of inner exception stack trace ---
+
+ 
+
+Inner Exception: System.Net.WebException: The remote server returned an error: (403) Forbidden.
+
+   at System.Net.HttpWebRequest.GetResponse()
+
+   at conceptHttp.Collection.HttpPageCollector.Get(Boolean forceCollect, Boolean&amp; changedSinceLastCollection)
+
+   at conceptEngine.ServiceFramework.Collection.CollectorEnumerator._() 
+    </pre
+          >
+        </div>
+
+        <div>
+          <p>How to past this error when the site doesn't require any credentials?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            This error is gone after adding a specific line in the
+            <b>Collector Using Agent</b> field. For that:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In <b>Netwrix Data Classification</b>, navigate to <b>Config</b> -&gt;
+                <b>Collector</b> -&gt; <b>Advanced</b>.
+              </p>
+            </li>
+            <li>
+              <p>Add the following line in the <b>Collector Using Agent</b> field:</p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <pre class="has-inner-focus">
+ 
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Sa   
+</pre
+          >
+        </div>
+
+        <div>
+          <img
+            alt="User-added image"
+            height="103"
+            src="kA04u000000wnoVCAQ_1703afbc-d310-4221-8606-9a90ed733903.png"
+            width="500"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

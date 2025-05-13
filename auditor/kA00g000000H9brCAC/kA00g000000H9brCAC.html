@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Failed to Load Registry Hive − System Cannot Find File Specified | Configuration Registry
+      Database Is Corrupt
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9brCAC" />
+    <meta name="Id" content="ka0Qk0000001cb7IAA" />
+    <meta name="LastPublishedDate" content="2024-02-01T08:47:37.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-01T08:47:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1389" />
+    <meta name="ArticleNumber" content="000003549" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when it is returned:The Add/Remove Software data provider failed to load the user &amp;lt;domain/user&amp;gt; registry hive..."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>Each data collection returns the following warning:</p>
+
+          <pre class="has-inner-focus">
+&lt;timestamp&gt;: &lt;server&gt;:
+The Add/Remove Software data provider failed to load the user &lt;domain/user&gt; registry hive on computer &lt;server&gt; due to the following error:
+The system cannot find the file specified.</pre
+          >
+
+          <p>Alternatively, the following error can be prompted in Health Log:</p>
+
+          <pre class="has-inner-focus">
+The Add/Remove Software data provider failed to load the user &lt;domain/user&gt; registry hive on computer &lt;server&gt; due to the following error:
+The configuration registry database is corrupt.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The registry hive
+            <code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code>
+            contains user profile records with <strong>ProfileImagePath&amp;</strong> value missing.
+          </p>
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          <p>The error can be resolved by performing one of the following steps:</p>
+
+          <ul>
+            <li>
+              Check for deleted or disabled accounts SIDs in the
+              <code
+                >HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code
+              >
+              hive without <strong>ProfileImagePath</strong> value to delete them.
+            </li>
+            <li>
+              Add <strong>ProfileImagePath</strong> value (Expandable String Value) with an empty
+              value to the profiles with the value missing.
+            </li>
+            <li>
+              Check the affected server for unknown user profiles by accessing
+              <b>Control Panel</b> &gt; <b>System</b> &gt; <b>Advanced system settings</b> &gt;
+              <b>Advanced</b> tab &gt; <b>Settings</b> button under the <b>User Profiles</b> section
+              to delete them.
+            </li>
+            <li>
+              Ask the remaining users to log in the system — a user affected by a faulty NTUSER.DAT
+              won't be able to log in.
+            </li>
+            <li>
+              In case collection is not affected (e.g., the user does not appear in the registry),
+              you can omit the error. Add the %<code
+                >*,*,*Remove Software data provider failed to load the user *domain\user*</code
+              >% line to the Windows Server Auditing <b>omiterror</b> list. Refer to the following
+              article for additional information on omit lists:
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eeCAC.html"
+                target="_self"
+                >How to Use Omit Lists</a
+              >.
+            </li>
+          </ul>
+
+          <p>Once the changes are introduced, reboot the target server.</p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <p>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eeCAC.html"
+            target="_self"
+            >How to Use Omit Lists</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

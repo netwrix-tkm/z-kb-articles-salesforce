@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Determine the Count of Enabled Microsoft Entra ID Accounts</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="ct_administration" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dyCAC" />
+    <meta name="Id" content="ka0Qk0000000vRJIAY" />
+    <meta name="LastPublishedDate" content="2023-12-11T08:44:30.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-11T08:44:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3334" />
+    <meta name="ArticleNumber" content="000003680" />
+    <meta name="description" content="How to determine the number of enabled Azure AD accounts" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to establish the count of enabled Microsoft Entra ID (formerly Azure AD) accounts?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE:</strong></span> This method works <strong>only</strong> for 9.96
+              and later versions. Licensing for version 9.95 counts guest and external users. From
+              9.96 and onwards guest and external users are not included in the license count.
+            </p>
+          </blockquote>
+
+          <p>
+            Refer to the following steps to determine the count of enabled Microsoft Entra ID
+            accounts:
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE:</strong></span> As Azure Active Directory PowerShell 2.0 module is
+              planned for deprecation, refer to the following steps to determine the count of
+              enabled accounts via Microsoft Graph Powershell
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>
+                Make sure you have the <strong>Microsoft Graph PowerShell</strong> module installed.
+                If not, learn more about the installation process in
+                <a
+                  href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0#installation"
+                  target="_blank"
+                  >Install the Microsoft Graph PowerShell SDK — Installation ⸱ Microsoft 🡥</a
+                >.<br />
+                Learn more about migration from Azure AD PowerShell in
+                <a
+                  href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/migration-steps?view=graph-powershell-1.0"
+                  target="_blank"
+                  >Upgrade from Azure AD PowerShell to Microsoft Graph PowerShell ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Connect to Microsoft Entra ID. Learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/get-started?view=graph-powershell-1.0#sign-in"
+                  target="_blank"
+                  >Get started with the Microsoft Graph PowerShell SDK — Sign in ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Execute the following command in elevated PowerShell:</p>
+            </li>
+          </ol>
+
+          <pre class="has-inner-focus">
+Connect-MgGraph -Scopes "User.Read.All","Group.ReadWrite.All"
+(Get-MgUser -All -Filter "userType eq 'Member' and accountEnabled eq true").Count
+</pre
+          >
+
+          <p>
+            To determine the count of enabled accounts via Azure AD PowerShell 2.0 module, refer to
+            the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Make sure that you have the
+                <strong>Azure Active Directory PowerShell 2.0</strong> module installed. If not,
+                refer to the following Microsoft article for additional information:
+                <a
+                  href="https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0#installing-the-azure-ad-module"
+                  target="_blank"
+                  >Install Azure Active Directory PowerShell for Graph — Installing the Azure AD
+                  Module ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Connect to Microsoft Entra ID— refer to the following link for steps:
+                <a
+                  href="https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0#connect-to-azure-ad"
+                  target="_blank"
+                  >Install Azure Active Directory PowerShell for Graph — Connect to Azure AD ⸱
+                  Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Execute the following command:</p>
+            </li>
+          </ol>
+
+          <pre class="has-inner-focus">
+(Get-AzureADUser -All $true -Filter "userType eq 'Member' and accountEnabled eq true").Count
+</pre
+          >
+
+          <p>
+            Once completed, you will see the number of enabled user accounts in Microsoft Entra ID.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE:</strong></span> In case an Microsoft Entra ID account was created
+              prior to 2014, the usertype of this account will be blank. Refer to the following
+              Microsoft article for additional information on how to assign the usertype to a user:
+              <a
+                href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-manage-user-profile-info"
+                target="_blank"
+                >Add or Update User Profile Information and Settings ⸱ Microsoft 🡥</a
+              >.
+            </p>
+          </blockquote>
+
+          <p>
+            Alternatively, you can use one of the following commands depending on the PowerShell
+            option:
+          </p>
+
+          <p>For <strong>Azure AD PowerShell 2.0</strong>:</p>
+
+          <pre class="has-inner-focus">
+Set-MsolUser -UserPrincipalName "user@company.com" -UserType "Member"</pre
+          >
+
+          <p>For <strong>Graph PowerShell</strong> (admin account required):</p>
+
+          <pre class="has-inner-focus">
+Connect-MgGraph -Scopes "User.Read.All","Group.ReadWrite.All"
+Update-MgUser -UserPrincipalName 'user@company.com' -UserType 'Member'
+</pre
+          >
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/installation?view=graph-powershell-1.0"
+              target="_blank"
+              >Install the Microsoft Graph PowerShell SDK ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/migration-steps?view=graph-powershell-1.0"
+              target="_blank"
+              >Upgrade from Azure AD PowerShell to Microsoft Graph PowerShell ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/powershell/microsoftgraph/get-started?view=graph-powershell-1.0"
+              target="_blank"
+              >Get Started with Microsoft Graph PowerShell SDK ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://docs.microsoft.com/en-us/powershell/azure/active-directory/install-adv2?view=azureadps-2.0#installing-the-azure-ad-module"
+              target="_blank"
+              >Install Azure Active Directory PowerShell for Graph ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/how-to-manage-user-profile-info"
+              target="_blank"
+              >Add or Update User Profile Information and Settings ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

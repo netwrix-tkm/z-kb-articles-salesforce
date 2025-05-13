@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Change the Subject of E-Mail Messages (Log Tracker)</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcRCAU" />
+    <meta name="Id" content="ka04u000000HdANAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:57.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:52:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8247" />
+    <meta name="ArticleNumber" content="000008247" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          All e-mails sent by Log Tracker Server is sent via a batch file shell wrapper that can be
+          customized by the user.
+        </p>
+
+        <p>
+          In the case of "Ticket Actions", the e-mail (including the subject) is formatted via the
+          "t-actions\SENDMAIL.bat" file.
+        </p>
+
+        <h2 id="HowtoChangetheSubjectofE-MailMessages(LogTracker)-Step-by-stepguide">
+          Step-by-step guide
+        </h2>
+
+        <p>Here is a procedure for modifying the subject of ticket e-mails:</p>
+
+        <ol>
+          <li>
+            Copy the "t-actions\SENDMAIL.bat" file to the "t-actions\CUSTMAIL.bat" file (or some
+            other name).
+          </li>
+          <li>
+            Edit the t-actions\CUSTMAIL.bat file created above. You may edit the file with "notepad"
+            or some other text editor.
+          </li>
+          <li>
+            In the CUSTMAIL.bat file, find the line in the file that contains the keyword
+            "Subject:", and then modify the subject line to be your customized e-mail subject. You
+            can include variables in the subject line using standard Windows batch file syntax.
+          </li>
+          <li>Save the modifications.</li>
+          <li>
+            Finally, either copy CUSTMAIL.bat back to SENDMAIL.bat, or modify your ticket actions
+            (via the "Ticket &gt; Actions" screen) to use the CUSTMAIL.bat file modified above.
+          </li>
+        </ol>
+
+        <p> </p>
+
+        <p>
+          Note that the only main consideration is that SENDMAIL.bat is overwritten if you upgrade
+          your Log Tracker Server to the next version, so it is good to save your changes, or create
+          a new ticket action. In the case of the above procedure, the CUSTMAIL.bat file will
+          contain your changes, and will not be overwritten if a later version of Log Tracker Server
+          is installed.
+        </p>
+
+        <p>
+          The "t-actions" directory also contains a README.txt file that may be useful in creating
+          ticket actions, and you may refer to the "t-actions\TEMPLATE.bat file for a listing of all
+          the environmental variables set by Log Tracker Server that may be used in batch files.
+        </p>
+
+        <p> </p>
+
+        <h2 id="HowtoChangetheSubjectofE-MailMessages(LogTracker)-Relatedarticles">
+          Related articles
+        </h2>
+
+        <p> </p>
+
+        <p> </p>
+
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8368" target="_blank"
+                >Change Tracker Gen 7 Change Log / Update Log / ReadMe.txt Documents for
+                Agent/Hub</a
+              >
+            </div>
+          </li>
+        </ul>
+
+        <p> </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

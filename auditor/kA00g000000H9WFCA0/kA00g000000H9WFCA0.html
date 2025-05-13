@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The best way to find the Attribute Name when configuring Real Time Alerts</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WFCA0" />
+    <meta name="Id" content="ka04u000000HcPRAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:24.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="783" />
+    <meta name="ArticleNumber" content="000003206" />
+    <meta name="description" content="attribute name, real time alerts" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When configuring Real Time Alerts in Netwrix Auditor - Active Directory it can sometimes be
+        difficult to ensure you have the proper attribute names selected.
+
+        <hr />
+
+        There are various methods for ensuring you get the proper attribute name however the best
+        method if you have access to the Netwrix SQL databases is to simply run a query to find
+        exactly what it is.<br /><br />1) Find a change in your Change Summary Reports that you want
+        to create a real time alert for.<br /><br />2) Note the bold text in the
+        <strong>Details</strong> column. For purposes of this KB we will call this the
+        <strong>friendly attribute name</strong>.<br /><br />3) Log into
+        <strong>SQL Management Studio</strong> and connect to the SQL Instance which contains your
+        Netwrix Active Directory database.<br /><br />4) Expand <strong>Databases</strong> and find
+        the Netwrix Active Directory database. By default this is
+        <strong>NetWrix_AD_Change_Reporter</strong>.<br /><br />5) <strong>Right click</strong> the
+        database and select <strong>New Query</strong>.<br /><br />6) Run the following query
+        against the database replacing the variables between the %. <br /><br /><strong
+          >Select * from dbo.PropChanges where PropName like '%friendly attribute name%'</strong
+        ><br /><br />For example if you are wanting to create a real time alert for when someone
+        gets locked out the friendly attribute name would be User Account Locked Out and so I would
+        run the following query against the database.<br /><br />Select * from dbo.PropChanges where
+        PropName like 'User Account Locked Out'<br /><br />7) In the query results you will see two
+        columns <strong>PropName</strong> and <strong>PropNameInt</strong>. All PropNames should be
+        exactly what you queries for and the resulting PropNameInt is the attribute name you will
+        use in your real time alert.<br /><br />For the above example the PropNameInt for User
+        Account Locked Out is lockoutTime
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to enable TLS / SSL in StealthRECOVER</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I9ACAU" />
+    <meta name="Id" content="ka04u000000HcggAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:24:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:24:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6678" />
+    <meta name="ArticleNumber" content="000006678" />
+    <meta name="description" content="360008408331" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to enable TLS /
+          SSL in StealthRECOVER
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> See instructions to
+          enable TLS/SSL in RECOVER
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>    1. Obtain a
+          Web Cert.<br />    2. Install the Cert into the Personal location in the Local Computer
+          store.<br />    3. Copy the Cert into the Trusted Root location in the Local Computer
+          store.<br />    4. Open the appsettings.json file in the StealthRECOVER installation
+          directory.<br />    5. Change the value of "Certificate" from "" to the value of the
+          Cert's Subject field.<br />    6. Restart the StealthRECOVER service.<br /><br />NOTE:
+          After making these changes, you must use both HTTPS and the FQDN to connect to the web
+          portal (e.g., https://recover01.domain.com:5000, not http://localhost:5000,
+          https://localhost:5000, or http://recover01.domain.com:5000.)<br /><br />There's a trick
+          to it because we only look at the certs in the personal store and those aren't necessarily
+          trusted so these instructions account for that
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthRECOVER<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          StealthRECOVER - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          1.2+<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2187<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

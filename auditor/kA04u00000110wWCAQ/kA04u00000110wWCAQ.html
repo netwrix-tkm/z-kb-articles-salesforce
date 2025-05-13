@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Monitoring plan for SharePoint Online - Take Action. Applicaiton Tenant ID and Client Secret
+      has not Changed or Expired
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110wWCAQ" />
+    <meta name="Id" content="ka04u000001172pAAA" />
+    <meta name="LastPublishedDate" content="2023-07-28T13:23:25.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-04T10:47:26.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-26T10:53:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8691" />
+    <meta name="ArticleNumber" content="000008691" />
+    <meta name="description" content="Resolution for the 3205 and 3227 Event IDs." />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Symptom 1. The Netwrix Auditor System Health log contains the following events:</p>
+
+              <pre class="has-inner-focus">Event ID:3205</pre>
+
+              <pre class="has-inner-focus">Event ID:3227</pre>
+            </li>
+            <li>
+              <p>
+                Symptom 2. A SharePoint Online monitoring plan has the <b>Take action</b> status
+                with the following details:
+                <em>Application Tenant ID and Client Secret has not changed or expired.</em>
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <h2 id="cause">Cause</h2>
+
+          <div>
+            <p>The secret key for SharePoint Online application is outdated.</p>
+          </div>
+
+          <h2 id="resolution">Resolution</h2>
+
+          <div>
+            <p>
+              Re-create a secret key for your SharePoint online application and upload it to Netwrix
+              Auditor. For that:
+            </p>
+
+            <ol>
+              <li>
+                <p>
+                  On the computer that host Netwrix Auditor Server, navigate to your SharePoint
+                  Online working folder (the default location is %ProgramData%\Netwrix
+                  Auditor\ShortTerm\Netwrix Auditor for SharePoint Online). Copy the
+                  <b>Configuration</b> folder to a new location.
+                </p>
+
+                <p>
+                  For additional information on how to migrate your working folder, refer to the
+                  following article:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PcOLCA0.html"
+                    target="_blank"
+                    >How to Migrate Netwrix Auditor Working Folder to a New Location</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>Remove the SharePoint Online data source from your monitoring plan.</p>
+              </li>
+              <li>
+                <p>
+                  Configure application secret for that application in Microsoft Office 365 Admin
+                  center.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Add SharePoint Online Data Source and item with the tenant account back to the
+                  Monitoring Plan.
+                </p>
+              </li>
+              <li>
+                <p>
+                  In Netwrix Auditor, select your SharePoint Online monitoring plan and click
+                  <b>Update</b> in the right upper corner.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

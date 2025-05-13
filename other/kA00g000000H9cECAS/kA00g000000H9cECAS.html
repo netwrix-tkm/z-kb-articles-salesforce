@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to remove Enrollment wizard from startup and/or remove the shortcut by default
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cECAS" />
+    <meta name="Id" content="ka04u00000116Q7AAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-29T10:57:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2014" />
+    <meta name="ArticleNumber" content="000003572" />
+    <meta
+      name="description"
+      content="The KB provides the steps to prevent Netwrix Password Manager from running at startup and/or remove the shortcut from the Start menu on multiple machines."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to prevent Netwrix Password Manager from running at startup and/or remove the shortcut
+        from the Start menu on multiple machines?
+
+        <hr />
+
+        To perform these actions, modify the prm_client.msi file before deployment as follows
+        <ol>
+          <li>
+            Open the prm_client.msi file via any MSI editor, for example
+            <a
+              href="http://www.instedit.com/download2.html?file=InstEd-1.5.15.26.msi"
+              target="_blank"
+              >InstED</a
+            >.
+          </li>
+          <li>
+            To prevent Netwrix Password Manager from running at startup, right-click
+            'StartupRegistryKey' in the Components left pane and delete it.
+          </li>
+        </ol>
+        <p>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka470000000CnTF&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000058Xp"
+            target="_blank"
+            ><img
+              src="kA00g000000H9cECAS_9aafc66b-d152-4999-a873-5e69659a9357.png"
+              alt="User-added image"
+              width="500"
+              height="335"
+          /></a>
+        </p>
+
+        <ol start="3">
+          <li>
+            To prevent the shortcut from appearing in the Start menu, right-click
+            'StartMenuShortcuts' in the Components left pane and delete it.
+          </li>
+        </ol>
+        <div>
+          <a
+            href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka470000000CnTF&amp;feoid=00N700000032Pj2&amp;refid=0EM7000000058Xu"
+            target="_blank"
+            ><img
+              src="kA00g000000H9cECAS_9396fc0e-2fae-414b-8573-c05395d51be8.png"
+              alt="User-added image"
+              width="500"
+              height="324"
+          /></a>
+        </div>
+        <ol start="4">
+          <li>Go to File &gt; Save as and save the changes.</li>
+          <li>Use the transformed prm_client.msi file for deployment.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Disconnected-mode password reset</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dxCAC" />
+    <meta name="Id" content="ka04u00000116bPAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T11:51:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2817" />
+    <meta name="ArticleNumber" content="000003679" />
+    <meta
+      name="description"
+      content="Netwrix Password Manager - Logon Prompt Extension: resetting password with no access to the Domain (offline mode)."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          The disconnected-mode reset enables the GINA extension on the Windows logon screen to
+          reset a user's cached password, even when the machine is not connected to the domain.
+        </div>
+        <div>
+          Netwrix Password Manager is able to reset password in a local cache if both of the
+          following is true:
+        </div>
+        <ol>
+          <li>The Password manager Logon Prompt Extension is installed</li>
+          <li>
+            The user is enrolled through the local enrollment wizard, which is a part of the Logon
+            Prompt Extension.
+          </li>
+        </ol>
+        <div>
+          In this case, if the Password Manager server cannot be reached, the Password Manager
+          client can reset password locally, in the cache, but this password will be applied only to
+          the current machine and will become invalid as soon as this machine connects back to the
+          domain.
+        </div>
+        <div />
+        <div>
+          To be sure that all users enroll through the enrollment wizard, enable force enrollment by
+          creating the key PRM_SuppressLaterEnrollment with the value of 1 in
+          HKLMSoftwareWow6432NodePoliciesNetWrixPassword Manager (Wow6432Node only for x64 OS).
+        </div>
+        <div />
+        <div>
+          If you want to prohibit the reset of password in the local cache create DWORD
+          PRM_ResetCredentialsCache with the value of 0 in
+          HKLMSoftwareWow6432NodePoliciesNetWrixPassword Manager (Wow6432Node only for x64 OS).
+        </div>
+        <div />
+        <div>
+          All the above keys can be applied to all machines via Group Policy, using the template
+          provided with Netwrix Password Manager.
+        </div>
+        <div>
+          Refer to the paragraph 3.3 procedure 4 of Administrators guide for detailed information on
+          applying the template:
+        </div>
+        <div>
+          <a
+            href="https://www.netwrix.com/download/documents/NetWrix_Password_Manager_Administrator_Guide.pdf"
+            target="_blank"
+            >https://www.netwrix.com/download/documents/NetWrix_Password_Manager_Administrator_Guide.pdf</a
+          >.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

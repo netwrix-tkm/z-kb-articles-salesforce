@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Font Driver Host\UMFD Logon</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110xKCAQ" />
+    <meta name="Id" content="ka04u000001174lAAA" />
+    <meta name="LastPublishedDate" content="2023-08-08T09:42:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-08T09:42:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-27T15:02:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8696" />
+    <meta name="ArticleNumber" content="000008696" />
+    <meta name="description" content="Font Driver Host\UMFD Logon" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Your event log contains a login by a Font Driver Host\UMFD-% user. What does a UMFD-%
+            user represent?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            The User-Mode Font Driver Host service (UMFD) being a part of User-Mode Driver Framework
+            (UMDF) is an integral part of Windows OS. It is a system process caching a font driver.
+            To get additional information on the logon, refer to the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>Collect date and time of the logon.</p>
+            </li>
+            <li>
+              <p>
+                In <strong>Search</strong>, use the <strong>Where</strong> filter to specify the DC
+                the user logged on, and check the corresponding Security event log.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            The event description should contain additional information, such as a workstation,
+            process name and ID. Learn more about UMDF in
+            <a
+              href="https://learn.microsoft.com/en-us/windows-hardware/drivers/wdf/overview-of-the-umdf"
+              target="_blank"
+              >Overview of UMDF ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Difference between data stored in SQL versus the Audit Archive</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SXCA0" />
+    <meta name="Id" content="ka04u000000HcMLAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:41:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="250" />
+    <meta name="ArticleNumber" content="000002981" />
+    <meta name="description" content="audit archive, SQL Database size, audit archive size" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When Netwrix Auditor performs data collections, the data is simultaneously sent and saved in
+        two locations: SQL databases and a disk drive in the Audit Archive location.<br />The data
+        in SQL databases is stored in a non-compressed format and used for fast operational
+        reporting. It is not intended for long term storage. The default and recommended retention
+        for SQL is 180 days. If you are collecting huge amounts of data, your SQL DBs might grow too
+        big causing disk space and report generation speed issues. In this case it is recommended to
+        reduce the database retention as explained in this article:
+        <a
+          href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Install/Deployment/SQLServerDatabase/DatabaseSettings.htm"
+          target="_blank"
+          >https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Install/Deployment/SQLServerDatabase/DatabaseSettings.htm</a
+        >. <br />On the other hand the data stored in the audit archive consists of compressed flat
+        files and is intended for long term storage. When you have a compliance or an internal
+        requirement to store audit data for a long period of time this is where you would do that.
+        If at any time you need to report on archived data that is no longer in the SQL database, it
+        is possible to import it back to SQL using Investigations functionality: <a
+          href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/Reports/Investigations.htm"
+          target="_blank"
+          >https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/Reports/Investigations.htm</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

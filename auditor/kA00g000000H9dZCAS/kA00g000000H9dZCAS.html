@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Account Lockout Examiner works very slowly</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dZCAS" />
+    <meta name="Id" content="ka04u000000HcWKAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2777" />
+    <meta name="ArticleNumber" content="000003655" />
+    <meta
+      name="description"
+      content="Netwrix Account Lockout Examiner - Troubleshooting performance issues."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        To address the slow performance issue, perform the following steps:
+        <ol>
+          <li>
+            <ol>
+              <li>
+                Stop the Netwrix Account Lockout Examiner service via Services snap-in. If the
+                service fails to stop, kill ALEService.exe process via Task manager.
+              </li>
+              <li>Go to the Account Lockout Examiner installation directory</li>
+              <li>Delete or rename the following files.</li>
+            </ol>
+          </li>
+        </ol>
+        <ul>
+          <li>allinfo.xml</li>
+          <li>inv_logon.xml</li>
+          <li>readEvents.xml</li>
+          <li>sessions.xml</li>
+        </ul>
+        <div>
+          <strong>NOTE</strong>: This will remove info about all old lockouts from Account Lockout
+          Examiner. Backup this files if you need them for the further access.
+        </div>
+        <ol start="4">
+          <li>Start Netwrix Account Lockout Examiner Service</li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAbJ&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wmE"
+          target="_blank"
+          ><img
+            src="kA00g000000H9dZCAS_f38ffe58-d50d-4682-9394-94d69e2ee771.png"
+            alt="User-added image"
+            width="500"
+            height="397"
+        /></a>
+      </div>
+    </article>
+  </body>
+</html>

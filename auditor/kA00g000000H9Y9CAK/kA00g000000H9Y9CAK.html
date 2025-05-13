@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error "There is a duplicate 'system.web.extensions/scripting/scriptResourceHandler'
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9Y9CAK" />
+    <meta name="Id" content="ka04u000000HcREAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:04.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1171" />
+    <meta name="ArticleNumber" content="000003324" />
+    <meta
+      name="description"
+      content="After installing the Helpdesk portal, the following IIS error is seen: &amp;quot;There is a duplicate &amp;#039;system.web.extensions/scripting/scriptResourceHandler&amp;#039; section defined.&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        After installation of help desk portal I get the IIS error: "There is a duplicate
+        'system.web.extensions/scripting/scriptResourceHandler' section defined.
+
+        <hr />
+
+        The error occurs because &lt;system.web.extensions&gt; sections are defined in both
+        site-level and application level web.configs. This can happen with applications developed
+        for ASP.NET 2.0 when ASP.NET 4.0 is set as default.
+
+        <hr />
+
+        Please, go to IIS manager, in the left pane select Application pools, make sure that
+        DefaultAppPool uses ASP.NET 2.0 (.NET Framework column in the central pane)
+
+        <img
+          src="kA00g000000H9Y9CAK_e14c8707-bac9-4ef0-9cd6-38610252f5d2.png"
+          alt="User-added image"
+          width="500"
+          height="303"
+        />
+
+        The workaround for the this is to delete or comment out all the
+        <strong>&lt;system.web.extensions&gt;</strong> configuration section definitions and
+        configuration section group definitions from the application-level
+        <strong>Web.config </strong>file. It is located in the <strong>Web</strong> foler in the
+        Account Lockout Examiner installation directory.
+
+        <img
+          src="kA00g000000H9Y9CAK_bd60aa4e-8ede-44c8-a07c-3a373f3740fa.png"
+          alt="User-added image"
+          width="500"
+          height="289"
+        />
+      </div>
+    </article>
+  </body>
+</html>

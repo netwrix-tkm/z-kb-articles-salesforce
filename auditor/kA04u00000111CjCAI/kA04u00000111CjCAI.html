@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Investigations in Netwrix Auditor Take Too Long</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111CjCAI" />
+    <meta name="Id" content="ka04u000001182lAAA" />
+    <meta name="LastPublishedDate" content="2023-09-13T11:58:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-03T14:00:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-13T11:58:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8804" />
+    <meta name="ArticleNumber" content="000008804" />
+    <meta
+      name="description"
+      content="Exporting Audit Data from Netwrix Auditor Long-Term Archive Using CSVExportTool"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            When I attempt to export data from Long-Term Archive in <strong>Investigations</strong>,
+            the export process takes too long. This applies to any investigation covering a longer
+            period (two months to two years). Is there another way to access my historical data?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>In <strong>Investigations</strong>, it is
+            recommended to limit the investigated period to one month.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>
+            To export a larger data collection from your Long-Term Archive, you can use
+            CSVExportTool. It allows to run a pre-configured search query against your Long-Term
+            Archive and export the results to a .csv file. This allows to investigate a larger
+            period of time at once, as well as access your historical data more efficiently.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>The account used to export data from Long-Term
+              Archive should have <strong>Full Control</strong> permissions to access the Long-Term
+              Archive folder.
+            </p>
+          </blockquote>
+        </div>
+
+        <div>
+          <ol start="0">
+            <li>
+              <p>In your Netwrix Auditor host, set up a search report for CSVExportTool to use.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In the main Netwrix Auditor menu, click
+                    <strong>Search Activity Records</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select <strong>Advanced Mode</strong> for <strong>Filter</strong>,
+                    <strong>Operator</strong>, and <strong>Value</strong> rows to appear.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select the fields needed, and specify the date range. Refer to the following
+                    articles for additional information on filters:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Search/FilterSimple.htm"
+                      target="_self"
+                      >Administration — Simple Mode ⸱ v10.6</a
+                    >
+                    and
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Search/FilterAdvanced.htm"
+                      target="_self"
+                      >Administration — Advanced Mode ⸱ v10.6</a
+                    >. Once the filters are selected, run the search by clicking
+                    <strong>Search</strong>.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>The <strong>Search</strong> results
+                      displayed may be incomplete or missing entirely as you've just configured a
+                      search query.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    In the top right corner, click the <strong>Tools</strong> menu and select
+                    <strong>Save as report</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Name the custom report, copy the name of the report, and click
+                    <strong>Save</strong>.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                In your Netwrix Auditor host, open elevated Command Prompt, and run the following
+                command to move to the CSVExportTool directory:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">cd C:\Program Files (x86)\Netwrix Auditor\Audit Core</code></pre>
+            </li>
+            <li>
+              <p>
+                To save the results of the report you've previously created, run the following
+                command:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">CsvExportTool.exe -filters "%custom_report_name%" -csv "%destination\name.csv%"</code></pre>
+
+              <p>
+                Replace <code>%custom_report_name%</code> with the report name defined in the prior
+                steps. Refer to the following example to have the results of the
+                <strong>testreportcsv</strong> report saved to <code>testreport123.csv</code> file
+                in <code>C:\testfolder</code>:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">CsvExportTool.exe -filters "testreportcsv" -csv "c:\testfolder\testreport123.csv"</code></pre>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="additional_options">Additional options</h4>
+
+        <div>
+          <p>Refer to the following export customization options:</p>
+
+          <ul>
+            <li>
+              <p>
+                The <strong>-existing</strong> attribute allows to overwrite or append data to the
+                existing .csv file. Possible attributes are <strong>append</strong> and
+                <strong>overwrite</strong>. The following line will overwrite the contents of the
+                existing <code>testreport123.csv</code> file.
+              </p>
+
+              <pre class="has-inner-focus">
+CsvExportTool.exe -existing overwrite -filters "testreportcsv" -csv "c:\testfolder\testreport123.csv"</pre
+              >
+            </li>
+            <li>
+              <p>
+                The <strong>-split</strong> attribute allows to write each piece of data either to a
+                separate or single row. Possible attributes are <strong>split</strong> and
+                <strong>combine</strong>. The following line will allow to write Activity Records to
+                a single line.
+              </p>
+
+              <pre class="has-inner-focus">
+CsvExportTool.exe -details combine -filters "testreportcsv" -csv "c:\testfolder\testreport123.csv"</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Search/FilterSimple.htm"
+              target="_self"
+              >Administration — Simple Mode ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Search/FilterAdvanced.htm"
+              target="_self"
+              >Administration — Advanced Mode ⸱ v10.6</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

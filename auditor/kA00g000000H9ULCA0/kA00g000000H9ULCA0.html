@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to configure the Disk Space Monitor to work behind a Firewall</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ULCA0" />
+    <meta name="Id" content="ka04u000000HcO5AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:33:00.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:33:00.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="669" />
+    <meta name="ArticleNumber" content="000003093" />
+    <meta name="description" content="Firewall rules for Disk Space Monitor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How do I configure the Disk Space Monitor to work behind a Firewall?
+
+        <hr />
+
+        A Firewall may prevent Disk Space Monitor attempts to connect to the server and get
+        information about the disk space. Make sure that port 135 is open.<br /><br />Perform the
+        following steps:<br />1. Run the firewall by going to Start | Control Panel | Windows
+        Firewall.<br />2. Click the Exceptions tab and check the list of Programs and Services.<br />3.
+        Make sure the list of Programs and Services contains the DCOM_TCP135 line.<br /><br />If
+        DCOM_TCP135 is not in the list of Programs and Services, perform the following steps:<br />1.
+        Go to Start | Run | type "cmd" and press OK.<br />2. Type "netsh firewall add portopening
+        protocol=tcp port=135 name=DCOM_TCP135" and press Enter.<br />3. Go to Start | Control Panel
+        | Windows Firewall.<br />4. Click the Exceptions tab and make sure DCOM_TCP135 has been
+        added to the list of Program and Services.<br />5. Go to Start | Control Panel| | Schedule
+        Tasks. Run the Netwrix Disk Space Monitor scheduled task.<br />6. Open the mailbox you have
+        specified to receive notifications and make sure the report displays disk space information
+        about the server in question.
+      </div>
+    </article>
+  </body>
+</html>

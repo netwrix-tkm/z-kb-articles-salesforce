@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error When Applying New Wildcard Certificate to SSRS: The Specified URL Was Unexpectedly
+      Reserved
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111GqCAI" />
+    <meta name="Id" content="ka04u00000117yZAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-28T12:04:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-28T12:04:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-28T10:38:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8826" />
+    <meta name="ArticleNumber" content="000008826" />
+    <meta
+      name="description"
+      content="Error When Applying New Wildcard Certificate to SSRS: The Specified URL Was Unexpectedly Reserved"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>When trying to add new certificate the following error occurs:</p>
+
+              <pre>The specified URL was unexpectedly reserved</pre>
+            </li>
+            <li>
+              <p>
+                When trying to reserve <code>https:443</code>, I get another error and the services
+                restarts
+              </p>
+            </li>
+            <li>
+              <p>The certificate is not listed</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Open Command Prompt (CMD) as administrator and unbind the certificate using a
+                command below:
+              </p>
+
+              <pre>netsh http delete sslcert ipport=[::]:443</pre>
+            </li>
+            <li>
+              <p>Bind the new certificate in Reporting Service Configuration Manager</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

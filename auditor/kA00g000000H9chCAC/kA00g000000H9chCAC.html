@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1280 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9chCAC" />
+    <meta name="Id" content="ka0Qk0000001AOjIAM" />
+    <meta name="LastPublishedDate" content="2023-12-25T14:40:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T09:27:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2382" />
+    <meta name="ArticleNumber" content="000003601" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Auditing issues caused by the stopped services."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1280 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Netwrix Auditor Server failed to save audit data to Audit Archive</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p><strong>Netwrix Auditor Archive Service</strong> has stopped.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Start <strong>Netwrix Auditor Archive Service</strong>:</p>
+
+          <ol>
+            <li>
+              <p>
+                Open the <strong>Services Manager</strong> either by searching for
+                <strong>Services</strong> in the Search bar, or running the
+                <code>services.msc</code> line in the <strong>Run</strong> command window.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate <strong>Netwrix Auditor Archive Service</strong>, right-click the service and
+                select <strong>Start</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Once the service is started, restart the data collection:</p>
+
+              <ol>
+                <li>
+                  <p>In the main Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+                </li>
+                <li>
+                  <p>Select your SharePoint monitoring plan and click <strong>Edit</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Update</strong> under the
+                    <strong>Monitoring Plan</strong> section.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

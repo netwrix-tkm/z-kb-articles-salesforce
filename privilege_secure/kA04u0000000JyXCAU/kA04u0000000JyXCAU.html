@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Configure a Multi-Server NPS Environment With a Shared Database Server</title><meta name="label" content="skb"/><meta name="label" content="privilege_secure"/><meta name="KnowledgeArticleId" content="kA04u0000000JyXCAU"/><meta name="Id" content="ka0Qk0000009L21IAE"/><meta name="LastPublishedDate" content="2024-11-04T14:50:17.000+0000"/><meta name="LastModifiedDate" content="2024-11-04T14:50:17.000+0000"/><meta name="FirstPublishedDate" content="2022-03-29T17:55:34.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8401"/><meta name="ArticleNumber" content="000008401"/><meta name="description" content="How to Configure a Multi-Server NPS Environment With a Shared Database Server"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+<p>This article will guide the user through the process of setting up a deployment with multiple NPS servers communicating with a single Postgres server. Instructions are included for configuring TLS for all network traffic to the Postgres server. Optional migration steps are included for users who wish to use a Postgres database from an existing NPS deployment.<br/><br/>This diagram illustrates the desired network architecture.<br/><img alt="nps_diagram.png" src="kA04u0000000JyXCAU_dbb6bc6a-c8e8-496b-b651-595c99d2fe63.png"/></p>
+<h2 id="instructions">Instructions</h2>
+<h4 id="configuring_the_postgres_server">Configuring the Postgres Server</h4>
+<ol><li>On the Postgres server, open the NPS_Setup.exe installer, and install Postgres 12. Next, use the NPS_Setup.exe installer to install NPS. (This is necessary for the Postgres database to be properly configured. There will be no need to launch NPS on the Postgres server at any point in this process, and the Postgres database can be entirely administered from the remote NPS servers.)</li><li>(Recommended) Now that the Postgres database is properly configured, you may uninstall NPS on the Postgres server. This will conserve disk space and computing resources.</li><li>Open the sbpam_node.json file. On a default installation to the C: drive, it will be located here:
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\PAM\ProxyService\sbpam_node.json</pre>
+</li><li>Ensure that both "localhost" and the FQDN of your Postgres server are populated under "advertise":
+<pre class="ckeditor_codeblock">{
+		"advertise": ["testlab-pg01<strong>.</strong>sbpamtestlab<strong>.</strong>com", "localhost"],
+		"tags": []
+}</pre>
+</li><li>Navigate to the TLS certificate directory. On a default installation to the C: drive, it will be located here:
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\PAM\tls\certs\</pre>
+</li><li>Copy the "\ProgramData\Stealthbits\PAM\tls\certs\sbpam-node.crt" and "\ProgramData\Stealthbits\PAM\tls\keys\sbpam-node.pem" files into the root of the Postgres data directory. On a default installation to the C: drive, the Postgres data directory will be located here:
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\Postgres12</pre>
+(If you wish to copy the .crt and .pem files to a subdirectory of the data directory, you will have to specify their relative subpaths later on in these instructions, when configuring the postgresql.conf file.)</li><li>Open the Certificate Manager. Import the "\ProgramData\Stealthbits\PAM\tls\cacerts\sbpam-region.crt" certificate into the Trusted Root.</li><li>Open the pg_hba.conf file. On a default installation to the C: drive, it will be located here:
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\Postgres12\pg_hba.conf</pre>
+Edit the file to contain one or more entries which allow connections from your NPS application servers. For instance, to allow all IP addresses in the <i>10.2.0.x </i>range,<i> </i>add an entry ending in <i>/24</i>:
+<pre class="ckeditor_codeblock">host  all  all  10.2.0.0/24  md5</pre>
+Or, for granular access on a per-IP basis, add a line for each IP address ending in /32:
+<pre class="ckeditor_codeblock">host  all  all  10.2.0.1/32  md5
+host  all  all  10.2.0.2/32  md5</pre>
+</li><li>Open the pg_hba.conf file. On a default installation to the C: drive, it will be located here:
+<pre class="ckeditor_codeblock">C:\ProgramData\Stealthbits\Postgres12\postgresql.conf</pre>
+</li><li>Under "# - SSL -", edit the SSL settings as follows:
+<pre class="ckeditor_codeblock"># - SSL -
+
+ssl = on
+#ssl_ca_file = ''
+ssl_cert_file = 'sbpam-node.crt'
+#ssl_crl_file = ''
+ssl_key_file = 'sbpam-node.pem'</pre>
+</li><li>Restart the Postgres service. Your Postgres server should now be ready to accept TLS-encrypted traffic.</li></ol>
+<h4 id="configuring_the_nps_servers">Configuring the NPS Servers</h4>
+<ol><li>On each NPS server, open the SB_Setup.exe installer, and install Postgres 12. Next, use the SB_Setup.exe installer to install SbPAM.</li><li>Once NPS is installed, open the appsettings.json file. On a default installation to the C: drive, it will be located here:
+<pre class="ckeditor_codeblock">C:\Program Files\Stealthbits\PAM\Web</pre>
+Edit this file so that the Database key references the hostname of the Postgres server:
+<pre class="ckeditor_codeblock">"Database": {
+	"Host": "testlab-pg01<strong>.</strong>sbpamtestlab<strong>.</strong>com",
+	"Port": 5432
+	}</pre>
+</li><li>Obtain a copy of the "\ProgramData\Stealthbits\PAM\tls\cacerts\sbpam-region.crt" certificate from the Postgres server. Open the Certificate Manager. Import the sbpam-region.crt certificate into the Trusted Root of the local machine.</li></ol>
+<p>You should now be able to access the NPS console at https://[yourNPSServerIP]:6500, and all traffic should be TLS encrypted. <i>Note: if you are receiving an IIS certificate warning from your browser, install an IIS certificate <a href="https://kb.netwrix.com/5872" target="_blank">using this KB article.</a></i><br/> </p>
+<h4 id="key_exportimport">Key Export/Import</h4>
+<p><em>In order to ensure that encryption keys are in agreement between NPS servers, please follow the instructions outlined in<a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000rYzKAI.html" target="_blank"> this article</a> .</em></p></div>
+</article></body></html>

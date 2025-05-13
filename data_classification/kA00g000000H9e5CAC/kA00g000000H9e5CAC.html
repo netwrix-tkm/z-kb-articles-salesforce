@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Missing search results</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9e5CAC" />
+    <meta name="Id" content="ka0Qk0000000x05IAA" />
+    <meta name="LastPublishedDate" content="2023-12-12T10:23:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-12T10:23:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3498" />
+    <meta name="ArticleNumber" content="000003687" />
+    <meta name="description" content="Missing search results" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        There can be a situation where documents are <strong>classified</strong> to a particular
+        term but are not showing within the "<strong>Browse</strong>" results, or - expected results
+        are missing from "<strong>Search</strong>". This article applies to content stored in the
+        following repository types:
+        <ul>
+          <li><strong>SharePoint</strong> (Including <strong>SharePoint Online</strong>)</li>
+          <li><strong>File Shares</strong></li>
+          <li><strong>Box</strong></li>
+          <li><strong>Microsoft Exchange</strong></li>
+          <li><strong>CMIS Repositories</strong></li>
+          <li><strong>Google Drives</strong></li>
+        </ul>
+
+        <hr />
+        Missing documents are typically related to <b>security trimming</b> - particularly depending
+        on the configured <b>authentication </b>mechanism. <strong>Search </strong>results are
+        automatically trimmed based on source security. In the case of SharePoint this takes into
+        account:
+
+        <ul>
+          <li>Explicitly defined user security (AD Users/Groups)</li>
+          <li>SharePoint Groups</li>
+        </ul>
+        At the time of search we will enumerate the user's access, identifying all applicable
+        usernames (including alternate domains) and all application AD groups. These will then be
+        matched to the security (<strong>ACLs</strong>) of each document, before returning the
+        "<strong>trimmed</strong>" search results. There are two simple methods to confirm if
+        trimming is the cause of missing results:
+
+        <ol>
+          <li>
+            <strong>Compare Security - </strong>A simple method is to confirm the two "<strong
+              >ACL" </strong
+            >lists, comparing the end-users security list to that of the document itself:
+
+            <ol>
+              <li>
+                <strong>User - </strong>An end-users security can be reviewed by requesting that
+                they access the <b>QS Administration interface</b>, and navigate to the following
+                URL: /conceptQS/ShowUser
+              </li>
+              <li>
+                <strong>Document</strong> - This should then be compared to the document's security
+                which can be viewed by selecting the "<strong>i</strong>" within
+                <strong>Sources/Reports/Taxonomies </strong>and viewing the
+                "<strong>Properties</strong>" tab
+              </li>
+            </ol>
+          </li>
+          <li>
+            <strong>Disable Security Trimming - </strong>Security trimming can be disabled by
+            following the below steps for all sources:
+            <ol>
+              <li>
+                Log into the <b>QS Administration Interface</b> and access the
+                "<strong>Config</strong>" area
+              </li>
+              <li>Select the "<strong>Logging</strong>" tab</li>
+              <li>Enable the "<strong>ACL</strong>" trace</li>
+            </ol>
+          </li>
+        </ol>
+        Most <strong>sources</strong> also support disabling security on a more granular basis by
+        selecting the "<strong>Allow Anonymous Access</strong>" option on the source edit screen.
+        While disabling security may be the most appropriate option, it may also be that the problem
+        is related to federation of user accounts. This occurs when the environment is not on the
+        same domain as the source system(s). To assist with this scenario we support two
+        <strong>SSO </strong>methods, allowing the logged in username to match the source system(s)
+        security - as well as allowing for federated security groups to be passed through to
+        conceptSearching:
+
+        <ul>
+          <li>
+            <strong>Microsoft Entra ID (formerly Azure AD) - </strong>Instructions for an
+            <strong>Microsoft Entra ID </strong>deployment can be found as a separate KB article
+          </li>
+          <li>
+            <strong>ADFS 3.0 - </strong>Instructions for an <strong>ADFS </strong>deployment can be
+            found within the partners site in the "<strong>Documentation</strong>" section (<strong
+              >QS AD FS Configuration</strong
+            >
+            <strong>Guide</strong>)
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

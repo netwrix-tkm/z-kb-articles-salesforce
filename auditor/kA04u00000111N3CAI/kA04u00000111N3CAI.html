@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Parallel Redo Events in SQL Server Event Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="SQL_Server" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111N3CAI" />
+    <meta name="Id" content="ka04u00000118GJAAY" />
+    <meta name="LastPublishedDate" content="2023-10-18T10:57:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-18T12:32:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-18T10:57:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8864" />
+    <meta name="ArticleNumber" content="000008864" />
+    <meta name="description" content="Parallel Redo Events in SQL Server Event Log" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following <strong>Information</strong> level events are prompted in the SQL Server
+            event log:
+          </p>
+
+          <pre class="has-inner-focus">
+Source: MSSQLSERVER
+Event ID: 17137
+Description: Starting up database '%database_name%'.</pre
+          >
+
+          <pre class="has-inner-focus">
+Source: MSSQLSERVER
+Event ID: 49930
+Description: Parallel redo is started for database '%database_name%' with worker pool size [2].</pre
+          >
+
+          <pre class="has-inner-focus">
+Source: MSSQLSERVER
+Event ID: 49930
+Description: Parallel redo is shutdown for database '%database_name%' with worker pool size [2].</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The AUTO_CLOSE option for the affected database is set to
+            <strong>ON</strong>\<strong>True</strong>.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>This behavior is expected with the AUTO_CLOSE
+              option set to <strong>True</strong>. The AUTO_CLOSE option prompts the affected
+              database to be closed after each use. Netwrix Auditor accesses the databases to write
+              collected Activity Records, causing multiple 17137 and 49930 events to occur and be
+              logged.
+            </p>
+          </blockquote>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Disable the AUTO_CLOSE option for the affected database:</p>
+
+          <ol>
+            <li>
+              <p>
+                In your SQL server, launch Microsoft SQL Server Management Studio and connect to the
+                server.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Object Explorer</strong> pane, expand the
+                <strong>Databases</strong> folder.
+              </p>
+            </li>
+            <li>
+              <p>Right-click the affected database and select <strong>Properties</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the left pane, select the <strong>Options</strong> tab, locate the
+                <strong>Auto Close</strong> option under the <strong>Automatic</strong> section, and
+                select the <strong>False</strong> option from the drop-down list.
+              </p>
+
+              <div>
+                <img
+                  height="567"
+                  src="kA04u00000111N3CAI_ca4c4ada-8320-4baa-b69b-d2829ec443b1.png"
+                  width="600"
+                />
+              </div>
+            </li>
+            <li>
+              <p>Click <strong>OK</strong> to save changes.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/sql/relational-databases/policy-based-management/set-the-auto-close-database-option-to-off?view=sql-server-ver16#for-more-information"
+              target="_blank"
+              >Set the AUTO_CLOSE Database Option to OFF ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

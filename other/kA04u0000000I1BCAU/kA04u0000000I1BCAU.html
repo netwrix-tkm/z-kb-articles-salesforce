@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Configure StealthDEFEND, StealthRECOVER and SbPAM to reside on the same server</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I1BCAU" />
+    <meta name="Id" content="ka04u000000HcdDAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:07:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:00:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:07:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6292" />
+    <meta name="ArticleNumber" content="000006292" />
+    <meta name="description" content="360008816812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Channel:</strong>  Internal</p>
+        <p>
+          <strong>Summary:</strong> If StealthDEFEND and/or SbPAM are installed on the same server
+          as StealthRECOVER the port that StealthRECOVER users for PostgreSQL needs to be manually
+          configured to use a different port.
+        </p>
+        <p><strong>Submitted by:</strong> Andy Muschlewski</p>
+        <p><strong>Product:</strong> SD, SbPAM, SR.</p>
+        <p><strong>Affected Versions:</strong> Product versions affected ALL</p>
+        <p>
+          <strong>Affected Module:</strong> What product, data collector/functional component, part
+          of the product is affected? PostgreSQL
+        </p>
+        <p>
+          <strong>Dev Ticket:</strong> Is there a ticket associated to this KB to fix the issue or
+          enhance the product? N/A
+        </p>
+        <p>
+          <strong>Resolved In Version:</strong> If it's been fixed, what version is it fixed in? N/A
+        </p>
+        <p><strong>KB Type:</strong> How To</p>
+        <p> </p>
+        <p>
+          <strong>Issue:</strong> At the moment, both RECOVER and DEFEND/SBPam share PostgreSQL
+          ports which can cause issues trying to run both applications on the same host.
+        </p>
+        <p>
+          As of 5/1/2019 SBPam and DEFEND share a PostgreSQL installer and can coexist. RECOVER has
+          not yet been updated, but a change to the RECOVER PostgreSQL configuration post install
+          can resolve this.
+        </p>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <p>
+          1. In order to prevent issues you can install StealthDEFEND/SBPam, disable all Stealth
+          Application services and then install RECOVER. Once that is completed, STOP all RECOVER
+          services and complete the following steps.                          
+        </p>
+        <p>
+          2. Update PORT settings in the PostGRESQL Configuration file to ensure it is not running
+          on the same port as your existing DEFEND/SBPam instance. By default the configuration is
+          stored in the following path C:\ProgramData\STEALTHbits\StealthRECOVER\db\postgresql.conf
+        </p>
+        <p>3. Open this file and find the following section:</p>
+        <p class="wysiwyg-indent4">
+           #------------------------------------------------------------------------------
+        </p>
+        <p class="wysiwyg-indent4"># CUSTOMIZED OPTIONS</p>
+        <p class="wysiwyg-indent4">
+          #------------------------------------------------------------------------------
+        </p>
+        <p class="wysiwyg-indent4"> </p>
+        <p class="wysiwyg-indent4"># Add settings for extensions here</p>
+        <p class="wysiwyg-indent4">port = 5432</p>
+        <p class="wysiwyg-indent4"># STEALTHbits PostgreSQL config v10.5.2.0 4/29/2020</p>
+        <p class="wysiwyg-indent4">effective_cache_size = 753MB</p>
+        <p class="wysiwyg-indent4">shared_buffers = 251MB</p>
+        <p class="wysiwyg-indent4">wal_buffers = 16MB</p>
+        <p class="wysiwyg-indent4">checkpoint_timeout = 30min</p>
+        <p class="wysiwyg-indent4">min_wal_size = 512MB</p>
+        <p class="wysiwyg-indent4">max_wal_size = 2GB</p>
+        <p class="wysiwyg-indent4">checkpoint_completion_target = 0.9</p>
+        <p class="wysiwyg-indent4">work_mem = 32MB</p>
+        <p>4. Update the port = 5432 value to a new port such as port = 5433</p>
+        <p>
+          5. Once the StealthRECOVER database has been updated to run using a new port, we will also
+          need to update the StealthRECOVER application so that it knows which port its database is
+          operating on.
+        </p>
+        <p>
+          The default path for this configuration file is: "C:\Program
+          Files\STEALTHbits\StealthRECOVER\appsettings.json" open this file with a text editor (as
+          an admin) and navigate to the following section:
+        </p>
+        <p class="wysiwyg-indent4"><span class="wysiwyg-color-red">"Database"</span>: {    </p>
+        <p class="wysiwyg-indent8">
+          <span class="wysiwyg-color-purple110">"Host":</span>
+          <span class="wysiwyg-color-red">"localhost"</span>,    
+        </p>
+        <p class="wysiwyg-indent8">
+          <span class="wysiwyg-color-purple110">"Port":</span>
+          <span class="wysiwyg-color-red">"5432"</span>,    
+        </p>
+        <p class="wysiwyg-indent8">
+          <span class="wysiwyg-color-purple110">"Database":</span>
+          <span class="wysiwyg-color-red">"stealthrecover"</span>,    
+        </p>
+        <p class="wysiwyg-indent8">
+          <span class="wysiwyg-color-purple110">"User":</span>
+          <span class="wysiwyg-color-red"
+            >"d7f7e126d220426bb7e50e6e39381de5IF986shexda04uOetTJykw6EsVdXPyi6iGD9MNXMd0s="</span
+          >,  
+        </p>
+        <p class="wysiwyg-indent8">
+          <span class="wysiwyg-color-purple110">  "Password":</span>
+          <span class="wysiwyg-color-red"
+            >"70331c5d60fc4bac8bcaebb359ed42d6xAzBmCeO603I/ZBiusCJOr2SXLVCpl24JoarNB1zfCATkgffHcrbDyX1Pe9x6TOn"</span
+          >,    
+        </p>
+        <p class="wysiwyg-indent8">
+          <span class="wysiwyg-color-purple110">"CommandTimeout":</span> 30,    
+        </p>
+        <p class="wysiwyg-indent8"><span class="wysiwyg-color-purple110">"Timeout":</span> 30 </p>
+        <p class="wysiwyg-indent4">}</p>
+        <p>Update the port value to match the value you set in the postgres configuration.</p>
+        <p>
+          6. Once you have updated the database and application configuration files start the
+          postgresql and application services, the StealthRECOVER application should now be
+          operating properly.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

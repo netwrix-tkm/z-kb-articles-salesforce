@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1249 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cyCAC" />
+    <meta name="Id" content="ka0Qk0000001LVRIA2" />
+    <meta name="LastPublishedDate" content="2024-01-15T13:22:15.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T13:22:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2435" />
+    <meta name="ArticleNumber" content="000003618" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues caused by inaccessible SQL Server database."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            One of the following error messages under Event ID 1249 is prompted in Health Log for
+            your SharePoint monitoring plan:
+          </p>
+
+          <ul>
+            <li>
+              <pre class="has-inner-focus">
+The following error occurred when trying to write audit data to the SQL database:
+The database is unreachable.</pre
+              >
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              <pre class="has-inner-focus">
+The following error occurred when trying to write audit data to the SQL database:
+Data Processing Account has insufficient permissions to write data to the database.</pre
+              >
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>The Audit Database is unreachable.</p>
+            </li>
+            <li>
+              <p>
+                The Audit Database account has insufficient permissions to write data to the
+                database.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Cause #1 − Verify the SQL Server instance is reachable and the database is
+                accessible.
+              </p>
+
+              <ol>
+                <li>
+                  <p>Open Command Prompt. Ping the SQL server the audit data is stored:</p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">ping %SQL_server_IP_or_fqdn%</code></pre>
+                </li>
+                <li>
+                  <p>
+                    In the SQL server, start SQL Server Management Studio, connect to the instance,
+                    and make sure the Audit Database exists.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>To establish the name of the Audit
+                      Database, click <strong>Edit settings</strong> in the monitoring plan view
+                      &gt; review the database name in the <strong>Audit Database</strong> tab.
+                    </p>
+                  </blockquote>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Cause #2 − Verify the Data Collecting Account has the correct permissions to write
+                to the Audit Database. Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/AuditDatabase.htm#configure_default_sql_server_settings"
+                  target="_self"
+                  >Audit Database − Configure Default SQL Server Settings · v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/AuditDatabase.htm#configure_default_sql_server_settings"
+                  target="_self"
+                  >Audit Database − Configure Default SQL Server Settings · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

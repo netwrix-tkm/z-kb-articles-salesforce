@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Firewall rules required by Password Manager</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cMCAS" />
+    <meta name="Id" content="ka04u00000116bjAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T11:58:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2145" />
+    <meta name="ArticleNumber" content="000003580" />
+    <meta
+      name="description"
+      content="The KB provides the list of necessary ports and protocols required for Netwrix Password Manager."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>The table below lists all necessary properties for the firewall rules:</div>
+        <div>
+          On DMZ:
+          <div class="table-wrap">
+            <table count-columns="7" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Type</th>
+                  <th colspan="1" rowspan="1">Local Ports</th>
+                  <th colspan="1" rowspan="1">Remote ports</th>
+                  <th colspan="1" rowspan="1">Remote machine</th>
+                  <th colspan="1" rowspan="1">Protocol</th>
+                  <th colspan="1" rowspan="1">Application</th>
+                  <th colspan="1" rowspan="1">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">Inbound</td>
+                  <td colspan="1" rowspan="1">80,443</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Inbound</td>
+                  <td colspan="1" rowspan="1">135</td>
+                  <td colspan="1" rowspan="1">RPC range*</td>
+                  <td colspan="1" rowspan="1">Backend</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Outbound</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">135-139</td>
+                  <td colspan="1" rowspan="1">Backend, all DCs</td>
+                  <td colspan="1" rowspan="1">TCP, UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Outbound</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">88, 389,464</td>
+                  <td colspan="1" rowspan="1">All DCs</td>
+                  <td colspan="1" rowspan="1">TCP, UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Outbound</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">DCOM range</td>
+                  <td colspan="1" rowspan="1">Backend</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">Outbound</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">53</td>
+                  <td colspan="1" rowspan="1">DNS</td>
+                  <td colspan="1" rowspan="1">UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          On Backend:
+          <div class="table-wrap">
+            <table count-columns="7" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Type</th>
+                  <th colspan="1" rowspan="1">Local Ports</th>
+                  <th colspan="1" rowspan="1">Remote ports</th>
+                  <th colspan="1" rowspan="1">Remote machine</th>
+                  <th colspan="1" rowspan="1">Protocol</th>
+                  <th colspan="1" rowspan="1">Application</th>
+                  <th colspan="1" rowspan="1">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Inbound</span></td>
+                  <td colspan="1" rowspan="1">DCOM range</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">DMZ</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Inbound</span></td>
+                  <td colspan="1" rowspan="1">135-139</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">DMZ</td>
+                  <td colspan="1" rowspan="1"><span>TCP, UDP</span></td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Outbound</span></td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">135-139</td>
+                  <td colspan="1" rowspan="1">DMZ, all DCs</td>
+                  <td colspan="1" rowspan="1"><span>TCP, UDP</span></td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Outbound</span></td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">88,389,464</td>
+                  <td colspan="1" rowspan="1">All DCs</td>
+                  <td colspan="1" rowspan="1"><span>TCP, UDP</span></td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Outbound</span></td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">53</td>
+                  <td colspan="1" rowspan="1">DNS</td>
+                  <td colspan="1" rowspan="1">UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Outbound</span></td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">All DCs</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1">Lsass.exe**</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Outbound</span></td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">25</td>
+                  <td colspan="1" rowspan="1">Mail server</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          On DCs:
+          <div class="table-wrap">
+            <table count-columns="7" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Type</th>
+                  <th colspan="1" rowspan="1">Local ports</th>
+                  <th colspan="1" rowspan="1">Remote ports</th>
+                  <th colspan="1" rowspan="1">Remote machine</th>
+                  <th colspan="1" rowspan="1">Protocol</th>
+                  <th colspan="1" rowspan="1">Application</th>
+                  <th colspan="1" rowspan="1">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Inbound</span></td>
+                  <td colspan="1" rowspan="1">88,389,464</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">DMZ, Backend</td>
+                  <td colspan="1" rowspan="1">TCP, UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1"><span>Allow</span></td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Inbound</span></td>
+                  <td colspan="1" rowspan="1">135-139</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">Backend</td>
+                  <td colspan="1" rowspan="1">TCP, UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1"><span>Allow</span></td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Inbound</span></td>
+                  <td colspan="1" rowspan="1">RPC dynamics</td>
+                  <td colspan="1" rowspan="1">RPC range</td>
+                  <td colspan="1" rowspan="1">Backend</td>
+                  <td colspan="1" rowspan="1">TCP</td>
+                  <td colspan="1" rowspan="1"><span>Lsass.exe**</span></td>
+                  <td colspan="1" rowspan="1"><span>Allow</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          On DNS server:
+          <div class="table-wrap">
+            <table count-columns="7" border="1">
+              <thead>
+                <tr>
+                  <th colspan="1" rowspan="1">Type</th>
+                  <th colspan="1" rowspan="1">Local ports</th>
+                  <th colspan="1" rowspan="1">Remote ports</th>
+                  <th colspan="1" rowspan="1">Remote machine</th>
+                  <th colspan="1" rowspan="1">Protocol</th>
+                  <th colspan="1" rowspan="1">Application</th>
+                  <th colspan="1" rowspan="1">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1"><span>Inbound</span></td>
+                  <td colspan="1" rowspan="1">53</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">UDP</td>
+                  <td colspan="1" rowspan="1">Any</td>
+                  <td colspan="1" rowspan="1">Allow</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          On Mail server:
+          <div>
+            <div class="table-wrap">
+              <table count-columns="7" border="1">
+                <thead>
+                  <tr>
+                    <th colspan="1" rowspan="1">Type</th>
+                    <th colspan="1" rowspan="1">Local ports</th>
+                    <th colspan="1" rowspan="1">Remote ports</th>
+                    <th colspan="1" rowspan="1">Remote machine</th>
+                    <th colspan="1" rowspan="1">Protocol</th>
+                    <th colspan="1" rowspan="1">Application</th>
+                    <th colspan="1" rowspan="1">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="1" rowspan="1">Inbound</td>
+                    <td colspan="1" rowspan="1">25</td>
+                    <td colspan="1" rowspan="1">Any</td>
+                    <td colspan="1" rowspan="1">Any</td>
+                    <td colspan="1" rowspan="1">TCP</td>
+                    <td colspan="1" rowspan="1">Any</td>
+                    <td colspan="1" rowspan="1">Allow</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          * RPC range is 1024 – 65535 (Windows NT/XP/2003) or 49152 – 65535 (Windows
+          Vista/2008/7/2k8r2) RPC dynamic port allocation can be reconfigured. Refer the following
+          Microsoft Knowledge Base article:
+          <a href="http://support.microsoft.com/kb/154596" target="_blank"
+            >http://support.microsoft.com/kb/154596</a
+          >
+
+          **Lsass.exe is %systemroot%System32lsass.exe
+        </div>
+        <div>
+          Note: All Inbound and Outbound connections on all servers are blocked if they do not match
+          the rules.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

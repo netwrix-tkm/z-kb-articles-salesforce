@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Anixis Password Policy Enforcer (PPE) Installation</title><meta name="label" content="skb"/><meta name="label" content="password_policy_enforcer"/><meta name="KnowledgeArticleId" content="kA04u000000Pd76CAC"/><meta name="Id" content="ka04u000000HdEjAAK"/><meta name="LastPublishedDate" content="2021-05-07T13:09:13.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:43.000+0000"/><meta name="FirstPublishedDate" content="2021-05-04T12:40:27.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5864"/><meta name="ArticleNumber" content="000005864"/><meta name="description" content="Anixis Password Policy Enforcer (PPE) Installation Guide Process"/></head><body><article class=" kb-articles"><div class="Content__c"><div id="page_13">
+<div id="id13_1">
+<p class="p130 ft11">Password Policy Enforcer V9.12 is compatible with Windows 2008, 2012, 2016, and 2019 servers. It can also be installed on Windows Vista, 7, 8, and 10 workstations to enforce <span class="ft13">local policies</span>. If you need to install PPE on Windows 2003 domain controllers, then install V8.03 instead of V9.12.</p>
+
+<h2 class="p79 ft15" id="system_requirements">System Requirements</h2>
+
+<ul><li class="p132 ft11"><span class="ft22">Windows 2008, 2008 R2, 2012, 2012 R2, 2016, or 2019. Windows Vista, 7, 8, 8.1, or 10.</span></li><li class="p132 ft11"><span class="ft19">Fifteen megabytes free disk space.</span></li><li class="p132 ft11"><span class="ft19">Eight megabytes free RAM (72 megabytes if using </span><span class="ft20">Argon2</span> hashes).</li></ul>
+
+<p class="p132 ft11">Users do not have to change their password immediately after PPE is installed. They can continue using their current password until it expires, even if their current password does not comply with the password policy.</p>
+
+<p class="p133 ft21">Installing PPE does not extend the Active Directory schema.</p>
+
+<h2 class="p134 ft32" id="installation_types">Installation Types</h2>
+
+<p class="p114 ft18">Password Policy Enforcer should be installed onto every domain controller to enforce the password policy for domain user accounts, or onto individual servers and workstations to enforce the password policy for local user accounts. If your domain contains some read-only domain controllers, then installation of PPE on these servers is only necessary if you are using the <span class="ft31">Maximum Age rule</span>, <span class="ft31">Password Policy Client</span>, <span class="ft31">ANIXIS Password Reset</span>, or <span class="ft31">PPE/Web</span>.</p>
+
+<p class="p137 ft11">You can install PPE <span class="ft13">manually</span> if you only need to install it on a few computers, but it is easier to perform an <span class="ft13">automated</span> installation with Group Policy if you need to install it on many computers in a domain.</p>
+
+<h2 class="p137 ft11" id="manual_installation_express_setup">Manual Installation (Express Setup)</h2>
+
+<p class="p137 ft11">Manual installation is recommended for small to medium networks. You need to repeat the installation procedure below on every computer that should enforce the password policy. To install PPE onto a computer:</p>
+</div>
+</div>
+
+<div id="id14_1">
+<ol><li class="p138 ft21"><span class="ft33">Start the PPE installer (PPE912.exe).</span></li><li class="p139 ft11"><span class="ft36">Read the </span><span class="ft13">license agreement</span>, and then click <span class="ft25">Yes </span>if you accept all the license terms and conditions.</li><li class="p140 ft21"><span class="ft33">Select the </span><span class="ft6">Express </span>option, and then click <span class="ft6">Next</span>.</li><li class="p128 ft21"><span class="ft33">Select the </span><span class="ft6">Password Policy Server </span>check box if it is not selected.</li><li class="p128 ft21"><span class="ft33">Click </span><span class="ft6">Next </span>to install PPE.</li><li class="p128 ft21"><span class="ft33">Click </span><span class="ft6">Yes </span>when asked to restart the computer.</li></ol>
+
+<p class="p142 ft11">If you are using PPE to enforce a password policy for domain user accounts, then you must repeat this procedure on the other domain controllers in the domain.<br/>PPE has its own password rules, so you may want to <span class="ft13">disable the Windows password policy rules</span> before configuring PPE.</p>
+</div>
+
+<div id="page_15">
+<div id="id15_1">
+<h2 class="p136 ft26" id="automated_installation_advanced_setup">Automated Installation (Advanced Setup)</h2>
+
+<p class="p144 ft12">An automated installation uses Group Policy to distribute PPE. This type of installation is recommended when you need to install PPE on many computers. This section shows you how to install PPE on domain controllers to enforce <span class="ft13">domain policies</span>, but you can also use Group Policy to target member servers and workstations if you need to enforce <span class="ft13">local policies</span>.</p>
+
+<h3 class="p144 ft12" id="create_a_distribution_point">Create a Distribution Point</h3>
+
+<p class="p144 ft12">A distribution point can either be a UNC path to a server share, or a DFS (Distributed File System) path. To create a PPE distribution point:</p>
+
+<ol><li class="p138 ft21"><span class="ft33">Log on to a server as an administrator.</span></li><li class="p128 ft21"><span class="ft33">Create a shared network folder to distribute the files from.</span></li><li class="p145 ft11"><span class="ft36">Give the "Domain Controllers" security group read access to the share, and limit write access to authorized personnel only.</span></li></ol>
+
+<h3 class="p92 ft15" id="copy_ppe912msi_into_the_distribution_point">Copy PPE912.msi into the Distribution Point</h3>
+
+<ol><li class="p146 ft21"><span class="ft33">Start the PPE installer (PPE912.exe).</span></li><li class="p139 ft11"><span class="ft36">Read the </span><span class="ft13">license agreement</span>, and then click <span class="ft25">Yes </span>if you accept all the license terms and conditions.</li><li class="p140 ft21"><span class="ft33">Select the </span><span class="ft6">Advanced </span>option, and then click <span class="ft6">Next</span>.</li><li class="p147 ft11"><span class="ft36">Right-click</span> the <span class="ft25">PPE912.msi </span>icon, click <span class="ft25">Copy</span>, and then paste the file into the distribution point.</li><li class="p148 ft11"><span class="ft36">Give the "Domain Controllers" security group read access to the PPE912.msi file in the distribution point.</span></li><li class="p140 ft21"><span class="ft33">Click </span><span class="ft6">Finish</span>.</li></ol>
+</div>
+</div>
+
+<div id="page_16">
+<div id="id16_1">
+<h3 class="p95 ft15" id="create_a_group_policy_object">Create a Group Policy Object</h3>
+
+<ol><li class="p146 ft21"><span class="ft33">Start the Group Policy Management Console (gpmc.msc).</span></li><li class="p128 ft21"><span class="ft33">Expand the forest and domain items in the left pane.</span></li><li class="p149 ft11"><span class="ft36">Right-click</span> the <span class="ft25">Domain Controllers </span>OU in the left pane, and then click <span class="ft25">Create a GPO in this domain, and Link it here...</span></li><li class="p150 ft21"><span class="ft33">Type "Password Policy Enforcer", and then press ENTER.</span></li></ol>
+
+<h3 class="p151 ft15" id="edit_the_group_policy_object">Edit the Group Policy Object</h3>
+
+<ol><li class="p152 ft21"><span class="ft33">Right-click</span> the <span class="ft6">Password Policy Enforcer </span>GPO, and then click <span class="ft6">Edit...</span></li><li class="p126 ft11"><span class="ft36">Expand the </span><span class="ft25">Computer Configuration</span>, <span class="ft25">Policies</span>, and <span class="ft25">Software Settings </span>items.</li><li class="p150 ft21"><span class="ft33">Right-click</span> the <span class="ft6">Software installation </span>item, and then select <span class="ft6">New &gt; Package...</span></li><li class="p153 ft11"><span class="ft36">Type the full UNC path to PPE912.msi in the Open dialog box. You must enter a UNC path so that other computers can access this file over the network. For example, \\file server\distribution point share\PPE912.msi</span></li><li class="p125 ft21"><span class="ft33">Click </span><span class="ft6">Open</span>.</li><li class="p128 ft21"><span class="ft33">Select the </span><span class="ft6">Assigned </span>deployment method, and then click <span class="ft6">OK</span>.</li><li class="p154 ft21"><span class="ft33">Close the Group Policy Management Editor.</span></li></ol>
+</div>
+</div>
+
+<div id="page_17">
+<div id="id17_1">
+<h3 class="p95 ft15" id="complete_the_installation">Complete the Installation</h3>
+
+<p class="p155 ft11">Restart each domain controller to complete the installation. Windows installs PPE during startup, and then immediately restarts the computer a second time to complete the installation.</p>
+
+<p class="p156 ft11">PPE will not enforce a password policy at this time because no policies are defined. Users can still change their password, and will only need to comply with the Windows password policy rules (if enabled).</p>
+</div>
+</div></div>
+</article></body></html>

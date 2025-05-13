@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>HelpDesk operators cannot remove accounts</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9XzCAK" />
+    <meta name="Id" content="ka04u00000116exAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T16:11:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1169" />
+    <meta name="ArticleNumber" content="000003314" />
+    <meta
+      name="description"
+      content="Helpdesk Operators cannot remove accounts from the list - When they attempt to remove an account, they receive an error message - Permissions denied."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span>Helpdesk Operators cannot remove accounts from the list - </span>When they attempt to
+        remove an account, they receive an error message -<span> Permissions denied</span>
+
+        <img
+          src="kA00g000000H9XzCAK_0538b3b5-b41d-4bad-a57b-217910c390e3.png"
+          alt="User-added image"
+          width="500"
+          height="162"
+        />
+
+        <hr />
+
+        It is by design - by default HelpDesk operators are not allowed to remove accounts. However
+        this permission can be granted.
+
+        <hr />
+
+        In order to grant the permission, please perform the following steps:
+        <ol>
+          <li>Run <strong>Registry Editor</strong> (Start - Run, <em>regedit</em>),</li>
+          <li>
+            Go to <strong>HKLMSoftware[Wow6432Node]NetwrixPassword Manager </strong>(Wow6432Node
+            only for x64 OS)
+          </li>
+          <li>Create DWORD <strong>AllowRemoveByHelpdesk</strong> with value of 1</li>
+          <li>Restart the Netwrix Password Manager service via Services snap-in.</li>
+        </ol>
+        <img
+          src="kA00g000000H9XzCAK_51bf4b3a-503c-4a7f-96eb-4ab07b0c62a5.png"
+          alt="User-added image"
+          width="500"
+          height="263"
+        />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Transaction Log Full</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ItRCAU" />
+    <meta name="Id" content="ka04u000000HcxrAAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:36:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:12:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:39:24.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7287" />
+    <meta name="ArticleNumber" content="000007287" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong>
+          <span class="wysiwyg-font-size-medium"
+            >Diagnosing full transaction logs, or or not enough space on volume, to accommodate
+            growth issues.</span
+          >
+        </p>
+
+        <p>
+          <span class="wysiwyg-font-size-large"><strong>Issue:</strong></span>
+          <span class="wysiwyg-font-size-medium">Transaction log for database is full</span>
+        </p>
+
+        <p>
+          <span class="wysiwyg-font-size-large"><strong>Instructions:</strong></span>
+          <span class="wysiwyg-font-size-medium"
+            ><u><strong>First, ensure the database is set to simple recovery model</strong></u
+            >, by either;</span
+          >
+        </p>
+
+        <p>
+          <span class="wysiwyg-font-size-medium"
+            >1) Connecting to the SQL instance with SQL Server Management Studio (SSMS) &gt; right
+            click the database &gt; database properties &gt; options page &gt; recovery model<img
+              alt="mceclip1.png"
+              src="kA04u0000000ItRCAU_b6220a64-a783-47b3-815e-ad0221ccce73.png"
+          /></span>
+        </p>
+
+        <p>
+          <span class="wysiwyg-font-size-medium"
+            >2) run the following in a new query in SSMS: </span
+          >
+        </p>
+
+        <pre>
+SELECT name, recovery_model_desc      
+FROM sys.databases         
+WHERE name = 'nameOfDatabase' ;   
+GO  </pre
+        >
+
+        <p>
+          <br /><span class="wysiwyg-font-size-medium"
+            >(Info on how to modify recovery model below)</span
+          ><br /><br /><span class="wysiwyg-font-size-medium"
+            >StealthAUDIT <strong>requires</strong> a simple recovery model.  </span
+          ><br /><span class="wysiwyg-font-size-medium"
+            >We do not support using full recovery model for several reasons, including
+          </span>
+        </p>
+
+        <div>
+          <span class="wysiwyg-font-size-medium">1) the need for enormous transaction logs </span
+          ><br /><span class="wysiwyg-font-size-medium"
+            >2) most data gets replaced every scan and </span
+          ><br /><span class="wysiwyg-font-size-medium"
+            >3) we can't support rollbacks or point in time recoveries due to correlated data stored
+            outside of SQL. 
+          </span>
+        </div>
+
+        <p>
+          <span class="wysiwyg-font-size-medium"
+            >Here is a link to an MSDN article detailing the different reasons for this
+            error:  </span
+          ><br /><span class="wysiwyg-font-size-medium"
+            ><a href="https://msdn.microsoft.com/en-us/library/ms190925.aspx" target="_blank"
+              >https://msdn.microsoft.com/en-us/library/ms190925.aspx</a
+            > </span
+          ><br /><br /><span class="wysiwyg-font-size-medium"
+            >Here are a couple common reasons: </span
+          ><br /><span class="wysiwyg-font-size-medium">1)    ACTIVE_TRANSACTION</span>
+        </p>
+
+        <div>
+          <span class="wysiwyg-font-size-medium"
+            >a. Note that long-running transactions prevent log truncation under all recovery
+            models, including the simple recovery model, under which the transaction log is
+            generally truncated on each automatic checkpoint...(see MSDN article for more
+            detail)</span
+          >
+        </div>
+
+        <p><br /><span class="wysiwyg-font-size-medium">2)    ACTIVE_BACKUP_OR_RESTORE</span></p>
+
+        <div>
+          <span class="wysiwyg-font-size-medium"
+            >a.    A data backup or a restore is in progress (all recovery models).</span
+          >
+        </div>
+
+        <ul>
+          <li>
+            <ul>
+              <li>
+                <ul>
+                  <li>
+                    <ul>
+                      <li>
+                        <span class="wysiwyg-font-size-medium"
+                          >If a data backup is preventing log truncation, canceling the backup
+                          operation might help the immediate problem.</span
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><span class="wysiwyg-font-size-medium">3)    LOG_BACKUP</span></p>
+
+        <div>
+          <span class="wysiwyg-font-size-medium"
+            >a.    A log backup is required before the transaction log can be truncated. (Full or
+            bulk-logged recovery models only).  When the next log backup is completed, some log
+            space might become reusable.</span
+          ><br /><span class="wysiwyg-font-size-medium"> </span
+          ><span class="wysiwyg-font-size-medium"> </span>
+        </div>
+
+        <div>
+          <p>
+            <span class="wysiwyg-font-size-large"
+              ><strong><u>To Modify the Recovery Mode of the SQL Database:</u></strong></span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >1. Open SQL Management Studio and connect to the StealthAUDIT SQL Server</span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >2. Go to Databases and locate the StealthAUDIT database</span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >3. Right Click on the database and go to properties</span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >4. On the left hand side of the properties page - go to Options.</span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >5. Change Recovery Model: to Simple and Press Ok to Save</span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >***Note: Not all StealthAUDIT administrators will have rights to make this
+              modification and the request may have to go to their DBAs***</span
+            >
+          </p>
+
+          <p>
+            <span class="wysiwyg-font-size-medium"
+              >To see more information on shrinking log files in SQL:
+              <font color="#0066cc"
+                ><a href="http://msdn.microsoft.com/en-us/library/ms189493.aspx" target="_blank"
+                  >http://msdn.microsoft.com/en-us/library/ms189493.aspx</a
+                ></font
+              ></span
+            >
+          </p>
+        </div>
+
+        <div>
+          <span class="wysiwyg-font-size-medium">other helpful links: </span><br /><span
+            class="wysiwyg-font-size-medium"
+            ><a href="https://msdn.microsoft.com/en-us/library/ms178575.aspx" target="_blank"
+              >sys.database_recovery_status (Transact-SQL)</a
+            ></span
+          ><br /><span class="wysiwyg-font-size-medium"
+            ><a
+              href="http://sqlity.net/en/1830/log-reuse-waits-explained-log_backup/"
+              target="_blank"
+              >Log Reuse Waits Explained</a
+            ></span
+          ><br /><br /> 
+        </div>
+
+        <p>
+          <span class="wysiwyg-font-size-medium"><strong>Product:</strong> StealthAUDIT</span
+          ><br /><span class="wysiwyg-font-size-medium"><strong>Module:</strong> Database/SQL</span
+          ><br /><span class="wysiwyg-font-size-medium"><strong>Versions:</strong> All</span><br /> 
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

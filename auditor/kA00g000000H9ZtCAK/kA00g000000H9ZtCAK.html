@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      The following error occurred during the SQL database content audit configuration: Could not
+      obtain information about Windows NT group/user '......', error code 0x5.
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZtCAK" />
+    <meta name="Id" content="ka04u000000HcSuAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1279" />
+    <meta name="ArticleNumber" content="000003429" />
+    <meta
+      name="description"
+      content="... error occurred during the SQL database content audit configuration: Could not obtain information about Windows NT group/user &amp;#039;......&amp;#039;, error code 0x5"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You are getting the following error message in the summary reports and the product: "The
+        following error occurred during the SQL database content audit configuration: Could not
+        obtain information about Windows NT group/user '......', error code 0x5."
+        <hr />
+        There is a permission issue with the Netwrix Data Processing Account.
+        <hr />
+        In order to resolve the issue please perform the following steps:<br />1. Run
+        <strong>SQL Server Management Studio</strong>;<br />2. Connect to the target SQL server with
+        '<strong>sa</strong>' or owner of the server account;<br />3. Under
+        <strong>Security -&gt; Logins</strong> find the the Netwrix Data processing account and open
+        it's properties;<br />4. Open the <strong>Server Roles</strong> tab and select
+        <strong>sysadmin</strong> role;<br />5. Restart the <strong>SQL service</strong>,
+        <strong>SQL Agent Service</strong> and <strong>Reporting</strong> and
+        <strong>Analysis services</strong> if installed.
+      </div>
+    </article>
+  </body>
+</html>

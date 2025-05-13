@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      What Change Tracker Gen7 Objects to Monitor Using Application Performance Monitoring (APM)
+      Tools
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JXbCAM" />
+    <meta name="Id" content="ka04u000000Hd9DAAS" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:44:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8170" />
+    <meta name="ArticleNumber" content="000008170" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This document indicates our recommendations for monitoring the health of your NNT Server
+          and Agents. We have listed several variables that can be monitored utilizing application
+          performance monitoring tools for monitoring the Server and Agents. 
+        </p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-Services"
+        >
+          Services
+        </h2>
+        <p>
+          <strong>WAS</strong> <br />Track this on your NNT Hub Server to monitor the IIS Service
+        </p>
+        <p>
+          <br /><strong>W3SVC</strong><br />Track this on your NNT Hub Server to monitor the IIS
+          Service
+        </p>
+        <p>
+          <br /><strong>MongoDB</strong><br />Track this on your NNT Hub Server to monitor that the
+          Mongo Database is running
+        </p>
+        <p>
+          <br /><strong>Gen7Agent</strong><br />Track this on all of your Windows Agents &amp; NNT
+          Hub Server to monitor that the NNT Agent Service is running
+        </p>
+        <p>
+          <br /><strong>nntgen7agent</strong><br />Track this on all of your Red Hat and Debian
+          based Distros to monitor that the NNT Agent Service is Running
+        </p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-Processes:"
+        >
+          Processes:
+        </h2>
+        <p>
+          <strong>Gen7Agent.Service.exe</strong><br />Track this on all of your windows based agents
+          and hub server to make sure the NNT Agent process is running
+        </p>
+        <p>
+          <br /><strong>w3wp or IIS Worker Process (w3wp.exe)</strong><br />Track this on your NNT
+          Hub Server to make sure that IIS Process is running
+        </p>
+        <p>
+          <br /><strong>MongoD or MongoDB Database Server (mongod.exe)</strong><br />Track this on
+          your NNT Hub Server to make sure that the Mongo Database Process is running
+        </p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-DefaultSoftwarePaths:"
+        >
+          Default Software Paths:
+        </h2>
+        <p>
+          <strong>C:\inetpub\wwwroot\Change Tracker Generation 7 Hub</strong><br /><strong>
+            C:\inetpub\wwwroot\Change Tracker Generation 7 WebUI</strong
+          ><br /><strong> C:\Program Files\NNT Change Tracker Suite </strong><br /><strong>
+            C:\ProgramData\NNT</strong
+          ><br /><strong> C:\ProgramData\Change Tracker Generation 7</strong>
+        </p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-Drivers/Dependencies:"
+        >
+          Drivers/Dependencies:
+        </h2>
+        <p>
+          <strong>NNT WHO MADE THE CHANGE DRIVER - </strong>C:\Windows\System32\drivers\NNTInfo.sys
+        </p>
+        <p>
+          <strong>.NET FRAMEWORK/Mono Runtime 3.5 - </strong>If you are using a NNT 6.5 Agent
+          (Version Example: 1.0.0.106) - Make sure that this does not get uninstalled, or downgraded
+          to an older version
+        </p>
+        <p>
+          <strong>.NET FRAMEWORK/<strong>Mono Runtime</strong> 4.5 - </strong>If you are using a NNT
+          Gen7 Agent (Version 7.0.0.29) - Make sure that this does not get uninstalled, or
+          downgraded to an older version. If you need to use an older version due to a critical
+          application, use a 6.5 Agent instead.
+        </p>
+        <p>
+          <strong>.NET FRAMEWORK/<strong>Mono Runtime</strong> 4.6.1 - </strong>For the NNT Change
+          Tracker Generation 7 Hub Server, (Version 7.0.1.48 or Newer) - Make sure that this does
+          not get uninstalled, or downgraded to an older version.
+        </p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-PotentialSyslogThresholds/Messages:"
+        >
+          Potential Syslog Thresholds / Messages:
+        </h2>
+        <p>
+          <strong>Agent Error -</strong> This messaging type shows any errors that Change Tracker
+          Agents are experiencing. It is reccomended that you build a threshold mechanism that
+          searches for this kind of message from the change tracker server, and alerts the proper
+          response teams.<br /><br /><strong>Audit (Device Admin) -</strong> This messaging type
+          shows any changes to device configurations. It is reccomended that you build a threshold
+          mechanism that searches for this kind of message from the change tracker server, and
+          alerts the proper response teams.<br /><br /><strong
+            >Audit (System Config Change) -</strong
+          >
+          This messaging type shows any changes to system settings for Change Tracker server
+          configurations. It is reccomended that you build a threshold mechanism that searches for
+          this kind of message from the change tracker server, and alerts the proper response
+          teams.<br /><br /><strong>Audit (User Administration) -</strong> This messaging type shows
+          any changes to User Settings for Change Tracker console. It is reccomended that you build
+          a threshold mechanism that searches for this kind of message from the change tracker
+          server, and alerts the proper response teams.<br /><br /><strong
+            >Audit (Device Details Change) -</strong
+          >
+          This messaging type shows any changes to the details of an agent device. <br /><br /><strong
+            >Device Offline -</strong
+          >
+          This messaging type shows when an agent goes offline. <br /><br /><strong
+            >Device Online -</strong
+          >
+          This messaging type shows when an agent goes offline. <br /><br /><strong
+            >New Device Registered -</strong
+          >
+          This messaging type shows when an new agent registers to the NNT Hub Server <br /><br /><strong
+            >System Error -</strong
+          >
+          This messaging type shows when the Change Tracker Server is exeriencing an error. It is
+          reccomended that you build a threshold mechanism that searches for this kind of message
+          from the change tracker server, and alerts the proper response teams.<br /><br /><strong
+            >Planned and Unplanned Changes -</strong
+          > This messaging type shows when the Change Tracker Server recieves planned or unplanned
+          changes. It is reccomended that you build a threshold mechanism that searches for this
+          kind of message from the change tracker server, and alerts the proper response teams.<br /><br /><strong
+            >Event Type: Communications -</strong
+          > This messaging type shows communications between agent and hub server. It is reccomended
+          that you build a threshold mechanism that searches for this kind of message from the
+          change tracker server, and alerts the proper response teams.<br /><br /><strong
+            >Event Type: Audit -</strong
+          > This messaging type shows audit information for Change Tracker, such as user account
+          managment, configuration changes, etc. It is reccomended that you monitor for this, and
+          build threshold mechanisims if needed.
+        </p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-LogFiles:"
+        >
+          Log Files:<br /><br />
+        </h2>
+        <h3
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-NNT6.5AGENT"
+        >
+          NNT 6.5 AGENT<strong><br /><br /></strong>
+        </h3>
+        <p><strong>On Windows</strong></p>
+        <p>C:\Program Files\NNT Change Tracker Suite\Agent\rolling-log.txt</p>
+        <p>
+          C:\Program Files\NNT Change Tracker Suite\Agent\HubDetails.xml<br /><br /><strong
+            >On Linux</strong
+          >
+        </p>
+        <p>/opt/nnt/agent/bin/rolling-log.txt</p>
+        <p>/opt/nnt/agent/bin/HubDetails.xml</p>
+        <h3
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-NNTGEN7AGENTOnWindows"
+        >
+          <br />NNT GEN7 AGENT<strong><br /><br /></strong><strong>On Windows</strong>
+        </h3>
+        <p>C:\ProgramData\NNT\gen7agent.service\rolling-log.txt</p>
+        <p>C:\ProgramData\NNT\gen7agent.service\HubDetails.xml<br /><br /></p>
+        <p><strong>On Linux</strong></p>
+        <p>/var/nnt/gen7agent.service/rolling-log.txt</p>
+        <p>/var/nnt/gen7agent.service/HubDetails.xml</p>
+        <h3
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-ChangeTrackerServer/DatabaseLogs"
+        >
+          <br />Change Tracker Server / Database Logs
+        </h3>
+        <p>
+          <strong>Hub Service Log (Linux) -<span> </span></strong
+          >/opt/nnt/hubservice/log/hubservice-log.txt
+        </p>
+        <p>
+          <strong>Hub Service Log (Windows) -<span> </span></strong
+          >C:\inetpub\wwwroot\Change Tracker Generation 7 Hub\log\hubservice-log.txt
+        </p>
+        <p><strong>MongoDB Log (Linux) - </strong>/var/log/mongodb/mongod.log</p>
+        <p>
+          <strong>MongoDB Log (Windows)</strong><span> </span>- C:\ProgramData\Change Tracker
+          Generation 7\MongoDB\log\mongod.log
+        </p>
+        <p><br /></p>
+        <h2
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-ThingstoKeepinMind"
+        >
+          Things to Keep in Mind<br /><br />
+        </h2>
+        <h3
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-NNTChangeTrackerHubServer:"
+        >
+          <strong>NNT Change Tracker Hub Server:</strong>
+        </h3>
+        <ul>
+          <li>
+            The percentage of memory in use on a server should not be monitored as MongoDB prefers
+            to reserve as much as possible. The reserved memory is known as the "Commit Size"
+            however, the memory that is actually in use is defined by the "Working Set". An Example
+            of this is the screenshot below:
+          </li>
+        </ul>
+        <p>          </p>
+        <p>
+                    <span class="confluence-embedded-file-wrapper"
+            ><img
+              class="confluence-embedded-image"
+              src="kA04u0000000JXbCAM_236ca61c-d417-4f0c-b8de-39cad86a764f.png"
+          /></span>
+        </p>
+        <h3
+          id="WhatChangeTrackerGen7ObjectstoMonitorUsingApplicationPerformanceMonitoring(APM)Tools-NNTChangeTrackerAgents:"
+        >
+          <strong>NNT Change Tracker Agents:</strong>
+        </h3>
+        <ul>
+          <li>
+            The NNT Change Tracker Gen7 Agent is built using .NET Framework. Applications that are
+            based off .NET Framework may allocate different amounts of memory at different times.
+            Keep in mind that .NET Framework has a Garbage Collecting function, which determines the
+            best time for the system to clean up current memory banks which the application no
+            longer needs. All in all, memory usage for .NET applications is a difficult metric to
+            gauge, as in most scenarios, the application is not really utilizing all the memory that
+            has been assigned to it, and the .NET Framework portion of the application will allocate
+            and de-allocate the memory as per the system’s needs.<br /><br />
+          </li>
+          <li>
+            An Agent Performance Metrics and Footprint guide has been created. If you want this,
+            please notify NNT Support with the request and we can send you the latest version.
+          </li>
+        </ul>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

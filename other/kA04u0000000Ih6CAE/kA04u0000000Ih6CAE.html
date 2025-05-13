@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIEntManager_5.2.0.260</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ih6CAE" />
+    <meta name="Id" content="ka04u000000HctYAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6931" />
+    <meta name="ArticleNumber" content="000006931" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> One event sends
+          multiple alerts to Splunk SIEM
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong>One event sends multiple alerts to Splunk SIEM<br /><strong
+            ><span>Behavior before Fix: </span></strong
+          ><br />When event is sent to SIEM it will be sent with several SIEM messages depending
+          from the number of attributes in this event. It sends one message per attribute.<br /><strong
+            ><span>Behavior after Fix: </span></strong
+          ><br />To simplify grouping of messages per event there is new replacement token
+          implemented in SIEM message template: %EVENT_GUID%<br />When generating SIEM message it
+          will replace this token with GUID (Global Unique Identifier) generated per event.<br />Example
+          of usage:<br />1 %SYSLOG_DATE% %HOST% %PRODUCT% - %EVENT_NAME% - GUID="%EVENT_GUID%"
+          PolicyName="%SETTING_NAME%" Domain="%EVENT_SOURCE_NAME%" ...<br /><b
+            >Changes since Last Hotfix:</b
+          ><br />I-4571 [LINK-Appeal] SI-3762 30823 - One event sends multiple alerts to Splunk
+          SIEM<br /><strong><span>Submitted by: </span></strong><br />Maxim Sidarau  <br /><strong
+            ><span>Affected Versions:</span></strong
+          ><br />5.2.0      SIEntManager_5.2.0.260_SI-3762<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Enterprise Manager<br /><strong><span>Dev Ticket:</span></strong
+          ><br /><em><span>I-4571</span></em
+          ><br /><strong><span>Resolved in Version:</span></strong
+          ><br />5.2.0.260<br /><strong><span>KB Type: </span></strong><br />Hotfix<br /> <br /><b
+            >Modules Included:</b
+          ><br />SI - Enterprise Manager<br /> <br /><b>YouTrack/Escalations: </b>SI-3762 / 30823<br /><b
+            >Customers:  </b
+          >Appeal Sp. z oo Sp. k.<br /><b>Cumulative List of fixes included since Service Pack:</b
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Applying patch
+          for Enterprise Manager:<br />1. Stop 'SIEnterpriseManager' service.<br />2. Extract files
+          from attached 'SIEnterpriseManager' folder to the C:\Program Files
+          (x86)\STEALTHbits\StealthINTERCEPT\SIEnterpriseManager folder<br />3. Start
+          'SIEnterpriseManager' service<br /><br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIEntManager_5.2.0.260_SI-3762.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIEntManager_5.2.0.260_SI-3762.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.2.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3762<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.2.0.260<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2227<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

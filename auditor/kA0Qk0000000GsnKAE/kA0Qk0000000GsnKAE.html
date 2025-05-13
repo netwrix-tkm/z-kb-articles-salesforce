@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Cannot Insert Duplicate Key in Object</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000GsnKAE" />
+    <meta name="Id" content="ka0Qk0000000p8zIAA" />
+    <meta name="LastPublishedDate" content="2023-12-05T09:41:49.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-05T09:41:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-05T09:41:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8932" />
+    <meta name="ArticleNumber" content="000008932" />
+    <meta name="description" content="Error: Cannot Insert Duplicate Key in Object" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following warning appears in the Netwrix Auditor System Health log:</p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Upload failed due to the following error:
+Violation of PRIMARY KEY constraint 'item name'. Cannot insert duplicate key in object 'object name'. The duplicate key value is (1, 1).
+The statement has been terminated.</code></pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This message occurs if the <code>SqlCalculateRequiredAttributesCommandTimeout</code> was
+            set incorrectly in the <b>SPODDCCoreSettings.xml</b> file.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>To resolve the issue, you need to set the timeout to <code>7200</code>. For that:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts Netwrix Auditor Server, stop the
+                <b>Netwrix Auditor NDC Provider</b> service.
+              </p>
+            </li>
+            <li>
+              <p>
+                Navigate to
+                <em>C:\ProgramData\Netwrix Auditor\Data Discovery and Classification\</em> and open
+                the <b>SPODDCCoreSettings.xml</b> configuration file with any text editor, e.g.,
+                Notepad.
+              </p>
+            </li>
+            <li>
+              <p>
+                Locate the <code>SqlCalculateRequiredAttributesCommandTimeout</code> the line and
+                set the timeout to <code>7200</code>.
+              </p>
+            </li>
+            <li>
+              <p>Save the file.</p>
+            </li>
+            <li>
+              <p>Start the <b>Netwrix Auditor NDC Provider</b> service.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

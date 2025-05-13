@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Multiple FPolicy Agents for Single NetApp SVM</title>
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ILZCA2" />
+    <meta name="Id" content="ka04u000000Hcl3AAC" />
+    <meta name="LastPublishedDate" content="2022-02-22T13:44:59.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:16:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6450" />
+    <meta name="ArticleNumber" content="000006450" />
+    <meta name="description" content="360008602431" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Support for
+          Multiple FPolicy Servers in SAM
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong
+          > NetApp Supports multiple FPolicy servers, but there are some caveats
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong
+          > 
+        </p>
+
+        <div>
+          <div>
+            SAM supports multiple primary servers out of the box (i.e. a single SVM can be monitored
+            by several SAM Agents).
+          </div>
+
+          <div>
+            If "Configure FPolicy" is enabled, each SAM Agent will add itself to the primary servers
+            on start, and remove itself on shutdown.
+          </div>
+
+          <div> </div>
+
+          <div>
+            However, this configuration does not work well with our "Smart Office Filtering".
+            Because events are distributed in round-robin fashion, an agent may not be able not to
+            detect a sequence of 15-25 expected events and replace them with a single user action,
+            since it's not guaranteed that all events will go to the same FPolicy server. 
+          </div>
+
+          <div> </div>
+
+          <div>
+            Secondary servers are supported, but not out of the box. Manual setup is required.
+            Because secondary FPolicy Servers are only leveraged when something goes wrong with the
+            primary, there are no expected issues for Smart Office Filtering, unless the failover to
+            the secondary FPolicy server occurs while an Office change is happening. 
+          </div>
+
+          <div> </div>
+
+          <div>
+            <strong>Important Note</strong>: StealthAUDIT does not support this configurations yet,
+            but it's on the roadmap for 2021 as of the writing of this article (August 2020).
+          </div>
+        </div>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong> Stealthbits
+          Activity Monitor (SAM)<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          File Activity Monitor<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          3.0+
+        </p>
+
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

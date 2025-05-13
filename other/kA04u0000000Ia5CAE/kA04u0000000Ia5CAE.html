@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_7.2_SP1_082</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Ia5CAE" />
+    <meta name="Id" content="ka04u000000HcqgAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:25:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:25:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6750" />
+    <meta name="ArticleNumber" content="000006750" />
+    <meta name="description" content="360012217812" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Stale Users and
+          Stale Groups jobs count deleted users.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Affected Versions:</span></strong
+          ><br />7.2HF1<br /><strong><span>Affected Module:</span></strong
+          ><br />SA - Solution Set - Active Directory<br /><strong><span>Dev Ticket:</span></strong
+          ><br />SAT-2491 / 22093<br /><strong><span>Resolved in Version:</span></strong
+          ><br />GROUP_Active
+          Directory\GROUP_3.Computers\JOB_AD_StaleComputers\DataAnalysisTasks.XML<br />GROUP_Active
+          Directory\GROUP_2.Users\JOB_AD_StaleUsers\DataAnalysisTasks.XML<br /><strong
+            ><span>KB Type: </span></strong
+          >Bug<br /><strong><span>Issue:</span></strong
+          ><br />The Stale Users and Stale Groups jobs are counting groups and users that are
+          deleted as being stale. Instead we have updated the job to not include stale users once
+          they have been deleted.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1.          
+          Unblock the hotfix zip file in the windows property dialog, if an unblock button exists
+          there.<br />2.           Close all instances of StealthAUDIT (check task manager under
+          processes for all users)<br />3.            Update all DataAnalysisTasks.XML  file in
+          %SAInstallDir%Jobs\ GROUP_Active
+          Directory\GROUP_2.Users\JOB_AD_StaleUsers\DataAnalysisTasks.XML<br />4.            Update
+          all DataAnalysisTasks.XML  file in %SAInstallDir%Jobs\ GROUP_Active Directory\
+          GROUP_3.Computers\JOB_AD_StaleComputers\DataAnalysisTasks.XML<br />5.            Launch
+          StealthAUDIT rerun job<br />6.            The XML files may also be added to the
+          "InstantSolutions" directory so if the job is ever deleted and remade it uses the new
+          XML<br />%SAInstallDir%\InstantSolutions\ GROUP_Active Directory\
+          GROUP_3.Computers\JOB_AD_StaleComputers\DataAnalysisTasks.XML<br /> <br />%SAInstallDir%\InstantSolutions\
+          GROUP_Active Directory\ GROUP_3.Computers\JOB_AD_StaleComputers\DataAnalysisTasks.XML<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="38">
+                <td colspan="1" rowspan="1" height="38" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SAHotFixes/7.2/SA_7.2_SP1_082.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SAHotFixes/7.2/SA_7.2_SP1_082.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Solution Set - Active Directory<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.2 SP1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAT-2491<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          GROUP_Active Directory\GROUP_3.Computers\JOB_AD_StaleComputers\DataAnalysisTasks.XML
+          GROUP_Active Directory\GROUP_2.Users\JOB_AD_StaleUsers\DataAnalysisTasks.XML<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1898<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

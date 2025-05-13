@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Windows Server Inventory Report shows Windows Defenders as the only Antivirus installed
+    </title>
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000000XmGgCAK" />
+    <meta name="Id" content="ka04u000000HdG1AAK" />
+    <meta name="LastPublishedDate" content="2021-01-25T21:51:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:20:09.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-01-25T21:51:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5847" />
+    <meta name="ArticleNumber" content="000005847" />
+    <meta
+      name="description"
+      content="Windows Server Inventory Report shows Windows Defenders as the only Antivirus installed"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario">Scenario</h3>
+        When running the Windows Server Inventory Report in Netwrix Auditor, the results show
+        Windows Defender as the only installed Antivirus.
+
+        <h3 id="cause">Cause</h3>
+        This is due to the fact that Windows Server 2016 and 2019 are missing the WMI
+        SecurityCenter2 namespace, resulting in the OS only recognizing Windows Defender.
+
+        <h3 id="solution">Solution</h3>
+        Once a 3rd party software is installed, disable Windows Defender. The WMI SecurityCenter2
+        namespace will regenerate and identify the alternative Antivirus software.<br />For more
+        information, visit this
+        <a
+          href="https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/microsoft-defender-antivirus-compatibility"
+          target="_blank"
+          >Microsoft article</a
+        >
+      </div>
+    </article>
+  </body>
+</html>

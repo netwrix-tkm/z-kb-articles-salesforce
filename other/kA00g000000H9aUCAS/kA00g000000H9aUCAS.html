@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Report could not be downloaded</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9aUCAS" />
+    <meta name="Id" content="ka04u00000116edAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T16:04:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1293" />
+    <meta name="ArticleNumber" content="000003464" />
+    <meta
+      name="description"
+      content="While downloading a report from Password Manager Helpdesk portal, no error messages are displayed but the report can not be downloaded. Increase size limit"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        While downloading a report from Password Manager Helpdesk portal, no error messages are
+        displayed but the report can not be downloaded.
+
+        <img
+          src="kA00g000000H9aUCAS_11d01ae5-389a-44e3-aa45-e78cb1e72963.png"
+          alt="User-added image"
+          width="500"
+          height="266"
+        />
+
+        <hr />
+
+        Reports are actually generated as html files. To make them available for download, Password
+        Manager saves them in .csv format in the Helpdesk physical path folder (by default C:Program
+        Files (x86)Netwrix Password ManagerWeb)
+
+        <img
+          src="kA00g000000H9aUCAS_4e1db519-4210-4e03-ae1e-e14dc94b646b.png"
+          alt="User-added image"
+          width="500"
+          height="383"
+        />
+
+        If the time period (for the Activity Report) or Number of users in monitored domains are
+        large, then report files might be several megabytes in size. By default Internet Information
+        Services has a 4 MB size limit for downloaded files, if the file is bigger than 4 MB, the
+        error above might occur.
+
+        <hr />
+
+        To resolve the issue you need to increase size limit. In order to do it:
+        <ol>
+          <li>Launch <strong>IIS manager</strong></li>
+          <li>
+            In the left pane navigate to %Servername% - Sites - %PMWebsite% - %PMvirtualdir% -
+            %Helpdeskvirtualdir%. By default it is
+            <strong>%Servername% - Sites - Default Web Site - PM - Helpdesk</strong>
+          </li>
+          <li>In the central pane double click <strong>ASP</strong> feature under IIS group</li>
+          <li>Expand <strong>Limit properties</strong></li>
+          <li>Change <strong>Response Buffering Limit </strong>to 10485760 (10 MB) or more</li>
+          <li>
+            Click <strong>Apply </strong>under Actions at the top of the right
+            <strong> </strong>pane
+          </li>
+        </ol>
+        <div>
+          <img
+            src="kA00g000000H9aUCAS_9fb0d9f6-1f1e-4b8d-96e8-aa3bb9d03e5f.png"
+            alt="User-added image"
+            width="500"
+            height="293"
+          />
+        </div>
+        If the above does not help, try restarting IIS with the <em>iisreset</em> command after
+        making the changes.
+      </div>
+    </article>
+  </body>
+</html>

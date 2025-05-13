@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Generate Self-signed SSL Certificate for SSRS</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001HRpKAM" />
+    <meta name="Id" content="ka0Qk0000004eIDIAY" />
+    <meta name="LastPublishedDate" content="2024-07-16T10:11:06.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-16T11:15:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-07-16T10:11:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9219" />
+    <meta name="ArticleNumber" content="000009219" />
+    <meta name="description" content="Generate Self-signed SSL Certificate for SSRS" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor uses SQL Server Reporting Services (SSRS) to generate reports. In
+            environments with Auditor and SSRS installed on different servers, it is recommended to
+            use a secure communication channel. This article covers the steps to generate
+            self-signed certificates to use in SSRS.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If your self-signed certificate expires, it is
+            reissued upon a reboot.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>Refer to the following steps to generate a self-signed certificate:</p>
+
+          <ol>
+            <li>
+              <p>On your SSRS server, run an elevated PowerShell instance.</p>
+            </li>
+            <li>
+              <p>
+                Create a new certificate in the local <strong>My</strong> store and save the created
+                certificate to a variable for further export:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$Certificate = New-SelfSignedCertificate -CertStoreLocation cert:\LocalMachine\My -dnsname "%server_name%"</code></pre>
+
+              <p>Replace %server_name% with the FQDN of your SSRS server.</p>
+            </li>
+            <li>
+              <p>Run the following line to specify the target path for the certificate:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$file="C:\temp\cert_for_ssrs.pfx"</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>The target folder should exist.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Run the following line to specify the password for the certificate:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$pwd=ConvertTo-SecureString "%CERTIFICATE_PASSWORD%" -asplainText -force</code></pre>
+
+              <p>Copy the certificate password for future steps.</p>
+            </li>
+            <li>
+              <p>
+                Run the following lines to import the certificate to the trusted certificate store.
+                Export the certificate using the previously created variable:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Export-PFXCertificate -Cert $Certificate -FilePath $file -Password $pwd</code></pre>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Import-PfxCertificate -FilePath $file cert:\LocalMachine\root -Password $pwd</code></pre>
+            </li>
+            <li>
+              <p>
+                Copy the certificate file to the Netwrix Auditor host server. Run the following line
+                in an elevated Powershell instance to specify the path to the certificate:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$file="C:\temp\cert_for_ssrs.pfx"</code></pre>
+
+              <p>Replace the placeholder path with an actual path.</p>
+            </li>
+            <li>
+              <p>
+                Run the following lines to import the certificate to the trusted certificate store
+                on the Auditor server.
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$pwd=ConvertTo-SecureString "%CERTIFICATE_PASSWORD%" -asplainText -force</code></pre>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Import-PfxCertificate -FilePath $file cert:\LocalMachine\root -Password $pwd</code></pre>
+
+              <p>
+                Replace the <code>%CERTIFICATE_PASSWORD%</code> placeholder with an actual password.
+              </p>
+            </li>
+            <li>
+              <p>
+                Import the certificate to all Auditor client servers. Perform steps #6 and #7 on all
+                Netwrix Auditor clients.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>If you deploy new Auditor clients, deploy this
+                  certificate on all new servers.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

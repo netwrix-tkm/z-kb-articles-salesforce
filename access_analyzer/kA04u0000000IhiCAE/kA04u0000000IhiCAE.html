@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Scanning Multiple Microsoft Entra Tenants</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IhiCAE" />
+    <meta name="Id" content="ka0Qk0000000vZNIAY" />
+    <meta name="LastPublishedDate" content="2023-12-11T09:09:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-11T09:09:03.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:32:49.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7185" />
+    <meta name="ArticleNumber" content="000007185" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to setup
+          StealthAUDIT to target multiple Microsoft Entra tenants for AADInventory job.
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> In order for
+          StealthAUDIT to be able Inventory Azure AD we require an APP ID and Key pair for the
+          Connection Profile. This key pair is generated when adding a webapp in Microsoft Entra
+          ID portal (please see StealthAUDIT user guide for more information). The limitation here
+          is that StealthAUDIT has no way of knowing which Tenant to apply the key to as a  result
+          you can not add multiple accounts to the single Connection Profile.  Instructions below
+          will describe how to split the collection to enable multi-tenant scanning.
+        </p>
+
+        <p>
+          <br /><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <strong>:</strong>  Azure AD Inventory job consists of the following:
+        </p>
+
+        <ul>
+          <li>
+            2 Jobs
+            <ul>
+              <li>
+                1-AAD Scan
+                <ul>
+                  <li>Single query which uses the AADI data collector</li>
+                  <li>
+                    6 SQL analysis which import SQL functions and create the underlining
+                    views/tables
+                  </li>
+                  <li>1 Report which is a summary report.</li>
+                </ul>
+              </li>
+              <li>
+                2-AAD Exceptions
+                <ul>
+                  <li>9 SQL analysis which create exception views for toxic conditions in AAD.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>
+          The only part of the solution that we are interested in is job 1-AAD Scan. To allow for us
+          to collect data on multiple tenants we need to create a connection profile for each
+          Tenant, once this has been completed we take a copy of the 1-AAD Scan job and append
+          tenant name at the end. Uncheck all the analysis from the copied jobs leaving the analysis
+          enabled for the last job in the tree.  Example: 
+        </p>
+
+        <ul>
+          <li>1-AAD Scan_a  (has analysis unchecked)</li>
+          <li>1-AAD Scan_z (has analysis checked)</li>
+        </ul>
+
+        <p>
+          Assign the correct connection profile to the matching 1-AAD Scan job (right click- Job
+          Properties - Connection).<br /> <br />Schedule the solution to run as normal.<br /> <br />Because
+          AAD Scan appends the data to the core tables we able to separate the jobs in this
+          fashion.  The subsequent analysis reviews the tables and combines all info. The summary
+          reports will show all domains scanned as normal.<br /> 
+        </p>
+
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - AzureADInventory<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.0+<br /><strong><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong>
+          2164
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

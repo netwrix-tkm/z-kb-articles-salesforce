@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Support for Historical Data Retention in Enterprise Auditor Jobs</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000QlhKAE" />
+    <meta name="Id" content="ka0Qk0000001gLNIAY" />
+    <meta name="LastPublishedDate" content="2024-02-02T12:42:58.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-05T09:14:08.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-02-02T12:42:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9038" />
+    <meta name="ArticleNumber" content="000009038" />
+    <meta
+      name="description"
+      content="Support for Historical Data Retention in Enterprise Auditor Jobs"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            Depending on the needs, the historical data retention option can be set up in Netwrix
+            Enterprise Auditor (formerly StealthAUDIT) to allow an in-depth analysis of historical
+            data in your environment. This article lists solutions and Jobs that do and do not
+            support data retention.
+          </p>
+        </div>
+
+        <h2 id="supported_solutions">Supported solutions</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Enabling the data retention option in
+              unsupported solutions may cause issues related to data analysis and reporting.
+            </p>
+          </blockquote>
+
+          <ul>
+            <li>
+              <p>Exchange Solution</p>
+
+              <ul>
+                <li>
+                  <p>
+                    <strong>1.HUB Metrics Job Group</strong> −
+                    <strong>0.Collection Job Group</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months for both
+                    <strong>EX_MetricsCollection</strong> and
+                    <strong>EX_MetricsDetail</strong> Jobs. To adjust it, modify the
+                    <strong>SET HISTORY RETENTION</strong> analysis task for the corresponding job.
+                    This can be configured for months or days.
+                  </p>
+
+                  <div>
+                    <img
+                      alt="histRetention"
+                      height="295"
+                      src="kA0Qk0000000QlhKAE_36e0e2f6-7c1b-42b7-9ee0-65adca75c510.png"
+                      width="650"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>
+                    <strong>2.CAS Metrics Job Group</strong> −
+                    <strong>ActiveSync Job Group</strong> − <strong>EX_ActiveSync Job</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>2.CAS Metrics Job Group</strong> −
+                    <strong>Outlook Web Access Job Group</strong> −
+                    <strong>EX_OWATraffic Job</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+                <li>
+                  <p><strong>3.Databases Job Group</strong> − <strong>EX_DBSizing Job</strong></p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>4.Mailboxes Job Group</strong> − <strong>Logons Job Group</strong> −
+                    <strong>EX_MailboxLogons Job</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>4.Mailboxes Job Group</strong> − <strong>Sizing Job Group</strong> −
+                    <strong>EX_MailboxSizes Job</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>5.Public Folders Job Group</strong> −
+                    <strong>Growth and Size Job Group</strong> − <strong>PF_FolderSize Job</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>8.Exchange Online Job Group</strong> &gt;
+                    <strong>Mailflow Job Group</strong> &gt; <strong>EX_Mailflow Job</strong>
+                  </p>
+
+                  <p>
+                    The default History Retention setting is set to 6 months. To adjust it, modify
+                    the <strong>SET HISTORY RETENTION</strong> analysis task for the job.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>File System Solution</p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>To adjust the retention period for the
+                  File System Activity (FSAC) historical data, use the
+                  <strong>Activity Settings</strong> page of the 1-FSAC System Scan Job. Refer to
+                  the following article for additional information:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/FileSystem/Collection/1-FSAC_System_Scans.htm"
+                    target="_self"
+                    >0.Collection Job Group − 1-FSAC System Scans Job · v11.6</a
+                  >.
+                </p>
+              </blockquote>
+
+              <ul>
+                <li>
+                  <p><strong>4.Content Job Group</strong></p>
+
+                  <p>
+                    The historical data retention is optional for Jobs in the group. Turning the
+                    <strong>History</strong> option on or off will not affect analysis tasks or
+                    reporting. To adjust the retention settings, right-click Job &gt; select
+                    <strong>Properties</strong> &gt; select the <strong>History</strong> tab.
+                  </p>
+                </li>
+                <li>
+                  <p><strong>6.Probable Owner Job Group</strong></p>
+
+                  <p>
+                    The historical data retention is optional for Jobs in the group. Turning the
+                    <strong>History</strong> option on or off will not affect analysis tasks or
+                    reporting. To adjust the retention settings, right-click Job &gt; select
+                    <strong>Properties</strong> &gt; select the <strong>History</strong> tab.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>SharePoint Solution</p>
+
+              <ul>
+                <li>
+                  <p>
+                    To adjust the retention period for the SharePoint Activity historical data, use
+                    the <strong>Activity Date Scope</strong> page of the SPAC System Scan. Refer to
+                    the following article for additional information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/SPAA/ActivityDateScope.htm"
+                      target="_self"
+                      >SharePointAccess Data Collector − Activity Date Scope · v11.6</a
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Databases Solutions</p>
+
+              <ul>
+                <li>
+                  <p>
+                    To adjust the retention period for the Database Activity historical data, use
+                    the <strong>Options</strong> page of the corresponding ActivityScan Job. This
+                    option is currently available only in SQL and AzureSQL instances. Refer to the
+                    following articles for additional information:
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/Databases/SQL/Collection/3-SQL_ActivityScan.htm"
+                      target="_self"
+                      >0.Collection &gt; SQL Job Group − 3-SQL_ActivityScan Job · v11.6</a
+                    >
+                    and
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/Databases/AzureSQL/Collection/3-AzureSQL_ActivityScan.htm"
+                      target="_self"
+                      >0.Collection &gt; Azure SQL Job Group − 3-AzureSQL_ActivityScan Job ·
+                      v11.6</a
+                    >.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="solutions_not_yet_supported">Solutions not yet supported</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Enabling the data retention option in
+              unsupported solutions may cause issues related to data analysis and reporting.
+            </p>
+          </blockquote>
+
+          <p>The following solutions do not yet support any historical data retention:</p>
+
+          <ul>
+            <li>
+              <p>Inventories (Active Directory, Entra ID, NIS).</p>
+            </li>
+            <li>
+              <p>Active Directory.</p>
+            </li>
+            <li>
+              <p>Active Directory Permissions Analyzer.</p>
+            </li>
+            <li>
+              <p>AnyID Connectors.</p>
+            </li>
+            <li>
+              <p>AWS.</p>
+            </li>
+            <li>
+              <p>Box.</p>
+            </li>
+            <li>
+              <p>Dropbox.</p>
+            </li>
+            <li>
+              <p>Entra ID.</p>
+            </li>
+            <li>
+              <p>Unix.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/FileSystem/Collection/1-FSAC_System_Scans.htm"
+                  target="_self"
+                  >0.Collection Job Group − 1-FSAC System Scans Job · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/SPAA/ActivityDateScope.htm"
+                  target="_self"
+                  >SharePointAccess Data Collector − Activity Date Scope · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/Databases/SQL/Collection/3-SQL_ActivityScan.htm"
+                  target="_self"
+                  >0.Collection &gt; SQL Job Group − 3-SQL_ActivityScan Job · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/Databases/AzureSQL/Collection/3-AzureSQL_ActivityScan.htm"
+                  target="_self"
+                  >0.Collection &gt; Azure SQL Job Group − 3-AzureSQL_ActivityScan Job · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

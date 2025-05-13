@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Determine the Number of Enabled User Accounts for Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_administration" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9UdCAK" />
+    <meta name="Id" content="ka0Qk000000CxNhIAK" />
+    <meta name="LastPublishedDate" content="2024-08-02T09:11:30.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-09T21:09:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="684" />
+    <meta name="ArticleNumber" content="000003111" />
+    <meta
+      name="description"
+      content="This article explains how to calculate the number of users in your Active Directory domain."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          To determine the number of enabled user accounts for Netwrix Auditor, it is important to
+          understand that Netwrix Auditor is licensed per enabled Active Directory (AD) user.<br /><br /><b
+            >What is an enabled AD user? </b
+          >An enabled AD user is an existing, enabled user account. Computer users, deleted users,
+          group users, and disabled accounts do not constitute enabled AD users and are not factored
+          into licensing.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>The number of enabled user accounts can be determined one of the following two ways:</p>
+        <ul>
+          <li>
+            Use the following link to download a special
+            <a
+              href="https://www.netwrix.com/download/products/vbs_script/countofusers.zip"
+              target="_blank"
+              >script</a
+            >.
+            <ol>
+              <li>
+                Save and unzip<b> countofusers.zip</b> and run the <b>countofusers.vbs </b>file.
+              </li>
+              <li>
+                When prompted, enter your domain name. The script will return the number of enabled
+                user accounts in the specified domain.
+              </li>
+            </ol>
+          </li>
+          <li>
+            Execute the following steps:
+            <ol>
+              <li>Open the <b>Active Directory Users and Computers</b> snap-in.</li>
+              <li>Right-click the <b>Saved Queries</b> node and select <b>New</b>.</li>
+              <li>In the <b>Name</b> field, provide the name of the new query.</li>
+              <li>
+                Specify the<b> Query Root</b> of the <b>Organizational Unit</b> you want to monitor
+                (or the entire domain).
+              </li>
+              <li>Click on<b> Define Query</b>.</li>
+              <li>Select <b>Custom Search</b> from the <b>Find</b> drop-down list.</li>
+              <li>
+                Open the <b>Advanced</b> tab and paste in the following LDAP filter:
+                <pre><code>(&amp;(sAMAccountType=805306368)(!(userAccountControl:1.2.840.113556.1.4.803:=2))(!(name=HealthMailbox*))) </code></pre>
+              </li>
+              <li>Click <b>OK</b> to save the changes.</li>
+            </ol>
+          </li>
+        </ul>
+        <blockquote>
+          <p>
+            <span class="Note">NOTE: </span>By default, AD queries are limited to 10,000 results. To
+            view more than 10,000 results, take the following steps:
+          </p>
+        </blockquote>
+        <ol>
+          <li>
+            <p>Start the MMC Group Policy Management snap-in.</p>
+          </li>
+          <li>
+            <p>
+              Locate the target domain, right-click the target policy and select
+              <strong>Edit</strong>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Proceed to <strong>User Configuration</strong> &gt; <strong>Policies</strong> &gt;
+              <strong>Administrative Templates</strong> &gt; <strong>Desktop</strong> &gt;
+              <strong>Active Directory</strong>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Double-click the <strong>Maximum size of Active Directory searches</strong> setting.
+            </p>
+          </li>
+          <li>
+            <p>Select Enabled, and set the number (e.g., 30000).</p>
+          </li>
+          <li>
+            <p>Click <b>Apply</b> &gt; <strong>OK</strong>.</p>
+          </li>
+          <li>
+            <p>Close the Group Policy Editor.</p>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

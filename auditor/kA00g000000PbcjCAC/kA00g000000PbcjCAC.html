@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error 6503: Netwrix Auditor cannot configure Nutanix files audit settings: Unexpected HTTP
+      status code (Host name or IP already present)
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbcjCAC" />
+    <meta name="Id" content="ka04u000000HcXYAA0" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5277" />
+    <meta name="ArticleNumber" content="000003742" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          After you created a Nutanix Files monitoring plan, you receive the following error: Event
+          ID 6503 Netwrix Auditor cannot configure Nutanix Files audit settings: Unexpected HTTP
+          status code (Host name or ip already present.)
+        </p>
+
+        <p>
+          The likely cause: you used to have Netwrix Auditor add-on for Nutanix Files installed on
+          the Netwrix server and the Netwrix server had already been configured as a partner server
+          for Nutanix Files.
+        </p>
+
+        <p>To address the issue, you can either:</p>
+
+        <p>specify another port for incoming connections in the item (Nutanix SMB shares)</p>
+
+        <p>OR</p>
+
+        <p>
+          if the add-on's installation folder has not been removed, unregister the partner server as
+          described in item 5.7 of
+          <a
+            href="https://www.netwrix.com/download/QuickStart/Netwrix_Auditor_Add-on_for_Nutanix_Files_Quick_Start_Guide.pdf"
+            target="_blank"
+            >Nutanix Quick-Start Guide</a
+          >
+        </p>
+
+        <p>OR</p>
+
+        <p>remove the partner server and notification policy from Nutanix manually:</p>
+
+        <ol>
+          <li>
+            Open the File Server REST API Explorer REST API:
+            <a
+              href="https://&lt;fileserver_ip&gt;:9440/api/nutanix/v3/api_explorer/index.html#"
+              target="_blank"
+              >https://&lt;fileserver_ip&gt;:9440/api/nutanix/v3/api_explorer/index.html</a
+            >
+          </li>
+          <li>Find the <strong>partner server </strong>node and click Show/Hide.</li>
+          <li>
+            Expand the <strong>POST /partner_servers/list</strong> node, specify {} in the
+            <strong>get_entities_request</strong> field and click 'Try it out' to get the list of
+            partner servers .
+          </li>
+          <li>Find the IP address of the Netwrix server and its corresponding UUID</li>
+          <li>
+            Expand the <strong>DELETE /partner_servers/</strong> node, insert UUID and click 'Try it
+            out'.
+          </li>
+          <li>
+            You will receive an error: "Delete/Modify notification policy &lt;UUID&gt; before
+            deleting &lt;UUID&gt; partner server". Note the UUID of the notification policy.
+          </li>
+          <li>
+            Scroll up, find the <strong>notification_policy </strong>node and click Show/Hide.
+          </li>
+          <li>
+            Expand the <strong>DELETE /notification_policies/</strong> node, insert the
+            notification's policy UUID and click 'Try it out' to remove the notification policy.
+          </li>
+          <li>
+            Scroll down back to the <strong>DELETE /partner_servers/</strong> node, the UUID of the
+            partner server should still be there, click 'Try it out' to remove the partner server.
+          </li>
+        </ol>
+
+        <p />
+      </div>
+    </article>
+  </body>
+</html>

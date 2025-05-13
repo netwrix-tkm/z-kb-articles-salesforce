@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      SharePoint Online scans failing to scan despite having proper permissions and credentials,
+      error: 401 Unauthorized / name or password is not valid.
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IfzCAE" />
+    <meta name="Id" content="ka04u000000Hct5AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:28:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:28:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6966" />
+    <meta name="ArticleNumber" content="000006966" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Despite having the
+          proper credentials SharePoint online scans failing to connect with errors related to
+          having 'No credentials to favour for the host".
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong
+            ><span
+              >Even with having Global administrator privileges, SPO scans were still failing with
+              401 unauthorized errors:</span
+            ></strong
+          ><br /><strong><span>"Unable to negotiate http connection via </span></strong
+          ><a href="http://company.sharepoint.com/" target="_blank"
+            >http://company.sharepoint.com/</a
+          ><strong
+            ><span>
+              due to error: The remote server returned an error: (401) Unauthorized. "</span
+            ></strong
+          ><br /><strong><span>"Unable to negotiate admin connection via </span></strong
+          ><a href="https://company.sharepoint.com" target="_blank"
+            >https://company.sharepoint.com</a
+          ><strong
+            ><span> due to error: The user's login name or password is not valid. "</span></strong
+          ><br /><img
+            alt="User-added image"
+            src="kA04u0000000IfzCAE_00cc9ca9-0a8b-4366-b6f5-2fffb15bb8c3.png"
+          /><br /> <br /><strong
+            ><span
+              >The first step in diagnosing this issue is to try and connect to the admin tenant
+              using PowerShell. This will require the SharePoint Online Management Shell with the
+              powershell commandlets available. Simply running the Connect-SPOService command (with
+              SA service account) should show a similar error to that received in StealthAUDIT
+            </span></strong
+          ><br /><img
+            alt="User-added image"
+            src="kA04u0000000IfzCAE_6ab51032-1f31-4b20-8545-0ae609645c51.png"
+            width="500"
+            height="220"
+          /><br /><strong
+            ><span
+              >This is most likely due to the fact that the LegacyAuthProtocalsEnabled parameter is
+              set to false, which prohibits connection from third parties to SharePoint
+              Online.</span
+            ></strong
+          ><br /><span
+            ><span
+              ><span
+                >A value of <strong><span>True</span></strong></span
+              >- Enables Office clients using non-modern authentication protocols (such as,
+              Forms-Based Authentication (FBA) or Identity Client Runtime Library (IDCRL)) to access
+              SharePoint resources.</span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                >A value of <strong><span>False</span></strong></span
+              >-Prevents Office clients using non-modern authentication protocols from accessing
+              SharePoint Online resources. Additionally, a value of <b>False </b>prevents 3<sup
+                >rd</sup
+              >
+              party applications (including CSOM queries that StealthAUDIT leverages) from
+              authenticating to SharePoint Online.</span
+            ></span
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <strong
+            ><span
+              >Once you've run the PowerShell script and produced the aforementioned error, restart
+              powerShell and leverage credentials with Global Admin privileges to update the
+              LegacyAuthProtocolsEnabled parameter to True.
+            </span></strong
+          ><br /><span
+            ><span
+              ><span
+                >The customer may not have the SharePoint Online module installed for powershell,
+                this can be achieved by running the following command:
+              </span></span
+            ></span
+          >
+        </p>
+        <pre> <span><span><span>Install-Module -Name Microsoft.Online.SharePoint.PowerShell</span></span></span></pre>
+        <span
+          ><span
+            ><span
+              >Once you have the SPO module installed run the following command to attempt
+              connection to SharePoint Online</span
+            ></span
+          ></span
+        >
+        <pre> <span><span><span>Connect-SPOService</span></span></span></pre>
+        <span
+          ><span
+            ><span
+              >You will be prompted to enter the URL to connect to, this needs to be the -admin url
+              which is what StealthAUDIT connects to. It should look something like
+            </span></span
+          ></span
+        ><span
+          ><span
+            ><a href="https://CompanyName-admin.SharePoint.com" target="_blank"
+              >https://CompanyName-admin.SharePoint.com</a
+            ></span
+          ></span
+        ><span
+          ><span><span>.</span></span></span
+        ><br /><span
+          ><span
+            ><span
+              >To check for the current value of the LegacyAuthProtocolsEnabled parameter, run:
+            </span></span
+          ></span
+        >
+        <pre> <span><span><span>Get-SPOTenant </span></span></span></pre>
+        <span
+          ><span
+            ><span
+              >If this is set to false, you must set it to true by running the following
+              commands</span
+            ></span
+          ></span
+        >
+        <pre> <span><span><span>Set-SPOTenant -LegacyAuthProtocolsEnabled $True</span></span></span></pre>
+        After you run these commands check that the changes were made by typing: Get-SPOTenant and
+        look for LegacyAuthProtocolsEnable : True<br />These are the settings you want to see after
+        running SPOTenant:<br /><img
+          alt="User-added image"
+          src=""
+          width="500"
+          height="64"
+        /><br /><b
+          >Note:
+          <u
+            >When we used this troubleshooting method with a customer the changes took 24 hours to
+            be respected. Online articles suggest it can take up to 48 hours for the changes to be
+            respected in some cases.</u
+          ></b
+        ><br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Solution Set - SharePoint<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.0+<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2106<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-7.1.261</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000026FpKAI" />
+    <meta name="Id" content="ka0Qk000000CdC5IAK" />
+    <meta name="LastPublishedDate" content="2025-02-28T19:33:14.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-28T19:33:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-02-28T19:33:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9427" />
+    <meta name="ArticleNumber" content="000009427" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span>Summary:</span></strong>
+        </p>
+        <ol>
+          <li>
+            Nasuni error "Failed to enable auditing on Shares. Cannot access a disposed object."
+          </li>
+          <li>
+            <i><span>Entra ID. The search fails to display some Entra ID events.</span></i>
+          </li>
+          <li>
+            <i
+              ><span
+                >Not Recording Events for NFS Mount - Several Other servers are working new one is
+                not.</span
+              ></i
+            >
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior Before Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            A misleading error, "Failed to enable auditing on Shares. Cannot access a disposed
+            object. Object name: System.Net.Http.HttpClient", occasionally appeared in the Console
+            for Nasuni hosts. Despite the error, auditing was successfully enabled upon retry.
+          </li>
+          <li>
+            The product collected all Entra ID activity correctly, but the search feature failed to
+            display the following events:
+          </li>
+        </ol>
+        <ol>
+          <li>
+            <ul>
+              <li>Add member to role requested (PIM activation)</li>
+              <li>Add member to role completed (PIM activation)</li>
+              <li>Add member to role in PIM requested (timebound)</li>
+              <li>Add member to role in PIM completed (permanent)</li>
+              <li>Add eligible member to role in PIM completed (timebound)</li>
+            </ul>
+          </li>
+        </ol>
+        <ol start="3">
+          <li>The product failed to report some Samba / SMB linux activity</li>
+        </ol>
+        <p>
+          <strong><span>Behavior After Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            The Console suppresses transient errors during auditing configuration on Nasuni
+            hosts. An error is only displayed if all attempts to configure auditing fail.
+          </li>
+          <li>The search feature displays all Entra ID events correctly.</li>
+          <li>Samba / SMB linux activity is reported as expected.</li>
+        </ol>
+        <p><b>Changes Since Last Hotfix:</b></p>
+        <ul>
+          <li><span>377406: Linux - Missing Samba / SMB events</span></li>
+        </ul>
+        <p>
+          <strong><span>Submitted by: </span></strong>
+        </p>
+        <p><span>Kevin Duddy</span></p>
+        <p>
+          <strong><span>Affected Versions:</span></strong>
+        </p>
+        <p><span>Activity Monitor 7.1</span></p>
+        <p>
+          <strong><span>Affected Module:</span></strong>
+        </p>
+        <ol>
+          <li><span>Nasuni</span></li>
+          <li><span>Search</span></li>
+          <li><span>Linux</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ol>
+          <li>374597</li>
+          <li>374777</li>
+          <li>310536</li>
+        </ol>
+        <p>
+          <strong><span>Resolved in Version:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.261</span></p>
+        <p>
+          <i><span> </span></i>
+        </p>
+        <p>
+          <strong><span>KB Type: </span></strong>
+        </p>
+        <p><span>Hotfix</span></p>
+        <p>
+          <strong
+            ><i><span> </span></i></strong
+          >
+        </p>
+        <p>
+          <strong><span>Modules Included:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.261</span></p>
+        <p>
+          <span>SBTService.exe </span><i><span>1.25.109.1917</span></i>
+        </p>
+        <p>
+          <span>SI Version </span><i><span>7.3.9.257</span></i>
+        </p>
+        <p> </p>
+        <p><b>DevOps/Escalations</b></p>
+        <ol>
+          <li>374597 / 00435138</li>
+          <li>374777 / 00435364</li>
+          <li>310536 / 00397493</li>
+        </ol>
+        <p><b>Cumulative List of fixes included since Service Pack:</b></p>
+        <ol>
+          <li><span>345503: MS updates: SUVP 24-07 support</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>342521: Agent Crashed on 3/28</span></li>
+              <li><span>349229: MS updates: SUVP 24-08 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>346065: Path being reported incorrectly for NetApp</span></li>
+              <li><span>348796: NetApp File Path Discrepancies</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >339474: have the latest "Received Events" that is currently visible only in the
+                  Activity Monitor also be available from the API Server</span
+                >
+              </li>
+              <li><span>356344: MS updates: SUVP 24-09 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >357592: Customer observed several agents are frequently disconnecting momentarily
+                  from console</span
+                >
+              </li>
+              <li><span>359550: MS updates: SUVP 24-10 support</span></li>
+            </ul>
+          </li>
+          <li><span>362194: Filter Activity from App@sharepoint from SharePoint Online</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>364891: NAM reporting wrong user domain</span></li>
+              <li>
+                <span
+                  >310536: Not Recording Events for NFS Mount - Several Other servers are working
+                  new one is not.</span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>350219: NAM - High CPU and RAM usage during scans</span></li>
+              <li><span>363318: Nasuni Connection Error post-upgrade to NAM v7.1.194</span></li>
+              <li><span>362106: SI - Domain Controller freeze every reboot</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>367039: Stealthbits Activity Monitor - Agent Install Assistance</span></li>
+              <li><span>367335: SUVP 24-12 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>367700: IsilonAudit.exe is not found</span></li>
+              <li><span>363866: Large Downloads from Office.com</span></li>
+              <li>
+                <span
+                  >369289: Large number Nasuni events being captured with 'UNKNOWN' protocols and
+                  different paths</span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >371275: Entra ID. Failed to collect Azure AD events. String was not recognized as
+                  a valid DateTime</span
+                >
+              </li>
+              <li><span>370069: SUVP 25-01 support</span></li>
+            </ul>
+          </li>
+          <li><span> 374597: Nasuni successful activity incorrectly reported as failed</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>374999: NAM - User SID resolves incorrectly</span></li>
+              <li><span>374172: SUVP 25-02 support</span></li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i
+              ><span
+                >Run the MSI file on a host that has the Activity Monitor Console is
+                installed.</span
+              ></i
+            >
+          </li>
+          <li>
+            <i><span>Upgrade all agents. </span></i>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <span
+            ><a
+              href="https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.261.zip"
+              target="_blank"
+              >https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.261.zip</a
+            >
+                 </span
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

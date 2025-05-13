@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Warning: The NetwrixSQLCRAudit database with audit data does not exist or cannot be accessed.
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cJCAS" />
+    <meta name="Id" content="ka04u000000HcV4AAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1412" />
+    <meta name="ArticleNumber" content="000003577" />
+    <meta
+      name="description"
+      content="The KB explains why the database can be missing and how to fix the issue."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You received a Change Summary containing incorrect data or no data at all and you see the
+        following message: Warning: The NetwrixSQLCRAudit database with audit data does not exist or
+        cannot be accessed.
+
+        <hr />
+
+        The issue can be caused by the following:
+        <ol>
+          <li>The database was not created on the monitored server.</li>
+          <li>
+            The Data Processing Account (DPA) permissions were changed, DPA is account which is used
+            to run the data collection of SQL Server auditing.
+          </li>
+          <li>The database is in the recovery mode.</li>
+          <li>
+            The account, which is assigned the database owner role of the monitored database, has no
+            access to NetwrixSQLCRAudit database.
+          </li>
+        </ol>
+
+        <hr />
+
+        To fix the issues, do the following:
+        <ol>
+          <li>Check if the NetwrixSQLCRAudit database exists on the monitored server.</li>
+          <li>
+            Make sure that the account under which Netwrix SQL Server auditing is running has enough
+            privileges on the SQL Server; it has to be assigned the db owner role for this database.
+          </li>
+          <li>
+            Grant all db owners of the monitored databases rights to write into the
+            NetWrixSQLCRAudit database. Alternatively, replace all accounts with db owner role by
+            the data processing account.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Process Cannot Access the File in Windows Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110yrCAA" />
+    <meta name="Id" content="ka04u000000wvzvAAA" />
+    <meta name="LastPublishedDate" content="2023-10-16T17:42:33.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-01T07:00:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-01T15:44:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8706" />
+    <meta name="ArticleNumber" content="000008706" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the following error: &#34;The process cannot access the file because it is being used by another process&#34;."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            While configuring a Windows Server monitoring plan, the following error is prompted in
+            Netwrix Auditor System Health Log:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID: 1016
+The collector Registry data provider gathering data on the server (server name) due to the following error:
+The process cannot access the file because it is being uses by another process</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>A FQDN name of the computer item should be specified instead of NetBIOS format.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Navigate to your Windows Server monitoring plan and click <b>Edit</b>.</p>
+            </li>
+            <li>
+              <p>
+                On your plan editing wizard, select your computer item and click <b>Edit item</b> on
+                the right.
+              </p>
+            </li>
+            <li>
+              <p>Provide a FQDN name of the computer. For example, <em>DC.corp.local</em>.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SA_10.0_015</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000IMwCAM"/><meta name="Id" content="ka04u000000HclXAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:17:29.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:06:11.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:17:29.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6479"/><meta name="ArticleNumber" content="000006479"/><meta name="description" content="360012326391"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary: </strong> Large columns (500mb+) of certain data types were causing timeouts during SDD scans.  Also included in fix is a additional SDD setting that allows users to chose whether they scan large columns.</p>
+<p><strong>Before Fix:  large columns would cause the following error and interrupt the scan</strong></p>
+<p><strong>"'SensitiveDataCollector' encountered an error on database 'Database'.  It will be skipped. Message: 'Exception of type 'System.OutOfMemoryException' was thrown.'"</strong></p>
+<p><strong>After fix:  Some data types that are likely to cause OOM exceptions are skipped in the scan.  New table SA_SQLServer_SDD_SupportedDataTypes can be referenced to find the supported data types.  Large columns can now be scanned without OOM errors, but the user now has the ability to choose whether large columns are scanned.</strong></p>
+<p> </p>
+<p><strong>Changes Since Last Service Pack</strong></p>
+<p>SMPDB-522  50758 – fix for UNIQUE KEY constraint during some situations where users are removed and created with the same principal_id.</p>
+<p> </p>
+<p><strong>Submitted by: </strong></p>
+<p>Rob Evert</p>
+<p><strong><em> </em></strong></p>
+<p><strong>Affected Versions:</strong></p>
+<p> 10.0</p>
+<p><strong> </strong></p>
+<p><strong>Affected Module:</strong></p>
+<p>SA – SQL – DC</p>
+<p> </p>
+<p><strong> </strong></p>
+<p><strong>Dev Ticket:</strong></p>
+<p>SMPDB-510  50712 – SDD job fails with ‘System.OutOfMemoryException’.</p>
+<p> </p>
+<p><strong>Resolved in Version:</strong></p>
+<p>SQL DC 10.0.157</p>
+<p> </p>
+<p><strong>KB Type: </strong></p>
+<p>               Hotfix</p>
+<p> </p>
+<p><em> </em></p>
+<p><strong>Files:</strong></p>
+<p><strong>\DC\DCSQL.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.SQLServer.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.SQLServer.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Oracle.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Oracle.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.Common.SQLServer.dll  10.0.157</strong></p>
+<p><strong> \PrivateAssemblies\Stealthbits.StealthAUDIT.DataCollectors.SQL.UI.Azure.dll  10.0.157</strong></p>
+<p> </p>
+<p><strong>Prior Hotfixes</strong></p>
+<p><strong>None</strong></p>
+<p><strong> </strong></p>
+<p><strong>YouTrack/Escalations</strong></p>
+<p><strong> </strong></p>
+<ul><li><strong>SMPDB-613/50712</strong></li></ul>
+<p><strong> </strong></p>
+<p><strong>Customers</strong></p>
+<p><strong>               </strong></p>
+<ul><li><strong>Metabank</strong></li></ul>
+<p><strong> </strong></p>
+<p><strong>Instructions:</strong></p>
+<ol><li>Unblock the hotfix zip file in the windows property dialog if an unblock button exists there.</li><li>Check the customer's licensed features (help --&gt; about) and determine if the customer is licensed for SQL or Oracle and SQL.</li><li>Close all instances of StealthAUDIT (check task manager under processes for all users)</li><li>Copy and replace files from correct folder, depending on the licensing, to the corresponding folders in SA Install dir.</li></ol>
+<p><a href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_015.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_015.zip</a></p></div>
+</article></body></html>

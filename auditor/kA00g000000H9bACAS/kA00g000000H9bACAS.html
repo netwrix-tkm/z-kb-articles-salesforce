@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Who Changed" column in Netwrix Auditor - SQL Server reports shows "System"</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bACAS" />
+    <meta name="Id" content="ka04u000000HcTvAAK" />
+    <meta name="LastPublishedDate" content="2021-07-07T12:52:12.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1350" />
+    <meta name="ArticleNumber" content="000003506" />
+    <meta
+      name="description"
+      content="&amp;quot;Who Changed&amp;quot; column in Netwrix Auditor - SQL Server reports shows &amp;quot;System&amp;quot;SQL shows who as system"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        After restarting MS SQL Server, "Who Changed" column in Netwrix Auditor - SQL Server reports
+        may show "System" while audit setting are disabled.
+        <hr />
+        Netwrix Auditor for SQL Servers checks and applies special tracing settings to the auditing
+        of SQL Servers. These settings need to be enabled when MS SQL Server restarts.
+        <hr />
+        Perform the following steps:<br />1. Run the "sqlcr_sp.sql"  script file to create the
+        stored procedure with the special settings (located in the program installation
+        directory).<br />2. Run the "sqlcr_startup.sql" script file to create the special stored
+        procedure when MS SQL server restarts (located in program installation directory).<br />3.
+        The special tracing settings will be enabled automatically after each restart of MS SQL
+        Server. You can restart MS SQL Server when you need, and full audit data will be
+        collected.<br /><strong>Note:</strong><br />1. The account that runs this process should be
+        granted the sysadmin server role.<br />2. If the MS SQL Server logs are not in the default
+        folder, open the script file "sqlcr_sp.sql" and change the path in the line "SET @pathtolog
+        =" to the folder.<br />3. Microsoft SQL Server Management Studio is recommended for
+        simplification of this process.
+      </div>
+    </article>
+  </body>
+</html>

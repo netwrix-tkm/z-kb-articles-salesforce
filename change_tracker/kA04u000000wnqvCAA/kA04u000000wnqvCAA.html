@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Retrieve Baseline Events After the Agent Restarts?</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnqvCAA" />
+    <meta name="Id" content="ka04u000000wwI4AAI" />
+    <meta name="LastPublishedDate" content="2023-11-30T08:34:30.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-30T08:34:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-23T15:29:39.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8920" />
+    <meta name="ArticleNumber" content="000008920" />
+    <meta name="description" content="How to Retrieve Baseline Events After the Agent Restarts?" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to retrieve the baseline events (both the list of files and their hashes) from an
+            agent after it restarts?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Typically the agent performs a baseline/scan of the file system after the agent/server
+            has been restarted. However, to retrieve the baseline events for a server in the Change
+            Tracker dashboard, a couple of settings need to be enabled first. Follow the instruction
+            below to configure Change Tracker for retrieving baseline events:
+          </p>
+
+          <ol>
+            <li>
+              <p>Select the template running against the device and click <b>Edit</b>.</p>
+            </li>
+            <li>
+              <p>
+                In the <b>Editing Tracking Templates</b> dialog, go to the
+                <b>FIM File Integrity</b> tab and enable the <b>Send baseline events</b> checkbox.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT:</strong></span> Enable this option for each of the
+                  different trackers depending on which baselines you wish to retrieve.
+                </p>
+              </blockquote>
+
+              <p>
+                <img
+                  alt="User-added image"
+                  height="338"
+                  src="kA04u000000wnqvCAA_eaab26ce-59b5-4e45-acaf-b271cca52cb1.png"
+                  width="500"
+                />
+              </p>
+            </li>
+            <li>
+              <p>Navigate to <b>Settings</b> -&gt; <b>Agents &amp; Devices</b>.</p>
+            </li>
+            <li>
+              <p>
+                Select the device and click <b>Edit</b>. <br />
+                <img
+                  alt="User-added image"
+                  height="352"
+                  src="kA04u000000wnqvCAA_c6fa2a84-3e04-444b-a687-226b64753e9a.png"
+                  width="500"
+                />
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Once these options are enabled, baseline events will be sent the next time the
+            agent/server is polled for this data.
+          </p>
+        </div>
+
+        <h3 id="related_articles">Related Articles</h3>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JSHCA2.html"
+                  target="_blank"
+                  >10. Configuration Templates - Working with Baseline Data</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JWYCA2.html"
+                  target="_blank"
+                  >How to Enable Baseline Events on Monitored Folders and What They Are?</a
+                >.
+              </p>
+
+              <p> </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

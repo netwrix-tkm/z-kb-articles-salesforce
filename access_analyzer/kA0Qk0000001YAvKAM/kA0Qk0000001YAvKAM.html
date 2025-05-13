@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-7.1.194</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001YAvKAM" />
+    <meta name="Id" content="ka0Qk0000006c2bIAA" />
+    <meta name="LastPublishedDate" content="2024-10-14T20:45:48.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-14T20:45:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-10-14T20:45:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9301" />
+    <meta name="ArticleNumber" content="000009301" />
+    <meta name="description" content="activitymonitor-7.1.194" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span>Title: </span></strong>
+        </p>
+        <p>
+          <i><span>activitymonitor-7.1.194</span></i>
+        </p>
+        <p>
+          <strong><span>Summary:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <span class="test-idfield-value"
+              ><i
+                ><span
+                  >Customer observed several agents are frequently disconnecting momentarily from
+                  console</span
+                ></i
+              ></span
+            >
+          </li>
+          <li>
+            <span class="test-idfield-value"
+              ><i><span>MS updates: SUVP 24-10 support</span></i></span
+            >
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior Before Fix:</span></strong>
+        </p>
+        <ol>
+          <li>Customer was observing many agent disconnection errors in the console.</li>
+          <li> </li>
+        </ol>
+        <ul>
+          <li>
+            2022 Server - KB5044281
+            <ul>
+              <li>Kerberos events will be lost or incomplete</li>
+              <li>
+                Logs:
+                <ul>
+                  <li>Couldn't resolve KdcGetTicket</li>
+                  <li>Couldn't resolve HandleTGSRequest</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            2019 Server - KB5041578
+            <ul>
+              <li>Kerberos and NTLM events will be lost or incomplete</li>
+              <li>
+                Logs:
+                <ul>
+                  <li>Couldn't resolve KdcGetTicket</li>
+                  <li>Couldn't resolve HandleTGSRequest</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                  <li>Couldn't resolve NlpLogonSamLogon</li>
+                  <li>Couldn't resolve NlpUserValidate</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            2016 Server - KB5041773
+            <ul>
+              <li>Impact: Kerberos and NTLM events will be lost or incomplete</li>
+              <li>
+                Logs:
+                <ul>
+                  <li>Couldn't resolve KdcGetSidsFromTgt</li>
+                  <li>Couldn't resolve I_GetASTicket</li>
+                  <li>Couldn't resolve NlpLogonSamLogon</li>
+                  <li>Couldn't resolve NlpUserValidate<br /><br /></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          <strong><span>Behavior After Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            We added a delay to report agent disconnection errors to the console, as error can be
+            misleading with slow or environments that have networking issues.
+          </li>
+          <li>
+            After fix Activity Monitor and AD Module Should report Active Directory events as
+            expected.
+          </li>
+        </ol>
+        <p><b>Changes Since Last Hotfix:</b></p>
+        <ul>
+          <li><span>357513: No stats/status/statusHistoryUrl at outputs/id endpoint</span></li>
+          <li><span>355769: Sign all custom action DLLs</span></li>
+          <li>
+            <span
+              >354708: CTERA: CteraMonitor service exists on the system after agent removal</span
+            >
+          </li>
+          <li>
+            <span
+              >359135: FSACLoggingSvc: Warning                     00000233C40526C0: No
+              configurations found. Closing pipe connection #1           
+              Stealthbits::FSAC::Logging::LoggingServer::PipeThreadFunc</span
+            >
+          </li>
+          <li><span>358235: UI: Not enough space in toolbar with minimal width</span></li>
+        </ul>
+        <p>
+          <strong><span>Submitted by: </span></strong>
+        </p>
+        <p><span>Kevin Duddy</span></p>
+        <p>
+          <strong><span>Affected Versions:</span></strong>
+        </p>
+        <p><span>Activity Monitor 7.1</span></p>
+        <p>
+          <strong><span>Affected Module:</span></strong>
+        </p>
+        <ol>
+          <li><span>Console</span></li>
+          <li><span>Active Directory</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ol>
+          <li>357592</li>
+          <li>359550</li>
+        </ol>
+        <p>
+          <strong><span>Resolved in Version:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.194</span></p>
+        <p>
+          <i><span> </span></i>
+        </p>
+        <p>
+          <strong><span>KB Type: </span></strong>
+        </p>
+        <p><span>Hotfix</span></p>
+        <p>
+          <strong
+            ><i><span> </span></i></strong
+          >
+        </p>
+        <p>
+          <strong><span>Modules Included:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.194</span></p>
+        <p>
+          <span>SBTService.exe </span><i><span>1.24.919.954</span></i>
+        </p>
+        <p>
+          <span>SI Version </span><i><span>7.3.9.227</span></i>
+        </p>
+        <p> </p>
+        <p><b>DevOps/Escalations</b></p>
+        <ol>
+          <li>357592 / 00421272</li>
+          <li>359550 / NA</li>
+        </ol>
+        <p> </p>
+        <p><b>Cumulative List of fixes included since Service Pack:</b></p>
+        <ol>
+          <li><span>345503: MS updates: SUVP 24-07 support</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>342521: Agent Crashed on 3/28</span></li>
+              <li><span>349229: MS updates: SUVP 24-08 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>346065: Path being reported incorrectly for NetApp</span></li>
+              <li><span>348796: NetApp File Path Discrepancies</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >339474: have the latest "Received Events" that is currently visible only in the
+                  Activity Monitor also be available from the API Server</span
+                >
+              </li>
+              <li><span>356344: MS updates: SUVP 24-09 support</span></li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i
+              ><span
+                >Run the MSI file on a host that has the Activity Monitor Console is
+                installed.</span
+              ></i
+            >
+          </li>
+          <li>
+            <i><span>Upgrade all agents.</span></i>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <i
+            ><span
+              ><a
+                title="https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.194.zip"
+                href="https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.194.zip"
+                target="_blank"
+                >https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.194.zip</a
+              ></span
+            ></i
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

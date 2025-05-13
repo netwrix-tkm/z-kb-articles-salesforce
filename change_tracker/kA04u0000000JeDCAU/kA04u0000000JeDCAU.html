@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Upgrade your Mongo Database (Windows)</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JeDCAU" />
+    <meta name="Id" content="ka0Qk000000Ca4XIAS" />
+    <meta name="LastPublishedDate" content="2025-02-26T19:04:56.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-26T19:04:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:56:08.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8277" />
+    <meta name="ArticleNumber" content="000008277" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <span class="Caution"
+            ><strong>IMPORTANT:</strong> This article is outdated and is no longer applicable.</span
+          >
+        </blockquote>
+        <p>
+          This is a guide on upgrading your Mongo Database to a newer version, See the following
+          link for version downloads of MongoDB:
+        </p>
+        <p>
+          <a
+            class="external-link"
+            href="https://www.mongodb.com/download-center?jmp=nav#previous"
+            target="_blank"
+            >https://www.mongodb.com/download-center?jmp=nav#previous</a
+          >
+        </p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <div class="confluence-information-macro-body">
+            <p>
+              <span
+                >NOTE: In order to upgrade your MongoDB, you will need to upgrade to the latest
+                instance of your current Mongo Version. For example, in order to upgrade from
+                <strong>v3.2.10</strong> to <strong>v3.4.17</strong>, you will need to fully upgrade
+                to <strong>v3.2.21</strong> prior to going to <strong>v3.4</strong>.</span
+              >
+            </p>
+          </div>
+        </div>
+        <h2 id="HowtoUpgradeyourMongoDatabase(Windows)-Step-by-stepguide">Step-by-step guide</h2>
+        <ol>
+          <li>
+            Prior to Upgrading, it may be best to run a full backup of your Mongo Database in case
+            you have issues with the upgrade.
+          </li>
+          <li>
+            Stop the <strong>MongoDB</strong>, <strong>Agent</strong>, and
+            <strong>IIS</strong> Service.<br /><span
+              class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_3a845959-a73c-49d9-b427-772aafbedf07.png"
+            /></span>
+          </li>
+          <li>
+            Backup the <strong>\conf</strong> folder from your MongoDB Install Directory (Default
+            Location<strong>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB</strong
+            >).<br /><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_ede9a6db-6c4a-4d6c-8f65-bd3aab5c5fdf.png"
+            /></span>
+          </li>
+          <li>
+            <strong>Uninstall</strong> older MongoDB Version.<br /><span
+              class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_c4342d75-a5ae-4268-8192-5b4473a6a5b8.png"
+            /></span>
+          </li>
+          <li><strong>Run</strong> the new MongoDB Installer.</li>
+          <li>
+            In the Installer, Select "<strong>Custom</strong>
+            <strong>Installation</strong>".<br /><span
+              class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_2a39603f-37c5-497a-910f-e443983b821e.png"
+            /></span>
+          </li>
+          <li>
+            Click <strong>"Browse..."</strong> and select your MongoDB Install Directory(Default
+            Location<strong>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB</strong
+            >).<br /><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_c2efaf1e-5900-41bd-bd77-10a324021d24.png" /></span
+            ><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_04761a7d-807e-4830-92f1-41dcc50e04e4.png"
+            /></span>
+          </li>
+          <li>
+            Proceed and <strong>Install</strong> (If it asks to install compass, uncheck and
+            continue).
+          </li>
+          <li>
+            Start the <strong>MongoDB</strong>, <strong>Agent</strong>, and
+            <strong>IIS</strong> Service.<br /><span
+              class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="250"
+                src="kA04u0000000JeDCAU_50d550ee-b3f5-46ef-949d-5705c707b132.png"
+            /></span>
+          </li>
+          <li>
+            Verify in Hub Service log that it is currently running latest Mongo Version.(Location
+            <strong>C:\inetpub\wwwtooy\Change Tracker Generation 7 Hub\log</strong>) See below for
+            Log message:<br /><span class="confluence-embedded-file-wrapper"
+              ><img
+                class="confluence-embedded-image"
+                src="kA04u0000000JeDCAU_497994e0-4676-4ba0-ab67-225e29bfdbf7.png"
+            /></span>
+          </li>
+        </ol>
+        <h2 id="HowtoUpgradeyourMongoDatabase(Windows)-Relatedarticles">Related articles</h2>
+        <p> </p>
+        <p> </p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8150" target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+            <div class="details">
+              <a href="https://kb.netwrix.com/8310" target="_blank"
+                >How to Change the Admin Password of your Mongo Database</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p> </p>
+        <p> </p>
+        <p>
+          <br /><b>Attachments:</b><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKUR&amp;d=%2Fa%2F4u000000M05c%2F4CEdzUaWT5XjND.CdpbH4SOmGDE9OFNYNKnW_t6Vodo&amp;asPdf=false"
+            target="_blank"
+            >Backup_conf.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKRZ&amp;d=%2Fa%2F4u000000Lzhg%2Fqxq5bjtL9QiX.TSNEOXxScpfMBUy3BCjzuJpXJs2rb0&amp;asPdf=false"
+            target="_blank"
+            >Log_Message.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKWJ&amp;d=%2Fa%2F4u000000LzbK%2FiRAIWHXQbueoYUnBD0lkOthGMLi.qepjBtYCchD6w3s&amp;asPdf=false"
+            target="_blank"
+            >Services_Start.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKZa&amp;d=%2Fa%2F4u000000M05h%2FwiOOMN_WKhk7MBWhAUrq7CmDkhMThYTS4N.kTFn3OkA&amp;asPdf=false"
+            target="_blank"
+            >Install_Path.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKMm&amp;d=%2Fa%2F4u000000Lzuk%2FN_phSWbnLApjeFzzj0Dh8xu_qLAZtsLpau6dAJmMmKQ&amp;asPdf=false"
+            target="_blank"
+            >Browse.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK8c&amp;d=%2Fa%2F4u000000M01X%2FRpF9EdBK6mVO4Gfc4W_cF55vQnCNlvekemJ5KTIxOEE&amp;asPdf=false"
+            target="_blank"
+            >Custom.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKX2&amp;d=%2Fa%2F4u000000M05m%2F3y91nzJp6gmiCbGl5T3KRI1.BuE8yTk8OTdtVuWz_LY&amp;asPdf=false"
+            target="_blank"
+            >Uninstall.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKHk&amp;d=%2Fa%2F4u000000M05r%2Fc5EvDC79r9mD3aeE6js.vyCjHlk5C.xbuo83JqplI1c&amp;asPdf=false"
+            target="_blank"
+            >Services_Stop.PNG</a
+          ><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKK4&amp;d=%2Fa%2F4u000000M05w%2FYk0UD6bWmcdwEAhW2DMb0aLwC.EVUkgL25qiRai7fcY&amp;asPdf=false"
+            target="_blank"
+            >image2018-10-1_14-12-0.png</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

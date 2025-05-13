@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Group Policy error: is not in a valid format</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bsCAC" />
+    <meta name="Id" content="ka04u000000HcUdAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1385" />
+    <meta name="ArticleNumber" content="000003550" />
+    <meta
+      name="description"
+      content="The KB provides troubleshooting when the summary email returns the following error message: &amp;#039;is not in a valid format&amp;#039;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You may receive a Group Policy daily summary email with the error: The file
+        "DC01.corp.&lt;MyDomain&gt;.com\sysvol\corp.&lt;MyDomain&gt;.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\registry.pol"
+        is not in a valid format. The file might be corrupt. Use Group Policy Object Editor to
+        reconfigure the settings in this extension.
+        <hr />
+        The group policy is corrupted or it is not in a valid format. If you open the Group Policy
+        Management Console &gt; highlight the group policy in summary and navigate to &gt; settings
+        tab, most likely it will return you an error message.<br /><img
+          alt="Settings"
+          src="kA00g000000H9bsCAC_fbc39626-1294-4bba-b908-0894a9f028b6.png"
+        />
+        <hr />
+        <br />First of all you need to find out the affected policy.<br />In the error message
+        "DC01.corp.&lt;MyDomain&gt;.com\sysvol\corp.&lt;MyDomain&gt;.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\registry.pol"
+        is not in a valid format - 31B2F340-016D-11D2-945F-00C04FB984F9 is the GUID of the affected
+        group policy. To find out the GUID of a group policy open GMPC &gt; highlight a group policy
+        and open Details tab &gt; Unique ID is the GUID of a GPO.<br /><img
+          alt="GUID GPO"
+          src="kA00g000000H9bsCAC_ba98c0ec-9729-4e5d-8cab-8374728b06f5.png"
+        /><br />There are 3 possible solutions:
+        <ol>
+          <li>
+            If you receive an error in the GPMC &gt; GPO Settings you may need to restore it from a
+            backup or create anew.
+          </li>
+          <li>
+            This error may also appear when you enable the "Certificate Services Client "
+            Certificate Enrollment Policy" policy. Please refer to the following MS article
+            regarding this issue -
+            <a href="http://support.microsoft.com/kb/2028605" target="_blank"
+              >http://support.microsoft.com/kb/2028605</a
+            >
+          </li>
+          <li>
+            Restore default domain GPOs from backup. Logon to any domain controller &gt; open
+            command prompt and type: dcgpofix /target:contoso.com (replace contoso.com with your
+            domain name) For more information please refer to the following article -
+            http://technet.microsoft.com/en-us/library/cc739095(v=ws.10).aspx NOTE: This solution is
+            intended for use only as a last-resort disaster-recovery tool. The customer settings
+            will be reset.
+          </li>
+          <li>
+            If you have any Antivirus software installed on the affected domain controller please
+            check the Virus scanning recommendations for Enterprise computers -
+            http://www.netwrix.com/kb/1585
+          </li>
+          <li>
+            You may also omit the errors. To do that please open the file omitproplist_gp.txt
+            located in the installation folder of the product and put the following to the file in a
+            new line: *The file * is not in a valid format and must be replaced.* If you didn't find
+            a solution please refer to the following Microsoft article regarding this issue -
+            <a href="http://support.microsoft.com/kb/814751" target="_blank"
+              >http://support.microsoft.com/kb/814751</a
+            >
+          </li>
+        </ol>
+
+        <div id="cke_pastebin"> </div>
+      </div>
+    </article>
+  </body>
+</html>

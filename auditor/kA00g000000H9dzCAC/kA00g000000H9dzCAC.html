@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SharePoint Term Set tree fails to load or unable to edit a clue or term</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dzCAC" />
+    <meta name="Id" content="ka04u000000HcWhAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:04.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3511" />
+    <meta name="ArticleNumber" content="000003681" />
+    <meta
+      name="description"
+      content="SharePoint Term Set tree fails to load or unable to edit a clue or term"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When using <strong>Taxonomy Manager </strong>with a <strong>SharePoint Term</strong>
+        <strong>Set</strong> either the tree fails to load or you are unable to edit a clue/term.
+        You will typically receive one of the following errors:
+        <ul>
+          <li>401 Unauthorized</li>
+          <li>
+            403 Access denied. You do not have permission to perform this action or access this
+            resource
+          </li>
+          <li>500 Internal Server Error</li>
+        </ul>
+        This issue is typically related to:
+        <ul>
+          <li><b>Invalid Credentials</b>, or</li>
+          <li>
+            The <b>SharePoint </b>solution not being correctly deployed (<b>SharePoint 2010</b>)
+          </li>
+        </ul>
+        <strong>Verify Connection Credentials</strong>
+
+        Each registered <strong>SharePoint</strong> <strong>Term</strong> <strong>Set</strong> has
+        configured connection credentials allowing us to request/load the <strong>Term</strong> Set
+        <strong>data</strong> from <strong>SharePoint</strong>. The
+        <strong>credentials</strong> used for the <strong>connection</strong> can be viewed by:
+        <ol>
+          <li>Open the <strong>QS Administration Interface</strong></li>
+          <li>Select "<strong>Taxonomies" </strong>from the top navigation</li>
+          <li>Select "<strong>Global Settings" </strong>from the sub navigation</li>
+          <li>
+            For each affected <strong>Term</strong> <strong>Set</strong> select:
+            <ol>
+              <li>"<strong>Test</strong>" to confirm <strong>connectivity</strong></li>
+              <li>
+                "<strong>Edit</strong>" to amend the <strong>username</strong>/<strong
+                  >password</strong
+                >
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <strong>Verify Credential Permissions</strong>
+
+        To support amending the <strong>Term</strong> <strong>Set</strong> structure and editing
+        clues the specified connection credentials must either be a:
+        <ul>
+          <li><strong>Term</strong> <strong>Group</strong> Manager, or a</li>
+          <li><strong>Term</strong> <strong>Store</strong> Administrator</li>
+        </ul>
+        This can be confirmed via the <strong>Term</strong> <strong>Store</strong> Manager interface
+        in <strong>SharePoint</strong> by selecting the appropriate level
+        (<strong>Group</strong>/<strong>Store</strong>) and verifying that the
+        <strong>connection</strong> <strong>credentials</strong> are specified in the
+        <strong>administrator </strong>input.
+
+        <strong>Verify conceptClassifier Solution (SharePoint 2010 Only)</strong>
+
+        When connecting to <strong>SharePoint</strong> 2010 <strong>Term</strong>
+        <strong>Sets</strong> the <strong>conceptClassifier</strong> for
+        <strong>SharePoint</strong> <strong>farm </strong><strong>solution</strong> must be
+        deployed.
+      </div>
+    </article>
+  </body>
+</html>

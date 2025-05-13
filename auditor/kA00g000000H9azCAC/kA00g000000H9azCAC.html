@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Warning: " ...Event collection failed: Backup event log seek failed / Event log read
+      failure...Error number: 0x80004005"
+    </title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9azCAC" />
+    <meta name="Id" content="ka04u000000HcTlAAK" />
+    <meta name="LastPublishedDate" content="2021-06-11T15:37:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1337" />
+    <meta name="ArticleNumber" content="000003495" />
+    <meta
+      name="description"
+      content="Error occurred during logs collection: Failed to process DCThe event log file is corrupted.Error number: 0x80004005Backup event log seek failed."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You are getting one of the following warnings in your Change Summary emails:
+        <ol>
+          <li>
+            <i
+              >"Error occurred during logs collection: Failed to process DC: &lt;Domain controller
+              name&gt; due to the following error: Event collection failed: Backup event log seek
+              failed. Error details: The handle is invalid.. Error number: 0x80004005".</i
+            >
+          </li>
+          <li>
+            <i
+              >"The following error occurred when collecting data from the System log: Event log
+              read failure. Error details: The event log file is corrupted. (Error number:
+              0x80004005)".</i
+            >
+          </li>
+          <li>
+            "<i
+              >The following error occurred when collecting data from the System log: Backup event
+              log seek failed. Error details: The event log file is corrupted. (Code:1500) (Error
+              number: 0x80004005)".</i
+            >
+          </li>
+        </ol>
+
+        <hr />
+        These errors mean that the <strong>Security </strong>(in case of DC processing error) or
+        <strong>System </strong>event log or one of event log backups were corrupted.
+
+        <hr />
+        To resolve the issue, perform the following steps:
+        <ul>
+          <li>
+            In case of the
+            <i>"<span>Error occurred during logs collection: Failed to process DC..." </span></i
+            ><span>error:</span>
+          </li>
+        </ul>
+
+        <ol>
+          <li>Log on to a problematic DC.</li>
+          <li>Navigate to <strong>Start -&gt; Administrative Tools -&gt; Event Viewer</strong>.</li>
+          <li>
+            Depending on the error, locate the <strong>Security</strong> event log, right-click it
+            and select <b>Clear Log</b>.
+          </li>
+          <li>
+            Navigate to <strong>Security Event Log Backups</strong> folder. By default it is:<em>
+              %SystemRoot%\System32\Winevt\Logs</em
+            >
+          </li>
+          <li>Remove all<strong> Security Event Log Backups</strong> from this directory.</li>
+        </ol>
+
+        <ul>
+          <li>
+            In case of the
+            <i>"The following error occurred when collecting data from the System log..."</i>
+            errors:
+          </li>
+        </ul>
+
+        <ol>
+          <li>Log on to a problematic server.</li>
+          <li>Navigate to <strong>Start -&gt; Administrative Tools -&gt; Event Viewer</strong>.</li>
+          <li>
+            Dependiing on the error, locate the<strong> System </strong>event log, right-click it
+            and select <b>Clear Log</b>.
+          </li>
+          <li>
+            Navigate to <strong>System Event Log Backups</strong> folder. By default it is:<em>
+              %SystemRoot%\System32\Winevt\Logs</em
+            >
+          </li>
+          <li>Remove all<strong> System Event Log Backups</strong> from this directory.</li>
+        </ol>
+        Then re-run data collection for your domain: - In
+        <strong>Netwrix Auditor 8.5 or older: </strong>navigate to
+        <b>Managed Objects -&gt; &lt;your_Managed_Object_name&gt;</b> and click <b>Run </b>in the
+        right pane. - In <b>Netwrix Auditor 9.0 or newer:</b> navigate to
+        <b
+          >Monitoring Plans -&gt; &lt;your Monitoring Plan name&gt; -&gt; Active Directory data
+          source</b
+        >
+        &gt; and click <b>Update</b>.
+      </div>
+    </article>
+  </body>
+</html>

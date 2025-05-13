@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix Patch 2.5.388 for StealthDEFEND 2.5</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I6fCAE" />
+    <meta name="Id" content="ka04u000000HcfuAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:13:17.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:03:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:13:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6384" />
+    <meta name="ArticleNumber" content="000006384" />
+    <meta name="description" content="360012122311" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Description: </strong></p>
+        <p>
+          This hotfix primarily addresses an issue with High Memory usage by the StealthDEFEND REST
+          Service but also includes dozens of other fixes and enhancements, most notably:
+        </p>
+        <ul>
+          <li>Performance Improvements</li>
+          <li>New Threat Settings (Kerberoasting, LDAP Recon, First Time)</li>
+          <li>Honey Token Improvements and Bug Fixes</li>
+          <li>Various UI and UX Improvements</li>
+        </ul>
+        <p><strong>Submitted by: </strong></p>
+        <p>Lee Berg</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>Prior versions of 2.5</p>
+        <p><strong>Dev Tickets:</strong></p>
+        <div class="table-wrap">
+          <table count-columns="3" width="631">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p><strong>Story</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p><strong>Summary</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" width="77">
+                  <p><strong>Escalation</strong></p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13465</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Unusually High Memory Usage by RestServer.exe</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11559</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Support for File Copy Event Handling events from SAM</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13117</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Threats Page System.NullReferenceException Error</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13806</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Unknown Host Details Card</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13736</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Unknown Agent reports as offline on fresh install</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12523</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Add SPN Exclusion Type Support for Kerberoarsting Threat</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12018</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Details Page Card Improvements</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13259</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Event Grid Improvements</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13626</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Added Additional LDAP Recon Threat Queries</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11934</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Kerberoasting New Setting to Exclude User-To-User authentication</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13561</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Kerberoasting Suppression for Password Changes</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12077</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>First Time Threat Setting to ignore NTLM</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13601</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>LDAP Recon Threat Setting for LDAP String exclusion</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13536</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Honey Token Deployment keeping PowerShell session open</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13375</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Honey Token fallback does not run on WMI errors</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13340</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Honey Token Disposed exception</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13209</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Remove Honey Token Threat Tab</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13340</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Honey Token Disposed exception…</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12776</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Honey Token split names if they contain spaces in hosts name into se…</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13345</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Forged Ticket Threat can stalling startup</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13460</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Unknown (IP Address) Links now link to details pages</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13199</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Stop Process Playbook and Trimend command</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77">
+                  <p>54528</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13325</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Affected Object missing in some threats</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77">
+                  <p>54604</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13445</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>PostgreSQL Service Watcher on StealthDEFEND Startup</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13390</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Remove Null Dates on Playbook Logs</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12806</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Honey Tokens: Support deep links</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-13224</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Added ability Suppress Agent Alerts</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11580</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Fix Details Card Manager/SID Info</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12157</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Remove 'X' On Threat Status Timeline</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12328</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Fixed Issues with New Investigation Saving Threat Description</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12247</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>First Time Client Threat Details Mouseover Hover Fix</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12313</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Unusual process duplicate key error</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11606</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Fix Null Errors in UBA Threat Activity</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-10715</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Add Header to Left Pane in Investigations</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12113</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Fix Investigation Icons with invalid colors</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11217</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Various Integration Page Enhancements</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11964</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Fix Investigation Last Days Controls</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-12015</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Add Investigation Link for Computers/Groups</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" width="99">
+                  <p>SDFS-11554</p>
+                </td>
+                <td colspan="1" rowspan="1" width="455">
+                  <p>Improvements to UBA Charts and Tooltips</p>
+                </td>
+                <td colspan="1" rowspan="1" width="77"> </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><u> </u></strong>
+        </p>
+        <p><strong>Resolved in Version: </strong>2.5.388</p>
+        <p> </p>
+        <p>
+          <a
+            href="https://downloads.stealthbits.com/access/files/SDHotfixes/StealthDEFEND_2.5.388.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SDHotfixes/StealthDEFEND_2.5.388.zip</a
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

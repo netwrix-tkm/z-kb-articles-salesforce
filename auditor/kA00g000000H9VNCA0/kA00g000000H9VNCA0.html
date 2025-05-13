@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to exclude certain file/folders/shares from auditing by Netwrix Auditor for File Servers?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9VNCA0" />
+    <meta name="Id" content="ka04u000000HcOeAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="730" />
+    <meta name="ArticleNumber" content="000003152" />
+    <meta
+      name="description"
+      content="Instructions on how to exclude some file/folders/shares from auditing by Netwrix Auditor"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to exclude files, folders or shares from auditing by Netwrix Auditor for File Servers?
+
+        <hr />
+
+        If you do not want to audit every folder and/or file defined on the file server's shares or
+        are monitoring the whole server but want to omit a specific share, you can omit them using
+        the a special omit file. 1. Navigate to the product installation folder via Windows Explorer
+        (by default: C:Program Files (x86)NetwrixFile Server Change Reporter) 2. Open
+        <b>omitcollectlist.txt</b> file (<b>omitpathlist.txt</b> in 6.0 or older) in any text editor
+        3. Add the paths you do not want to be audited. For example: File Exclusion:
+        \servershare_folderfilename All Files in a Folder Exclusion: \servershare_folder* All
+        Folders in a share: \servershare* 4. Save modifications made to the file. Note: The above
+        changes will not take effect until the next data collection. Also this will only omit
+        changes/reads made on those files/folders that are excluded. It will not omit warnings/error
+        related to those files/folders such as access denied.
+      </div>
+    </article>
+  </body>
+</html>

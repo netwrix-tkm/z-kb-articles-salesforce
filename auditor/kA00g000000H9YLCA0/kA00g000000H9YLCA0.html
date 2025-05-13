@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 0x800706BA − RPC Server Is Unavailable</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YLCA0" />
+    <meta name="Id" content="ka04u000000wvy4AAA" />
+    <meta name="LastPublishedDate" content="2023-10-30T11:55:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-30T11:55:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1186" />
+    <meta name="ArticleNumber" content="000003336" />
+    <meta
+      name="description"
+      content="You are getting the following warning in summary reports:&amp;quot;Warning Failed to process. The error is: Failed to connect to remote service control manager. Error details: The RPC server is unavailable.&amp;quot;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>The following warnings are prompted in Netwrix Auditor Health Log:</p>
+
+          <pre class="has-inner-focus">
+Failed to process DC: %domain_controller_name%.
+Failed to connect to remote service control manager. Error details: The RPC server is unavailable.
+(Exception from HRESULT: 0x800706BA).
+Make sure that you have administrative privileges, and the Windows Management Instrumentation (WMI) service is running on the target server.</pre
+          >
+
+          <pre class="has-inner-focus">
+Failed to open the event log.
+The RPC server is unavailable.</pre
+          >
+
+          <pre class="has-inner-focus">The RPC server is too busy to complete this operation</pre>
+
+          <pre class="has-inner-focus">
+The following error occurred when analyzing changes for server %server%:
+Agent operation failed due to the following error:
+Failed to update the agent on the following server: %server%</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <ul>
+          <li>
+            <p>Errors resolving a DNS or NetBIOS name.</p>
+          </li>
+          <li>
+            <p>The RPC service or related services may not be running.</p>
+          </li>
+          <li>
+            <p>Network connectivity issues.</p>
+          </li>
+          <li>
+            <p>File and printer sharing is not enabled.</p>
+          </li>
+          <li>
+            <p>TLS 1.2 is not set up.</p>
+          </li>
+          <li>
+            <p>Insufficient server resources.</p>
+          </li>
+        </ul>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Configure firewall policies.</p>
+
+              <p>
+                <span><strong>NOTE: </strong></span>If you are using Windows Firewall, open the
+                <b>Group Policy Object Editor</b> snap-in (<em>gpedit.msc</em>) to edit the Group
+                Policy object (GPO) used to manage Windows Firewall settings in your organization.
+                Navigate to <b>Configuration</b> &gt; <b>Administrative Templates</b> &gt;
+                <b>Network</b> &gt; <b>Network Connections</b> &gt; <b>Windows Firewall</b>, and
+                open either <b>Domain Profile</b> or <b>Standard Profile</b>, depending on which
+                profile you are using. Enable the following exceptions:
+              </p>
+
+              <ul>
+                <li>
+                  <p>Allow Remote Administration Exception</p>
+                </li>
+                <li>
+                  <p>Allow File and Printer Sharing Exception</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Review the hostname and IP address. Verify the machine is turned on and reachable.
+                Also, please make sure FQDN is resolving to the correct IP address.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify that the <b>Windows Management Instrumentation</b> service is running and set
+                to auto-start after restart.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span> If you see the following error in the Event
+                  Viewer while checking event viewer (Local) connection to another computer, enable
+                  inbound rules (COM+ Network Access and all rules in the Remote Event Log
+                  Management group) in the target computer. Refer to the following article for
+                  additional information:
+                  <a
+                    href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/LogonActivity/Ports.htm"
+                    target="_blank"
+                    >Configuration − Logon Activity Ports: Configure Windows Firewall Inbound
+                    Connection Rules ⸱ v10.6</a
+                  >.
+                </p>
+
+                <div><img src="kA00g000000H9YLCA0_8a5d2b0d-b001-462a-8e23-c184f42fd3d5.png" /></div>
+
+                <p>
+                  Learn more in
+                  <a
+                    href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/application-management/0x80004027-remotely-access-com-plus-object"
+                    target="_blank"
+                    >0x80004027 error when you try to remotely access COM+ object after you upgrade
+                    to Windows Server 2016 or later versions ⸱ Microsoft 🡥</a
+                  >
+                </p>
+              </blockquote>
+
+              <p>
+                For additional information on Windows Firewall configuration, refer to the following
+                article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/LogonActivity/Ports.htm"
+                  target="_blank"
+                  >Logon Activity Ports — Configure Windows Firewall Inbound Connection Rules ·
+                  v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify that <strong>TCP/IP NetBIOS Helper</strong> service is running and is set to
+                auto-start after restart.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the <strong>Remote Procedure Call (RPC)</strong> service is running and set
+                to auto start after restart.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Log on the computer where Netwrix Auditor is installed using Netwrix data
+                    processing account.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Go to <strong>Start &gt; Run</strong> and type <code>eventvwr</code> and click
+                    <strong>OK</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Right-click <strong>Event Viewer (Local)</strong> and select<strong>
+                      Connect To Another Computer</strong
+                    >.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Select Computer</strong> dialog window, type the name of the
+                    domain controller reporting the error in the
+                    <strong>Another Computer </strong>entry field. Click <strong>OK</strong> to
+                    connect to the domain controller.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Select <strong>Security</strong> log. The list should show you valid events
+                    entries.
+                  </p>
+                </li>
+              </ul>
+
+              <p>
+                Learn more in
+                <a
+                  href="https://social.technet.microsoft.com/wiki/contents/articles/4494.windows-server-troubleshooting-rpc-server-is-unavailable.aspx"
+                  target="_blank"
+                  >Windows Server Troubleshooting: RPC server is unavailable ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enable TLS 1.2. For additional information, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+                  target="_self"
+                  >Сonnection Issue when TLS 1.2 Is Required</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                RPC connections might be affected due to insufficient hardware resources. Review the
+                hardware resources of the affected server to possibly increase the resource pool.
+                Learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/windows-server/administration/performance-tuning/hardware/"
+                  target="_blank"
+                  >Server Hardware Performance Considerations ⸱ Microsoft 🡥</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/LogonActivity/Ports.htm"
+              target="_blank"
+              >Configuration – Logon Activity Ports: Configure Windows Firewall Inbound Connection
+              Rules ⸱ v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/application-management/0x80004027-remotely-access-com-plus-object"
+              target="_blank"
+              >0x80004027 error when you try to remotely access COM+ object after you upgrade to
+              Windows Server 2016 or later versions ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/LogonActivity/Ports.htm"
+              target="_blank"
+              >Logon Activity Ports — Configure Windows Firewall Inbound Connection Rules · v10.6</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://social.technet.microsoft.com/wiki/contents/articles/4494.windows-server-troubleshooting-rpc-server-is-unavailable.aspx"
+              target="_blank"
+              >Windows Server Troubleshooting: RPC server is unavailable ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9eOCAS.html"
+              target="_self"
+              >Сonnection Issue when TLS 1.2 Is Required</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/windows-server/administration/performance-tuning/hardware/"
+              target="_blank"
+              >Server Hardware Performance Considerations ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

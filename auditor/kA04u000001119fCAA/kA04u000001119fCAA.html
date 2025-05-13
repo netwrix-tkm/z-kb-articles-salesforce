@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Password Expiration Notifier (PEN) — Internal</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001119fCAA" />
+    <meta name="Id" content="ka04u000000wvonAAA" />
+    <meta name="LastPublishedDate" content="2023-09-06T08:13:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-20T12:39:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-06T08:13:18.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8786" />
+    <meta name="ArticleNumber" content="000008786" />
+    <meta name="description" content="Password Expiration Notifier — Internal" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span
+              ><strong>IMPORTANT: </strong>This is an internal article migrated from Support Wiki.
+              If any changes to Configuration.xml are implied, the steps should only be performed by
+              Tech Support in a remote session!.</span
+            >
+          </p>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>For additional information, refer to the following
+              sources:
+            </p>
+
+            <ul>
+              <li>
+                <p>
+                  <a href="https://netwrix.litmos.com/course/10391933" target="_blank"
+                    >Litmos — Password Expiration Notifier</a
+                  >
+                </p>
+              </li>
+              <li>
+                <p>
+                  <a
+                    href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/scripting-articles/ms974598(v=msdn.10)?redirectedfrom=MSDN"
+                    target="_blank"
+                    >How Long Until My Password Expires? ⸱ Microsoft 🡥</a
+                  >
+                </p>
+              </li>
+            </ul>
+          </blockquote>
+
+          <p>
+            Password Expiration Alerting is based on the <strong>pwdLastSet</strong> attribute.
+            There are 2 slightly different workflows, that depend on the status of the
+            <strong>Only report on users with fine-grained policies applied</strong> checkbox in
+            <strong>Advanced settings</strong>.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>It is not possible to use both workflows
+              simultaneously, so 2 separate Monitoring Plans would be required to accomplish this.
+            </p>
+          </blockquote>
+
+          <p>
+            All information for AD is retrieved by an LDAP request to the domain object. Search base
+            LDAP://$domain.name.<br />Any DC can process the request, there's no preference.
+          </p>
+        </div>
+
+        <h2 id="regular_password_policy_workflow">Regular Password Policy Workflow</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>This workflow is effective when the "Fine-grained"
+              checkbox is disabled.<br />Regular policy is a general policy affecting all accounts
+              in the domain.
+            </p>
+          </blockquote>
+        </div>
+
+        <h4 id="step_1">Step 1</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Get MaxPwdAge attribute from domain. Request path LDAP://$domain. You can also get
+                the attribute via PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$search = New-Object System.DirectoryServices.DirectorySearcher
+$search.filter = "(objectCategory=domain)"
+$results = $search.findall().properties
+$results.maxpwdage</code></pre>
+
+              <div>
+                <img
+                  height="581"
+                  src="kA04u000001119fCAA_922d4781-7914-4f37-8896-cd393dd715d1.png"
+                  width="749"
+                />
+              </div>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span><strong>MaxPwdAge</strong> is an
+                  attribute of the domain object. It MUST be set in a GPO that applies to the whole
+                  domain.
+                </p>
+              </blockquote>
+
+              <p>
+                The PDC emulator is the only DC that applies password policies. It only accepts
+                policies linked to the domain. All other DCs completely ignore all password
+                policies, regardless of where they are linked to or if they are enforced or
+                whatever.
+              </p>
+
+              <p>
+                PDC Emulator is reading the info from GPO and writes this value to the domain Naming
+                Context head (DC=domain,DC=tld). See the previous screenshot. The rest of the DCs in
+                the domain read the info from the domain NC head (and not from GPO) and apply it.
+              </p>
+
+              <div>
+                <img
+                  height="465"
+                  src="kA04u000001119fCAA_8bbc6cc4-66ae-44f7-9463-1cbd6f9ff427.png"
+                  width="751"
+                />
+              </div>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>User and computer accounts DO NOT have
+                  this attribute at all.
+                </p>
+              </blockquote>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="step_2">Step 2</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Get <strong>pwdlastset</strong> attribute of all users in the monitored object
+                (domain or OU), whose account state match enabled criteria (under "Advances
+                settings').<br />
+                This attribute shows when the password was changed last time. Value of 0 indicates
+                that user will need to change his password at next logon.
+              </p>
+
+              <p>The following LDAP query is executed with the default PEN settings which are:</p>
+
+              <ul>
+                <li>
+                  <p>Include data on expiring accounts</p>
+                </li>
+                <li>
+                  <p>Ignore user who must change password on next logon</p>
+                </li>
+                <li>
+                  <p>Ignore users with the "Password never expires"</p>
+                </li>
+                <li>
+                  <p>Ignore user who do not have email accounts</p>
+                </li>
+              </ul>
+
+              <p>LDAP Request:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">(&amp;(!userAccountControl:1.2.840.113556.1.4.804:=2)(mail=*)(!(pwdLastSet=0))(sAMAccountType=805306368)(|(msds-psoapplied=*)(pwdLastSet=*)))</code></pre>
+
+              <p>Alternatively, you can use the following PowerShell code:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">$search = New-Object System.DirectoryServices.DirectorySearcher
+$search.filter = "(&amp;(!userAccountControl:1.2.840.113556.1.4.804:=2)(mail=*)(!(pwdLastSet=0))(sAMAccountType=805306368)(|(msds-psoapplied=*)(pwdLastSet=*)))"
+$results = $search.findall().properties
+$results.pwdlastset</code></pre>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="step_3">Step 3</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>Get current date</p>
+            </li>
+            <li>
+              <p>Calculate the difference between current date and pwdLastset value</p>
+            </li>
+            <li>
+              <p>Calculate the difference between the MaxPwdAge and the result of previous step.</p>
+            </li>
+            <li>
+              <p>Do the 2 and 3 for every user account queried.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="step_4">Step 4</h4>
+
+        <div>
+          <p>
+            Compare results with the values specified in the product settings, add to Administrator
+            report and send notifications accordingly.
+          </p>
+        </div>
+
+        <h2 id="fine-grained_password_polices">Fine-grained password polices</h2>
+
+        <div>
+          <p>
+            This workflow is effective when the Fine-grained checkbox is checked.<br />Fine-grained
+            policy refers to a Password Settings Container object. It allows configuring different
+            password policies for different accounts. Learn more in
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc770842(v=ws.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >AD DS Fine-Grained Password and Account Lockout Policy Step-by-Step Guide ⸱ Microsoft
+              🡥</a
+            >.
+          </p>
+
+          <p>
+            The only real difference here is that we do not use MaxPwdAge, instead the password age
+            limit is received from the <strong>Password Settings Container</strong> assigned to the
+            user object.<br />It is specified in the <strong>msDS-resultantPSO</strong> attribute.
+            Learn more in
+            <a
+              href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/ad735d45-ba6a-42fc-a41c-e91ced8e72d9?redirectedfrom=MSDN"
+              target="_blank"
+              >msDS-ResultantPSO ⸱ Microsoft 🡥</a
+            >.
+          </p>
+
+          <h4 id="step_1">Step 1</h4>
+
+          <p>
+            Get the list of users whose account state matches enabled criteria (under
+            <strong>Advanced settings</strong>). The following LDAP query is done with the default
+            PEA settings that are:
+          </p>
+
+          <ul>
+            <li>
+              <p>Include data on expiring accounts</p>
+            </li>
+            <li>
+              <p>Ignore user who must change password on next logon</p>
+            </li>
+            <li>
+              <p>Ignore users with the "Password never expires"</p>
+            </li>
+            <li>
+              <p>Ignore user who do not have email accounts</p>
+            </li>
+          </ul>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">(&amp;(!userAccountControl:1.2.840.113556.1.4.804:=2)(mail=*)(!(pwdLastSet=0))(sAMAccountType=805306368)(|(pwdLastSet=*)))</code></pre>
+
+          <h4 id="step_2">Step 2</h4>
+
+          <div>
+            <p>
+              For every user in the resultant list query <strong>pwdLastSet</strong> and
+              <strong>msDS-ResultantPSO</strong>
+            </p>
+          </div>
+
+          <h4 id="step_3">Step 3</h4>
+
+          <div>
+            <p>
+              For every account get <strong>MaxPwdAge</strong> from the object specified in the
+              <strong>msDS-ResultantPSO</strong> if exists.
+            </p>
+          </div>
+
+          <h4 id="step_4">Step 4</h4>
+
+          <ol>
+            <li>
+              <p>Get current date</p>
+            </li>
+            <li>
+              <p>
+                For every account calculate the difference between current date and pwdLastSet value
+              </p>
+            </li>
+            <li>
+              <p>
+                For every account calculate the difference between the MaxPwdAge specified in
+                corresponding PSO and the result of the previous step.
+              </p>
+            </li>
+          </ol>
+
+          <h4 id="step_5">Step 5</h4>
+
+          <div>
+            <p>
+              Compare results with the values specified in the product settings, add to
+              Administrator report and send notifications accordingly.
+            </p>
+          </div>
+        </div>
+
+        <h4 id="related_articles_and_resources">Related articles and resources</h4>
+
+        <div>
+          <p>
+            <a href="https://netwrix.litmos.com/course/10391933" target="_blank"
+              >Password Expiration Notifier course ⸱ Litmos 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/scripting-articles/ms974598(v=msdn.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >How Long Until My Password Expires? ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-gb/windows/win32/adschema/a-pwdlastset?redirectedfrom=MSDN"
+              target="_blank"
+              >Pwd-Last-Set attribute ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-gb/windows/win32/adschema/a-maxpwdage?redirectedfrom=MSDN"
+              target="_blank"
+              >Max-Pwd-Age attribute ⸱ Microsoft 🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc770842(v=ws.10)?redirectedfrom=MSDN"
+              target="_blank"
+              >AD DS Fine-Grained Password and Account Lockout Policy Step-by-Step Guide ⸱ Microsoft
+              🡥</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/ad735d45-ba6a-42fc-a41c-e91ced8e72d9?redirectedfrom=MSDN"
+              target="_blank"
+              >msDS-ResultantPSO ⸱ Microsoft 🡥</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SAM_6.0_008</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000Hs9CAE" />
+    <meta name="Id" content="ka04u000000HcaUAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T17:53:17.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:57:57.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T17:53:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6043" />
+    <meta name="ArticleNumber" content="000006043" />
+    <meta name="description" content="4402579766164" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p><strong>Summary:</strong></p>
+        <p>
+          <em
+            >After install of SAM agent 6.0.690 or a few days into running "Agent services may have
+            recently crashed" message is seen</em
+          >
+        </p>
+        <p><strong>Behavior Before Fix:</strong></p>
+        <p>
+          <em
+            >Windows monitoring service crashed when invalid INI  sections contained no outputs or
+            destinations.</em
+          >
+        </p>
+        <p><strong>Behavior After Fix:</strong></p>
+        <p>
+          <em
+            >SAM agent now removes invalid INI  sections without any outputs or destinations,
+            preventing windows monitoring service crash.</em
+          >
+        </p>
+        <p><strong>Changes Since Last Hotfix:</strong></p>
+        <ul>
+          <li>SFAM-7181: AD Outputs are duplicated after upgrade (when Managed by SI)</li>
+          <li>
+            SFAM-7184: Multi-Uninstall Does not remove one agent from console (but it has been
+            uninstalled)
+          </li>
+          <li>SFAM-7000: ConfigurationAgent.exe crash</li>
+          <li>SFAM-7183: SAM Should group HOST of different naming formats together</li>
+          <li>
+            SFAM-7180: FS Output - If host is managed by SI, adding single new output duplicates and
+            adds 2 outputs
+          </li>
+          <li>SFAM-7246: SAM has stopped monitoring Netapp</li>
+          <li>SFAM-7237: SQL. User creation script contains an extra parentheses</li>
+          <li>SFAM-7307: Logging service crashed and stopped event collection from NetApps</li>
+          <li>SFAM-7168: SAM not receiving all events from SI</li>
+        </ul>
+        <p> </p>
+        <p><strong>Submitted by: </strong></p>
+        <p>Kevin Duddy</p>
+        <p><strong>Affected Versions:</strong></p>
+        <p>STEALTHbits Activity Monitor 6.0</p>
+        <p><strong>Affected Module:</strong></p>
+        <p>Windows</p>
+        <p> </p>
+        <p><strong>Dev Ticket:</strong></p>
+        <p>SFAM-7270</p>
+        <p><strong>Resolved in Version:</strong></p>
+        <p>SBActivityMonitorSetup.msi 6.0.0.712</p>
+        <p><em> </em></p>
+        <p><strong>KB Type: </strong></p>
+        <p>Hotfix</p>
+        <p>
+          <strong><em> </em></strong>
+        </p>
+        <p><strong>Modules Included:</strong></p>
+        <p>SBActivityMonitorSetup.msi 6.0.0.712</p>
+        <p>SBActivityMonitorSetup_unsigned.msi 6.0.0.712</p>
+        <p>SBTService.exe 1.5.0.1429</p>
+        <p>SI Version 7.2.0.291</p>
+        <p> </p>
+        <p><strong>YouTrack/Escalations</strong></p>
+        <p><em>SFAM-7270 / 61672</em></p>
+        <p> </p>
+        <p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+        <ol>
+          <li>
+            SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning (previous
+            fix)
+          </li>
+          <li>
+            SFAM-6917: Nasuni Version 9.05 activity collection via SAM is not functioning (corrected
+            hotfix)
+          </li>
+          <li>
+            SFAM-6977: SAM Nasuni Activity is Collecting but when importing to SA it is not matching
+            share mapping
+          </li>
+          <li>I-7358: 2019 Server only | LSASS may crash with KB5004244, released 07/13/2021</li>
+          <li>SFAM-7041: After upgrade SAM Console crashes when editing agents</li>
+          <li>
+            I-7376: 2016 Server | Kerberos auth. events may be lost or incomplete after applying
+            KB5005393
+          </li>
+          <li>
+            <ul>
+              <li>SFAM-7052: SAM 6.0 - can't set access zone per output</li>
+              <li>SFAM-7168: SAM not receiving all events from SI</li>
+              <li>
+                I-7405: 2019 Server only | Kerberos auth. events may be lost or incomplete with
+                KB5005102 (August 26, 2021)
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p> </p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          <li>
+            <em
+              >Run msi file on host that has the SBActivityMonitor installed. (No need to uninstall
+              previous version, msi will upgrade the monitor).</em
+            >
+          </li>
+          <li><em>Upgrade all agents.</em></li>
+        </ol>
+        <p>
+          <em
+            ><a
+              href="https://downloads.stealthbits.com/access/files/SAMHotfixes/6.0/SAM_6.0_008.zip"
+              target="_blank"
+              >https://downloads.stealthbits.com/access/files/SAMHotfixes/6.0/SAM_6.0_008.zip</a
+            ></em
+          >
+        </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

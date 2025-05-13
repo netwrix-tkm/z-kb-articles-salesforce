@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Can I monitor only specific objects in Active Directory, Group Policy and Exchange Servers
+      with Netwrix Auditor?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9T6CAK" />
+    <meta name="Id" content="ka04u000000HcMtAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="594" />
+    <meta name="ArticleNumber" content="000003016" />
+    <meta
+      name="description"
+      content="Active Directory Group Policy and Exchange audit specific objects"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Can Netwrix Auditor be configured to monitor only specific users in the AD domain and
+        Exchange?
+        <hr />
+        The product has the following ways to exclude Active Directory objects from being audited
+        The files are located under the Netwrix Auditor installation path, for example C:\Program
+        Files (x86)\Netwrix Auditor\Active Directory Auditing<br />1. Omitpathlist.txt contains a
+        list of AD paths to be excluded from reports. For example:
+        <ul>
+          <li>*\USERS\* omits all objects in the Users OU located anywhere in the AD</li>
+          <li>
+            *\USERS* omits all objects in the OU which name begins with USERS and the OU itself.
+          </li>
+          <li>
+            *\Sacremento\USERS* would be used if you want to omit users in a very specific OU named
+            USERS where you have multiple OUs with the same name in different parent OUs.
+          </li>
+        </ul>
+        2. Allowedpathlist.txt contains a list of AD paths to be included in reports. This file can
+        be used, for example, if you only want to monitor specific OU(s) inside your AD domain, but
+        not the entire domain. In this case, put a wildcard (*) in omitpathlist.txt file to exclude
+        all paths, and then specify the OU(s) you want to monitor in the allowedpathlist.txt
+        file.<br />For example: If you add Domain\USERS to omitpathlist.txt list and add
+        Domain\USERS\Employees into allowedpathlist.txt, the contents of the Users OU will not be
+        audited but the contents of the Employees OU and all its child objects will be monitored.<br />3.
+        Omitallowedpathlist.txt contains a list of AD paths to be excluded from reports. This file
+        can be used if you want to exclude certain paths inside those specified in the
+        allowedpathlist.txt file. In this case, put a wildcard (*) in the omitpathlist.txt file to
+        exclude all paths, then specify the OU(s) you want to monitor in the allowedpathlist.txt
+        file, and then specify the paths you want to exclude from within them in the
+        omitallowedpathlist.txt file.<br />Note: It is not recommended to omit changes made to
+        service accounts from being audited as these accounts typically have elevated privileges and
+        this is a security hole in your auditing.<br /><br />It must also be stressed that when you
+        omit objects from being audited it is not for changes made BY these objects but rather TO
+        these objects. For example, if you omit the USERS OU, the product will stop reporting
+        changes made to accounts located in that OU, however, if a user from that OU performs some
+        actions outside of that OU, these actions will be reported.
+      </div>
+    </article>
+  </body>
+</html>

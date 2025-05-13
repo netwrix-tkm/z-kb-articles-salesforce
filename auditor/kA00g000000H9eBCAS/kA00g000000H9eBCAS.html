@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Classifications for New Categories in OpenText Content Server Have Failed to Write to the
+      Documents
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="data_classification" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eBCAS" />
+    <meta name="Id" content="ka0Qk0000001m4DIAQ" />
+    <meta name="LastPublishedDate" content="2024-02-12T11:44:43.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-12T11:44:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3524" />
+    <meta name="ArticleNumber" content="000003693" />
+    <meta
+      name="description"
+      content="Classifications for new categories have failed to write to the documents"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            One or more categories have been added to folder(s)/document(s) in OpenText Content
+            Server - the documents have been reclassified but classifications have failed to write
+            to the documents.
+          </p>
+        </div>
+
+        <h2 id="instructions"><strong>Instructions</strong></h2>
+
+        <div>
+          <p>
+            The <b>Classifier</b> service relies on data populated by the <b>Collector</b> service
+            to process classifications - this improves performance by ensuring that we
+            <b>cache</b> the information on which categories are available for each document. When
+            new <b>categories</b> are added it is thus necessary to re-index the affected documents.
+            For that:
+          </p>
+
+          <ol>
+            <li>
+              <p>Open the <b>Administration Interface</b>.</p>
+            </li>
+            <li>
+              <p>Click on <b>Sources</b> in the top navigation bar.</p>
+            </li>
+            <li>
+              Drill down to the affected level within the <b>OpenText Content Server source</b>.
+            </li>
+            <li>
+              <p>
+                Do one of the following:<br />
+                Select an individual file and click <b>Re-Index</b><br />
+                OR<br />
+                Select a folder and click <b>Re-Index</b>
+              </p>
+            </li>
+            <li>
+              <p>
+                When you click <strong>Re-Index, </strong>select the scope
+                <strong>Selected Item(s) and All Descendants</strong> to update an entire folder.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

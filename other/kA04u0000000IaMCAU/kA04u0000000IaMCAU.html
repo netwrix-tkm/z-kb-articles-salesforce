@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWindowsAgent_5.2.0.287_6.0.0.404_7.0.0.286</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IaMCAU" />
+    <meta name="Id" content="ka04u000000HcqpAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:28:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:08:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:28:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6985" />
+    <meta name="ArticleNumber" content="000006985" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI agent using huge
+          amounts of memory
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary: </span></strong>SI agent using huge amounts of memory<br /><strong
+            ><span>Behavior before Fix: </span></strong
+          ><br />In old implementation agent was trying to parse the whole tsv file at once and then
+          processing collected entries. As the result memory consumption could heavily increase for
+          handling tsv files from NAS devices.<br /><strong
+            ><span>Behavior after Fix: </span></strong
+          ><br />SI agent accumulates entries for single event then process it and then repeat. As
+          the result memory consumption should be significantly decreased.<br /><b
+            >Changes since Last Hotfix:</b
+          ><br />I-4674 SI-3785 31593 - SI agent using huge amounts of memory<br /><strong
+            ><span>Submitted by: </span></strong
+          ><br />Maxim Sidarau  <br /><strong><span>Affected Versions:</span></strong
+          ><br />5.2.0      SIWindowsAgent_5.2.0.287_SI-3785<br />6.0.0     
+          SIWindowsAgent_6.0.0.404_SI-3785<br />7.0.0      SIWindowsAgent_7.0.0.286_SI-3785<br /><strong
+            ><span>Affected Module:</span></strong
+          ><br />SI - Windows Agent<br /><strong><span>Dev Ticket:</span></strong
+          ><br /><em><span>I-4674</span></em
+          ><br /><strong><span>Resolved in Version:</span></strong
+          ><br />5.2.0.287<br />6.0.0.404<br />7.0.0286<br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><b>Modules Included:</b><br />SI - Windows Agent<br /> <br /><b
+            >YouTrack/Escalations: </b
+          >SI-3785 / 31593<br /><b>Customers:  </b>Express Scripts, Inc.<br /><b
+            >Cumulative List of fixes included since Service Pack:</b
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <u>For SI 5.2 and 7.0</u>:<br />The following SI modules should be patched:<br />* SI
+          Windows Agent<br />Applying patch for SI Windows Agent:
+        </p>
+        <ol>
+          <li>Stop SIWindowsAgent service</li>
+          <li>Extract attached archive to the SI Windows Agent folder</li>
+          <li>Start SIWindowsAgent service</li>
+        </ol>
+        <u>For SI 6.0</u>:<br />The following SI modules should be patched:<br />* SI Enterprise
+        Manager<br />* SI Windows Console<br />* SI Windows Agent<br />Applying patch for Enterprise
+        Manager:<br />1. Stop 'SIEnterpriseManager' service.<br />2. Extract files from attached
+        'SIEnterpriseManager' folder to the C:\Program Files
+        (x86)\STEALTHbits\StealthINTERCEPT\SIEnterpriseManager folder<br />3. Start
+        'SIEnterpriseManager' service<br /> <br />Applying patch for SI Windows Console:<br />1.
+        Close the SI Win Console<br />2. Extract files from attached 'SIWinConsole' folder to the
+        C:\ Program Files (x86)\STEALTHbits\StealthINTERCEPT\SIWinConsole folder<br />3. Start SI
+        Win Console.<br /> <br />Applying patch for SI Windows Agent:<br />1. Stop SIWindowsAgent
+        service<br />2. Extract files from attached 'SIWindowsAgent' to the "C:\ Program Files
+        (x86)\STEALTHbits\StealthINTERCEPT\SIWindowsAgent" folder<br />3. Start SIWindowsAgent
+        serviceservice<br /> 
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="78" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="78">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIWindowsAgent_5.2.0.287_SI-3785.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIWindowsAgent_5.2.0.287_SI-3785.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="78" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="78">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWindowsAgent_6.0.0.404_SI-3785.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWindowsAgent_6.0.0.404_SI-3785.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="78" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="78">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWindowsAgent_7.0.0.286_SI-3785.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWindowsAgent_7.0.0.286_SI-3785.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Windows Agent<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.2.0, 6.0.0, 7.0.0 Beta<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          SI-3785<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.2.0.287 6.0.0.404 7.0.0.286<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2356<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

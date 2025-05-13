@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Set Up ESET HIPS Rules to Allow StealthINTERCEPT SI Agent Hook</title><meta name="label" content="public_v"/><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000011191CAA"/><meta name="Id" content="ka04u00000117f8AAA"/><meta name="LastPublishedDate" content="2023-09-01T10:32:40.000+0000"/><meta name="LastModifiedDate" content="2023-09-07T12:35:40.000+0000"/><meta name="FirstPublishedDate" content="2023-09-01T10:32:40.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8780"/><meta name="ArticleNumber" content="000008780"/><meta name="description" content="Set Up ESET HIPS Rules to Allow NTP/SI Agent Hook"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to set up ESET HIPS rules to allow StealthINTERCEPT SI Agent hook?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<ol><li>
+	<p>In the left pane of your ESET PROTECT Web Console, select <strong>Policies</strong>. Select the <strong>Detection Engine</strong> tab &gt; <strong>HIPS</strong>.</p>
+	</li><li>
+	<p>Under the <strong>Rules</strong> section, click <strong>Edit</strong>.</p>
+
+	<div><img alt="Step 2" height="340" src="kA04u0000011191CAA_22b42a20-2fa5-4bc8-9066-b95ab5b3615e.png" width="700"/></div>
+	</li><li>
+	<p>In the <strong>HIPS Rules</strong> window, click <strong>Add</strong>.</p>
+	</li><li>
+	<p>Specify the <strong>Rule name</strong>, select <strong>Allow</strong> for the <strong>Action</strong> type, and proceed by clicking <strong>Next</strong>.</p>
+
+	<div><img alt="Steps 3-4" height="352" src="kA04u0000011191CAA_27ea1d79-fdac-45d1-a9c4-1c3ed9fa8b69.png" width="701"/></div>
+	</li><li>
+	<p>Select <strong>Specific applications</strong> in the dropdown list, and click <strong>Add</strong> to add the path to <code>SIWindowsAgent.exe</code>. Refer to the following code block for a default path:</p>
+
+	<pre class="has-inner-focus">C:\Program Files\STEALTHbits\StealthINTERCEPT\SIWindowsAgent\</pre>
+
+	<p>Proceed to the next step by clicking <strong>Next</strong>.</p>
+
+	<div><img alt="Step 5" height="351" src="kA04u0000011191CAA_49a29371-12ba-41f2-baf4-ed07195d5f13.png" width="701"/></div>
+	</li><li>
+	<p>Switch the <strong>All file operations</strong> switch to the on position, and proceed by clicking <strong>Next</strong>. Click <strong>OK</strong> to save changes.</p>
+
+	<div><img alt="Step 6" height="351" src="kA04u0000011191CAA_aad88403-493d-4a0c-8523-a2cb2e0a552f.png" width="701"/></div>
+	</li><li>
+	<p>Once the configurations steps are completed, proceed to the <strong>Assign</strong> tab. Assign the new rule to corresponding systems.</p>
+
+	<div><img alt="Step 7" height="340" src="kA04u0000011191CAA_cd58cfe1-c2a8-42f5-9c2b-cced736d7691.png" width="700"/></div>
+	</li><li>
+	<p>The rule should become visible in your ESET host. Refer to the <strong>Advanced Setup</strong> menu &gt; <strong>HIPS</strong> tab &gt; <strong>Basic</strong> section &gt; <strong>Rules</strong> tab.</p>
+
+	<div><img alt="Step 8" height="367" src="kA04u0000011191CAA_9e8dc41d-0c12-4b56-a8c5-e81a7cc55746.png" width="700"/></div>
+	</li></ol>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Once the rule is applied, SI Agent should be restarted.</p>
+</blockquote>
+</div>
+
+<h4 id="related_articles">Related articles</h4>
+
+<p><a href="https://support.eset.com/en/kb8018-create-a-hips-rule-and-enforce-it-on-a-client-workstation-using-eset-protect" target="_blank">Create a HIPS rule and enforce it on a client workstation using ESET PROTECT (8.x – 10.x) ⸱ ESET 🡥</a></p>
+
+<p><a href="https://support.eset.com/en/kb2811-enable-or-disable-hips-in-eset-products" target="_blank">Enable or disable HIPS in ESET products (15.x–16.x) ⸱ ESET 🡥</a></p></div>
+</article></body></html>

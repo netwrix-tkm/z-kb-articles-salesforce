@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1245 in Health Log</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cWCAS" />
+    <meta name="Id" content="ka0Qk0000001ARxIAM" />
+    <meta name="LastPublishedDate" content="2023-12-26T10:08:15.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T09:30:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2248" />
+    <meta name="ArticleNumber" content="000003590" />
+    <meta
+      name="description"
+      content="The KB provides resolution steps when Netwrix Auditor System Health log returns the Event ID: 1245."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            One of the following error messages under Event ID 1245
+            <code
+              >Unable to remove the Netwrix Auditor configuration from site collection with
+              %site_collection%</code
+            >
+            is prompted in Health Log for your SharePoint monitoring plan:
+          </p>
+
+          <ol>
+            <li>
+              <p>Error 1:</p>
+
+              <pre class="has-inner-focus">
+Unable to exclude events on site collection %site_collection% from the auditing scope due to the following error:
+Attempted to perform an unauthorized operation.</pre
+              >
+            </li>
+            <li>
+              <p>Error 2:</p>
+
+              <pre class="has-inner-focus">
+Unable to exclude events on site collection %site_collection% from the auditing scope due to the following error:
+Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED)).</pre
+              >
+            </li>
+            <li>
+              <p>Error 3:</p>
+
+              <pre class="has-inner-focus">
+Unable to exclude events on site collection %site_collection% from the auditing scope due to the following error:
+Access to this Web site has been blocked.</pre
+              >
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Error 1: Netwrix Auditor failed to exclude events from the audited site collection
+                due to the <strong>Adding content prevented</strong> status. Alternatively, the Farm
+                account or the service account for the web application pool hosting the audited site
+                collection has been modified, and has not been granted the
+                <strong>Log on as a batch job</strong> permissions in the server hosting SharePoint
+                Central Administration.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error 2: Auditor failed to exclude changes from the audited site collection due to
+                insufficient permissions for the web application hosting the target site collection.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error 3: Auditor failed to exclude changes from the audited site collection due to
+                the <strong>No Access</strong> status.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <p>Review the resolution for the corresponding error:</p>
+
+          <ol>
+            <li>
+              <p>
+                Error 1: In SharePoint Central Administration, navigate to
+                <strong>Application Management</strong> &gt;
+                <strong>Configure Quotas and Locks</strong> &gt;
+                <strong>%affected_site_collection%</strong>, and change the status to
+                <strong>Not locked</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error 2: In SharePoint Central Administration, navigate to
+                <strong>Web Applications</strong> &gt; <strong>%affected_application%</strong> &gt;
+                <strong>User Permissions</strong>, and verify the security settings. The minimum
+                required permissions are <strong>Manage Web Site</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Error 3: In SharePoint Central Administration, navigate to
+                <strong>Application Management</strong> &gt;
+                <strong>Configure Quotas and Locks</strong> &gt;
+                <strong>%affected_site_collection%</strong>, and change the status to
+                <strong>Not locked</strong>.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Learn more on management of the SharePoint site lock status via PowerShell in
+            <a
+              href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+              target="_blank"
+              >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status for
+              Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+                  target="_blank"
+                  >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status
+                  for Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

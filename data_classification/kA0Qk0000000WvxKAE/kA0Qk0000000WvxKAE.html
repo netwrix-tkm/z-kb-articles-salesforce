@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Error: This implementation is not part of the Windows Platform FIPS Validated cryptographic
+      algorithms
+    </title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000WvxKAE" />
+    <meta name="Id" content="ka0Qk0000002fgbIAA" />
+    <meta name="LastPublishedDate" content="2024-03-22T16:35:46.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-22T16:35:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-22T16:34:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9083" />
+    <meta name="ArticleNumber" content="000009083" />
+    <meta
+      name="description"
+      content="Error: This implementation is not part of the Windows Platform FIPS Validated cryptographic algorithms"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>The following error appears when trying to add a second DQS server:</p>
+
+          <div>
+            <pre class="has-inner-focus"> 
+    Unable to validate Connection. This implementation is not part of the Windows Platform FIPS Validated cryptographic algorithms. 
+ <img alt="User-added image" height="145" src="kA0Qk0000000WvxKAE_2aa96256-cf2a-4ad7-b42f-37ac1931a62c.png" width="500"/>       </pre>
+          </div>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>
+            The error occurs because the <b>FIPSAlgorithmPolicy</b> is enabled on both DQS servers.
+            Follow the steps below to turn off the option:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer where Netwrix Data CLassification is installed, open
+                <b>Registry Editor</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Go to the following path:
+                <code>HKLM\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy\Enabled</code>.
+                This registry value reflects the current FIPS setting.
+              </p>
+            </li>
+            <li>
+              <p>Set the value to <code>0</code> for disabled.</p>
+            </li>
+            <li>
+              <p>Restart all 3 NDC Services.</p>
+            </li>
+            <li>
+              <p>Close NDC Web Console and then re-open it.</p>
+            </li>
+            <li>
+              <p>After that, you can add second DQS Server.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

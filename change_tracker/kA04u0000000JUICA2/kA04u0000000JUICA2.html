@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to Configure Agentless File Integrity Monitoring (FIM) in Netwrix Change Tracker
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JUICA2" />
+    <meta name="Id" content="ka0Qk000000DSBNIA4" />
+    <meta name="LastPublishedDate" content="2025-04-23T21:27:50.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T09:26:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:36:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8117" />
+    <meta name="ArticleNumber" content="000008117" />
+    <meta
+      name="description"
+      content="How to Configure Agentless File Integrity Monitoring (FIM) in Netwrix Change Tracker"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          Netwrix Change Tracker supports an Agentless approach to monitoring, which is useful for
+          endpoints such as firewalls, routers, switches, appliances, or legacy Unix hosts. This
+          approach is also ideal for quick, software-free implementations for monitoring
+          Windows/Linux systems. Agentless File Integrity Monitoring (FIM) is performed using a
+          dedicated Proxy Agent or the Proxy Agent function of the Netwrix Change Tracker Agent.
+        </p>
+        <p>
+          Agentless scanning options include SSH, Telnet with full shell/command operation, CLI
+          interaction, and Windows SMB/Named Pipe. Scans can be operated using the NNT-FileHash
+          binary, a dissolvable/transient program that simplifies system integrity monitoring where
+          file hash-based tracking is required. The Proxy Agent concept provides advantages in that
+          setup and control of Agentless monitoring is consistent with Agent-based monitoring.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>Follow these steps to configure a device for Agentless monitoring:</p>
+        <ol>
+          <li>Register the Proxy Agent to the Change Tracker Hub.</li>
+          <li>Select the Proxy Agent to use for Agentless monitoring.</li>
+          <li>Enter the details of the new endpoint device for Agentless monitoring:</li>
+          <ul>
+            <li>Name/IP Address</li>
+            <li>(Optional) Device Type</li>
+            <li>(Optional) Display IP/Name</li>
+            <li>
+              Credentials used for connection (select from the dropdown list of stored credentials)
+            </li>
+          </ul>
+          <li>
+            (Optional) If hash-based FIM is required, locate the relevant NNT_FILEHASH binary onto
+            the host and add the path for the binary to the login script. This generates a
+            cryptographic hash value for a file, providing a unique "DNA fingerprint" for the file
+            that changes substantially even for minor modifications.
+          </li>
+        </ol>
+        <h4 id="agentless_fim_concepts">Agentless FIM Concepts</h4>
+        <p>
+          Conceptually, all endpoint devices that need to be monitored using an Agentless approach
+          must be associated with a Proxy Agent. This allows appropriate relationships to be
+          established between the most local or best-resourced Proxy Agent and the endpoints to be
+          monitored. For example, all devices at Customer Site A would naturally be associated with
+          a Proxy Agent deployed to this site.
+        </p>
+        <p>
+          <img
+            class="confluence-embedded-image"
+            height="400"
+            src="kA04u0000000JUICA2_9db36b96-e7e9-4f63-803d-adb70c666249.png"
+            alt="Screenshot showing the Proxy Agent configuration screen in Netwrix Change Tracker."
+          />
+        </p>
+        <h2 id="related_articles">Related Articles</h2>
+        <ul>
+          <li>
+            <a href="https://kb.netwrix.com/8064" target="_blank"
+              >Change Tracker Gen 7 Admin Guide</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

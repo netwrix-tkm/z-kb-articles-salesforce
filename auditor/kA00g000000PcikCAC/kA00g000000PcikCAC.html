@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>"Vserver API missing vserver parameter" error when auditing NetApp Cluster</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PcikCAC" />
+    <meta name="Id" content="ka04u000000HcZ5AAK" />
+    <meta name="LastPublishedDate" content="2020-06-18T19:24:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:52:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-06-18T19:24:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5803" />
+    <meta name="ArticleNumber" content="000005803" />
+    <meta
+      name="description"
+      content="&#34;Vserver API missing vserver parameter&#34; error when auditing NetApp Cluster"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <span
+          ><span
+            ><span><span>Symptom:</span></span></span
+          ></span
+        ><br /><span
+          ><span
+            >When you add NetApp for auditing and the collection fails immediately with the error
+            below:</span
+          ></span
+        ><br /><span
+          ><span><span>"Cannot start auditing the 'ServerName' server. </span></span></span
+        ><br /><span
+          ><span
+            ><span
+              >Failed to get file server information (0x8004959A ONTAPI error: Vserver API missing
+              vserver parameter.)."</span
+            ></span
+          ></span
+        ><br /><span><span> </span></span
+        ><br /><span
+          ><span
+            ><span><span>Cause:</span></span></span
+          ></span
+        ><br /><span
+          ><span
+            >Specified management interface is not the management interface of CIFS SVN you are
+            trying to audit.</span
+          ></span
+        ><br /><span><span> </span></span
+        ><br /><span
+          ><span
+            ><span><span>Solution:</span></span></span
+          ></span
+        ><br /><span
+          ><span
+            >Open Network Interfaces setting in Cluster management console. Find the interface that
+            has <span><b>Management Access</b> </span>enabled and is assigned to the SVM you are
+            trying to audit. Remember it's IP address and specify it in the properties of the NetApp
+            item in Netwrix Auditor in ONTAPI node.<br /><br /><img
+              alt="Management_Interface_NetApp"
+              height="464"
+              src="kA00g000000PcikCAC_94fd6997-942e-49aa-ab07-3f91c25fb2e5.png"
+              width="500"
+            /><br /><br />Also make sure the account used to collect to ONTAPI assigned with a
+            custom role  on SVM that has the following capabilities with access query levels</span
+          ></span
+        >
+        <div>
+          <div class="table-wrap">
+            <table count-columns="2" summary="" title="" valign="top">
+              <tbody>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <span><span>Version </span></span>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <span><span>readonly</span></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <span><span>Volume</span></span>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <span><span> readonly</span></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <span><span>vserver audit</span></span>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <span><span>all</span></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <span><span>vserver audit rotate-log</span></span>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <span><span>all</span></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="1" rowspan="1">
+                    <span><span>vserver cifs</span></span>
+                  </td>
+                  <td colspan="1" rowspan="1">
+                    <span><span>readonly</span></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <span><span> </span></span
+        ><br /><span
+          ><span
+            >See <a
+              href="https://helpcenter.netwrix.com/Configure_IT_Infrastructure/Accounts/DCA_NetApp.html"
+              target="_blank"
+              >Creating Role on NetApp Clustered Data ONTAP 8 or ONTAP 9 and Enabling AD User
+              Access</a
+            ></span
+          ></span
+        ><br /><br /> 
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: AIC_7.2_SP1_005</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000J5uCAE"/><meta name="Id" content="ka04u000000Hd2TAAS"/><meta name="LastPublishedDate" content="2022-02-01T18:53:59.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:14:18.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:53:59.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7982"/><meta name="ArticleNumber" content="000007982"/><meta name="description" content="360012217812"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong><span class="wysiwyg-font-size-large">Summary:</span></strong> AIC - Hide Email Options from Owners When Email is not Configured; AIC - Disable Links for Resource Owners</p><p><strong><span class="wysiwyg-font-size-large">Issue:</span></strong> <strong><span>Summary:</span></strong> 
+</p><ul><li>
+<b><i>Ticket</i>: AIC - Hide Email Options from Owners When Email is not Configured</b> 
+<ul><li>
+<i>Issue</i>: If there is no email server configured in the AIC we still show the option for owners to subscribe to email alerts ("Send me alerts for this resource once per week"). This should only be shown if it will work, which means email is configured.
+</li><li>
+<i>Fix</i>: If SMTP Server field is empty in the AIC Notifications page, the alerts option won't show in the Owner's Update dialog.</li></ul>
+</li><li>
+<b><i>Ticket</i>: AIC - Disable Links for Resource Owners</b> 
+<ul><li>
+<i>Issue</i>: In certain cases resource owners do not need to be able to drill into a resource because the information is overwhelming and confusing. For non-technical owners we should be able to disable these links.
+</li><li>
+<i>Fix</i>: A new parameter was added in the Web.config file (OwnershipAuditEnabled), it controls whether or not the resource links are enabled (true, false). The parameter is set to true by default. The areas affected are in the Ownership portal: The owned resource main grid, and the bottom tabs (Pending Requests, Request History, and Review History).</li></ul>
+</li></ul> <br/><strong><span>Submitted by: </span></strong><br/>Jazmina D�az<br/><strong><span>Affected Versions:</span></strong><br/>7.2 SP1<br/><strong><span>Affected Module:</span></strong> 
+<ul><li>AIC - Manage Resource Ownership</li></ul><strong><span>Dev Ticket:</span></strong> 
+<ul><li>SMPC-2521
+</li><li>SMPC-2522</li></ul><strong><span>Resolved in Version:</span></strong> 
+<ul><li>AccessInformationCenter.msi7.2.0.49</li></ul> <br/><strong><span>KB Type: </span></strong><br/>                Hotfix<br/> <br/> <br/> <br/><strong><span>Issue:</span></strong><br/><strong><span>Modules Included</span></strong> 
+<ul><li>AccessInformationCenter.msi7.2.0.49</li></ul> <br/><b>YouTrack/Escalations</b> 
+<ul><li>
+<b>SMPC-2521 \ Escalations 15986: </b>AIC - Hide Email Options from Owners When Email is not Configured
+</li><li>
+<b>SMPC-2522 \ Escalations - : </b>AIC - Disable Links for Resource Owners</li></ul><b> Customers         </b>
+<ul><li>Mizuho</li></ul> <br/><b>Cumulative List of fixes included since Service Pack:</b><br/>-      SMPC-1776: Unable to authenticate users with forest level trust child domains<br/>-      SMPC-1307: 9665 Tree only scrolls when cursor is not on whitespace<br/>-      SMPC-1823: 12260 - AIC Group Membership Changes<br/>-      SMPC-1759: Store ownership information if info not available in ADI. 
+<ul><li>SMPC-1307: 9665 Tree only scrolls when cursor is not on whitespace (fix group explorer)
+</li><li>SMPC-1875: 12557 - AIC Upgrade Removes Entitlement Review Data
+</li><li>SMPC-1735: Add session timeout</li></ul>-      Disable character checking for invalid characters in compressed data transfers (AD reports were hanging)<br/>-      SMPC-2002: 9704 - Remove open access remediation rights updates<br/>-      Domain auth config is now case insensitive<br/>-      Ignore SID history for access queries extended attributes<br/>-      SMPC-2125: 13567 Trustee Audit does not filter out deleted resources<br/>-      SMPC-2367: 14746 - AIC showing the Web app link where it should show a site collection<br/>-      SMPC-2521: AIC - Hide Email Options from Owners When Email is not configured<br/>-      SMPC-2522: AIC - Disable Links for Resource Owners<br/> <p><strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> </p><ol><li>Uninstall current version of AIC if it is already installed
+</li><li>Install version of AIC included with this hotfix.
+</li><li><i>For SMPC-2522: Disable Links for Resource Owners, set the Web.config/OwnershipAuditEnabled parameter to 'false'.</i></li></ol>  
+<div class="table-wrap"><table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0"><colgroup><col width="64"/></colgroup><tbody><tr height="20"><td colspan="1" rowspan="1" class="xl65" height="20" width="64"><a href="http://downloads.stealthbits.com/access/files/SAHotFixes/7.2/AIC_7.2_SP1_005.zip" target="_blank">http://downloads.stealthbits.com/access/files/SAHotFixes/7.2/AIC_7.2_SP1_005.zip</a></td></tr></tbody></table></div><p><strong><span class="wysiwyg-font-size-large">Product:</span></strong> StealthAUDIT<br/><strong><span class="wysiwyg-font-size-large">Module:</span></strong> AIC - Manage Resource Ownership<br/><strong><span class="wysiwyg-font-size-large">Versions:</span></strong> 7.2 SP1<br/><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong> SMPC-2521, SMPC-2522<br/><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> AccessInformationCenter.msi	7.2.0.49<br/><strong><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong> 1559<br/></p></div>
+</article></body></html>

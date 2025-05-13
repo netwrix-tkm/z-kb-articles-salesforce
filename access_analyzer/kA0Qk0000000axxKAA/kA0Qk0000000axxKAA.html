@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Ini Section Does Not Have LOG_FILE</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000axxKAA" />
+    <meta name="Id" content="ka0Qk0000004p5ZIAQ" />
+    <meta name="LastPublishedDate" content="2024-07-29T10:57:43.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-29T10:58:43.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-11T17:04:28.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9130" />
+    <meta name="ArticleNumber" content="000009130" />
+    <meta
+      name="description"
+      content="ERROR: FILESYSTEMACCESS TFileSystemProcessor.RunFileSystemActivity"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>This is an unvalidated article. The product
+            R&amp;D team has yet to review some or all of information below.
+          </p>
+        </blockquote>
+
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Enterprise Auditor prompts the following error during the File Server Activity
+            auditing (FSAC) scan:
+          </p>
+
+          <pre class="has-inner-focus">
+ERROR FILESYSTEMACCESS TFileSystemProcessor.RunFileSystemActivity
+Error during processing: GetFSACIniAttributeValue: 
+Error: Ini section for &lt;HOST&gt; does not have LOG_FILE \\\C$\Program Files\Stealthbits\StealthAUDIT\FSAC\SBTFileMon.ini </pre
+          >
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Depending on the Netwrix Activity Monitor
+              version, the <code>SBTFileMon.ini</code> file can be located in one of the following
+              folders:
+            </p>
+
+            <p>For Activity Monitor v6.9 and earlier:</p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">C:\Program Files\Stealthbits\StealthAUDIT\FSAC</code></pre>
+
+            <p>For Activity Monitor v7.0 and newer:</p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">C:\ProgramData\Netwrix\Activity Monitor\Agent</code></pre>
+          </blockquote>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The <code>SBTFileMon.ini</code> file is corrupted.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>Keep copies of edited files to back up
+            reference values.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>Refer to the following steps to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                Locate the affected <code>SBTFileMon.ini</code> file on the affected Activity
+                Monitor agent.
+              </p>
+            </li>
+            <li>
+              <p>
+                Replace the corrupted <code>SBTFileMon.ini</code> file with an .ini file from a
+                working Activity Monitor agent.
+              </p>
+            </li>
+            <li>
+              <p>
+                Modify the <code>HOST=</code> and <code>LOG_FILE=</code> values to match the
+                intended values. Refer to the following example:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">HOST=FILESERVER01
+LOG_FILE=C:\ProgramData\Netwrix\Activity Monitor\Agent\ActivityLogs\FILESERVER01_Log_.tsv</code></pre>
+            </li>
+            <li>
+              <p>Verify that the replacement ini file is correctly configured.</p>
+            </li>
+            <li>
+              <p>
+                Test the Activity Monitor agent to ensure it can successfully collect FSAC scan data
+                without encountering the error.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Alternatively, you can delete or rename the <code>SBTFileMon.ini</code> file to allow
+            the Activity Monitor agent to recreate it. However, this approach would require
+            reconfiguring the monitored host outputs for file and syslog and monitoring
+            configurations, making it a slightly more time-consuming option.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

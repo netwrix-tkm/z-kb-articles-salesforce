@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Too Long File Names when Sending Reports by Email</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000HDiKCAW" />
+    <meta name="Id" content="ka04u000000HdHBAA0" />
+    <meta name="LastPublishedDate" content="2023-05-05T13:16:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-10T07:30:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-05T13:16:41.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8576" />
+    <meta name="ArticleNumber" content="000008576" />
+    <meta
+      name="description"
+      content="&#34;Error in sending an email: The specified path, file name, or both are too long.&#34;"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <span
+          ><span
+            ><span
+              >The emailed report fails to compile on successful job completion.<br />The following
+              error message appears:</span
+            ></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">
+"Error in sending an email: The specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters."</pre
+        >
+         
+
+        <h2 id="cause">Cause</h2>
+        <span
+          ><span
+            ><span
+              >Long paths are not enabled on host. This error is relevant only for file paths to job
+              files exceeding 248 characters as stated in the error message.</span
+            ></span
+          ></span
+        ><br /> 
+        <h2 id="solution">Solution</h2>
+        <span
+          ><span
+            ><span>The error can be resolved by performing one of the following steps:</span></span
+          ></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Longer paths can be enabled by editing the registry key
+                    “Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem\LongPathsEnabled”.
+                    For additional information, refer to the following Microsoft article: </span
+                  ></span
+                ></span
+              ></span
+            ><a
+              href="https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry"
+              target="_blank"
+              ><span
+                ><span
+                  ><span
+                    >https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry</span
+                  ></span
+                ></span
+              ></a
+            ><span
+              ><span
+                ><span
+                  ><span
+                    >.<br />
+                    Group Policy Objects and other security functions might prevent the modification
+                    of the key.</span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Shortening the name of the job file path or the job file itself to under 248
+                    characters will also enable the report compilation.
+                  </span></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span
+                    >Moving the job file to a higher-level folder will also resolve the error
+                    depending on the length of the name of each folder.
+                  </span></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              >When moving the job file or renaming the folder, make sure to verify and edit the
+              scheduled task to match the current job file location.<br /><br />Once you introduce
+              the changes, you should be able to rerun the job or regenerate the report to
+              test.</span
+            ></span
+          ></span
+        >
+      </div>
+    </article>
+  </body>
+</html>

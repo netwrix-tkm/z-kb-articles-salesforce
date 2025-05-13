@@ -1,0 +1,42 @@
+---
+id: "ka0qk0000000c5jkaq"
+title: "1Secure − Successful Data Collection"
+description: "1Secure − Data Collection Is Successful"
+sidebar_position: 1
+last_update: "2025-05-13"
+---
+
+> **NOTE:** Return to the main workflow page via this link: [1Secure Troubleshooting Workflow](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html). 
+> 
+> Return to the previous page via this link: [1Secure − Analyze Status.xml](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html). 
+> 
+> Proceed to the next section via this link: [1Secure − Unsuccessful Data Collection](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html). 
+
+## Overview
+
+This article covers the troubleshooting steps to follow in case of successful data collection in 1Secure. It also includes a description of the `Cache` folder contents. 
+
+##  Successful data collection − Analyze the Cache folder 
+
+The activities collected by 1Secure are processed via the `Cache` folder. The folder is located in `C:\ProgramData\Netwrix Cloud Agent\NAProcessor\Cache`. The `Cache` folder includes the following folders: 
+
+  * `Failed`. The folder contains activities which could be converted from the connector format to the cloud format. If activities are stuck in the folder, escalate the case to the R&D team. 
+
+> **IMPORTANT:** Include the `C:\ProgramData\Netwrix Cloud Agent\Logs\CloudAgentCoreSvc\NAPHandler.log` file in the escalation. 
+
+  * `Tmp`. The folder collects activities before they are sent to 1Secure. 
+
+  * `Del`. The folder contains activities successfully sent to 1Secure. The folder is cleared once per minute (i.e., the retention cycle equals 1 minute). 
+
+  * `Ready`. The folder contains activities to be uploaded to 1Secure. If activities are stuck in the folder, escalate the case to the R&D team. 
+
+> **IMPORTANT:** Include the contents of the `C:\ProgramData\Netwrix Cloud Agent\Logs\CloudAgentCoreSvc` log folder in the escalation. 
+
+## Related articles
+
+  * [1Secure Troubleshooting Workflow](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000bxFKAQ.html)
+
+  * [1Secure − Analyze Status.xml](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c3hKAA.html)
+
+  * [1Secure − Unsuccessful Data Collection](https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000c6vKAA.html)
+

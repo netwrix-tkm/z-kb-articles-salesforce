@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Timeout During Reading Attempt Error</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000XC5KAM"/><meta name="Id" content="ka0Qk0000002j7VIAQ"/><meta name="LastPublishedDate" content="2024-03-28T14:11:36.000+0000"/><meta name="LastModifiedDate" content="2024-03-28T14:11:47.000+0000"/><meta name="FirstPublishedDate" content="2024-03-28T14:11:36.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9086"/><meta name="ArticleNumber" content="000009086"/><meta name="description" content="Timeout During Reading Attempt Error"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>Netwrix Privilege Secure prompts the following error in Entra ID (formerly Azure Active Directory) event logs:</p>
+
+<pre class="has-inner-focus">Data processing error: Exception while reading from stream,
+Timeout during reading attempt</pre>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>In larger Entra ID environments (e.g., with 9000 users or more), timeouts may hinder Entra ID synchronization.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>Adjust the timeout setting to prevent the synchronization from being interrupted prematurely:</p>
+
+<ol><li>
+	<p>In the NPS server, locate the NPS Database Configuration Tool in <code>%ProgramFiles%\Stealthbits\PAM\DatabaseConfig\DatabaseConfigUI</code> by default.</p>
+	</li><li>
+	<p>Run the <code>NPS.DbCfg.exe</code> tool.</p>
+	</li><li>
+	<p>Locate the <strong>Command Timeout</strong> line and increase the value to <strong>3600</strong>. The extended timeout should allow the Entra ID synchronization to complete.</p>
+	</li><li>
+	<p>Click <strong>Save</strong> to save changes.</p>
+	</li></ol>
+</div></div>
+</article></body></html>

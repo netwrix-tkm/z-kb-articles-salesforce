@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NetWrix Password Manager service account</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cDCAS" />
+    <meta name="Id" content="ka04u00000116bKAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T11:50:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1868" />
+    <meta name="ArticleNumber" content="000003571" />
+    <meta
+      name="description"
+      content="The KB provides information about necessary permissions of the data processing account of Netwrix Password Manager."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>
+          Since this software is used to change/reset passwords and unlock Active Directory (AD)
+          user accounts, the service account has to have enough permissions to perform these
+          operations. We recommend using an account which is a member of the Domain Administrators
+          group and local Administrators group on the computer where the product is installed.
+        </div>
+        <div>
+          If you do not want to use a Domain Administrator account, on the computer where NetWrix
+          Password Manager is installed, create an account with the following rights and
+          permissions. 1. On the machine where the Password Manager service is installed:
+        </div>
+        <ul>
+          <li>
+            Full access to the NetWrix Password Manager installation directory (Allow Full control
+            security permissions)
+          </li>
+          <li>
+            Full access to the registry key HKLMSoftwareWow6432NodeNetWrixPassword Manager
+            (Wow6432Node only for x64 OS) (Allow Full control security permissions)
+          </li>
+          <li>
+            The Logon as a service right (added to Local policies &gt; User rights assignment &gt;
+            Logon as a service policy).
+          </li>
+        </ul>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xbH"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_678ac99e-76d9-4883-880e-1be199bd2832.png"
+            alt="User-added image"
+            width="299"
+            height="381"
+        /></a>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xbC"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_a8aaaedb-d7ca-4e1d-9e02-9ef2f286bca9.png"
+            alt="User-added image"
+            width="272"
+            height="341"
+        /></a>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xb7"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_831dbb2b-0a25-478e-8cb3-56f1ccbbb2f1.png"
+            alt="User-added image"
+            width="500"
+            height="290"
+        /></a>
+        <div>
+          Alternatively, you can add the service account to the local Administrators group 2. In
+          Active Directory the service account should have the following rights for all managed
+          accounts:
+        </div>
+        <div>
+          <ul>
+            <li>Change Password</li>
+            <li>Reset Password</li>
+            <li>Read Account Restrictions</li>
+            <li>Write Account Restrictions</li>
+            <li>Read lockoutTime</li>
+            <li>Write lockoutTime</li>
+            <li>Read pwdLastSet</li>
+            <li>Write pwdLastSet</li>
+          </ul>
+        </div>
+        <div>To grant these rights to the service account in AD, do the following:</div>
+        <ol>
+          <li>
+            Navigate to Start &gt; Administrative Tools &gt; Active Directory Users and Computers.
+          </li>
+          <li>
+            Select View from the main menu and makes sure that the Advanced Features option is
+            selected.
+          </li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xaY"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_90299313-7e7e-40c0-9706-470caaad7ae0.png"
+            alt="User-added image"
+            width="291"
+            height="154"
+        /></a>
+        <ol start="3">
+          <li>
+            In the left pane, right click the managed domain node and select Properties from the
+            pop-up menu.
+          </li>
+          <li>Open the Security tab and click the Advanced button.</li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xan"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_f9c08329-683d-497e-a6bf-86bda2251bea.png"
+            alt="User-added image"
+            width="276"
+            height="310"
+        /></a>
+        <ol start="5">
+          <li>
+            In the Advanced Security Settings dialog, in the Permissions tab, click the Add button.
+          </li>
+          <li>Select the account you want to use a s service account and click OK.</li>
+        </ol>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xas"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_edce4b25-950f-4a43-8eb3-c59a9d6dce52.png"
+            alt="User-added image"
+            width="500"
+            height="413"
+        /></a>
+        <ol start="7">
+          <li>
+            In the Permission dialog that will open after you have specified an account, in the
+            Object tab, under Apply to, select Descendant User objects from the drop-down list.
+          </li>
+          <li>Select the following check boxes in the Allow column:</li>
+        </ol>
+        <ul>
+          <li>Reset Password</li>
+          <li>Change Password</li>
+        </ul>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xax"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_f91f97d4-e2b9-43af-a1ec-b63a2fcf3a93.png"
+            alt="User-added image"
+            width="300"
+            height="378"
+        /></a>
+        <ol start="9">
+          <li>
+            In the Properties tab, under Apply to, select Descendant User objects from the drop-down
+            list.
+          </li>
+          <li>Select the following check boxes in the Allow column:</li>
+        </ol>
+        <ul>
+          <li>Write Account Restrictions</li>
+          <li>Read Account Restrictions</li>
+          <li>Read lockoutTime</li>
+          <li>Write lockoutTime</li>
+          <li>Write pwdLastSet</li>
+          <li>Read pwdLastSet</li>
+        </ul>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAcg&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004xb2"
+          target="_blank"
+          ><img
+            src="kA00g000000H9cDCAS_f80b14d6-9278-468e-a2d6-2e9fb63dd0a5.png"
+            alt="User-added image"
+            width="279"
+            height="351"
+        /></a>
+        <ol start="11">
+          <li>Click OK to save the changes.</li>
+        </ol>
+        <div>
+          <div>
+            NOTE. A less privileged service account is not able to unlock and reset passwords for
+            protected domain groups (domain admins, enterprise admins, etc) because of AdminSDHolder
+            Access control mechanism.
+          </div>
+          <div>
+            AdminSDHolder is a container inside Active Directory that maintains a master list of
+            permissions for objects that are members of privileged groups in Active Directory.
+            Access control prevents access of non-privileged accounts to this container.
+          </div>
+          <div>
+            <div>
+              Below are some of the protected groups that cannot be handled without domain admin
+              rights:
+            </div>
+            <ul>
+              <li>Administrators</li>
+              <li>Domain Admins</li>
+              <li>Enterprise Admins</li>
+              <li>Schema Admins</li>
+              <li>Domain Controllers</li>
+              <li>Server Operators</li>
+            </ul>
+          </div>
+          <div>
+            More information about it here:
+            <a
+              href="http://blogs.technet.com/b/askds/archive/2009/05/07/five-common-questions-about-adminsdholder-and-sdprop.aspx"
+              target="_blank"
+              >http://blogs.technet.com/b/askds/archive/2009/05/07/five-common-questions-about-adminsdholder-and-sdprop.aspx</a
+            >
+          </div>
+        </div>
+        <div>
+          <a href="http://tsmith.co/2011/what-is-adminsdholder/" target="_blank"
+            >http://tsmith.co/2011/what-is-adminsdholder/</a
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

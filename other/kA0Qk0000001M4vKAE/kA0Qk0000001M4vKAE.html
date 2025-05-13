@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Set Up Netwrix Password Policy Enforcer to Work with CyberArk Identity MFA</title><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="f_anixis"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000001M4vKAE"/><meta name="Id" content="ka0Qk00000056rBIAQ"/><meta name="LastPublishedDate" content="2024-08-22T14:11:58.000+0000"/><meta name="LastModifiedDate" content="2024-08-26T12:55:33.000+0000"/><meta name="FirstPublishedDate" content="2024-08-22T14:11:58.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9250"/><meta name="ArticleNumber" content="000009250"/><meta name="description" content="Set Up Netwrix Password Policy Enforcer to Work with CyberArk Identity MFA"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>In your environment with Netwrix Password Policy Enforcer (PPE) and CyberArk Identity Multi-Factor Authentication (MFA) set up, users do not see any password policy requirements.</p>
+</div>
+
+<h2 id="cause">Cause</h2>
+
+<div>
+<p>PPE should be whitelisted to correctly operate in the CyberArk Identity solution environment.</p>
+</div>
+
+<h2 id="resolution">Resolution</h2>
+
+<div>
+<p>In PPE clients, create and add the following registry key to allow the correct operation of PPE and CyberArk Identity:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Provider Filters\{DBB51941-EB03-4C20-9FEF-84902D73E987}]
+@="AnixisPPCFilter"
+"Disabled"=dword:00000001</code></pre>
+</div></div>
+</article></body></html>

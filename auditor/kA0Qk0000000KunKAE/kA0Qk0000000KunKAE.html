@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Activity Summary Email Size Limitations − CSV and ZIP Files Limitations</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000KunKAE" />
+    <meta name="Id" content="ka0Qk0000001AIHIA2" />
+    <meta name="LastPublishedDate" content="2023-12-18T06:49:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T08:09:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-18T06:49:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8967" />
+    <meta name="ArticleNumber" content="000008967" />
+    <meta name="description" content="Activity Summary Emails Contain .zip Files" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            In some cases, Activity Summary emails may still have <code>.zip</code> files attached,
+            even if the entire <strong>Attach Activity Summary as a CSV file</strong> tree checkbox
+            in the monitoring plan settings is unchecked. The <strong>Instructions</strong> section
+            provides additional information on the in-depth Activity Summary emails setup.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>Make sure to stop the corresponding collector
+              service before introducing the changes. Start the service once the changes are saved.
+            </p>
+          </blockquote>
+
+          <p>
+            Each Auditor collector has a separate <code>NwxEmailNotificationClient.acinc</code> file
+            located in the corresponding
+            <code>C:\Program Files (x86)\Netwrix Auditor\*</code> folder. Before editing, pay
+            attention to the <strong>Attach Activity Summary as a CSV file</strong> state in the
+            monitoring plan:
+          </p>
+
+          <ul>
+            <li>
+              <p>
+                If <strong>Attach Activity Summary as a CSV file</strong> is checked, the
+                <code>MaxAttachmentFileSizeInKB</code> subnode will be active.
+              </p>
+            </li>
+            <li>
+              <p>
+                If <strong>Attach Activity Summary as a CSV file</strong> is not checked, the
+                <code>MaxAttachmentFileSizeInKB</code> subnode will not be active.
+              </p>
+            </li>
+          </ul>
+        </div>
+         
+
+        <div>
+          <p>
+            Depending on the ticket, the customer might need a different resolution. Refer to the
+            following subnode descriptions to resolve possible issues:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                The <code>&lt;a n="MaxChangesInEmailBody" v="3000"/&gt;</code> subnode states the
+                max amount of ARs that will be listed in a single email.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    If <strong>Attach Activity Summary as a CSV file</strong> is not checked, and
+                    the actual number of ARs is higher than stated, a <code>.csv</code> file is
+                    generated, compressed into <code>.zip</code>, and attached to the email.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    This does not affect the checked
+                    <strong>Attach Activity Summary as a CSV file</strong> option.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                The <code>&lt;a n="MaxEmailXmlSizeInKB" v="10240"/&gt;</code> subnode states the max
+                size of the email before it is compressed.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    If <strong>Attach Activity Summary as a CSV file</strong> is not checked, and
+                    the actual email XML table size is higher than stated, a <code>.csv</code> file
+                    is generated, compressed into <code>.zip</code>, and attached to the email.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    This does not affect the checked
+                    <strong>Attach Activity Summary as a CSV file</strong> option.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                The <code>&lt;a n="MaxAttachmentFileSizeInKB" v="5120"/&gt;</code> subnode states
+                the max size of the attached <code>.csv</code> file.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    This does not affect the unchecked
+                    <strong>Attach Activity Summary as a CSV file</strong> option.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    If <strong>Attach Activity Summary as a CSV file</strong> is checked, and the
+                    actual attachment size is larger than stated, the emails are split in parts. The
+                    attached <code>.csv</code> files are split into parts (e.g.,
+                    <strong>Summary_Details - part 2 of 8.csv</strong>).
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000KwPKAU.html"
+                  target="_self"
+                  >Activity Summary Emails Contain .zip Files</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How can I decrease number of events generated for Directory Service Access auditing?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ViCAK" />
+    <meta name="Id" content="ka04u000000HcOzAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:17.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="754" />
+    <meta name="ArticleNumber" content="000003173" />
+    <meta name="description" content="event log overwrites" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I enabled Directory Service Access auditing and configured auditing categories in accordance
+        with Netwrix instructions, but this configuration generates a lot of events and Security
+        event log keeps being overwritten (even after increasing its size to 4GB). How can I
+        decrease the number of events being generated for Directory Service Access auditing?
+        <hr />
+        Despite the fact that
+        <a
+          href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Configuration/ActiveDirectory/ObjectLevelAuditing.htm"
+          target="_blank"
+          >Netwrix Guides</a
+        >
+        recommend enabling almost all categories while configuring object-level auditing, not all of
+        them are being used by Netwrix Auditor. So, to decrease the event generation you can uncheck
+        the unnecessary categories in default domain container auditing settings. The following
+        steps outline how to modify domain container auditing settings and prevent the generation of
+        unnecessary events (decrease the Security event log usage):
+
+        <ol>
+          <li>Log on to any Domain Controller in the monitored domain.</li>
+          <li>Open<strong> Active Directory Users and Computers.</strong></li>
+          <li>Right-click on domain node and select <strong>Properties</strong>.</li>
+          <li>Navigate to <strong>Security tab --&gt; Advanced --&gt; Audit tab</strong>.</li>
+          <li>Select <strong>Everyone </strong>and click <strong>Edit</strong>.</li>
+          <li>
+            And uncheck following check boxes (you need to have only
+            <strong>SUCCESSFUL</strong> checkboxes checked):
+            <ul>
+              <li><strong>Full Control </strong></li>
+              <li><strong>List Contents</strong></li>
+              <li><strong>Read all properties</strong></li>
+              <li><strong>Read permissions</strong></li>
+              <li><strong>All extended rights</strong></li>
+              <li><strong>Add GUID</strong></li>
+              <li>
+                And all after "<strong>Add GUID</strong>" except "<strong
+                  >Reanimate tombstones</strong
+                >"
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

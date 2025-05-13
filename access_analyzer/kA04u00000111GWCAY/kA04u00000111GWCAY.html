@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Correctly Apply the Preserve Last Access Time (LAT) Option to FSAA Scans</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111GWCAY" />
+    <meta name="Id" content="ka0Qk000000Bx4nIAC" />
+    <meta name="LastPublishedDate" content="2023-09-28T11:22:16.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-28T19:13:11.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-27T20:45:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8824" />
+    <meta name="ArticleNumber" content="000008824" />
+    <meta
+      name="description"
+      content="How to Correctly Apply the Last Access Time (LAT) Preservation Option to FSAA Scans"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="questions">Questions</h2>
+        <div>
+          <ul>
+            <li>
+              <p>Why are scans of my NAS failing to open files or skipping them?</p>
+            </li>
+            <li>
+              <p>
+                If we select the <strong>Last Access Time (LAT) Preservation</strong> option, can we
+                avoid a situation in which our FSAA job has changed the time of the last access?
+              </p>
+            </li>
+            <li>
+              <p>
+                What other options must be configured in the FSAA Data Collector Wizard when
+                choosing the LAT Preservation?
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>Follow the recommendations below:</p>
+          <ul>
+            <li>
+              <p>
+                The
+                <strong
+                  >Only return file types with these comma-separated values (without leading
+                  dots)</strong
+                >
+                option changes the LAT. Therefore, if you want to preserve it, unselect this option.
+                To find this option, go to the <strong>FSAA Data Collector Wizard</strong> &gt;
+                <strong>Default Scoping Options</strong> step &gt;
+                <strong>File Properties (Folder Summary)</strong> tab.
+              </p>
+            </li>
+            <li>
+              <p>
+                It is impossible to preserve LAT on a directory. It can be enabled for files only.
+              </p>
+            </li>
+            <li>
+              <em>LAT Preservation is only applicable to Windows File Servers.</em> Enabling
+              <strong>Preserve LAT</strong> on NAS and other file servers may cause unexpected
+              results.
+            </li>
+          </ul>
+          <p>
+            For more information, please see the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/FSAA/DefaultScopingOptions/ScanSettings.htm"
+              target="_self"
+              >Scan Settings Tab</a
+            >.
+          </p>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/DataCollector/FSAA/DefaultScopingOptions/ScanSettings.htm"
+                target="_self"
+                >Scan Settings Tab</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

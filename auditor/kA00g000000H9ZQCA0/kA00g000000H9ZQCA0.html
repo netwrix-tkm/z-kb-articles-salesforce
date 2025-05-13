@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Auditing policies are not being enabled on all or several domain controllers in monitored
+      domain
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9ZQCA0" />
+    <meta name="Id" content="ka04u000000HcSRAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:49:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:36.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1246" />
+    <meta name="ArticleNumber" content="000003400" />
+    <meta name="description" content="Auditing policies group policy troubleshooting" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You have configured change auditing in accordance with the Installation and Configuration
+        guide (<a
+          href="http://www.netwrix.com/download/documents/NetWrix_Active_Directory_Change_Reporter_Installation_Configuration_Guide.pdf"
+          target="_blank"
+          >Installation and Configuration Guide</a
+        >), however auditing policies are not being applied and Active Directory Change Reporter
+        keep complaining about audit settings on all or some domain controllers. In addition to this
+        all or some changes in summary reports are listed as made by the System account.
+
+        <hr />
+
+        The reasons why the auditing policies are not being enabled on domain controllers in the
+        managed domain may be:
+        <ol>
+          <li>
+            GPO you configured auditing policies in is not being distributed to problematic domain
+            controllers
+          </li>
+          <li>
+            GPO you configured auditing policies in is being distributed to problematic domain
+            controllers but auditing policies are not being applied
+          </li>
+        </ol>
+
+        <hr />
+
+        <ol>
+          <li>
+            Make sure the GPO you configured auditing policies in is being distributed to
+            problematic domain controllers. For that please use Resultant Set of Policy (RSoP)
+            <a
+              href="http://technet.microsoft.com/en-us/library/cc782615(v=ws.10).aspx"
+              target="_blank"
+              >http://technet.microsoft.com/en-us/library/cc782615(v=ws.10).aspx</a
+            >
+          </li>
+        </ol>
+        <ul>
+          <li>
+            Log onto the domain controller which Active Directory Change Reporter is complaining
+            about
+          </li>
+          <li>
+            Run Resultant Set of Policy (RSoP): Start&gt;Run&gt; type rsop.msc and press enter
+          </li>
+          <li>
+            Expand Audit Policy as shown on the picture bellow and make sure you see the
+            corresponding source GPO (the GPO which you enabled auditing policies in) for auditing
+            polices and ensure no warnings and errors. In our case we see that Audit Account
+            Management policy is set to Failure, while for successful auditing we need to have this
+            policy set to Success.
+            <img
+              src="kA00g000000H9ZQCA0_5438e802-f0f4-46f7-91d6-cbb3acaa7aae.png"
+              alt="rsop"
+              width="500"
+              height="197"
+            />
+          </li>
+          <li>
+            To fix this problem open Group Policy Management Console (Start&gt;Administrative
+            tools&gt;Group Policy Management), select Domain Controllers node, Open the Group Policy
+            Inheritance tab and in the right pane review the order the GPOs are being applied to the
+            Domain Controllers OU. In our case the Default Domain Policy is enforced and being
+            applied first which causes a GPO conflict. Manage your GPOs inheritance to exclude the
+            necessary policy settings to be applied. For more details regarding GPO inheritance
+            please refer to the following Microsoft kb article:
+            <a
+              href="http://technet.microsoft.com/en-us/library/cc757050(v=ws.10).aspx"
+              target="_blank"
+              >http://technet.microsoft.com/en-us/library/cc757050(v=ws.10).aspx</a
+            >
+          </li>
+        </ul>
+        <div>
+          <img
+            src="kA00g000000H9ZQCA0_aacee72b-d310-403b-8348-6aaf39393b56.png"
+            alt="gpmc"
+            width="500"
+            height="197"
+          />
+          <ol>
+            <li>
+              If you resolved the inheritance issue and corresponding GPOs are being distributed to
+              problematic domain controller but Active Directory Change Reporter still complains on
+              Auditing settings this may indicate that Auditing policy settings are not being
+              applied on a domain controller. To troubleshot this you can use Local Group Policy
+              Editor:
+              <a href="http://technet.microsoft.com/en-us/library/cc731745.aspx" target="_blank"
+                >http://technet.microsoft.com/en-us/library/cc731745.aspx</a
+              >
+            </li>
+          </ol>
+          <ul>
+            <li>
+              Log onto the domain controller which Active Directory Change Reporter is complaining
+              about.
+            </li>
+            <li>Open Local Group Policy Editor: Start&gt;Run&gt;Secpol.msc</li>
+            <li>
+              Expand Audit Policy as shown on the picture bellow and make sure that the necessary
+              auditing policies are set to success (Audit Account Management, Audit Directory
+              Service Access ) and equal to ones you see in Run Resultant Set of Policy (RSoP)
+            </li>
+          </ul>
+          <div />
+        </div>
+        <div>
+          <img
+            src="kA00g000000H9ZQCA0_ab579c4c-641b-42d9-8cec-022f8d358296.png"
+            alt="secpol"
+            width="500"
+            height="235"
+          />
+        </div>
+        <div>
+          <ul>
+            <li>
+              If the Local Group Policy Editor indicates different auditing setting (different from
+              ones you configured and see in Resultant Set of Policy (RSoP)) this may indicate an
+              issue with GPO applying on that particular domain controller. To troubleshooting this
+              issue please refer to the following Microsoft kb articles:
+            </li>
+          </ul>
+          <div>
+            Security auditing settings are not applied to Window Server 2008-based computers when
+            you deploy a domain-based policy:
+            <a href="http://support.microsoft.com/kb/921468" target="_blank"
+              >http://support.microsoft.com/kb/921468</a
+            >
+          </div>
+          <div>
+            Troubleshooting Group Policy Problems:
+            <a
+              href="http://technet.microsoft.com/en-us/library/cc787386(v=ws.10).aspx"
+              target="_blank"
+              >http://technet.microsoft.com/en-us/library/cc787386(v=ws.10).aspx</a
+            >
+          </div>
+          <div>
+            Group Policy Analysis and Troubleshooting Overview
+            <a href="http://technet.microsoft.com/en-us/library/jj134223.aspx" target="_blank"
+              >http://technet.microsoft.com/en-us/library/jj134223.aspx</a
+            >
+          </div>
+          <div>
+            Fixing Group Policy problems by using log files:
+            <a
+              href="http://technet.microsoft.com/en-us/library/cc775423(WS.10).aspx"
+              target="_blank"
+              >http://technet.microsoft.com/en-us/library/cc775423(WS.10).aspx</a
+            >
+          </div>
+          <div>
+            SceCli 1202 events are logged every time Computer Group Policy settings are refreshed on
+            a computer that is running Windows Server 2008 R2:
+            <a href="http://support.microsoft.com/kb/974639/en-us" target="_blank"
+              >http://support.microsoft.com/kb/974639/en-us</a
+            >
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

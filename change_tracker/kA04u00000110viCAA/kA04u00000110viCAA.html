@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Disable 2FA for Default Administrator User in Netwrix Change Tracker</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110viCAA" />
+    <meta name="Id" content="ka04u00000116rcAAA" />
+    <meta name="LastPublishedDate" content="2023-07-25T08:38:32.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-25T13:08:17.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-25T08:38:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8685" />
+    <meta name="ArticleNumber" content="000008685" />
+    <meta
+      name="description"
+      content="Disable 2FA mfa for Default Administrator User in Netwrix Change Tracker"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How to disable the two-factor authorization (2FA) for the default administrator user in
+            Netwrix Change Tracker?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            In order to use Allowed Commands, a one-time password is required. Follow the steps
+            provided to disable the two-factor authorization and have Netwrix Change Tracker
+            generate one-time codes in the application log file instead.
+          </p>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>This method works only for the default
+              administrator user and does not apply to administrator role users or users with no
+              administrator permissions.
+            </p>
+          </blockquote>
+
+          <ol>
+            <li>
+              <p>Connect to the Netwrix Change Tracker server via RDP.</p>
+            </li>
+            <li>
+              <p>
+                Stop IIS running on the server. Run the following command in elevated Command
+                Prompt:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">iisreset /stop</code></pre>
+            </li>
+            <li>
+              <p>Open the following file:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub\Configs\appsettings.json</code></pre>
+            </li>
+            <li>
+              <p>In the file, change the following lines:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    <code>security::auth::twoFactor::registerAdmin</code> to <code>false</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <code>security::auth::twoFactor::fallbackEnabled</code> to <code>true</code>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Save changes to the file. Start IIS. Run the following command in elevated Command
+                Prompt:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">iisreset /start</code></pre>
+            </li>
+          </ol>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Setting <code>registerAdmin</code> to
+            <code>false</code> will prevent the system from logging the root admin in using the
+            two-factor authentication. Some operations in Allowed Commands can be performed only
+            after the user has passed the two-factor authentication during the session (i.e., has
+            presented a one-time password). With <code>registerAdmin</code> set to false, the system
+            will use a one-time password written to the log file.<br />This feature can be disabled
+            via <code>fallbackEnabled</code>, but it would prevent the user from using Allowed
+            Commands.
+          </p>
+        </blockquote>
+
+        <div>
+          <p>Refer to the following steps for the updated login workflow:</p>
+
+          <ol>
+            <li>
+              <p>
+                Log in Netwrix Change Tracker, and open <strong>Settings</strong> &gt;
+                <strong>Users</strong> to edit the administrator user.
+              </p>
+            </li>
+            <li>
+              <p>
+                Uncheck the <strong>2FA Login</strong> checkbox and click <strong>Update</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Click the <strong>Reset 2FA</strong> button and enter the one-time code from your
+                authenticator application.
+              </p>
+            </li>
+            <li>
+              <p>
+                Sign out from Netwrix Change Tracker. Sign in under an administrator user account to
+                make sure the changes were applied and no one-time code is required.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open <strong>Settings</strong> &gt; <strong>Allowed Commands</strong> to select a
+                command and action that command to either <strong>Trust</strong> or
+                <strong>Untrust</strong> it. This should prompt the user to enter a one-time code
+                written to the Netwrix Change Tracker server log file:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\inetpub\wwwroot\Change Tracker Generation 7 (NetCore) Hub\logs\hubservice-log.txt</code></pre>
+
+              <p>
+                The one-time code should be available at the bottom of the log file. Refer to the
+                following line for an example:
+              </p>
+
+              <pre class="has-inner-focus">
+2023-01-01 00:00:00,000 [--] INFO  Message - One-time passcode was requested for user admin: 999999</pre
+              >
+            </li>
+          </ol>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>The one-time code will be valid for the remainder of
+            the login session. Once the user logs out, a new one time password will be required for
+            the next login.
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

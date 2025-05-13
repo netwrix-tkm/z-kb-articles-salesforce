@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Properly Remove Auditor Components Prior to Further Clear Installation?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000Lm1KAE" />
+    <meta name="Id" content="ka0Qk0000001H6rIAE" />
+    <meta name="LastPublishedDate" content="2024-01-09T14:36:22.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-09T14:36:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-26T10:39:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8986" />
+    <meta name="ArticleNumber" content="000008986" />
+    <meta
+      name="description"
+      content="How to Properly Remove Auditor Components Prior to Further Clear Installation"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            In cases, when you already have Auditor installed on a server and, for some reasons, do
+            not want to upgrade the product and migrate the configuration to another server, you
+            might want to perform clear install of Netwrix Auditor to this machine. How to make sure
+            the new server installation/configuration doesn't encounter problems related to the old
+            Netwrix server?
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <p>
+            Review the explanations and instructions below to safely prepare your server for clear
+            install.
+          </p>
+        </div>
+
+        <h3 id="question_1">Question 1</h3>
+
+        <div>
+          <p>
+            Do I need to uninstall Netrix compression services from all the nodes that the previous
+            installation/server was monitoring before I build new server?
+          </p>
+        </div>
+
+        <h3 id="answer">Answer</h3>
+
+        <div>
+          <p>
+            No, because Netwrix Auditor is supposed to automatically uninstall compression services
+            upon removing the targeted machine/location or items from monitoring plans.
+          </p>
+        </div>
+
+        <h3 id="question_2">Question 2</h3>
+
+        <div>
+          <p>
+            Does Netwrix Auditor uninstallation from my server removes all Netwrix compression
+            services or do I have to manually uninstall them from all nodes?
+          </p>
+        </div>
+
+        <h3 id="answer">Answer</h3>
+
+        <div>
+          <p>
+            In most cases, yes it does. However, for the proper uninstallation of all compression
+            services, Netwrix recommends following the procedure below:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                In Netwrix Auditor, navigate to <b>Monitoring plans</b> and remove the
+                <b>items</b> first.
+              </p>
+            </li>
+            <li>
+              <p>
+                Wait for the host server some to synchronize with nodes that have the compression
+                services installed. Depending on your Auditor configuration, the uninstallation
+                process might take a while. Wait for a couple of hours for the uninstallation to
+                take effect.
+              </p>
+            </li>
+            <li>
+              <p>Double check that the compression services were uninstalled successfully.</p>
+            </li>
+            <li>
+              <p>Delete all <b>monitoring plans</b>.</p>
+            </li>
+            <li>
+              <p>Uninstall Netwrix Auditor itself.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h3 id="related_article">Related Article</h3>
+
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9ebCAC.html"
+                target="_blank"
+                >Migrating Netwrix Auditor to New Server</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

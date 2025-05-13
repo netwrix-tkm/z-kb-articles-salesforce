@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>UnprocessableEntityError: SSH Connection Error: Encountered RSA Key, Expected OPENSSH Key</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110pVCAQ"/><meta name="Id" content="ka04u00000116bAAAQ"/><meta name="LastPublishedDate" content="2023-07-07T11:18:44.000+0000"/><meta name="LastModifiedDate" content="2023-07-11T10:27:23.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T11:18:44.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8650"/><meta name="ArticleNumber" content="000008650"/><meta name="description" content="UnprocessableEntityError: SSH Connection Error: Encountered RSA Key, Expected OPENSSH Key"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+Example of error when running registration via Postman:
+
+<pre>{
+    "name": "UnprocessableEntityError",
+    "message": "SSH connection error: encountered RSA key, expected OPENSSH key",
+    "code": 9999
+}</pre>
+
+<h2 id="causes">Causes</h2>
+
+<h4 id="cause_1">Cause 1</h4>
+This error can occur if SSH access is being limited to specific accounts. Example is having account specified in <code>/etc/ssh/sshd_config</code> file using options parameters like <code>AllowUsers</code> or <code>AllowGroups</code>. Go to <a href="#resolution_1">Resolution 1</a>.
+
+<h4 id="cause_2">Cause 2</h4>
+This registration error can happen when a system was already registered in Netwrix Privilege Secure for Discovery and a user was removed from the system (even if the user is manually added back in). Go to <a href="#resolution_2">Resolution 2</a>.
+
+<h4 id="cause_3">Cause 3</h4>
+The use of Ubuntu 22.04+ and RSA SSH keys which are not allowed. Go to <a href="#resolution_3">Resolution 3</a>.
+
+<h2 id="resolutions">Resolutions</h2>
+
+<h4 id="resolution_1"><a id="R1" name="R1">Resolution 1</a></h4>
+Either change configuration to allow SSH to all users, or add the service account, default name is "secureone", to necessary line(s) to allow SSH connectivity. And then restart the sshd service.
+
+<h4 id="resolution_2"><a id="R2" name="R2">Resolution 2</a></h4>
+
+<ol><li>Remove the user and home directory from the system:
+	<pre>sudo deluser --remove-home secureone</pre>
+	If the user was remove but the home directory remains, please remove home directory <strong>manually</strong>:
+
+	<pre>sudo rm -r /home/secureone</pre>
+	</li><li>Remove the system from the Netwrix Privilege Secure for Discovery database.
+	<ol><li>SSH into a node and log into the database:
+		<ul><li>For cluster deployment, use <code>s1 db</code></li><li>For a single node deployment: <code> s1 --single-node db</code></li></ul>
+		</li><li>Locate the systems, ip-10-100-11-115 is used as an example hostname:
+		<pre>db.ldap_store.find({ "cn" : "ip-10-100-11-115"}).count()</pre>
+		</li><li>Remove all ldap_store record of that system:
+		<pre>db.ldap_store.deleteMany({ "cn" : "ip-10-100-11-115"})</pre>
+		</li></ol>
+	</li></ol>
+
+<h4 id="resolution_3"><a id="R3" name="R3">Resolution 3</a></h4>
+
+<ol><li>Add the following line:
+	<pre>PubkeyAcceptedKeyTypes +ssh-rsa</pre>
+	</li><li>To the bottom of: <code>/etc/ssh/sshd_config</code></li><li>Restart sshd:
+	<pre>sudo systemctl restart sshd</pre>
+	</li></ol></div>
+</article></body></html>

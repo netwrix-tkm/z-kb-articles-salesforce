@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Reports Generation Takes a While and Completes With Errors</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YBCA0" />
+    <meta name="Id" content="ka0Qk0000001NsDIAU" />
+    <meta name="LastPublishedDate" content="2024-01-17T12:09:06.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-17T12:09:06.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1179" />
+    <meta name="ArticleNumber" content="000003326" />
+    <meta
+      name="description"
+      content="Advanced reports are generated slowly Cannot read the next data row for the Dataset DS The remote server returned the error: (500) Internal Server Error.Report processing has been canceled by the user."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Predefined reports and subscriptions for wide date ranges are generated slowly and
+            complete with one of the errors below:
+          </p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+    Cannot read the next data row for the Dataset DS.
+</pre
+            >
+          </div>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+    The remote server returned the error: (500) Internal Server Error.
+</pre
+            >
+          </div>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+    Report processing has been canceled by the user.
+        </pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>Too much audit data in the report.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>To resolve the issue, do one of the following:</p>
+
+          <ul>
+            <li>
+              <p>
+                On your SQL Server host, restart the <b>SQL Server (Instance name)</b> windows
+                service.
+              </p>
+            </li>
+            <li>
+              <p>
+                Follow the recommendations to improve the overall Auditor performance. Learn more in
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9WjCAK.html"
+                  target="_blank"
+                  >Long Data Collection — Improving the Performance</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Disable the report generating timeout by following these steps:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Open the <b>ReportManager URL</b> and click the <b>Site Settings</b> link in the
+                    top-right corner.
+                  </p>
+                </li>
+                <li>
+                  <p>In the left-hand panel, click the <b>General</b> tab.</p>
+                </li>
+                <li>
+                  <p>Set the <b>Limit the copies of report history</b> to <b>5</b>.</p>
+                </li>
+                <li>
+                  <p>Select the <b>Do not timeout report</b> checkbox.</p>
+                </li>
+                <li>
+                  <p>Click <b>Apply</b> to save changes.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                Set a limit to SQL server memory consumption. Learn more in
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/server-memory-server-configuration-options?view=sql-server-ver16"
+                  target="_blank"
+                  >Server memory configuration options ⸱ Microsoft 🡥</a
+                >. Consider that the min. and max. SQL memory values are completely dependent on
+                the environment and how many resources you have. For the maximum value, Netwrix
+                recommends do not exceed more than 80% of the total resources for the SQL server.
+                And ideally, SQL Server should be on the different server as Netwrix Auditor
+                itself. 
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h3 id="related_articles">Related Articles</h3>
+
+        <div>
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9WjCAK.html"
+            target="_blank"
+            >Long Data Collection — Improving the Performance</a
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

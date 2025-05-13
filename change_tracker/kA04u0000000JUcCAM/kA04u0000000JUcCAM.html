@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>e. Database Compliance Reporting</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JUcCAM" />
+    <meta name="Id" content="ka0Qk000000CGCHIA4" />
+    <meta name="LastPublishedDate" content="2025-02-14T19:15:36.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-14T19:15:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:37:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8122" />
+    <meta name="ArticleNumber" content="000008122" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="e.DatabaseComplianceReporting-DatabaseComplianceReporting">
+          Database Compliance Reporting
+        </h2>
+        <p>
+          For background please read the previous section regarding
+          <a href="https://kb.netwrix.com/8117" target="_blank">Agentless Compliance Reporting</a>
+          and the
+          <a
+            class="createlink"
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JRdCAM.html"
+            target="_blank"
+            >Proxy Agent and Credentials Key</a
+          >
+          concepts as Database Compliance reports are all run on an Agentless-basis.
+        </p>
+        <p>
+          Use ‚ÄòAdd Database Credentials‚Äô to create/add a new Credential Key for Database
+          Compliance Reporting ‚Äì please follow the notes below to construct your Connection
+          String.
+        </p>
+        <p>
+          <strong><em>Important</em></strong
+          >: Note that the Connection String defines access to the Database Server ‚Äì the specific
+          Database instance/Name/Oracle SID is defined in the step following creation of the
+          Database Credential key.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JUcCAM_a30d7cdb-d21b-47da-b66c-e8a6349fbfd5.png"
+          /></span>
+        </p>
+        <h4 id="e.DatabaseComplianceReporting-Exampleconnectionstrings:">
+          Example connection strings :
+        </h4>
+        <div class="table-wrap">
+          <table count-columns="2" class="wrapped confluenceTable">
+            <colgroup>
+              <col />
+              <col />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><strong>SQL Server (database credentials):</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p>
+                    <em
+                      >Server=192.168.1.123;Trusted_Connection=False;User
+                      Id=bob;Password=password;</em
+                    >*
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><strong>SQL Server (trusted):</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><em>Server=192.168.1.123;Trusted_Connection=True;</em>*</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><strong>Oracle (direct connection):</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p>
+                    <em
+                      >Server=192.168.1.123;Port=1521;User Id=bob;Password=password;Direct=True;</em
+                    >*
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><strong>Oracle (TNS connection):</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><em>User Id=bob;Password=password;Data Source=ORCL</em>*</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><strong>IBM DB2 (database credentials)</strong></p>
+                </td>
+                <td colspan="1" rowspan="1" class="confluenceTd">
+                  <p><em>Server=192.168.11.133:50000;UID=;PWD=;Database=SAMPLE</em></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p> </p>
+        <p>
+          The specific named-Database instance to be reported on is then defined as a Device related
+          to a chosen Proxy Agent in a
+          <a href="https://kb.netwrix.com/8119" target="_blank"
+            >similar way to any other Agentless device is configured.</a
+          >
+        </p>
+        <p> </p>
+        <p>
+          Go to Settings -&gt; Agents &amp; Devices and select the Proxy Agent from which you would
+          like to run your database reporting connection.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JUcCAM_d06089fe-6111-4ce1-a73c-7447a3d9de72.png"
+          /></span>
+        </p>
+        <p align="center"> </p>
+        <p>
+          <em><strong>Name</strong> </em>‚Äì Database name or any alias can be specified
+        </p>
+        <p>
+          <em><strong>Host/Database Name</strong></em> ‚Äì This is the Database Instance/Oracle SID
+          to be reported on
+        </p>
+        <p>
+          <strong><em>Device Type</em> </strong>‚Äì ‚ÄòDatabase‚Äô and assign the Credentials Key
+          created earlier (or select ‚ÄòNew Credentials‚Äô)
+        </p>
+        <p>
+          You can then test that the Credentials Key works ‚Äì click on the Device Name to go to the
+          Devices home page for the Database, then use the ‚ÄòRun Ad Hoc Report‚Äô option to run the
+          ‚ÄòDatabase Credential Test‚Äô report, or just go straight ahead and run one of the
+          pre-packed CIS SQL Server reports.
+        </p>
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="250"
+              src="kA04u0000000JUcCAM_a7f950b0-4552-4d4d-85b5-c35016e753d3.png"
+          /></span>
+        </p>
+        <p> </p>
+        <p>
+          <br /><b>Attachments:</b><br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdJtn&amp;d=%2Fa%2F4u000000Lzjb%2FeUyZGyc2Vpe.NvG.yF_1qR3GxzRDjXcUFwS6TcDKKZk&amp;asPdf=false"
+            target="_blank"
+            >image2017-6-2_16-7-9.png</a
+          >
+          <br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKEX&amp;d=%2Fa%2F4u000000LzRd%2FSrkqwNlzFk834_bPvDBDZU5kUlYoFNZhZK2JXAgiWCI&amp;asPdf=false"
+            target="_blank"
+            >image2017-6-2_16-6-10.png</a
+          >
+          <br /><a
+            href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdK9t&amp;d=%2Fa%2F4u000000Lzjg%2FxSxJX37z.iNUn3_KQWqtyTJ9NoKgqpwTG09u8BU2uWw&amp;asPdf=false"
+            target="_blank"
+            >image2017-6-2_16-4-31.png</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

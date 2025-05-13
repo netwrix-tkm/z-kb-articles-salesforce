@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Renewing the JWT Signing Certificate</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000PdKtCAK"/><meta name="Id" content="ka04u000000wvtsAAA"/><meta name="LastPublishedDate" content="2023-10-25T18:25:44.000+0000"/><meta name="LastModifiedDate" content="2023-10-25T18:25:44.000+0000"/><meta name="FirstPublishedDate" content="2021-07-12T12:00:20.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5887"/><meta name="ArticleNumber" content="000005887"/><meta name="description" content="Renewing the JWT Signing Certificate"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>The following steps should be taken if instructed by Netwrix Support to regenerate Netwrix Privilege Secure's JWT Signing Certificate.</p>
+
+<h2 id="instructions">Instructions</h2>
+
+<blockquote>
+<p><span><strong>IMPORTANT:</strong></span> While many of these steps use drive letter <code>C:</code> in the path, this will differ for Program Files paths if Privilege Secure was installed to a different drive letter. All references to <code>C:\ProgramData\Stealthbits\PAM</code> will use drive letter <code>C:</code> in all environments.</p>
+</blockquote>
+
+<p><b>1.</b> Stop all SbPAM and IIS services by running the following in an elevated PowerShell window:</p>
+
+<pre class="ckeditor_codeblock">Stop-Service sbpam* -Force
+Stop-Service w3svc -Force</pre>
+
+<p><br/><b>2. </b>In Windows Explorer, navigate to the Program Data directory for Privilege Secure (for example, C:\ProgramData\Stealthbits\PAM\). From here, open the <strong>WebService</strong> folder, and then open appsettings.jwt.json in Notepad. In appsettings.jwt.json, locate the <strong>"Jwt"</strong> section (such as the example below) and delete all of it. This is the trigger to generate a new JWT Signing Certificate: </p>
+
+<pre class="ckeditor_codeblock">"Jwt": {
+    "CertificateFile":  "C:\\ProgramData\\Stealthbits\\PAM\\Web\\jwtsign.pfx",
+    "CertificatePassword":  "...",
+    "CertificateThumbprint":  "...",
+    "Encryptionkey":  "..."
+},</pre>
+
+<p><br/><b>3. </b>Navigate to <b>C:\ProgramData\Stealthbits\PAM\Web</b> and delete the <b>jwtsign.pfx</b> file.</p>
+
+<p><b>4. </b>Navigate back up one level to the PAM folder, and then to the Webservice folder. Open appsettings.log.json in Notepad and repeat step #2 if it also has a "jwt" section.</p>
+
+<p><b>5.</b> Run the following commands in an elevated PowerShell window (changing the path to the PAM folder depending on the install path):</p>
+
+<pre class="ckeditor_codeblock">cd C:\Program Files\Stealthbits\PAM\KeyGen 
+&amp; .\SbPAM.KeyGen.Exe</pre>
+
+<p><br/><b>6. </b>Open <strong>appsettings.jwt.json</strong> again from step #2, and verify the <strong>"Jwt"</strong> section has been recreated.</p>
+
+<p><b>7.</b> Start all Privilege Secure and IIS services by running the following in an elevated PowerShell window:</p>
+
+<pre class="ckeditor_codeblock">Start-Service sbpam*
+Start-Service w3svc</pre>
+
+<p><b>8. </b>Log in to the Privilege Secure web application as an Admin, and re-register services by clicking the logged-in user's name in the upper-right, clicking <b>Settings</b>, and then clicking <b>Register Services</b>.<br/><br/><img alt="The SbPAM web application interface's user settings menu dropdown." src="kA04u000000PdKtCAK_9626cfee-15f5-4763-aaa9-78a29429e6e8.png"/><br/><br/><img alt="The SbPAM web application interface's settings page, displaying the Register Services button." src="kA04u000000PdKtCAK_8310f977-7d06-41cf-b06e-64fa3436b647.png"/></p></div>
+</article></body></html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Rolling-Log Fix: "ERROR NNT.Hub.ServiceClient.HubAdapter - Certificate thumbprint does not
+      match trusted ... Consider setting Thumbprint in HubDetails.xml. Server certificate details..”
+    </title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JaGCAU" />
+    <meta name="Id" content="ka04u000000QmgnAAC" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-30T11:27:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:50:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8209" />
+    <meta name="ArticleNumber" content="000008209" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        The following may occur when the Agent password being sent to the Hub Server is incorrect:
+
+        <div class="code panel pdl conf-macro output-block">
+          <div class="codeContent panelContent pdl">
+            <pre class="syntaxhighlighter-pre">
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#                                                   Example Message:													  #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+2017-10-08 11:17:36,935 [Threadpool worker] ERROR NNT.Hub.ServiceClient.HubAdapter - Certificate thumbprint does not match trusted (BAD1067FBAB59CCED21786657C672F6AB5BE824C/6F7F11707C0C93CD0F7E92D5BC0F1C9345D68A64). Consider setting Thumbprint in HubDetails.xml. Server certificate details
+</pre
+            >
+          </div>
+        </div>
+
+        <h2 id="Rolling-LogFix:">Cause</h2>
+
+        <p>
+          This means that you are using a customor unrecognized IIS Certificate. You need to specify
+          to the agent the certificate thumbprint so that it can use the new certificate.
+        </p>
+
+        <h2 id="Rolling-LogFix:">Resolution</h2>
+
+        <p>
+          If you are receiving this error, the NNT Agent is NOT reporting to your hub. This is a
+          critical error and for monitoring to continue, it must be resolved. To resolve this error:
+        </p>
+
+        <ol>
+          <li>Stop the NNT Agent Service</li>
+          <li>
+            Navigate to your NNT Agent Directory which contains the Rolling-Log Files, defined in
+            this article
+            <a href="https://kb.netwrix.com/8048" target="_blank"
+              >NNT Software Problem? What Info Should I Provide?</a
+            >
+          </li>
+          <li>Right click and edit the <strong>Hubdetails.xml</strong> file</li>
+          <li>Remove the tags as they are the agent password which has been encrypted</li>
+          <li>
+            In the place of the tags, enter the tags. See example hubdetails below. The default
+            password is used as an example.
+          </li>
+          <li>
+            In between the password entries, enter your Agent Account password as defined on your
+            NNT Hub Server.
+          </li>
+          <li>
+            In between the <strong>Thumbprint</strong> entries, enter your custom certificate
+            thumbprint which.
+          </li>
+          <li>
+            Save the file out, replacing the old one. Note that you may need to save this to the
+            desktop and copy and paste replacing the old file back into the directory.
+          </li>
+          <li>Restart the Agent service</li>
+        </ol>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <p class="title">
+            <span><strong>NOTE:</strong></span
+            > When you start the service, the agent will automatically re-encrypt your password, and
+            the E1 tags will replace the password tags. Also, There is a ten minute cool off when
+            this happens. Now that the username and password has been corrected the agent should
+            register after the ten minutes has elapsed. This cool off period is counted at the NNT
+            Hub server, and does not take effect at the agent level. If you have stopped the
+            service, you do not have to wait 10 minutes after restarting it.<br /> 
+          </p>
+        </div>
+
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <h2 id="hubdetailsxml_example">HubDetails.xml Example</h2>
+
+          <pre class="ckeditor_codeblock">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;HubDetails xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+
+       &lt;Url&gt;https://myserver.mydomain.local/api&lt;/Url&gt;
+
+       &lt;Username&gt;agent&lt;/Username&gt;
+
+       &lt;Password&gt;passWord121&lt;/Password&gt;
+
+       &lt;Proxy /&gt;
+
+       &lt;ProxyDomain /&gt;
+
+       &lt;ProxyUsername /&gt;
+
+       &lt;ProxyPassword /&gt;
+
+       &lt;UseDefaultProxy&gt;false&lt;/UseDefaultProxy&gt;
+
+       &lt;NamePrefix&gt;&lt;/NamePrefix&gt;
+
+       &lt;NameSuffix&gt;&lt;/NameSuffix&gt;
+
+       &lt;Thumbprint&gt;BCD1067FBAB59CCED21786657C672F6AB5BE824C&lt;/Thumbprint&gt;
+
+&lt;/HubDetails&gt;
+</pre
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

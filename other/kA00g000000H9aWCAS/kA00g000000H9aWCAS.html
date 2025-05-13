@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Report download Permissions denied</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9aWCAS" />
+    <meta name="Id" content="ka04u00000116cYAAQ" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T13:05:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1309" />
+    <meta name="ArticleNumber" content="000003466" />
+    <meta
+      name="description"
+      content="Permissions denied Can&amp;#039;t create the file: Permission denied when trying to download any report from the Helpdesk portal"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        I recieve <strong>Error: Permissions denied</strong> or
+        <strong>Can't create the file: Permission denied</strong> when trying to download any report
+        from the Helpdesk portal
+
+        <img
+          src="kA00g000000H9aWCAS_907628ef-17dd-4f26-8ec4-c70720d269b4.png"
+          alt="User-added image"
+          width="500"
+          height="240"
+        />
+
+        <hr />
+
+        To make reports availalbe for downloading Password Manager generates reports and writes the
+        output to a temp file. The temp file is located in the physical path of the
+        <strong>helpdesk</strong> virtual directory - in the product installation directory. (by
+        default C:Program Files (x86)Netwrix Password ManagerWeb). The reason for this is that the
+        account used to authenticate to the Helpdesk portal (can be the one you are logged in to the
+        system if automatic background user authentication is enabled) does not have Write
+        permissions to the folder.
+
+        <hr />
+
+        To resolve the issue you must grant the appropriate account Write NTFS permission to the Web
+        folder (by default C:Program Files (x86)Netwrix Password ManagerWeb). To grant permission:
+        <ol>
+          <li>Right-click the <strong>Web</strong> folder, go to <strong>Properties</strong></li>
+          <li>Select<strong> Security</strong> tab, click <strong>Edit</strong></li>
+          <li><strong>Add</strong> the account and enable <strong>Write</strong> Allow checkbox</li>
+          <li>Click <strong>Ok</strong>, then <strong>Ok</strong> again</li>
+        </ol>
+        <img
+          src="kA00g000000H9aWCAS_ae93295a-96fc-4f36-8a42-046b9a11812e.png"
+          alt="User-added image"
+          width="500"
+          height="441"
+        />
+      </div>
+    </article>
+  </body>
+</html>

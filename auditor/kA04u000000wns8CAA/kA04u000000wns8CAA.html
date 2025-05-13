@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Why does Risk Assessment Overview Dashboard Shows Unexpected Issues for Windows Server?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wns8CAA" />
+    <meta name="Id" content="ka04u000000wwInAAI" />
+    <meta name="LastPublishedDate" content="2023-11-30T20:04:28.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-30T20:04:28.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-28T15:41:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8926" />
+    <meta name="ArticleNumber" content="000008926" />
+    <meta
+      name="description"
+      content="Why does Risk Assessment Overview Dashboard Shows Unexpected Issues for Windows Server?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            When reviewing the <b>Risk Assessment Overview</b> dashboard, some infrastructure items
+            show incorrect values. For example, unexpected number of
+            <b>Servers with unauthorized antivirus software</b>. However, when drilling down to the
+            linked report, returns no results. Is it a normal behavior for the product?
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                First, you need to run the <b>Server Inventory Report</b> to validate that data was
+                being retrieved.
+              </p>
+            </li>
+            <li>
+              <p>
+                If the report does not contain any data about the issues showed on the dashboard,
+                you need to check an out-of-date State-in-Time snapshots for the Monitoring Plan in
+                which those servers are listed.
+              </p>
+            </li>
+            <li>
+              <p>
+                For that, navigate to a problematic monitoring plan, click
+                <b>Edit Data Source</b> -&gt; <b>Manage State-in-Time Snapshots</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                The date of the current snapshot should be today's date. If not, wait a day or two
+                for the data to update.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

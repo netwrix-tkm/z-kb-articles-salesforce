@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How to Use Non-Standard RDP &amp; SSH Ports for Proxy Connections</title><meta name="label" content="ct_legacy"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HhKCAU"/><meta name="Id" content="ka04u000000ww5oAAA"/><meta name="LastPublishedDate" content="2023-11-07T15:37:38.000+0000"/><meta name="LastModifiedDate" content="2023-11-10T16:48:58.000+0000"/><meta name="FirstPublishedDate" content="2022-01-06T17:06:25.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5936"/><meta name="ArticleNumber" content="000005936"/><meta name="description" content="How to Use Non-Standard RDP &amp; SSH Ports for Proxy Connections"/></head><body><article class=" kb-articles"><div class="Content__c"><blockquote>
+<p><span><strong>IMPORTANT:</strong></span> This guidance is applicable to Privilege Secure <strong>v3.5</strong> and prior! In the latest release, you can configure ports directly from the Host Details Page. Explore further details in the following article: <a href="https://helpcenter.netwrix.com/bundle/PrivilegeSecure_4.0/page/Content/PrivilegeSecure/Admin/Resources/Page/HostDetails.htm" target="_blank">Resources Interface – Host Details Page ⸱ v4.0</a></p>
+</blockquote>
+
+<h2 id="summary">Summary</h2>
+The SbPAM Proxy Service can be customized to connect to specific target resources using non-standard ports for both RDP and SSH. By default, the Proxy Service uses standard ports for these communications.
+
+<h2 id="instructions">Instructions</h2>
+Each SbPAM Proxy Service can be individually customized to connect to specific target resources via specific RDP and SSH ports, rather than the standard TCP/3389 (RDP) and TCP/22 (SSH).<br/><br/>To do so, the following files need to be modified on the server where each Proxy Service is installed:
+<ul><li>sbpam_rdp.json</li><li>sbpam_ssh.json</li></ul>
+These files are located in:<br/> 
+<pre class="ckeditor_codeblock">%ProgramData%\Stealthbits\PAM\ProxyService</pre>
+<br/>If the files are not present, then the following commands need to be run. First, open Command Prompt and CD to:<br/> 
+<pre class="ckeditor_codeblock">%Program Files%\Stealthbits\PAM\ProxyService</pre>
+<br/>Then run the following two commands, to create each JSON file respectively:<br/> 
+<pre class="ckeditor_codeblock">.\sbpam-proxy.exe cfg -c sbpam_rdp
+.\sbpam-proxy.exe cfg -c sbpam_ssh</pre>
+<br/>You should received confirmations such as, "Default configuration for sbpam_rdp created". The files now exist in the aforementioned ProgramData path.<br/><br/>Open the file you would like to customize the protocol port for. In the JSON, add the following key/value pair:<br/> 
+<pre class="ckeditor_codeblock">"OverridePort": ["example.host.com:&lt;custom_port&gt;"]</pre>
+<br/>Replace "example.host.com" with the target resource you would like to customize the port for. This can include wildcards for several hosts, such as "*.host.com". Multiple values can also be added to the value array, for example:<br/> 
+<pre class="ckeditor_codeblock">"OverridePort": ["example1.host.com:&lt;custom_port&gt;", "example2.host.com:&lt;custom_port&gt;"]</pre>
+<br/>"&lt;custom_port&gt;" should also be replaced with the desired port for the protocol's communication.<br/><br/>Once customizations are complete, simply save the file. Subsequent SbPAM proxy connections to specified target resources will now use the custom port(s).<br/><br/>As an example of proper JSON syntax, here is a basic, customized sbpam_rdp.json. All RDP connections to example.host.com will now use port 5589:<br/> 
+<pre class="ckeditor_codeblock">{
+    "listenaddress": "0.0.0.0:4489",
+    "OverridePort": ["example.host.com:5589"],
+    "startuptimeout": "30s",
+    "twofactorseparator": ","
+}</pre></div>
+</article></body></html>

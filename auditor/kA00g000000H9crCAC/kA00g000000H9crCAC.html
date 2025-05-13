@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1214 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9crCAC" />
+    <meta name="Id" content="ka0Qk0000001MBNIA2" />
+    <meta name="LastPublishedDate" content="2024-01-16T10:51:35.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-16T10:51:49.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2469" />
+    <meta name="ArticleNumber" content="000003611" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues with uploading the collected data to the SQL Server database."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1214 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+The following error occurred when trying to write audit data to the SQL database: %error_message%</pre
+          >
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                The Data Collecting Account has insufficient permissions to create temporary audit
+                files copied to the SQL database.
+              </p>
+            </li>
+            <li>
+              <p>Misconfigured SSRS settings in Netwrix Auditor.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Cause #1 − Allow Full Control permissions to the affected Long-Term Archive service
+                account for the following 2 folders:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Long-term Archive − you can establish the location by following
+                    <strong>Settings</strong> &gt; <strong>Long-Term Archive</strong> &gt;
+                    <strong>Write audit data to</strong>. The default location is
+                    <code>%PROGRAMDATA%\Netwrix Auditor\Data</code>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Short-Term Archive − you can establish the location by following
+                    <strong>Health Status</strong> &gt;
+                    <strong>Open diagnostic logs folder</strong> under
+                    <strong>Working folder</strong> &gt; parent folder of the
+                    <strong>Logs</strong> folder. The default location is
+                    <code>%ProgramData%\Netwrix Auditor\ShortTerm</code>.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Cause #2 − Verify SQL Server Reporting Services settings − refer to the following
+                article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/AuditDatabase.htm"
+                  target="_self"
+                  >Netwrix Auditor Settings − Audit Database · v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/Settings/AuditDatabase.htm"
+                  target="_self"
+                  >Netwrix Auditor Settings − Audit Database · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

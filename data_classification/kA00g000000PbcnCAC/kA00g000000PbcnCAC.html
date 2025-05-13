@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NDC Dashboard Failure</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbcnCAC" />
+    <meta name="Id" content="ka04u000000HcXbAAK" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5606" />
+    <meta name="ArticleNumber" content="000003746" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h3 id="scenario">Scenario</h3>
+
+        <p>
+          <strong
+            >NDC Dashboard fails to load and the conceptsearching eventlog shows this error:
+          </strong>
+        </p>
+
+        <p>
+          Component: conceptClassifier<br />
+          Caller: Run<br />
+          Level: Error<br />
+          conceptEngine2.ServiceModel.PingQs<br />
+          Failed to contact QS:
+          <a href="http://localhost:80/conceptQS/conceptQS.asmx" target="_blank"
+            >http://localhost:80/conceptQS/conceptQS.asmx</a
+          >, error: System.Net.WebException: The underlying connection was closed: An unexpected
+          error occurred on a receive. ---&gt; System.IO.IOException: Unable to read data from the
+          transport connection: An existing connection was forcibly closed by the remote host.
+          ---&gt;
+        </p>
+
+        <p>
+          <strong
+            >In addition to this error, in the <em>conceptsearching</em> log, you will see the below
+            error in the Windows Application Event Log:</strong
+          >
+        </p>
+
+        <p>
+          Faulting application name: w3wp.exe, version: 10.0.17763.1, time stamp: 0xcfdb13d8<br />
+          Faulting module name: PerfMon64.dll, version: 8.0.13053.0, time stamp: 0x5a26da79<br />
+          Exception code: 0xc0000409<br />
+          Fault offset: 0x000000000013f68f<br />
+          Faulting process id: 0x2940<br />
+          Faulting application start time: 0x01d53c07a74a0b75<br />
+          Faulting application path: c:windowssystem32inetsrvw3wp.exe<br /><em>
+            <strong
+              >Faulting module path: C:Program FilesMicrosoft Monitoring
+              AgentAgentAPMDOTNETAgentV8.0.13053.0PerfMon64.dll</strong
+            ></em
+          ><br />
+          Report Id: 84973451-9fbf-4b31-9dd8-ca486181ffd2<br />
+          Faulting package full name:<br />
+          Faulting package-relative application ID:
+        </p>
+
+        <p>
+          The faulting module path listed in the error points out that the cause of the IIS fault is
+          the 2016 SCOM agent.
+        </p>
+
+        <h3 id="solution">Solution</h3>
+
+        <p>
+          Uninstall the 2016 SCOM agent from the IIS server, stop the conceptclassifier,
+          conceptcollector, and conceptindexer services, and restart the server. The dashboard will
+          load and the issue is resolved.
+        </p>
+
+        <p>
+          If uninstalling the SCOM 2016 agent is not an option, follow either Method 1 or Method 2
+          in the below article, depending on your SCOM needs:
+        </p>
+
+        <p>
+          <a
+            href="https://support.microsoft.com/en-us/help/4457771/resolve-issues-by-removing-apm-components-in-operations-manager-2016"
+            target="_blank"
+            >Resolve Issues by Removing APM Components in Operations Manager 2016</a
+          >
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

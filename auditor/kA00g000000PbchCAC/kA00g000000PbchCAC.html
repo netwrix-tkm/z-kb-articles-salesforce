@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Remote Server Returned Error: (400) Bad Request when Auditing SharePoint Online and Microsoft
+      Entra ID
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="Azure_AD_and_Office_365" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbchCAC" />
+    <meta name="Id" content="ka0Qk0000001Ft3IAE" />
+    <meta name="LastPublishedDate" content="2024-01-08T11:25:19.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-08T11:25:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5006" />
+    <meta name="ArticleNumber" content="000003740" />
+    <meta name="description" content="no access to o365 endpoints" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            The following errors are prompted in Health Log for your SharePoint Online or Microsoft
+            Entra ID (formerly Azure AD) monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Cannot collect Azure AD audit data due to the following error:
+The remote server returned an error: (400) Bad Request.</pre
+          >
+
+          <pre class="has-inner-focus">
+Failed to collect state-in-time snapshot data due to the following error.
+The remote server returned an error: (400) Bad Request.</pre
+          >
+
+          <h2 id="causes">Causes</h2>
+
+          <div>
+            <ul>
+              <li>
+                <p>The tenant name specified for the monitoring plan is incorrect.</p>
+              </li>
+              <li>
+                <p>
+                  Netwrix Auditor uses O365 Management API to collect events from Microsoft cloud
+                  services. The 0365 API accesses <code>graph.microsoft.com</code> and
+                  <code>manage.office.com</code> endpoints. In case unified audit is disabled for
+                  O365, the following error will be prompted when connecting to the
+                  <code>manage.office.com/api/v1.0/</code> endpoint:
+                </p>
+
+                <pre class="has-inner-focus">Tenant &lt;TenantGUID&gt; does not exist.</pre>
+              </li>
+            </ul>
+          </div>
+
+          <h2 id="resolutions">Resolutions</h2>
+
+          <h4 id="step_1_review_the_tenant_name">Step 1. Review the tenant name</h4>
+
+          <div>
+            <p>
+              To make sure the tenant name is specified correctly, refer to the Microsoft article on
+              how to
+              <a
+                href="https://learn.microsoft.com/en-us/partner-center/find-ids-and-domain-names"
+                target="_blank"
+                >Locate important IDs for a user ⸱ Microsoft 🡥</a
+              >. Once you've obtained the correct Tenant ID, specify it in the monitoring plan
+              affected.
+            </p>
+
+            <ol>
+              <li>
+                <p>In the main Netwrix Auditor menu, select <strong>Monitoring Plans</strong>.</p>
+              </li>
+              <li>
+                <p>Select the affected monitoring plan, and click <strong>Edit</strong>.</p>
+              </li>
+              <li>
+                <p>
+                  Review the items listed under the monitoring plan by clicking the
+                  <strong>Edit item</strong> in the right pane and replacing the tenant name with
+                  Tenant ID you've previously obtained.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Once the changes are introduced and saved, click <strong>Update</strong> under the
+                  <strong>Monitoring Plan</strong> section.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <h4 id="step_2_enable_unified_audit_for_o365">Step 2. Enable unified audit for O365</h4>
+
+          <div>
+            <p>
+              Before enabling unified audit, check if the error is present in
+              <code>\%Working Folder%\Logs\SharePoint Online Auditing\%GUID%\SpaOnline.log</code>.
+              If the error is present, proceed with either of two solutions provided below. Learn
+              more about enabling unified audit in
+              <a
+                href="https://learn.microsoft.com/en-us/purview/audit-log-enable-disable"
+                target="_blank"
+                >Turn Auditing On or Off ⸱ Microsoft 🡥</a
+              >.
+            </p>
+          </div>
+
+          <h5 id="enable_unified_audit_via_powershell">Enable unified audit via PowerShell</h5>
+
+          <div>
+            <ol>
+              <li>
+                <p>
+                  Launch elevated PowerShell v.4 and later in your Netwrix server. Run the following
+                  commands:
+                </p>
+
+                <pre
+                  class="has-inner-focus"
+                ><code class="lang-Registry">$UserCredential = Get-Credential
+Connect-IPPSSession -Credential $O365Cred
+Connect-ExchangeOnline
+Set-AdminAuditLogConfig -UnifiedAuditLogIngestionEnabled $True
+Get-AdminAuditLogConfig | FL UnifiedAuditLogIngestionEnable</code></pre>
+
+                <p>
+                  Once the <code>Connect-IPPSSession -Credential $O365Cred</code> line is read, a
+                  pop-up screen to log in your Microsoft 365 account will be prompted. Use the
+                  credentials for your data collecting account.
+                </p>
+              </li>
+              <li>
+                <p>Wait for 24 hours and check the status of collections and reports.</p>
+              </li>
+            </ol>
+
+            <div>
+              <p>In case of any further issue submit a case with Netwrix Technical Support</p>
+            </div>
+
+            <h5 id="enable_unified_audit_via_microsoft_purview_compliance_portal_ui">
+              Enable unified audit via Microsoft Purview compliance portal UI
+            </h5>
+
+            <ol>
+              <li>
+                <p>
+                  Log in Purview Compliance Portal as Office 365 admin. Refer to the following link:
+                  <a href="https://compliance.microsoft.com" target="_blank"
+                    >Purview Compliance Portal</a
+                  >.
+                </p>
+              </li>
+              <li>
+                <p>
+                  In the left pane, select <strong>Solutions</strong> &gt; <strong>Audit</strong>.
+                </p>
+              </li>
+              <li>
+                <p>Select the search option.</p>
+              </li>
+              <li>
+                <p>
+                  If search is not enabled, a
+                  <strong>Start recording user and admin activity</strong> banner will be prompted.
+                  Click it to enable auditing.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <h4 id="related_articles">Related articles</h4>
+
+          <div>
+            <p>
+              <a
+                href="https://docs.microsoft.com/en-us/office/office-365-management-api/"
+                target="_blank"
+                >Office 365 Management APIs ⸱ Microsoft 🡥</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://docs.microsoft.com/en-us/office/office-365-management-api/troubleshooting-the-office-365-management-activity-api"
+                target="_blank"
+                >Office 365 Management Activity API FAQs and troubleshooting ⸱ Microsoft 🡥</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://docs.microsoft.com/en-us/microsoft-365/compliance/turn-audit-log-search-on-or-off"
+                target="_blank"
+                >Microsoft 365 — Turn Auditing On or Off ⸱ Microsoft 🡥</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://compliance.microsoft.com/solutioncatalog/solution/auditlogsearch?solutionname=Audit"
+                target="_blank"
+                >Microsoft Purview — Audit ⸱ Microsoft 🡥</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/MicrosoftEntraID/Permissions.htm"
+                target="_blank"
+                >Microsoft 365 — Permissions for Microsoft Entra ID Auditing ⸱ v10.6</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/Microsoft365/SharePointOnline/Permissions.htm"
+                target="_self"
+                >Microsoft 365 — Permissions for SharePoint Online Auditing ⸱ v10.6</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://learn.microsoft.com/en-us/partner-center/find-ids-and-domain-names"
+                target="_blank"
+                >Locate important IDs for a user ⸱ Microsoft 🡥</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

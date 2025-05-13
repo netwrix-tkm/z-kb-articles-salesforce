@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>8. Gen 7 Settings Page - Configuration Templates - Process-Command Output</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JRxCAM" />
+    <meta name="Id" content="ka04u000000Hd7iAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:18:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:32:17.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8084" />
+    <meta name="ArticleNumber" content="000008084" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="id-8.Gen7SettingsPage-ConfigurationTemplates-Process-CommandOutput-_Toc484003733"
+            ><span class="confluence-anchor-link" id="_Toc484003733"> </span></span
+          ><span>Configuration Templates: Process/Command Output</span> <br />
+          Where required, Change Tracker can also execute commands on the endpoint device.
+          Agent-Based Monitoring: Where an Agent is being used for monitoring the commands will be
+          executed directly by the Agent and the initial baseline stored in the local Agent
+          database, with any subsequent changes detected being reported back to the Hub. The
+          commands will be run using whichever service account has been assigned to it. When run on
+          Windows any commands are run from the standard Windows\System32 shell and therefore may
+          require a full executable path to be specified e.g.
+        </p>
+        <pre><br/> cmd /C %systemroot%\system32\inetsrv\appcmd list VDIR /text:VDIR.NAME</pre>
+        <p>
+          <br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="153"
+              width="625"
+              src="kA04u0000000JRxCAM_e50a50ca-d30a-4ac7-acef-756f268cad71.png"
+          /></span>
+        </p>
+        <p>
+          Agent-Based Process/Command Output Monitoring: Where Agentless monitoring is being used
+          this works in conjunction with the Credentials defined for the device (see Getting Started
+          Guide). The shell delivered by the Credentials and Logon Script will be used e.g. for a
+          Cisco Router, this needs to be the Privilege/Enable prompt
+        </p>
+        <p>
+          Commands will be executed indirectly by the Master Proxy Agent being used and the initial
+          baseline stored in the Proxy Agent database, with any subsequent changes detected being
+          reported back to the Hub. The commands will be run using whichever service account has
+          been used in the assigned Credentials.
+        </p>
+        <p>
+          <br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="201"
+              width="635"
+              src="kA04u0000000JRxCAM_5cb92d33-778a-42cb-8d48-f273f0fa1f9f.png"
+          /></span>
+        </p>
+        <p>
+          Use of RegEx: Whether using Agent-based or Agentless Command Output trackers, a Regular
+          Expression can be applied to the command output to filter/match specific
+          keywords/patterns. Note that any device-offered RegEx capabilities e.g. egrep on Linux,
+          can stil be used instead of or to complement the NNT Agent regex applied.
+        </p>
+        <p>
+          The Agent will only trust a signed Configuration Template issued from its assigned Hub.
+          Please contact NNT Support for more details.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

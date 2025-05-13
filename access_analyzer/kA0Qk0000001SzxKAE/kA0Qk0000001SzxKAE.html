@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Enterprise Auditor Upgrade Workflow—Access Information Center</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_installupgrade" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001SzxKAE" />
+    <meta name="Id" content="ka0Qk000000C3tNIAS" />
+    <meta name="LastPublishedDate" content="2025-01-31T17:17:20.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-31T17:17:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-26T08:47:19.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9290" />
+    <meta name="ArticleNumber" content="000009290" />
+    <meta
+      name="description"
+      content="Enterprise Auditor Upgrade Workflow—Access Information Center"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span> Return to the main workflow page via
+            this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001T1ZKAU.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow</a
+            >.
+          </p>
+          <p>
+            Return to the previous section via this link:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001SyLKAU.html"
+              target="_self"
+              >Enterprise Auditor Upgrade Workflow—Post-Upgrade</a
+            >.
+          </p>
+        </blockquote>
+        <h2 id="ovrvw">Overview</h2>
+        <div>
+          <p>
+            This article lists the steps to perform the Access Information Center (AIC) upgrade.
+          </p>
+        </div>
+        <h2 id="AICupg">Upgrade</h2>
+        <div>
+          <p>Refer to the following steps:</p>
+          <ol>
+            <li>
+              <p>
+                Download the latest version of Netwrix AIC from the Netwrix Customer Portal in
+                <a href="https://www.netwrix.com/my_products_int.html" target="_blank"
+                  >My Products · Netwrix</a
+                >.
+              </p>
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT: </strong></span>Unblock the installer—in
+                  <strong>Properties</strong>, select the <strong>Unblock</strong> checkbox and save
+                  the changes.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                To upgrade the AIC application to a newer version, simply run the new
+                <code>AccessInformationCenter.msi</code> executable. You do not need to uninstall
+                the existing version. See the
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/Installation/Install.htm"
+                  target="_self"
+                  >Install the Access Information Center</a
+                >
+                topic for additional information.
+              </p>
+            </li>
+            <li>
+              <p>
+                Hold <kbd>Shift</kbd>, right-click the latest AIC installer, and select
+                <strong>Copy as path</strong>. In an elevated Command Prompt instance, paste the
+                path and run it to start the installation.
+              </p>
+            </li>
+            <li>
+              <p>Complete the installation.</p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="postAICupg">Post-Upgrade</h2>
+        <div>
+          <p>Refer to the following steps to complete the AIC upgrade:</p>
+          <ol>
+            <li>
+              <p>
+                If you have SSL implemented, alter the <code>BindingURL</code> node of the AIC
+                configuration file to work with HTTPS. Refer to the following example:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;add key="BindingUrl" value="http://+:82" /&gt;</code></pre>
+              <ul>
+                <li>
+                  <p>
+                    If you have SSO implemented, alter the
+                    <code>AuthAllowWindowsAuthentication</code> node of the AIC configuration file
+                    to allow SSO. Refer to the following example:
+                  </p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">&lt;add key="AuthAllowWindowsAuthentication" value="True" /&gt;</code></pre>
+                </li>
+                <li>
+                  <p>Refer to the following default path for the AIC configuration file:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\Program Files\STEALTHbits\Access Information Center</code></pre>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Have a user with the correct permissions log into the AIC to confirm the
+                operability.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the AIC Configuration settings to match the settings saved during the
+                preparation phase.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify that the built-in admin for the AIC is either disabled or that the password
+                has been changed.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

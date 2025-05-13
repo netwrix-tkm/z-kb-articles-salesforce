@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How To Remove NTP Management of NAM Agents</title><meta name="label" content="threat_prevention"/><meta name="label" content="ct_howto"/><meta name="label" content="ct_productconfig"/><meta name="label" content="skb"/><meta name="label" content="ct_administration"/><meta name="label" content="activity_monitor"/><meta name="KnowledgeArticleId" content="kA0Qk0000001quDKAQ"/><meta name="Id" content="ka0Qk000000CFWLIA4"/><meta name="LastPublishedDate" content="2025-02-13T19:39:49.000+0000"/><meta name="LastModifiedDate" content="2025-02-13T21:09:34.000+0000"/><meta name="FirstPublishedDate" content="2025-02-13T19:39:49.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9364"/><meta name="ArticleNumber" content="000009364"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+<div>
+<p>How can you remove the Netwrix Threat Prevention (NTP) management of Netwrix Activity Monitor (NAM) agents?</p>
+</div>
+<h2 id="answer">Answer</h2>
+<div>
+<p>To adjust the management of the NAM agents, follow the steps below:</p>
+<ol><li>
+<p>Edit the <strong>SIWindowsAgent.exe.Config</strong> file in the agent install directory with an Admin notepad.</p>
+</li><li>
+<p>Change the original <strong>managerAddress</strong> to:</p>
+<ul><li>
+<pre class="has-inner-focus"><code class="lang-Registry"/>&lt;add key="managerAddress" value="file://.\SAMConfig.xml" /&gt;</pre>
+</li></ul>
+</li><li>
+<p>Restart the agent service.</p>
+</li></ol>
+</div></div>
+</article></body></html>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Activity Monitor (NAM) 7.0 Paths</title>
+    <meta name="label" content="activity_monitor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111AOCAY" />
+    <meta name="Id" content="ka0Qk0000001JILIA2" />
+    <meta name="LastPublishedDate" content="2024-01-11T16:15:59.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-11T16:15:59.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-07T16:51:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8792" />
+    <meta name="ArticleNumber" content="000008792" />
+    <meta name="description" content="Netwrix Activity Monitor (NAM) 7.0 Paths" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <div>NAM 7.0 has changed it's install / config paths from 6.0.</div>
+
+        <div> </div>
+
+        <div>
+          This explains all the different locations and files that are used for the NAM agent and
+          console.
+        </div>
+        <br /><br /><span
+          ><span><span>Install Binaries (default location)</span></span></span
+        ><br />*Only includes installation binaries, doesn't include config files or logs*<br /> 
+        <h2 id="console">
+          <span
+            ><span
+              ><span
+                ><span><span>Console</span></span></span
+              ></span
+            ></span
+          >
+        </h2>
+        <br /><span
+          ><span><span>NAM Console</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMFILES%\Netwrix\Activity Monitor\Console</pre>
+        <br /><br /><br /><span
+          ><span
+            ><span
+              >NAM Agent install packages, that the console uses for deployments (includes Windows
+              Agent, Linux Agent, and SI Agent):</span
+            ></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMFILES%\Netwrix\Activity Monitor\Console\Agents</pre>
+        <br /><br /> 
+        <h2 id="windows_agent">
+          <span
+            ><span
+              ><span
+                ><span><span>Windows Agent</span></span></span
+              ></span
+            ></span
+          >
+        </h2>
+        <br /><span
+          ><span><span>NAM Agent</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMFILES%\Netwrix\Activity Monitor\Agent</pre>
+        <br /><br /><span
+          ><span
+            ><span>SBTService (O<i>nly for SBTService / Windows Monitoring</i>)</span></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMFILES%\Stealthbits\StealthAUDIT\FSAC</pre>
+        <br /><br /><span
+          ><span
+            ><span><i>Windows Activity driver sys file</i></span></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">%WINDIR%\System32\drivers\SBTFSF.sys</pre>
+        <br /><br /><span
+          ><span><span>SI Agent (only used for AD Activity)</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMFILES%\Stealthbits\StealthINTERCEPT\SIWindowsAgent</pre
+        >
+        <br /><br /><br /><span
+          ><span
+            ><span
+              ><span><span>Linux Agent</span></span></span
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span><span>NAM Agent</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">/usr/bin/activity-monitor-agentd</pre>
+        <br /><br /><span
+          ><span><span>Program Data</span></span></span
+        ><br />*Includes config files, logs, and additional data*
+        <h2 id="console">
+          <br /><span
+            ><span
+              ><span
+                ><span><span>Console</span></span></span
+              ></span
+            ></span
+          >
+        </h2>
+        <br /><span
+          ><span
+            ><span
+              >Console’s list of agents and encrypted credentials (access given to SYSTEM and
+              BUILTIN\Administrators only)</span
+            ></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMDATA%\Netwrix\Activity Monitor\Console\Agents.ini</pre
+        >
+        <br /><br /><span
+          ><span><span>NAM Console’s license file</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMDATA%\Netwrix\Activity Monitor\Console\FileMonitor.lic</pre
+        >
+        <br /><br /><span
+          ><span><span>NAM Console’s Debug Logs</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMDATA%\Netwrix\Activity Monitor\Console\DebugLogs</pre
+        >
+        <br /><br /> 
+        <h2 id="windows_agent">
+          <span
+            ><span
+              ><span
+                ><span><span>Windows Agent</span></span></span
+              ></span
+            ></span
+          >
+        </h2>
+        <br /><span
+          ><span><span>NAM Agent’s config file</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\SBTFileMon.ini</pre
+        >
+        <br /><br /><br /><span
+          ><span><span>NAM Agent’s SI config File (only used for AD Activity)</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMFILES%\Stealthbits\StealthINTERCEPT\SIWindowsAgent\SAMConfig.xml</pre
+        >
+        <br /><br /><br /><span
+          ><span><span>Main SI Agent’s Config File (only used for AD Activity)</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMFILES%\Stealthbits\StealthINTERCEPT\SIWindowsAgent\SIWindowsAgent.exe.Config</pre
+        >
+        <br /><br /><br /><span
+          ><span><span>NAM Agent’s debug logs</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\DebugLogs</pre>
+        <br /><br /><br /><span
+          ><span><span>NAM Windows Driver ETW Logs</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\DebugLogs</pre>
+        <br /><br /><br /><span
+          ><span><span>Saved Crash Dumps of NAM Services</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\Dumps</pre>
+        <br /><br /><br /><span
+          ><span
+            ><span
+              >NAM Audit Logs - History of all config changes, this is also included in the Windows
+              Event Log (Application)</span
+            ></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\Audit</pre>
+        <br /><br /><br /><span
+          ><span><span>NAM Journal Logs - History of hosts and output statuses</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\Journal</pre>
+        <br /><br /><br /><span
+          ><span><span>NAM Activity Logs (Default location, can be customized) </span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+%PROGRAMDATA%\Netwrix\Activity Monitor\Agent\ActivityLogs</pre
+        >
+        <br /><br /> 
+        <h2 id="linux_agent">
+          <span
+            ><span
+              ><span
+                ><span><span>Linux Agent</span></span></span
+              ></span
+            ></span
+          >
+        </h2>
+        <br /><span
+          ><span><span>NAM Agent’s config file</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">/usr/bin/activity-monitor-agentd/config/SBTFileMon.ini</pre>
+        <br /><br /><br /><span
+          ><span><span>NAM Agent’s debug logs</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">/usr/bin/activity-monitor-agentd/DebugLogs</pre>
+        <br /><br /><br /><span
+          ><span
+            ><span
+              >NAM Audit Logs - History of all config changes, this is also included in the Windows
+              Event Log (Application)</span
+            ></span
+          ></span
+        >
+
+        <pre class="ckeditor_codeblock">/usr/bin/activity-monitor-agentd/Audit</pre>
+        <br /><br /><br /><span
+          ><span><span>NAM Journal Logs - History of hosts and output statuses</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">/usr/bin/activity-monitor-agentd/Journal</pre>
+        <br /><br /><br /><span
+          ><span><span>NAM Activity Logs (Default location, can be customized) </span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">/usr/bin/activity-monitor-agentd/ActivityLogs</pre>
+        <br /><br /><br /><br /><br /><span
+          ><span><span>NAM Windows Registry key location:</span></span></span
+        >
+
+        <pre class="ckeditor_codeblock">
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SBTLogging\Parameters</pre
+        >
+        <br /><span
+          ><span><span>Values:</span></span></span
+        >
+
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span><strong>ConfigPath </strong>– String (REG_SZ)</span></span
+              ></span
+            >
+
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      >Full Path of config SBTFileMon.ini file that the agent is currently
+                      using</span
+                    ></span
+                  ></span
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span
+              ><span
+                ><span><strong>TraceLevel </strong>– DWORD 32-bit (REG_DWORD)</span></span
+              ></span
+            >
+            <ul>
+              <li>
+                <span
+                  ><span
+                    ><span
+                      >The integer value of the trace level that the product is currently using (for
+                      console and agents)</span
+                    ></span
+                  ></span
+                >
+                <ul>
+                  <li>
+                    <span
+                      ><span><span>0 – Trace</span></span></span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><span><span>1 – Debug</span></span></span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><span><span>2 – Information</span></span></span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><span><span>3 – Warning</span></span></span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><span><span>4 – Fatal </span></span></span
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

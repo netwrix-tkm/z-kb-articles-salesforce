@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Can Netwrix Auditor applications for file storages (Windows File Servers, NetApp and EMC)
+      handle large amount of data, e.g. terabytes or petabytes?
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9T0CAK" />
+    <meta name="Id" content="ka04u000000HcMnAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:45:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="583" />
+    <meta name="ArticleNumber" content="000003010" />
+    <meta name="description" content="File Server audit large size amount of data" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="can_netwrix_auditor_applications_for_file_storages_windows_file_servers_netapp_and_emc_handle_large_amount_of_data_eg_terabytes_or_petabytes_of_data"
+        >
+          Can Netwrix Auditor applications for file storages (Windows File Servers, NetApp and EMC)
+          handle large amount of data, e.g. terabytes or petabytes of data?
+        </h2>
+
+        <hr />
+
+        Provided that the audited file system environment is properly configured, large amount of
+        data is not a problem. When evaluating the product or planning for its deployment, you
+        should start off with defining the audit scope and the goals you are trying to achieve - it
+        is very unlikely that all these petabytes of data need the same level of auditing. In
+        particular, locate the following:
+        <ul>
+          <li>
+            File shares containing most sensitive data that require most scrutinized control (such
+            as control over <i>read</i><i> </i>attempts, both successful and failed, state-in-time
+            data and alerts on critical actions).
+          </li>
+          <li>
+            File shares containing regular data that don’t require as much attention as sensitive
+            data. Enabling auditing of <i>reads </i>on such file shares (especially successful
+            <i>reads</i>)<i> </i>would produce a massive flow of useless audit data that will be
+            most likely never reviewed by anyone.
+          </li>
+          <li>
+            File shares containing files that are being constantly changed or accessed, such as
+            QuickBooks or database files, or shares containing user profiles. Organizations may want
+            to either avoid auditing of changes and <i>reads </i>of such files as it would also
+            produce a massive flow of useless audit data (that will be most likely never reviewed by
+            anyone), or at least track permission changes on such shares only.
+          </li>
+        </ul>
+        Once the data is located and graded from most sensitive to least sensitive, you can
+        configure audit scopes differently for each type of data. By assorting your data this way,
+        you achieve two goals:
+        <ol>
+          <li>
+            Reduced load on the file server. Otherwise, if you enabled <i>read </i>auditing on a
+            petabyte of data, the server would likely go down even before some audit data is
+            collected by Netwrix Auditor.
+          </li>
+          <li>
+            Collection of the most useful and valuable audit data. Otherwise, if you audited all
+            this massive amount of data, the real incidents would be most likely buried in dozens of
+            logs.
+          </li>
+        </ol>
+        To deal with different audit scopes, you will need several
+        <span
+          >monitoring plans, specifically because of the following technical peculiarities:</span
+        >
+        <ul>
+          <li>
+            <span
+              >Data collection: Netwrix Auditor starts a separate process for every separate item in
+              every plan, and each process has a RAM limit of 2GB. Note that it isn’t necessary to
+              create numerous monitoring plans - you can add different shares as different items to
+              one plan.</span
+            >
+          </li>
+          <li>
+            <span
+              >Reporting: state-in-time reports usually use data provided by one monitoring plan,
+              and if the snapshot is too big, the reports may take hours to compile.</span
+            >
+          </li>
+        </ul>
+        <span
+          >Usually, users simply specify the root location where all of their file shares reside.
+          However, to achieve the two goals mentioned above when processing this massive amount of
+          data, the file shares should be added to the monitoring plans one by one. You may want to
+          automate the process of adding items – for that, it is recommended to contact Netwrix
+          technical support.</span
+        >
+
+            Original KB Article 2115
+      </div>
+    </article>
+  </body>
+</html>

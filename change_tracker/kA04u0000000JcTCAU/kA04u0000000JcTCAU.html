@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Hubservice-Log Fix: Error in pipeline configuration file : C:\inetpub\wwwroot\Change Tracker
+      Generation 7 Hub\bin\Configs\localhost.json System.ArgumentException: No 'queueName' specified
+      in configuation. [incomingEventQueue]
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcTCAU" />
+    <meta name="Id" content="ka04u000000HdAPAA0" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:59:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8291" />
+    <meta name="ArticleNumber" content="000008291" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The localhost.json file within the Change Tracker's inetpub directory informs the Change
+          Tracker Hub of where it database resides and how to communicate with the database. If an
+          upgraded Change Tracker .57 to Change Tracker R2, a move to the Change Tracker split
+          architecture or a Mongo replication set has been implemented, then it is possible that the
+          localhost.json file has been manually manipulated. When the Change Tracker hub starts some
+          validation checks will be performed on the localhost.json file to ensure it is in the
+          correct format. Should the validation fail, then an error similar to the example below
+          will be logged into the Change Tracker hub log. If you see these kinds of error please
+          contact <a class="external-link" href="mailto:Support@nntws.com" target="_blank"
+            >Support@nntws.com</a
+          > including your localhost.json file and hubservice-log.txt.
+        </p>
+        <p>localhost.json - C:\inetpub\wwwroot\Change Tracker Generation 7 Hub\bin\Configs</p>
+        <p>hubservice-log.txt - C:\inetpub\wwwroot\Change Tracker Generation 7 Hub\log</p>
+        <p>
+          2019-02-22 12:56:59,376 [11] ERROR Message -
+          <strong
+            >Error in pipeline configuration file : C:\inetpub\wwwroot\Change Tracker Generation 7
+            Hub\bin\Configs\localhost.json</strong
+          >
+        </p>
+        <p>
+          <strong
+            >System.ArgumentException: No 'queueName' specified in configuation.
+            [incomingEventQueue]</strong
+          >
+        </p>
+        <p>
+             at NNT.Hub.Service.Queues.QueueBase`1.TestQueueConfiguration(String section,
+          Dictionary`2 config) in C:\Users\steve\Documents\Visual Studio
+          2017\Projects\NNT\SVN\Agent\NNT.Hub.Service\Queues\QueueBase.cs:line 99
+        </p>
+        <p>
+             at
+          NNT.Hub.Service.Pipeline.PipelineConfiguration.TestConfiguration(PipelineConfiguration
+          config) in C:\Users\steve\Documents\Visual Studio
+          2017\Projects\NNT\SVN\Agent\NNT.Hub.Service\Pipeline\PipelineConfiguration.cs:line 72
+        </p>
+        <p>
+             at NNT.Hub.Service.Web.Hosts.AppHost.Configure(Container container) in
+          C:\Users\steve\Documents\Visual Studio
+          2017\Projects\NNT\SVN\Agent\NNT.Hub.Service.Web\Hosts\AppHost.cs:line 209
+        </p>
+        <p><br /></p>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

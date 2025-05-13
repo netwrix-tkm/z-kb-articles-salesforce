@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1287 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9d2CAC" />
+    <meta name="Id" content="ka0Qk0000001L0nIAE" />
+    <meta name="LastPublishedDate" content="2024-01-15T09:08:27.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T09:09:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:53.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2516" />
+    <meta name="ArticleNumber" content="000003622" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues with misconfigured Site Collection(s) audit settings."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1287 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Audit settings for read access events in site collection %item_ID% are not configured properly. As a result, some read access events may be lost.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The opening or downloading documents, viewing items and lists, or viewing item
+            properties audit is disabled for the site collection.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In the affected site collection, navigate to <strong>Site Settings</strong> &gt;
+                <strong>Site Collection Administration</strong> &gt;
+                <strong>Site Collection Audit Settings</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the
+                <strong
+                  >Opening or downloading documents, viewing items and lists, or viewing item
+                  properties</strong
+                >
+                checkbox under the <strong>Documents and Items</strong> section. Save the changes.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update the monitoring plan − select the affected monitoring plan, click
+                <strong>Edit</strong>, and click <strong>Update</strong> in the right pane.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Verify the audit settings are set to be adjusted
+              automatically − in the SharePoint monitoring plan, click
+              <strong>Edit data source</strong> and check the
+              <strong>Configure audit settings</strong> checkbox. Save the changes.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

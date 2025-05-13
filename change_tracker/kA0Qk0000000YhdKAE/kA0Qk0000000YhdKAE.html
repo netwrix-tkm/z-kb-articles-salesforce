@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>In-Transit and At-Rest Data Encryption</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000YhdKAE" />
+    <meta name="Id" content="ka0Qk0000003eKHIAY" />
+    <meta name="LastPublishedDate" content="2024-05-08T10:08:35.000+0000" />
+    <meta name="LastModifiedDate" content="2024-05-08T10:08:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-05-08T10:08:35.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9104" />
+    <meta name="ArticleNumber" content="000009104" />
+    <meta name="description" content="In-Transit and At-Rest Data Encryption" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="questions">Questions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                What transport layer security (TLS) versions are supported for in-transit data
+                encryption in Netwrix Change Tracker?
+              </p>
+            </li>
+            <li>
+              <p>
+                What options are supported for at-rest data encryption in MongoDB in Change Tracker?
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="answers">Answers</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                TLS protocol version 1.3 and earlier are supported for in-transit data encryption.
+                It is recommended to disable nontarget protocol versions in your environment to
+                ensure the intended TLS version is used.
+              </p>
+            </li>
+            <li>
+              <p>
+                MongoDB Community Edition, which is included in the Change Tracker installation
+                wizard, does not support at-rest data encryption. This feature is available in
+                MongoDB Enterprise only. Learn more in
+                <a
+                  href="https://www.mongodb.com/docs/manual/core/security-encryption-at-rest/"
+                  target="_blank"
+                  >Encryption At-Rest · MongoDB 🡥</a
+                >.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>Data such as user accounts, passwords,
+                  and network device credentials is encrypted using the ASP.NET Core data protection
+                  API by default. This type of data is encrypted in both the Community and
+                  Enterprise editions of MongoDB.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://www.mongodb.com/docs/manual/core/security-encryption-at-rest/"
+                  target="_blank"
+                  >Encryption At-Rest · MongoDB 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

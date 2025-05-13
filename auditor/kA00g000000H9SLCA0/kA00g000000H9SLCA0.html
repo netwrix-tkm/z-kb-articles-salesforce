@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How the Network Traffic Compression Service Works</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SLCA0" />
+    <meta name="Id" content="ka04u00000117A5AAI" />
+    <meta name="LastPublishedDate" content="2021-07-15T17:46:27.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-14T17:54:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="217" />
+    <meta name="ArticleNumber" content="000002969" />
+    <meta name="description" content="The Netwrix Network Traffic Compression Service option" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+
+        <div>
+          <p>
+            The Network Traffic Compression Service is realized by a tiny executable file that runs
+            on Domain Controllers, collects and pre-filter data and then sends it to the Netwrix
+            Auditor in a highly compressed format.
+          </p>
+        </div>
+
+        <blockquote>
+          <div>
+            <span><strong>IMPORTANT:</strong></span> if you do not want any extra services running
+            on the Domain Controllers, you can configure Netwrix Auditor to work without the service
+            (<strong>not recommended</strong>)
+          </div>
+        </blockquote>
+
+        <div>
+          <p>
+            The Traffic Compression Service can help increase scalability and optimize traffic.
+            Being a recommended option generally, it is also extremely useful in poorly connected
+            environments – if you have multiple Domain Controllers distributed among several
+            geographic locations.
+          </p>
+
+          <p>
+            The Network Traffic Compression creates a service on the DC and copies a folder of 6KB
+            in size to the machine. The service only runs when the Netwrix Auditor server calls it.
+            In congested systems with a high latency the service can substantially improve data
+            transfer, minimizing the impact on bandwidth. Using the service results in an
+            approximately 100x reduction in the amount of data transferred and has a negligible
+            impact on the performance of the target computer.
+          </p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <blockquote>
+          <div>
+            <strong>TIP:</strong> network traffic compression can be enabled for all DCs in the
+            domain by selecting a corresponding option in the Active Directory data source
+          </div>
+        </blockquote>
+
+        <div>
+          <p>To override the default value for the particular DCs you specify:</p>
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Navigate to the Netwrix Auditor installation directory. For example,
+                <code>C:\Program Files (x86)\Netwrix Auditor\Active Directory Auditing</code>
+              </p>
+            </li>
+            <li>
+              <p>Open <strong>agent.ini</strong></p>
+            </li>
+            <li>
+              <p>Update it using the syntax below:</p>
+
+              <pre>dcname={remote|agent|skip|skipSilent}</pre>
+
+              <p><strong>Parameters</strong></p>
+
+              <ul>
+                <li>
+                  <p>
+                    <strong>dcname</strong> – name of a domain controller for which you want to
+                    customize the Network Traffic Compression Service usage
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>remote</strong> – means that the service will NOT be used on this
+                    particular domain controller
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>agent</strong> – means that the service will be used to collect data
+                    from this particular domain controller, even if it is disabled in the Netwrix
+                    Auditor UI
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <strong>skip</strong> – means that the data will not be collected from this
+                    particular domain controller (this option can be used, for example, if the
+                    domain controller goes down and should be temporarily excluded from data
+                    collection)
+                  </p>
+
+                  <blockquote>
+                    <div>
+                      <span><strong>NOTE:</strong></span> Using the <code>skip</code> setting can
+                      produce incomplete reports: incorrect values in <strong>Who Changed</strong> /
+                      <strong>When Changed</strong> fields
+                    </div>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    <strong>skipsilent</strong> – same as skip but should only be used for
+                    completely decommissioned DCs
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="examples">Examples</h4>
+
+        <div>
+          <p>
+            You have six domain controllers. Five of them are located in New York and one in
+            Seattle. You do not need to use agents in the New York domain controllers since they
+            have fast network connections while the one located in Seattle is slow due to its
+            distance from the main office.
+          </p>
+
+          <p>In this way, you can specify the agent monitoring as follows:</p>
+        </div>
+
+        <pre>
+    NY1.acme.com=remote
+    NY2.acme.com=remote
+    NY3.acme.com=remote
+    NY4.acme.com=remote
+    NY5.acme.com=remote
+    Seattle.acme.com=agent
+</pre
+        >
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Admin/HealthStatus/NetworkTrafficCompression.htm"
+                  target="_blank"
+                  >Network Traffic Compression ⸱ v 10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

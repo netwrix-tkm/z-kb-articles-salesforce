@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: !REMOVED-...Host Name in AIC and/or FSAA Host Table</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001qxRKAQ" />
+    <meta name="Id" content="ka0Qk000000Bx9dIAC" />
+    <meta name="LastPublishedDate" content="2025-01-08T23:13:55.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-27T16:17:46.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-01-08T23:13:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9366" />
+    <meta name="ArticleNumber" content="000009366" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            In the Access Information Center (AIC) and/or SA_FSAA_Hosts table (in the SQL database),
+            you see <strong>!REMOVED-</strong> after dropping data for a File Server.
+          </p>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            You have used the <strong>Remove host data</strong> option in the
+            <strong>FILESYSTEMACCESS</strong> Data Collector to try and remove host data, but the
+            job timed out or errored.
+          </p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            Re-run the job used to remove the host data against the full
+            <strong>!Removed-…</strong> name.
+          </p>
+          <ul>
+            <li>
+              <p>
+                This is typically a custom job that was created. If you are unsure what job was run,
+                please see the following article for how to create a custom job to drop File Server
+                host data:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001qvpKAA.html"
+                  target="_self"
+                  >How to Drop Data for Decommissioned File Servers</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                If you have already rerun the job and it throws a timeout error, then change the job
+                timeout to a longer value.
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Right-click <strong>the job</strong>, choose <strong>Properties</strong>, and
+                    adjust the <strong>Timeout minutes setting</strong> in the General tab.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Setting this value to <strong>1440 minutes (24 hours)</strong> for safety should
+                    suffice, although the job is unlikely to take this long.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    This is to allow the job to run without timing out if there is much data to be
+                    dropped.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000001qvpKAA.html"
+                target="_self"
+                >How to Drop Data for Decommissioned File Servers</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

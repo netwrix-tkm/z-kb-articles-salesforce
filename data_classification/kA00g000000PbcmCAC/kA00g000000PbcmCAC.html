@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Upgrade a DQS Deployment</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbcmCAC" />
+    <meta name="Id" content="ka04u000000HcXaAAK" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:09.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5576" />
+    <meta name="ArticleNumber" content="000003745" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Before upgrading a DQS it is important to have a few things in place.</strong>
+        </p>
+
+        <ol>
+          <li>
+            Make sure that the installation media is copied to each individual node in the cluster
+            ahead of time, this will speed up the process.
+          </li>
+          <li>
+            Ensure that you are using an account that is a local admin on each server in the
+            cluster, using the NDC service account is preferred.
+          </li>
+          <li>
+            Ensure that you take a snapshot of each node in the cluster and backup the NDC SQL
+            database, this will provide a backup in case the upgrade runs into issues. Also, it is
+            best practice to upgrade clients sequentially by version number (ie: 5.5.1 &gt; 5.5.2
+            &gt; 5.5.3).
+          </li>
+        </ol>
+
+        <h3 id="steps_to_upgrade">Steps to Upgrade</h3>
+
+        <ol>
+          <li>
+            Stop all three NDC services on each node in the cluster (conceptcollector,
+            conceptindexer, conceptclassifier)
+          </li>
+          <li>
+            On the primary node (the original NDC server, also referred to as DQS1), run the
+            installer for the new version as an administrator. Select “next” on each prompt until
+            the installer completes.
+          </li>
+          <li>
+            To ensure that the upgrade was a success, open a browser and navigate to the NDC
+            dashboard which is found here by default: (<a
+              href="http://localhost/conceptQS"
+              target="_blank"
+              >http://localhost/conceptQS</a
+            >). Ensure that the version and build correspond to the version that you were attempting
+            to upgrade to, if that is the case then you have successfully upgraded the server.
+          </li>
+          <li>
+            Repeat steps 2 and 3 for all subsequent nodes in the cluster, upgrading one server at a
+            time and confirming that the upgrade was a success via the browser.
+          </li>
+          <li>
+            Once all nodes in the cluster are showing the same version, you have completed the
+            upgrade successfully.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

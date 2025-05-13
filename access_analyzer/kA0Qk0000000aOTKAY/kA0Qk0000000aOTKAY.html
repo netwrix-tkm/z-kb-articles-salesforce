@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Missing Groups in AIC Access Groups</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000aOTKAY" />
+    <meta name="Id" content="ka0Qk000000Cms5IAC" />
+    <meta name="LastPublishedDate" content="2024-07-29T11:06:55.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-12T17:48:13.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-08T16:49:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9122" />
+    <meta name="ArticleNumber" content="000009122" />
+    <meta name="description" content="Troubleshooting Missing Groups in AIC Access Groups" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                When you add a new share in Netwrix Access Information Center (AIC), access groups
+                show no groups listed.
+              </p>
+            </li>
+            <li>
+              <p>
+                When you review the new share path in the <strong>Resource Audit</strong> interface,
+                the group shows the ObjectSID value instead of the group name.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>The ADInventory scan is misconfigured. The scan is unable to target host lists.</p>
+        </div>
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                Verify the group membership of the affected share via
+                <strong>Resource Audit</strong>. The ObjectSID value instead the group name
+                indicates that ADInventory scan is unable to resolve the group name. Refer to the
+                following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/ResourceAudit/Navigate/Resource.htm"
+                  target="_self"
+                  >Resource Audit Interface · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the <strong>SA_ADInventory_GroupsView</strong> in
+                <strong>1-AD_Scan</strong> results. If the affected group is missing from the view,
+                the ADInventory scan is unable to resolve the group name.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>Refer to the following steps to resolve the issue:</p>
+          <ol>
+            <li>
+              <p>
+                Verify the ADInventory scan is correctly set up to target appropriate domain
+                controllers (DCs). Refer to the following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/ActiveDirectoryInventory/Recommended.htm"
+                  target="_self"
+                  >Recommended Configurations for the .ADInvetory Solution · v11.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the connection profile used has appropriate permissions. Refer to the
+                following article for additional information:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/Config/ActiveDirectory/Overview.htm"
+                  target="_self"
+                  >Active Directory Domain Target Requirements · v11.6</a
+                >.
+              </p>
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT: </strong></span>If the host list or connection profile is
+                  not correctly configured, it may result in the ADInventory scan failing to
+                  retrieve group information.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Update the ADInventory host list to target valid DCs. Ensure that the host list
+                includes all relevant DCs where group information is stored. After updating the host
+                list, trigger an ADInventory rescan to synchronize the group information. The rescan
+                process will retrieve group information from the updated DCs and ensure that the
+                group memberships are accurately reflected in AIC. Refer to the following article
+                for additional information on updating the ADInventory host list:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/ActiveDirectoryInventory/Recommended.htm"
+                  target="_self"
+                  >Recommended Configurations for the .AD Inventory Solution · v11.6</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/AIC_11.6/page/Content/Access/InformationCenter/ResourceAudit/Navigate/Resource.htm"
+                  target="_self"
+                  >Resource Audit Interface · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/ActiveDirectoryInventory/Recommended.htm"
+                  target="_self"
+                  >Recommended Configurations for the .ADInvetory Solution · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/Config/ActiveDirectory/Overview.htm"
+                  target="_self"
+                  >Active Directory Domain Target Requirements · v11.6</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Solutions/ActiveDirectoryInventory/Recommended.htm"
+                  target="_self"
+                  >Recommended Configurations for the .AD Inventory Solution · v11.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

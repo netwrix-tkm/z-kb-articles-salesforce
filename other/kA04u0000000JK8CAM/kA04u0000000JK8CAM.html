@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SA_10.0_001</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000JK8CAM"/><meta name="Id" content="ka04u000000Hd6uAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:55:02.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:16:13.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:55:02.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8043"/><meta name="ArticleNumber" content="000008043"/><meta name="description" content="360012326391"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary:</strong></p>
+<p><strong><em>Summary</em></strong><strong>: Web Server: Favorites report shows wrong generated time stamp on it</strong></p>
+<p><em>Issue</em>/<em>Request</em>: When upgrading StealthAUDIT from 8.2 to 10.0, a 'Favorites' report that is regenerated in 10.0 still shows the old time stamp generated in 8.2.</p>
+<p><em>Fix</em>/<em>Enhancement</em>: Web Server now gets the report path from PublishedReports.xml, where it is updated, instead of searching on file system, where the report resides in a legacy folder (v2). The time stamp shown will be the most recent one.</p>
+<p><strong>Submitted by: </strong></p>
+<p>Jazmina Díaz</p>
+<p><strong>Affected Versions:</strong></p>
+<p>10.0</p>
+<p><strong>Affected Module:</strong></p>
+<p>SA – Reporting</p>
+<p><strong> </strong></p>
+<p><strong>Dev Ticket:</strong></p>
+<p>SMPC-8616: Web Server: Favorites report shows wrong generated time stamp on it.</p>
+<p><strong>Resolved in Version:</strong></p>
+<p>-              PrivateAssemblies/Stealthbits.StealthAUDIT.Reporting.dll             10.0.350</p>
+<p>-              Templates/Reporting/Common/SACommon/StealthAUDIT.js         53</p>
+<p>-              Web/WebModules.dll                                                                               10.0.61</p>
+<p>-              Web/Content/solutions.css</p>
+<p>-              Web/Content/solutions.js</p>
+<p><strong> </strong></p>
+<p><strong>KB Type: </strong></p>
+<p>               Hotfix</p>
+<p><strong> </strong></p>
+<p><strong> </strong></p>
+<p><strong> </strong></p>
+<p><strong> </strong></p>
+<p><strong> </strong></p>
+<p><strong>Issue:</strong></p>
+<p><strong>Modules Included</strong></p>
+<p>-              PrivateAssemblies/Stealthbits.StealthAUDIT.Reporting.dll             10.0.350</p>
+<p>-              Templates/Reporting/Common/SACommon/StealthAUDIT.js         53</p>
+<p>-              Web/WebModules.dll                                                                               10.0.61</p>
+<p>-              Web/Content/solutions.css</p>
+<p>-              Web/Content/solutions.js</p>
+<p><strong> </strong></p>
+<p><strong>YouTrack/Escalations</strong></p>
+<p><strong> </strong></p>
+<p><strong>-              SMPC-8616 \ Escalations 50656 </strong></p>
+<p><strong> </strong></p>
+<p><strong>Customers:</strong></p>
+<p><strong> </strong></p>
+<p><strong>-              Alliant Energy Corporation</strong></p>
+<p><strong> </strong></p>
+<p><strong>Instructions:</strong></p>
+<ol><li>Unblock the hotfix zip file in the Windows property dialog, if an unblock button exists there</li><li>Close all instances of StealthAUDIT (check task manager under processes for all users)</li><li>Exit StealthAUDIT console</li><li>Replace the provided files:</li></ol>
+<p>-      Stealthbits.StealthAUDIT.Reporting.dll: under the SARoot/PrivateAssemblies folder</p>
+<p>-      StealthAUDIT.js: under the SARoot/Templates/Reporting/Common/SACommon folder</p>
+<p>-      WebModules.dll: under the SARoot/Web folder</p>
+<p>-      solutions.css: under the SARoot/Web/Content folder</p>
+<p>-      solutions.js: under the SARoot/Web/Content folder</p>
+<ol start="5"><li>Start StealthAUDIT Web Console.</li></ol>
+<p><strong> </strong><a href="https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_001.zip" target="_blank">https://downloads.stealthbits.com/access/files/SAHotFixes/10.0/SA_10.0_001.zip</a></p></div>
+</article></body></html>

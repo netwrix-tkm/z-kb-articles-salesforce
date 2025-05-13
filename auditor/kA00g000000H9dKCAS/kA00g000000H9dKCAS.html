@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1204 in Health Log</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dKCAS" />
+    <meta name="Id" content="ka0Qk0000001AdFIAU" />
+    <meta name="LastPublishedDate" content="2023-12-28T09:49:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-28T09:49:37.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2545" />
+    <meta name="ArticleNumber" content="000003640" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit Web Service connectivity issues."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1204 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Unable to establish connection to the remote WebService</code></pre>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <p>Refer to the following possible causes based on the error description:</p>
+
+          <ul>
+            <li>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Could not connect to %URL%/_vti_bin/Netwrix/ManagementService.svc.
+TCP error code 10060: A connection attempt failed because the connected party did not properly respond after a period of time,
+or established connection failed because connected host has failed to respond %address%</code></pre>
+
+              <ul>
+                <li>
+                  <p>
+                    There is no network connection between the Netwrix Auditor host and the
+                    SharePoint Central Administration host, or the WebService is not responding.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">The requested service %service_name% could not be activated</code></pre>
+
+              <ul>
+                <li>
+                  <p>
+                    The system resources of the SharePoint Central Administration host are
+                    insufficient.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Access to the Central Administration site is performed via the https protocol,
+                    and it is not specified in the Alternate Access Mapping.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Access to the Central Administration site is performed via alternative access,
+                    and the IIS Bindings contains several host names for the Central Administration
+                    site.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Verify SharePoint Central Administration is accessible.</p>
+            </li>
+            <li>
+              <p>
+                Free or add system resources and execute the <code>iisreset</code> command in
+                elevated Command Prompt.
+              </p>
+            </li>
+            <li>
+              <p>
+                Verify the correct SharePoint Central Administration URL is specified in the
+                monitoring plan settings via <strong>Monitoring Plans</strong> &gt; select
+                <strong>%SharePoint_plan%</strong> &gt; <strong>Edit</strong> &gt; select the item
+                and click <strong>Edit item</strong> &gt; modify the
+                <strong>SharePoint Central Administration URL</strong> &gt; click
+                <strong>Save &amp; Close</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Specify one <strong>Host Name</strong> for the Central Administration site in IIS
+                Bindings.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

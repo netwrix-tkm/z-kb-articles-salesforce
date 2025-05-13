@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AD_SecurityAssessment Explained</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="ct_administration" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001gV3KAI" />
+    <meta name="Id" content="ka0Qk000000BulFIAS" />
+    <meta name="LastPublishedDate" content="2025-01-23T15:46:44.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-23T21:47:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-01-23T15:46:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9318" />
+    <meta name="ArticleNumber" content="000009318" />
+    <meta
+      name="description"
+      content="List of tables and jobs used for the checks conducted by the AD_SecurityAssessment job."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>
+          Where does the AD_SecurityAssessment report get the data for it's categories and results
+          so the information can be used to investigate and mitigate vulnerabilities?
+        </p>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <div class="table-wrap">
+            <table count-columns="4" width="1324">
+              <colgroup>
+                <col width="201" />
+                <col width="271" />
+                <col width="281" />
+                <col width="571" />
+              </colgroup>
+              <tbody>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl16" height="20" width="201">
+                    <strong>Category</strong>
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl17" width="271"><strong>Check</strong></td>
+                  <td colspan="1" rowspan="1" class="xl17" width="281">
+                    <strong>Tables/Views</strong>
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl18" width="571"><strong>Job</strong></td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">AD Objects</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Objects created (Past 7 Days)
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_PrincipalsView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">AD Objects</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Principals with non-default Primary Group IDs
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_Users, SA_ADInventory_Computers
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">AD Objects</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Guest account enabled</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">AD Objects</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Unprivileged users who can add computer accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADPerms_PermissionsExtView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">AD Objects</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Computers with SERVER_TRUST_ACCOUNT enabled
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">AD Objects</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    User accounts with SPN configured
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    AD Permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Stale users with group membership permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_GroupMembershipPermissions_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permissions Analyzer\2. Groups\AD_GroupPermissions
+                  </td>
+                </tr>
+                <tr height="193">
+                  <td colspan="1" rowspan="1" class="xl22" height="193" width="201">
+                    AD Permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Domain users with direct permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_GroupPermissions_Details, SA_AD_UserPermissions_Details,
+                    SA_AD_ComputerPermissions_Details, SA_AD_ContainerPermissions_Details,
+                    SA_AD_OUPermissions_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\2. Groups\AD_GroupPermissions<br />Active
+                    Directory Permissions Analyzer\1. Users\AD_UserPermissions<br />Active Directory
+                    Permissions Analyzer\4. Computers\AD_ComputerPermissions<br />Active Directory
+                    Permissions Analyzer\7. Containers\AD_ContainerPermissions<br />Active Directory
+                    Permissions Analyzer\3. OUs\AD_OUPermissions
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    AD Permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Users with Replication Permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_DomainReplication_UserSummary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permissions Analyzer\8. Domains\AD_DomainReplication
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">
+                    AD Permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Non-Default AdminSDHolder
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_AdminSDHolder_UserSummary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\7. Containers\AD_AdminSDHolder
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    AD Permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Users that can reset passwords
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_ResetPasswordPermissions_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permissions Analyzer\1. Users\AD_ResetPasswordPermissions
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Unprivileged users with adminCount=1
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_ExtendedAttributes
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Admin accounts with SPN configured
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Admin accounts with unprivileged owners
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">SA_ADPerms_Objects</td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Admin accounts without adminCount=1
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_ExtendedAttributes
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Stale admin accounts that are enabled
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271"># of privileged accounts</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Disabled admin accounts</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Admin accounts not in protected users group
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_EffectiveGroupMembersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Recently created admins</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Administrator Accounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Recent logon by BUILTIN\Administrator
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Resource-Based Constrained Delegation on a computer
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Domain controllers with Resource-Based Constrained Delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_ComputerDelegation_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\3. Computers\AD_ComputerDelegation
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Non Domain Controllers trusted for delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Non Domain Controllers with Unconstrained Delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Service Acccounts trusted for delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Users with Unconstrained Delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="58">
+                  <td colspan="1" rowspan="1" class="xl22" height="58" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Write access to Resource-Based Constrained Delegation on Domain Controller
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADPerms_PermissionsExtView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">Delegation</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Objects with Constrained Delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_ExtendedAttributes
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">Group Policy</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Delegated access to GPO linked on Domain Controller OU
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADPerms_PermissionsView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">Group Policy</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Delegated access to GPO linked on domain
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADPerms_PermissionsView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">Group Policy</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Delegated access to GPO linked on AD site
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADPerms_PermissionsView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Domain Controllers with old passwords
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Print spooler service enabled on Domain Controller
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_SG_ServiceAccounts_ServiceAccounts
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Windows\Priviledged Accounts\Service Accounts\SG_ServiceAccounts
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Domain Controllers that have not logged on in 60 days
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl25" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Users with rights to exploit DCShadow
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_DCShadowPermissions_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\9. Sites\AD_DCShadowPermissions
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Domains with functional level &lt; 2012 R2
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_AD_DomainInfo_Domains</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\5. Domains\AD_DomainInfo
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Anonymous bind to AD enabled
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_DomainInfo_dSHeuristics_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\5. Domains\AD_DomainInfo
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Anonymous NSPI access enabled
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_DomainInfo_dSHeuristics_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\5. Domains\AD_DomainInfo
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">
+                    Infrastructure Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    DC computer accounts with unprivileged owner
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">SA_ADPerms_Objects</td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Krbtgt Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Kerberos krbtgt account with old password
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">
+                    Krbtgt Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Krbtgt account with Resource-Based Constrained Delegation
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADPerms_PermissionsExtView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    Krbtgt Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Write access to Resource-Based Constrained Delegation on krbtgt account
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADPerms_PermissionsExtView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Highest Password Reuse</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Count
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Reversible passwords found in GPOs
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_AD_CPassword_Sysvol</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\4. Group Policy\AD_CPassword
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Passwords older than a year
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_PasswordStatus_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_PasswordStatus
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Password never expires</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_PasswordStatus_Details, SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Password not required</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_PasswordStatus_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_PasswordStatus
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Password expired</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_PasswordStatus_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_PasswordStatus
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">AES Key Missing</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Clear Text Password</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Default Computer Password
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Delegable Admins</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">DES Encryption Only</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Empty Password</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">LM Hash</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Password Never Expires</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_WeakPasswords_Results, SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords<br />Active Directory\1.
+                    Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Password Not required</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Shares Common Password</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Weak Historical Password</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Weak Password</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_WeakPasswords_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_WeakPasswords
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Passwords stored with reversible encryption
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl19" height="39" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Users with LAPS read permissions
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_LAPSPermissions_Results
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permission Analyzer\4. Computers\AD_LAPSPermissions
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">gMSA not in use</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Password Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">gMSA with old passwords</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADPerms_Objects</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory Permissions Analyzer\0. Collection
+                  </td>
+                </tr>
+                <tr height="39">
+                  <td colspan="1" rowspan="1" class="xl22" height="39" width="201">
+                    Sensitive Security
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    # of accounts in Pre-Windows 2000 Compatible Access Group
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_GroupMembersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Non standard membership</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_GroupsView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Computer accounts</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_Membership
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Old password (over 180 days)
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_SensitiveSecurityGroups_UserList
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Non-admins in DNS admins group
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_Membership
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Groups not protected by SDProp
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_DomainInfo_dSHeuristics_Details
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\5. Domains\AD_DomainInfo
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Highest user count</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Oldest password</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Password not required</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Password never expires</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Sensitive Security Groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">Disabled members</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_SensitiveSecurityGroups_Summary
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\1. Groups\AD_SensitiveSecurityGroups
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">SID History</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Historical admin SIDs on non admins
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_AD_SIDHistory_Summary</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\2. Users\AD_SIDHistory
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">SID History</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Historical SID from same domain
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">SA_AD_SIDHistory_Summary</td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\2. Users\AD_SIDHistory
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Stale Objects
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">Stale users count</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">SA_ADInventory_UsersView</td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">
+                    Stale Objects
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Computers with unsupported Microsoft OS
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">
+                    Stale Objects
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Computers with old password last set date
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_ADInventory_ComputersView
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">Trusts</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Foreign Security Principals in admin groups
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_ADInventory_DistinguishedNames
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    .Active Directory Inventory\1-AD_Scan
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl19" height="20" width="201">Trusts</td>
+                  <td colspan="1" rowspan="1" class="xl20" width="271">
+                    Insecure trust configuration
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl20" width="281">
+                    SA_AD_DomainInfo_TrustDetails
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl21" width="571">
+                    Active Directory\5. Domains\AD_DomainInfo
+                  </td>
+                </tr>
+                <tr height="20">
+                  <td colspan="1" rowspan="1" class="xl22" height="20" width="201">Trusts</td>
+                  <td colspan="1" rowspan="1" class="xl23" width="271">
+                    Outbound trust with SID History enabled
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl23" width="281">
+                    SA_AD_DomainInfo_Filtering
+                  </td>
+                  <td colspan="1" rowspan="1" class="xl24" width="571">
+                    Active Directory\5. Domains\AD_DomainInfo
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

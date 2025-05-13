@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Password Verification Performed on Domain Controller Warning</title><meta name="label" content="skb"/><meta name="label" content="public_v"/><meta name="label" content="password_policy_enforcer"/><meta name="KnowledgeArticleId" content="kA0Qk0000000I3NKAU"/><meta name="Id" content="ka0Qk00000011N3IAI"/><meta name="LastPublishedDate" content="2023-12-06T13:48:49.000+0000"/><meta name="LastModifiedDate" content="2023-12-15T11:20:56.000+0000"/><meta name="FirstPublishedDate" content="2023-12-06T13:48:49.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8943"/><meta name="ArticleNumber" content="000008943"/><meta name="description" content="Password Verification Performed on Domain Controller Warning"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>After enabling Compromised Password Checker, the following warning is prompted in the Netwrix Password Policy Enforcer event log:</p>
+
+<pre class="has-inner-focus">Password verification will be performed on the domain controller %DC_FQDN%.</pre>
+</div>
+
+<h2 id="causes">Causes</h2>
+
+<div>
+<ul><li>
+	<p>The Password Policy Enforcer Mailer service is not installed.</p>
+	</li><li>
+	<p>The fully qualified domain name (FQDN) of the domain controller the Password Policy Enforcer Mailer service is installed on is incorrect.</p>
+	</li></ul>
+</div>
+
+<h2 id="resolutions">Resolutions</h2>
+
+<div>
+<ul><li>
+	<p>PPE Mailer is required for Compromised Password Checker to operate. In case it was not installed previously, refer to the following article for additional information on installation: <a href="https://helpcenter.netwrix.com/bundle/PasswordPolicyEnforcer_10.2/page/Content/Password_Policy_Enforcer/Administration/Mailer.htm" target="_self">Administration − Mailer ⸱ v10.2</a>.</p>
+	</li><li>
+	<p>Review the FQDN of the domain controller PPE Mailer was installed to:</p>
+
+	<ol><li>
+		<p>In the main Password Policy Server window, click <strong>Compromised Password Checker</strong>.</p>
+		</li><li>
+		<p>In the <strong>General</strong> tab, review the <strong>Domain Controller</strong> field − make sure the (FQDN) of the domain controller the Password Policy Enforcer Mailer service is installed on is correct.</p>
+		</li></ol>
+	</li></ul>
+</div></div>
+</article></body></html>

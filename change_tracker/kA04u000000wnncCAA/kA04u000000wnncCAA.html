@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MongoDB Service Terminated Unexpectedly</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnncCAA" />
+    <meta name="Id" content="ka04u000000wwBDAAY" />
+    <meta name="LastPublishedDate" content="2023-11-21T10:51:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-11-21T10:51:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-11-09T10:34:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8894" />
+    <meta name="ArticleNumber" content="000008894" />
+    <meta name="description" content="MongoDB Service Terminated Unexpectedly" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The MongoDB Service is not stay running and stops after each startup.</p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The issue occurs if a database was corrupted and this can happen when a server is
+            shutdown unexpectedly as MongoDB doesn't have time to shutdown safely.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                On the computer that hosts <b>Change Tracker</b> software, Stop the
+                <b>MongoDB</b> service.
+              </p>
+            </li>
+            <li>
+              <p>
+                Open a <b>Command Prompt</b>, ensure that you run it as an <b>Administrator</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enter the following command:<code
+                  >cd "C:\Program Files\NNT Change Tracker Suite (Netcore)\Gen7\MongoDB\bin"</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enter the following command:<code
+                  >mongod.exe --dbpath "C:\ProgramData\Change Tracker Generation 7
+                  (Netcore)\MongoDB\db" --repair</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Enter the following command:<code>iisreset</code>.</p>
+            </li>
+            <li>
+              <p>Close the command prompt window.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: System.Net.WebException: The operation has timed out</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YXCA0" />
+    <meta name="Id" content="ka04u000000HcRYAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1192" />
+    <meta name="ArticleNumber" content="000003345" />
+    <meta
+      name="description"
+      content="This article applies to Netwrix Auditor 8.0 and above. It explains the nature of the error and provides resolution."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Data collection for a Managed Object for auditing EMC Isilon completed with the following
+        error:
+        <i>"Cannot read check audit settings: The operation has timed out"</i>
+        <b>Note</b>: This will not affect data collection functionality but the product will not be
+        able to verify audit on your cluster.
+
+        <hr />
+
+        You are using Apache HTTP Server version: 2.2.30 and below.
+
+        <hr />
+
+        This issue can be resolved in multiple ways.
+
+        <i><b>Resolution #1. Install .Net Framework 4.5.</b></i>
+        <ol>
+          <li>
+            On the computer where <b>Netwrix Auditor Administrator Console</b> is installed,
+            navigate to <b>%Netwrix Auditor installation folder%File Servers Auditing</b> and create
+            the new configuration file named <b>netwrix.fsa.collector.exe.config</b>.
+          </li>
+          <li>Add the following text to this file:</li>
+        </ol>
+        <div>
+          <span
+            ><span><span>&lt;?</span></span
+            ><span><span>xml</span></span> <span><span>version</span></span
+            ><span><span>=</span></span
+            ><span><span>"</span></span
+            ><span><span>1.0</span></span
+            ><span><span>"</span></span
+            ><span><span>?&gt;</span></span></span
+          >
+        </div>
+        <div>
+          <span
+            ><span><span>&lt;</span></span
+            ><span><span>configuration</span></span
+            ><span><span>&gt;</span></span> <span><span>&lt;</span></span
+            ><span><span>startup</span></span
+            ><span><span>&gt;</span></span> <span><span> &lt;</span></span
+            ><span><span>supportedRuntime</span></span> <span><span>version</span></span
+            ><span><span>=</span></span
+            ><span><span>"</span></span
+            ><span><span>v4.0</span></span
+            ><span><span>"</span></span> <span><span>sku</span></span
+            ><span><span>=</span></span
+            ><span><span>"</span></span
+            ><span><span>.NETFramework,Version=v4.5</span></span
+            ><span><span>"</span></span
+            ><span><span>/&gt;</span></span> <span><span>&lt;/</span></span
+            ><span><span>startup</span></span
+            ><span><span>&gt;</span></span> <span><span>&lt;/</span></span
+            ><span><span>configuration</span></span
+            ><span><span>&gt;</span></span></span
+          >
+        </div>
+        <i><b>Resolution #2. Upgrade your cluster to 7.2.1.1 version.</b></i>
+
+        <i
+          ><b
+            >Resolution #3. Specify your ServerName for the Virtual Host that hosts port 8080 using
+            Template.</b
+          ></i
+        >
+        <ol>
+          <li>
+            On your cluster, navigate to<b> /etc/mcp/templates </b>and locate the<b>
+              webui_httpd.conf.</b
+            >
+            file.
+          </li>
+          <li>Edit this file using SSH connection on any cluster node:</li>
+        </ol>
+        <div>
+          <span
+            ><span
+              >&lt;VirtualHost _default_:$$WEBUI_PORT$$&gt; SSLEngine on SSLProxyEngine on
+              DocumentRoot "/usr/local/www/static" ServerAdmin </span
+            ><a href="mailto:support@isilon.com" target="_blank"><span>support@isilon.com</span></a>
+            <span> ServerName </span><span>isi000.rplab.local</span> <span> ...</span></span
+          >
+        </div>
+        <div>Where <span>ServerName</span> must be replaced with your cluster name.</div>
+        <div>
+          <i
+            ><b
+              >Resolution #4. Specify an IP address of your cluster instead of FQDN when editing a
+              Managed Object.</b
+            ></i
+          >
+        </div>
+        <ol>
+          <li>
+            In <b>Netwrix Auditor Administrator Console</b>, navigate to
+            <b>Managed Objects -&gt; &lt;Your File Server Managed Object name&gt; -&gt; Items</b>.
+          </li>
+          <li>Select the required EMC Isilon cluster and click <b>Edit</b>.</li>
+          <li>
+            On the <b>Configure EMC Isilon Auditing </b>step, enter an IP address instead of FQDN.
+            Click <b>OK </b>to save changes.
+          </li>
+        </ol>
+        <div>
+          <b>Note:</b> IP addresses are assigned automatically to cluster nodes, so you may need to
+          modify your Managed Object again.
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

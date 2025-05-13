@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to remove Netwrix Auditor for Active Directory, Group Policy and Exchange?</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000Pbd1CAC" />
+    <meta name="Id" content="ka04u000000HcXoAAK" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="671" />
+    <meta name="ArticleNumber" content="000003760" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How can I remove<strong>
+          Netwrix Auditor for Active Directory, Group Policy and Exchange</strong
+        >?
+
+        <hr />
+
+        To completely uninstall
+        <strong>Netwrix Auditor for Active Directory, Group Policy and Exchange Servers</strong>,
+        perform the following steps:
+        <ol>
+          <li>Remove the program using Control Panel.</li>
+          <li>
+            Delete the entire contents of the Netwrix Auditor Audit Archive folder (to locate the
+            folder correctly see
+            <strong>Newtwrix Auditor console -&gt; Settings -&gt; Audit Archive</strong>). By
+            default, C:ProgramDataNetWrixManagementConsoleData.
+          </li>
+          <li>
+            Delete the following directory:
+            <ul>
+              <li><strong>Vista or above</strong>: "C:ProgramDataNetWrix"</li>
+              <li>
+                <strong>Windows XP, 2003 Server</strong>: "C:Documents and SettingsAll
+                UsersApplication DataNetWrix" and "C:Program FilesCommon FilesNetWrix".
+              </li>
+            </ul>
+          </li>
+          <li>Delete all scheduled Tasks that start with "NetWrix".</li>
+          <li>Delete the program installation folder.</li>
+          <li>
+            Launch 'regedit' and remove the following directory:
+            <ul>
+              <li><strong>for 32-bit OS</strong>: "HKEY_LOCAL_MACHINESOFTWARENetWrix"</li>
+              <li>
+                <strong>for 64-bit OS</strong>: "HKEY_LOCAL_MACHINESOFTWAREWow6432NodeNetWrix"
+              </li>
+            </ul>
+          </li>
+          <li>
+            To remove all historical data from your SQL Server, remove all Netwrix databases using
+            MS SQL Server Management Studio.
+          </li>
+          <li>
+            To remove Netwrix Auditor Lightweight Agent from Domain Controllers, refer this
+            <a
+              href="http://www.netwrix.com/knowledge_base.html?mode=sol&amp;solution=00000818"
+              target="_blank"
+              >KB article</a
+            >.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

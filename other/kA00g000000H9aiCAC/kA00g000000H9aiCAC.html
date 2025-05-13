@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DMZ installation: Server.CreateObject Access error while Self-Service works fine</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9aiCAC" />
+    <meta name="Id" content="ka04u00000116O1AAI" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-28T14:23:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1310" />
+    <meta name="ArticleNumber" content="000003478" />
+    <meta
+      name="description"
+      content="Server.CreateObject Access error. Self-Service portal works fine."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Admin and Helpdesk portals return Server.CreateObject Access error:<br /><img
+          alt="User-added image"
+          height="116"
+          src="kA00g000000H9aiCAC_48c92eae-f5ad-42df-81e2-d9684cc03cdf.png"
+          width="500"
+        /><br />while the Self-Service portal works fine:<br /><img
+          alt="User-added image"
+          height="238"
+          src="kA00g000000H9aiCAC_0ef4feca-b23e-4b39-9160-ef542fe11797.png"
+          width="500"
+        />
+        <hr />
+        This scenario is specific to use of a non-domain frontend server configuration. With a
+        non-domain frontend you need to use local accounts to authenticate to the Admin and Helpdesk
+        portals, and the product tries to use credentials of these local accounts to connect to the
+        backend, and these accounts do not have any permissions on the backend.
+        <hr />
+        It is necessary to create a local user on the backend server with the same account
+        name/password as the domain user you are trying to login with. Add this user to the<strong>
+          Administrators</strong
+        >
+        and <strong>Distributed COM Users</strong> groups on the backend server.
+      </div>
+    </article>
+  </body>
+</html>

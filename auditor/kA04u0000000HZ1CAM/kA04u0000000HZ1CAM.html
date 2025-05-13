@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to fix problems related to installing/uninstalling Compression Service on target host
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000HZ1CAM" />
+    <meta name="Id" content="ka04u000000HcZzAAK" />
+    <meta name="LastPublishedDate" content="2021-11-19T14:04:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:57:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2021-11-11T12:21:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5922" />
+    <meta name="ArticleNumber" content="000005922" />
+    <meta
+      name="description"
+      content="Remove Netwrix Auditor Compression Service Agents that are stuck on the Servers Fix unresponsive Compression Service Agents on target Servers."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <ol>
+          <li>
+            When removing Item, Data Source or Monitoring Plan from Netwrix Auditor, it's
+            Compression Service Agents are not removed automatically from the Servers that are no
+            longer being monitored.
+          </li>
+          <li>
+            After the upgrade of Netwrix Auditor, there are errors in Health Log that indicate that
+            Compression Service Agents cannot be updated automatically.
+          </li>
+        </ol>
+
+        <h2 id="causes">Causes</h2>
+        Installation - Possible causes for an issue during installation are: there is a previous
+        version of the Compression Service that cannot be uninstalled correctly, OS settings prevent
+        installation of .msi package (e.g. Domain Policies, no permissions for Netwrix Account)<br />Uninstllation
+        - Possible causes for an issue during removal are: Missing/corrupt installation package,
+        corrupt registry keys that point to a nonexistent folder.
+        <h2 id="solution">Solution</h2>
+        In this case, the Agents must be removed manually. Netwrix Auditor uses standard .msi
+        packages to deploy its Compression Service Agents. In order to remove them, we recommend
+        using Troubleshooting Software provided by Microsoft here:
+        <a
+          href="https://support.microsoft.com/en-us/topic/fix-problems-that-block-programs-from-being-installed-or-removed-cca7d1b6-65a9-3d98-426b-e9f927e1eb4d"
+          target="_blank"
+          >https://support.microsoft.com/en-us/topic/fix-problems-that-block-programs-from-being-installed-or-removed-cca7d1b6-65a9-3d98-426b-e9f927e1eb4d</a
+        ><br /><br /><b>NOTE:</b> All operations must be done on the <b>Target </b>server, not on
+        the server where Netwrix Auditor is installed. If there are multiple affected Target
+        servers, the operation must be done on each one of them separately.<br /><br />There are two
+        possible scenarios:
+        <h3 id="the_agent_cannot_be_installed_on_the_target_host">
+          The agent cannot be installed on the target host
+        </h3>
+
+        <ol>
+          <li>Run the <b>troubleshooter </b>program that was downloaded form Microsoft Website</li>
+          <li>click <b>Next </b>and select <b>Uninstalling </b>option,</li>
+          <li>
+            find and select the corresponding name of the Compression Service Agent in the list and
+            follow the steps to complete the procedure.
+          </li>
+          <li>
+            If data collection with compression service is enabled for this server, Compression
+            Service will then be automatically installed by Auditor.
+          </li>
+        </ol>
+        If the agent name is not in the list, then run the troubleshooter again and select
+        <b>Installing </b>option, select the name of the agent in the list and complete the
+        procedure.
+
+        <h3 id="the_agent_cannot_be_uninstalled_on_the_target_host">
+          <br />The agent cannot be uninstalled on the target host
+        </h3>
+
+        <ol>
+          <li>Run the <b>troubleshooter </b>program that was downloaded form Microsoft Website</li>
+          <li>click <b>Next </b>and select <b>Uninstalling </b>option,</li>
+          <li>
+            find and select the corresponding name of the Compression Service Agent in the list and
+            complete the procedure.
+          </li>
+        </ol>
+        If you follow the instructions, but the problem still persists, contact Netwrix Technical
+        Support.<br /> 
+      </div>
+    </article>
+  </body>
+</html>

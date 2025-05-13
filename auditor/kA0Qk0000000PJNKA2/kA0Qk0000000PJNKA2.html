@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Manually Update User Activity Core Service</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PJNKA2" />
+    <meta name="Id" content="ka0Qk0000001S0fIAE" />
+    <meta name="LastPublishedDate" content="2024-01-23T11:35:54.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-23T12:04:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-23T08:47:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9017" />
+    <meta name="ArticleNumber" content="000009017" />
+    <meta name="description" content="Manually Update User Activity Core Service" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            The Netwrix Auditor User Activity Core Service version in a target server does not
+            correspond to the version of the Auditor server. Is it possible to manually update User
+            Activity Core Service in either all or specific target servers?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Refer to the following article for additional
+            information on establishing the version of your Auditor server:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110rMCAQ.html"
+              target="_self"
+              >How to Find Out My Netwrix Auditor Version</a
+            >.
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>It is recommended to stop User Activity
+            services in the Netwrix server before making changes to installed Core Services in
+            targets. Run the following command in elevated PowerShell to stop User Activity Core
+            Service and Audit Service:
+          </p>
+
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor User Activity *"</code></pre>
+        </blockquote>
+
+        <div>
+          <p>
+            User Activity Core Service is designed to be deployed automatically when adding items to
+            the corresponding monitoring plan. The Core Service version is supposed to match the
+            Auditor server version − the service is updated on each Auditor server upgrade. In case
+            of connectivity issues during the upgrade procedure, Core Service in a target server may
+            be skipped leading to a version mismatch. Refer to the following steps to manually
+            update Core Service in affected servers depending on the scope of the out-of-date Core
+            Service targets.
+          </p>
+        </div>
+
+        <h4 id="update_core_service_in_a_single_target_server">
+          Update Core Service in a single target server
+        </h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Remove the server item from the User Activity monitoring plan and add it again. In
+                the User Activity monitoring plan, select the target server and click
+                <strong>Remove item</strong> in the right pane. To verify the status of Core Service
+                in a target server, select <strong>Edit Data Source</strong> &gt; the
+                <strong>Monitored Computers</strong> tab.
+              </p>
+            </li>
+            <li>
+              <p>
+                Manually delete the User Activity Core Service app from the target server. In the
+                target server, proceed to the <strong>Settings</strong> menu &gt;
+                <strong>Apps (&amp; Features)</strong> &gt; select
+                <strong>Netwrix Auditor User Activity Core Service</strong> &gt; click
+                <strong>Uninstall</strong>. Allow the Auditor server some time to reinstall Core
+                Service.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update Core Service by manually installing the new version in the affected server −
+                in your Auditor server, copy the <code>UACoreSVCSetup.exe</code> file located by
+                default in the following directory:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\User Activity Video Recording</code></pre>
+
+              <p>
+                Copy the <code>.exe</code> file to the affected server and run it. Proceed with the
+                installation steps to update your Core Service version.
+              </p>
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If User Activity services were previously
+              stopped in Auditor server, start them after deleting Core Service in target servers.
+              This will allow Auditor server to install the new version automatically or detect the
+              updated service. Run the following command in elevated PowerShell:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor User Activity *"</code></pre>
+          </blockquote>
+        </div>
+
+        <h4 id="manually_update_core_service_in_multiple_target_servers_−_option_1">
+          Manually update Core Service in multiple target servers − Option #1
+        </h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Download the following PowerShell script:
+                <a
+                  href="https://www.netwrix.com/download/products/KnowledgeBase/Uninstall-NetwrixProduct.ps1"
+                  target="_blank"
+                  >Uninstall-NetwrixProduct.ps1</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                In elevated PowerShell in your Netwrix server, run the script to uninstall Core
+                Service from all target servers in the User Activity monitoring plan:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">. .\Uninstall-NetwrixProduct.ps1
+Uninstall-UAVRAgents -Verbose</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Make sure to either <code>cd</code> or
+                  <code>Set-Location -Path</code> to the directory containing the script.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                The output for the PowerShell script should include the
+                <code>Status: Uninstalled</code> lines.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If User Activity services were previously
+              stopped in Auditor server, start them after deleting Core Service in target servers.
+              This will allow Auditor server to install the new version automatically. Run the
+              following command in elevated PowerShell:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor User Activity *"</code></pre>
+          </blockquote>
+        </div>
+
+        <h4 id="manually_update_core_service_in_multiple_target_servers_−_option_2">
+          Manually update Core Service in multiple target servers − Option #2
+        </h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Create a temporary folder for the files used. This article implements the
+                <strong>tmp</strong> folder located in <code>C:\TMP</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Create a <code>.txt</code> file containing a list of affected servers. To automate
+                the task, you can use the following PowerShell command:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Get-ADComputer -Filter * -SearchBase "DistinguishedName_of_affected_servers_OU" | Select -Expand Name | Out-File -filepath C:\TMP\servers.txt -Encoding ascii</code></pre>
+
+              <p>
+                Replace the <code>DistinguishedName_of_affected_servers_OU</code> with the actual
+                distinguished name of the OU containing affected servers. Replace the filepath with
+                the actual filepath for the folder used.
+              </p>
+            </li>
+            <li>
+              <p>
+                Create a <code>delete_UAVR.bat</code> file in the same folder. Edit it to add the
+                following contents:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">@echo off
+for /F "tokens=*" %%A in (servers.txt) do echo Processing %%A &amp; wmic /node:"%%A" product where "description='Netwrix Auditor User Activity Core Service'" call uninstall</code></pre>
+
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>
+                Run PowerShell as a user having permissions to uninstall applications in target
+                servers.
+              </p>
+            </li>
+            <li>
+              <p>Run the <code>.bat</code> file:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">. .\delete_UAVR.bat</code></pre>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>Make sure to either <code>cd</code> or
+                  <code>Set-Location -Path</code> to the directory containing the
+                  <code>.bat</code> file.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                The output for each deleted Core Service in each server should include a
+                <code>ReturnValue = 0</code> line.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once the <code>.bat</code> file finishes running, you can run it again to verify
+                Core Service instances were deleted.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>IMPORTANT: </strong></span>If User Activity services were previously
+              stopped in Auditor server, start them after deleting Core Service in target servers.
+              This will allow Auditor server to install the new version automatically. Run the
+              following command in elevated PowerShell:
+            </p>
+
+            <pre
+              class="has-inner-focus"
+            ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor User Activity *"</code></pre>
+          </blockquote>
+        </div>
+
+        <h2 id="related_links">Related links</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u00000110rMCAQ.html"
+                  target="_self"
+                  >How to Find Out My Netwrix Auditor Version</a
+                >
+              </p>
+            </li>
+            <li>
+              <p>
+                <a
+                  href="https://www.netwrix.com/download/products/KnowledgeBase/Uninstall-NetwrixProduct.ps1"
+                  target="_blank"
+                  >Uninstall-NetwrixProduct.ps1</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

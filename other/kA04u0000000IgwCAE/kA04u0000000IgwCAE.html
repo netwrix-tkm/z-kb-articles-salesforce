@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWinConsole_5.0.0.762</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IgwCAE" />
+    <meta name="Id" content="ka04u000000HctUAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:09:57.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6929" />
+    <meta name="ArticleNumber" content="000006929" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI web Reports do
+          not populate
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  </span></strong
+          >SI web Reports do not populate<br /><strong><span>Before fix</span></strong
+          ><b>:</b> empty crystal report for failed authentications policy due to linked report
+          contains only successful authentication events.<br /><strong
+            ><span>After fix:</span></strong
+          >
+           crystal report contains correct data for the policy based on failed auth template.<br /><br /><strong
+            ><span>Affected Versions:</span></strong
+          ><br />3.4.0      No Patch created at this time<br />3.4.1      No Patch created at this
+          time<br />3.4.2      No Patch created at this time<br />4.0.0      No Patch created at
+          this time<br />4.1.0      No Patch created at this time<br />5.0.0     
+          SIWinConsole_5.0.0.762_SI-3512<br /><br /><strong><span>Affected Module:</span></strong
+          ><br />SI - Windows Console<br /> <br /><strong><span>Dev Ticket:</span></strong
+          ><br />I-3602<br /><br /><strong><span>Resolved in Version:</span></strong
+          ><br />SI 5.0.0.762<br /><br /><strong><span>KB Type: </span></strong
+          ><br />Hotfix<br /> <br /><b>Escalations: </b>24493<br /><br /><b>Customers: </b
+          >Textron<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> Steps to apply
+          the patch:<br /> <br />1. Open SI Console<br />2. Select 'Templates' node<br />3. Remove
+          the following templates:<br /> - Templates\Microsoft\Active
+          Directory\Authentication\Administrative Accounts\"AD: Failed Administrator Account
+          Authentications"<br /> - Templates\Microsoft\Active Directory\Authentication\"AD: Failed
+          Account Authentications"<br /> - Templates\Microsoft\Active
+          Directory\Authentication\Service Accounts\"AD: Failed Service Account Authentications"<br />4.
+          Extract attached "FixedTemplates.xml" to temp folder<br />5. Select Tools\Import in SI
+          Console<br />6. Select extracted "FIxedTemplates.xml" from temp folder for Import<br />7.
+          Run Import<br /> - !!! Select 'Apply to All' and then 'Skip' for existed Collections
+          during import<br />8. Create new SI Policies using mentioned above SI Templates<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIWinConsole_5.0.0.762_SI-3512.ZIP"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.0.0/SIWinConsole_5.0.0.762_SI-3512.ZIP</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Alerts<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          5.0.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SI-3512<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.0.0.762<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          1896<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

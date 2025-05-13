@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Agent Upgrade in Netwrix StealthINTERCEPT 7.3.5</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HweCAE"/><meta name="Id" content="ka04u00000117nvAAA"/><meta name="LastPublishedDate" content="2023-09-15T08:26:25.000+0000"/><meta name="LastModifiedDate" content="2023-09-15T08:45:53.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T17:53:08.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6039"/><meta name="ArticleNumber" content="000006039"/><meta name="description" content="360010581231"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to upgrade the Netwrix StealthINTERCEPT 7.3.5 agent using a script?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<p>A PowerShell wrapper to assist with SI Agent installations and upgrades is attached to this article.</p>
+
+<p>Most parameters are true\false switches that default to <strong>false</strong>, with some parameters defaulting to <strong>true</strong> (-DoNotStartAgentService, -NoFirewallRules, and -NoDNSLookups). The <strong>-Features</strong> parameter is mandatory and tab completes to <strong>WindowsFile</strong>, <strong>ActiveDirectory</strong> and <strong>Exchange</strong> — the script will sort out the proper names.</p>
+</div>
+
+<h4 id="registering_new_agents">Registering new agents</h4>
+
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Registering new agents requires a generated enrollment secret from the console.</p>
+</blockquote>
+
+<div>
+<p>Refer to the following code block for an example:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">.\SIAgentInstaller.ps1 -EnterpriseManagerIP 10.0.0.51 -SIAgentExecutable 'C:\Users\da\Desktop\SI Agent.exe' -Log log.txt -Features ActiveDirectory, WindowsFile -EnrollmentSecret "0469 E33A 2091 C23F" -EMCertificate "E5475653ABF5907B197D1FD53F4963B55269D425"</code></pre>
+</div>
+
+<h4 id="upgrading_agents">Upgrading Agents</h4>
+
+<div>
+<p>This can be truly unattended as the certificates are still in the left over CertsInfo folder. Refer to the following code block for an example:</p>
+
+<pre class="has-inner-focus"><code class="lang-Registry">.\SIAgentInstaller.ps1 -EnterpriseManagerIP 10.0.0.51 -SIAgentExecutable 'C:\Users\da\Desktop\SI Agent.exe' -Log log.txt -Features ActiveDirectory, WindowsFile</code></pre>
+</div>
+
+<h4 id="attachments">Attachments</h4>
+
+<div>
+<p><a href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LcUj4&amp;d=%2Fa%2F4u000000LyB4%2FWpE7l7yFTHFffDxCeULxYctq8Sg7CTl9D41sslbXyPA&amp;asPdf=false" target="_blank">SI_Agent_Install_Upgrade.ps1</a></p>
+</div></div>
+</article></body></html>

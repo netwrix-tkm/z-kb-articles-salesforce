@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Outdated DFS query in FSAAConfig.xml</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IieCAE" />
+    <meta name="Id" content="ka04u000000HcuGAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:33:23.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:33:23.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7193" />
+    <meta name="ArticleNumber" content="000007193" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Outdated DFS query
+          in FSAAConfig.xml
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Changes to the DFS
+          tables have been made in 8.1 that break the existing DFS Shares query in the FSAA
+          Config.xml file.
+        </p>
+        <p>This file is located in the "DC" subfolder of the installation folder.</p>
+        <p>By default this is located:<br />"C:\Program Files (x86)\STEALTHbits\StealthAUDIT\DC"</p>
+        <p>
+          In order to remedy this, users should update the query text in the FSAAConfig.xml file.<br />Delete
+          the old query from your FSAAConfig.xml and paste in the new query in the same location
+          within the file.<br />Old Query:<br />   SELECT TargetShare FROM
+          [SA_0-FSDFS_System_Scans_Access] WHERE TargetServer = :SCANHOST<br />New Query:<br />  
+          SELECT DISTINCT SUBSTRING(l.TargetPath, CHARINDEX('\', l.TargetPath, 3) + 1,
+          CHARINDEX('\', SUBSTRING(l.TargetPath + '\', CHARINDEX('\', l.TargetPath, 3) + 1,
+          LEN(l.TargetPath))) - 1) AS TargetShare<br />FROM SA_FSDFS_Links l<br />JOIN SA_FSAA_Hosts
+          h ON h.ID = l.TargetHostID<br />WHERE h.HOST = :SCANHOST<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - FSAA - Activity;SA - DC - FSAA - DFS;SA - DC - FSAA - Permissions;SA - DC - FSAA -
+          Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1 to 9.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-15414<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          2076
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

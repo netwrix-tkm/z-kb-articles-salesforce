@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Failed to Copy Remote Distributed Modules</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001OQ5KAM" />
+    <meta name="Id" content="ka0Qk0000005YfNIAU" />
+    <meta name="LastPublishedDate" content="2024-09-09T14:30:42.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-17T13:13:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-09T14:30:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9259" />
+    <meta name="ArticleNumber" content="000009259" />
+    <meta name="description" content="Error: Failed to Copy Remote Distributed Modules" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Both of the following symptoms are present in your Netwrix Auditor (NA) Event Log
+            Manager (ELM) environment:
+          </p>
+
+          <ul>
+            <li>
+              <p>The Health Log prompts the following error message:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Failed to copy remote distributed modules.  
+Error details: The process cannot access the file because it is being used by another process.</code></pre>
+            </li>
+            <li>
+              <p>
+                ELM is set to audit both a domain OU and the servers within that OU by IP address.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            ELM audits the same server twice. This causes duplicates of the audit logs in the NA ELM
+            monitoring plan.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Refer to one of the following options to resolve the issue:</p>
+
+          <ul>
+            <li>
+              <p>
+                Review the list of monitored computers. Remove the IP ranges and only audit OUs.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the list of monitored computers. Remove the OU and only audit target IP
+                address ranges.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

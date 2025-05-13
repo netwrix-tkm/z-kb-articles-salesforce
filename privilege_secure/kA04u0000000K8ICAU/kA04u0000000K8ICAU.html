@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Configure and Upgrade NPS in High Availability Mode and Using Remote Services Configurations</title><meta name="label" content="public_v"/><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000K8ICAU"/><meta name="Id" content="ka0Qk000000DWoTIAW"/><meta name="LastPublishedDate" content="2025-04-29T23:45:45.000+0000"/><meta name="LastModifiedDate" content="2025-05-01T17:37:15.000+0000"/><meta name="FirstPublishedDate" content="2022-04-27T13:48:48.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8422"/><meta name="ArticleNumber" content="000008422"/><meta name="description" content="Upgrading to SbPAM 3.6 or Higher - High Availability and Remote Services Configurations"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="overview">Overview</h2>
+<div>
+<p>This article explains the initial configuration of PostgreSQL high availability (HA) for Netwrix Privilege Secure (NPS) using NPS.HaMgr.exe (NPS HA Configuration Tool). This article also includes steps to upgrade an existing HA server pair, and to upgrade remote service nodes. The NPS.HaMgr.exe tool is available in the <strong>Extras</strong> folder of the NPS download directory. This implementation of HA is active/passive—in case of a primary server outage, a manual failover is required to switch to the secondary database. All applications and services remain active on corresponding servers; however, both write only to the primary database.</p>
+<blockquote>
+<p><span><strong>NOTE: </strong></span>In case the primary server becomes unavailable and failover is required, refer to the <strong>Upgrade an Existing NPS High Availability (HA) Pair</strong> section steps.</p>
+</blockquote>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Before configuring HA, perform the following steps on both primary and secondary NPS servers:</p>
+<ol><li>
+<p>Open the HA tool. Click the folder icon to the right of the <code>PgDataDir</code> path to open the <strong>Postgres</strong> folder.</p>
+</li><li>
+<p>Locate the <strong>Archive</strong> folder. Delete the contents of the <strong>Archive</strong> folder.</p>
+</li></ol>
+</blockquote>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Users should use the primary NPS server after establishing the HA pair. The database on the secondary server runs in read-only mode in the HA pair.</p>
+<p> </p>
+<p><span><strong>IMPORTANT: </strong></span>A reboot will be required on all NPS servers for both initial installations and upgrades.</p>
+</blockquote>
+<p><a href="#InitialConfiguration" target="_self">Initial Configuration</a></p>
+<a href="#Configuration-HA" target="_self"/>
+<p><a href="#Upgrades" target="_self">Upgrades</a></p>
+</div>
+<div>
+<ol><li>
+<p><a href="#user-content-before-you-begin">Before You Begin</a></p>
+</li><li>
+<p><a href="#user-content-exclusion">Upgrading from 3.6 or Higher to 3.7CU1 (3.7.1250) or Higher</a></p>
+</li><li>
+<p><a href="#user-content-ha-upgrade-instructions">HA Upgrade Instructions</a></p>
+<ol><li>
+<p><a href="#user-content-summary">Summary − HA Upgrade</a></p>
+</li><li>
+<p><a href="#user-content-failover-and-upgrade-the-secondary">Failover and Upgrade the Secondary</a></p>
+</li><li>
+<p><a href="#user-content-upgrade-the-primary">Upgrade the Primary</a></p>
+</li><li><a href="#appsettings" target="_self">Copy appsettings.conf File to the Secondary</a></li><li>
+<p><a href="#user-content-copy-the-encryption-keys-to-the-secondary">Copy the Encryption Keys to the Secondary</a></p>
+</li><li>
+<p><a href="#user-content-re-establish-ha-on-the-secondary">Re-establish HA on the Secondary</a></p>
+</li><li>
+<p><a href="#user-content-verify-the-secondary">Verify the Secondary</a></p>
+</li><li>
+<p><a href="#user-content-verify-the-primary">Verify the Primary</a></p>
+</li></ol>
+</li><li>
+<p><a href="#user-content-remote-service-upgrade-instructions">Remote Service Upgrade Instructions</a></p>
+<ol><li>
+<p><a href="#user-content-summary-remote">Summary − Remote Service Upgrade</a></p>
+</li><li>
+<p><a href="#user-content-upgrade-the-sbpam-server">Upgrade the NPS Server</a></p>
+</li><li>
+<p><a href="#user-content-upgrade-all-remote-services">Upgrade all Remote Services</a></p>
+</li><li>
+<p><a href="#user-content-export-the-encryption-keys-from-the-sbpam-server">Export the Encryption Keys from the NPS Server (Action and Scheduler Services only)</a></p>
+</li><li>
+<p><a href="#user-content-copy-the-encryption-keys-to-the-remote-hosts">Copy the Encryption Keys to the Remote Hosts (Action and Scheduler Services only)</a></p>
+</li><li>
+<p><a href="#user-content-re-register-the-services-on-the-sbpam-server">Re-register the Services on the NPS Server</a></p>
+</li></ol>
+</li></ol>
+<p><a href="#ha-troubleshooting" target="_self">HA Troubleshooting</a></p>
+<h2 id="InitialConfiguration">Initial Configuration</h2>
+<div>
+<p>Perform the following steps to configure an HA pair.</p>
+<ol><li>
+<p>Verify both 5432 (PostgreSQL) and 6500 (NPS Web Services) ports are open between the servers.</p>
+<ul><li>
+<p>If either of the ports was modified, open the corresponding port instead.</p>
+</li><li>
+<p>The HA tool creates exclusion rules for Windows Firewall, but your network firewall may still block these ports.</p>
+</li></ul>
+</li><li>
+<p>Copy the HA tool from the <strong>Extras</strong> folder to the following folder on both primary and secondary servers:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files\Stealthbits\PAM\HA Tools</code></pre>
+<p>If required, replace the default installation path with a custom one.</p>
+</li><li>
+<p>Run the HA tool on the primary server−specify the primary server IP in the <strong>Primary IP</strong> field. Allow the tool to process the IP to then fill the <strong>Port</strong> value. A green checkmark appears in the <strong>Primary Node</strong> section.</p>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>The <strong>Primary IP</strong> field only registers IP addresses. The field does not register FQDNs or localhost (127.0.0.1).</p>
+</blockquote>
+</li><li>
+<p>Specify the secondary server IP in the <strong>Secondary IP</strong> field. Specify the <strong>Port</strong> value (5432 by default for PostgreSQL). After specifying the values, click any white space in the window of the HA tool to process the secondary IP and port.</p>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Some errors and warnings can be ignored during the initial setup:</p>
+<ul><li>
+<p>The <code>%Secondary_IP% not found in pg_hba.conf</code> error indicates no established connection between the PostgreSQL databases. This behavior is expected.</p>
+</li><li>
+<p>The <code>Firewall Port Not Open</code> warning does not get updated after the HA tool creates a firewall rule.</p>
+</li></ul>
+<p><span><strong>IMPORTANT: </strong></span>Do not proceed to the next step until both servers have a green check mark in the HA Manager.</p>
+</blockquote>
+</li><li>Follow the instructions in this article to export the encryption keys from the primary server to the secondary server: <a href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA0Qk0000000rYzKAI.html" target="_blank">How to Configure Encryption Keys in Multiple NPS Server Environments</a>.</li><li>On the primary server, locate the appsettings.json file at C:\ProgramData\Stealthbits\PAM\HA\appsettings.conf - copy this to the same path on the secondary server.</li><li>
+<p>Run the HA tool on the secondary server. Specify the <strong>Primary IP</strong>, <strong>Primary Port</strong>, and <strong>Secondary IP</strong>.</p>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>The HA tool might prompt errors and warnings after you enter the values. This behavior is expected.<br/>Do not update or refresh any of the fields.</p>
+</blockquote>
+</li><li>
+<p>Close the HA tool on both the primary and secondary servers.</p>
+</li><li>
+<p>Run the HA tool on the primary server and verify the IP address and port fields. Click <strong>Update</strong> in the <strong>Secondary Node</strong> section to update the <code>pg_hba.conf</code> file.</p>
+</li><li>
+<p>Run the HA tool on the secondary server. Allow the tool to initialize—a <strong>Configure HA Secondary</strong> button should appear in the top right corner of the tool window.</p>
+<blockquote>
+<p><span><strong>NOTE: </strong></span>If the <strong>Configure HA Secondary</strong> button does not appear, close the tool on both servers, restart the primary HA tool, and start the secondary HA tool.</p>
+</blockquote>
+</li><li>
+<p>Click the <strong>Configure HA Secondary</strong> button. Proceed with the backup for the existing database—the stream from the primary to the secondary should begin after.<br/><br/>The initial streaming may take several minutes depending on the amount of data to be replicated.</p>
+<blockquote>
+<p><span><strong>NOTE: </strong></span>To confirm HA is configured, review the <strong>Postgres Status</strong> values for both nodes—they should state <strong>Running Primary</strong> and <strong>Running Replica</strong> depending on the role.</p>
+</blockquote>
+</li><li>
+<p>Verify that you can log in to NPS on both servers.</p>
+</li></ol>
+</div>
+<h2 id="Upgrades">Upgrades</h2>
+</div>
+<h4 id="user-content-before-you-begin">Before You Begin</h4>
+<p>Determine if your NPS environment has HA and/or remote services configured.</p>
+<ul><li>
+<p>For HA, launch the NPS HA Configuration Tool (NPS.HaMgr) that was packaged with your NPS installer on your primary NPS server. If <strong>Replication Status</strong> is listed as <strong>Active</strong>, HA is configured.</p>
+</li><li>
+<p>For remote services, launch NPS and check if there are any remote hosts listed under <strong>service nodes</strong>. If there are, you have remote services which will need to be upgraded.</p>
+</li></ul>
+<p>If neither of these are configured, you may proceed with a standard NPS upgrade and bypass the steps outlined in this article. Otherwise, proceed to the appropriate section(s) of this article for HA and/or remote services.</p>
+<h4 id="user-content-exclusion">Upgrading from 3.6 or Higher to 3.7CU1 (3.7.1250) or Higher</h4>
+<p>When upgrading from 3.6, it is assumed that all of your encryption keys are in agreement on all NPS servers and remote service nodes. The 3.7CU1 installer will retain the existing encryption keys on each server, and you can omit any steps in the below instructions involving the export and import of encryption keys.</p>
+<h2 id="user-content-ha-upgrade-instructions">HA Upgrade Instructions</h2>
+<h4 id="user-content-summary">Summary</h4>
+<p>Each host in the active/passive configuration must be upgraded, starting with the secondary (passive) host and proceeding to the primary (active) host. After both hosts are upgraded, steps are included to ensure that both NPS installations share the same encryption keys. Once the encryption keys match, the primary and secondary are restored to an HA configuration and their services are re-registered in the NPS console.</p>
+<h4 id="user-content-failover-and-upgrade-the-secondary">Failover and Upgrade the Secondary</h4>
+<ol><li>
+<p>Create a new folder in your NPS Installation folder <code>C:\Program Files\Stealthbits\PAM\HA Tools</code></p>
+</li><li>
+<p>Copy the HA Manager Tool from your download directory <code>Extras\NPS.HaMgr.exe</code> to the NPS installation folder <code>C:\Program Files\Stealthbits\PAM\HA Tools.</code> If you have an older copy of the HA Tool make sure to copy the existing configuration file over so the tool has the previous configuration values.</p>
+</li><li>
+<p>Start the HA Manager Tool <code>NPS.HaMgr.exe</code>.</p>
+</li><li>
+<p>Click the <code>Failover</code> button on the HA Tool UI. This will update the PostgreSQL database on the secondary so the upgrade can be performed on the secondary without impacting the primary.</p>
+<blockquote>
+<p><span><strong>NOTE: </strong></span>Clicking <code>Failover</code> flips the IP Address of the Primary and the Secondary hosts. Make sure to undo this change after the upgrade.</p>
+</blockquote>
+</li><li>
+<p>Run <code>NPS_Setup</code> and click the <code>Upgrade Netwrix Privilege Secure</code> button.</p>
+</li><li>
+<p>After the installer completes, close the installer and close <code>NPS_Setup</code>.</p>
+</li></ol>
+<h4 id="user-content-upgrade-the-primary">Upgrade the Primary</h4>
+<ol><li>
+<p>Create a new folder in your NPS Installation folder <code>C:\Program Files\Stealthbits\PAM\HA Tools</code></p>
+</li><li>
+<p>Copy the HA Manager Tool from the download directory <code>Extras\NPS.HaMgr.exe</code> to the NPS installation folder <code>C:\Program Files\Stealthbits\PAM\HA Tools.</code> If you have an older copy of the HA Tool make sure to copy the existing configuration file over so the tool has the previous configuration values.</p>
+</li><li>
+<p>Start the HA Manager Tool <code>NPS.HaMgr.exe</code>.</p>
+</li><li>
+<p>You will see that HA is not configured, that will be addressed later.</p>
+</li><li>
+<p>Run <code>NPS_Setup</code> and click the <code>Upgrade Netwrix Privilege Secure</code> button.</p>
+</li><li>
+<p>After the installer completes, close the installer and close <code>NPS_Setup</code>.</p>
+</li></ol>
+<p id="appsettings">Copy appsettings.conf File to the Secondary</p>
+<ol><li>On the primary server, locate the appsettings.json file at C:\ProgramData\Stealthbits\PAM\HA\appsettings.conf - copy this to the same path on the secondary server.</li></ol>
+<h4 id="user-content-copy-the-encryption-keys-to-the-secondary">Copy the Encryption Keys to the Secondary</h4>
+<ol><li>
+<p>In the primary, run <code>cmd</code> as Administrator</p>
+</li><li>
+<p>Type the following commands to export the encryption keys for the secondary:</p>
+<pre><code>cd "C:\Program Files\Stealthbits\PAM\KeyTools"
+.\SbPAM.RotateKey.exe export -n keys.exp 
+</code></pre>
+</li><li>
+<p>Take note of the password for the export file.</p>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>This temporary password protects the NPS encryption keys during copying. Do not save it to digital media or transmit it with the encryption key package.</p>
+</blockquote>
+</li><li>
+<p>Copy the export file to <code>"C:\Program Files\Stealthbits\PAM\KeyTools"</code> on the secondary server.</p>
+</li><li>
+<p>On the secondary, run <code>cmd</code> as Administrator.</p>
+</li><li>
+<p>Type the following commands to import the encryption keys:</p>
+<pre><code>cd "C:\Program Files\Stealthbits\PAM\KeyTools"
+.\SbPAM.RotateKey.exe import -n keys.exp 
+</code></pre>
+</li><li>
+<p>You will be prompted for the password.</p>
+</li><li>
+<p>Delete the export file from both the primary and secondary.</p>
+</li></ol>
+<h4 id="user-content-re-establish-ha-on-the-secondary">Re-establish HA on the Secondary</h4>
+<ol><li>
+<p>Launch the HA Tool on the secondary.</p>
+</li><li>
+<p>Enter the primary IP address into the <code>Primary IP</code> text box.</p>
+</li><li>
+<p>Enter the secondary IP address into the <code>Secondary IP</code> text box.</p>
+</li><li>
+<p>Click the <code>Configure HA</code> button.</p>
+</li></ol>
+<h4 id="user-content-verify-the-secondary">Verify the Secondary</h4>
+<ol><li>
+<p>Connect to the secondary Web UI directly.</p>
+</li><li>
+<p>Login with an NPS Administrator account (domain\user).</p>
+</li><li>
+<p>Go to the <code>Configuration &gt; System Settings &gt; Services</code> page. Verify the URL is properly configured so the services are communicating with the secondary service.</p>
+</li><li>
+<p>Click <code>Register Services</code>.</p>
+</li><li>
+<p>Navigate to <code>Service Nodes</code>.</p>
+<ol><li>
+<p>Verify that your secondary server shows up as online.</p>
+</li><li>
+<p>Verify that your primary server shows up as online.</p>
+</li></ol>
+</li></ol>
+<h4 id="user-content-verify-the-primary">Verify the Primary</h4>
+<ol><li>
+<p>Connect to the primary Web UI directly.</p>
+</li><li>
+<p>Login with an NPS Administrator account (domain\user).</p>
+</li><li>
+<p>Go to the <code>Configuration &gt; System Settings &gt; Services</code> configuration page, verify the URL is properly configured so the services are communicating with the secondary service.</p>
+</li><li>
+<p>Click <code>Register Services</code>.</p>
+</li><li>
+<p>Navigate to <code>Service Nodes</code>.</p>
+<ol><li>
+<p>Verify that your primary server shows up as online.</p>
+</li><li>
+<p>Verify that your secondary server shows up as online.</p>
+</li></ol>
+</li></ol>
+<h2 id="user-content-remote-service-upgrade-instructions">Remote Service Upgrade Instructions</h2>
+<h4 id="user-content-summary-remote">Summary</h4>
+<p>In addition to upgrading the NPS server, each remote host with a remote service must be upgraded. After remote hosts are upgraded, steps are included to ensure that the remote services share the same encryption keys as the NPS server. Once the encryption keys match, the services are re-registered in the NPS console.</p>
+<blockquote>
+<p><span><strong>NOTE: </strong></span>The encryption key import instructions apply only to remote Action and Scheduler services − not Proxy services.</p>
+</blockquote>
+<h4 id="user-content-upgrade-the-sbpam-server">Upgrade the NPS Server</h4>
+<ol><li>
+<p>Run <code>NPS_Setup</code> and click the <code>Upgrade Netwrix Privilege Secure</code> button.</p>
+</li><li>
+<p>After the installer completes, close the installer and close <code>NPS_Setup</code>.</p>
+</li></ol>
+<h4 id="user-content-upgrade-all-remote-services">Upgrade all Remote Services</h4>
+<ol><li>
+<p>Run the appropriate service-specific installer on each remote host (e.g. "ActionService.exe" for the Action Service).</p>
+</li><li>
+<p>After the installer completes, close the installer.</p>
+</li></ol>
+<h4 id="user-content-export-the-encryption-keys-from-the-sbpam-server">Export the Encryption Keys from the NPS Server (Action and Scheduler Services only)</h4>
+<ol><li>
+<p>On the NPS server, run <code>cmd</code> as Administrator.</p>
+</li><li>
+<p>Type the following commands to export the encryption keys for the secondary:</p>
+<pre><code>cd "C:\Program Files\Stealthbits\PAM\KeyTools"
+.\SbPAM.RotateKey.exe export -n keys.exp 
+</code></pre>
+</li><li>
+<p>Take note of the password for the export file.</p>
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>This temporary password protects the NPS encryption keys during copying. Do not save it to digital media or transmit it with the encryption key package.</p>
+</blockquote>
+</li></ol>
+<h4 id="user-content-copy-the-encryption-keys-to-the-remote-hosts">Copy the Encryption Keys to the Remote Hosts (Action and Scheduler Services only)</h4>
+<p>For each remote host running a remote service, do the following:</p>
+<ol><li>
+<p>Copy the keys.exp file to <code>"C:\Program Files\Stealthbits\PAM\KeyTools"</code></p>
+</li><li>
+<p>Run <code>cmd</code> as Administrator. Type the following commands to import the encryption keys:</p>
+<pre><code>cd "C:\Program Files\Stealthbits\PAM\KeyTools"
+.\SbPAM.RotateKey.exe import -n keys.exp 
+</code></pre>
+</li><li>
+<p>You will be prompted for the password.</p>
+</li><li>
+<p>Delete the export file from the remote host.</p>
+</li></ol>
+<p>Once all remote hosts have the correct encryption keys, delete the export file from the NPS server.</p>
+<h4 id="user-content-re-register-the-services-on-the-sbpam-server">Re-register the Services on the NPS Server</h4>
+<ol><li>
+<p>Connect to the primary Web UI directly.</p>
+</li><li>
+<p>Login with an NPS Administrator account (domain\user).</p>
+</li><li>
+<p>Click <code>Register Services</code>.</p>
+</li><li>
+<p>Navigate to <code>Service Nodes</code>. Verify that all remote service nodes are listed as online.</p>
+</li></ol>
+<h2 id="ha-troubleshooting">HA Troubleshooting</h2>
+<h4 id="the_following_steps_will_allow_you_to_manually_configure_critical_ha_settings_on_your_ha_pair">The following steps will allow you to manually configure critical HA settings on your HA pair.</h4>
+<div>
+<ol><li>
+<p>On the primary server, navigate to the <code>%PROGRAMDATA%\Stealthbits\Postgres12</code> folder. Refer to the following default path:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">C:\ProgramData\Stealthbits\Postgres12</code></pre>
+</li><li>
+<p>Open the <code>pg_hba.conf</code> file using a text editor. Add the following lines to the end of the file:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">host  replication  repuser  %SECONDARY_IP%/32  md5
+host  all  all  %SECONDARY_IP%/32  md5</code></pre>
+<p>Replace the <code>%SECONDARY_IP%</code> placeholders with the IP address of your secondary server. Save the changes.</p>
+</li><li>
+<p>On the secondary server, navigate to the <code>%PROGRAMDATA%\Stealthbits\Postgres12</code> folder. Refer to the following default path:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">C:\ProgramData\Stealthbits\Postgres12</code></pre>
+</li><li>
+<p>Open the <code>pg_hba.conf</code> file using a text editor. Add the following lines to the end of the file:</p>
+<pre class="has-inner-focus"><code class="lang-Registry">host  replication  repuser  %PRIMARY_IP%/32  md5
+host  all  all  %PRIMARY_IP%/32  md5</code></pre>
+<p>Replace the <code>%PRIMARY_IP%</code> placeholders with the IP address of your primary server. Save the changes.</p>
+</li></ol>
+</div></div>
+</article></body></html>

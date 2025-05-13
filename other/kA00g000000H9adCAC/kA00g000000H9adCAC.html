@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      DMZ installation: Server.CreateObject Access error while Self-Service portal does not work
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9adCAC" />
+    <meta name="Id" content="ka04u00000116eeAAA" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T16:05:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1308" />
+    <meta name="ArticleNumber" content="000003473" />
+    <meta
+      name="description"
+      content="Server.CreateObject Access error. Self-Service portal does not work. Self-Service portal does not load at all."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Admin and Helpdesk portals return Server.CreateObject Access error:
+        <img
+          src="kA00g000000H9adCAC_5f0612d3-51af-4bbf-a436-2e26dbd0c326.png"
+          alt="User-added image"
+          width="500"
+          height="116"
+        />
+
+        Self Service portal does not load at all:
+        <img
+          src="kA00g000000H9adCAC_fa1c8935-6e12-4623-9834-405ee6f40cbf.png"
+          alt="User-added image"
+          width="500"
+          height="268"
+        />
+
+        <hr />
+
+        To communicate with each other, frontend and backend servers need an account. The account
+        called <strong>IUSR_Netwrix_DMZ </strong>should be created during the configuration steps as
+        per the Administrator Guide. The issue occurs when <strong>IUSR_Netwrix_DMZ </strong>account
+        does not have permissions to access the COM object of Netwrix Password Manager on the
+        backend.
+
+        <hr />
+
+        Make sure that:
+        <ol>
+          <li>
+            <strong>IUSR_Netwrix_DMZ</strong> account is specified in IIS Basic settings at
+            <strong>Connect as</strong>
+          </li>
+        </ol>
+        <div>
+          <strong
+            ><img
+              src="kA00g000000H9adCAC_2ed64d21-563a-447c-92e2-0ecc5631e858.png"
+              alt="User-added image"
+              width="500"
+              height="306"
+          /></strong>
+        </div>
+        <ol start="2">
+          <li>
+            <strong>IUSR_Netwrix_DMZ </strong>is added to local<strong>
+              Distributed COM Users</strong
+            >
+            group on both frontend and backend servers
+          </li>
+          <li>
+            <strong>IUSR_Netwrix_DMZ </strong>is NOT added to the<strong> </strong>User Rights
+            Assignment " Deny Access to this computer from the network local policy on the backend
+          </li>
+        </ol>
+        <div>
+          <strong>NOTE. </strong>The guide says that <strong>USR_Netwrix_DMZ </strong>should be a
+          member of Guests group on both server. However if the mentioned policy is enabled, Guests
+          are denied access, so either disable the policy, or remove the account from Guests group
+          in this case:
+          <a href="http://technet.microsoft.com/en-us/library/dn221954.aspx" target="_blank"
+            >http://technet.microsoft.com/en-us/library/dn221954.aspx</a
+          >
+        </div>
+        <ol start="4">
+          <li>
+            Default DCOM settings on both the front-end and the back-end grants full access to
+            local<strong> Distributed COM Users</strong>
+          </li>
+        </ol>
+        <div>
+          <img
+            src="kA00g000000H9adCAC_a50f726a-091b-4bac-8374-44db3ac9f7f4.png"
+            alt="User-added image"
+            width="500"
+            height="302"
+          />
+        </div>
+        <ol start="5">
+          <li>Netwrix Password Manager COM object allows access to Everyone</li>
+        </ol>
+        <div>
+          <strong
+            ><img
+              src="kA00g000000H9adCAC_6fb19f02-73c0-4dbe-9bba-1bc5cbc52c30.png"
+              alt="User-added image"
+              width="500"
+              height="354"
+          /></strong>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

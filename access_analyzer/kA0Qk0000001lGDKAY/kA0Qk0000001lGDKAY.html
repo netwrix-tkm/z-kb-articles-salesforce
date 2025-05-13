@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Drop Data Collected from SQL Servers Using the Databases Module</title>
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="access_info_center" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001lGDKAY" />
+    <meta name="Id" content="ka0Qk000000DG6zIAG" />
+    <meta name="LastPublishedDate" content="2025-04-11T21:28:06.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-16T01:35:54.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-04-11T21:28:06.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9345" />
+    <meta name="ArticleNumber" content="000009345" />
+    <meta name="description" content="SQL Solution Set has stale data" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="overview">Overview</h2>
+        <p>
+          This article explains how to drop data collected from SQL Servers using the Databases
+          Module. Follow the instructions below to drop data for all SQL Servers or for specific
+          hosts/instances.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <h4 id="drop_all_data_for_sql_servers">Drop All Data for SQL Servers</h4>
+        <blockquote>
+          <p>
+            <span class="Note"><strong>NOTE: </strong></span>You can create a separate folder (e.g.,
+            Sandbox) for custom jobs.
+          </p>
+        </blockquote>
+        <ol>
+          <li>
+            Right-click the <strong>custom</strong> or <strong>Jobs</strong> folder and select
+            <strong>Create Job Ctrl+Alt+A</strong>.<br /><img
+              src="kA0Qk0000001lGDKAY_3308d91b-2446-4bb3-af0d-448463413ef6.png"
+              alt=""
+              width="293"
+              height="583"
+            /> <br /><br />
+          </li>
+          <li>
+            Navigate to the <strong>Configure</strong> node of the NewJob and select the
+            <strong>Queries</strong> node.<br /><img
+              src="kA0Qk0000001lGDKAY_aded3625-3d91-4bcf-8b27-24dec6e247b1.png"
+              alt=""
+              width="293"
+              height="583"
+            />
+             <br /><br />
+          </li>
+          <li>
+            Click the <strong>Create Query</strong> button.<br /><img
+              src="kA0Qk0000001lGDKAY_9fe2a563-dc5a-4f80-ac0d-ce0bba98c591.png"
+              alt=""
+              width="691"
+              height="503"
+            />
+             <br /><br />
+          </li>
+          <li>
+            In the General tab, designate a clear <strong>Name</strong> and
+            <strong>Description</strong> (e.g., DropSQLHostData).
+          </li>
+          <li>
+            In the Data Source tab, select <strong>SQL</strong> from the
+            <strong>Data Collector</strong> dropdown menu.<br /><img
+              src="kA0Qk0000001lGDKAY_5376aabb-38c9-44b8-a453-b0c20a059295.png"
+              alt=""
+              width="446"
+              height="401"
+            /> <br /><br />
+          </li>
+          <li>
+            Click <strong>Configure</strong> to launch the SQL Data Collector Configuration
+            Wizard.<br /><img
+              src="kA0Qk0000001lGDKAY_f80625d6-1bb9-420f-ac28-2cc216b2b049.png"
+              alt=""
+              width="446"
+              height="401"
+            /> <br /><br />
+          </li>
+          <li>
+            On the Wizard Category page, select the
+            <strong>Utilities &gt; Remove Storage Tables</strong> option under the appropriate
+            database type and click <strong>Next </strong>to drop all collected SQL data for SQL
+            Servers.<br /><img
+              src="kA0Qk0000001lGDKAY_1016c77a-a6fe-4f05-bbfc-04b600ec5600.png"
+              alt="Category page with Utilities &gt; Remove Storage Tables option highlighted"
+              width="652"
+              height="583"
+            /><br /><br />
+          </li>
+          <li>
+            To complete the query, ensure you have selected the desired Available Properties, click
+            <strong>Next</strong>, and then <strong>Finish</strong>. Last, click
+            <strong>OK</strong>.
+          </li>
+          <li>
+            To run the job, you can either select <strong>Run now</strong> from the job windowpane
+            or right-click the job and select <strong>Run Job</strong>.<br /><img
+              src="kA0Qk0000001lGDKAY_fd9a9eac-4e58-4774-b43a-309afef0198e.png"
+              alt=""
+              width="652"
+              height="466"
+            /> 
+          </li>
+        </ol>
+        <h4
+          id="drop_data_for_specific_hostsinstances_for_sql_servers_or_drop_specific_data_for_sql_hostsinstances"
+        >
+          Drop Data for Specific Hosts/Instances for SQL Servers or Drop Specific Data for SQL
+          Hosts/Instances
+        </h4>
+        <ol>
+          <li>Follow steps 1–6 detailed above.</li>
+          <li>
+            On the SQL Data Collector Configuration Wizard Category page, select the <strong
+              >Utilities &gt; Remove Storage Data</strong
+            >
+            option and click <strong>Next</strong>.<img
+              src="kA0Qk0000001lGDKAY_854c0b90-29d3-49bc-b08c-ef1b04c0f747.png"
+              alt="Category page with Utilities &gt; Remove Storage Data option highlighted"
+              width="623"
+              height="527"
+            /><br /><br />
+          </li>
+          <li>
+            On the Filters page, select the databases/instances via the
+            <strong>Filter Options</strong> drop-down menu:
+            <ul>
+              <li>All database objects</li>
+              <li>
+                Only select database objects
+                <ul>
+                  <li>
+                    When using this option, select the database objects you want to delete in the
+                    <strong>Available database objects</strong> pane, then click
+                    <strong>Add</strong>.<br /><img
+                      src="kA0Qk0000001lGDKAY_757a8886-3919-4bab-a2f3-5198ecae253b.png"
+                      alt="Available database objects pane with Add highlighted"
+                      width="623"
+                      height="558"
+                    /><br /><br />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            On the Settings page, select the type of data you would like to remove for your
+            specified hosts:
+            <ul>
+              <li>Permissions</li>
+              <li>Audits</li>
+              <li>Sensitive Data</li>
+              <li>Orphaned Rows</li>
+            </ul>
+          </li>
+          <li>On the Results page, enable all of the available properties.</li>
+          <li>Run the job.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

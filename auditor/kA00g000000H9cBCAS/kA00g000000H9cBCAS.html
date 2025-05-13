@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Account lockouts are displayed with delay</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cBCAS" />
+    <meta name="Id" content="ka04u000000HcUwAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1407" />
+    <meta name="ArticleNumber" content="000003569" />
+    <meta
+      name="description"
+      content="This might happen if the product is set to monitor the Primary Domain Controller (PDC) only."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        It takes a long time for account lockouts to be reflected in NetWrix Account Lockout
+        Examiner (ALE).
+
+        <hr />
+
+        This might happen if ALE is set to monitor the Primary Domain Controller (PDC) only. If an
+        account gets locked on a different domain controller, it takes time for the lockout event to
+        replicate to the PDC, and this causes the delay. Another possible reason is very high
+        activity in your domain that generates more events per second than the product can handle.
+        As a result an event queue and a delay occurs.
+
+        <hr />
+
+        <div>
+          To fix the issue, set the product to monitor all DCs in the monitored domain and change
+          event processing method. To change to all DCs mode this, perform the following steps:
+        </div>
+        <ol>
+          <li>
+            In NetWrix Account Lockout Examiner navigate to File &gt; Settings &gt; Managed Objects.
+          </li>
+          <li>Select your domain and click Edit.</li>
+          <li>Select all DCs radio button and click OK to save the changes.</li>
+        </ol>
+        <img
+          src="kA00g000000H9cBCAS_88c1945b-fe43-487d-bde0-4e39bfcd320e.png"
+          alt="User-added image"
+          width="299"
+          height="349"
+        />
+
+        To change event processing method:
+        <ol>
+          <li>Open the Registry Editor (navigate to Start &gt; Run and type regedit).</li>
+          <li>
+            Navigate to HKEY_LOCAL_MACHINE &gt; SOFTWARE &gt; NetWrix &gt; Account Lockout Examiner
+            (Wow6432Node only for x64 OS)
+          </li>
+          <li>Locate the 'readlog' key and set its value to 0.</li>
+          <li>Create a new value called 'UseWatcher', set its type to DWORD and value to 1.</li>
+          <li>Restart NetWrix Account Lockout Examiner Service via services.msc</li>
+        </ol>
+        <img
+          src="kA00g000000H9cBCAS_14a8831e-ae88-4cd7-bcd9-8574f7c9f0c4.png"
+          alt="User-added image"
+          width="500"
+          height="161"
+        />
+      </div>
+    </article>
+  </body>
+</html>

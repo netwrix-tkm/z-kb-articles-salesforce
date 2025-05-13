@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Supporting Documents for Agent / ITSM Problems</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JbFCAU" />
+    <meta name="Id" content="ka04u000000HdA6AAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:55:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8272" />
+    <meta name="ArticleNumber" content="000008272" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This document is to provide assist the end user in providing us with as much information
+          as possible about problems related to Agents or ITSM Module.
+        </p>
+        <h2 id="SupportingDocumentsforAgent/ITSMProblems-GeneralInformationtoProvide">
+          General Information to Provide
+        </h2>
+        <p>
+          This is some of the general information NNT would like to know regardless of what the
+          problem is.
+        </p>
+        <p><br /></p>
+        <ol>
+          <li>
+            <strong
+              >A detailed description of the issue that is being experienced. If a screenshot/video
+              can be captured, this will also be useful, as well as when the issue was
+              noticed.</strong
+            ><br /><br />
+          </li>
+          <li>
+            <strong>What version of the NNT Hub Server are you using?<br /><br /></strong>
+          </li>
+          <li>
+            <strong>Have there been any recent updates, or patches to the operating system?</strong>
+            <ol>
+              <li>If so, what was updated?</li>
+              <li>How recently did it occur?</li>
+              <li>Can information about what was installed be provided?</li>
+              <li>Was the system rebooted after the patch?<br /><br /></li>
+            </ol>
+          </li>
+          <li>
+            <strong>Information about the scope of the problem</strong>
+            <ol>
+              <li>
+                Is the issue related to a specific group of devices hosting the same application?
+                Are all agents of this group impacted or is it only a few of them?
+              </li>
+              <li>
+                Is the issue related to a specific group of devices hosting the same operating
+                system? Are all agents of this group impacted or is it only a few of them?
+              </li>
+              <li>How many agents are impacted?<br /><br /></li>
+            </ol>
+          </li>
+          <li>
+            <strong
+              >If all agents are offline, where any of the following network settings
+              changed?</strong
+            >
+            <ol>
+              <li>SSL/TLS Version</li>
+              <li>Mocrosoft IIS Services</li>
+              <li>IIS Certificate</li>
+              <li>IIS Website Port Binding</li>
+              <li>MongoDB Version</li>
+              <li>.NET Framework / Mono Runtime Version<br /><br /></li>
+            </ol>
+          </li>
+        </ol>
+        <h2
+          id="SupportingDocumentsforAgent/ITSMProblems-LinuxGen7Agent/ExpressAgentInformationandAttachments"
+        >
+          Linux Gen7Agent / ExpressAgent Information and Attachments
+        </h2>
+        <p>
+          If the issue is related to a Linux Agent, here is the information that needs to be
+          provided in addition to the general information.
+        </p>
+        <ol>
+          <li><strong>Compress and Attach "/var/messages" file to the ticket</strong></li>
+          <li><strong>Compress and Attach "/var/nnt/" folder to the ticket</strong></li>
+          <li>
+            <strong>Compress and Attach "/opt/nnt" folder to the ticket<br /><br /></strong>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                ><strong>Output of "uname -a"<br /></strong
+              ></strong>
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p><span>Example Output:</span></p>
+                <p>
+                  [root@NNT-LINUX-CENTOS7-D3 ~]$ uname -a<br />Linux NNT-LINUX-CENTOS7-D3
+                  3.10.0-327.el7.x86_64 #1 SMP Thu Nov 19 22:10:57 UTC 2015 x86_64 x86_64 x86_64
+                  GNU/Linux
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                ><strong>Output of "ps aux | grep nnt-"<br /></strong
+              ></strong>
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>Example Output:</p>
+                <p>
+                  <br />[root@NNT-LINUX-CENTOS7-D3 ~]$ ps aux | grep nnt<br />root+ 1118 0.0 0.1
+                  112648 968 pts/0 S+ 11:06 0:00 grep --color=auto nnt<br />root 2216 0.1 0.9 47684
+                  4796 ? S Aug28 21:52 /usr/bin/sysdig --unbuffered -c /tmp/tmp4ce2ccea.tmp
+                  NNT_AGENT_FILE_TRACER /etc/|/opt/nnt/test/|/var/nnt/test/<br />root 29339 0.0 22.4
+                  863768 112640 ? Sl Aug08 31:14 /opt/mono/bin/mono
+                  /opt/mono/lib/mono/4.5/mono-service.exe
+                  <a target="_blank">-d:/opt/nnt/gen7agent/bin</a>
+                  <a target="_blank">-l:/var/run/nntgen7agent.pid</a>
+                  /opt/nnt/gen7agent/bin/Gen7Agent.Service.exe
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                ><strong>Output of rpm -qa | grep nnt-"<br /></strong
+              ></strong>
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p><span>Example Output:</span></p>
+                <p>
+                  [root@NNT-LINUX-CENTOS7-D3 ~]$ rpm -qa | grep nnt-<br />nnt-changetracker-gen7agent-7.0.0.29-82.noarch<br />nnt-mono-5.2.0.224-5.x86_64
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+        <h2
+          id="SupportingDocumentsforAgent/ITSMProblems-WindowsGen7Agent/ITSMInformationandAttachments"
+        >
+          Windows Gen7Agent / ITSM Information and Attachments
+        </h2>
+        <p>
+          If the issue is related to a Windows Agent, here is the information that needs to be
+          provided in addition to the general information.
+        </p>
+        <p><br /></p>
+        <ol>
+          <li>
+            <p class="auto-cursor-target">
+              <strong>Compress and Attach "C:\ProgramData\NNT" folder to the ticket</strong>
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span
+                    >If the issue is related to an ITSM Module, please attach the following file as
+                    well:</span
+                  >
+                </p>
+                <p>
+                  <span
+                    >C:\Program Files\NNT Change Tracker
+                    Suite\Gen7SyncService\gen7syncservice.exe.config</span
+                  >
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <span
+                ><span><strong>Text output of System Information (msinfo32)</strong><br /></span
+              ></span>
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>Here is how to gather this information:</p>
+                <ol>
+                  <li>Go to ‚ÄúStart‚Äù &gt; ‚ÄúRun‚Äù &gt; type "msinfo32.exe" and hit enter.</li>
+                  <li>Select ‚ÄúFile‚Äù &gt; Save</li>
+                  <li>Browse to an appropriate location to save the file</li>
+                  <li>
+                    Set the filename and ensure the save as type is "System Information File
+                    (*.NFO)"
+                  </li>
+                  <li>Click the "Save" button</li>
+                  <li>Provide the file in the ticket</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target">
+              <strong
+                >Windows Event Logs (Windows Logs &gt; Application &amp; Windows Logs &gt;
+                System)</strong
+              >
+            </p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>Here is how to gather this information:</p>
+                <ol>
+                  <li>Go to ‚ÄúStart‚Äù &gt; ‚ÄúRun‚Äù &gt; type "eventvwr" and hit enter.</li>
+                  <li>Click on ‚ÄúAction‚Äù &gt; ‚ÄúCreate Custom View‚Äù</li>
+                  <li>
+                    In the custom view filter ‚Äì Dial in the time by going to ‚ÄúLogged‚Äù &gt;
+                    ‚ÄúCustom Range‚Äù
+                  </li>
+                  <li>
+                    After Selecting your Range ‚Äì Select ‚ÄúBy Log‚Äù and Select ‚ÄúEvent Logs‚Äù
+                    as ‚ÄúApplication, System‚Äù
+                  </li>
+                  <li>
+                    Go Ahead and click ‚ÄúOK‚Äù and Name The View as you would like. Click OK again.
+                  </li>
+                  <li>
+                    Select the created view in the left side panel and click on ‚ÄúAction‚Äù &gt;
+                    ‚ÄúSave All Events in Custom View As‚Äù
+                  </li>
+                  <li>
+                    Set the filename and ensure the save as type is "Event Files (*.evtx)" &gt;
+                    Click OK
+                  </li>
+                  <li>
+                    For Display Information &gt; Select ‚ÄúDisplay Information For These
+                    Languages‚Äù &gt; ‚ÄúEnglish‚Äù
+                  </li>
+                  <li>Provide the file in the ticket</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target"><strong>IIS Server Logs (If Enabled)</strong></p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span
+                    ><span
+                      >If this is enabled, the default location is C:\inetpub\logs\LogFiles</span
+                    ></span
+                  ><strong
+                    ><span><br /></span
+                  ></strong>
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p class="auto-cursor-target"><strong>Windows Firewall Logs (If Enabled)</strong></p>
+            <div
+              class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+            >
+              <span
+                class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"
+              >
+              </span>
+              <div class="confluence-information-macro-body">
+                <p>
+                  <span
+                    ><span
+                      >If this is enabled, the default location is
+                      %systemroot%\system32\LogFiles\Firewall\pfirewall.log</span
+                    ></span
+                  ><strong
+                    ><span><br /></span
+                  ></strong>
+                </p>
+              </div>
+            </div>
+          </li>
+        </ol>
+        <p><br /></p>
+        <h2 id="SupportingDocumentsforAgent/ITSMProblems-Relatedarticles">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8295" target="_blank"
+                >How to Configure The FAST Cloud Integration With Proxy Internet Settings</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8273" target="_blank"
+                >Supporting Documents for Hub Server Problems</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8368" target="_blank"
+                >Change Tracker Gen 7 Change Log / Update Log / ReadMe.txt Documents for
+                Agent/Hub</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8307" target="_blank"
+                >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                returned an error: (403) Forbidden.)"</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+      </div>
+    </article>
+  </body>
+</html>

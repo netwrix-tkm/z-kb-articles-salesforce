@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Object Type of "RRAS-Administration-Connection-Point"</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9bYCAS" />
+    <meta name="Id" content="ka04u000000HcUIAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:55.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1365" />
+    <meta name="ArticleNumber" content="000003530" />
+    <meta
+      name="description"
+      content="The KB provides how to exclude &amp;quot;rRASAdministrationConnectionPoint&amp;quot; object of being reported in Netwrix Auditor for Active Directory."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The summary report contains a change to an object titled
+        "rRASAdministrationConnectionPoint". Computer objects have an Object Type of
+        "RRAS-Administration-Connection-Point" that is named "RouterIdentity" attached to them
+        (RouterIdentity is a visible container in ADSIEdit under the computer object). The computer
+        objects cannot be deleted.
+
+        <hr />
+
+        This could be caused from the use of the Routing and Remote Access service; if the Routing
+        and Remote Access Service runs it stores information in AD as a child object under the
+        particular computer that hosts the RRAS service. Check to see if the affected computers have
+        the Routing and Remote Access Service running. It may be a printer or something similar that
+        is installed from the computers in question and published in AD. Again if this is the case,
+        the Delete Subtree resolution below should resolve the inability to delete the computer
+        objects. Using ADUC, from the View menu; select the option for "Users, Groups, and Computers
+        as Containers". This will show items that are usually objects as containers (similar to an
+        OU). From there you can see what objects exist inside that computer's container.
+
+        <hr />
+
+        To delete these objects, the "Delete Subtree" permission on Computer objects in addition to
+        the "Delete" permission will be required. The "Delete" permission alone will not work.
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Exclude Users and Objects from Monitoring Scope in Netwrix Auditor UI</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="customers_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000PoL2CAK" />
+    <meta name="Id" content="ka04u000000Qmg4AAC" />
+    <meta name="LastPublishedDate" content="2023-05-29T10:09:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-30T07:27:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-05-29T10:09:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8596" />
+    <meta name="ArticleNumber" content="000008596" />
+    <meta name="description" content="omit and exclude users via UI" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          How to exclude specific users and objects from the monitoring scope via Netwrix Auditor
+          UI?
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          You can exclude specific users and objects from your monitoring scope using the following
+          tabs in the Netwrix Auditor UI:
+          <ul>
+            <li>
+              the <b>Users</b> tab to exclude particular users performing activity in Active
+              Directory.
+            </li>
+            <li>
+              the <b>Objects</b> tab to exclude (or include) activity performed to objects in Active
+              Directory.
+            </li>
+          </ul>
+
+          <blockquote>
+            <b>Note:</b> Examples of object exclusion rules for <b>Objects</b> are provided below.
+          </blockquote>
+
+          <ol>
+            <li>
+              In the main Netwrix Auditor menu, select <b>Monitoring plans</b> under
+              <b>Configuration</b>.
+            </li>
+            <li>
+              Select the relevant monitoring plan, select the data source and click <b>Edit</b>.
+            </li>
+            <li>
+              Select the data source and click <b>Edit data source</b>.<br />
+              <br />
+              <img
+                alt="bM2zhsogPP.png"
+                height="504"
+                src="kA04u000000PoL2CAK_404b02b8-d14c-41f8-8436-0f5ad83dcd0e.png"
+                width="750"
+              />
+            </li>
+            <li>
+              In the left pane, select <b>Users</b>. Check the <b>Exclude these users:</b> checkbox
+              and click <b>Add</b> to add users to be excluded from the monitoring plan. Once all
+              the users are added, click <b>Save &amp; Close</b> in the bottom left corner.<br />
+              <br />
+              <img
+                alt="UwJqLVpUZx.png"
+                height="504"
+                src="kA04u000000PoL2CAK_86371b54-d582-4cb4-b5fb-6a294976d2b4.png"
+                width="750"
+              />
+            </li>
+            <li>
+              For objects, select the <b>Objects</b> tab in the left pane, check the
+              <b>Exclude these objects</b> checkbox and click <b>Add</b> to exclude objects from the
+              monitoring scope. Once you've added the objects, click <b>Save &amp; Close</b>.<br />
+              <br />
+              <img
+                alt="RmVD0BXEc0.png"
+                height="504"
+                src="kA04u000000PoL2CAK_a66006bc-9d5d-466b-b927-c346b10a5519.png"
+                width="750"
+              />
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          The following examples explain how the exclusion rules work for <b>Objects</b>. Same logic
+          applies to the inclusion rules:
+
+          <ul>
+            <li>
+              <code>dc11.local/OU</code> will exclude the OU itself. However, objects within this OU
+              will not be excluded.
+            </li>
+            <li>
+              <code>dc11.local/OU/*</code> will exclude objects within the OU. However, the OU
+              itself will not be excluded.
+            </li>
+            <li>
+              <code>dc11.local/OU*</code> will exclude the OU itself, all objects within it, and
+              also all objects whose path begins with <code>dc11.local/OU</code> (like
+              <code>dc11.local/OU_HQ</code>).
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          For additional information on omit lists and excluding data sources, refer to the
+          following article:
+          <a
+            href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/MonitoringScope/Overview.htm"
+            target="_self"
+            >Exclude Objects from Monitoring Scope.</a
+          >
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

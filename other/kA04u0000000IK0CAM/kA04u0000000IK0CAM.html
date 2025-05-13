@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Migrate StealthINTERCEPT Databases</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IK0CAM" />
+    <meta name="Id" content="ka04u000000HckRAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:32:10.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:33.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:32:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7172" />
+    <meta name="ArticleNumber" content="000007172" />
+    <meta name="description" content="360008304132" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> How to Migrate
+          StealthINTERCEPT Databases
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> How to move your
+          StealthINTERCEPT databases to a new SQL server.  <br /><br />Note: the agents will queue
+          events until the enterprise manager is back online.  So, you want to minimize the down
+          time to avoid queue overflows and missed events.  It may take a while for the enterprise
+          manager to catch up on sending events to the database after the service is back online.  
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>Stop the Enterprise manager, Reporting, and Scheduler services</li>
+          <li>
+            Use backup / restore or detach / attach methods for moving the databases to the new SQL
+            server
+          </li>
+          <li>Ensure account(s) have appropriate rights on the new database</li>
+          <li>Uninstall StealthINTERCEPT</li>
+          <li>Reinstall StealthINTERCEPT, targeting the new SQL Server</li>
+          <li>Start the services</li>
+        </ol>
+        <p>
+          <br /><strong>Important note on permissions: </strong><br />If new permissions need to be
+          applied, for some reason, make sure that all users connecting to the StealthINTERCEPT
+          database have:
+        </p>
+        <ol>
+          <li>Database owner rights on the SI database</li>
+          <li>a default schema of dbo</li>
+        </ol>
+        <p />
+      </div>
+    </article>
+  </body>
+</html>

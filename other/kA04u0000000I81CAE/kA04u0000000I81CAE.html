@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Find what is using TempDB</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I81CAE" />
+    <meta name="Id" content="ka0Qk000000DQj3IAG" />
+    <meta name="LastPublishedDate" content="2025-04-25T19:03:15.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-25T19:03:15.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:03:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6227" />
+    <meta name="ArticleNumber" content="000006227" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong>Summary:</strong>  Sometimes, jobs can cause TempDB issues (i.e. overfilling the
+          Disk, not re-claiming space) This guide is to help find the Access Analyzer  job creating
+          the issue.
+        </p>
+        <p>
+          <strong> </strong><strong>Issue:</strong>  Some jobs leverage TempDB, and in large
+          environments, can cause problems.
+        </p>
+        <p>
+          <strong>Instructions:</strong>  in SQL Server Management Studio or a Access Analyzer
+          Analysis run the following SQL Query.
+        </p>
+        <p>Select * from SA_Messages</p>
+        <p>
+          Where MESSAGE like '%TempDB%' <br /><br />This will return any messages stored in the
+          SA_Messages Table and help narrow down the job that is in causing this.
+        </p>
+        <p>A case should be raised should you find a job with issues.</p>
+        <p> </p>
+        <p> </p>
+        <p><strong>Submitted by: </strong>Matt Johnson</p>
+        <p><strong>Channel:  </strong>Internal</p>
+        <p><strong> </strong><strong>Product:</strong> Access Analyzer</p>
+        <p><strong> </strong><strong>Affected Versions:</strong>  All</p>
+        <p><strong> </strong><strong>Affected Module:</strong> SQL Analsisys</p>
+        <p><strong> </strong><strong>Dev Ticket:</strong> N/A</p>
+        <p><strong> </strong><strong>Resolved In Version:</strong>  N/A</p>
+        <p><strong> </strong><strong>KB Type:</strong> How-To</p>
+      </div>
+    </article>
+  </body>
+</html>

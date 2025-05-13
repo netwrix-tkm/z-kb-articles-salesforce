@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to figure out the IP address used for a failed logon attempt?</title>
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WnCAK" />
+    <meta name="Id" content="ka04u000000HcPzAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="819" />
+    <meta name="ArticleNumber" content="000003240" />
+    <meta name="description" content="IP-address failed logon attempt" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How to figure out the <strong>IP address</strong> used for a failed logon attempt?
+
+        <hr />
+
+        <div>
+          There is no <strong>IP address</strong> field in the '<strong
+            >Failed Logon Attempts</strong
+          >' report.
+        </div>
+
+        <div>However there are 2 ways you can figure out the IP address:</div>
+
+        <ol>
+          <li>
+            Locate the event and review the event data. To do this, refer to
+            <strong>Procedure 1</strong>.
+          </li>
+          <li>
+            Enable the "<strong>Write event descriptions into the database</strong>" option. To do
+            this, refer to <strong>Procedure 2</strong>.
+          </li>
+        </ol>
+
+        <div>
+          <div><strong>Procedure 1: </strong></div>
+
+          <ol>
+            <li>
+              Note the <strong>Computer</strong> <strong>name</strong> and the timestamp of the
+              particular failed logon attempt.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 1"
+              height="313"
+              src="kA00g000000H9WnCAK_76befb86-2172-4fd8-a62e-08c621ca0ff5.png"
+              width="500"
+            />
+          </div>
+
+          <ol start="2">
+            <li>
+              Go to
+              <strong
+                >Start / All Programs / NetWrix / Event Log Manager / Advanced Tools /
+                Viewer</strong
+              >
+            </li>
+            <li>In the <strong>Viewer</strong> tool:</li>
+          </ol>
+
+          <ul>
+            <li>select <strong>Managed Object</strong> name from the drop-down list</li>
+            <li>
+              select <strong>Computer</strong>, that you have noticed on step 1 as
+              <strong>Computer name</strong>
+            </li>
+            <li>select <strong>Event Log</strong> as <strong>Security</strong></li>
+            <li>
+              specify dates <strong>From</strong> and <strong>To</strong>, use date from the
+              timestamp that you have noticed on step 1
+            </li>
+          </ul>
+
+          <div>
+            <img alt="Image 2" src="kA00g000000H9WnCAK_9d05994b-6e39-49bc-b34f-958d769a40ae.png" />
+          </div>
+
+          <ol start="4">
+            <li>
+              Click the <strong>View</strong> button, and specify the location of the evt-file and
+              click <strong>OK</strong>. The newly saved event log will be opened in
+              <strong>Event Viewer</strong> automatically.
+            </li>
+            <li>
+              To convert the evt-file to evtx format, in the left hand panel, right click the saved
+              log and select <strong>Save All Events As</strong>, specify the location of the
+              evtx-file and click<strong> OK</strong>. Open the saved file via<strong>
+                Event Viewer</strong
+              >.
+            </li>
+          </ol>
+
+          <div>
+            <img alt="Image 3" src="kA00g000000H9WnCAK_13cfc728-ea6f-44e6-9c52-b32bcee25b57.png" />
+          </div>
+
+          <ol start="6">
+            <li>
+              When the evtx-file is opened, click <strong>Filter Current Log</strong> in the
+              <strong>Actions</strong> pane.
+            </li>
+            <li>
+              In the <strong>Filter Current Log</strong> dialog box, specify
+              <strong>Event ID</strong> as <strong>4625,529-537,539</strong> (failed logon attempts
+              IDs), and then click <strong>Logged</strong> drop-down list and select<strong>
+                Custom range</strong
+              >.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 4"
+              height="321"
+              src="kA00g000000H9WnCAK_996b347e-c732-445d-b7e2-f375e80368cf.png"
+              width="500"
+            />
+          </div>
+
+          <ol start="8">
+            <li>
+              Specify date range around the timestamp that you have noticed on step 1 and click
+              <strong>OK</strong>. Click <strong>OK</strong>
+            </li>
+          </ol>
+
+          <div>
+            <img alt="Image 5" src="kA00g000000H9WnCAK_6748b009-2fd9-4ac4-bf4b-2db6785419a9.png" />
+          </div>
+
+          <ol start="9">
+            <li>Find the corresponding event in the filtered log and double-click it.</li>
+            <li>
+              The<strong> IP Address</strong> is displayed in the
+              <strong>Network Information</strong> section of the event description.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 6"
+              height="386"
+              src="kA00g000000H9WnCAK_f65cd56a-1db7-4a09-b28a-6d0bb5aa610c.png"
+              width="500"
+            />
+          </div>
+
+          <div></div>
+
+          <div><strong>Procedure 2:</strong></div>
+
+          <ol>
+            <li>
+              Note the <strong>Computer name</strong> and the timestamp of the particular failed
+              logon attempt.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 1-1"
+              height="214"
+              src="kA00g000000H9WnCAK_8fe7e7ca-a519-4ad4-896e-40cdde127b06.png"
+              width="500"
+            />
+          </div>
+
+          <ol start="2">
+            <li>
+              In the <strong>NetWrix Management Console</strong>, go to
+              <strong>Managed Objects / &lt;Your Mananaged Object&gt; / Event Log Manager</strong>
+              node.
+            </li>
+            <li>
+              Enable the "<strong>Write event descriptions into the database</strong>" check box (if
+              it is already selected, continue from <strong>step 6</strong>). Close console.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 1-2"
+              height="238"
+              src="kA00g000000H9WnCAK_182c5b72-a90e-42ca-be0f-de46e71b9785.png"
+              width="500"
+            />
+          </div>
+
+          <ol start="4">
+            <li>
+              Go to
+              <strong
+                >Start / All Programs / NetWrix / Event Log Manager / Advanced Tools / DB
+                Importer</strong
+              >
+            </li>
+            <li>
+              Select your managed object from the drop-down list and specify the date range that
+              includes the date of the event. Click <strong>Import</strong>.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 1-3"
+              src="kA00g000000H9WnCAK_631a51a2-4fa1-4c52-9823-19944cee7581.png"
+            />
+          </div>
+
+          <ol start="6">
+            <li>
+              Start <strong>NetWrix Management Console</strong>, go to
+              <strong
+                >Managed Objects / &lt;Your Mananaged Object&gt; / Event Log Manager / Reports /
+                General Reports / All Events by Computer</strong
+              >
+              report.
+            </li>
+            <li>In the filters:</li>
+          </ol>
+
+          <ul>
+            <li>specify date range around the timestamp that you have noticed on step 1</li>
+            <li>
+              specify <strong>Computer</strong> as <strong>Computer name</strong> you have noticed
+              on step 1 (put <strong>%</strong> before and after the name)
+            </li>
+            <li>specify <strong>Event ID</strong> as <strong>%5%</strong></li>
+            <li>specify <strong>Event Log</strong> as <strong>Security</strong></li>
+          </ul>
+
+          <div>
+            <strong
+              >"
+              <img
+                alt="Image 1-4"
+                height="263"
+                src="kA00g000000H9WnCAK_a73a447d-5782-4ca7-810e-a15209fc9d0c.png"
+                width="500"
+            /></strong>
+          </div>
+
+          <ol start="8">
+            <li>Click the <strong>View Report</strong> button.</li>
+            <li>
+              Find the corresponding event in the filtered log and click the blue link in the
+              <strong>Date</strong> field.
+            </li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 1-5"
+              height="261"
+              src="kA00g000000H9WnCAK_d425a982-8fda-4e2f-9068-53a7e7a40bfc.png"
+              width="500"
+            />
+          </div>
+
+          <ol start="10">
+            <li>The page with<strong> Event Details </strong>will be displayed.</li>
+          </ol>
+
+          <div>
+            <img
+              alt="Image 1-6"
+              height="643"
+              src="kA00g000000H9WnCAK_f6f535c6-d91e-407f-8e55-8a6d06b00356.png"
+              width="500"
+            />
+          </div>
+
+          <div><br /><strong>NOTE:</strong></div>
+
+          <ul>
+            <li>
+              The <strong>IP address</strong> is not always available in the description of the
+              <strong>Failed logon attempt</strong> events.
+            </li>
+            <li>
+              If you are looking for full description for another event, the described steps are
+              similar except the specified <strong>Event IDs</strong> will be different.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

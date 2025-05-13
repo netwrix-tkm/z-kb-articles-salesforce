@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The “User must change password at next logon" option is enabled automatically</title>
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdZCAS" />
+    <meta name="Id" content="ka04u00000116bpAAA" />
+    <meta name="LastPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-11T12:21:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:16.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1136" />
+    <meta name="ArticleNumber" content="000003794" />
+    <meta name="description" content="User must change password at next logon" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        When a user attempts to reset password and fails to provide a password which corresponds to
+        the password policy, the "User must change password at next logon" option will be
+        automatically enabled for this user.
+
+        <hr />
+
+        Due to the way it works, Netwrix Password Manager cannot reset a password to a new value
+        directly, because this procedure requires the user's current password, and the software does
+        not know it. Therefore, the Password Manager first resets the password to a random one and
+        only after that changes it to a new value. This two-step procedure is required because the
+        Security Policies apply only during a password change, not a password reset operation.
+        Therefore, it is not possible to select some of the password policies, for example, password
+        history. The issue is replicated with the following scenario: 1. "Use AD password policy
+        settings" option is <strong>enabled</strong> in the <strong>Admin porta</strong>l -&gt;
+        <strong>Domains</strong> -&gt; <strong>Edit </strong>Managed Domain. 2. A user performs a
+        reset password operation. In Password Manager it's a 3-step procedure: - password is reset
+        to a random value - new password is checked for AD password policy compliance - if the new
+        password does not pass the check, it stays random and "user must change password at next
+        logon" option is enabled automatically 3. User fails to provide the password which complies
+        with password policy. According to the previous step, the user's old password is no longer
+        valid (was reset to random) and new password was not applied. Similar behavior occurs during
+        Change password procedure, but password is not get reset to a random one, so just "User must
+        change password at next logon" checkbox gets enabled.
+
+        <hr />
+
+        To prevent this issue, you can disable the "<strong>Use AD password policy settings</strong
+        >" option (<strong>Admin Portal</strong> -&gt; <strong>Domains</strong>-&gt;
+        <strong>Edit</strong>) and configure the password policy through Netwrix Password Manager
+        (<strong>Admin Portal</strong> -&gt; <strong>Settings </strong>-&gt;
+        <strong>Password Policy</strong> tab).
+      </div>
+    </article>
+  </body>
+</html>

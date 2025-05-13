@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Resolving failed Actions on a Windows resource due to error "The WS-Management service cannot process the request. The service is configured to not accept any remote shell requests."</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HRqCAM"/><meta name="Id" content="ka04u000000HcZvAAK"/><meta name="LastPublishedDate" content="2021-10-12T13:42:43.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T09:57:40.000+0000"/><meta name="FirstPublishedDate" content="2021-10-12T13:42:43.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5918"/><meta name="ArticleNumber" content="000005918"/><meta name="description" content="Resolving failed Actions on a Windows resource due to error &#34;The WS-Management service cannot process the request. The service is configured to not accept any remote shell requests.&#34;"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>If remote shell access has been disabled for a Windows resource, then SbPAM's Action Service won't be able to perform actions on that host. This can be confirmed if an action's logs in SbPAM contain the following error:</p>
+
+<pre class="ckeditor_codeblock">Unable to connect using PowerShell remoting to &lt;hostname&gt; with user &lt;domain&gt;\&lt;user&gt;: Connecting to remote server &lt;ip_address&gt; failed with the following error message : The WS-Management service cannot process the request. The service is configured to not accept any remote shell requests.</pre>
+
+<p><img alt="User-added image" height="71" src="kA04u0000000HRqCAM_dc125962-3dd7-4ea8-89fc-214aa4f3f99c.png" width="500"/></p>
+
+<p>This is caused by a Group Policy, configured at the local or domain level, that disables remote shell access to the resource the GPO has been applied to:<br/><br/><img alt="User-added image" src="kA04u0000000HRqCAM_2dc1c5be-f571-4a76-8f7c-895c7f73e1bf.png"/></p>
+
+<h2 id="instructions">Instructions</h2>
+
+<p>This GPO can be verified via the following path in the Group Policy Editor on the target resource (or domain GPO configuration). As with all GPOs, domain configuration takes precedence over local configuration.</p>
+
+<pre class="ckeditor_codeblock">Computer Configuration &gt; Administrative Templates &gt; Windows Components &gt; Windows Remote Shell &gt; Allow Remote Shell Access</pre>
+
+<p><img alt="User-added image" src="kA04u0000000HRqCAM_3bfa0a38-667a-4acc-b416-a25b99d4becd.png"/></p>
+
+<p>This can also be verified in PowerShell, however the GPO needs to first have been <strong>Enabled </strong>or <strong>Disabled </strong>in order for the correct registry key to have been created:</p>
+
+<pre class="ckeditor_codeblock">Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WinRM\Service\WinRS" -Name "AllowRemoteShellAccess"</pre>
+
+<p>If the value is set to <strong>0</strong>, then remote shell access is <strong>Disabled</strong>. If the value is set to <strong>1</strong>, then remote shell access is <strong>Enabled</strong>.</p>
+
+<p><img alt="User-added image" height="46" src="kA04u0000000HRqCAM_14915208-473f-4c23-a673-cd857cdd3c98.png" width="500"/></p>
+
+<p>To resolve the error, this GPO needs to either be <strong>Enabled</strong> or <strong>Not Configured</strong>, which in a domain should be set via domain-configured GPO rather than manually modifying the registry key on a target resource.</p></div>
+</article></body></html>

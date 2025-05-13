@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Invalid Character Value for Cast Specification Error Occurs When Trying to Store Audit Data
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110zLCAQ" />
+    <meta name="Id" content="ka04u000001179cAAA" />
+    <meta name="LastPublishedDate" content="2023-08-14T14:14:56.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-14T14:14:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-03T16:13:31.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8708" />
+    <meta name="ArticleNumber" content="000008708" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the &#34;Invalid Character Value for cast specification&#34; error."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor fails to store audit data although there is adequate space on the
+            database and archive locations. During the data collection, the following error occurs:
+          </p>
+
+          <pre class="has-inner-focus">Invalid Character Value for cast specification.</pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            This error usually appears for big databases created on earlier versions of Netwrix
+            Auditor (9.9 and older).
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            The source of the issue was resolved in newer versions, and since you are on 9.96 and
+            above, select one of the workarounds below, whichever is more comfortable for you.
+          </p>
+
+          <p>
+            <span><strong>NOTE: </strong></span> Netwrix recommends upgrading to the latest version
+            to avoid database issues.
+          </p>
+        </div>
+
+        <div>
+          <ol>
+            <li>
+              <p><b>Resolution 1</b></p>
+
+              <p>Create a new database for the monitoring plan to write data to.</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Check which exactly databases are affected. For that, in Netwrix Auditor, go to
+                    <b>Health Status</b> dashboard -&gt; <b>Database Statistics</b>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Find the plan that is writing to the affected database and click <b>Edit</b>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    On the <b>Audit Database</b> tab, provide a new name under <b>Database:</b>, so
+                    a new one is created, and the plan starts writing to it.
+                  </p>
+                </li>
+              </ul>
+
+              <p>
+                Data will not be lost, since the old database will remain in the SQL instance, and
+                also all collected data can always be imported from the Long-Term Archive.
+              </p>
+
+              <p>
+                You can import previously collected data you need to run reports for the desired
+                period of time using the <b>Investigations</b> feature.
+              </p>
+
+              <ol>
+                <li>
+                  <p>
+                    In Netwrix Auditor, go to <b>Settings</b> -&gt; <b>Investigations</b> -&gt;
+                    <b>Configure</b>.
+                  </p>
+                </li>
+                <li>
+                  <p>Select a data source, check the desired monitoring plan, and set the dates.</p>
+                </li>
+                <li>
+                  <p>Click <b>Run</b>.</p>
+                </li>
+              </ol>
+
+              <p>
+                For additional information on how to import previously collected data, refer to the
+                following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/Settings/Investigations.htm"
+                  target="_blank"
+                  >Investigations</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p><b>Resolution 2</b>.</p>
+
+              <p>
+                If the previously collected data is accessible from the problematic database (check
+                using Search filtered for the corresponding monitoring plan), create an empty plan
+                with no Data sources and attach it to the old database for Netwrix Auditor to have
+                access to the data in the database.
+              </p>
+
+              <p>
+                You can review the data already collected for the past 180 days (assuming database
+                retention settings in Netwrix Auditor are as by default).
+              </p>
+
+              <p>
+                After the database retention period passes, you will be able to remove the old
+                database from the SQL Server completely and will not need this empty plan anymore
+                (stale data would be cleared according to database retention settings, and all the
+                current data will be in the new database).
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <span><strong>IMPORTANT:</strong></span> If, after these workarounds, you will have the
+          <em>Archive Service is busy processing activity records</em> error, refer to the following
+          article:
+          <a
+            href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000JuQCAU.html"
+            target="_blank"
+            >Archive Service is busy processing activity records</a
+          >.
+
+          <p> </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

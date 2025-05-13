@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>The conceptQS Application Pool crashes on startup</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eCCAS" />
+    <meta name="Id" content="ka04u000000HcWuAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:16.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:05.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3533" />
+    <meta name="ArticleNumber" content="000003694" />
+    <meta name="description" content="The conceptQS Application Pool crashes on startup" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The <strong>conceptQS</strong> <strong>Application</strong> <strong>Pool </strong>crashes on
+        startup with multiple errors entered into the <strong>Windows </strong>→
+        <strong>Application</strong> event logs. The error message may look like the below:
+        <p>
+          Log Name: Application Source: Application Error Date: XX.XX.XXXX XX:XX:XX Event ID: 1000
+          Task Category: (100) Level: Error Keywords: Classic User: N/A Computer:
+          &lt;COMPUTERNAME&gt; Description: Faulting application name: w3wp.exe, version:
+          8.0.9200.16384, time stamp: 0x50108835 Faulting module name: PerfMon64.dll, version:
+          8.0.10918.0, time stamp: 0x577fd168 Exception code: 0xc0000409 Fault offset:
+          0x0000000000149794 Faulting process id: 0x2c38 Faulting application start time:
+          0x01d24405d195eb6a Faulting application path: c:windowssystem32inetsrvw3wp.exe Faulting
+          module path: C:Program FilesMicrosoft Monitoring
+          AgentAgentAPMDOTNETAgentV8.0.10918.0PerfMon64.dll
+        </p>
+        This issue can occur when the <strong>Microsoft Monitoring Agent </strong>is installed on
+        the server. In order to resolve this issue, follow the steps below:
+        <ol>
+          <li>Open the <strong>Control Panel</strong></li>
+          <li>Open <strong>Programs and Features</strong></li>
+          <li>
+            Select the "<strong>Microsoft Monitoring Agent</strong>" and select
+            "<strong>Remove</strong>"/"<strong>Uninstall</strong>"
+          </li>
+          <li><strong>Restart</strong> the server</li>
+          <li>Test accessing the <strong>conceptQS</strong> application</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

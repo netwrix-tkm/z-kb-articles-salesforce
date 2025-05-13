@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Data Collecting Account Getting Locked Out in User Activity Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000PRRKA2" />
+    <meta name="Id" content="ka0Qk0000001SdNIAU" />
+    <meta name="LastPublishedDate" content="2024-01-24T09:11:43.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-24T09:11:55.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-01-24T09:11:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9019" />
+    <meta name="ArticleNumber" content="000009019" />
+    <meta
+      name="description"
+      content="Data Collecting Account Getting Locked Out in User Activity Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The data collecting account in the UAVR monitoring plan regularly gets locked out.
+              </p>
+            </li>
+            <li>
+              <p>The password specified in monitoring plan settings is confirmed to be correct.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The password is not propagated in the <code>Agents.xml</code> file.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>Stop <code>Netwrix Auditor User Activity Audit Service</code>.</p>
+            </li>
+            <li>
+              <p>
+                Back up the contents of the
+                <code>%Working Folder%\User Activity Video Reporter</code> directory, and delete the
+                contents. Alternatively, <code>EncryptedPassword</code> entries in the
+                <code>Agents.xml</code> file can be deleted to allow Auditor to propagate the actual
+                password automatically.
+              </p>
+            </li>
+            <li>
+              <p>Start <code>Netwrix Auditor User Activity Audit Service</code>.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Event ID 5804 in Health Log</title><meta name="label" content="privilege_secure"/><meta name="label" content="f_stealthbits"/><meta name="label" content="skb"/><meta name="label" content="auditor"/><meta name="label" content="employees_v"/><meta name="KnowledgeArticleId" content="kA0Qk0000001H6rKAE"/><meta name="Id" content="ka0Qk0000004pyPIAQ"/><meta name="LastPublishedDate" content="2024-07-12T10:08:35.000+0000"/><meta name="LastModifiedDate" content="2024-07-30T09:36:49.000+0000"/><meta name="FirstPublishedDate" content="2024-07-12T10:08:35.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9216"/><meta name="ArticleNumber" content="000009216"/><meta name="description" content="Event ID 5804 in Health Log"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="symptom">Symptom</h2>
+
+<div>
+<p>Netwrix Auditor prompts the following error in the Health Log:</p>
+
+<pre class="has-inner-focus">Event ID: 5804
+Unable to establish an activity session.</pre>
+</div>
+
+<h2 id="causes">Causes</h2>
+
+<div>
+<p>Review the <strong>Reason</strong> field in the event description.</p>
+
+<blockquote>
+<p><strong>TIP:</strong> Here are the examples of the possible <strong>Reason</strong> values:</p>
+
+<ul><li>
+	<p>Reason: 0x80190190 Bad request (400)</p>
+
+	<ul><li>
+		<p>Unable to find requested credential by username</p>
+		</li><li>
+		<p>Unable to find requested resource by DnsHostName</p>
+		</li><li>
+		<p>Unable to find requested activity: %activity%</p>
+		</li></ul>
+	</li><li>
+	<p>Reason: 0x80190193 Forbidden (403)</p>
+
+	<ul><li>
+		<p>Either NA or NPS has invalid certificate.</p>
+		</li></ul>
+	</li><li>
+	<p>Reason: 0x80072EE2 The operation timed out</p>
+	</li></ul>
+</blockquote>
+</div>
+
+<h2 id="possible_resolutions">Possible Resolutions</h2>
+
+<div>
+<p>Depending on the environment, review the following options:</p>
+
+<ul><li>
+	<p>Review the NPSAM logs to learn more about possible issues.</p>
+	</li><li>
+	<p>If needed, increase the timeout value in Auditor:</p>
+
+	<ol><li>
+		<p>Locate the <code>CredentialResolverService.acconf</code> file in the following folder:</p>
+
+		<pre class="has-inner-focus"><code class="lang-Registry">C:\Program Files (x86)\Netwrix Auditor\Audit Core\</code></pre>
+		</li><li>
+		<p>Locate the <code>MaxWaitForActiveStatusS</code> node and alter the timeout value (seconds):</p>
+
+		<pre class="has-inner-focus"><code class="lang-Registry">&lt;a n="MaxWaitForActiveStatusS" v="300"/&gt;</code></pre>
+
+		<p>Save the changes and restart the <code>NwCfgServerSvc</code> service to apply the changes.</p>
+		</li></ol>
+
+	<blockquote>
+	<p><span><strong>IMPORTANT: </strong></span>Auditor overwrites <code>.acconf</code> files on NA upgrades and repairs.</p>
+	</blockquote>
+	</li></ul>
+</div></div>
+</article></body></html>

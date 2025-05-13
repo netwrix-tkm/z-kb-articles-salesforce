@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Trails Are Incorrect in Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000YphKAE" />
+    <meta name="Id" content="ka0Qk0000002kI5IAI" />
+    <meta name="LastPublishedDate" content="2024-03-29T16:04:20.000+0000" />
+    <meta name="LastModifiedDate" content="2024-03-29T16:04:20.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-03-29T16:04:20.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9107" />
+    <meta name="ArticleNumber" content="000009107" />
+    <meta name="description" content="Audit Trails Are Incorrect in Netwrix Auditor" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>In Netwrix Auditor, file server monitoring generates the following error message:</p>
+
+          <div>
+            <pre class="has-inner-focus">
+ 
+            Audit trails are incorrect. 
+        </pre
+            >
+          </div>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>This error message indicates audit configuration issues in the audited environment.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Follow the steps below to resolve the issue:</p>
+
+          <ol>
+            <li>
+              <p>
+                On your file server, navigate to a problematic folder/share. Right-click it and
+                select <b>Properties</b>.
+              </p>
+            </li>
+            <li>
+              <p>Select the <b>Security</b> tab &gt; <b>Advanced</b>.</p>
+            </li>
+            <li>
+              <p>Under the <b>Audit</b> tab, disable inheritance.</p>
+            </li>
+            <li>
+              <p>
+                Then, confirm that security principals are configured according to Netwrix
+                documentation:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/FileServers/Windows/ObjectLevel.htm"
+                  target="_blank"
+                  >Data Source Configuration — File Servers — Configure Object-Level Access Auditing
+                  — v10.6</a
+                >
+                (Successful Changes and Failed Reads).
+              </p>
+            </li>
+            <li>
+              <p>
+                Click <b>Apply</b>. The server will propagate all permissions to the target folders.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Setting up permissions manually will ensure that Netwrix is detecting the settings and
+            that correct Security log events are written on the file server.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

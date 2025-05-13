@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Migrate Netwrix Password Reset</title><meta name="label" content="skb"/><meta name="label" content="password_reset_manager"/><meta name="KnowledgeArticleId" content="kA04u00000111CPCAY"/><meta name="Id" content="ka04u00000118BJAAY"/><meta name="LastPublishedDate" content="2023-09-11T13:04:25.000+0000"/><meta name="LastModifiedDate" content="2023-10-13T17:15:32.000+0000"/><meta name="FirstPublishedDate" content="2023-09-11T13:04:25.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8801"/><meta name="ArticleNumber" content="000008801"/><meta name="description" content="Migrate Netwrix Password Reset"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to migrate Netwrix Password Reset?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<h4 id="migrating_netwrix_password_reset_using_sql_server_compact_database">Migrating Netwrix Password Reset using SQL Server Compact database</h4>
+
+<div>
+<p>Refer to the following steps to migrate Netwrix Password Reset with SQL Server Compact database:</p>
+
+<ol><li>
+	<p>In both servers, close Netwrix Password Reset Data Console, if open.</p>
+	</li><li>
+	<p>In both servers, stop the Netwrix Password Reset service. You can do it manually via <strong>Services</strong>, <code>services.msc</code>, or using the following line in elevated PowerShell:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Password Reset"</code></pre>
+	</li><li>
+	<p>Locate <code>apr.sdf</code> and <code>aprlog.sdf</code> files by following the Password Reset installation path and copy them to your new server:</p>
+
+	<pre class="has-inner-focus">%Program Files (x86)%\Netwrix Password Reset\
+to
+%Program Files%\Netwrix Password Reset\ in your new server</pre>
+	</li><li>
+	<p>In your new server, open <strong>Configuration Console</strong>. In the <strong>General</strong> tab, select <strong>Change</strong> under the <strong>Database</strong> section.</p>
+	</li><li>
+	<p>Click <strong>Browse</strong> to locate the copied files located in <code>%Program Files%\Netwrix Password Reset\</code> in your new server.</p>
+	</li><li>
+	<p>Click <strong>OK</strong> twice, and click <strong>Apply</strong>.</p>
+	</li><li>
+	<p>In your new server, start the Netwrix Password Reset service. You can do it manually via <strong>Services</strong>, <code>services.msc</code>, or using the following line in elevated PowerShell:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Start-Service -DisplayName "Netwrix Password Reset"</code></pre>
+	</li></ol>
+</div>
+
+<h4 id="migrating_netwrix_password_reset_using_sql_server_database">Migrating Netwrix Password Reset using SQL Server database</h4>
+
+<div>
+<p>For additional information on migrating Netwrix Password Reset using SQL Server database, refer to the following article: <a href="https://helpcenter.netwrix.com/bundle/PasswordReset_3.3/page/Content/Password_Reset/Administration/Moving_to_SQL_Server.htm#configure_netwrix_password_reset_to_connect_to_sql_server" target="_self">Moving to SQL Server — Configure Netwrix Password Reset to Connect to SQL Server ⸱ v3.3</a>.</p>
+</div>
+
+<h4 id="related_articles">Related articles</h4>
+
+<div>
+<p><a href="https://helpcenter.netwrix.com/bundle/PasswordReset_3.3/page/Content/Password_Reset/Administration/Moving_to_SQL_Server.htm" target="_self">Working with the Database — Moving to SQL Server ⸱ v3.3</a></p>
+</div></div>
+</article></body></html>

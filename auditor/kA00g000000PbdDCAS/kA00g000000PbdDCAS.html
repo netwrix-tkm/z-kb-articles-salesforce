@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Notify Users Without Email in Password Expiration Notifier</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000PbdDCAS" />
+    <meta name="Id" content="ka0Qk0000005onNIAQ" />
+    <meta name="LastPublishedDate" content="2024-09-30T08:51:10.000+0000" />
+    <meta name="LastModifiedDate" content="2024-09-30T08:51:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="690" />
+    <meta name="ArticleNumber" content="000003772" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            How does Netwrix Auditor Password Expiration Notifier (PEN) notify a user with no
+            associated account in the audited domain?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            To notify the user, PEN uses the <code>mail</code> LDAP attribute assigned to the target
+            account. If there is no associated email, you can specify the target email manually.
+            Refer to the following steps:
+          </p>
+
+          <ol>
+            <li>
+              <p>Run PEN. Select the correct monitoring plan and click <strong>Edit</strong>.</p>
+            </li>
+            <li>
+              <p>
+                In the <strong>Send reports to administrators</strong> field, specify the target
+                email separated by a comma. Save the changes.
+              </p>
+            </li>
+          </ol>
+
+          <p>The specified email should now receive reports on expiring passwords.</p>
+
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT: </strong></span>In the described scenario,
+              PEN uses the SMTP server specified in the <strong>Notifications</strong> tab to send
+              notifications to external email addresses. The SMTP server must have a correctly
+              configured relay service to send emails to external mailboxes.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

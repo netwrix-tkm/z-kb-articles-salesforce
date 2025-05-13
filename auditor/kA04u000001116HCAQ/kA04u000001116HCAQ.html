@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor Health Log Contains Event ID 1119</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001116HCAQ" />
+    <meta name="Id" content="ka04u00000117XOAAY" />
+    <meta name="LastPublishedDate" content="2023-09-02T15:14:47.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-02T15:14:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-25T09:17:03.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8765" />
+    <meta name="ArticleNumber" content="000008765" />
+    <meta
+      name="description"
+      content="This article contains resolution steps to resolve Event ID 1119."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor unable to collect data from a SharePoint farm and the Netwrix Auditor
+            Health Log contains the EventID 1119:
+          </p>
+
+          <pre class="has-inner-focus">
+            An item with the same key has already been added. 
+</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            Invalid format of a SharePoint Central Administration URL is specified in your
+            monitoring plan settings.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Provide the URL for your SharePoint farm (Central Administration) in the FQDN format.
+            For that:
+          </p>
+
+          <ol>
+            <li>
+              <p>In Netwrix Auditor, navigate to <b>Monitoring Plans</b>.</p>
+            </li>
+            <li>
+              <p>Select your SharePoint monitoring plan.</p>
+            </li>
+            <li>
+              <p>Click <b>Edit Item</b> on the right.</p>
+            </li>
+            <li>
+              <p>
+                On the <b>General</b> tab, provide the Central Administration address in the FQDN
+                format (e.g., http://sharepointserver.local:8080).
+              </p>
+            </li>
+            <li>
+              <p>Save your edits.</p>
+            </li>
+            <li>
+              <p>
+                On the Netwrix Auditor server host, open the <b>Services</b> snap-in and make sure
+                that the <b>Netwrix Auditor for SharePoint Audit Service</b> is running.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

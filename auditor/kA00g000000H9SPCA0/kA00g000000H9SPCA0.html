@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Best Practices for Securing Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SPCA0" />
+    <meta name="Id" content="ka0Qk0000002krZIAQ" />
+    <meta name="LastPublishedDate" content="2024-04-01T15:42:47.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-01T15:42:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:40.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="215" />
+    <meta name="ArticleNumber" content="000002973" />
+    <meta
+      name="description"
+      content="This article describes general steps that can be taken to secure Netwrix Auditor from unauthorized usage and protect sensitive data from leakage"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>What are the best practices for securing Netwrix Auditor?</p>
+        </div>
+
+        <h2 id="instructions">Instructions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a href="#limitaccess" target="_self"
+                  >Limiting access to the Netwrix Auditor host.
+                </a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#maintainroles" target="_self">Maintaining roles in Netwrix Auditor. </a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#monitorservices" target="_self">Monitoring Netwrix Auditor services. </a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#MSsectools" target="_self">Enabling native Microsoft security tools. </a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#auditrelsys" target="_self"
+                  >Auditing related systems via Netwrix Auditor.
+                </a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#offlinebackups" target="_self"
+                  >Doing regular offline backups of Long-Term Archive.
+                </a>
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="limitaccess">Limiting access to the Netwrix Auditor host</h4>
+
+        <div>
+          <p>
+            Consider using Restricted Groups when applying group membership and User Rights
+            Assignment policy settings to allow access to the Netwrix Auditor host to a limited
+            group of users. For additional information, refer to the following articles:
+            <a
+              href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/group-policy/description-of-group-policy-restricted-groups"
+              target="_blank"
+              >Description of Group Policy Restricted Groups</a
+            >
+            and
+            <a
+              href="https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment"
+              target="_blank"
+              >User Rights Assignment</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="maintainroles">Maintaining roles in Netwrix Auditor</h4>
+
+        <div>
+          <p>
+            Netwrix Auditor provides a flexible role-based access (RBAC) model, which restricts what
+            each user can do in Netwrix Auditor according to their role. For additional information
+            about RBAC, refer to the following article: 
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Admin/Roles/Overview.htm"
+              target="_self"
+              >Role-Based Access and Delegation</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="monitorservices">Monitoring Netwrix Auditor services</h4>
+
+        <div>
+          <p>
+            Ensure that the critical Netwrix Auditor services are always up and running: the Netwrix
+            Auditor Configuration Service and the Netwrix Auditor Archive Service. To do this, you
+            can use Netwrix Service Monitor, a freeware tool for monitoring critical Windows
+            services. The Service Monitor tool enables monitoring all startup services on multiple
+            servers and can send e-mail alerts if one or more services stop unexpectedly. For
+            additional information, refer to the following page:
+            <a
+              href="https://www.netwrix.com/windows_services_monitoring_freeware.html"
+              target="_blank"
+              >Netwrix Service Monitor</a
+            >.
+          </p>
+        </div>
+
+        <h4 id="MSsectools">Enabling native Microsoft security tools</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                To secure your SQL database data, enable transparent data encryption. For additional
+                information, refer to the following article: 
+                <a
+                  href="https://learn.microsoft.com/en-us/sql/relational-databases/security/encryption/transparent-data-encryption?view=sql-server-ver16"
+                  target="_blank"
+                  >Transparent data encryption (TDE)</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                To secure your Long-Term Archive, enable BitLocker encryption. For additional
+                information, refer to the following link: :
+                <a
+                  href="https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/"
+                  target="_blank"
+                  >BitLocker Overview</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="auditrelsys">Auditing related systems via Netwrix Auditor</h4>
+
+        <div>
+          <ul>
+            <li>
+              <p>Enable configuration and logon auditing for your SQL Server:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    Enable alerts for logon activity, roles, and db_owner role changes for SQL
+                    databases.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                You can enable changes to Local Users and Groups, services, and
+                software-installation auditing for your SQL Server and Netwrix Auditor servers:
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Configure alerts for changes to log clearance and Local Administrator groups.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Enable session recording for SQL Server and Netwrix Auditor host via User
+                    Activity monitoring.
+                  </p>
+                </li>
+                <li>
+                  <p>Configure alerts for SQL Management Studio or Netwrix Auditor launch.</p>
+                </li>
+                <li>
+                  <p>Configure alerts for logons to the SQL server and Netwrix Auditor host.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Enable auditing of Long-Term Archive:</p>
+
+              <ul>
+                <li>
+                  <p>Exclude the Netwrix data-processing account from the monitoring scope.</p>
+                </li>
+                <li>
+                  <p>
+                    Configure alerts for all read/modify/delete events as well as for failed
+                    activities.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <h4 id="offlinebackups">Making regular offline backups of the Long-Term Archive</h4>
+
+        <div>
+          <p>
+            To avoid data loss in case of unexpected archive corruption, malicious actions,
+            ransomware, and other circumstances, make sure to regularly back up your Long-Term
+            Archive. Options include off-site or cloud backups to ensure the intergrity of LTA data.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

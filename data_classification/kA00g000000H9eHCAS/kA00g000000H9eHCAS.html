@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Documents Are Crawled Successfully with No Text Extracted</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eHCAS" />
+    <meta name="Id" content="ka0Qk000000309xIAA" />
+    <meta name="LastPublishedDate" content="2024-04-23T08:33:42.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-23T08:33:51.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3535" />
+    <meta name="ArticleNumber" content="000003699" />
+    <meta
+      name="description"
+      content="Documents are being crawled successfully but no text has been extracted"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Why is Netwrix Data Classification (NDC) crawling your documents successfully, but no
+            text has been extracted?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            Issues with text extraction can have a range of causes. You can find a summary of text
+            extraction errors in the <b>Stats</b> dashboard. Click <b>Details</b> to view a
+            breakdown by type of error.
+          </p>
+
+          <div>
+            <img
+              alt="thumbnail_image.png"
+              height="264"
+              src="kA00g000000H9eHCAS_2e8761dd-ad19-442f-91cc-1e54c0696857.png"
+              width="500"
+            />
+          </div>
+
+          <h4 id="steps_to_diagnose_text_extraction_failure">
+            Steps to Diagnose Text Extraction Failure
+          </h4>
+
+          <div>
+            <ol>
+              <li>
+                <p>
+                  Enable Collector and OCR tracing and ensure that the log level is set to 'Errors,
+                  Warnings &amp; Info'.
+                </p>
+              </li>
+              <li>
+                <p>Find a document that has failed text extraction and re-index it.</p>
+              </li>
+              <li>
+                <p>
+                  Wait for the <strong>Collect Date Time</strong> to be updated. This can be viewed
+                  from the <strong>Page Info</strong> screen.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Review the event logs for a detailed error message about the document's
+                  collection.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <h4 id="intermittent_issues_and_backup_extraction_method">
+            Intermittent Issues and Backup Extraction Method
+          </h4>
+
+          <div>
+            <p>
+              If you experience intermittent issues extracting a particular document type, you can
+              enable a backup extraction method through the
+              <strong>Content Type Extraction Methods</strong> screen in
+              <strong>Settings &gt; Text Processing</strong>. For example, enabling iFilter as a
+              backup extraction method for Office OLE files may assist with extracting text from
+              problematic documents.
+            </p>
+          </div>
+
+          <h4 id="common_issues">Common Issues</h4>
+
+          <div>
+            <ul>
+              <li>
+                <p>
+                  Missing iFilter: If the content type is configured to use iFilters, make sure that
+                  the correct iFilter pack is installed on all servers that NDC is installed on.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Password Protected Documents: Opening password-protected documents is not
+                  currently supported.
+                </p>
+              </li>
+              <li>
+                <p>
+                  Corrupt Files: Try opening the file manually to verify it. Microsoft Office
+                  documents can sometimes be recovered by opening and resaving the file.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

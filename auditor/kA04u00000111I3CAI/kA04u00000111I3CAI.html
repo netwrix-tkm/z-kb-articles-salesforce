@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Auditor Consumes Disk Space — Recommendations</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111I3CAI" />
+    <meta name="Id" content="ka0Qk00000018mjIAA" />
+    <meta name="LastPublishedDate" content="2023-12-26T17:02:41.000+0000" />
+    <meta name="LastModifiedDate" content="2023-12-26T17:02:41.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-03T16:04:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8839" />
+    <meta name="ArticleNumber" content="000008839" />
+    <meta
+      name="description"
+      content="This article contains recommendations that help reducing disk space consumption."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor takes up a lot of disk space and once it gets to around a minimum of
+            free disk space, the Netwrix services stop, and all monitoring plans have the
+            <b>Stops Responding</b> status. Which are Netwrix recommendations for adequate hardware
+            resource consumption?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>The following recommendations will allow you to reduce disk space consumption:</p>
+
+          <ol>
+            <li>
+              <p>
+                Netwrix recommends upgrading to the latest version. For each updated version,
+                Netwrix improves performance and tends avoiding disk space consumption.
+              </p>
+
+              <p>
+                For additional information on upgrade procedure, refer to the following article: <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Install/Upgrade.htm"
+                  target="_blank"
+                  >Installation — Upgrade to the Latest Version — v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Move your Long-Term Archive to another logical disk and/or modify its retention
+                settings. <b>Long-Term Archive</b> is a file-based storage where Netwrix Auditor
+                saves the collected activity records.
+              </p>
+
+              <p>
+                By default, it is located on the system drive at
+                <em>%PROGRAMDATA%\Netwrix Auditor\Data</em> and keeps data for
+                <b>120 months (10 years)</b> and the product informs you if you are running out of
+                space on a system disk where it is stored.
+              </p>
+
+              <p>
+                Once the free disk space starts approaching the minimum level, you will see events
+                in the <b>Netwrix Auditor System Health</b> log. When the free disk space is less
+                than <b>3GB</b>, the Netwrix services responsible for audit data collection will be
+                stopped, which means that the data collection also stops.
+              </p>
+
+              <p>Follow these Knowledge Base articles for additional information:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000H9SSCA0.html"
+                      target="_blank"
+                      >How to Move Long-Term Archive to a New Location</a
+                    >
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PbdHCAS.html"
+                      target="_blank"
+                      >How to Prevent Overflow on the Drive Where the Long-Term Archive is
+                      Located?</a
+                    >
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Migrate Working Folder to a new location.</p>
+
+              <p>
+                The size of your Working Folder may grow significantly (normally, up to 10 – 20GB)
+                depending on the workload, especially during activity peaks. If your system drive
+                capacity is limited, you might want to keep the temporary files and trace logs on
+                another drive, i.e. change the Working Folder default location.
+              </p>
+
+              <p>
+                For additional information on how to move the Working Folder, refer to the following
+                article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA00g000000PcOLCA0.html"
+                  target="_blank"
+                  >How to Migrate Netwrix Auditor Working Folder to a New Location?</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Remove the <b>Netwrix Backup</b> folder. Netwrix strongly recommends keeping the
+                backups for supported product versions.
+              </p>
+
+              <p>
+                For additional information about the Backup folder, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001116vCAA.html"
+                  target="_blank"
+                  >Backups Folder in Netwrix Auditor</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Additional space might be consumed by the <b>Local DB</b> in the
+                <b>ShortTerm</b> folder; this can occur when the SQL communication is not working
+                properly or the DB files getting corrupted. Follow the resolution steps in the
+                article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000wnpOCAQ.html"
+                  target="_blank"
+                  >Netwrix Auditor System Health Log Contains EventID 2002</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the size of the Windows page file. If it grows big, this indicates lack of RAM
+                and Windows tries to compensate it with disk space. Adding more RAM helps fixing
+                disk space consumption by page files.
+              </p>
+
+              <p>Follow the steps to inspect page file usage using <b>Performance Monitor</b></p>
+
+              <ul>
+                <li>
+                  <p>
+                    On the Auditor Server, open <b>Administrative Tools</b> -&gt;
+                    <b>Performance Monitor</b>.
+                  </p>
+                </li>
+                <li>
+                  <p>Expand <b>Monitoring Tools</b> and select <b>Performance Monitor</b>.</p>
+                </li>
+                <li>
+                  <p>Right-click the graph and select <b>Add Counters...</b>.</p>
+                </li>
+                <li>
+                  <p>In the <b>Available counters</b> list, select <b>Paging File.</b></p>
+                </li>
+                <li>
+                  <p>Click the down-arrow icon to the right of Paging File.</p>
+                </li>
+                <li>
+                  <p>
+                    Select <em>% Usage</em> under Paging File and then click the <b>Add</b> button.
+                  </p>
+                </li>
+                <li>
+                  <p>Click <b>OK</b> to close the dialog.</p>
+                </li>
+              </ul>
+
+              <p>
+                Now the <b>Paging File</b> counter is displayed in the <b>Performance Monitor</b>.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="related_articles">Related Articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001119zCAA.html"
+                target="_blank"
+                >Error: Netwrix Auditor for File Servers Audit Service Terminated Unexpectedly</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000HirCAE.html"
+                target="_blank"
+                >Antivirus Exclusions for Netwrix Auditor</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000001115iCAA.html"
+                target="_blank"
+                >How to Add Additional Space to Long-Term Archive?</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u000000wnpOCAQ.html"
+                target="_blank"
+                >Netwrix Auditor System Health Log Contains EventID 2002</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

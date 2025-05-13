@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Installing Gen 7 Agent for Linux</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JQaCAM" />
+    <meta name="Id" content="ka04u000000QmlYAAS" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:30:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-06-06T11:07:34.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:29:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8065" />
+    <meta name="ArticleNumber" content="000008065" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="installing_gen_7_agent_for_linux_using_local_rpm_files">
+          Installing Gen 7 Agent for Linux using local RPM files
+        </h2>
+        NNT Gen 7 Agent can also be installed on Linux and Unix platforms. In a similar way to the
+        Windows Agent, the Agent requires a runtime and an Agent executable. For Linux, the runtime
+        is Mono, the open source parallel to Microsoft .NET.<br />Installation simply requires the
+        NNT-Mono and NNT-Gen7 Agent RPMs to be installed as follow:
+        <pre class="ckeditor_codeblock">
+rpm -ivh nnt-mono-4.6.1-5.x86_64.rpm nnt-changetracker-gen7agent-7.0.0.15-7.noarch.rpm</pre
+        >
+        Once installed, the <strong>HubDetails.xml</strong> file must be configured – this can be
+        done directly by editing a <strong>HubDetails.xml</strong> on the
+        <code>/var/nnt/gen7agent.service</code> path or by using the
+        <code>/opt/nnt/gen7agent//configure-gen7agent.sh</code> script.
+
+        <br /><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+          ><img
+            class="confluence-embedded-image"
+            height="261"
+            src="kA04u0000000JQaCAM_0b8cbdc3-301b-4aa6-b057-77db89c1c621.png"
+            width="625" /></span
+        ><br />The Agent service can then be started using
+
+        <pre class="ckeditor_codeblock">
+/sbin/service nntgen7agent start
+</pre
+        >
+
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="69"
+              src="kA04u0000000JQaCAM_9325ef10-2adb-4394-9800-fc622d75c236.png"
+              width="625"
+          /></span>
+        </p>
+
+        <h2
+          id="id-7InstallingGen7AgentforLinux-_Toc476577604_Toc484003699ScriptedinstallationofGen7AgentRPMinstaller"
+        >
+          Scripted installation of Gen 7 Agent RPM installer
+        </h2>
+        The entire process outlined above can be completed using a single command as follows
+
+        <pre class="ckeditor_codeblock">
+rpm -ivh nnt-mono-4.6.1-5.x86_64.rpm nnt-changetracker-gen7agent-7.0.0.15-7.noarch.rpm ; /opt/nnt/gen7agent//configure-gen7agent.sh https://192.168.1.107/api agent passWord121 /opt/nnt/agent/bin GenVII ; /sbin/service nntgen7agent start</pre
+        >
+        <span><strong>NOTE</strong></span
+        >: Removal
+        <code>rpm -evv nnt-mono-4.6.1-5.x86_64 nnt-changetracker-gen7agent-7.0.0.15-7.noarch</code>
+
+        <h2 id="id-7InstallingGen7AgentforLinux-ForDebianLinux">For Debian Linux</h2>
+        Netwrix Change Tracker provides packages for Debian distributions, so please download the
+        relevant Gen 7 Agent package then install using:
+
+        <pre class="ckeditor_codeblock">
+dpkg -i nnt-mono_4.2.1_amd64.deb
+
+dpkg -i nnt-changetracker-gen7agent_7.0.0.19-34_all.deb
+</pre
+        >
+        You can then use the same steps for configuring your <strong>HubDetails.xml</strong> file as
+        in the previous section.<br />To uninstall the Gen 7 Agent on Debian, use
+        <pre class="ckeditor_codeblock">
+apt-get remove nnt-gen7agent
+
+apt-get remove nnt-mono</pre
+        >
+
+        You'll then want to remove the NNT Gen 7 Agent files which will be found at
+
+        <pre class="ckeditor_codeblock">
+rm -fr /var/nnt/gen7agent.service
+
+rm -fr /opt/nnt
+
+rm -fr /opt/mono</pre
+        >
+
+        <h2 id="for_mac_osx">For Mac OSX</h2>
+
+        <pre class="ckeditor_codeblock">
+sudo installer -pkg MonoFramework-MDK-4.6.1.3.macos10.xamarin.universal.pkg -target /
+
+sudo installer -pkg /tmp/nnt-gen7agent-7.0.0.19-34-x64.pkg -target /</pre
+        >
+        To uninstall the Gen 7 Agent on MACOSX, use
+
+        <pre class="ckeditor_codeblock">
+sudo pkgutil –-forget MonoFramework-MDK-4.6.1.3.macos10.xamarin.universal.pkg
+
+sudo pkgutil --forget nnt-gen7agent-7.0.0.19-34-x64.pkg</pre
+        >
+
+        You'll then want to remove the NNT Gen 7 Agent files which will be found at
+
+        <pre class="ckeditor_codeblock">
+rm -fr /var/nnt
+
+rm -fr /opt/nnt
+
+rm -fr /opt/mono
+</pre
+        >
+
+        Gen 7 Agent UI A local UI for the Gen 7 Agent provides visibility of operation for
+        troubleshooting purposes. It is available from the hosting platform e.g.
+        <code>http://localhost:8096</code> and requires credentials of username
+        <strong>admin</strong> and password <strong>password</strong>
+
+        <p>
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="409"
+              src="kA04u0000000JQaCAM_18cbadae-6e91-4669-8e97-12679d8997ee.png"
+              width="606"
+          /></span>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

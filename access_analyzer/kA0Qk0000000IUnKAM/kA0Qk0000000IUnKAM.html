@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Could Not Drop Object Referenced by Foreign Key Constraint</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000IUnKAM" />
+    <meta name="Id" content="ka0Qk0000004ZtdIAE" />
+    <meta name="LastPublishedDate" content="2024-07-10T08:50:40.000+0000" />
+    <meta name="LastModifiedDate" content="2024-07-10T08:50:50.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-12-07T13:19:22.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8949" />
+    <meta name="ArticleNumber" content="000008949" />
+    <meta name="description" content="Could Not Drop Object Referenced by Foreign Key Constraint" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When you run the <strong>SP_DropTables</strong> job, the job fails and prompts the
+            following error:
+          </p>
+
+          <pre class="has-inner-focus">
+Could not drop object %table_name% because it is referenced by a foreign key constraint.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The affected tables reference the foreign key constraint preventing the
+            <strong>SP_DropTables</strong> job from running correctly.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Manually release the constraints for the affected tables.</p>
+
+          <ol>
+            <li>
+              <p>
+                In SQL Server Management Studio, run the following line to output associated foreign
+                key constraints. The example shows the
+                <code>SA_SPAC_ActivityEvents</code> table—replace it with the table mentioned in the
+                error message.
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry"> EXEC sp_fkeys 'SA_SPAC_ActivityEvents'</code></pre>
+            </li>
+            <li>
+              <p>
+                The results will contain the <code>FKTABLE_NAME</code> column—run the following line
+                to release the corresponding constraint. The example shows the
+                <code>SA_SPAC_ActivityEvents</code> foreign key. Run the line with each
+                <code>FKTABLE_NAME</code> specified in the results.
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">DROP TABLE SA_SPAC_GroupMembershipChanges</code></pre>
+            </li>
+            <li>
+              <p>After releasing the constraints, rerun the <strong>SP_DropTables</strong> job.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

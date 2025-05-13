@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to stop Change Tracker recreating deleted default groups?</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JWGCA2" />
+    <meta name="Id" content="ka04u000000Hd8uAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:06:18.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:17:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:40:27.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8151" />
+    <meta name="ArticleNumber" content="000008151" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          Have you created custom groups for your agents? Have you deleted some or all of the
+          default OS groups which come with the software as default? Do the groups keep re-appearing
+          on a regular basis? - GREAT! Then you'll need to follow the below guide.
+        </p>
+        <p>
+          By default the Change Tracker console will re-create default groups and their attached
+          configuration templates and compliance reports whenever the NNT application pool is
+          recycled through IIS, which by default is every 29 hours. In order to stop them from
+          happening, please do the following:
+        </p>
+        <p><br /></p>
+        <p> - Log into Change Tracker</p>
+        <p> - Browse to <strong>Settings</strong></p>
+        <p> - Browse to <strong>System Settings</strong></p>
+        <p> - Select <strong>Show Advanced Options</strong></p>
+        <p> - Select <strong>Add Config Item</strong></p>
+        <p>         Enter Description: <strong>CreateDefaultGroups</strong></p>
+        <p>         Enter Value: <strong>No</strong></p>
+        <p> - Select <strong>Update</strong></p>
+        <p>
+          <strong><br /></strong>
+        </p>
+        <p>Once this has been set, this should stop the default groups from being recreated.</p>
+      </div>
+    </article>
+  </body>
+</html>

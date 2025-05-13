@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to exclude specific user accounts from reports</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9TvCAK" />
+    <meta name="Id" content="ka04u000000HcNhAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:32:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:46:30.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:57.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="650" />
+    <meta name="ArticleNumber" content="000003067" />
+    <meta
+      name="description"
+      content="exclude certain user accounts File Server Change Reporter Change Summaries Reports service account backup"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        How do I exclude certain user accounts from
+        <strong>NetWrix File Server Change Reporter Change Summaries</strong> and
+        <strong>Reports</strong> if I do not want to monitor them (for example, a service account
+        used by a backup software)?
+
+        <hr />
+
+        To exclude user accounts from data collection and reporting, do the following:
+        <ol>
+          <li>
+            Navigate to <strong>NetWrix File Server Change Reporter</strong> installation folder.
+          </li>
+          <li>Open one of the following configuration files:</li>
+        </ol>
+
+        <ul>
+          <li>
+            <strong>omituserlist_fs.txt</strong> file to exclude certain users from the email
+            <strong>Change Summaries</strong>
+          </li>
+          <li>
+            <strong>omitstoreuserlist_fs.txt</strong> file to exclude certain users from
+            <strong>SSRS-based Reports</strong> and email <strong>Change Summaries</strong> as well.
+          </li>
+        </ul>
+
+        <ol start="3">
+          <li>
+            Edit the selected file by specifying the accounts you want to exclude. Accounts must be
+            entered one per line in the '<strong>domainusername</strong>' format. Wildcards (* and
+            ?) are supported.
+          </li>
+          <li>Save the changes and close the file.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

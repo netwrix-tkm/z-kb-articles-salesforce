@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to Move The Log Tracker Server Messages and Archive Data to Another Disk Drive
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="log_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JcqCAE" />
+    <meta name="Id" content="ka04u000000HdAVAA0" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:53:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8254" />
+    <meta name="ArticleNumber" content="000008254" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          The Log Tracker Server allows you to change the location where the system stores message
+          log data and archives. This may be necessary to increase the amount of log space available
+          for the system.The location where Log Tracker saves its log and archive data is set on the
+          "Messages &gt; Config &gt; Parms" screen.
+        </p>
+        <p>
+          For best results, you should use a relatively high-speed drive that is physically
+          connected to the computer. Best results typically occur by using a reasonably good IDE
+          drive. A network mapped drive should not be used.
+        </p>
+        <h2 id="">Step-by-step guide</h2>
+        <p>
+          To relocate the Messages and Archive data to another location or another disk, run the
+          following procedure:
+        </p>
+        <ol>
+          <li>
+            Create a new location for your log data and archive data. Just copy the "C:\Program
+            Files (x86)\NNT Log Tracker Suite\logs" and "C:\Program Files (x86)\NNT Log Tracker
+            Suite\archive" folders (including all subfolders) to a new location such as "D:\Log
+            Tracker\logs" and "D:\Log Tracker\archives". (Note that this operation may take a while
+            if you are copying a 100s of GBytes of data or more.)
+          </li>
+          <li>
+            Login to theLog Tracker web interface, navigate to the "Messages &gt; Config &gt; Parms"
+            screen, and click the "Edit" button.
+          </li>
+          <li>
+            Modify the values for "Syslog Directory Path" and / or "Archive Data Path" and click
+            "Save". See the screenshot below for help. Note that the specified paths must exist,
+            orLog Tracker Server will display an error and not save the change.
+          </li>
+        </ol>
+        <p>
+          <span class=""><img class="" width="" src="" /> </span>
+        </p>
+        <p>
+          4. After modifying the values, stop and restart the "CorreLog Framework Service" to apply
+          the changes
+        </p>
+        <p>
+          After running the above procedure, verify that you still have access to all your log data.
+          One way to do this is to go to the "Messages &gt; Search" screen, and click the "Search:
+          Today" drop down menu to view all the online data on the system.
+        </p>
+        <p>
+          After you have verified your log data still exists, you may remove the old folders (by
+          default "C:\Program Files (x86)\NNT Log Tracker Suite\logs" and "C:\Program Files
+          (x86)\NNT Log Tracker Suite\archive") to free up disk space on theLog Tracker Server.
+        </p>
+        <p><br /></p>
+        <h2 id="">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="">
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">How to Backup / Restore / Move your MongoDB Database</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Supporting Documents for Hub Server Problems</a>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank"
+                >Rolling-Log Fix: "Hub Offline, connection retries exhausted (The remote server
+                returned an error: (403) Forbidden.)"</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="" title="">Page:</span>
+            </div>
+            <div class="">
+              <a href="" target="_blank">Support for TLS 1.2 in the .NET Framework 3.5.1</a>
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a href="" target="_blank">Screenshot.PNG</a> <br />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1251 - 1254, 1256 - 1258 in Health Log</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cUCAS" />
+    <meta name="Id" content="ka0Qk0000001E0vIAE" />
+    <meta name="LastPublishedDate" content="2024-01-04T12:22:08.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-04T12:22:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2254" />
+    <meta name="ArticleNumber" content="000003588" />
+    <meta
+      name="description"
+      content="The KB provides resolution steps depending on Event ID returned by Netwrix Auditor System Health log."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>
+            Either of the following error messages under the Event is prompted in Health Log for
+            your SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+Netwrix Auditor has been unable to add an object to the auditing scope due to one of the following errors on your SharePoint server</pre
+          >
+
+          <ul>
+            <li><code>1251 − Unable to find web application %affected_web_application%</code></li>
+            <li>
+              <code
+                >1252 − Unable to get a list of web applications from the audited SharePoint
+                farm</code
+              >
+            </li>
+            <li>
+              <code
+                >1253 − Unable to find the parent web application for site collection
+                %affected_site_collection%</code
+              >
+            </li>
+            <li>
+              <code
+                >1254 − Unable to find the parent web application %affected_web_application%</code
+              >
+            </li>
+            <li>
+              <code
+                >1256 − Unable to find site collection %affected_site_collection% due to the
+                following error</code
+              >
+            </li>
+            <li>
+              <code
+                >1257 − Unable to get a list of web applications from the audited SharePoint
+                farm</code
+              >
+            </li>
+            <li><code>1258 − Unable to find the Central Administration web application</code></li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p><code>Access to the affected web site has been blocked</code></p>
+            </li>
+            <li>
+              <p>
+                <code>Access is denied (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))</code>
+              </p>
+            </li>
+            <li>
+              <p><code>Some or all identity references could not be translated</code></p>
+            </li>
+            <li>
+              <p>
+                <code
+                  >Wrong URL was added to the auditing scope or the object available by this link is
+                  invalid</code
+                >
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Cause #1 − In SharePoint Central Administration, navigate to
+                <strong>Application Management</strong> &gt;
+                <strong>Configure Quotas and Locks</strong> &gt;
+                <strong>%affected_web_application%</strong>, and change the status to
+                <strong>Not locked</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Cause #2 − In SharePoint Central Administration, navigate to
+                <strong>Web Applications</strong> &gt;
+                <strong>%affected_web_application%</strong> &gt; <strong>User Permissions</strong>,
+                and verify the security settings. The minimum required permissions are
+                <strong>Manage Web Site</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Cause #3 − This error could be caused by the account running SharePoint service or
+                SharePoint WebApplication Pool removed from the AD domain but left in the service
+                accounts portion of SharePoint. Remove this account from SharePoint service
+                accounts, or join it back to the domain.
+              </p>
+            </li>
+            <li>
+              <p>
+                Cause #4 − Verify the Administration URL − Edit the Item URL via
+                <strong>Monitoring Plans</strong> &gt; select %SharePoint_plan% &gt;
+                <strong>Edit</strong> &gt; select the item and click <strong>Edit item</strong> &gt;
+                modify the SharePoint Central Administration URL &gt; click
+                <strong>Save &amp; Close</strong>.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Learn more on management of the SharePoint site lock status via PowerShell in
+            <a
+              href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+              target="_blank"
+              >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status for
+              Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://learn.microsoft.com/en-us/sharepoint/sites/manage-the-lock-status-for-site-collections#manage-the-lock-status-for-a-site-collection-by-using-microsoft-powershell"
+                  target="_blank"
+                  >Manage Lock Status for Site Collections in SharePoint Server − Manage Lock Status
+                  for Site Collection via Microsoft PowerShell ⸱ Microsoft 🡥</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

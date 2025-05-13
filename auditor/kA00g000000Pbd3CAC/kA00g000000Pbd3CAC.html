@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>List of all Netwrix Auditor .exe's</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000Pbd3CAC" />
+    <meta name="Id" content="ka04u000000HcXqAAK" />
+    <meta name="LastPublishedDate" content="2020-05-29T16:38:31.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-05-07T12:57:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="5713" />
+    <meta name="ArticleNumber" content="000003762" />
+    <meta name="description" content="[not provided]" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong
+            >In order to compile a comprehensive list of current .exe's pertaining to the
+            installation of Netwrix Auditor that you have deployed, continue with the following
+            steps:</strong
+          >
+        </p>
+
+        <ul>
+          <li>Launch an Administrative PowerShell session</li>
+          <li>Execute <em>cd 'C:\Program Files (x86)\Netwrix Auditor'</em></li>
+          <li>
+            Execute <em>Get-ChildItem -Recurse -File *.exe |FT Name | Out-File exe_Names.txt</em>
+            <ul>
+              <li>
+                This will compile a list of all .exe's found in the Netwrix Auditor directory and
+                export a .txt file to <em>C:Program Files (x86)Netwrix Auditor</em>
+              </li>
+              <li>Replace <em>*.exe</em> with any other file extension you wish to look for</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p>
+          <strong>Note: </strong>If you are held accountable for keeping this list up-to-date for a
+          company policy or compliance, be sure to run this again after upgrading, as more .exe's
+          may be included or removed in future releases.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

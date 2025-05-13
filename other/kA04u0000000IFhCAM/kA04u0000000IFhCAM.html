@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Delete Large Amounts of Data from SQL</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IFhCAM" />
+    <meta name="Id" content="ka04u000000HcidAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:18:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:18:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6501" />
+    <meta name="ArticleNumber" content="000006501" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Loop deletes to
+          prevent transaction log from filling.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> there are several
+          scenarios in StealthAUDIT where historical data is maintained over a period of time.
+          <br />this can be done using <br />1) native StealthAUDIT History (job properties &gt;
+          storage tab) <br />2) SQL scripting <br /><br />StealthAUDIT native history should loop
+          through native history deletions. <br /><br />This can also be a problem in any SQL
+          analysis that attempts to delete (or even affect) a lot of rows.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              ><strong
+                >how to delete where source date time is older than 6 months from today 10k rows at
+                a time:</strong
+              ></span
+            ></span
+          ><br /><br />You'll need to adjust the tablename and where clause to match your specific
+          use case.  <br />You can increase the 10k to 50k or 100k or 500k etc. as you see fit for
+          the size of the transaction log.  The higher you can get it without filling, the less SQL
+          server has to calculate which rows to delete.  <br /><br /><span
+            >If it's feasible, back up the table before deleting data.   </span
+          >(select * into backupTablename from sourceTableName)<br /><br /><span>Be certain</span>
+          <span>that the where clause is set to delete the correct data </span>by using it in a
+          select statement first.  For example:
+        </p>
+        <div>
+          select min(sourcedatetime) from SA_JobName_TableName WHERE [SourceDateTime] &lt;
+          dateadd(month,-6,GETDATE())
+        </div>
+        <p>
+          or if there's too much data to wait for that, you can run the following to just make sure
+          your date range calculation is correct
+        </p>
+        <div>select dateadd(month,-6,GETDATE())</div>
+        <p>
+          <br /><span
+            >deleteMore:<br />DELETE TOP(10000) SA_JobName_TableName WHERE [SourceDateTime] &lt;
+            dateadd(month,-6,GETDATE())<br />IF @@ROWCOUNT != 0<br />    goto deleteMore</span
+          ><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Module:</span></strong> Database/SQL;SA -
+          Core<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong> 6.3
+          SP2 (core history)<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000001132
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

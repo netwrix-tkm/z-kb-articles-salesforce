@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Remote service control manager connection timout</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9WPCA0" />
+    <meta name="Id" content="ka04u000000HcPaAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:47:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:31:26.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="797" />
+    <meta name="ArticleNumber" content="000003216" />
+    <meta
+      name="description"
+      content="Failed to connect to remote service control manager. Error details: The wait operation timed out"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        In the daily summary report sometimes you may see the following error:<br /><span
+          ><strong
+            ><em
+              ><span
+                ><span
+                  ><span
+                    >Failed to process DC %DC name% due to the following error: Failed to connect to
+                    remote service control manager. Error details: The wait operation timed
+                    out.</span
+                  ></span
+                ></span
+              ></em
+            ></strong
+          ></span
+        >
+
+        <hr />
+
+        The product tries to connect to the remote service control manager on the domain controller,
+        but it takes more than 30 seconds. This issue is usually caused by the network connection
+        between the Netwrix host and the target domain controller.<br />Default connection timeout
+        is 30 seconds, and in order to increase this value please perform the following steps:
+        <ol>
+          <li>
+            Run regedit, and navigate to the following key:
+            HKEY_LOCAL_MACHINESOFTWAREWow6432NodeNetWrixAD Change Reporter
+          </li>
+          <li>
+            Create a new DWORD key with the following name:
+            <span
+              ><span><span>SvcMaxWaitTime</span></span></span
+            >
+          </li>
+          <li>Set decimal value in seconds more than 30 e.g. 60 or 120</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

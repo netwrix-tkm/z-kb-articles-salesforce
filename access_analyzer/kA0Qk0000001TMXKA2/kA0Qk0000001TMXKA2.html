@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Opening a Ticket</title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001TMXKA2" />
+    <meta name="Id" content="ka0Qk000000C8rRIAS" />
+    <meta name="LastPublishedDate" content="2025-02-18T21:27:56.000+0000" />
+    <meta name="LastModifiedDate" content="2025-02-18T21:27:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-27T09:18:43.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9292" />
+    <meta name="ArticleNumber" content="000009292" />
+    <meta name="description" content="Opening a Ticket" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="ovrw">Overview</h2>
+        <p>
+          This article provides guidance on collecting logs and other relevant information when
+          submitting a support ticket for Netwrix Enterprise Auditor (NEA), formerly StealthAUDIT.
+        </p>
+        <h2 id="instructions">Instructions</h2>
+        <p>
+          Follow the steps below to gather the necessary logs and details required for
+          troubleshooting your NEA instance.
+        </p>
+        <h4 id="logs">Logs</h4>
+        <div>
+          <p>Follow these steps to gather logs:</p>
+          <ul>
+            <li>
+              <p>
+                Depending on your current <strong>AIC</strong> version, refer to one of the
+                following default paths:
+              </p>
+              <ul>
+                <li>
+                  <p>AIC v11.5:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\inetpub\wwwroot\StealthAUDIT Compliance\</code></pre>
+                </li>
+                <li>
+                  <p>AIC v11.6:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">C:\Program Files\STEALTHbits\Access Information Center</code></pre>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Navigate to the following path to collect the <strong>NEA Console logs</strong>:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%SADatabase\Logs\Application</code></pre>
+            </li>
+            <li>
+              <p>Gather the <strong>Published Reports logs</strong> from the following path:</p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%SAInstallDir%SADatabase\Logs\Web</code></pre>
+            </li>
+            <li>
+              <p>Collect the <strong>job logs</strong> using one of the following methods:</p>
+              <ul>
+                <li>
+                  <p>
+                    On the home page of the job, click <strong>View Log</strong>, and save the log
+                    file.
+                  </p>
+                  <div>
+                    <img
+                      height="511"
+                      src="kA0Qk0000001TMXKA2_c69b42c0-4982-4c73-90c7-da95a48e91a1.png"
+                      width="801"
+                    />
+                  </div>
+                </li>
+                <li>
+                  <p>Locate the <strong>job logs</strong> using the following path:</p>
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">%SAInstallDir%Jobs\%GROUP%\%JOB%\OUTPUT</code></pre>
+                  <blockquote class="note">
+                    <strong>NOTE:</strong> Replace <code>%GROUP%</code> and <code>%JOB%</code> with
+                    the appropriate values. For example, to locate logs for the
+                    <code>1-AD_Scan</code> job, use the following path:
+                    <pre
+                      class="has-inner-focus"
+                    ><code class="lang-Registry">%SAInstallDir%\Jobs\GROUP_.Active Directory Inventory\JOB_1-AD_Scan\OUTPUT</code></pre>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Navigation Pane</strong>, right-click the job and select
+                    <strong>Export</strong>. In the new window, specify the components to export and
+                    proceed with the export.
+                  </p>
+                  <div>
+                    <img
+                      height="244"
+                      src="kA0Qk0000001TMXKA2_8a9b2805-adb2-49d1-8c70-d327fce4b003.png"
+                      width="300"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <h2 id="msgTBL">Messages Table</h2>
+        <div>
+          <p>
+            To export job errors and warnings from the <strong>Messages table</strong>, proceed to
+            the <strong>Navigation Pane</strong>, right-click
+            <strong>%JOB%</strong>\<strong>Status</strong>\<strong>Messages</strong> and select
+            <strong>Export</strong> &gt; <strong>Export to XML</strong>.
+          </p>
+        </div>
+        <h2 id="NEAbuild">Product Build Number</h2>
+        <div>
+          <blockquote class="important">
+            <strong>IMPORTANT:</strong> Identifying your current NEA build helps determine whether
+            the issue has already been addressed in a newer version. Follow the steps below to
+            establish the build number in your NEA instance.
+          </blockquote>
+          <ul>
+            <li>
+              <p>In NEA v11.5:</p>
+              <ul>
+                <li>
+                  <p>
+                    In <strong>Control Panel</strong>, open the
+                    <strong>Programs and Features</strong> menu. Locate the NEA line and review the
+                    <strong>Version</strong> column value.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Apps &amp; Features</strong> menu, highlight the NEA entry and
+                    review the version.
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>In NEA v11.6:</p>
+              <ul>
+                <li>
+                  <p>
+                    Navigate to <strong>Help</strong> &gt; <strong>About</strong> in the top
+                    toolbar.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

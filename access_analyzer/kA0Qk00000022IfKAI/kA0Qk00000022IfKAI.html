@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Manually Setting Up Entra ID Auditing for Netwrix Enterprise Auditor</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk00000022IfKAI" />
+    <meta name="Id" content="ka0Qk000000ConRIAS" />
+    <meta name="LastPublishedDate" content="2025-03-05T17:42:38.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-14T18:35:58.000+0000" />
+    <meta name="FirstPublishedDate" content="2025-03-05T17:42:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9409" />
+    <meta name="ArticleNumber" content="000009409" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            How do I set up Entra ID Auditing without using the
+            <code>AZ_RegisterAzureAppAuth</code> instant job?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            While it is always recommended to use the <code>AZ_RegisterAzureAppAuth</code> instant
+            job to set up the Entra app for auditing, it can be done manually if necessary (e.g.,
+            when MFA cannot be temporarily disabled for a Global Admin account).
+          </p>
+        </div>
+        <h4 id="entra_id_inventory_scans_entra_id_reports">
+          Entra ID Inventory Scans &amp; Entra ID Reports
+        </h4>
+        <div>
+          <ol>
+            <li>
+              <p>
+                Open the
+                <a
+                  href="https://entra.microsoft.com/#home"
+                  title="Entra Admin Center"
+                  target="_blank"
+                  >Microsoft Entra admin center</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Navigate to <strong>Identity &gt; Applications &gt; App registrations</strong> and
+                select <strong>+ New registration</strong>.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_34306865-82fb-48cb-8596-c42b069e3152.png"
+                alt=""
+                width="764"
+                height="521"
+              /><br /><br />
+            </li>
+            <li>
+              <p>On the <strong>Register an application</strong> page, set the following:</p>
+              <ul>
+                <li>
+                  <strong>Name:</strong> Something meaningful, e.g., <code>NEA_EntraID</code>.
+                </li>
+                <li>
+                  <strong>Support account types:</strong> Accounts in this org. directory only.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                From the <strong>Application Overview</strong> page, navigate to
+                <strong>Manage &gt; API Permissions</strong> and select
+                <strong>Add a permission</strong>.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_eb008ffe-8a6f-450a-8d5e-14459e600146.png"
+                alt=""
+                width="764"
+                height="363"
+              />
+               <br /><br />
+            </li>
+            <li>
+              <p>
+                From the <strong>Request API permissions</strong> page, select
+                <strong>Microsoft Graph</strong>.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_ee840439-2e41-4836-835f-3d1465653492.png"
+                alt=""
+                width="764"
+                height="468"
+              />
+               <br />
+              <ul>
+                <li>
+                  Add the following <strong>Delegated Permissions</strong>:
+                  <ul>
+                    <li><code>Group.Read.All</code> – Read all groups</li>
+                    <li><code>User.Read.All</code> – Read all users' full profiles</li>
+                  </ul>
+                </li>
+                <li>
+                  Add the following <strong>Application Permissions</strong>:
+                  <ul>
+                    <li><code>AuditLog.Read.All</code> – Read all audit log data</li>
+                    <li><code>Directory.Read.All</code> – Read directory data</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After adding the aforementioned permissions, grant them admin consent by selecting
+                <strong>Grant admin consent for {TENANT NAME}</strong>.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_60e09f04-e2e2-4b7f-91b2-309a55f9256f.png"
+                alt=""
+                width="764"
+                height="363"
+              /> <br /><br />
+            </li>
+            <li>
+              <p>
+                Navigate to the Entra app registration and on the
+                <strong>Certificates &amp; secrets</strong> page, select
+                <strong>+ New client secret</strong>.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_8daf638f-c2f2-4032-b1eb-29d40a894ec3.png"
+                alt=""
+                width="764"
+                height="397"
+              /> <br /><br />
+            </li>
+            <li>
+              <p>On the <strong>Add a client secret</strong> page, add the following:</p>
+              <ul>
+                <li>
+                  <strong>Description:</strong> Something meaningful, e.g.,
+                  <code>NEA Entra ID</code>.
+                </li>
+                <li>
+                  <strong>Expires:</strong> Usually recommended to set this to the longest option OR
+                  per the organization’s internal certificate expiration timeframe.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                After creating the client secret, copy the secret <strong>Value</strong> to a
+                notepad.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_ea6785f7-851a-4524-8767-3973acd9bba0.png"
+                alt=""
+                width="764"
+                height="407"
+              /> <br /><br />
+            </li>
+            <li>
+              <p>
+                Next, navigate to the <strong>Overview</strong> tab and copy the
+                <strong>Application (client) ID</strong> which is needed for the NEA Connection
+                Profile.
+              </p>
+              <img
+                src="kA0Qk00000022IfKAI_2bf28194-ef51-40ba-bf7e-3030b46cb83f.png"
+                alt=""
+                width="764"
+                height="217"
+              />
+               
+            </li>
+          </ol>
+        </div>
+        <p> </p>
+        <h4 id="nea_connection_profile">NEA Connection Profile</h4>
+        <div>
+          <ol>
+            <li>
+              <p>
+                In NEA, navigate to <strong>Global Options &gt; Connection</strong> and create a
+                connection profile with the same name as the Entra app registration, using the
+                following:
+              </p>
+              <ul>
+                <li><strong>Account Type:</strong> Azure Active Directory</li>
+                <li>
+                  <strong>Client ID:</strong> Application (client) ID from Entra App Registration
+                </li>
+                <li><strong>Key:</strong> Secret Value</li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Create a host list with the Entra site, e.g.,
+                <a
+                  href="https://nwxsupport.sharepoint.com/"
+                  title="NWXSUPPORT.ONMICROSOFT.COM"
+                  target="_blank"
+                  >NWXSUPPORT.ONMICROSOFT.COM</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>Set the Entra ID Inventory job group to run against the Entra host list.</p>
+            </li>
+            <li>
+              <p>Set the Entra ID Inventory job group to use the Entra Connection Profile.</p>
+            </li>
+            <li>
+              <p>
+                Schedule the Entra ID Inventory job group to run every day, or at least before the
+                Entra ID job group.
+              </p>
+              <blockquote>
+                <p>
+                  <span class="Note"><strong>NOTE: </strong></span>This job is also required in
+                  order to run Exchange Online &amp; SharePoint Online modules.
+                </p>
+              </blockquote>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

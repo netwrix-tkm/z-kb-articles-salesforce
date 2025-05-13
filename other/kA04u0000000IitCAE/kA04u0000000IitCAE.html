@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SharePoint scans are being throttled by Microsoft - Error 429, Error 503</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IitCAE" />
+    <meta name="Id" content="ka04u000000HcuPAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:54:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:22.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:54:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8028" />
+    <meta name="ArticleNumber" content="000008028" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SharePoint Online
+          scans are being throttled by Microsoft, as a result we have enhanced SPAA to use
+          'exponential back-off' to avoid SharePoint Online throttling.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    >Title: SharePoint scans are being throttled by Microsoft - Error 429, Error
+                    503</span
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Summary: </span></strong> SharePoint Online scans are being throttled
+                by Microsoft, as a result we have enhanced SPAA to use 'exponential back-off' to
+                avoid SharePoint Online throttling.
+              </span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    >Before Fix: SPO scans will be throttled if you send a lot of requests at
+                    once.</span
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>After fix: </span></strong
+                ><span
+                  ><span
+                    ><span
+                      ><span
+                        ><span
+                          >SPAA can recognize that a throttle is going to be hit and leverage the
+                          exponential backoff technique to avoid hitting a throttle.</span
+                        ></span
+                      ></span
+                    ></span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Submitted by: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span>Christopher Nieves          </span></span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Versions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>9.0</span></span></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Module:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span><span>SA - DC - SPAA</span></span></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><strong><span>Dev Ticket:</span></strong></span
+              ></span
+            ></span
+          >
+        </p>
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span><span>SAFS-16792</span></span></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version:</span></strong></span
+            ></span
+          ></span
+        >
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><span class="MsoSubtleEmphasis"
+                    ><span>SPAA build                                  9.0.0.822</span></span
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><strong><span>KB Type: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span class="MsoSubtleEmphasis"><span>                Hotfix</span></span></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>YouTrack/Escalations</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>-              SAFS-16792</span></strong></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><strong><span>Customers</span></strong></span
+          ></span
+        ><br /><span
+          ><span
+            ><strong
+              ><span>-              Thorogood, Fairfax County Government, NY Jets</span></strong
+            ></span
+          ></span
+        ><br /><br /><span
+          ><span
+            ><span><b>Comments:</b></span></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >In the logs look for error codes 429, 500 and/or 503 - these will appear first
+                  followed by 401 errors due to our session being blocked completely via the
+                  throttle mechanism. In the event that we are still being throttled after updating
+                  the customer's build then you should reduce the thread allocation on the
+                  job.</span
+                ></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong
+                ><span
+                  >To do this navigate to the PrivateAssemblies folder and open up the
+                  Stealthbits.StealthAUDIT.DataCollectors.SPAA.Common.dll file and change the
+                  "MaxScanThreadsPerHost" setting to a lower number. By default this is set to 8, I
+                  would recommend trying 6 or 4 threads in the event of further throttling.
+                </span></strong
+              ></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><img
+                src="kA04u0000000IitCAE_e43f05c2-71f8-424b-a343-3f6493c50eb7.png" /></span></span></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Instructions:</span></strong></span
+            ></span
+          ></span
+        >
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><b
+                    ><span
+                      ><span
+                        >Unblock the hotfix zip file in the windows property dialog, if an unblock
+                        button exists there. </span
+                      ></span
+                    ></b
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Close all instances of StealthAUDIT (check task manager under processes for all
+                  users)</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span>Update all DC files in your %SAInstallDir%DC folder</span></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies
+                      folder.</span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span>Update all Agent files in your %SAInstallDir%Agent folder</span></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Instructions:</span></strong></span
+              ></span
+            ></span
+          >
+        </p>
+        <ol>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><b
+                    ><span
+                      ><span
+                        >Unblock the hotfix zip file in the windows property dialog, if an unblock
+                        button exists there. </span
+                      ></span
+                    ></b
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Close all instances of StealthAUDIT (check task manager under processes for all
+                  users)</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span>Update all DC files in your %SAInstallDir%DC folder</span></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span
+                      >Update all PrivateAssemblies in your %SAInstallDir%PrivateAssemblies
+                      folder.</span
+                    ></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  ><strong
+                    ><span>Update all Agent files in your %SAInstallDir%Agent folder</span></strong
+                  ></span
+                ></span
+              ></span
+            >
+          </li>
+        </ol>
+        Hotfix KB: <a
+          href="https://na103.salesforce.com/articles/General/Hotfix-SA-9-0-030"
+          target="_blank"
+          >https://na103.salesforce.com/articles/General/Hotfix-SA-9-0-030</a
+        >
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - DC - SPAA - Activity;SA - DC - SPAA - Permissions;SA - DC - SPAA - Sensitive Data<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          9.0<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAFS-16792<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          SPAA build 9.0.0.822<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2552<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

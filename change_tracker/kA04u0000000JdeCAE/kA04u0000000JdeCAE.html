@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Export a Collection from MongoDB</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="change_tracker" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JdeCAE" />
+    <meta name="Id" content="ka04u000000HdAkAAK" />
+    <meta name="LastPublishedDate" content="2022-06-29T14:14:44.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:18:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:55:02.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8269" />
+    <meta name="ArticleNumber" content="000008269" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          This article is for when you need to export/backup specific collections from MongoDB. In
+          some cases. Exporting a collection may be useful to send over to Development when you've
+          investigated a problem lies within MongoDB.
+        </p>
+        <h2 id="HowtoExportaCollectionfromMongoDB-Step-by-stepguide">Step-by-step guide</h2>
+        <ol>
+          <li>
+            First access the Hub machine and determine where MongoDB is installed. Default location
+            is:<strong>C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB</strong>
+          </li>
+          <li>
+            To view collections, Open Command Prompt as Admininistrator and Change Directory to the
+            <strong>"bin"</strong> folder in MongoDB
+          </li>
+          <li>
+            <strong>cd C:\Program Files\NNT Change Tracker Suite\Gen7\MongoDB\bin</strong> (If
+            needed to change drives, enter the command<strong>X:</strong>, replace X with your Drive
+            Letter)
+          </li>
+          <li>Next enter the following command to enter Mongo:</li>
+          <li>
+            <strong>.\mongo.exe<br /></strong>
+          </li>
+          <li>
+            Enter the following command: <strong>show dbs<br /></strong>
+          </li>
+          <li>
+            Next, enter: <strong>use NNTHubService<br /></strong>
+          </li>
+          <li>
+            Enter command:
+            <strong
+              >show collections<br /><span
+                class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+                ><img
+                  class="confluence-embedded-image"
+                  height="400"
+                  src="kA04u0000000JdeCAE_c23288fc-3441-4533-a92e-8d79e40a2ac7.png" /></span
+              ><br /><br
+            /></strong>
+          </li>
+          <li>
+            Once this is completed, you will be able to see all collections located in MongoDB.
+          </li>
+          <li>Enter the following: <strong>exit</strong></li>
+          <li>
+            To export a collection, enter the following command (Edit according to what is needed)
+          </li>
+          <li>
+            <strong
+              >mongodump -d NNTHubService -c <span>ENTER-COLLECTION-NAME</span> -o
+              <span>"C:\ENTER PATH HERE"</span></strong
+            >
+          </li>
+          <li>
+            In the <strong>"ENTER-COLLECTION-NAME"</strong> field, enter the collection you wish to
+            export.
+          </li>
+          <li>
+            In the <strong>"C:\ENTER-PATH-HERE"</strong> field, enter path you wish to export to.<br /><span
+              class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+              ><img
+                class="confluence-embedded-image"
+                height="400"
+                src="kA04u0000000JdeCAE_ca9b30d0-a13f-480b-900a-05e243f4b655.png"
+            /></span>
+          </li>
+        </ol>
+        <p><br /></p>
+        <div
+          class="confluence-information-macro confluence-information-macro-information conf-macro output-block"
+        >
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">
+          </span>
+          <div class="confluence-information-macro-body">
+            <p>The following below is a list of All collections in MongoDB:</p>
+            <p>
+              <span
+                >AgentTaskQueue, AgentTasks, BackgroundTaskQueue, BackgroundTasks, Counters,
+                DefaultFilters, EventStats, Events, Hashes, HubBackups, HubConfigData,</span
+              >
+            </p>
+            <p>
+              <span>
+                IncomingEventQueue, IpAddressActivity, Licensing, NotificationQueue, Organizations,
+                PendingNotifications, PerformanceData, PlannedChangeDefinitons,
+                PlannedChangeInstances,
+              </span>
+            </p>
+            <p>
+              <span
+                >Policy, RemoteCredentials, SavedUserData, Scheduled Policy, Sequences,
+                SystemDirectory, UserAuth, UserAuthDetails, UserRoles, fs.chunks, fs.files</span
+              >
+            </p>
+          </div>
+        </div>
+        <h2 id="HowtoExportaCollectionfromMongoDB-Relatedarticles">Related articles</h2>
+        <p />
+        <p></p>
+        <ul class="content-by-label conf-macro output-block">
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8150" target="_blank"
+                >How to Backup / Restore / Move your MongoDB Database</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8282" target="_blank"
+                >Monitoring Oracle Databases using Change Tracker</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8283" target="_blank"
+                >How to move your Linux Server MongoDB Database to a Windows server?</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8164" target="_blank"
+                >How to Add Palo Alto Device to a Proxy Agent as a Proxy Device in Change Tracker
+                Gen7</a
+              >
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page"
+                >Page:</span
+              >
+            </div>
+
+            <div class="details">
+              <a href="https://kb.netwrix.com/8311" target="_blank"
+                >Vulnerability Tracker - How to Change a Task's Status through the GSM Database</a
+              >
+            </div>
+          </li>
+        </ul>
+        <p><br /></p>
+        <p><br /></p>
+        <br /><b>Attachments:</b><br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKXW&amp;d=%2Fa%2F4u000000Lzil%2FNXwayDGS5wLR8Zo291IHw99VnNO_UlhICuzbuoFE1sw&amp;asPdf=false"
+          target="_blank"
+          >6.PNG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKVy&amp;d=%2Fa%2F4u000000M02u%2Fd.J5dhW7bPuaUUTqK95NfIu.JhLbtwEB0kgGFT7pUwo&amp;asPdf=false"
+          target="_blank"
+          >5.PNG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKRY&amp;d=%2Fa%2F4u000000M03v%2F_fJ4Wuc40KeZ_J_.DSqy4t_iUr2Biqkr7YZ1gfAZIz0&amp;asPdf=false"
+          target="_blank"
+          >4.PNG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKYN&amp;d=%2Fa%2F4u000000LzOS%2Fw6cBqlLNTj2OWnVOzgyypD9mvLCGJxT.sKm7d18JbXk&amp;asPdf=false"
+          target="_blank"
+          >3.PNG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKYS&amp;d=%2Fa%2F4u000000LzyJ%2FAUJnAS9x.yj.eaEmL6WxbL7R5cMNVXagPc_iZo_nK8o&amp;asPdf=false"
+          target="_blank"
+          >2.PNG</a
+        >
+        <br /><a
+          href="https://nwxcorp--c.na147.content.force.com/sfc/dist/version/download/?oid=00D7000000091pB&amp;ids=0684u00000LdKWN&amp;d=%2Fa%2F4u000000Lzhx%2Fo9L72Rtcif5BBvxyI_ZyXfDQpopFiNF3UMa4TjENbgM&amp;asPdf=false"
+          target="_blank"
+          >1.PNG</a
+        >
+        <br />
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Configure Audit Policies in Domain Controllers</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000011196CAA" />
+    <meta name="Id" content="ka0Qk0000001i3pIAA" />
+    <meta name="LastPublishedDate" content="2023-09-05T11:25:56.000+0000" />
+    <meta name="LastModifiedDate" content="2024-02-06T14:16:02.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-04T12:58:32.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8781" />
+    <meta name="ArticleNumber" content="000008781" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the EventID 1016: Unable to Configure Audit Policies on Domain Controllers"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            When trying to create a monitoring plan for Windows Servers explicitely for Domain
+            Controllers, the following error appears:
+          </p>
+
+          <pre class="has-inner-focus">
+Event ID:1016: Unable to configure the following audit policies on this computer because it is a domain controller.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            Netwrix Auditor configures target servers for auditing by applying local audit policies
+            that can be overwritten by domain (group) policies. Domain Controllers do not have local
+            policies that makes it difficult for the product to configure audit automatically.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Open the <b>Group Policies</b> snap-in on the target Domain Controller and configure
+            audit policies.
+          </p>
+
+          <p>
+            For the full list of audit policies to be configured, refer to the following article:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/LocalPolicy.htm#configuration_via_group_policy"
+              target="_blank"
+              >Windows Server Configuration — Configuration via Group Policy · v10.6</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

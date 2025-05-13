@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>StealthAUDIT Database Space Issues</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000ILKCA2" />
+    <meta name="Id" content="ka04u000000HckzAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:16:25.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:48.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:16:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6446" />
+    <meta name="ArticleNumber" content="000006446" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> StealthAUDIT can fill
+          up a database or database transaction log.  It can be difficult to detect what jobs were
+          running during this time.  The below scripts will help find what jobs were running and if
+          there were any changes to run times.
+        </p>
+        <p> </p>
+        <p>--confirm SQL Version and Edition <br />select @@version</p>
+        <p> </p>
+        <p>
+          --get list of all jobs that have run <br />select distinct jobName from SA_JobStatsTbl
+        </p>
+        <p> </p>
+        <p>--Find Job that detected the issue</p>
+        <p>
+          --search for any messages indicating fullness (e.g., full transaction log, full tempdb).
+          <br />--If you have a guess for which job caused the error, add it as a filter.
+        </p>
+        <p>
+          --gather the task or query that was running as part of the job in order to isolate likely
+          issue
+        </p>
+        <p>
+          select top 100<br />JobRunTimeKey, <br />MessagetimeStamp, <br />JobName, <br />TableName,
+          <br />TaskName, <br />[Message] <br />from dbo.SA_Messages with(nolock) <br />where
+          message like '%full%'
+        </p>
+        <p>--You may need to add some additional filters</p>
+        <p>and message not like '%FullPath%'<br />and message not like '%full ADI%'</p>
+        <p>order by MessageTimeStamp desc</p>
+        <p> </p>
+        <p>
+          --Get detailed historical information about latest and previous runs of problematic jobs
+          to understand if anything may have changed recently <br />select * from SA_JobStatsTbl
+          <br />where JobName in ('AD_DuplicateUsers', 'AD_GroupPolicy') <br />order by
+          JobRunTimeKey
+        </p>
+        <p> </p>
+        <p>
+          --Get detailed historical information about latest and previous runs of problematic jobs
+          and tasks to understand if anything may have changed recently <br />select * <br />from
+          SA_JobTaskStatsTbl <br />where JobName in ('AD_DuplicateUsers', 'AD_GroupPolicy')
+          <br />order by StartTime
+        </p>
+        <p> </p>
+        <p>--Identify what jobs were running</p>
+        <p>
+          --Find other jobs that were running at the same time.  It is possible that multiple jobs
+          were utilizing the tempdb\ transaction log at the same time or that two jobs interfered
+          with each other 
+        </p>
+        <p>--You will need to update the start and end times from the script above</p>
+        <p>Declare @starttime Smalldatetime<br />Declare @Endtime Smalldatetime</p>
+        <p> </p>
+        <p>Set @starttime = '2020-12-31 11:33:00'<br />Set @Endtime = '2020-12-31 12:33:34.000'</p>
+        <p> </p>
+        <p>
+          select * from SA_JobStatsTbl <br />where <br />--Job started before our job
+          <br />([JobRunTimeKey] and [EndTime] &gt;= @starttime)<br />--Job started during our
+          job<br />OR<br />([JobRunTimeKey] &gt;= @starttime<br />and [JobRunTimeKey]
+        </p>
+        <p> </p>
+        <p> </p>
+      </div>
+    </article>
+  </body>
+</html>

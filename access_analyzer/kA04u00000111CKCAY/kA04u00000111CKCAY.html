@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Logs Not Clearing Automatically — Insufficient Space in StealthAUDIT Console Drive
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000111CKCAY" />
+    <meta name="Id" content="ka04u00000117riAAA" />
+    <meta name="LastPublishedDate" content="2023-09-11T11:55:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-20T07:26:38.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-11T11:55:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8800" />
+    <meta name="ArticleNumber" content="000008800" />
+    <meta
+      name="description"
+      content="Logs Not Clearing Automatically — Insufficient Space in StealthAUDIT Console Drive"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Insufficient space in the StealthAUDIT console drive.</p>
+            </li>
+            <li>
+              <p>
+                StealthAUDIT FSAA logs consume a large portion of disk space. For additional
+                information on StealthAUDIT logs, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000IvcCAE.html"
+                  target="_self"
+                  >StealthAUDIT Logs</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>FSAA logs are not clearing up automatically.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Download the Log Maintenance job group attached to the article, and add it to
+                StealthAUDIT.
+              </p>
+
+              <blockquote>
+                <p>
+                  <span><strong>NOTE: </strong></span>It is recommended to add the job group to the
+                  Sandbox folder, if available.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                Set the target host list for the job group to match the location of the FSAA logs to
+                be cleared (e.g., either localhost or the FSAA proxies).
+              </p>
+            </li>
+            <li>
+              <p>
+                In the <strong>1- LogCleanup</strong> job, configure the query to the FSAA location.
+                If StealthAUDIT or proxies are using different paths, job query will need to be run
+                separately against StealthAUDIT and proxies, modifying the query accordingly
+                depending on host target.
+              </p>
+
+              <div>
+                <img
+                  alt="image001.png"
+                  height="538"
+                  src="kA04u00000111CKCAY_9133235a-e9ef-4b23-81db-aadb0ef8a926.png"
+                  width="600"
+                />
+              </div>
+            </li>
+            <li>
+              <p>
+                <strong>Optional</strong>. In the <strong>1-LogCleanup</strong> job homepage,
+                configure the
+                <strong>How many days of logs to keep from being removed</strong> setting. The
+                default settings is 7 days.
+              </p>
+
+              <div>
+                <img
+                  alt="image003.png"
+                  height="117"
+                  src="kA04u00000111CKCAY_50c77fe6-5a75-4bf4-a7ec-eabb97d194b0.png"
+                  width="449"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="attached_files">Attached files</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://dl.netwrix.com/products/utilities/SA_Log_Maintenance.zip"
+              target="_blank"
+              >Log Maintenance job group</a
+            >
+          </p>
+        </div>
+
+        <h4 id="related_articles">Related articles</h4>
+
+        <div>
+          <p>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/z-kb-articles-salesforce/page/kA04u0000000IvcCAE.html"
+              target="_self"
+              >StealthAUDIT Logs</a
+            >
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

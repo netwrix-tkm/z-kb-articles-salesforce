@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Create Host list parent container</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IJZCA2" />
+    <meta name="Id" content="ka04u000000HckBAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:22:34.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:22:34.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6580" />
+    <meta name="ArticleNumber" content="000006580" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Create Host list
+          parent container with existing or newly created empty child host list
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              >Currently in the StealthAUDIT console GUI there is no way to create a custom
+              container to use to organize host lists under Host Management. Fortunately this can be
+              achieved using SQL scripting.</span
+            ></span
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span><span>In its simplest form, a parent can be added as follows:</span></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span><span>UPDATE</span></span></span
+              ><span
+                ><span><span> HostListsTbl </span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span><span>set</span></span></span
+              ><span
+                ><span><span> PlacementPath</span></span></span
+              ><span
+                ><span><span>=</span></span></span
+              ><span
+                ><span><span>'My New Parent List'</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span><span>WHERE</span></span></span
+              >
+              <span
+                ><span><span>Name</span></span></span
+              ><span
+                ><span><span>=</span></span></span
+              ><span
+                ><span><span>'My Child List'</span></span></span
+              >
+              <span
+                ><span><span>AND</span></span></span
+              ><span
+                ><span><span> SA_Node</span></span></span
+              ><span
+                ><span><span>=</span></span></span
+              ><span
+                ><span><span>'SAHOSTNAME'</span></span></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              >Then either start StealthAUDIT to see the results, or use the "Refresh List" option
+              to see the new nesting:</span
+            ></span
+          ><br /><img
+            src="kA04u0000000IJZCA2_7b4ed3a3-d3e0-4700-a633-c62c8c1dcfad.png"
+            alt="mceclip0.png"
+          /><br /><span
+            ><span><span>After Refresh:</span></span></span
+          ><br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

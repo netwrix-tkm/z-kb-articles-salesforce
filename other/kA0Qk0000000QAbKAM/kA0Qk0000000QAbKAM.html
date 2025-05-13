@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Enable Extended (Debug) Logs</title><meta name="label" content="employees_v"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA0Qk0000000QAbKAM"/><meta name="Id" content="ka0Qk0000001gI9IAI"/><meta name="LastPublishedDate" content="2024-01-30T13:28:48.000+0000"/><meta name="LastModifiedDate" content="2024-02-05T08:39:28.000+0000"/><meta name="FirstPublishedDate" content="2024-01-30T13:28:48.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="9032"/><meta name="ArticleNumber" content="000009032"/><meta name="description" content="Enable Extended (Debug) Logs"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="question">Question</h2>
+
+<div>
+<p>How to enable extended (debug) logs in a Netwrix Password Policy Enforcer client or server installation?</p>
+</div>
+
+<h2 id="answer">Answer</h2>
+
+<div>
+<ol><li>
+	<p>Create a <code>.reg</code> file and paste the following lines:</p>
+
+	<pre class="has-inner-focus"><code class="lang-Registry">Windows Registry Editor Version 5.00
+            
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\ANIXIS\Password Policy Enforcer]
+"DebugModeEnable"=dword:00000001</code></pre>
+
+	<p>The <code>.reg</code> file will later be used to create a <code>DWORD</code> <code>DebugModeEnable</code> entry with the value of 1 in the <code>Password Policy Enforcer</code> subkey.</p>
+	</li><li>
+	<p>Open the resulting <code>.reg</code> file to add the new entry to the <code>Password Policy Enforcer</code> subkey. Confirm the addition by clicking <strong>Yes</strong>.</p>
+	</li><li>
+	<p>Reboot the server for changes to apply.</p>
+	</li><li>
+	<p>The <code>ppclt_debug.txt</code> log file will be created in <code>C:\</code>.</p>
+	</li></ol>
+
+<blockquote>
+<p><span><strong>IMPORTANT: </strong></span>Once the troubleshooting phase is over, make sure to delete the <code>DebugModeEnable</code> entry in <code>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\ANIXIS\Password Policy Enforcer</code>. Otherwise, the extended log may take up a significant space in your hard drive.</p>
+</blockquote>
+</div></div>
+</article></body></html>

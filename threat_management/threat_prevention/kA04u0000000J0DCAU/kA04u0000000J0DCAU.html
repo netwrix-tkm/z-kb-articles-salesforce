@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Duplicate StealthINTERCEPT Windows agent entries in the StealthINTERCEPT Admin Console</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000J0DCAU"/><meta name="Id" content="ka04u000000Hd0EAAS"/><meta name="LastPublishedDate" content="2022-02-22T13:30:13.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:13:13.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:46:14.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7419"/><meta name="ArticleNumber" content="000007419"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary:</strong> Basic steps to remove duplicate StealthINTERCEPT Windows agent  entries</p>
+
+<p> </p>
+
+<p><strong>Issue: </strong>Remove duplicate StealthINTERCEPT Windows agent entries in StealthINTERCEPT Admin Console</p>
+
+<p> </p>
+
+<p><strong>Instructions: </strong></p>
+
+<p>StealthINTERCEPT Admin Console duplicate StealthINTERCEPT Windows agent entries steps -</p>
+
+<ul><li>Open the StealthINTERCEPT Admin console</li><li>Verify duplicate StealthINTERCEPT Windows agent entries in the StealthINTERCEPT Admin console
+	<ul><li>As needed, use the data grid in the agents view to filter the duplicate entries</li><li>As needed, take reference screen shot of the duplicate entries</li></ul>
+	</li><li>Try to delete duplicate entry using “Remove Server from List” right-click menu option. If this fails then perform the following steps:
+	<ul><li>Exit the StealthINTERCEPT Admin console</li><li>Exit any additional StealthINTERCEPT Admin console sessions</li><li>Temporarily stop the StealthINTERCEPT Scheduler service
+		<ul><li>Stopping the StealthINTERCEPT Scheduler service will also stop the StealthINTERCEPT Reporting service</li></ul>
+		</li><li>Temporarily stop the StealthINTERCEPT Enterprise Manager service</li><li>Query the server table in the nvmonitorconfig database to list all entries</li><li>Referencing duplicate server entries, usually the ‘Name’ and LastMgrContact’ columns, remove duplicate entries in the server table in the nvmonitorconfig database</li><li>Query the server table in the nvmontiorconfig database, and verify duplicate entries are deleted</li><li>Start the StealthINTERCEPT Enterprise Manager service</li><li>Check log entries in the StealthINTERCEPT Enterprise Manager service logs for any errors
+		<ul><li>If there are any errors captured, compress and send the StealthINTERCEPT Enterprise Manager log folder</li></ul>
+		</li><li>Open the StealthINTERCEPT Admin console, and check for duplicate StealthINTERCEPT Windows agent entries </li><li>Start the StealthINTERCEPT Reporting service
+		<ul><li>Starting the StealthINTERCEPT Reporting service will also start the StealthINTERCEPT Scheduler service</li></ul>
+		</li></ul>
+	</li></ul>
+
+<p>Note:  StealthINTERCEPT services need to be stopped to avoid any caching of StealthINTERCEPT Windows agent entries</p>
+
+<p> </p>
+
+<p><strong>Affected Versions:</strong> StealthINTERCEPT 4.0, StealthINTERCEPT 4.1, StealthINTERCEPT 5.0, StealthINTERCEPT 5.1, StealthINTERCEPT 5.2, StealthINTERCEPT 6.0, StealthINTERCEPT 6.1, StealthINTERCEPT 7.0</p>
+
+<p><strong>Affected Module:</strong> StealthINTERCEPT Admin Console</p>
+
+<p><strong>Dev Ticket:</strong> SI-3193</p>
+
+<p><strong>Resolved In Version:</strong>  not applicable</p>
+
+<p><strong>KB Type: </strong>How To</p></div>
+</article></body></html>

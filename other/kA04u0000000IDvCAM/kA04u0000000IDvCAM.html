@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SA_8.1_088</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IDvCAM" />
+    <meta name="Id" content="ka04u000000HchyAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:27:52.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:04:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:27:52.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6921" />
+    <meta name="ArticleNumber" content="000006921" />
+    <meta name="description" content="360012217852" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong>
+          AD_SensitiveSecurityGroups Analysis Task Error
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <strong><span>Summary:  AD_SensitiveSecurityGroups Analysis Task Error</span></strong
+          ><br /><strong><span>Submitted by: </span></strong><br />Justin Giemza<br /><strong
+            ><span>Cumulative List of fixes included since Service Pack:</span></strong
+          ><br /><strong><span>Affected Versions:</span></strong
+          ><br />8.1<br /><strong><span>Affected Module:</span></strong
+          ><br />SA - Solution Set - Active Directory<br /><strong><span>Dev Ticket:</span></strong
+          ><br />SAT-3779/27404<br /><strong><span>Resolved in Version:</span></strong
+          ><br />n/a<br /><strong><span>KB Type: </span></strong>Bug<br /><strong
+            ><span>Issue:</span></strong
+          ><br />When running the AD_SensitiveSecurityGroups job in the customers environment they
+          receive the following error for the Calculate Effective Membership analysis task.<br />Subquery
+          returned more than 1 value. This is not permitted when the subquery follows =,!=,,&gt;= or
+          when the subquery is used as an expression.<br />After running the query in SQL, we were
+          able to determine the error is referring to line 27 of the script<br />SET @DNSAdminSID =
+          (SELECT ObjectSID FROM [dbo].[SA_ADInventory_GroupsView] WHERE [SamAccountName] LIKE '%DNS
+          Admins')<br />This subscript is producing more than one result because they have multiple
+          DNS Admins appearing (multiple domain environment). The current query will need to be
+          altered to take this into account.<br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong> 1. Exit
+          StealthAUDIT<br />2. Copy and replace file in this hotfix to the corresponding folder<br /> 
+             folder paths have been included with this HF. The path that starts with "jobs" needs to
+          be replaced.  The "Instant Solutions" will need to be replaced if the customer deletes the
+          SS and recreates it. <br />3. Restart StealthAUDIT<br /> 
+        </p>
+        <div class="table-wrap">
+          <table count-columns="1" cellspacing="0" cellpadding="0" width="64" border="0">
+            <tbody>
+              <tr height="19">
+                <td colspan="1" rowspan="1" height="19" width="64">
+                  <a
+                    href="https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_088.zip"
+                    target="_blank"
+                    >https://downloads.stealthbits.com/access/files/SAHotFixes/8.1/SA_8.1_088.zip</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Solution Set - Active Directory<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          8.1<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SAT-3779<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2065<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

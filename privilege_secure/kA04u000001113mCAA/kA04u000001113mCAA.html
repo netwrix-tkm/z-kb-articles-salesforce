@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Add Cache Settings for JavaScript Files to Improve NPS Page Load Performance</title><meta name="label" content="privilege_secure"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000001113mCAA"/><meta name="Id" content="ka0Qk0000000zjRIAQ"/><meta name="LastPublishedDate" content="2023-08-23T10:30:39.000+0000"/><meta name="LastModifiedDate" content="2023-12-13T20:51:48.000+0000"/><meta name="FirstPublishedDate" content="2023-08-18T09:35:53.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8746"/><meta name="ArticleNumber" content="000008746"/><meta name="description" content="Add Cache Settings for JavaScript Files to Improve NPS Page Load Performance"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="summary">Summary</h2>
+
+<p>The main ReactJS bundle for the SbPAM Website is 6.5MB. This is sent with the HTTP header <code>Cache-Control: no-cache, no-store</code> This causes SAML Logins to sometimes fail, as downloading the ReactJS module during each login can cause the SAML token cache to expire.</p>
+
+<p>To address this issue, you can create an IIS configuration setting that will update the <code>Cache-Control</code> header for all JavaScript files that are downloaded from the NPS Web Service. This will improve the performance of the website and lower the burden on the webservice.</p>
+
+<h2 id="instructions">Instructions</h2>
+
+<ol><li>
+	<p>On all NPS servers, download and install the Url Rewrite module.</p>
+
+	<p><a href="https://www.iis.net/downloads/microsoft/url-rewrite" target="_blank">https://www.iis.net/downloads/microsoft/url-rewrite</a> </p>
+	</li><li>
+	<p>Navigate to your NPS Web directory (by default, <code>C:\Program Files\Stealthbits\PAM\Web\) </code>and make a copy of the web.config file.</p>
+	</li><li>
+	<p>Open the file <code>C:\Program Files\Stealthbits\PAM\Web\web.config</code> in a text editor. Find this line:</p>
+
+	<pre><code>&lt;system.webServer&gt;
+</code></pre>
+	</li><li>
+	<p>Add the following XML after that line:</p>
+
+	<pre><code>&lt;rewrite&gt;
+   &lt;outboundRules&gt;
+     &lt;rule name="Set cache for JS"&gt;
+       &lt;match serverVariable="RESPONSE_Cache_Control" pattern=".*" /&gt;
+       &lt;conditions&gt;
+         &lt;add input="{REQUEST_URI}" pattern="\.js$" /&gt;
+       &lt;/conditions&gt;
+       &lt;action type="Rewrite" value="max-age=604800"/&gt;
+     &lt;/rule&gt;
+   &lt;/outboundRules&gt;
+ &lt;/rewrite&gt;
+```xml
+</code></pre>
+	</li><li>
+	<p>Save the file</p>
+	</li><li>
+	<p>Launch a PowerShell window and restart IIS using the command:</p>
+
+	<pre><code>iisreset
+</code></pre>
+	</li><li>
+	<p>To verify the file is now cached, open Chrome or Edge and then open the developer tools.</p>
+	</li><li>
+	<p>Open your NPS web page and look at the <code>Network</code> tab in the developer tools Window.</p>
+	</li><li>
+	<p>See the page download:<br/>	<img alt="001.png" src="kA04u000001113mCAA_cd588012-6f52-464a-b0bc-317314fe7bae.png"/></p>
+	</li><li>
+	<p>Reload the page, see it is loaded from the cache:<br/>	<img alt="002.png" src="kA04u000001113mCAA_99410488-354a-4657-9469-bcaf36234864.png"/></p>
+	</li><li>
+	<p>Copy the updated <code>web.config</code> to <code>C:\Program Files\Stealthbits\PAM\Web\web.config.rewrite</code>, you will need this for future upgrades.</p>
+	</li></ol>
+
+<h2 id="user-content-upgrade-notes">Upgrades</h2>
+
+<ol><li>After an upgrade of NPS, you will need to copy the <code>C:\Program Files\Stealthbits\PAM\Web\web.config.rewrite</code> file to <code>C:\Program Files\Stealthbits\PAM\Web\web.config</code> in order to restore the cache settings.</li></ol></div>
+</article></body></html>

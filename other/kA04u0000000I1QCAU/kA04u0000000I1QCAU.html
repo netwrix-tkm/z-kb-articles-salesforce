@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWinConsole_7.0.1.601_SI-4068_SI-4077</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000I1QCAU" />
+    <meta name="Id" content="ka04u000000HcdJAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:20:30.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:00:19.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:20:30.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6564" />
+    <meta name="ArticleNumber" content="000006564" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> SI console warning
+          "Operation Failed: Get AD Subordinates List" Unable to search, "operation failed: get ad
+          subordinates list"
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Summary: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span>SI console warning "Operation Failed: Get AD Subordinates List"</span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>Unable to search, "operation failed: get ad subordinates list"</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Behavior before Fix: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >Process of searching AD objects is the WinConsole Select Objects dialog uses
+                    multiple threads. This is needed because if operation takes more that 1 second
+                    then UI shows progress dialog with possibility to cancel this operation.
+                    Previously the sequence of actions how two threads are communicating allowed
+                    getting of inconsistent values showing the wrong state of the search thread
+                    which can cause in different errors and exceptions.</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Behavior after Fix: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >Now logic in this place changes to set all values before the calling thread
+                    will get signal about child thread completion.</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><b>Changes since Last Hotfix:</b></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><a href="https://stealthbits.myjetbrains.com/youtrack/issue/I-6222" target="_blank"
+                  ><span class="MsoSubtleEmphasis"
+                    ><span
+                      ><span><span>I-6222</span></span></span
+                    ></span
+                  ></a
+                ><span class="MsoSubtleEmphasis"
+                  ><span>
+                    [LINK - AmEx] SI-4068 271 - Unable to search, "operation failed: get ad
+                    subordinates list"</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Submitted by: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Maxim Sidarau   </span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Versions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>7.0.1      SIWinConsole_7.0.1.601_SI-4068_SI-4077</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Module:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>SI - Win Console</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Dev Ticket:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>I-6222</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Resolved in Version:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>7.0.1.601</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>KB Type: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span><b>Modules Included: </b></span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>SI - Win Console</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><b>YouTrack/Escalations: </b
+                ><span class="MsoSubtleEmphasis"><span>SI-4068, SI-4077 / 271,</span></span>
+                <span class="MsoSubtleEmphasis"><span>50363</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><b>Customers:  </b
+                ><span class="MsoSubtleEmphasis"
+                  ><span>American Express Company, Narodowy Bank Polski</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Instructions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>Steps to apply patch for SI Windows Console:</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>1. Close the SI Win Console</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >2. Extract files from attached 'SIWinConsole' folder to the SI Win Console
+                    folder</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>3. Start SI Win Console.</span></span></span
+              ></span
+            ></span
+          ><br /><br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Instructions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>Steps to apply patch for SI Windows Console:</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>1. Close the SI Win Console</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >2. Extract files from attached 'SIWinConsole' folder to the SI Win Console
+                    folder</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>3. Start SI Win Console.</span></span></span
+              ></span
+            ></span
+          ><br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.1/SIWinConsole_7.0.1.601_SI-4068_SI-4077.zip"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.1/SIWinConsole_7.0.1.601_SI-4068_SI-4077.zip</a
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Admin Console<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          7.0.1 SIWinConsole_7.0.1.601_SI-4068_SI-4077<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          I-6222<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          7.0.1.601<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          000002658<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

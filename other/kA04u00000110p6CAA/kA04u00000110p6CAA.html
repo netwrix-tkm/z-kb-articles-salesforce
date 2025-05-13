@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>SAML Assertion not yet Valid</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110p6CAA"/><meta name="Id" content="ka04u00000116Y6AAI"/><meta name="LastPublishedDate" content="2023-07-07T10:18:40.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T10:18:40.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T10:18:40.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8643"/><meta name="ArticleNumber" content="000008643"/><meta name="description" content="SAML Assertion not yet Valid"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+When attempting to log in to Netwrix Privilege Secure for Discovery UI using Active Directory Federation Service (ADFS) as the identity provider, you receive the following error:
+
+<pre>SAML assertion not yet valid</pre>
+
+<h2 id="resolution">Resolution</h2>
+In ADFS add the <code>NotBeforeSkew</code> value to the relying party on the ADFS server. The number after <code>NotBeforeSkew</code> represent the number of minutes to skew the <code>NotBeforeValue</code>, so a setting of 3 would result in a <code>NotBefore</code> of -3 minutes.<br/>This is the PowerShell command to set <code>NotBeforeSkew</code>:
+
+<pre>Set-ADFSRelyingPartyTrust -TargetIdentifier "" -NotBeforeSkew 3"</pre></div>
+</article></body></html>

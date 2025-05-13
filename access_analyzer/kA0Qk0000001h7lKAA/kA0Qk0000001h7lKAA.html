@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: Unable to Find Domain for Member Errors for Expiring Access to Shares</title>
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001h7lKAA" />
+    <meta name="Id" content="ka0Qk000000BuenIAC" />
+    <meta name="LastPublishedDate" content="2024-12-09T18:41:46.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-23T21:15:45.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-09T18:41:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9322" />
+    <meta name="ArticleNumber" content="000009322" />
+    <meta
+      name="description"
+      content="Unable to find domain for member errors for expiring access to shares"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>
+            When a membership is failing to expire, the following error message can be found in the
+            Access Information Center (AIC) debug log file, where [User SID] is the user's SID,
+            yyyy-mm-dd is the date, and hh:mm:ss is the time:
+          </p>
+          <pre
+            class="has-inner-focus"
+          >Unable to find domain for member: [User SID] yyyy-mm-dd hh:mm:ss -- Error -- Type: System.InvalidOperationException yyyy-mm-dd hh:mm:ss <br/>-- Error -- StackTrace: at AccessInformationCenter.Model.Membership.ActiveDirectoryMembership.Execute(StorageDataContext dc, String domainName, <br/>MembershipRequest request) at AccessInformationCenter.Model.Membership.MembershipAction.Execute(StorageDataContext dc, String feature, <br/>String invokerName, String invokerSid, IEnumerable`1 changes, Nullable`1 changeId)</pre>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>
+            This error is caused when a user is granted temporary permissions to a resource, but the
+            user has been deleted prior to the permissions expiring. When the permissions expire,
+            the AIC console continues trying to remove the user but cannot locate the user record.
+          </p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            Set the <strong>ExpirationState</strong> to 2 in the
+            <strong>SA_AIC_ResourceAccessRequests</strong> table for each SID encountering the
+            problem using the command below. This will set the permission state to complete.
+          </p>
+          <pre
+            class="has-inner-focus"
+          ><code class="lang-Registry">Update dbo.SA_AIC_ResourceAccessRequests SET ExpirationState = 2 where UserSID = '{usersid}'</code></pre>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

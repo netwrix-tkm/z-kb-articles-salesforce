@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Netwrix Auditor for Windows Servers: EventID 2007: Could Not Connect to Windows Server Audit
+      Service
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u000001110YCAQ" />
+    <meta name="Id" content="ka04u00000117B3AAI" />
+    <meta name="LastPublishedDate" content="2023-08-16T10:42:40.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-16T10:42:40.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-08T14:47:59.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8719" />
+    <meta name="ArticleNumber" content="000008719" />
+    <meta
+      name="description"
+      content="This article contains resolution steps for the Windows Server EventID 2007."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The Netwrix Auditor for Windows Server Audit Service fails to run on the computer that
+            hosts Netwrix Auditor Server. Upon starting the service, it would immediately stop. Any
+            subsequent attempts to re-start the service would result in the service stopping again
+            within ~10 seconds. For each attempt, the Netwrix Auditor System Health log contains
+            EventID 2007:
+          </p>
+
+          <pre class="has-inner-focus">
+ Could not connect to Windows Server Audit Service. Check if NwWsaHostSvc service is running.</pre
+          >
+        </div>
+
+        <div>
+          <h2 id="cause">Cause</h2>
+
+          <div>
+            <p>This error occurs due to invalid Netwrix Auditor certificate.</p>
+          </div>
+
+          <h2 id="resolution">Resolution</h2>
+
+          <div>
+            <ol>
+              <li>
+                <p>
+                  On the computer that hosts Netwrix Auditor Server, open the
+                  <b>Services</b> snap-in and stop the
+                  <b>Netwrix Auditor for Windows Server</b> service.
+                </p>
+              </li>
+              <li>
+                <p>On the same workstation, open the <b>Microsoft Management Console (MMC)</b>.</p>
+              </li>
+              <li>
+                <p>
+                  Navigate to <b>Add or Remove Snap-ins</b> -&gt; <b>Certificates</b> -&gt;
+                  <b>Computer account</b> -&gt; <b>Local computer</b> -&gt; <b>ok</b> -&gt;
+                  <b>open certificates\Netwrix Auditor for Windows Server</b> -&gt;
+                  <b>Certificates</b>.
+                </p>
+              </li>
+              <li>
+                <p>Remove the <b>Netwrix Auditor</b> certificate.</p>
+              </li>
+              <li>
+                <p>
+                  Start the the <b>Netwrix Auditor for Windows Server</b> service you stopped on the
+                  step 1.
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

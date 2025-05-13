@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>activitymonitor-7.1.234</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="activity_monitor" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001lJRKAY" />
+    <meta name="Id" content="ka0Qk000000BSx3IAG" />
+    <meta name="LastPublishedDate" content="2024-12-05T22:19:10.000+0000" />
+    <meta name="LastModifiedDate" content="2024-12-05T22:19:10.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-05T22:19:10.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9346" />
+    <meta name="ArticleNumber" content="000009346" />
+    <meta name="description" content="activitymonitor-7.1.234" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span>Title: </span></strong>
+        </p>
+        <p>
+          <i><span>activitymonitor-7.1.234</span></i>
+        </p>
+        <p>
+          <strong><span>Summary:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <span class="test-idfield-value"
+              ><i><span>NAM - High CPU and RAM usage during scans</span></i></span
+            >
+          </li>
+          <li>
+            <span class="test-idfield-value"
+              ><i><span>Nasuni Connection Error post-upgrade to NAM v7.1.194</span></i></span
+            >
+          </li>
+          <li>
+            <span class="test-idfield-value"
+              ><i><span>SI - Domain Controller freeze every reboot</span></i></span
+            >
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior Before Fix:</span></strong>
+        </p>
+        <ol>
+          <li>
+            Customer reported that after upgrade from 6.0.1162 to 7.0.3099 CPU usage is at 60-70%
+            and RAM usage is at 50%.
+          </li>
+          <li>Nasuni host would report a connection error related to SysinfoGet.</li>
+          <li>
+            Customer reported that domain controllers have frozen after reboots; A SI Agent was
+            rebranded to the NTP product and default installation folder was changed to "c:\Program
+            Files\Netwrix\". Due to it uses a shared file monitoring service with NAM and the NAM
+            product still uses old 'Stealthbits' folder and cannot operate with the NTP agent
+            together.
+          </li>
+        </ol>
+        <p>
+          <strong><span>Behavior After Fix:</span></strong>
+        </p>
+        <ol>
+          <li>Implemented many CPU and RAM optimizations for the agent and related services.</li>
+          <li><span>Implemented fix related to restsharp and dependencies upgrades.</span></li>
+          <li>
+            <span
+              >For the compatibility with the NAM product the default folder for the file monitoring
+              service was changed to old default "c:</span
+            >
+            \Program Files\<span>Stealthbits\".</span>
+          </li>
+        </ol>
+        <p><b>Changes Since Last Hotfix:</b></p>
+        <ul>
+          <li>
+            <span
+              >365802: Update a file monitor service in the agent installer -
+              SBTFSLibrary.wixlib</span
+            >
+          </li>
+          <li><span>360123: Adding nasuni host fails with SysinfoGet error</span></li>
+          <li><span>359422: UDP Syslog stops receiving events</span></li>
+          <li><span>360192: SBTService memory leak</span></li>
+          <li><span>365568: Console: upgrade fail (.net 8)</span></li>
+          <li>
+            <span
+              >358782: API Server causes new version installer to lose access to console install
+              path</span
+            >
+          </li>
+          <li><span>366308: 7.1 pipeline fails because of vulnerable 3rd-party packages</span></li>
+          <li>
+            <span
+              >360063: Warning                      No configurations found           
+              ...Stealthbits::FPolicy::FPolicyServer::LoadConfigurations</span
+            >
+          </li>
+          <li><span>364409: Console: NetApp property page is too big by defaults</span></li>
+          <li>
+            <span
+              >358265: API Server - POST /agents/ID/deploy - agent upgrades even if 'forceUpgrade'
+              is false</span
+            >
+          </li>
+        </ul>
+        <p>
+          <strong><span>Submitted by: </span></strong>
+        </p>
+        <p><span>Kevin Duddy</span></p>
+        <p>
+          <strong><span>Affected Versions:</span></strong>
+        </p>
+        <p><span>Activity Monitor 7.1</span></p>
+        <p>
+          <strong><span>Affected Module:</span></strong>
+        </p>
+        <ol>
+          <li><span>Windows Agent</span></li>
+          <li><span>Nasuni</span></li>
+          <li><span>Active Directory</span></li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Dev Ticket:</span></strong>
+        </p>
+        <ol>
+          <li>350219</li>
+          <li>363318</li>
+          <li>362106</li>
+        </ol>
+        <p>
+          <strong><span>Resolved in Version:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.234</span></p>
+        <p>
+          <i><span> </span></i>
+        </p>
+        <p>
+          <strong><span>KB Type: </span></strong>
+        </p>
+        <p><span>Hotfix</span></p>
+        <p>
+          <strong
+            ><i><span> </span></i></strong
+          >
+        </p>
+        <p>
+          <strong><span>Modules Included:</span></strong>
+        </p>
+        <p><span>SBActivityMonitorSetup.msi 7.1.234</span></p>
+        <p>
+          <span>SBTService.exe </span><i><span>1.24.1119.1033</span></i>
+        </p>
+        <p>
+          <span>SI Version </span><i><span>7.3.9.235</span></i>
+        </p>
+        <p> </p>
+        <p><b>DevOps/Escalations</b></p>
+        <ol>
+          <li>350219 / 00417894</li>
+          <li>363318 / 00425571</li>
+          <li>362106 / 00424796</li>
+        </ol>
+        <p><b>Cumulative List of fixes included since Service Pack:</b></p>
+        <ol>
+          <li><span>345503: MS updates: SUVP 24-07 support</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>342521: Agent Crashed on 3/28</span></li>
+              <li><span>349229: MS updates: SUVP 24-08 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>346065: Path being reported incorrectly for NetApp</span></li>
+              <li><span>348796: NetApp File Path Discrepancies</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >339474: have the latest "Received Events" that is currently visible only in the
+                  Activity Monitor also be available from the API Server</span
+                >
+              </li>
+              <li><span>356344: MS updates: SUVP 24-09 support</span></li>
+            </ul>
+          </li>
+          <li>
+            <span> </span>
+            <ul>
+              <li>
+                <span
+                  >357592: Customer observed several agents are frequently disconnecting momentarily
+                  from console</span
+                >
+              </li>
+              <li><span>359550: MS updates: SUVP 24-10 support</span></li>
+            </ul>
+          </li>
+          <li><span>362194: Filter Activity from App@sharepoint from SharePoint Online</span></li>
+          <li>
+            <span> </span>
+            <ul>
+              <li><span>364891: NAM reporting wrong user domain</span></li>
+              <li>
+                <span
+                  >310536: Not Recording Events for NFS Mount - Several Other servers are working
+                  new one is not.</span
+                >
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p> </p>
+        <p>
+          <strong><span>Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            <i
+              ><span
+                >Run the MSI file on a host that has the Activity Monitor Console is
+                installed.</span
+              ></i
+            >
+          </li>
+          <li>
+            <i
+              ><span>Upgrade all agents.<br /><br /><br /></span></i
+            ><i><span /></i
+            ><i
+              ><span
+                ><a
+                  title="https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.234.zip"
+                  href="https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.234.zip"
+                  target="_blank"
+                  >https://releases.netwrix.com/products/activitymonitor/7.1/activitymonitor-7.1.234.zip</a
+                ></span
+              ></i
+            >
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

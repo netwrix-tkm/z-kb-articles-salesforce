@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Symbolic Link Cannot Be Followed Error in File Server Monitoring Plan</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000011141CAA" />
+    <meta name="Id" content="ka0Qk00000053wXIAQ" />
+    <meta name="LastPublishedDate" content="2024-08-21T21:28:29.000+0000" />
+    <meta name="LastModifiedDate" content="2024-08-21T21:28:29.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-21T09:57:25.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8748" />
+    <meta name="ArticleNumber" content="000008748" />
+    <meta
+      name="description"
+      content="Symbolic Link Cannot Be Followed Error in File Server Monitoring Plan"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error is prompted in Health Log for your File Server monitoring plan:</p>
+
+          <pre class="has-inner-focus">
+Error: 0x80049610
+The symbolic link cannot be followed
+Make sure the local-to-local, local-to-remote, remote-to-local, and remote-to-remote symbolic link evaluations are enabled on the computer that hosts Netwrix Auditor Server.</pre
+          >
+
+          <p>The error shows only during State-in-Time data collection.</p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>Symbolic links (symlinks) are disabled or misconfigured.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Enable all symbolic links types.</p>
+
+          <ol>
+            <li>
+              <p>
+                On your <strong>Netwrix Auditor server</strong>, run the elevated Command Prompt
+                line, and execute the following command:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry"> fsutil behavior query SymlinkEvaluation</code></pre>
+
+              <p>
+                Once executed, you'll see the settings for symbolic links (enabled or disabled).
+              </p>
+
+              <div>
+                <img
+                  height="456"
+                  src="kA04u0000011141CAA_343bf827-61a5-4150-89c3-52ec1c66980f.png"
+                  width="649"
+                />
+              </div>
+            </li>
+            <li>
+              <p>To enable the symlink type, use the following command:</p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">fsutil behavior set SymlinkEvaluation R2L:1</code></pre>
+
+              <p>
+                The <strong>R2L:1</strong> stands for <strong>remote to local enabled</strong>. You
+                can change <strong>R</strong> to <strong>L</strong> and vice versa to enable the
+                disabled symlink.
+              </p>
+            </li>
+          </ol>
+
+          <p>
+            Learn more about fsutil syntax in
+            <a
+              href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/fsutil-behavior"
+              target="_blank"
+              >fsutil behavior ⸱ Microsoft 🡥</a
+            >.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

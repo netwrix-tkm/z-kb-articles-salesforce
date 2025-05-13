@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SIWebReports_5.2.0.329_6.0.0.474_6.1.0.255_7.0.0.347_7.0.1.580_SI-4042</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IlmCAE" />
+    <meta name="Id" content="ka04u000000HcvNAAS" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:30:13.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:53.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:30:13.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7080" />
+    <meta name="ArticleNumber" content="000007080" />
+    <meta name="description" content="360008877892" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> Group policy object
+          monitoring reports failure
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Summary: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>Group policy object monitoring reports failure</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Behavior before Fix: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >The problem is inside and 3rd party product - Crystal Reports. It truncates
+                    fields which are nvarchar(max) type to 255 characters, therefore formatting
+                    function fails when trying to parse such value. We are searching for possible
+                    fix from Crystal or we can apply workaround by casting such fields to ntext
+                    type.</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Behavior after Fix: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Fixed crystal templates:</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span> GPO Usage Monitoring - Filters</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span> GPO Usage Monitoring By Address</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span> GPO Usage Monitoring By Event</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span> GPO Usage Monitoring By Perpetrator</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span> GPO Usage Monitoring</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><b>Changes since Last Hotfix:</b></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >I-6137 GPO link changes policy events have "Not found" values in details
+                    grid</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >I-6142 Web Reports: truncated values in the "GPO Usage Monitoring" crystal
+                    template</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Submitted by: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Maxim Sidarau </span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Versions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>5.2.0      SIWebReports_5.2.0.329_SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>6.0.0      SIWebReports_6.0.0.474_SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>6.1.0      SIWebReports_6.1.0.255_SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>7.0.0      SIWebReports_7.0.0.347_SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>7.0.1      SIWebReports_7.0.1.580_SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Affected Module:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>SI - Web Reports</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Dev Ticket:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>I-6142</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Resolved in Version:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>5.2.0.329</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>6.0.0.474</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>6.1.0.255</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>7.0.0.347</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>7.0.1.580</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>KB Type: </span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Hotfix</span></span></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span><b>Modules Included: </b>SI - Web Reports</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><b>YouTrack/Escalations: </b
+                ><span class="MsoSubtleEmphasis"><span>SI-4042 / 42019</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><b>Customers:  </b
+                ><span class="MsoSubtleEmphasis"><span>BioFire Defense LLC</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span><b>Cumulative List of fixes included since Service Pack:</b></span></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Instructions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >This fix also depends on the patch for I-6137 for SI Agent
+                    (SIWindowsAgent_5.0.0.859_5.1.0.501_5.2.0.327_6.0.0.472_6.1.0.253_7.0.0.345_7.0.1.578_I-6111_I-6114_I-6133_I-6134_I-6137)</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Minimum SI Agent version:</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>5.2.0.327 6.0.0.472 6.1.0.253 7.0.0.345 7.0.1.578</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>Steps to apply patch for SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>1. Stop SIReportingService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>2. Stop SISchedulerService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >3. Extract and overwrite files from 'Report Templates' folder to:</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >- SI 5.x-6.x: C:\Program Files
+                    (x86)\STEALTHbits\StealthINTERCEPT\SIReports\ReportTemplates\Predefined\NVMonitor6x</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >- SI   7.0.x: C:\Program
+                    Files\STEALTHbits\StealthINTERCEPT\SIReports\ReportTemplates\Predefined\NVMonitor6x</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >4. Run attached SQL script "I-6142_SQLscript" to fix DB structure</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>5. Start SIReportingService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>6. Start SISchedulerService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><br /><br /><br /> 
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Instructions:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >This fix also depends on the patch for I-6137 for SI Agent
+                    (SIWindowsAgent_5.0.0.859_5.1.0.501_5.2.0.327_6.0.0.472_6.1.0.253_7.0.0.345_7.0.1.578_I-6111_I-6114_I-6133_I-6134_I-6137)</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"><span>Minimum SI Agent version:</span></span></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>5.2.0.327 6.0.0.472 6.1.0.253 7.0.0.345 7.0.1.578</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>Steps to apply patch for SI-4042</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>1. Stop SIReportingService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>2. Stop SISchedulerService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >3. Extract and overwrite files from 'Report Templates' folder to:</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >- SI 5.x-6.x: C:\Program Files
+                    (x86)\STEALTHbits\StealthINTERCEPT\SIReports\ReportTemplates\Predefined\NVMonitor6x</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >- SI   7.0.x: C:\Program
+                    Files\STEALTHbits\StealthINTERCEPT\SIReports\ReportTemplates\Predefined\NVMonitor6x</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span
+                    >4. Run attached SQL script "I-6142_SQLscript" to fix DB structure</span
+                  ></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>5. Start SIReportingService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><span class="MsoSubtleEmphasis"
+                  ><span>6. Start SISchedulerService service</span></span
+                ></span
+              ></span
+            ></span
+          ><br /><br /><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIWebReports_5.2.0.329_SI-4042.ZIP"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI5.2.0/SIWebReports_5.2.0.329_SI-4042.ZIP</a
+          ><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWebReports_6.0.0.474_SI-4042.ZIP"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.0.0/SIWebReports_6.0.0.474_SI-4042.ZIP</a
+          ><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.1.0/SIWebReports_6.1.0.255_SI-4042.ZIP"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI6.1.0/SIWebReports_6.1.0.255_SI-4042.ZIP</a
+          ><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWebReports_7.0.0.347_SI-4042.ZIP"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.0/SIWebReports_7.0.0.347_SI-4042.ZIP</a
+          ><br /><a
+            href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.1/SIWebReports_7.0.1.580_SI-4042.ZIP"
+            target="_blank"
+            >https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.1/SIWebReports_7.0.1.580_SI-4042.ZIP</a
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthINTERCEPT<br /><strong
+            ><span class="wysiwyg-font-size-large">Module:</span></strong
+          >
+          SI - Web Reporting<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          5.2.0 SIWebReports_5.2.0.329_SI-4042 6.0.0 SIWebReports_6.0.0.474_SI-4042 6.1.0
+          SIWebReports_6.1.0.255_SI-4042 7.0.0 SIWebReports_7.0.0.347_SI-4042 7.0.1
+          SIWebReports_7.0.1.580_SI-4042<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          I-6142<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          5.2.0.329 6.0.0.474 6.1.0.255 7.0.0.347 7.0.1.580<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2634<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

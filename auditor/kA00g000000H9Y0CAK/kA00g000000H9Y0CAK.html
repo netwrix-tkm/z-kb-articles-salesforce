@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Permissions Granted Are Insufficient in SQL Server Reporting Services</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9Y0CAK" />
+    <meta name="Id" content="ka0Qk0000001Sn3IAE" />
+    <meta name="LastPublishedDate" content="2024-01-24T10:45:07.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-24T11:55:47.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:21.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1168" />
+    <meta name="ArticleNumber" content="000003315" />
+    <meta
+      name="description"
+      content="Could not access to the Report Manager URL with the following error User does not have required permissions. Verify that sufficient permissions have been granted and Windows User Account Control (UAC) restrictions have been addressed."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The following error is prompted when accessing SSRS Report Manager or viewing
+                reports in Netwrix Auditor:
+              </p>
+
+              <pre class="has-inner-focus">
+The permissions granted to user '%domain\user%' are insufficient for performing this operation. (rsAccessDenied)</pre
+              >
+
+              <p>In older SSRS versions, the error reads as follows:</p>
+
+              <pre class="has-inner-focus">
+User "%domain\user" does not have required permissions.
+Verify that sufficient permissions have been granted and Windows User Account Control (UAC) restrictions have been addressed.</pre
+              >
+            </li>
+            <li>
+              <p>
+                The affected user has sufficient roles granted in the <strong>Security</strong> tab
+                of both site settings and Auditor reports folder. Refer to the following article for
+                additional information on roles required for a service account:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/SSRSAccount/Overview.htm"
+                  target="_self"
+                  >Configure Netwrix Auditor Service Accounts − Configure SSRS Account · v10.6</a
+                >.
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="causes">Causes</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                User Account Control (UAC) is enabled in the Auditor server preventing the access.
+              </p>
+            </li>
+            <li>
+              <p>The active scripting support is disabled.</p>
+            </li>
+          </ol>
+        </div>
+
+        <h2 id="resolutions">Resolutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Cause #1 − Disable UAC in the Auditor server.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Launch <strong>Registry Editor</strong>, and locate the
+                    <code
+                      >HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</code
+                    >
+                    key.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Locate the <code>EnableLUA</code> subkey. Right-click it, select
+                    <strong>Modify</strong> &gt; change the value data to <strong>0</strong>, and
+                    click <strong>OK</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Reboot the server for changes to take effect.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Cause #2 − Enable active scripting support in the Auditor server.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In <strong>Control Panel</strong>, select <strong>Internet Options</strong>.
+                  </p>
+
+                  <blockquote>
+                    <p>
+                      <span><strong>NOTE: </strong></span>Alternatively, you can find the
+                      <strong>Internet Properties</strong> menu via the <strong>Search</strong> bar.
+                    </p>
+                  </blockquote>
+                </li>
+                <li>
+                  <p>
+                    Under the <strong>Security</strong> tab, click <strong>Custom level</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Locate the <strong>Scripting</strong> node, and check the
+                    <strong>Enable</strong> option under the
+                    <strong>Active scripting</strong> subnode.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>OK</strong> &gt; <strong>OK</strong> twice to save the changes. A
+                    reboot is required for changes to take effect.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="related_articles">Related articles</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.5/page/Content/Auditor/Permissions/SSRSAccount/Overview.htm"
+                  target="_self"
+                  >Configure Netwrix Auditor Service Accounts − Configure SSRS Account · v10.6</a
+                >
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

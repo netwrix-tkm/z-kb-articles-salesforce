@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Audit Internet Information Services (IIS) with Netwrix Auditor</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SCCA0" />
+    <meta name="Id" content="ka04u00000117cJAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-06T10:22:07.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-06T10:22:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="162" />
+    <meta name="ArticleNumber" content="000002960" />
+    <meta name="description" content="IIS Audit Internet Information Services" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>How to configure Internet Information Services (IIS) events monitoring?</p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <h4 id="prerequisites">Prerequisites</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                Enable the <strong>Remote Registry</strong> service — for additional information,
+                refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/Overview.htm#windows_event_logs"
+                  target="_blank"
+                  >Configuration – Windows Server: Windows Event Logs · v10.6</a
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Configure operational log of Internet Information Services — for additional
+                information, refer to the following article:
+                <a
+                  href="https://helpcenter.netwrix.com/bundle/Auditor_10.6/page/Content/Auditor/Configuration/WindowsServer/IIS.htm"
+                  target="_blank"
+                  >Configuration – WindowsServer – Internet Information Services (IIS) · v10.6</a
+                >.
+              </p>
+            </li>
+          </ol>
+        </div>
+
+        <h4 id="set_up_iis_monitoring_plan">Set up IIS monitoring plan</h4>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In <strong>Start</strong> menu, open the <strong>Netwrix Auditor</strong> folder and
+                launch <strong>Netwrix Auditor Event Log Manager</strong>.
+              </p>
+            </li>
+            <li>
+              <p>Create a new monitoring plan by clicking <strong>Add</strong>.</p>
+            </li>
+            <li>
+              <p>
+                Fill in the <strong>Monitoring plan</strong>,
+                <strong>Notification recipients</strong>, and account credentials fields.
+              </p>
+            </li>
+            <li>
+              <p>
+                Specify the IIS server you'd like to monitor — click <strong>Add</strong> to add a
+                computer to your monitoring plan.
+              </p>
+            </li>
+            <li>
+              <p>
+                In the bottom section, click <strong>Configure</strong> for
+                <strong>Audit archiving filters</strong>.
+              </p>
+
+              <ol>
+                <li>
+                  <p>Click <strong>Add</strong> for <strong>Inclusive Filters</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    Fill in the filter name and description fields. Enter the following line in the
+                    <strong>Event Log</strong> field:
+                  </p>
+
+                  <pre
+                    class="has-inner-focus"
+                  ><code class="lang-Registry">Microsoft-IIS-Configuration/Operational</code></pre>
+                </li>
+                <li>
+                  <p>
+                    Switch the <strong>Write to</strong> switch to <strong>Both</strong>. Refer to
+                    the following screenshot for reference.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <img
+            height="469"
+            src="kA00g000000H9SCCA0_31f56876-685b-42d1-8e27-a6b01ee6d583.png"
+            width="415"
+          />
+        </div>
+
+        <div>
+           
+          <p>
+            Dedicated predefined reports are available in Netwrix Auditor. Follow
+            <strong>Reports</strong> &gt; <strong>Predefined</strong> &gt;
+            <strong>Windows Server</strong> &gt; <strong>Event Log</strong> to see both IIS reports,
+            <strong>IIS Application Pool Changes</strong> and <strong>IIS Website Changes</strong>.
+          </p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

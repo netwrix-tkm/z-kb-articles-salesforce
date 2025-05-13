@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to audit servers located in another subnet behind firewall</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9erCAC" />
+    <meta name="Id" content="ka04u000000HcXQAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1401" />
+    <meta name="ArticleNumber" content="000003730" />
+    <meta
+      name="description"
+      content="does not work with systems on different subnets behind firewall"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Netwrix Auditor For Windows Servers (NetWrix Server Configuration Change Reporter in 6.5 or
+        older) does not work with systems on different subnets.The following errors appear:
+        &lt;server&gt; : Error during agent operation on server &lt;server&gt;. Cannot open Service
+        Control Manager on computer '&lt;server&gt;'. This operation might require other privileges.
+        Additional information: The RPC server is unavailable . &lt;server&gt; : Error during agent
+        operation on server &lt;server&gt;. The RPC server is unavailable. (Exception from HRESULT:
+        0x800706BA). Additional information: none. &lt;server&gt; : Error during agent operation on
+        server &lt;server&gt;. Check if .Net Framework is installed error. Additional information:
+        none.
+
+        <hr />
+
+        One of the required ports is blocked by Firewall.
+
+        <hr />
+
+        To resolve the issue, make sure the following ports are opened:
+        <ol>
+          <li>TCP 135 and TCP 445 are opened both ways.</li>
+          <li>
+            Dynamic RPC ports range are opened from the server where the Netwrix product is
+            installed to the monitored server. The product uses these ports to connect to the
+            monitored servers and launch the agent services. You can open the ports in two ways:
+          </li>
+        </ol>
+        <ul>
+          <li>Open the following TCP ports range on your Firewall:</li>
+        </ul>
+        <blockquote>
+          for Windows Vista/7/2008: 49152-65535 for Windows XP/2003: 1024-5000
+        </blockquote>
+        <ul>
+          <li>
+            Alternatively, you can configure a custom Dynamic RPC ports range on the managed server,
+            for example you can configure ports 50000-50200 and open these ports in your Firewall.
+            For detailed instructions, please refer to the following Microsoft KB article:
+            <a href="http://support.microsoft.com/kb/154596" target="_blank"
+              >How to configure RPC dynamic port allocation to work with firewalls</a
+            >.
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

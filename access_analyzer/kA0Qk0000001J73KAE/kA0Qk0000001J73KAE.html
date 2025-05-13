@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Custom Job is Missing After Recent Upgrade</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001J73KAE" />
+    <meta name="Id" content="ka0Qk000000ClrBIAS" />
+    <meta name="LastPublishedDate" content="2024-07-29T09:34:46.000+0000" />
+    <meta name="LastModifiedDate" content="2025-03-12T18:10:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-07-29T09:34:46.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9227" />
+    <meta name="ArticleNumber" content="000009227" />
+    <meta name="description" content="Error: Bad XML Document" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <p>
+            <span><strong>IMPORTANT: </strong></span>This is an unvalidated article. The product
+            R&amp;D team has yet to review some or all of information below.
+          </p>
+        </blockquote>
+
+        <h2 id="symptoms">Symptoms</h2>
+
+        <div>
+          <p>Refer to the list of the symptoms in your Netwrix Enterprise Auditor environment:</p>
+
+          <ul>
+            <li>
+              <p>A custom job is missing after the recent upgrade.</p>
+            </li>
+            <li>
+              <p>
+                When you attempt to import the job, Enterprise Auditor prompts the following error:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Administrative template file %file_name% cannot be processed: Bad XML document:
+Switch from current encoding to specified encoding not supported.</code></pre>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>The job file is encoded using an unsupported encoding.</p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Modify the affected document encoding to UTF-8. Import the job after introducing the
+            change.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Locate the affected job <code>.xml</code> file. Refer to the following default path
+                for the <strong>Jobs</strong> folder:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">C:\Program Files (x86)\STEALTHbits\StealthAUDIT\Jobs\</code></pre>
+            </li>
+            <li>
+              <p>
+                In the file, review the first line. If the <code>encoding</code> parameter in the
+                &lt;?xml&gt; tag does not state <code>UTF-8</code>, alter the value to
+                <code>UTF-8</code>. Refer to the following example:
+              </p>
+
+              <div>
+                <img
+                  alt=".xml Example"
+                  height="515"
+                  src="kA0Qk0000001J73KAE_b8c17fec-de5b-4e8b-85d8-d9eb137319ec.png"
+                  width="750"
+                />
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to audit target server by IP address</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9axCAC" />
+    <meta name="Id" content="ka04u000000HcTjAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:50.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:05.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:50.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1329" />
+    <meta name="ArticleNumber" content="000003493" />
+    <meta
+      name="description"
+      content="Unable to audit target server by IP address Unable to audit host server by localhost Activity Records summary report shows incorrect server name"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <ol>
+          <li>Unable to audit a target server by using <strong>IP address</strong>.</li>
+          <li>Unable to audit a host server by using <strong>"localhost"</strong>.</li>
+          <li><strong>Activity Records</strong> summary report shows incorrect server name.</li>
+        </ol>
+
+        <hr />
+        <ol>
+          <li>
+            There is stale data in the <strong>DNS cache</strong> of the host and target machines
+          </li>
+          <li>
+            There is incorrect data in the <strong>"hosts"</strong> file of the host and target
+            machines
+          </li>
+        </ol>
+
+        <hr />
+        To resolve this issue, please perform the following steps:
+        <ol>
+          <li>
+            On the target and the host machines, remove all records which contain the
+            <strong>IP address</strong> of the host and the target machines from the following file:
+            <strong>"C:\Windows\system32\drivers\etc\hosts" </strong>
+          </li>
+          <li>
+            Flush the <strong>DNS cache</strong> on the host and the target machines by executing
+            the following command: <strong>ipconfig /flushdns</strong>
+          </li>
+          <li>
+            Use <strong>FQDN-name</strong> of the target machine instead of
+            <strong>IP address</strong> or<strong> "localhost" </strong>when adding it as an item in
+            Netwrix Auditor.
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

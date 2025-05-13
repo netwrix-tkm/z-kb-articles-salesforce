@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to Resolve Script Not Responsive and Console Freezing Issues in Netwrix Enterprise
+      Auditor?
+    </title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000000aujKAA" />
+    <meta name="Id" content="ka0Qk0000002rMnIAI" />
+    <meta name="LastPublishedDate" content="2024-04-11T15:55:56.000+0000" />
+    <meta name="LastModifiedDate" content="2024-04-11T15:55:56.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-04-11T15:55:56.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9128" />
+    <meta name="ArticleNumber" content="000009128" />
+    <meta
+      name="description"
+      content="How to Resolve Script Not Responsive and Console Freezing Issues in Netwrix Enterprise Auditor?"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <blockquote>
+          <div>
+            <span><strong>!</strong></span> This article is currently under review. Some of the
+            information below may not be up to date.
+          </div>
+        </blockquote>
+
+        <h2 id="question">Question</h2>
+
+        <div>
+          <p>
+            What can be done to address the issue of getting a pop-up that the script is not
+            responsive and experiencing console freezing?
+          </p>
+        </div>
+
+        <h2 id="answer">Answer</h2>
+
+        <div>
+          <p>
+            A: If you encounter a pop-up indicating that the script is not responsive or experience
+            console freezing in Netwrix Enterprise Auditor, follow the steps below to resolve the
+            issue:
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                First, attempt to clear out the job statistics table to see if the issue is
+                resolved. If you have already tried this step and it did not solve the issue,
+                proceed to the next steps.
+              </p>
+            </li>
+            <li>
+              <p>
+                Run the following SQL code to create a non-clustered index on the
+                <code>SA_Messages</code> table:
+              </p>
+
+              <pre><code>CREATE NONCLUSTERED INDEX [Messages_JobName_JobRunTimeKey_Index] ON [dbo].[SA_Messages]
+(
+[JobName] ASC,
+[JobRunTimeKey] ASC
+)
+INCLUDE([MSG_TYPE])</code></pre>
+            </li>
+            <li>
+              <p>
+                After creating the index, monitor the system to observe if the script responsiveness
+                improves and console freezing issues are mitigated.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

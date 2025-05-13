@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Audit User Password Changes</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9edCAC" />
+    <meta name="Id" content="ka04u00000117ePAAQ" />
+    <meta name="LastPublishedDate" content="2023-09-07T11:32:24.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-07T11:32:24.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4721" />
+    <meta name="ArticleNumber" content="000003721" />
+    <meta name="description" content="How to Audit User Password Changes" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <p>User Password Changes are not appearing in Search or Report results.</p>
+
+        <h2 id="cause">Cause</h2>
+
+        <p>By default User Password Change auditing is disabled via omitlist.</p>
+
+        <h2 id="reolution">Reolution</h2>
+
+        <p>
+          This functionality can be easily enabled by navigating to the following file location:<br /><br />"C:\Program
+          Files (x86)\Netwrix Auditor\Active Directory Auditing\omitproplist.txt"
+        </p>
+
+        <p>
+          Open "omitproplist.txt" in a text editor, find the entry of <em>*.PasswordChanged</em> and
+          comment it out with a pound/hash sign (#), like this: #<em>*.PasswordChanged . </em>By
+          doing so you make the omit list ignore this entry, effectively re-enabling it for
+          reporting. All future User Password Changes will now be audited by Netwrix Auditor.<br />Instead
+          of commenting, the line can also be deleted.<br /><br /><strong>Note</strong>: When you
+          upgrade Netwrix Auditor to a new version, it would restore that parameter in the omit
+          list, so you will have to comment/delete it again.
+        </p>
+
+        <p>
+          <b>Tip</b>: When saving changes to the omit list, you may receive "Access is Denied"
+          error. In order to proceed, either open the text editor as Administrator or save the file
+          to the desktop and drag'n'drop to the original folder, which would trigger the admin
+          prompt.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

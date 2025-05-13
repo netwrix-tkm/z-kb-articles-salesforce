@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Netwrix Data Classification Collector, Indexer, and Classifier Threads</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="public_v" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eKCAS" />
+    <meta name="Id" content="ka04u00000116tYAAQ" />
+    <meta name="LastPublishedDate" content="2023-07-26T12:45:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-26T14:03:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:07.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="3863" />
+    <meta name="ArticleNumber" content="000003702" />
+    <meta
+      name="description"
+      content="Netwrix Data Classification Collector Indexer, and Classifier Threads"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="collector_threads_slider">Collector Threads slider</h2>
+
+        <div>
+          <p>
+            The Collector Threads slider allows administrators to change the number of background
+            processes, or threads, occurring on the Netwrix Data Classification server. This slider
+            should be left at the default of <strong>24</strong>.<br />Values for threads can be set
+            via NDC Management Web Console: <code>http://localhost/conceptQS/Configuration</code>.
+          </p>
+        </div>
+
+        <div>
+          <img
+            height="278"
+            src="kA00g000000H9eKCAS_8112e2f2-9ea3-4d4b-b23c-4877807f06c5.png"
+            width="798"
+          />
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>If you've noticed a decrease in processing capacity,
+            it is recommended to set the Collector Thread slider to 0.
+          </p>
+        </blockquote>
+
+        <h2 id="automatic_threading">Automatic Threading</h2>
+
+        <div>
+          <p>
+            Setting the slider to 0 will switch an auto-detect mode. It will allow to detect
+            allocated cores and set the slider to match available resources. Refer to the following
+            article for additional information on hardware requirements:
+            <a
+              href="https://helpcenter.netwrix.com/bundle/DataClassification_5.7/page/Content/NDC/Requirements/HardwareRequirements.htm"
+              target="_self"
+              >Netwrix Data Classification — Hardware Requirements</a
+            >.
+          </p>
+        </div>
+
+        <blockquote>
+          <p>
+            <span><strong>NOTE: </strong></span>Once the thread slider is set to a different value,
+            it is recommended to restart the corresponding service via Windows Services Manager
+            (e.g., NDC Indexer service to be restarted in case the number of Indexer threads were
+            changed, etc.).
+          </p>
+        </blockquote>
+      </div>
+    </article>
+  </body>
+</html>

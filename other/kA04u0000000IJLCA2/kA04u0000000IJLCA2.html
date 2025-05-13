@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hotfix: SD 2.1.326</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IJLCA2" />
+    <meta name="Id" content="ka04u000000Hck6AAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:26:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:05:27.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:26:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="6802" />
+    <meta name="ArticleNumber" content="000006802" />
+    <meta name="description" content="360012018632" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> This Hotfix
+          addresses an issue with the job services being unable to properly process a large backlog
+          of events, and a problem with the Action Service being unable to communicate when a
+          self-signed certification is in use for the StealthDEFEND web service.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong>
+          <span
+            ><span
+              ><span
+                ><strong><span>Summary:</span></strong></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong
+                  ><span
+                    >This Hotfix addresses an issue with the job services being unable to properly
+                    process a large backlog of events, and a problem with the Action Service being
+                    unable to communicate when a self-signed certification is in use for the
+                    StealthDEFEND web service.</span
+                  ></strong
+                ></span
+              ></span
+            ></span
+          ><br /><span
+            ><span
+              ><span
+                ><strong><span>Behavior before Fix: </span></strong></span
+              ></span
+            ></span
+          >
+        </p>
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Large Backlogs of Events could enter a state, whereas the job service would not
+                  process the queue.</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Action Service could have trouble connecting to StealthDEFEND when self-signed
+                  certificates are in use.</span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <span
+          ><span
+            ><span
+              ><strong><span>Behavior after Fix: </span></strong></span
+            ></span
+          ></span
+        >
+        <ul>
+          <li>
+            <span
+              ><span
+                ><span
+                  >More efficient backlog processing by the Job service should resolve any issues
+                  relating to large/stuck event backlogs</span
+                ></span
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><span
+                ><span
+                  >Action Service Configuration can now optionally "ignore" potentially warnings
+                  that are a side effect of using Self Signed Certificates.</span
+                ></span
+              ></span
+            >
+          </li>
+        </ul>
+        <br /><span
+          ><span
+            ><span
+              ><strong><span>Submitted by: </span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Lee Berg</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Affected Versions:</span></strong></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><span class="MsoSubtleEmphasis"><span>Prior versions of 2.1</span></span></span
+            ></span
+          ></span
+        ><br /><span
+          ><span
+            ><span
+              ><strong><span>Dev Ticket:</span></strong></span
+            ></span
+          ></span
+        ><br /><br /> 
+        <div class="table-wrap">
+          <table count-columns="3" align="center" class="SbTable2-withVerticals1" width="664">
+            <tbody>
+              <tr>
+                <td colspan="1" rowspan="1" width="84">
+                  <span><span>Case</span></span>
+                </td>
+                <td colspan="1" rowspan="1" width="485">
+                  <span><span>Description</span></span>
+                </td>
+                <td colspan="1" rowspan="1" width="95">
+                  <span><span>Escalations</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" valign="top" width="84">
+                  <span><span>SDFS-7669</span></span>
+                </td>
+                <td colspan="1" rowspan="1" valign="top" width="485">
+                  <span><span>Services page reports Action Service not running</span></span>
+                </td>
+                <td colspan="1" rowspan="1" valign="top" width="95">
+                  <span><span>37317</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="1" rowspan="1" valign="top" width="84">
+                  <span><span>SDFS-7838</span></span>
+                </td>
+                <td colspan="1" rowspan="1" valign="top" width="485">
+                  <span><span>StealthDEFEND | Backlog Growing</span></span>
+                </td>
+                <td colspan="1" rowspan="1" valign="top" width="95">
+                  <span><span>38221</span></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br /><br /><span
+          ><span
+            ><span
+              ><strong><span>Resolved in Version: </span></strong
+              ><span class="MsoSubtleEmphasis"><span>2.1.326</span></span></span
+            ></span
+          ></span
+        ><br /> 
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+          <a
+            href="http://downloads.stealthbits.com/access/files/SDHotfixes/StealthDEFEND_2.1.326.zip"
+            target="_blank"
+            >http://downloads.stealthbits.com/access/files/SDHotfixes/StealthDEFEND_2.1.326.zip</a
+          >
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthDEFEND<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong>
+          StealthDEFEND - General<br /><strong
+            ><span class="wysiwyg-font-size-large">Versions:</span></strong
+          >
+          Prior versions of 2.1<br /><strong
+            ><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong
+          >
+          SDFS-7669 SDFS-7838<br /><strong
+            ><span class="wysiwyg-font-size-large">Resolved In:</span></strong
+          >
+          2.1.326<br /><strong
+            ><span class="wysiwyg-font-size-large">Salesforce Article ID:</span></strong
+          >
+          2507<br />
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

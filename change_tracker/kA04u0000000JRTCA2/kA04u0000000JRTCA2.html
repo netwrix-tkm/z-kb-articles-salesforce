@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>j. Gen 7 Settings Page - Agent Registration Process and Control</title>
+    <meta name="label" content="change_tracker" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000JRTCA2" />
+    <meta name="Id" content="ka04u000000Hd7cAAC" />
+    <meta name="LastPublishedDate" content="2022-04-12T16:16:05.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:16:35.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-07T00:30:47.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8077" />
+    <meta name="ArticleNumber" content="000008077" />
+    <meta name="description" content="HELPDESK" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2
+          id="j.Gen7SettingsPage-AgentRegistrationProcessandControl-_Toc484003720AgentDiscovery/RegistrationProcess"
+        >
+          <span
+            class="confluence-anchor-link conf-macro output-inline"
+            id="j.Gen7SettingsPage-AgentRegistrationProcessandControl-_Toc484003720"
+            ><span class="confluence-anchor-link" id="_Toc484003720"> </span></span
+          ><span><strong>Agent Discovery/Registration Process</strong></span>
+        </h2>
+        <p>
+          An NNT Agent is a highly automated and intelligent piece of software with extensive
+          capabilities for monitoring and reporting on your secure endpoints.<br />
+          It is therefore critical that the agent is securely governed by the controlling Gen 7
+          system and there are a range of operations involved when registering and driving the
+          agent.
+        </p>
+        <ol>
+          <li>
+            <span
+              class="confluence-anchor-link conf-macro output-inline"
+              id="j.Gen7SettingsPage-AgentRegistrationProcessandControl-_First_Run_–"
+              ><span class="confluence-anchor-link" id="_First_Run_–"> </span></span
+            ><strong><em>First Run – HubDetails.xml file</em></strong>
+          </li>
+        </ol>
+        <p>
+          The Agent configuration settings are controlled by the Hub during operations but the
+          initial registration necessitates a basic config file for registration with the Hub.<br />
+          The HubDetails.xml file includes some details unique to your deployment of Change Tracker
+          Gen 7, hence it requiring your intervention to make sure settings are as needed.<br />
+          The key tags within the file are as follows:<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="260"
+              width="625"
+              src="kA04u0000000JRTCA2_7eb125bb-db1c-4e01-b609-93f441aad7c3.png" /></span
+          ><br />
+          *The Thumbprint uniquely identifies the Web Server certificate, see more here
+          <a
+            class="external-link"
+            href="https://msdn.microsoft.com/en-us/library/ms734695(v=vs.110).aspx"
+            target="_blank"
+            >https://msdn.microsoft.com/en-us/library/ms734695(v=vs.110).aspx</a
+          >. <br />
+          Note: NNT's Gen 7 Agent also supports additional nodes – NamePrefix, NameSuffix<br />
+          Note: Gen 7 Agent does not need the UseNewHub node to be defined – this will default to
+          true<br />
+          -Open IIS<br />
+          -Select the server from the list on the left hand side<br />
+          -Select Server Certificates<br />
+          -Double click your certificate in the list to open the certificates permissions<br />
+          -Open the Details tab<br />
+          -Scroll to the bottom of the list and highlight the Thumbprint field<br />
+          -The thumbprint value will then be displayed – transpose this to your HubDetails.xml file
+        </p>
+        <ol>
+          <li>
+            <strong><em>Registration</em></strong>
+          </li>
+        </ol>
+        <p>
+          Provided the Agent can connect to the Hub /api page (referenced in the HubDetails.xml),
+          the registration process takes place. The Agent presents its Username and Password
+          (referenced in the HubDetails.xml) and is authenticated against credentials held at the
+          Hub (or Active Directory server if used).<br />
+          The Agent will then download and run the assigned Registration Report* which determines
+          the Gen 7 Device Group that the Device will be assigned to. The Registration Report is
+          similar to a full Compliance Report in that it can provision trackers to gather config
+          data from the device and process the returned data using rule expressions, with the
+          results governing Group assignment.<br />
+          In this example, the group regex match
+          (<span>WEBSERVER</span>|<span>EPOS</span>|<span>APPSERVER</span>) extracts only those
+          substrings if present, then the "
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="203"
+              width="503"
+              src="kA04u0000000JRTCA2_76877113-6cc9-45da-8c1c-1db603ba977f.png" /></span
+          ><br />
+          You can view and edit the Default Registration Report from the System page. In conjunction
+          with the Registration Report, the optional Registration Script parameters can be used,
+          providing a GUI option for post-processing Registration Report results in order to control
+          group allocation. In the example below it is assumed the report has a variable called
+          "regvalue_variable" i.e. reading a value from the registry, and the custom code reads this
+          value and appends it to the text "Custom". So if the registry value contained "WebServer",
+          the device would be placed in the "CustomWebServer" group if it exists, falling back on
+          "New Devices" if it doesn't.<br />
+          <span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"
+            ><img
+              class="confluence-embedded-image"
+              height="213"
+              width="439"
+              src="kA04u0000000JRTCA2_b790f390-cff2-420a-83f1-e6776ef67a1c.png"
+          /></span>
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

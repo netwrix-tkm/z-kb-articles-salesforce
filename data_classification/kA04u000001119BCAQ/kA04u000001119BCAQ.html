@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Add MySQL Source Using a Non-default Port</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u000001119BCAQ" />
+    <meta name="Id" content="ka04u00000117YbAAI" />
+    <meta name="LastPublishedDate" content="2023-09-04T17:37:14.000+0000" />
+    <meta name="LastModifiedDate" content="2023-09-04T17:37:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-09-04T17:37:14.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8782" />
+    <meta name="ArticleNumber" content="000008782" />
+    <meta name="description" content="How to Add MySQL Source Using a Non-default Port" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            Data Classification cannot send requests using non-standard port (default is 3306) for
+            MySQL source.
+          </p>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            It is a known issue for Data Classification v5.7. It will be fixed in the next release.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>Create a port forwarding rule in one of the following ways:</p>
+        </div>
+
+        <div>
+          <ul>
+            <li>
+              <p>Configure a rule on an NDC server.</p>
+
+              <p>Use NDC server as target. Apply the following OS Windows CMD command line:</p>
+
+              <pre>
+netsh interface portproxy add v4tov4 listenport=3306 listenaddress=NDCSERVERIP connectport=MYSQLPORT connectaddress=MYSQLIP</pre
+              >
+
+              <blockquote>
+                <p><strong>TIP:</strong> Use NDCSERVERIP as a source</p>
+              </blockquote>
+
+              <blockquote>
+                <p>
+                  <span><strong>IMPORTANT:</strong></span> Only one listener can be added for one
+                  port in windows, so you will not be able to add more than one MySQL source
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Configure a rule on the target MySQL server.</p>
+
+              <p>For Windows based MySQL you can use <code>netsh</code>.</p>
+            </li>
+            <li>
+              <p>Configure a rule on a network device.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AAL test</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9SECA0" />
+    <meta name="Id" content="ka0Qk000000DRqPIAW" />
+    <meta name="LastPublishedDate" content="2022-09-09T12:03:36.000+0000" />
+    <meta name="LastModifiedDate" content="2025-04-28T08:53:44.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:32:38.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="169" />
+    <meta name="ArticleNumber" content="000002962" />
+    <meta name="description" content="AAL admin*-audit-loging test" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You have already configured Administrator Audit Logging on your Exchange Server but still
+        receive the following error in the Netwrix Auditor change reports: "<strong
+          >Administrator Audit Logging is not configured for the %Organization name% Exchange
+          organization..."</strong
+        >
+        Please perform the following test steps on the Netwrix host server using<strong>
+          PowerShell</strong
+        >:
+        <ol>
+          <li>Validate your user principal name (UPN): $UserCredential = Get-Credential</li>
+          <li>
+            Create remote session:
+            <em
+              >$ExSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri
+              http:// mailbox01.domain.local/PowerShell/ -Authentication Kerberos -Credential
+              $UserCredential</em
+            >
+            <ul>
+              <li>
+                <em
+                  ><b>Note:</b> Replace mailbox01.domain.local with the fully qualified domain name
+                  of your Exchange server</em
+                >
+              </li>
+            </ul>
+          </li>
+          <li>Check the session status:<em> $ExSession</em></li>
+          <li>
+            <pre>Try to read AdminAuditLog:<em> Invoke-Command -Session $Exsession -scriptBlock {Get-AdminAuditLogConfig }</em></pre>
+          </li>
+          <li>
+            As a last step, execute<i>
+              Invoke-Command -Session $Exsession -scriptBlock {Search-AdminAuditLog }</i
+            ><br />
+             
+          </li>
+        </ol>
+        If the session has been successfully created (steps 1 and 2 were successful), but step 3
+        returns an error, please try to check the<strong> AdminAuditLog</strong> content manually
+        using the following cmdlet: <em>Get-AdminAuditLogConfig.</em><br /><br />If you get the
+        following error:
+        <div>
+          <br />"PS C:Users%username%&gt; Invoke-Command -Session $Exsession -scriptBlock {$AALC
+          onfig = Get-AdminAuditLogConfig } The term 'Get-AdminAuditLogConfig' is not recognized as
+          the name of a cmdlet, function, script file, or operable program. Check the spelling of
+          the name, or if a path was included, verify that the path is correct and try again. +
+          CategoryInfo : ObjectNotFound: (Get-AdminAuditLogConfig:String) [],
+          CommandNotFoundException + FullyQualifiedErrorId : CommandNotFoundException"
+        </div>
+
+        <div> </div>
+        This error means that there is not enough rights to run this cmdlet: please check the
+        service account rights assignment.<br />This guide from Microsoft will help you remotely
+        connecting to Exchange Server using Powershell:
+        https://docs.microsoft.com/en-us/powershell/exchange/connect-to-exchange-servers-using-remote-powershell?view=exchange-ps
+      </div>
+    </article>
+  </body>
+</html>

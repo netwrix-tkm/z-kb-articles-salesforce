@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Log overwrites warnings</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9esCAC" />
+    <meta name="Id" content="ka04u000000HcXRAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:11.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:31.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:11.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1405" />
+    <meta name="ArticleNumber" content="000003731" />
+    <meta
+      name="description"
+      content="[WARNING] Security log overwrites occurred on this computer since the last collection. [WARNING] Application log overwrites occurred on this computer since the last collection."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <strong>Netwrix Event Log Manager</strong> shows the following errors:
+        <div>
+          [WARNING] <strong>&lt;Event log name&gt;</strong> log overwrites occurred on this computer
+          since the last collection. Please increase the maximum size of the
+          <strong>&lt;Event log name&gt;</strong>. Last collected event: 02/28/2013 18:23:14 (GMT);
+          first new event: 02/28/2013 18:37:15 (GMT); estimated loss: 1 hour(s). Cannot find last
+          stored event.
+        </div>
+
+        <hr />
+        The product is configured to collect the event data at the preconfigured intervals (every 10
+        minutes by default), but the real frequency of the data collections depends on the number of
+        new events in the logs of monitored servers. If the target event log is configured to
+        <strong>Overwrite events as needed</strong> and the <strong>Maximum log size</strong> of the
+        event log does not allow keeping all events between the data collections, the program cannot
+        find the last collected event in the target log and detects that some events were lost.
+        There are several reasons why the error occurs:
+
+        <ol>
+          <li>
+            The target event log is configured to keep 20480 Kb of events by default and that is not
+            enough to keep all generated events between the data collections. Refer to
+            <strong>Procedure 1 and 2</strong> to increase the maximum event log size.
+          </li>
+          <li>
+            The target event log has been cleaned up manually by the system administrator. In this
+            case for <strong>Application</strong> log, you may see the following information in the
+            warning message: <strong>first new event: 01/01/1970 00:00:00 (GMT)</strong>; (see
+            example screenshot).
+          </li>
+        </ol>
+
+        <div>
+          <strong>NOTE:</strong> for <strong>Security</strong> and <strong>System</strong> event
+          logs, you can figure out who cleared the log if you can find the appropriate event in the
+          log:
+        </div>
+
+        <ul>
+          <li>
+            <strong>System </strong>event log: "The System log file was cleared." event (<strong
+              >Event ID: 104</strong
+            >);
+          </li>
+          <li>
+            <strong>Security</strong> event log: "The audit log was cleared." event (<strong
+              >Event ID: 1102</strong
+            >);
+          </li>
+          <li>
+            <strong>Application</strong> event log: there is no way to find out who cleaned up the
+            <strong>Application</strong> event log.
+          </li>
+        </ul>
+
+        <ol start="3">
+          <li>
+            The target event log overwrites events faster than the program collects them (often
+            occurs with <strong>Security</strong> event log). Refer to
+            <strong>Procedure 3 and 4</strong> to configure the problematic event log to
+            <strong>Archive events when full</strong>.
+          </li>
+          <li>
+            The target event log is configured to <strong>Archive events when full,</strong> and
+            <strong>Event Log Manager</strong> is not configured to process event logs archives.
+            Refer to <strong>Procedure 4</strong> to configure Event Log Manager.
+          </li>
+        </ol>
+
+        <hr />
+        <strong>Procedure 1:</strong> Increase <strong>Maximum log size</strong> on the problematic
+        server.
+
+        <ol>
+          <li>
+            Log on to the problematic server and launch <strong>Event Viewer</strong>: Click
+            <strong>Start</strong>, <strong>Run</strong> and type "<strong>eventvwr.msc</strong>"
+            without quotes and press <strong>Enter</strong>.
+          </li>
+          <li>
+            In the left-hand panel of <strong>Event Viewer</strong>, navigate to the problematic
+            log, and then right-click it and select <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Properties</strong> window, change <strong>Maximum log size</strong> to
+            <strong>4194240</strong> (Kb) as recommended by Microsoft:
+            <a href="http://support.microsoft.com/kb/957662" target="_blank"
+              >http://support.microsoft.com/kb/957662</a
+            >
+            <strong>IMPORTANT:</strong> Before changing <strong>Maximum log size</strong>, make sure
+            that the system drive has enough free space to store the event log of the maximum size.
+            If not, the event log will grow and fill up all free space on the system drive and the
+            system will stop responding.
+          </li>
+          <li>
+            Make sure the <strong>Overwrite events as needed</strong> option is selected and click
+            <strong>Apply</strong>.
+          </li>
+        </ol>
+
+        <div>
+          <img
+            alt="Configuring maximum log size"
+            height="326"
+            src="kA00g000000H9esCAC_4788551d-7a5b-45d0-83b7-22a5b4fb4ced.png"
+            width="500"
+          />
+        </div>
+        <strong>Procedure 2:</strong> Increase <strong>Maximum log size</strong> via Group Policy
+        Object.
+
+        <ol>
+          <li>
+            Go to <strong>Start</strong> / <strong>Administrative Tools</strong> /
+            <strong>Group Policy Management</strong>
+          </li>
+          <li>
+            In the window displayed, go to <strong>Group Policy Management</strong> /
+            <strong>Forest Name</strong> / <strong>Domains</strong> /
+            <strong>Group Policy Objects</strong> / right-click the appropriate policy (or create
+            new) and select <strong>Edit</strong>.
+            <strong>Group Policy Management Editor</strong> starts.
+          </li>
+        </ol>
+
+        <div>
+          <img
+            alt="Group Policy Management"
+            height="282"
+            src="kA00g000000H9esCAC_81599511-9a59-4366-ad4e-34d3a8ffce56.png"
+            width="500"
+          />
+        </div>
+
+        <ol start="3">
+          <li>
+            In the left pane, go to <strong>Computer Configuration</strong> /
+            <strong>Policies</strong> / <strong>Windows Settings</strong> /
+            <strong>Security Settings</strong> / <strong>Event Log</strong>. Right-click
+            <strong>Retention method for &lt;problematic event log&gt;</strong>, choose
+            <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Security Policy Setting</strong> tab, check the
+            <strong>Define this policy setting</strong> box and select
+            <strong>Do not overwrite events (clear log manually)</strong>. Click OK.
+          </li>
+          <li>
+            Right-click <strong>Maximum &lt;problematic event log&gt; size</strong>, choose
+            <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Security Policy Setting</strong> tab, check the
+            <strong>Define this policy setting</strong> box and set the size
+            to <strong>4194240</strong> Kb as recommended by Microsoft:
+            <a href="http://support.microsoft.com/kb/957662" target="_blank"
+              >http://support.microsoft.com/kb/957662</a
+            >
+            <strong>IMPORTANT:</strong> The affected machines must have enough free space on their
+            system drives for storing the event log of the maximum size. If not, the event log will
+            grow and fill up all free space on the system drive and the system will stop responding.
+          </li>
+        </ol>
+
+        <div>
+          <img
+            alt="Group Policy Management Editor"
+            height="205"
+            src="kA00g000000H9esCAC_501a933c-71dd-4ac2-ba40-ac7ef5edc0b9.png"
+            width="500"
+          />
+        </div>
+
+        <ol start="7">
+          <li>
+            Close <strong>Group Policy Object Editor </strong>and link the configured GPO to the
+            required OUs and containers in <strong>Group Policy Management</strong>.
+          </li>
+          <li>
+            <strong>OPTIONAL:</strong> Upgrade the group policies on the problematic servers by
+            performing the following command: <strong>gpupdate /force</strong>
+          </li>
+        </ol>
+        <strong>Procedure 3:</strong> Configure the problematic event log to
+        <strong>Archive events when full</strong>.
+
+        <ol>
+          <li>
+            On the problematic server, click <strong>Start</strong> / <strong>Run</strong>, type
+            <strong>rsop.msc </strong>and press <strong>Enter</strong>.
+          </li>
+          <li>
+            When the <strong>Resultant Set of Policy</strong> is processed, expand
+            <strong>Computer Configuration</strong> / <strong>Windows Setting</strong> /
+            <strong>Security Settings</strong> / <strong>Event Log</strong>.
+          </li>
+          <li>
+            Make sure that the <strong>Retention method for &lt;problematic log&gt;</strong> policy
+            setting has the <strong>Not Defined</strong> or <strong>Manually</strong> value set. If
+            not, change this setting using <strong>Group Policy Management Editor</strong> as
+            described in <strong>Procedure 2</strong>.
+          </li>
+        </ol>
+
+        <div>
+          <img
+            alt="RSOP Results"
+            height="250"
+            src="kA00g000000H9esCAC_1ac117f1-0e78-4eec-9547-ad0b313133e3.png"
+            width="500"
+          /><br />4. Perform the following steps:
+        </div>
+
+        <ul>
+          <li>
+            Click <strong>Start</strong> / <strong>Run</strong>, type
+            <strong>eventvwr.msc</strong> and press <strong>Enter</strong>. The
+            <strong>Event Viewer</strong> window will be displayed.
+          </li>
+          <li>
+            Expand the <strong>Windows Log</strong> node, right-click <strong>Security</strong> and
+            select <strong>Properties</strong>.
+          </li>
+          <li>
+            In the <strong>Maximum Log Size</strong> field, set the following value:
+            <strong>4194240</strong> (Kb).
+          </li>
+          <li>
+            Select the <strong>Archive the log when full, do not overwrite events</strong> radio
+            button.
+          </li>
+          <li>
+            Click the <strong>Clear Log</strong> button. Click the <strong>Apply</strong> button.
+          </li>
+        </ul>
+
+        <div>
+          <img
+            alt="Event Viewer Settings on Windows 2008"
+            height="325"
+            src="kA00g000000H9esCAC_40fcf158-6500-4ed0-8444-67a9742212d4.png"
+            width="500"
+          />
+        </div>
+
+        <div>
+          <strong>NOTE:</strong> These maximum sizes are recommended by Microsoft:
+          <a href="http://support.microsoft.com/kb/957662" target="_blank"
+            >http://support.microsoft.com/kb/957662</a
+          >
+          <strong>IMPORTANT:</strong> Before you changed <strong>Maximum log size </strong>and
+          enabled the <strong>Archive events when full </strong>option, make sure that the system
+          drive has enough free space to store the event log and log"s backup files of the maximum
+          size. If not, the event log will grow and fill up all free space on the system drive and
+          the system will stop responding.
+        </div>
+
+        <ol start="5">
+          <li>
+            Perform the steps from <strong>Procedure 4</strong> to allow the product to collect and
+            to clear the log"s backup files.
+          </li>
+        </ol>
+        <strong>Procedure 4:</strong> Configuring event log's backup files processing.
+
+        <ol>
+          <li>
+            On the computer that has Netwrix software installed, Click <strong>Start</strong> /
+            <strong>Run</strong>, type <strong>regedit</strong> and press <strong>Enter</strong>.
+            The <strong>Registry Editor</strong> window will be displayed.
+          </li>
+          <li>
+            Expand <strong>HKEY_LOCAL_MACHINE/SOFTWARE/NetWrix/</strong> (<strong
+              >HKLM/Software/Wow6432Node/NetWrix/</strong
+            >
+            for a 64-bit operating system) and click the <strong>Event Log Manager</strong> key.
+          </li>
+          <li>Change the values of the following keys:</li>
+        </ol>
+
+        <ul>
+          <li><strong>ProcessBackupLogs</strong> set to <strong>1</strong>,</li>
+          <li>
+            <strong>CleanAutoBackupLogs</strong> set to <strong>X</strong> (if you want the archives
+            to be removed when all events in them are older than <strong>X</strong> hours, for
+            example: 24 hours).
+          </li>
+        </ul>
+
+        <div>
+          <img
+            alt="Event Log Manager Registry Settings"
+            height="276"
+            src="kA00g000000H9esCAC_4ac69544-656d-4b25-bde2-f3a3bde11c4c.png"
+            width="500"
+          />
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

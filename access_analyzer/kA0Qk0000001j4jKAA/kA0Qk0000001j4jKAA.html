@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Using the AADI_RegisterAzureAppAuth Job to Create the Modern Auth Connection Profile for Entra
+      ID
+    </title>
+    <meta name="label" content="enterprise_auditor" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="ct_howto" />
+    <meta name="label" content="ct_installupgrade" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001j4jKAA" />
+    <meta name="Id" content="ka0Qk000000DUl3IAG" />
+    <meta name="LastPublishedDate" content="2024-12-30T21:33:48.000+0000" />
+    <meta name="LastModifiedDate" content="2025-05-01T18:55:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-12-30T21:33:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9333" />
+    <meta name="ArticleNumber" content="000009333" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <div>
+          <p>
+            How can you use the AADI_RegisterAzureAppAuth job to create the Modern Auth Connection
+            Profile for Entra ID?
+          </p>
+        </div>
+        <h2 id="answer">Answer</h2>
+        <div>
+          <p>
+            The <strong>AADI_RegisterAzureAppAuth</strong> job will register a Microsoft Entra ID
+            (formerly Azure AD) application for authentication and provision appropriate permissions
+            for Azure Active Directory Online scans.
+          </p>
+          <p>It requires:</p>
+          <ul>
+            <li>
+              <p>
+                A Connection Profile containing a Microsoft Entra ID Global Admin credential with an
+                Account Type of <strong>Task (Local)</strong>
+              </p>
+            </li>
+            <li>
+              <p>An Azure AD PowerShell module to be installed on targeted hosts</p>
+            </li>
+          </ul>
+          <blockquote>
+            <p>
+              <span class="Note"><strong>NOTE: </strong></span>If the module is not already
+              installed, the job will attempt to install it.
+            </p>
+          </blockquote>
+          <p>Follow the steps below to configure and run the AADI_RegisterAzureAppAuth job.</p>
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT: </strong></span>You should have MS Edge set
+              as your default browser.
+            </p>
+          </blockquote>
+          <ul>
+            <li>
+              <p><a href="#create">Creating the AADI_RegisterAzureAppAuth Job</a></p>
+            </li>
+            <li>
+              <p><a href="#configure">Configuring the AADI_RegisterAzureAppAuth Job</a></p>
+            </li>
+            <li>
+              <p>
+                <a href="#finish"
+                  >Finishing Set Up and Applying the New Connection Profile to the EntraID Inventory
+                  Job</a
+                >
+              </p>
+            </li>
+          </ul>
+          <h4 id="create">Creating the AADI_RegisterAzureAppAuth Job</h4>
+          <ol>
+            <li>
+              <p>
+                In Netwrix Access Analyzer, create a
+                <strong>Z_RegisterAzureAppAuth Job Group</strong> or use any other Job Group in
+                which you will place the AADI_RegisterAzureAppAuth job.
+              </p>
+            </li>
+            <li>
+              <p>Click <strong>Add Instant Job</strong> to open the Instant Job Wizard.</p>
+            </li>
+            <li>
+              <p>
+                To install the <strong>AADI_RegisterAzureAppAuth</strong> job from the Instant Job
+                Library (under the <strong>Library Name: Azure</strong>), follow these steps:
+              </p>
+              <ul>
+                <li>
+                  <p>
+                    Right-click the <strong>Z_RegisterAzureAppAuth</strong> Job Group that you just
+                    created and select <strong>Add Instant Job</strong> and on the Instant Job step.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Expand the <strong>Library Name: Azure</strong> to select the
+                    <strong>AADI_RegisterAzureAppAuth</strong> instant job.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    After installation, the job tree automatically refreshes with the new job
+                    available within the selected Job Group. See the
+                    <a
+                      href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Jobs/InstantJobs/Overview.htm"
+                      title="Instant Job Wizard"
+                      target="_blank"
+                      >Instant Job Wizard</a
+                    >
+                    topic for additional information.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <h4 id="configure">Configuring the AADI_RegisterAzureAppAuth Job</h4>
+          <ol>
+            <li>
+              <p>
+                Navigate to the Configuration section of the job overview and description page, then
+                select the E<strong>dit</strong> button for
+                <strong>Name of the app as it will appear in the Azure applications list</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Enter the name that you want to apply to the registered Microsoft Entra ID
+                application and click <strong>Save</strong>.
+              </p>
+            </li>
+            <li>
+              <p>On the <strong>Configure &gt; Hosts</strong> node, select the target hosts.</p>
+              <blockquote>
+                <p>
+                  <span class="Note"><strong>NOTE: </strong></span>The targeted host should be the
+                  <strong>Microsoft Entra tenant name</strong> (for example, myorg.onmicrosoft.com).
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>Click <strong>Save</strong> and then the job should be ready to run.</p>
+            </li>
+            <li>
+              <p>Run the <strong>AADI_RegisterAzureAppAuth</strong> job.</p>
+            </li>
+            <li>
+              <p>
+                After the job successfully runs, it opens a browser window to Microsoft Entra ID.
+                Log in as a <strong>Global Administrator</strong>, and grant administrator consent
+                to the <strong>Application's configured API Permissions</strong>.
+              </p>
+              <blockquote>
+                <p>
+                  <span class="Caution"><strong>IMPORTANT:</strong></span> If this log-in attempt
+                  fails or you close the browser, then you will need to manually log in to Microsoft
+                  Entra ID as a Global Administrator. Next, navigate to the Application's API
+                  Permissions to grant Admin Consent before the Application can be used for Azure
+                  Active Directory scans in Access Analyzer.
+                </p>
+              </blockquote>
+            </li>
+            <li>
+              <p>
+                The Microsoft Entra ID application is now provisioned with the necessary permissions
+                for Azure Active Directory Inventory Online scans. There will be a new Connection
+                Profile for this Application.
+              </p>
+            </li>
+          </ol>
+          <h4 id="finish">
+            Finishing Set Up and Applying the New Connection Profile to the EntraID Inventory Job
+          </h4>
+          <ol>
+            <li>
+              <p>
+                Restart the <strong>Access Analyzer Console</strong> and then review the results of
+                the AADI_RegisterAzureAppAuth job.
+              </p>
+            </li>
+            <li>
+              <p>
+                Review the <strong>ClientID_(AppId) </strong>and<strong> Key_(Secret_Value)</strong>
+                values, record them to a password vault or equivalent, and then return to the new
+                connection profile previously created. 
+              </p>
+            </li>
+            <li>
+              <p>
+                Confirm that the <strong>ClientID_(AppId) </strong>value matches the
+                <strong>Client ID:</strong> value.
+              </p>
+            </li>
+            <li>
+              <p>
+                Then, enter the <strong>Key_(Secret_Value) </strong>in the<strong> Key </strong
+                >value and click <strong>OK</strong> to save.
+              </p>
+            </li>
+            <li>
+              <p>
+                Once you have created and verified your
+                <strong>&lt;EntraID&gt; connection</strong> and
+                <strong>&lt;MYORG.MICROSOFT.COM&gt; EntraID host list</strong> under the global
+                settings as a result of the process defined in this article, you can configure each
+                of these parameters to run both the <strong>.Entra ID Inventory</strong> and
+                <strong>Entra ID</strong> jobs.
+              </p>
+            </li>
+          </ol>
+          <blockquote>
+            <p>
+              <span class="Caution"><strong>IMPORTANT:</strong></span> The required rights, roles,
+              and configuration for Microsoft Entra ID Auditing will still need to be configured.
+              See the
+              <a
+                href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/Config/EntraID/Access.htm"
+                title="Microsoft Entra ID Auditing Configuration"
+                target="_blank"
+                >Microsoft Entra ID Auditing Configuration</a
+              >
+              topic for additional information.
+            </p>
+          </blockquote>
+        </div>
+        <h2 id="related_articles">Related Articles</h2>
+        <ul>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/EnterpriseAuditor/Admin/Jobs/InstantJobs/Overview.htm"
+              title="Instant Job Wizard"
+              target="_blank"
+              >Instant Job Wizard</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://helpcenter.netwrix.com/bundle/EnterpriseAuditor_11.6/page/Content/Config/EntraID/Access.htm"
+              title="Microsoft Entra ID Auditing Configuration"
+              target="_blank"
+              >Microsoft Entra ID Auditing Configuration</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

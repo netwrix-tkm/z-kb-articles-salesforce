@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Writing PID into Lock Files in 8.0</title>
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u0000000IhtCAE" />
+    <meta name="Id" content="ka04u000000HcttAAC" />
+    <meta name="LastPublishedDate" content="2022-02-01T18:38:01.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T10:10:12.000+0000" />
+    <meta name="FirstPublishedDate" content="2022-02-01T18:38:01.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="7274" />
+    <meta name="ArticleNumber" content="000007274" />
+    <meta name="description" content="360008408371" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Summary:</span></strong> When running a job
+          or scheduled task in StealthAUDIT, open the Running.lck file in the Job's folder to view
+          the Process ID (PID) associated with the job/task.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Issue:</span></strong> Sometimes customers
+          might run multiple scheduled tasks at the same time. If one of the processes hang, then it
+          can be difficult to know which one to kill.
+        </p>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Instructions:</span></strong>
+        </p>
+        <ol>
+          <li>
+            Open Task Manager and click on the processes tab, if you don't have a PID column add it
+            by clicking <strong>view</strong> &gt; <strong>select columns</strong>.
+          </li>
+          <li>
+            Open the jobs folder for the task/job that is running. There is a lock (.lck) file named
+            "running".
+          </li>
+          <li>
+            Open it in notepad to view what the PID associated with the job/task is, and kill that
+            process using task manager.
+          </li>
+        </ol>
+        <p>
+          <strong><span class="wysiwyg-font-size-large">Product:</span></strong>
+          StealthAUDIT<br /><strong><span class="wysiwyg-font-size-large">Module:</span></strong> SA
+          - Core<br /><strong><span class="wysiwyg-font-size-large">Versions:</span></strong>
+          8.0+<br /><strong><span class="wysiwyg-font-size-large">Dev Ticket:</span></strong>
+          SMPC-1301<br /><strong><span class="wysiwyg-font-size-large">Resolved In:</span></strong>
+          8.0.572<br /><strong
+            ><span class="wysiwyg-font-size-large">Legacy Article ID:</span></strong
+          >
+          1306
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

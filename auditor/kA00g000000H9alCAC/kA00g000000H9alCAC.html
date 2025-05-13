@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error 500.24 Internal Server Error when you try to go to web portals</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9alCAC" />
+    <meta name="Id" content="ka04u000000HcTXAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:50:02.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:48.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1319" />
+    <meta name="ArticleNumber" content="000003481" />
+    <meta
+      name="description"
+      content="Error 500.24 Internal Server Error when you try to go to web portals. Admin Portal, Help Desk Portal, Self-service Portal."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        The Error 500.24 Internal Server Error is received when going to the web portals (Admin
+        Portal, Help Desk Portal, Self-service Portal).
+
+        <hr />
+
+        It occurs because ASP.NET Integrated mode is unable to impersonate the request identity in
+        the BeginRequest and AuthenticateRequest pipeline stages.
+
+        <hr />
+
+        To resolve the issue, Change the App pool for the site(Default Web Site) to Classic instead
+        of integrated mode:
+        <ol>
+          <li>
+            <ol>
+              <li>Open the IIS manager</li>
+              <li>In the left pane, expand the Sites node&gt;li&gt;</li>
+              <li>Select the Default Web Site node</li>
+              <li>In the right pane, click "Basic Settings"</li>
+              <li>Click "Select", from the drop down choose "Classic .Net AppPool"</li>
+              <li>Click "OK"</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

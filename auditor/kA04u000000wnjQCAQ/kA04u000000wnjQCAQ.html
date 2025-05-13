@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unable to Change Report URLs in Audit Database Settings</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000000wnjQCAQ" />
+    <meta name="Id" content="ka04u000000wvvKAAQ" />
+    <meta name="LastPublishedDate" content="2023-10-26T10:57:37.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-26T12:23:25.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-10-26T10:57:37.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8876" />
+    <meta name="ArticleNumber" content="000008876" />
+    <meta name="description" content="Unable to Change Report Data in Audit Database Settings" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                Netwrix Auditor is unable to connect to Report Server URL or Report Manager URL.
+              </p>
+            </li>
+            <li>
+              <p>Both URLs are accessible via browser.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            In case Netwrix Auditor was previously migrated, Report URLs could get stuck in the
+            configuration file.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>
+            Review the configuration file to find out whether the <code>ReportManagerUrl</code> and
+            <code>ReportServerUrl</code> fields contain values other than required.
+          </p>
+
+          <ol>
+            <li>
+              <p>
+                Stop the NA Configuration Server Service in Auditor server. You can run the
+                following line in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Stop-Service -DisplayName "Netwrix Auditor Configuration Server Service"</code></pre>
+            </li>
+            <li>
+              <p>
+                Locate and back up the <code>configuration.xml</code> file. Refer to the following
+                path:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">%Working_Folder%\AuditCore\ConfigServer\</code></pre>
+            </li>
+            <li>
+              <p>
+                In the configuration file, locate the <code>ReportManagerUrl</code> and
+                <code>ReportServerUrl</code> subnodes. Review the subnode values and edit them, if
+                required.
+              </p>
+
+              <div>
+                <img
+                  height="466"
+                  src="kA04u000000wnjQCAQ_1b6a5d94-e851-432c-a716-f312262663c4.png"
+                  width="700"
+                />
+              </div>
+            </li>
+            <li>
+              <p>Save the changes.</p>
+            </li>
+            <li>
+              <p>
+                Start the NA Configuration Server Service in Auditor server. You can run the
+                following line in elevated PowerShell:
+              </p>
+
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Start-Service -DisplayName "Netwrix Auditor Configuration Server Service"</code></pre>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

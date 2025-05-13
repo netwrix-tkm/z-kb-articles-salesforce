@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>rsCannotValidateEncryptedData — Unable to Validate Integrity of Encrypted Data</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u000001111lCAA" />
+    <meta name="Id" content="ka04u000000wvynAAA" />
+    <meta name="LastPublishedDate" content="2023-08-14T13:30:42.000+0000" />
+    <meta name="LastModifiedDate" content="2023-10-31T08:53:21.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-14T13:30:42.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8728" />
+    <meta name="ArticleNumber" content="000008728" />
+    <meta
+      name="description"
+      content="rsCannotValidateEncryptedData — Unable to Validate Integrity of Encrypted Data"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>You've encountered either of the following errors when running a report:</p>
+
+          <pre class="has-inner-focus">
+The report server was unable to validate the integrity of encrypted data in the database.
+(rsCannotValidateEncryptedData)
+Keyset does not exist (Exception from HRESULT: 0x80090016)</pre
+          >
+
+          <pre class="has-inner-focus">
+The report server cannot decrypt the symmetrical key used to access sensitive or encrypted data in a report server database</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            SQL Server Reporting Services suite is unable to access the reports as it cannot
+            validate the encryption key configured for the SQL instance.
+          </p>
+        </div>
+
+        <h2 id="solutions">Solutions</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>You can restore the encryption key via a previously generated backup key:</p>
+
+              <ol>
+                <li>
+                  <p>
+                    Run <strong>Report Server Configuration Manager</strong> in your SQL server.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Once authorized, select <strong>Encryption Keys</strong> in the left pane, and
+                    click <strong>Restore</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Specify the location of your backup encryption key and the password set up for
+                    the encryption key, and click <strong>OK</strong>.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>
+                If you do not have the backup encryption key, you can execute the following query to
+                delete the encrypted content:
+              </p>
+
+              <pre class="has-inner-focus"><code class="lang-Registry">USE ReportServer
+EXEC [dbo].[DeleteEncryptedContent]</code></pre>
+
+              <p>
+                Once the query completes, restart the SQL Server Reporting Services service in your
+                SQL server, and Netwrix Management Service in the Netwrix server.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    You can also generate a backup encryption key after you've deleted the encrypted
+                    content. Run <strong>Report Server Configuration Manager</strong> in your SQL
+                    server, and select <strong>Encryption Keys</strong> in the left pane, once
+                    authorized.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Click <strong>Backup</strong>, and specify the file location and password for
+                    the backup key.
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

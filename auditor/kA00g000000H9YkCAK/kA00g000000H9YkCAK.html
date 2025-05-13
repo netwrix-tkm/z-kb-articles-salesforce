@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      How to troubleshoot issue when changes are listed as made by System in a change report
+    </title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="ct_legacy" />
+    <meta name="label" content="ct_reporting" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9YkCAK" />
+    <meta name="Id" content="ka04u000000HcRlAAK" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:48:18.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:29.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="1206" />
+    <meta name="ArticleNumber" content="000003358" />
+    <meta
+      name="description"
+      content="Version(s) 6.5 and older No warnings/errors reported however some changes are listed as made by the &#34;System&#34; where possibly listed as &#34;unknown&#34;."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        You have configured change auditing in accordance with Netwrix Auditor Installation and
+        Configuration guide (<a
+          href="http://www.netwrix.com/download/documents/Netwrix_Auditor_Installation_Configuration_Guide.pdf"
+          target="_blank"
+          >Installation and Configuration Guide</a
+        >), the Change Summary reports contain no warningserrors, however some changes are listed as
+        made by the "<em><strong>System</strong></em
+        >" account instead of the real user. Also the domain controller where these changes were
+        made on is listed as "<em><strong>unknown</strong></em
+        >".
+
+        <hr />
+
+        Active DirectoryGroup PolicyExchange (if you are monitor Exchange 2007, 2003) Change
+        Reporters receive information regarding change initiator from Security event logs located on
+        domain controllers. Once the corresponding Security event is found it is being added to the
+        related change. The reason why the product includes "System"� as who changed for the
+        particular changes is because it cannot find the corresponding Security event. In situation
+        when auditing is correctly configured (product does not complain about auditing
+        configuration) there could be several reasons why the Security events can be missed:
+        <ol>
+          <li>
+            Netwrix Auditor runs under an account with limited rights and all warnings are omitted
+            according to the product settings. In this case, the Security event logs can be
+            overwritten or one of the managed domain controllers can be inaccessible but no warnings
+            will be added into Change Summary reports and sessions in the Netwrix Auditor console.
+          </li>
+          <li>
+            The Security event log auto backup is enabled but the data processing account account
+            does not have rights to access the directory where the logs are backed up.
+          </li>
+          <li>Other reasons that need be addressed by Netwrix technical support, for example:</li>
+        </ol>
+        <ul>
+          <li>
+            Security events appear with a huge delay in the Security event log (after a change is
+            made) on monitored domain controllers;
+          </li>
+          <li>
+            Security events are collected by Netwrix Auditor but not listed in the Change Summaries;
+          </li>
+          <li>
+            Security events are listed in the Security event log (for corresponding changes) but not
+            collected by Netwrix Auditor.
+          </li>
+        </ul>
+
+        <hr />
+
+        Navigate to one of the possible solutions that correspond to the issues described in the
+        <strong>Cause </strong>section above:
+        <ol>
+          <li>
+            To diagnose and troubleshoot the issue, provide the data processing account account with
+            administrative rights (add to the<strong> Domain Admins</strong> user group) and disable
+            errors omitting (set the<strong> IgnoreAuditCheckResultError</strong> registry key to
+            <strong><em>0</em></strong
+            >, it is located in the following registry hive
+            <strong
+              ><em>HKEY_LOCAL_MACHINESOFTWARE(Wow6432Node)NetwrixAD Change Reporter</em></strong
+            >). This action allows you to see whether:
+            <ul>
+              <li>The error persists while running the product under a domain admin account;</li>
+              <li>
+                There are any auditing problems that need to be addressed (warnings will appear in
+                the Change Summary reports and in the sessions in the Netwrix Auditor console)
+              </li>
+            </ul>
+          </li>
+          <li>
+            If you add the data processing account to the <strong>Domain Admins</strong> group and
+            the issue has been resolved, this may indicate that the data processing account that
+            runs Netwrix Auditor has no rights to read the
+            <strong>Security event log backups</strong>. To resolve this issue and keep running the
+            product under your data processing account without the domain administrator rights,
+            provide it with the following rights and permissions:
+            <ul>
+              <li>
+                Permissions to the following registry key on each Domain Controller in the target
+                domain:
+                <strong
+                  ><em
+                    >HKEY_LOCAL_MACHINESystemCurrentControlSetServicesEventLogSecurity.</em
+                  ></strong
+                >
+              </li>
+              <li>
+                Add the data processing account to one of the following groups in the monitored
+                domain: <strong>Print Operators</strong>, <strong>Server Operators</strong>.
+              </li>
+            </ul>
+          </li>
+          <li>
+            If you provided the data processing account with the domain administrator rights, see no
+            warnings but still receive reports with "<em><strong>System</strong></em
+            >" as "<strong><em>Who Changed"</em></strong> (for particular changes), open a support
+            ticket on the Netwrix support portal (<a
+              href="http://www.netwrix.com/support.html"
+              target="_blank"
+              >http://www.netwrix.com/support.html</a
+            >). Gather and provide the following information:
+            <ul>
+              <li>
+                Enable diagnostic logging:
+                <ol>
+                  <li>
+                    Open <strong>Registry Editor</strong> and navigate to the<em
+                      ><strong>
+                        HKEY_LOCAL_MACHINESOFTWARE(Wow6432Node)NetwrixAD Change Reporte</strong
+                      ></em
+                    >r registry hive.
+                  </li>
+                  <li>
+                    Right-click the <strong>TraceLevel</strong> registry key and set its value to
+                    "<strong><em>31</em></strong
+                    >" (decimal).
+                  </li>
+                </ol>
+              </li>
+              <li>
+                Reproduce the issue - Receive a report with "<strong><em>System</em></strong
+                >" as "<strong><em>Who changed</em></strong
+                >" (These steps must be taken as soon as possible after you received the Changed
+                Summary report, because the Security event logs may get overwritten)
+                <ul>
+                  <li>
+                    Save the Change Summary that contains <strong><em>System</em></strong
+                    >" in the "<strong><em>Who changed</em></strong
+                    >" column.
+                  </li>
+                  <li>
+                    Select two or three objects that were changed by "<strong
+                      ><em>System</em></strong
+                    >" (in the received report) and generate metadata for each of the selected
+                    objects and save the results into a text file. For instructions on how to
+                    generate metadata for an Active Directory object, refer to the following
+                    Microsoft kb article:
+                    <a
+                      href="http://technet.microsoft.com/en-us/library/cc755360(v=ws.10).aspx"
+                      target="_blank"
+                      >http://technet.microsoft.com/en-us/library/cc755360(v=ws.10).aspx</a
+                    >
+                  </li>
+                  <li>
+                    In the generated metadata results find the domain controller where a change was
+                    done and save the Security event log file from that domain controller. Perform
+                    these steps for each selected object. Refer to the following article for details
+                    of how to use metadata and determine the domain controller where the change was
+                    made
+                    <a
+                      href="http://blogs.technet.com/b/brad_rutkowski/archive/2006/09/21/hey-who-deleted-that-user-from-ad.aspx"
+                      target="_blank"
+                      >http://blogs.technet.com/b/brad_rutkowski/archive/2006/09/21/hey-who-deleted-that-user-from-ad.aspx</a
+                    >
+                  </li>
+                  <li>
+                    Navigate to the Audit Archive directory for the monitored domain Managed Object
+                    and copy files with<strong> *.ADEVT </strong>extension whose name starts with
+                    the domain controller name you found on previous step and that were created the
+                    day you received the report (see previous step) and one day after (e.g. if you
+                    received summary report at 3 A.M on Wednesday, gather
+                    <strong>*.ADEVT</strong> files for the corresponding domain controller which was
+                    created on Tuesday and Wednesday. If you are gathering this data on Thursday,
+                    please also include files created on Thursday).
+                  </li>
+                  <li>
+                    Netwrix Auditor tracing log files (the entire contents of the
+                    <strong>Tracing </strong>subfolder of the<strong>
+                      %Netwrix Auditor installation folder%Active Directory Auditing </strong
+                    >folder).
+                  </li>
+                  <li>Archive these files and contact Netwrix technical support.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

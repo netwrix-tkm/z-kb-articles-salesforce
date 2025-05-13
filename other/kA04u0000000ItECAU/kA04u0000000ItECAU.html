@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>Hotfix: SIWindowsAgent_7.0.1.609_SI-4096</title><meta name="label" content="employees_v"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000ItECAU"/><meta name="Id" content="ka04u000000HcxqAAC"/><meta name="LastPublishedDate" content="2022-02-01T18:45:53.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:12:20.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T18:45:53.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="7414"/><meta name="ArticleNumber" content="000007414"/><meta name="description" content="360008877892"/></head><body><article class=" kb-articles"><div class="Content__c"><p><strong>Summary: </strong></p>
+<p><em>SI-4096 50869 - UAC not alerting on 1-bit changes when configured explicitly for that change.</em></p>
+<p><strong>Behavior before Fix: </strong></p>
+<p>The following logic was used for evaluating uac filter:</p>
+<p>for 'set' case: (oldUAC^newUAC) &amp;newUAC) ^ config.SetBitMask</p>
+<p>for 'clear' case: (oldUAC ^ newUAC) &amp; oldUAC) ^ config.ClearBitMask</p>
+<p><strong>Behavior after Fix: </strong></p>
+<p>new logic used for evaluating uac filter:</p>
+<p>for 'set' case: (oldUAC^newUAC) &amp;newUAC) &amp; config.SetBitMask</p>
+<p>for 'clear' case: (oldUAC ^ newUAC) &amp; oldUAC) &amp; config.ClearBitMask</p>
+<p><strong>Changes since Last Hotfix:</strong></p>
+<p>I-6318 [LINK - RBC] SI-4096 50859 UAC attribute monitoring policy is missing events sometimes</p>
+<p><strong>Submitted by: </strong></p>
+<p>Maxim Sidarau  </p>
+<p><strong>Affected Versions:</strong></p>
+<p>7.0.1      SIWindowsAgent_7.0.1.609_SI-4096</p>
+<p><strong>Affected Module:</strong></p>
+<p>SI - Windows Agent</p>
+<p><strong>Dev Ticket:</strong></p>
+<p>I-6318</p>
+<p><strong>Resolved in Version:</strong></p>
+<p>7.0.1.609</p>
+<p><strong>KB Type: </strong></p>
+<p>Hotfix</p>
+<p><strong> </strong></p>
+<p><strong>Modules Included: </strong>SI - Windows Agent</p>
+<p><strong>YouTrack/Escalations: </strong>SI-4096 / 50869</p>
+<p><strong>Customers:  </strong>Royal Bank of Canada (RBC)</p>
+<p><strong>Cumulative List of fixes included since Service Pack:</strong></p>
+<p><strong>Instructions:</strong></p>
+<p>Steps to apply the patch</p>
+<ol><li>Stop SIWindowsAgent service</li><li>Extract attached archive to the SI Agent folder</li><li>Start SIWindowsAgent service</li></ol>
+<p> </p>
+<p> <a href="https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.1/SIWindowsAgent_7.0.1.609_SI-4096.zip" target="_blank">https://downloads.stealthbits.com/access/files/SIHotFixes/SI7.0.1/SIWindowsAgent_7.0.1.609_SI-4096.zip</a></p></div>
+</article></body></html>

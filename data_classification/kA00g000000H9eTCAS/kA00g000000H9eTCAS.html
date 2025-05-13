@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to Move Indexed Files</title>
+    <meta name="label" content="data_classification" />
+    <meta name="label" content="ct_monitoringplans" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9eTCAS" />
+    <meta name="Id" content="ka0Qk000000BmyzIAC" />
+    <meta name="LastPublishedDate" content="2025-01-13T19:22:55.000+0000" />
+    <meta name="LastModifiedDate" content="2025-01-13T19:23:36.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:30:09.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="4249" />
+    <meta name="ArticleNumber" content="000003711" />
+    <meta name="description" content="Moving NDC Index Files" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="question">Question</h2>
+        <p>How can you move the indexed files created by Netwrix Data Classification?</p>
+        <h2 id="answer">Answer</h2>
+        <p>
+          If indexed files need to be moved from one drive to another, refer to the following steps:
+        </p>
+        <ol>
+          <li>
+            Run the Netwrix Data Classification Service Viewer utility:
+            <ul>
+              <li>
+                if NDC has been upgraded to a newer version, its default location is
+                <code>%ProgramFiles%\ConceptSearching\ServiceViewer\conceptServiceViewer.exe</code>
+              </li>
+              <li>
+                if NDC v5.6 has been installed for the first time, its default location is
+                <code
+                  >%Program Files%\Netwrix\Data
+                  Classification\ServiceViewer\conceptServiceViewer.exe</code
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            Stop the following Netwrix Data Classification services:
+            <ul>
+              <li>
+                <p>Collector Service</p>
+              </li>
+              <li>
+                <p>Indexer Service</p>
+              </li>
+              <li>
+                <p>Classifier Service</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Copy all CSE files from the original folder (by default, located in either <code
+              >%ProgramFiles%/ConceptSearching/ConceptDB</code
+            >
+            or <code>%Program Files%/Netwrix/Data Classification/ConceptDB</code>) to a new
+            location.
+          </li>
+          <li>
+            Run <code>conceptConfig.exe</code> from one of the locations below (default paths),
+            enter the new directory path in the <strong>Folder for CSE Files </strong>field, and
+            click <strong>Save</strong>:
+            <pre>
+C:\inetpub\wwwroot\conceptQS\bin
+%ProgramFiles%\ConceptSearching\Services\ConceptCollectorService
+%ProgramFiles%\ConceptSearching\Services\conceptIndexer</pre
+            >
+            or
+            <pre>
+C:\inetpub\wwwroot\conceptQS\bin
+%Program Files%\Netwrix\Data Classification\Services\ConceptCollectorService
+%Program Files%\Netwrix\Data Classification\Services\conceptIndexer
+</pre
+            >
+          </li>
+          <li>Start Netwrix Data Classification services using Windows Services Manager.</li>
+        </ol>
+      </div>
+    </article>
+  </body>
+</html>

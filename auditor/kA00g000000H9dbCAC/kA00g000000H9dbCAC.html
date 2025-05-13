@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to customize email notification template</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9dbCAC" />
+    <meta name="Id" content="ka04u000000HcWMAA0" />
+    <meta name="LastPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="LastModifiedDate" content="2023-05-08T09:51:07.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:58.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2787" />
+    <meta name="ArticleNumber" content="000003657" />
+    <meta
+      name="description"
+      content="Customizing notifications that Netwrix Account Examiner sends when an account gets locked out."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        Account Lockout Examiner is able to send notificaton if a lockout occurs. There is an option
+        to edit the notification text or title by modifying the notification template. The template
+        file <strong>notification_template.txt </strong>is stored in the product installation
+        folder, the default path:
+        <strong>C:Program Files (x86)NetWrix Account Lockout Examiner</strong>. Notification
+        template cosists of 4 sections:
+        <ul>
+          <li>the SUBJECT section contains the text reflected in the message subject</li>
+          <li>
+            the BODY, WEB and REMOTE_CONTROL sections contain the text reflected in the message body
+          </li>
+          <li>the BODY section contains the main text of the notification</li>
+          <li>
+            the WEB section contains a link to the Help-Desk portal and related text, and is show
+            only if a Link is enabled in Account Lockout Examiner settings.
+          </li>
+          <li>
+            the REMOTE_CONTROL section contains a text providing Remote control instructions, and is
+            show only if Remote control is enabled in Account Lockout Examiner settings
+          </li>
+        </ul>
+        The template can be modified in the following ways:
+        <div>
+          <ul>
+            <li>Edit any text within the template sections.</li>
+            <li>
+              Add any AD attribute name. The attribute name should be in the following format
+              <strong>%AD.[attribute]%</strong>. For example with the %AD.Displayname% attribute
+              added into the template, the notification message will show the Display name of the
+              locked out user account.
+            </li>
+            <li>
+              Add any internal variable name: <strong>%NTAccount% </strong>- shows the name of the
+              locked out account. <strong>%WorkStation%</strong> - shows the name of the workstation
+              where an account was locked out. <strong>%LockoutTime%</strong> - shows the lockout
+              time. <strong>%Link%</strong> - shows the link to the web portal.
+            </li>
+          </ul>
+        </div>
+        <a
+          href="https://netwrix.secure.force.com/kb/servlet/rtaImage?eid=ka40g000000kAdA&amp;feoid=00N700000032Pj2&amp;refid=0EM700000004wyA"
+          target="_blank"
+          ><img
+            src="kA00g000000H9dbCAC_698c6296-2bde-451e-8a28-c62d33370dc8.png"
+            alt="User-added image"
+            width="500"
+            height="129"
+        /></a>
+      </div>
+    </article>
+  </body>
+</html>

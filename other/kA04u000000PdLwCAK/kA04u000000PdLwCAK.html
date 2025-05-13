@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>PPE: Resolving Compatibility Issues with Microsoft Teams</title><meta name="label" content="password_reset_manager"/><meta name="label" content="password_policy_enforcer"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u000000PdLwCAK"/><meta name="Id" content="ka04u000000HdFEAA0"/><meta name="LastPublishedDate" content="2021-07-14T10:39:30.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T10:19:51.000+0000"/><meta name="FirstPublishedDate" content="2021-07-14T10:34:55.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="5897"/><meta name="ArticleNumber" content="000005897"/><meta name="description" content="PPE: Resolving Compatibility Issues with Microsoft Teams"/></head><body><article class=" kb-articles"><div class="Content__c"><div id="spPageCanvasContent">
+<div class="SPCanvas">
+<div class="SPCanvas-canvas">
+<div class="CanvasComponent">
+<div class="a_c_50a7110f Canvas grid Canvas--withLayout k_c_50a7110f">
+<div class="m_c_50a7110f">
+<div class="a_e_50a7110f a_e_50a7110f root-79 CanvasZone row CanvasZone--alignment CanvasZone--noMargin CanvasZone--read">
+<div class="q_e_50a7110f">
+<div class="a_b_50a7110f i_b_50a7110f CanvasSection CanvasSection-col CanvasSection-sm12 CanvasSection--read CanvasSection-xl12">
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="1212fc8d-dd6b-408a-8d5d-9f1cc787efbb">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div>
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<h2 id="cause"><span><span><strong><span><span><span>Cau</span></span></span></strong></span></span><span><span><strong><span><span><span>se </span></span></span></strong></span></span></h2>
+
+<p><span><span><span><span>The 7.61 Password Policy Client and 3.0 Password Reset Client included a compatibility update for the Citrix XenDesktop client. These updates were released in 2014 and 2015 respectively. The then-current version of the XenDesktop client only worked with third-party credential providers that were whitelisted in the <strong>HKLM\SOFTWARE\Citrix\PortICA\CredentialProviderWhitelist\ </strong>registry key. The ANIXIS clients added themselves to this registry key even if the XenDesktop client was not installed.</span></span></span></span></p>
+
+<p><span><span><span><span>Microsoft recently added features to Microsoft Teams that are not currently supported in a Virtualized Desktop Infrastructure (VDI) environment. Microsoft Teams disables these features if the <strong>HKLM\SOFTWARE\Citrix\PortICA\ </strong>registry key exists on the client computer. Because this key is always created by the ANIXIS clients, Microsoft Teams disables some features whenever the ANIXIS clients are installed. Deleting the registry keys does not resolve the issue because the ANIXIS clients recreate them.</span></span></span></span></p>
+
+<h2 id="resolution">Resolution</h2>
+
+<p><span><span><span><span>The Password Policy Enforcer and Password Reset clients have been updated to resolve this issue. The updated clients remove themselves from the XenDesktop whitelist registry key, and also delete the Citrix, PortICA and CredentialProviderWhitelist registry keys if they are empty. This will allow the new Microsoft Teams features to be used in desktop (non-VDI) environments.</span></span></span></span></p>
+
+<p><span><span><span><span>These updates break compatibility with older versions of the Citrix XenDesktop client. Citrix has since redesigned their client, and none of their current versions still use the whitelist. <u>If you are using the Citrix XenDesktop client 5.6 or earlier, contact technical support.</u></span></span></span></span></p>
+
+<p><span><span><span><span>You can download the updated ANIXIS clients from:</span></span></span></span></p>
+
+<p><span><span><a href="https://www.anixis.com/ftp/ppe/ppeclt912.zip" target="_blank"><span>PPE 9.12 client</span></a></span></span></p>
+
+<p><span><span><a href="https://www.anixis.com/ftp/apr/aprclt323.zip" target="_blank"><span>APR 3.23 client</span></a></span></span></p>
+
+<p><span><span><span><span>Install the updated clients over the top of the existing version using whatever deployment method was used for the original installation. If Group Policy was used, then add the new version to the existing GPO. There is no need to remove the old version from the GPO.</span></span></span></span></p>
+
+<p> </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="n_c_50a7110f">
+<div class="a_e_50a7110f a_e_50a7110f root-79 CanvasZone row CanvasZone--alignment CanvasZone--noMargin CanvasZone--read CanvasVerticalSection j_e_50a7110f">
+<div class="q_e_50a7110f">
+<div class="a_b_50a7110f i_b_50a7110f CanvasSection CanvasSection-col CanvasSection-sm12 CanvasSection--read CanvasSection-xl12 j_b_50a7110f">
+<div class="ControlZone ControlZone--clean a_a_50a7110f" id="134aa95e-8e45-47ab-bcb2-781dbe5b2920">
+<div class="ControlZone--control">
+<div class="rte-webpart rte-margin-bottom rte-webpart-inlineImageHidden">
+<div class="rte--read ckeditable_removeMargin highlightFocusFix increasedVerticalSpacing fontWeightStrongForIEFireFox rteEmphasis root-80">
+<p> </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</article></body></html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>How To Configure Mixed Version Mode in StealthINTERCEPT</title><meta name="label" content="threat_prevention"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u0000000HwKCAU"/><meta name="Id" content="ka04u000000HcbpAAC"/><meta name="LastPublishedDate" content="2022-02-22T13:19:55.000+0000"/><meta name="LastModifiedDate" content="2023-05-08T09:59:04.000+0000"/><meta name="FirstPublishedDate" content="2022-02-01T17:52:56.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="6035"/><meta name="ArticleNumber" content="000006035"/><meta name="description" content="360008304132"/></head><body><article class=" kb-articles"><div class="Content__c"><h2 id="what-is-mixed-version-mode-">What is mixed version mode?</h2>
+
+<p>StealthINTERCEPT 7.3.5 introduced some new enhancements to agent authentication which use a new default port (3741). This is required because two different certificate handshakes are required.</p>
+
+<p>Mixed version mode is enabled by default when you upgrade from StealthINTERCEPT versions between 7.0.1 and 7.3.0. This helps customers by enabling them to upgrade their Enterprise Manager whilst still managing these older agents.</p>
+
+<p>It is important to disable mixed version mode on the Enterprise Manager when all agents have been upgraded and confirmed working.</p>
+
+<h2 id="how-to-configure-mixed-version-mode">How to configure mixed version mode</h2>
+
+<p>There are two key components which control the configuration of mixed version mode:</p>
+
+<ul><li>
+	<p>The Pre735Port key located in the SIEnterpriseManager.exe.config and is most circumstances will look like this </p>
+
+	<ul><li>This controls the port which is listened on</li><li>Setting this to 0 will disable the listener</li><li>If this key is not in the config file then Pre735Port has never been enabled.</li></ul>
+	</li><li>
+	<p>The root.dat certificate located in SIEnterpriseManager\CertsInfo</p>
+
+	<ul><li>This must be in this location for mixed version mode to authenticate agents correctly</li><li>The root.dat can be safely deleted when there are no more SI Agents installed which are below version 7.3.5.</li></ul>
+	</li></ul>
+
+<h3 id="disabling">Disabling Mixed Version Mode</h3>
+
+<ol><li>Browse to the StealthINTERCEPT Enterprise Manager Installation Directory. This defaults to C:\Program Files\Stealthbits\StealthINTERCEPT\SIEnterpriseManager</li><li>Open SIEnterpriseManager.exe.config in notepad</li><li>Edit the Pre735Port key value to be "0" to disable the listener</li><li>Save the SIEnterpriseManager.exe.config</li><li>Browse to the CertsInfo folder in the SIEnterpriseManager location found in step 1.</li><li>Restart the SIEnterpriseManager service</li><li>Confirm that SIEnterpriseManager is no longer listening on the Pre735Port. This can be completed with this PowerShell command <code>Get-NetTCPConnection -OwningProcess (Get-Process SIEnterpriseManager).id -State Listen</code></li><li>Delete the root.dat from the CertsInfo folder to fully remove mixed version mode<br/>	<strong>Note: If you do not do this then when installing a later update on the enterprise manager the installation may re-enable this functionality</strong></li></ol>
+
+<h3 id="enaling">Enabling Mixed Version Mode</h3>
+
+<ol><li>Browse to the StealthINTERCEPT Enterprise Manager Installation Directory. This defaults to C:\Program Files\Stealthbits\StealthINTERCEPT\SIEnterpriseManager</li><li>Open SIEnterpriseManager.exe.config in notepad</li><li>Edit the Pre735Port key value from "0" to the previous port used (default 3739)</li><li>Save the SIEnterpriseManager.exe.config</li><li>Browse to the CertsInfo folder in the SIEnterpriseManager location found in step 1.</li><li>Ensure the root.dat is present</li><li>Restart the SIEnterpriseManager service</li><li>Confirm that SIEnterpriseManager is listening on the Pre735Port. This can be completed with this PowerShell command <code>Get-NetTCPConnection -OwningProcess (Get-Process SIEnterpriseManager).id -State Listen</code></li></ol></div>
+</article></body></html>

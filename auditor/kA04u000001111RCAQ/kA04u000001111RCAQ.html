@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Client Does Not Show Up in MSP Portal</title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="KnowledgeArticleId" content="kA04u000001111RCAQ" />
+    <meta name="Id" content="ka0Qk0000008h1NIAQ" />
+    <meta name="LastPublishedDate" content="2023-08-10T14:16:54.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-30T19:37:32.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-08-10T14:16:54.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8724" />
+    <meta name="ArticleNumber" content="000008724" />
+    <meta name="description" content="Client Does Not Show Up for MSP" />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+        <div>
+          <p>A client does not show up in the MSP Portal for the MSP.</p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>
+            Refer to the following troubleshooting steps before reaching out to the Channel Team:
+          </p>
+          <ul>
+            <li>
+              <p>
+                Check communication with the License server—search the
+                <code>%Working Folder%\Logs\Administrative Console</code> log for the following
+                line:
+              </p>
+              <pre class="has-inner-focus">
+Start web request to https://license.nwxcorp.com/msp/licensecount.php</pre
+              >
+              <p>
+                The following <code>HttpWebResponse StatusCode</code> line should resolve to
+                <code>OK</code>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Add the following structure to the <strong>MSP.xml file</strong> located in
+                <code>C:\Program Files (x86)\Netwrix Auditor\Administrative Console\MSP.xml</code>:
+              </p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;MSPSettings&gt;
+    &lt;CustomInstanceIdentificator&gt;CompanyABCServer&lt;/CustomInstanceIdentificator&gt;
+    &lt;ServiceAccounts&gt;
+    &lt;ServiceAccount Path="domain.com/Users/Service Accounts" /&gt;
+    &lt;ServiceAccount Path="domain2.com/Users/Service Accounts" /&gt;
+    &lt;/ServiceAccounts&gt;
+    &lt;/MSPSettings&gt;</code></pre>
+              <p>
+                Use the structure with relevant customer's paths. Once saved, execute the
+                <strong>Netwrix.CallHome.MSPTool.exe</strong> located in
+                <code
+                  >C:\Program Files (x86)\Netwrix Auditor\Administrative
+                  Console\Netwrix.NAC.MSPTool.exe</code
+                >.
+              </p>
+            </li>
+            <li>
+              <p>
+                Check the
+                <code>HKLM\SOFTWARE\Wow6432Node\Netwrix Auditor\Management Console</code> registry
+                key for the <code>MSPErrorDateMarker</code> registry value containing the failure
+                time. The value is registered in case the sender fails to transfer the license usage
+                information to the server. If data has not been sent after three days, the following
+                error will be written to the Netwrix Auditor System Health Windows event log:
+              </p>
+              <pre class="has-inner-focus">
+Source: Notification Sender.
+Error text:
+Your license is out of compliance.
+Netwrix Auditor was unable to check your license online due to the following error: {0}.
+Check your firewall settings to allow access to https://www.netwrix.com or contact Netwrix Technical Support.</pre
+              >
+            </li>
+            <li>
+              <p>
+                If no error is present after completing the provided steps, it is possible that
+                license data is not being associated correctly to the MSP. Reach out to the Channel
+                Team at
+                <a href="mailto:netwrix.msp@netwrix.com" target="_blank">netwrix.msp@netwrix.com</a>
+                for help.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

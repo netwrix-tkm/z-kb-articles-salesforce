@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><html><head><meta charset="utf-8"/><title>UnprocessableEntityError: Missing Result for Task checkAdminPrivilege. Code: 9999</title><meta name="label" content="privilege_secure_discovery"/><meta name="label" content="skb"/><meta name="KnowledgeArticleId" content="kA04u00000110pQCAQ"/><meta name="Id" content="ka04u00000116YVAAY"/><meta name="LastPublishedDate" content="2023-07-07T11:06:57.000+0000"/><meta name="LastModifiedDate" content="2023-07-07T11:06:57.000+0000"/><meta name="FirstPublishedDate" content="2023-07-07T11:06:57.000+0000"/><meta name="Language" content="en_US"/><meta name="UrlName" content="8649"/><meta name="ArticleNumber" content="000008649"/><meta name="description" content="UnprocessableEntityError: Missing Result for Task checkAdminPrivilege. Code: 9999"/></head><body><article class=" kb-articles"><div class="Content__c"><span>Formerly SecureONE</span>
+<h2 id="symptom">Symptom</h2>
+Example of error when running registration via QuickStart:
+
+<pre>C:\secureone&gt;reports_2.5.py --insecure --linux-reg-file LinuxReg1.xlsx
+
+    [+] API key loaded from secure storage
+    [*] Registering Linux system: linux_1.cstest.com
+      [!] Error submitting request:
+      Url: https://secureone.cstest.com/api/v1/computers/register
+      Response Code: 422
+    
+      Response Body: {"name":"UnprocessableEntityError","message":"'Missing result for task checkAdminPrivilege'","code":9999}</pre>
+And when attempting to Rescan in UI, a red pop-up displays for a few seconds with an error like the following:
+
+<pre>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+    @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ 
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
+    IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY! Someone
+     could be eavesdropping on you right now (man-in-the-middle 
+    attack)! It is also possible that a host key has just been 
+    changed. The fingerprint for the ECDSA key sent by the remote 
+    host is 14:09:16:4b:aa:da:3c:38:04:97:f0:09:88:03:ba:d6. 
+    Please contact your system administrator. Add correct host 
+    key in /root/.ssh/known_hosts to get rid of this message. 
+    Offending ECDSA key in /root/.ssh/known_hosts:1 remove with:
+    ssh-keygen -f "/root/.ssh/known_hosts" -R 10.100.11.115 
+    Password authentication is disabled to avoid man-in-the-middle
+    attacks. Keyboard-interactive authentication is disabled to 
+    avoid man-in-the-middle attacks. Permission denied (publickey,
+    gssapi-keyex,gssapi-with-mic,password).</pre>
+
+<h2 id="cause">Cause</h2>
+This registration error can happen when a system was rebuilt with the same IP and hostname.
+
+<h2 id="resolution">Resolution</h2>
+Restart the worker and scanner services to clear the <code>know_hosts</code> on those services:
+
+<ol><li>Remove the system from the Netwrix Privilege Secure for Discovery database:
+	<ol><li>SSH into a node and log into the database:
+		<ul><li>For cluster deployment, use: <code>s1 db</code></li><li>For a single node deployment: <code>s1 --single-node db</code></li></ul>
+		</li><li>Locate the systems, ip-10-100-11-115 is used as an example hostname: <code>db.ldap_store.find({ "cn" : "ip-10-100-11-115"}).count()</code></li><li>Remove all ldap_store record of that system: <code>db.ldap_store.deleteMany({ "cn" : "ip-10-100-11-115"})</code></li></ol>
+	</li><li>Restart the worker and scanner services from the UI or with CLI:
+	<pre>s1 restart scanner worker</pre>
+	</li><li>Register the system.</li></ol></div>
+</article></body></html>

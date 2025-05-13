@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Event ID 1239 in Health Log</title>
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA00g000000H9cuCAC" />
+    <meta name="Id" content="ka0Qk0000001LC5IAM" />
+    <meta name="LastPublishedDate" content="2024-01-15T11:26:13.000+0000" />
+    <meta name="LastModifiedDate" content="2024-01-15T11:26:23.000+0000" />
+    <meta name="FirstPublishedDate" content="2020-04-01T09:29:51.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="2449" />
+    <meta name="ArticleNumber" content="000003614" />
+    <meta
+      name="description"
+      content="Troubleshooting SharePoint Audit issues caused by non-optimal Audit Log Trimming settings."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            The following error message under Event ID 1239 is prompted in Health Log for your
+            SharePoint monitoring plan:
+          </p>
+
+          <pre class="has-inner-focus">
+The Audit log trimming setting for some SharePoint sites is not configured correctly.
+The recommended period is 7 days.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The audit log trimming setting for the site collection is turned off or exceeds 7 days.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <ol>
+            <li>
+              <p>
+                In the affected site collection, navigate to <strong>Site Settings</strong> &gt;
+                <strong>Site Collection Audit Settings</strong> &gt;
+                <strong>Audit Log Trimming</strong>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Set the <strong>Automatically trim the audit log</strong> option to
+                <strong>Yes</strong>. Set the log retention to 7 days in the
+                <strong>Specify the number of days of audit log data to retain</strong> field. Save
+                the changes.
+              </p>
+            </li>
+            <li>
+              <p>
+                Update the monitoring plan − select the affected monitoring plan, click
+                <strong>Edit</strong>, and click <strong>Update</strong> in the right pane.
+              </p>
+            </li>
+          </ol>
+
+          <blockquote>
+            <p>
+              <span><strong>NOTE: </strong></span>Verify the audit settings are set to be adjusted
+              automatically − in the SharePoint monitoring plan, click Edit data source and check
+              the Configure audit settings checkbox. Save the changes.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

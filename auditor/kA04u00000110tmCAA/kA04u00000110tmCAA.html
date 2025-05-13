@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Connection failed -0x80070721 - Failed to process a request because the target server is
+      unreachable
+    </title>
+    <meta name="label" content="skb" />
+    <meta name="label" content="auditor" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110tmCAA" />
+    <meta name="Id" content="ka04u00000116qZAAQ" />
+    <meta name="LastPublishedDate" content="2023-07-20T15:34:03.000+0000" />
+    <meta name="LastModifiedDate" content="2023-07-25T09:07:00.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-19T15:20:44.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8673" />
+    <meta name="ArticleNumber" content="000008673" />
+    <meta
+      name="description"
+      content="This article explains how to resolve the following error: Connection Failed - Connection Failed - Failed to process a request because the target server is unreachable. A security package specific error occurred."
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>
+            You can see this error message when trying to connect to the Auditor Client installed
+            remotely (not on the computer that hosts the Auditor Server).
+          </p>
+
+          <pre class="has-inner-focus">
+Connection failed -0x80070721 - Failed to process a request because the target server is unreachable. A security package specific error occurred.</pre
+          >
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <p>
+            The reason for this error is that the Netwrix Auditor Core Service should run under the
+            NETWORK SERVICE account on the computer that hosts the Auditor Server.
+          </p>
+        </div>
+
+        <h2 id="resolution">Resolution</h2>
+
+        <div>
+          <p>To resolve the issue, check the account under which the service runs. For that:</p>
+
+          <ol>
+            <li>
+              <p>
+                On the computer where the Auditor Server resides, navigate to the
+                <b>Services</b> snap-in.
+              </p>
+            </li>
+            <li>
+              <p>
+                Right-click the <b>Netwrix Auditor Core Service</b> and select <b>Properties</b>.
+              </p>
+            </li>
+            <li>
+              <p>
+                Switch to the <b>Log On</b> tab and make sure that the <b>Log on as</b> option is
+                set to Network Service account. If not, browse for the Network Service account and
+                click <b>Apply</b>.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Error: User Name or Password Is Incorrect in NPS AM Integration</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="employees_v" />
+    <meta name="label" content="privilege_secure" />
+    <meta name="label" content="f_stealthbits" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA0Qk0000001Rm9KAE" />
+    <meta name="Id" content="ka0Qk0000006fIDIAY" />
+    <meta name="LastPublishedDate" content="2024-09-23T15:15:55.000+0000" />
+    <meta name="LastModifiedDate" content="2024-10-15T19:32:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2024-09-23T15:15:55.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="9283" />
+    <meta name="ArticleNumber" content="000009283" />
+    <meta
+      name="description"
+      content="Error: User Name or Password Is Incorrect in NPS AM Environment"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptoms">Symptoms</h2>
+        <div>
+          <p>Refer to the list of possible symptoms in your Netwrix Auditor (NA) environment:</p>
+          <ul>
+            <li>
+              <p>
+                After you set up the Netwrix Privilege Secure for Access Management (NPS AM)
+                integration, NA prompts the following error in the Health Log for your Active
+                Directory monitoring plan:
+              </p>
+              <pre class="has-inner-focus">The user name or password is incorrect</pre>
+              <p>The ADA error may be represented by a different message:</p>
+              <pre
+                class="has-inner-focus"
+              ><code class="lang-Registry">Failed to collect Active Directory changes due to the following error:
+Failed to get any valid DC.
+The following errors occurred:
+Failed LDAP validation of DC %FQDN% with error: The user name or password is incorrect.
+Failed LDAP validation of DC %FQDN2% with error: The user name or password is incorrect.
+Failed to obtain DC by locator (Netlogon service) with error: The user name or password is incorrect.
+</code></pre>
+            </li>
+            <li>
+              <p>The errors are present in an environment with multiple DCs.</p>
+            </li>
+          </ul>
+        </div>
+        <h2 id="cause">Cause</h2>
+        <div>
+          <p>This is a known issue confirmed by the R&amp;D team.</p>
+        </div>
+        <h2 id="resolution">Resolution</h2>
+        <div>
+          <p>Temporarily disable the NPS AM integration.</p>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

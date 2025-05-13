@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Supplied Object Has Not Been Initialized for Investigations</title>
+    <meta name="label" content="auditor" />
+    <meta name="label" content="public_v" />
+    <meta name="label" content="skb" />
+    <meta name="KnowledgeArticleId" content="kA04u00000110vECAQ" />
+    <meta name="Id" content="ka04u00000116zRAAQ" />
+    <meta name="LastPublishedDate" content="2023-08-01T14:40:57.000+0000" />
+    <meta name="LastModifiedDate" content="2023-08-01T15:04:14.000+0000" />
+    <meta name="FirstPublishedDate" content="2023-07-24T10:27:45.000+0000" />
+    <meta name="Language" content="en_US" />
+    <meta name="UrlName" content="8682" />
+    <meta name="ArticleNumber" content="000008682" />
+    <meta
+      name="description"
+      content="Supplied Object Has Not Been Initialized for Investigations"
+    />
+  </head>
+  <body>
+    <article class="kb-articles">
+      <div class="Content__c">
+        <h2 id="symptom">Symptom</h2>
+
+        <div>
+          <p>The following error appears when trying to complete an investigation:</p>
+
+          <pre class="has-inner-focus">The Supplied object has not been initialized</pre>
+        </div>
+
+        <h2 id="cause">Cause</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>
+                The account used for investigations the SQL Server instance has insufficient rights.
+              </p>
+            </li>
+            <li>
+              <p>The password for the account used for investigations in incorrect.</p>
+            </li>
+            <li>
+              <p>The database used to import data from Long-Term Archive is corrupt.</p>
+            </li>
+          </ul>
+        </div>
+
+        <h2 id="solution">Solution</h2>
+
+        <div>
+          <ul>
+            <li>
+              <p>Assign the db_owner role to the account used for investigations.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    On the computer where the SQL Server instance with Netwrix_ImportDB resides,
+                    navigate to <strong>Start</strong> &gt; All Programs &gt; Microsoft SQL Server
+                    &gt; SQL Server Management Studio.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Connect to the server using the credentials for the account with sufficient
+                    permissions to assign roles.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, expand the Security node. Expand the Logins node and select
+                    the login used for investigation. Right-click it and select
+                    <strong>Properties</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select <strong>User Mapping</strong> and select the
+                    Netwrix_ImportDB database.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    In the <strong>Database role membership</strong> section, select
+                    <strong>db_owner</strong>. Click <strong>OK</strong> to save changes, and try
+                    running the investigation.
+                  </p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Verify the password provided in <strong>Investigations</strong> settings.</p>
+
+              <ol>
+                <li>
+                  <p>In the main Netwrix Auditor screen, click <strong>Settings</strong>.</p>
+                </li>
+                <li>
+                  <p>In the left pane, select the <strong>Investigations</strong> tab.</p>
+                </li>
+                <li>
+                  <p>
+                    Under the <strong>SQL Server settings</strong>, click <strong>Modify</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>Provide the credentials and proceed to save the changes.</p>
+                </li>
+                <li>
+                  <p>Try running the investigation.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Delete the Netwrix_ImportDB database and rebuild the database.</p>
+
+              <ol>
+                <li>
+                  <p>
+                    In Windows Services Manager on your Netwrix host, stop both Netwrix Auditor
+                    Archive Service and Netwrix Auditor Management Service.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Run your SQL Management Studio instance and navigate to
+                    <strong>%SQL_Server_database_name%</strong> &gt; <strong>Databases</strong> &gt;
+                    <strong>Netwrix_ImportDB</strong>. Right-click the database and select
+                    <strong>Delete</strong>.
+                  </p>
+                </li>
+                <li>
+                  <p>In the <strong>Delete Object</strong> window, check both option checkboxes:</p>
+
+                  <ul>
+                    <li>
+                      <p>Delete backup and restore history information for databases.</p>
+                    </li>
+                    <li>
+                      <p>Close existing connections.</p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <p>
+                    Once the database has been deleted, restart Netwrix Auditor Archive Service and
+                    Netwrix Auditor Management Service.
+                  </p>
+                </li>
+                <li>
+                  <p>In the main Netwrix Auditor screen, click <strong>Settings</strong>.</p>
+                </li>
+                <li>
+                  <p>
+                    In the left pane, select the <strong>Investigations</strong> tab. Configure an
+                    investigation scope and run the investigation to recreate the
+                    <strong>Netwrix_ImportDB</strong> database.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>
