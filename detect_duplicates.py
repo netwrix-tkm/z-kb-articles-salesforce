@@ -77,6 +77,26 @@ class KBDuplicateDetector:
         # Calculate cosine similarity
         self.similarity_matrix = cosine_similarity(tfidf_matrix)
     
+    def most_similar_snippet(self, text1, text2, n=10):
+        """Find the most similar n-gram snippet between two texts."""
+        words1 = text1.split()
+        words2 = text2.split()
+        max_overlap = 0
+        best_snippet = ("", "")
+        
+        # Create n-grams for both texts
+        ngrams1 = [" ".join(words1[i:i+n]) for i in range(len(words1)-n+1)]
+        ngrams2 = [" ".join(words2[i:i+n]) for i in range(len(words2)-n+1)]
+        
+        for ng1 in ngrams1:
+            for ng2 in ngrams2:
+                # Overlap: number of shared words
+                overlap = len(set(ng1.split()) & set(ng2.split()))
+                if overlap > max_overlap:
+                    max_overlap = overlap
+                    best_snippet = (ng1, ng2)
+        return best_snippet
+
     def find_duplicates(self):
         """Find potential duplicate articles."""
         if self.similarity_matrix is None:
@@ -89,12 +109,18 @@ class KBDuplicateDetector:
             for j in range(i + 1, len(file_paths)):
                 similarity = self.similarity_matrix[i][j]
                 if similarity >= self.similarity_threshold:
+                    snippet1, snippet2 = self.most_similar_snippet(
+                        self.articles[file_paths[i]]['content'],
+                        self.articles[file_paths[j]]['content']
+                    )
                     duplicates.append({
                         'file1': file_paths[i],
                         'file2': file_paths[j],
                         'similarity': similarity,
                         'title1': self.articles[file_paths[i]]['title'],
-                        'title2': self.articles[file_paths[j]]['title']
+                        'title2': self.articles[file_paths[j]]['title'],
+                        'snippet1': snippet1,
+                        'snippet2': snippet2
                     })
         
         return sorted(duplicates, key=lambda x: x['similarity'], reverse=True)
@@ -109,7 +135,7 @@ class KBDuplicateDetector:
         df = pd.DataFrame(duplicates)
         
         # Reorder columns for better readability
-        df = df[['similarity', 'title1', 'file1', 'title2', 'file2']]
+        df = df[['similarity', 'title1', 'file1', 'snippet1', 'title2', 'file2', 'snippet2']]
         
         # Format similarity as percentage
         df['similarity'] = df['similarity'].apply(lambda x: f"{x:.2%}")
